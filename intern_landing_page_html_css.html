@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevLaunch Academy</title>
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-soft: #0b1024;
+      --card: rgba(255, 255, 255, 0.08);
+      --card-strong: rgba(255, 255, 255, 0.13);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --primary: #38bdf8;
+      --secondary: #a78bfa;
+      --accent: #22c55e;
+      --danger: #fb7185;
+      --border: rgba(255, 255, 255, 0.14);
+      --shadow: 0 30px 80px rgba(0, 0, 0, 0.42);
+      --radius-xl: 32px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --container: 1180px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Inter, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 34%),
+        radial-gradient(circle at top right, rgba(167, 139, 250, 0.18), transparent 32%),
+        radial-gradient(circle at bottom, rgba(34, 197, 94, 0.08), transparent 36%),
+        var(--bg);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, black, transparent 75%);
+      z-index: -2;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    .container {
+      width: min(var(--container), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .blur-orb {
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      border-radius: 999px;
+      filter: blur(70px);
+      opacity: 0.38;
+      z-index: -1;
+      animation: floatOrb 8s ease-in-out infinite alternate;
+    }
+
+    .orb-one {
+      top: 140px;
+      left: -120px;
+      background: var(--primary);
+    }
+
+    .orb-two {
+      top: 520px;
+      right: -140px;
+      background: var(--secondary);
+      animation-delay: 1.5s;
+    }
+
+    @keyframes floatOrb {
+      from { transform: translate3d(0, 0, 0) scale(1); }
+      to { transform: translate3d(45px, -35px, 0) scale(1.12); }
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(20px);
+      background: rgba(5, 8, 22, 0.72);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .navbar {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
+    .logo-mark {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #020617;
+      box-shadow: 0 12px 35px rgba(56, 189, 248, 0.25);
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      color: #cbd5e1;
+      list-style: none;
+      font-size: 15px;
+    }
+
+    .nav-menu a {
+      position: relative;
+      transition: color 0.25s ease;
+    }
+
+    .nav-menu a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 100%;
+      height: 2px;
+      border-radius: 99px;
+      background: var(--primary);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.25s ease;
+    }
+
+    .nav-menu a:hover {
+      color: var(--text);
+    }
+
+    .nav-menu a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 0 20px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #020617;
+      box-shadow: 0 18px 45px rgba(56, 189, 248, 0.2);
+    }
+
+    .btn-primary:hover,
+    .btn-outline:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-outline {
+      border-color: var(--border);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
+    }
+
+    .mobile-toggle {
+      display: none;
+      width: 46px;
+      height: 46px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+    }
+
+    .mobile-toggle span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      margin: 5px auto;
+      border-radius: 99px;
+      background: currentColor;
+    }
+
+    .hero {
+      position: relative;
+      padding: 96px 0 74px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+      align-items: center;
+      gap: 54px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.09);
+      color: #bae6fd;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .pulse-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      70% { box-shadow: 0 0 0 12px rgba(34, 197, 94, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+
+    .hero h1 {
+      max-width: 780px;
+      font-size: clamp(46px, 7vw, 86px);
+      line-height: 0.98;
+      letter-spacing: -0.075em;
+      margin-bottom: 26px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #7dd3fc, #c4b5fd, #86efac);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-copy {
+      max-width: 680px;
+      color: #cbd5e1;
+      font-size: 18px;
+      margin-bottom: 34px;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 42px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      max-width: 660px;
+    }
+
+    .metric-card {
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .metric-card strong {
+      display: block;
+      font-size: 30px;
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .metric-card span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .dashboard {
+      position: relative;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .dashboard::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.25), transparent 38%, rgba(167, 139, 250, 0.28));
+      z-index: -1;
+    }
+
+    .browser-bar {
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dots span {
+      width: 11px;
+      height: 11px;
+      border-radius: 99px;
+      background: #64748b;
+    }
+
+    .dots span:nth-child(1) { background: var(--danger); }
+    .dots span:nth-child(2) { background: #facc15; }
+    .dots span:nth-child(3) { background: var(--accent); }
+
+    .browser-url {
+      width: 46%;
+      height: 24px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .dashboard-content {
+      padding: 24px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .course-card {
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: rgba(5, 8, 22, 0.64);
+    }
+
+    .course-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    .course-header h2 {
+      font-size: 22px;
+      letter-spacing: -0.03em;
+    }
+
+    .status-pill {
+      align-self: start;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.13);
+      color: #86efac;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .progress-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      color: #cbd5e1;
+      font-size: 14px;
+    }
+
+    .progress-track {
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 78%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      animation: loadBar 1.8s ease both;
+    }
+
+    @keyframes loadBar {
+      from { width: 0; }
+      to { width: 78%; }
+    }
+
+    .lesson-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .lesson {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .lesson-check {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      background: rgba(56, 189, 248, 0.13);
+      color: var(--primary);
+      font-weight: 900;
+    }
+
+    .lesson h3 {
+      font-size: 15px;
+    }
+
+    .lesson span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .floating-card {
+      position: absolute;
+      right: -22px;
+      bottom: 32px;
+      width: 210px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+      animation: floatCard 3.4s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatCard {
+      from { transform: translateY(0); }
+      to { transform: translateY(-14px); }
+    }
+
+    .floating-card small {
+      color: var(--muted);
+    }
+
+    .floating-card strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 30px;
+      line-height: 1;
+    }
+
+    .section {
+      padding: 92px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 32px;
+      margin-bottom: 42px;
+    }
+
+    .section-kicker {
+      color: var(--primary);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .section h2 {
+      max-width: 720px;
+      font-size: clamp(34px, 4vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -0.06em;
+    }
+
+    .section-head p {
+      max-width: 420px;
+      color: var(--muted);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .feature {
+      position: relative;
+      min-height: 250px;
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      background: var(--card);
+      overflow: hidden;
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .feature::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      right: -45px;
+      top: -45px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.14);
+      transition: transform 0.25s ease;
+    }
+
+    .feature:hover {
+      transform: translateY(-8px);
+      border-color: rgba(56, 189, 248, 0.45);
+      background: var(--card-strong);
+    }
+
+    .feature:hover::after {
+      transform: scale(1.35);
+    }
+
+    .feature:nth-child(2)::after { background: rgba(167, 139, 250, 0.16); }
+    .feature:nth-child(3)::after { background: rgba(34, 197, 94, 0.13); }
+    .feature:nth-child(4)::after { background: rgba(251, 113, 133, 0.13); }
+
+    .feature-icon {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 52px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 25px;
+    }
+
+    .feature h3 {
+      margin-bottom: 10px;
+      font-size: 21px;
+      letter-spacing: -0.03em;
+    }
+
+    .feature p {
+      color: #cbd5e1;
+      font-size: 14px;
+    }
+
+    .timeline-wrap {
+      display: grid;
+      grid-template-columns: 0.75fr 1.25fr;
+      gap: 34px;
+      align-items: start;
+    }
+
+    .sticky-panel {
+      position: sticky;
+      top: 110px;
+      padding: 30px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.04));
+      box-shadow: var(--shadow);
+    }
+
+    .sticky-panel h3 {
+      font-size: 30px;
+      line-height: 1.1;
+      letter-spacing: -0.05em;
+      margin-bottom: 14px;
+    }
+
+    .sticky-panel p {
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+
+    .stack-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      list-style: none;
+    }
+
+    .stack-list li {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 18px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 24px;
+      top: 18px;
+      bottom: 18px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--primary), var(--secondary), var(--accent));
+      opacity: 0.65;
+    }
+
+    .timeline-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 50px 1fr;
+      gap: 18px;
+    }
+
+    .timeline-number {
+      position: relative;
+      z-index: 1;
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(56, 189, 248, 0.38);
+      border-radius: 17px;
+      background: #08111f;
+      color: var(--primary);
+      font-weight: 900;
+    }
+
+    .timeline-card {
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .timeline-card h3 {
+      margin-bottom: 8px;
+      font-size: 22px;
+      letter-spacing: -0.03em;
+    }
+
+    .timeline-card p {
+      color: #cbd5e1;
+    }
+
+    .showcase {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
+    }
+
+    .showcase-card {
+      position: relative;
+      min-height: 260px;
+      padding: 26px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      background: rgba(255, 255, 255, 0.07);
+      overflow: hidden;
+      transition: transform 0.25s ease;
+    }
+
+    .showcase-card:hover {
+      transform: translateY(-7px);
+    }
+
+    .showcase-card.large {
+      grid-column: span 7;
+      min-height: 360px;
+      background:
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.2), transparent 38%),
+        rgba(255, 255, 255, 0.07);
+    }
+
+    .showcase-card.medium {
+      grid-column: span 5;
+      min-height: 360px;
+      background:
+        radial-gradient(circle at bottom left, rgba(167, 139, 250, 0.22), transparent 40%),
+        rgba(255, 255, 255, 0.07);
+    }
+
+    .showcase-card.small {
+      grid-column: span 4;
+    }
+
+    .mock-window {
+      margin-top: 26px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: rgba(2, 6, 23, 0.56);
+      overflow: hidden;
+    }
+
+    .mock-head {
+      height: 38px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0 13px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mock-head span {
+      width: 10px;
+      height: 10px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .mock-body {
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .code-line {
+      height: 11px;
+      border-radius: 99px;
+      background: rgba(148, 163, 184, 0.26);
+    }
+
+    .code-line:nth-child(1) { width: 80%; }
+    .code-line:nth-child(2) { width: 62%; }
+    .code-line:nth-child(3) { width: 92%; }
+    .code-line:nth-child(4) { width: 48%; }
+    .code-line:nth-child(5) { width: 70%; }
+
+    .showcase-card h3 {
+      font-size: 25px;
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+    }
+
+    .showcase-card p {
+      color: var(--muted);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .price-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .price-card.featured {
+      transform: translateY(-14px);
+      background:
+        linear-gradient(145deg, rgba(56, 189, 248, 0.18), rgba(167, 139, 250, 0.12)),
+        rgba(255, 255, 255, 0.07);
+      box-shadow: var(--shadow);
+      border-color: rgba(56, 189, 248, 0.36);
+    }
+
+    .popular {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.18);
+      color: #bae6fd;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .price-card h3 {
+      font-size: 24px;
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+    }
+
+    .price-card .desc {
+      color: var(--muted);
+      min-height: 54px;
+      margin-bottom: 22px;
+    }
+
+    .price {
+      display: flex;
+      align-items: end;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+
+    .price strong {
+      font-size: 44px;
+      line-height: 1;
+      letter-spacing: -0.06em;
+    }
+
+    .price span {
+      color: var(--muted);
+    }
+
+    .price-list {
+      display: grid;
+      gap: 13px;
+      margin-bottom: 28px;
+      list-style: none;
+      color: #cbd5e1;
+    }
+
+    .price-list li {
+      display: flex;
+      gap: 10px;
+    }
+
+    .price-list li::before {
+      content: "✓";
+      color: var(--accent);
+      font-weight: 900;
+    }
+
+    .price-card .btn {
+      margin-top: auto;
+      width: 100%;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .contact-panel,
+    .form-card {
+      padding: 30px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      background: rgba(255, 255, 255, 0.07);
+      box-shadow: var(--shadow);
+    }
+
+    .contact-panel h2 {
+      font-size: 42px;
+      line-height: 1.08;
+      letter-spacing: -0.06em;
+      margin-bottom: 16px;
+    }
+
+    .contact-panel p {
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 16px;
+      list-style: none;
+    }
+
+    .contact-list li {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .contact-list strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .contact-list span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      color: #dbeafe;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      outline: none;
+      border-radius: 16px;
+      padding: 14px 15px;
+      color: var(--text);
+      background: rgba(2, 6, 23, 0.38);
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    textarea {
+      min-height: 126px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: rgba(56, 189, 248, 0.65);
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.11);
+    }
+
+    .form-card .btn {
+      margin-top: 18px;
+      width: 100%;
+      border: none;
+    }
+
+    footer {
+      padding: 34px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+      list-style: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid,
+      .timeline-wrap,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .dashboard {
+        max-width: 720px;
+      }
+
+      .floating-card {
+        right: 18px;
+      }
+
+      .sticky-panel {
+        position: static;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .nav-menu,
+      .nav-actions {
+        display: none;
+      }
+
+      .mobile-toggle {
+        display: block;
+      }
+
+      .hero {
+        padding-top: 70px;
+      }
+
+      .metrics,
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .price-card.featured {
+        transform: none;
+      }
+
+      .showcase-card.large,
+      .showcase-card.medium,
+      .showcase-card.small {
+        grid-column: 1 / -1;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head p {
+        margin-top: 14px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .container {
+        width: min(100% - 28px, var(--container));
+      }
+
+      .hero h1 {
+        font-size: 44px;
+      }
+
+      .hero-copy {
+        font-size: 16px;
+      }
+
+      .features-grid,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dashboard-content,
+      .course-card,
+      .contact-panel,
+      .form-card {
+        padding: 20px;
+      }
+
+      .lesson {
+        grid-template-columns: auto 1fr;
+      }
+
+      .lesson span {
+        grid-column: 2;
+      }
+
+      .floating-card {
+        position: static;
+        width: 100%;
+        margin-top: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="blur-orb orb-one"></div>
+  <div class="blur-orb orb-two"></div>
+
+  <header>
+    <div class="container navbar">
+      <a href="#" class="logo" aria-label="DevLaunch Academy Home">
+        <span class="logo-mark">D</span>
+        <span>DevLaunch</span>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="#features">Skill</a></li>
+        <li><a href="#roadmap">Roadmap</a></li>
+        <li><a href="#showcase">Project</a></li>
+        <li><a href="#pricing">Plan</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#contact" class="btn btn-outline">ดูรายละเอียด</a>
+        <a href="#contact" class="btn btn-primary">สมัครฝึก</a>
+      </div>
+
+      <button class="mobile-toggle" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">
+            <span class="pulse-dot"></span>
+            รอบใหม่เปิดรับ Junior Frontend Intern
+          </div>
+
+          <h1>เปลี่ยนจากคนเขียนเว็บเล่น ๆ เป็น <span class="gradient-text">ผู้สมัครฝึกงานที่ดูโปร</span></h1>
+          <p class="hero-copy">
+            Landing page นี้ออกแบบให้เหมือนเว็บโปรแกรมฝึกงานจริง มี layout ซับซ้อน animation, card system,
+            section หลายแบบ และ responsive design เพื่อใช้ฝึก HTML + CSS ระดับจริงจัง
+          </p>
+
+          <div class="hero-actions">
+            <a href="#roadmap" class="btn btn-primary">เริ่มดู Roadmap</a>
+            <a href="#showcase" class="btn btn-outline">ดูตัวอย่างโปรเจกต์</a>
+          </div>
+
+          <div class="metrics" aria-label="Program metrics">
+            <div class="metric-card">
+              <strong>12</strong>
+              <span>สัปดาห์ฝึกเข้ม</span>
+            </div>
+            <div class="metric-card">
+              <strong>8+</strong>
+              <span>โปรเจกต์ลงพอร์ต</span>
+            </div>
+            <div class="metric-card">
+              <strong>100%</strong>
+              <span>HTML CSS ล้วน</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="dashboard" aria-label="Learning dashboard preview">
+          <div class="browser-bar">
+            <div class="dots">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="browser-url"></div>
+          </div>
+
+          <div class="dashboard-content">
+            <div class="course-card">
+              <div class="course-header">
+                <div>
+                  <h2>Frontend Internship Track</h2>
+                  <p>HTML • CSS • Responsive • Portfolio</p>
+                </div>
+                <span class="status-pill">Active</span>
+              </div>
+
+              <div class="progress-row">
+                <span>ความคืบหน้า</span>
+                <strong>78%</strong>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill"></div>
+              </div>
+
+              <div class="lesson-list">
+                <div class="lesson">
+                  <div class="lesson-check">✓</div>
+                  <div>
+                    <h3>Semantic HTML Structure</h3>
+                    <p>header, main, section, article, footer</p>
+                  </div>
+                  <span>Done</span>
+                </div>
+
+                <div class="lesson">
+                  <div class="lesson-check">✓</div>
+                  <div>
+                    <h3>Advanced CSS Layout</h3>
+                    <p>grid, flexbox, spacing system</p>
+                  </div>
+                  <span>Done</span>
+                </div>
+
+                <div class="lesson">
+                  <div class="lesson-check">→</div>
+                  <div>
+                    <h3>Responsive Portfolio</h3>
+                    <p>media queries and mobile polish</p>
+                  </div>
+                  <span>Now</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="floating-card">
+            <small>Portfolio Score</small>
+            <strong>94%</strong>
+            <small>พร้อมสมัคร intern</small>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Core Skills</p>
+            <h2>ฝึกสิ่งที่เว็บสมัครงานควรมีจริง</h2>
+          </div>
+          <p>
+            โครงสร้างนี้ใช้เทคนิค CSS หลายแบบในไฟล์เดียว เหมาะสำหรับฝึกอ่านโค้ดยาว ๆ และปรับแต่งเป็น portfolio ของตัวเอง
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <article class="feature">
+            <div class="feature-icon">01</div>
+            <h3>Design System</h3>
+            <p>ใช้ CSS variables คุมสี radius shadow และขนาด container เพื่อแก้ธีมได้ง่าย</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon">02</div>
+            <h3>Glass UI</h3>
+            <p>ทำ card โปร่งแสงด้วย rgba, border และ backdrop-filter ให้ดูทันสมัย</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon">03</div>
+            <h3>Animation</h3>
+            <p>ใช้ keyframes ทำ pulse, floating card, progress bar และ hover transition</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon">04</div>
+            <h3>Responsive</h3>
+            <p>ปรับ grid หลาย column ให้กลายเป็น single column บนมือถืออย่างเป็นระบบ</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="roadmap">
+      <div class="container timeline-wrap">
+        <div class="sticky-panel">
+          <p class="section-kicker">Roadmap</p>
+          <h3>เส้นทางฝึก 4 ขั้น ก่อนสมัครฝึกงาน</h3>
+          <p>
+            ไม่ใช่แค่เขียนให้รันได้ แต่ต้องทำให้หน้าเว็บอ่านง่าย ดูดี และแก้โค้ดต่อได้จริง
+          </p>
+          <ul class="stack-list">
+            <li>HTML5</li>
+            <li>CSS Grid</li>
+            <li>Flexbox</li>
+            <li>Animation</li>
+            <li>Forms</li>
+            <li>Responsive</li>
+          </ul>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item">
+            <div class="timeline-number">1</div>
+            <div class="timeline-card">
+              <h3>วางโครงสร้างแบบ Semantic</h3>
+              <p>แบ่ง header, main, section, article, aside, footer ให้ถูกหน้าที่ เพื่อให้เว็บอ่านง่ายและดูเป็นมืออาชีพ</p>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-number">2</div>
+            <div class="timeline-card">
+              <h3>จัด Layout หลายชั้น</h3>
+              <p>ใช้ grid และ flexbox ร่วมกัน เช่น hero สองฝั่ง, feature cards, pricing cards และ contact form</p>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-number">3</div>
+            <div class="timeline-card">
+              <h3>เพิ่ม Interaction ด้วย CSS</h3>
+              <p>ใส่ hover, transition, animated progress, floating card และ pulse status โดยไม่ต้องใช้ JavaScript</p>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-number">4</div>
+            <div class="timeline-card">
+              <h3>ปรับ Responsive ให้ครบ</h3>
+              <p>เขียน media queries หลาย breakpoint เพื่อให้หน้าเว็บใช้งานได้ทั้ง desktop, tablet และ mobile</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="showcase">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Project Showcase</p>
+            <h2>ส่วนแสดงผลงานแบบ Bento Grid</h2>
+          </div>
+          <p>
+            ใช้ CSS Grid 12 columns เพื่อสร้าง layout ที่ไม่เท่ากัน เหมาะกับหน้า portfolio หรือ agency landing page
+          </p>
+        </div>
+
+        <div class="showcase">
+          <article class="showcase-card large">
+            <h3>Portfolio Landing Page</h3>
+            <p>หน้าเว็บแนะนำตัว พร้อม hero, skill, project และ contact section</p>
+            <div class="mock-window">
+              <div class="mock-head">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <div class="mock-body">
+                <div class="code-line"></div>
+                <div class="code-line"></div>
+                <div class="code-line"></div>
+                <div class="code-line"></div>
+                <div class="code-line"></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="showcase-card medium">
+            <h3>Intern Dashboard UI</h3>
+            <p>ฝึกทำหน้าตา dashboard ด้วย card, progress และ status components</p>
+          </article>
+
+          <article class="showcase-card small">
+            <h3>Pricing Section</h3>
+            <p>เปรียบเทียบแพ็กเกจด้วย card layout</p>
+          </article>
+
+          <article class="showcase-card small">
+            <h3>Timeline</h3>
+            <p>แสดงขั้นตอนเรียนรู้หรือ process งาน</p>
+          </article>
+
+          <article class="showcase-card small">
+            <h3>Contact Form</h3>
+            <p>ฟอร์มพร้อม focus state และ responsive fields</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pricing">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Plans</p>
+            <h2>ตัวอย่าง Pricing Section ที่ดูเหมือนเว็บจริง</h2>
+          </div>
+          <p>
+            ส่วนนี้เอาไปปรับเป็นแพ็กเกจคอร์ส บริการรับทำเว็บ หรือระดับสมาชิกก็ได้
+          </p>
+        </div>
+
+        <div class="pricing-grid">
+          <article class="price-card">
+            <h3>Starter</h3>
+            <p class="desc">สำหรับคนเพิ่งเริ่มเขียน HTML และ CSS</p>
+            <div class="price">
+              <strong>ฟรี</strong>
+              <span>/ เริ่มต้น</span>
+            </div>
+            <ul class="price-list">
+              <li>พื้นฐาน HTML tags</li>
+              <li>CSS selector และ spacing</li>
+              <li>Landing page 1 หน้า</li>
+            </ul>
+            <a href="#contact" class="btn btn-outline">เลือกแผนนี้</a>
+          </article>
+
+          <article class="price-card featured">
+            <span class="popular">แนะนำ</span>
+            <h3>Intern Ready</h3>
+            <p class="desc">สำหรับคนอยากทำผลงานสมัครฝึกงานจริง</p>
+            <div class="price">
+              <strong>฿990</strong>
+              <span>/ โปรเจกต์</span>
+            </div>
+            <ul class="price-list">
+              <li>Responsive landing page</li>
+              <li>Portfolio section</li>
+              <li>Code review checklist</li>
+              <li>Mock interview UI task</li>
+            </ul>
+            <a href="#contact" class="btn btn-primary">เลือกแผนนี้</a>
+          </article>
+
+          <article class="price-card">
+            <h3>Pro Builder</h3>
+            <p class="desc">สำหรับต่อยอดเป็นเว็บหลายหน้าและระบบ UI</p>
+            <div class="price">
+              <strong>฿1,990</strong>
+              <span>/ โปรเจกต์</span>
+            </div>
+            <ul class="price-list">
+              <li>Multi-section website</li>
+              <li>Advanced CSS architecture</li>
+              <li>Design system setup</li>
+              <li>Portfolio polish</li>
+            </ul>
+            <a href="#contact" class="btn btn-outline">เลือกแผนนี้</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container contact-grid">
+        <div class="contact-panel">
+          <p class="section-kicker">Apply Now</p>
+          <h2>พร้อมทำเว็บให้ยากขึ้นอีกระดับหรือยัง?</h2>
+          <p>
+            ลองแก้ข้อความ สี ระยะห่าง และเพิ่ม section ใหม่เอง เพื่อฝึกเหมือนตอนทำงาน frontend จริง
+          </p>
+
+          <ul class="contact-list">
+            <li>
+              <strong>Challenge 1</strong>
+              <span>เพิ่ม dark/light theme ด้วย CSS variables</span>
+            </li>
+            <li>
+              <strong>Challenge 2</strong>
+              <span>ทำ mobile menu ให้เปิดปิดได้ด้วย JavaScript ภายหลัง</span>
+            </li>
+            <li>
+              <strong>Challenge 3</strong>
+              <span>แยก CSS ออกเป็นไฟล์ style.css และจัด comment ให้เป็นหมวด</span>
+            </li>
+          </ul>
+        </div>
+
+        <form class="form-card">
+          <div class="form-grid">
+            <div class="field">
+              <label for="name">ชื่อ</label>
+              <input id="name" type="text" placeholder="ชื่อของคุณ" />
+            </div>
+
+            <div class="field">
+              <label for="email">อีเมล</label>
+              <input id="email" type="email" placeholder="you@example.com" />
+            </div>
+
+            <div class="field full">
+              <label for="goal">เป้าหมาย</label>
+              <input id="goal" type="text" placeholder="เช่น อยากเป็น Frontend Intern" />
+            </div>
+
+            <div class="field full">
+              <label for="message">ข้อความ</label>
+              <textarea id="message" placeholder="เล่าว่าอยากฝึกส่วนไหนเพิ่มเติม"></textarea>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" type="submit">ส่งใบสมัคร</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <p>© 2026 DevLaunch Academy. Built with HTML & CSS only.</p>
+      <ul class="footer-links">
+        <li><a href="#features">Skill</a></li>
+        <li><a href="#roadmap">Roadmap</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

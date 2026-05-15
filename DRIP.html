@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DRIP — Coffee Bar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Noto+Sans+Thai:wght@200;300;400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:    #0a0a0a;
+      --surface: #111111;
+      --line:  #222222;
+      --text:  #e8e8e0;
+      --muted: #555550;
+      --lime:  #c8ff00;
+      --dim:   #8aaf00;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Mono', monospace;
+      cursor: crosshair;
+      overflow-x: hidden;
+    }
+
+    /* ─── CURSOR DOT ─── */
+    #cursor {
+      width: 8px; height: 8px;
+      background: var(--lime);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%,-50%);
+      transition: transform .1s, width .2s, height .2s;
+      mix-blend-mode: difference;
+    }
+
+    /* ─── TICKER ─── */
+    .ticker {
+      background: var(--lime);
+      color: var(--bg);
+      padding: .45rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .ticker-inner {
+      display: inline-block;
+      animation: tick 22s linear infinite;
+    }
+    .ticker-inner span { margin: 0 3rem; }
+    @keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* ─── NAV ─── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2.5rem;
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 6px;
+      color: var(--lime);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .nav-links { display:flex; gap:2rem; list-style:none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--lime); }
+
+    .nav-time {
+      font-size: .65rem;
+      color: var(--muted);
+      letter-spacing: 1px;
+      font-style: italic;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 80px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-left {
+      padding: 4rem 3rem 4rem 2.5rem;
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-index {
+      font-size: .62rem;
+      color: var(--muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .hero-index::before {
+      content: '';
+      width: 20px; height: 1px;
+      background: var(--muted);
+    }
+
+    .hero-big {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(6rem, 12vw, 10rem);
+      line-height: .9;
+      letter-spacing: 2px;
+      color: var(--text);
+    }
+    .hero-big .accent { color: var(--lime); }
+
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .hero-desc {
+      font-family: 'Noto Sans Thai', sans-serif;
+      font-size: .85rem;
+      font-weight: 200;
+      color: var(--muted);
+      line-height: 1.9;
+      max-width: 280px;
+    }
+
+    .btn-hero {
+      display: inline-block;
+      background: var(--lime);
+      color: var(--bg);
+      padding: 1rem 2rem;
+      text-decoration: none;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      transition: background .2s, transform .15s;
+    }
+    .btn-hero:hover {
+      background: var(--text);
+      transform: translate(-2px, -2px);
+    }
+
+    /* grid lines decor */
+    .grid-decor {
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 200px; height: 200px;
+      opacity: .04;
+      background-image:
+        linear-gradient(var(--lime) 1px, transparent 1px),
+        linear-gradient(90deg, var(--lime) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    /* ─── HERO RIGHT ─── */
+    .hero-right {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+    }
+
+    .hero-stat-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2.5rem 3rem;
+      border-bottom: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-stat-box:last-child { border-bottom: none; }
+
+    .stat-label {
+      font-size: .6rem;
+      color: var(--muted);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: .8rem;
+    }
+
+    .stat-big {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 5.5rem;
+      line-height: .9;
+      color: var(--text);
+    }
+    .stat-big .unit {
+      font-size: 1.5rem;
+      color: var(--muted);
+    }
+
+    .stat-sub {
+      font-size: .65rem;
+      color: var(--muted);
+      margin-top: .8rem;
+      letter-spacing: 1px;
+    }
+
+    .stat-bar {
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--line);
+      overflow: hidden;
+    }
+    .stat-bar::after {
+      content: '';
+      display: block;
+      width: 100%;
+      background: var(--lime);
+      animation: barFill 3s ease-in-out infinite;
+    }
+    .stat-bar-1::after { height: 60%; animation-delay: 0s; }
+    .stat-bar-2::after { height: 85%; animation-delay: .5s; }
+    @keyframes barFill {
+      0%   { transform: translateY(100%); }
+      50%  { transform: translateY(0); }
+      100% { transform: translateY(-100%); }
+    }
+
+    /* ─── MARQUEE DIVIDER ─── */
+    .marquee-div {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: .6rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .marquee-inner {
+      display: inline-block;
+      animation: tick 18s linear infinite;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 4px;
+      color: var(--muted);
+    }
+    .marquee-inner span { margin: 0 2rem; }
+    .marquee-inner .dot { color: var(--lime); }
+
+    /* ─── MENU ─── */
+    .menu-section { padding: 0; }
+
+    .menu-head {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      border-bottom: 1px solid var(--line);
+    }
+    .menu-num {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid var(--line);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: var(--muted);
+      writing-mode: vertical-rl;
+      letter-spacing: 4px;
+      padding: 2rem 0;
+    }
+    .menu-title-block {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 2rem 2.5rem;
+    }
+    .menu-title-block h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem;
+      letter-spacing: 4px;
+      color: var(--text);
+    }
+    .menu-title-block .tag {
+      background: var(--lime);
+      color: var(--bg);
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: .3rem .8rem;
+      align-self: flex-start;
+      margin-top: .6rem;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .menu-card {
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 2rem 2rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: background .25s;
+    }
+    .menu-card:nth-child(3n) { border-right: none; }
+    .menu-card:hover { background: var(--surface); }
+    .menu-card:hover .card-arrow { opacity: 1; transform: translate(0,0); }
+    .menu-card:hover .card-num { color: var(--lime); }
+
+    .card-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: .9rem;
+      color: var(--muted);
+      letter-spacing: 2px;
+      margin-bottom: 2rem;
+      transition: color .25s;
+    }
+
+    .card-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.4rem;
+      letter-spacing: 2px;
+      color: var(--text);
+      line-height: .95;
+      margin-bottom: 1rem;
+    }
+
+    .card-desc {
+      font-family: 'Noto Sans Thai', sans-serif;
+      font-size: .78rem;
+      font-weight: 200;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: var(--lime);
+      letter-spacing: 1px;
+    }
+
+    .card-temp {
+      font-size: .6rem;
+      color: var(--muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: 1px solid var(--line);
+      padding: .3rem .6rem;
+    }
+
+    .card-arrow {
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+      font-size: 1.2rem;
+      color: var(--lime);
+      opacity: 0;
+      transform: translate(-4px, 4px);
+      transition: opacity .25s, transform .25s;
+    }
+
+    /* ─── FULL-WIDTH STATEMENT ─── */
+    .statement {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 5rem 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .stmt-label {
+      font-size: .62rem;
+      color: var(--muted);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      line-height: 2;
+    }
+
+    .stmt-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      color: var(--text);
+      line-height: 1.05;
+      letter-spacing: 2px;
+    }
+    .stmt-text .hi { color: var(--lime); }
+
+    /* ─── PROCESS ─── */
+    .process {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--line);
+    }
+
+    .proc-step {
+      padding: 2.5rem 2rem;
+      border-right: 1px solid var(--line);
+      position: relative;
+    }
+    .proc-step:last-child { border-right: none; }
+
+    .proc-n {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem;
+      color: var(--line);
+      line-height: 1;
+      margin-bottom: 1rem;
+      transition: color .3s;
+    }
+    .proc-step:hover .proc-n { color: var(--lime); }
+
+    .proc-title {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: .6rem;
+    }
+
+    .proc-desc {
+      font-family: 'Noto Sans Thai', sans-serif;
+      font-size: .78rem;
+      font-weight: 200;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .proc-line {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--line);
+      overflow: hidden;
+    }
+    .proc-line::after {
+      content: '';
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--lime);
+      transition: width .5s ease;
+    }
+    .proc-step:hover .proc-line::after { width: 100%; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .foot-col {
+      padding: 3rem 2.5rem;
+      border-right: 1px solid var(--line);
+    }
+    .foot-col:last-child { border-right: none; }
+
+    .foot-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      letter-spacing: 6px;
+      color: var(--lime);
+      margin-bottom: 1rem;
+    }
+
+    .foot-sub {
+      font-size: .62rem;
+      color: var(--muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      line-height: 2;
+    }
+
+    .foot-title {
+      font-size: .6rem;
+      color: var(--muted);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .foot-links { list-style: none; }
+    .foot-links li { margin-bottom: .5rem; }
+    .foot-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: .75rem;
+      letter-spacing: 1px;
+      transition: color .2s;
+    }
+    .foot-links a:hover { color: var(--lime); }
+
+    .foot-addr {
+      font-family: 'Noto Sans Thai', sans-serif;
+      font-size: .8rem;
+      font-weight: 200;
+      color: var(--muted);
+      line-height: 2;
+    }
+
+    .foot-bottom {
+      border-top: 1px solid var(--line);
+      padding: 1.2rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .foot-bottom p {
+      font-size: .6rem;
+      color: var(--muted);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    /* ─── REVEAL ─── */
+    .reveal { opacity:0; transform:translateY(20px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity:1; transform:none; }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns:1fr; }
+      .hero-right { display:none; }
+      .menu-grid { grid-template-columns:1fr; }
+      .menu-card { border-right:none; }
+      .process { grid-template-columns:1fr 1fr; }
+      .statement { grid-template-columns:1fr; gap:1rem; }
+      footer { grid-template-columns:1fr; }
+      .foot-col { border-right:none; border-bottom:1px solid var(--line); }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor"></div>
+
+  <!-- TICKER -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-inner">
+      <span>Specialty Coffee</span><span>·</span>
+      <span>Bangkok</span><span>·</span>
+      <span>Freshly Roasted</span><span>·</span>
+      <span>Single Origin</span><span>·</span>
+      <span>Open 08:00 – 20:00</span><span>·</span>
+      <span>Specialty Coffee</span><span>·</span>
+      <span>Bangkok</span><span>·</span>
+      <span>Freshly Roasted</span><span>·</span>
+      <span>Single Origin</span><span>·</span>
+      <span>Open 08:00 – 20:00</span><span>·</span>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">DRIP</div>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#">Visit</a></li>
+      </ul>
+      <span class="nav-time" id="clock"></span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-index">001 — Coffee Bar · BKK</div>
+      <div class="hero-big">
+        NOT<br>JUST A<br><span class="accent">CUP.</span>
+      </div>
+      <div class="hero-bottom">
+        <p class="hero-desc">
+          กาแฟ Specialty ที่คัดสรรและคั่วด้วยมือ<br>
+          จากต้นทางทั่วโลก — ไม่มีตรงไหนประนีประนอม
+        </p>
+        <a href="#menu" class="btn-hero">See Menu →</a>
+      </div>
+      <div class="grid-decor" aria-hidden="true"></div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-stat-box">
+        <span class="stat-label">Roast Freshness</span>
+        <div class="stat-big">7<span class="unit">days</span></div>
+        <div class="stat-sub">max. age since roast date</div>
+        <div class="stat-bar stat-bar-1"></div>
+      </div>
+      <div class="hero-stat-box">
+        <span class="stat-label">Origins in Rotation</span>
+        <div class="stat-big">6<span class="unit">+</span></div>
+        <div class="stat-sub">Ethiopia · Colombia · Thailand · Brazil · Kenya · Guatemala</div>
+        <div class="stat-bar stat-bar-2"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-div" aria-hidden="true">
+    <div class="marquee-inner">
+      <span>Espresso</span><span class="dot">✦</span>
+      <span>Cold Brew</span><span class="dot">✦</span>
+      <span>Pour Over</span><span class="dot">✦</span>
+      <span>Filter</span><span class="dot">✦</span>
+      <span>Batch Brew</span><span class="dot">✦</span>
+      <span>Single Origin</span><span class="dot">✦</span>
+      <span>Espresso</span><span class="dot">✦</span>
+      <span>Cold Brew</span><span class="dot">✦</span>
+      <span>Pour Over</span><span class="dot">✦</span>
+      <span>Filter</span><span class="dot">✦</span>
+      <span>Batch Brew</span><span class="dot">✦</span>
+      <span>Single Origin</span><span class="dot">✦</span>
+    </div>
+  </div>
+
+  <!-- MENU -->
+  <section class="menu-section reveal" id="menu">
+    <div class="menu-head">
+      <div class="menu-num">002</div>
+      <div class="menu-title-block">
+        <h2>THE MENU</h2>
+        <span class="tag">Seasonal</span>
+      </div>
+    </div>
+
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="card-arrow">↗</div>
+        <div class="card-num">01</div>
+        <div class="card-name">ESPRESSO</div>
+        <p class="card-desc">กาแฟแท้ ๆ ไม่ซ่อนอะไร รสเข้ม หอมขม พร้อม crema สีน้ำตาลทอง</p>
+        <div class="card-footer">
+          <div class="card-price">฿65</div>
+          <div class="card-temp">Hot</div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="card-arrow">↗</div>
+        <div class="card-num">02</div>
+        <div class="card-name">FLAT WHITE</div>
+        <p class="card-desc">นมสดไมโครโฟมเนียนละเอียด สัดส่วนกาแฟต่อนมที่ลงตัวที่สุด</p>
+        <div class="card-footer">
+          <div class="card-price">฿90</div>
+          <div class="card-temp">Hot / Ice</div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="card-arrow">↗</div>
+        <div class="card-num">03</div>
+        <div class="card-name">COLD BREW</div>
+        <p class="card-desc">แช่เย็น 18 ชั่วโมง รสหวานจากธรรมชาติ กรดต่ำ ดื่มง่าย</p>
+        <div class="card-footer">
+          <div class="card-price">฿110</div>
+          <div class="card-temp">Ice Only</div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="card-arrow">↗</div>
+        <div class="card-num">04</div>
+        <div class="card-name">POUR OVER</div>
+        <p class="card-desc">ดริปด้วยมือ เลือก Origin ได้ ชงต่อหน้าทีละแก้ว ไม่รีบ</p>
+        <div class="card-footer">
+          <div class="card-price">฿130</div>
+          <div class="card-temp">Hot</div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="card-arrow">↗</div>
+        <div class="card-num">05</div>
+        <div class="card-name">ROSE LATTE</div>
+        <p class="card-desc">กุหลาบ Damascus หอมละมุน ดอกไม้จริง รสอ่อน ไม่หวานเลี่ยน</p>
+        <div class="card-footer">
+          <div class="card-price">฿120</div>
+          <div class="card-temp">Hot / Ice</div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="card-arrow">↗</div>
+        <div class="card-num">06</div>
+        <div class="card-name">YUZU TONIC</div>
+        <p class="card-desc">Espresso + โซดา + ยูซุ สดชื่น ซ่าซ่า เหมาะกับอากาศกรุงเทพฯ</p>
+        <div class="card-footer">
+          <div class="card-price">฿135</div>
+          <div class="card-temp">Ice Only</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATEMENT -->
+  <div class="statement reveal">
+    <div class="stmt-label">
+      Our Philosophy<br>— ปรัชญาของเรา
+    </div>
+    <div class="stmt-text">
+      <span class="hi">GOOD COFFEE</span><br>
+      DOESN'T NEED<br>
+      EXPLANATION.
+    </div>
+  </div>
+
+  <!-- PROCESS -->
+  <section class="process reveal" id="process">
+    <div class="proc-step">
+      <div class="proc-line"></div>
+      <div class="proc-n">01</div>
+      <div class="proc-title">Source</div>
+      <p class="proc-desc">คัดเลือกเมล็ดโดยตรงจากเกษตรกร ไม่ผ่านคนกลาง</p>
+    </div>
+    <div class="proc-step">
+      <div class="proc-line"></div>
+      <div class="proc-n">02</div>
+      <div class="proc-title">Roast</div>
+      <p class="proc-desc">คั่วสดทุกอาทิตย์ ในปริมาณน้อย เพื่อความสดใหม่</p>
+    </div>
+    <div class="proc-step">
+      <div class="proc-line"></div>
+      <div class="proc-n">03</div>
+      <div class="proc-title">Dial In</div>
+      <p class="proc-desc">ปรับสูตรทุกวัน ตามอุณหภูมิและความชื้น</p>
+    </div>
+    <div class="proc-step">
+      <div class="proc-line"></div>
+      <div class="proc-n">04</div>
+      <div class="proc-title">Serve</div>
+      <p class="proc-desc">ชงทีละแก้ว ด้วยความตั้งใจ ไม่มีชงรวม</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot-col">
+      <div class="foot-logo">DRIP</div>
+      <p class="foot-sub">Coffee Bar<br>Bangkok, Thailand<br>Est. 2022</p>
+    </div>
+    <div class="foot-col">
+      <div class="foot-title">Navigate</div>
+      <ul class="foot-links">
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#">Visit Us</a></li>
+        <li><a href="#">Instagram</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <div class="foot-title">Find Us</div>
+      <p class="foot-addr">
+        123 Ari Soi 4<br>
+        Phahonyothin Rd<br>
+        Bangkok 10400<br><br>
+        Mon–Fri 08:00–20:00<br>
+        Sat–Sun 09:00–18:00
+      </p>
+    </div>
+  </footer>
+  <div class="foot-bottom">
+    <p>© 2026 DRIP Coffee Bar</p>
+    <p>Specialty Coffee · Bangkok</p>
+  </div>
+
+  <script>
+    // Clock
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2,'0');
+      const m = String(now.getMinutes()).padStart(2,'0');
+      const s = String(now.getSeconds()).padStart(2,'0');
+      document.getElementById('clock').textContent = `BKK ${h}:${m}:${s}`;
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // Cursor
+    const cur = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cur.style.left = e.clientX + 'px';
+      cur.style.top  = e.clientY + 'px';
+    });
+
+    // Scroll reveal
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>
