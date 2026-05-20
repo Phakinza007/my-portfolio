@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brew & Co. — Specialty Coffee Bangkok</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink:  #1a120a;
+      --warm: #f7f2ea;
+      --gold: #b8894a;
+      --gold2:#d4a96a;
+      --pale: #efe9dc;
+      --muted:#8a7460;
+      --dark: #120d08;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--warm);
+      color: var(--ink);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.4rem 3.5rem;
+      backdrop-filter: blur(16px);
+      background: rgba(247,242,234,0.8);
+      border-bottom: 1px solid rgba(184,137,74,0.15);
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+    }
+    .logo span { color: var(--gold); }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ─── HERO ────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .hero-left {
+      background: var(--dark);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 5rem 4rem 5rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      border: 80px solid rgba(184,137,74,0.09);
+      animation: breathe 7s ease-in-out infinite;
+    }
+    .hero-left::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 240px; height: 240px;
+      border-radius: 50%;
+      border: 28px solid rgba(184,137,74,0.14);
+      animation: breathe 7s ease-in-out infinite 1.5s;
+    }
+    @keyframes breathe {
+      0%,100% { transform: translate(-50%,-50%) scale(1); opacity:1; }
+      50%      { transform: translate(-50%,-50%) scale(1.06); opacity:.6; }
+    }
+
+    .hero-tag {
+      font-size: 0.68rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      position: relative;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 28px; height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 6vw, 5.8rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--warm);
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    .hero-title em { font-style: italic; color: var(--gold2); }
+
+    .hero-desc {
+      color: rgba(239,233,220,0.5);
+      font-size: 0.88rem;
+      line-height: 2;
+      max-width: 360px;
+      position: relative;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem; left: 4rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: rgba(239,233,220,0.3);
+      font-size: 0.63rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 40px; height: 1px;
+      background: currentColor;
+      animation: shrink 2s ease-in-out infinite;
+      transform-origin: left;
+    }
+    @keyframes shrink { 0%,100%{transform:scaleX(1)} 50%{transform:scaleX(.3)} }
+
+    .hero-right {
+      background: var(--pale);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 5rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-right::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; right: -80px;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: var(--gold2);
+      opacity: 0.07;
+    }
+
+    .cup-wrap { width: 240px; height: 240px; margin-bottom: 3rem; }
+    .cup-wrap svg { width: 100%; height: 100%; }
+
+    .stat-row {
+      display: flex;
+      gap: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(26,18,10,0.12);
+      width: 100%;
+      max-width: 320px;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.6rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+      display: block;
+      margin-bottom: .3rem;
+    }
+    .stat-label {
+      font-size: 0.62rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ─── MENU ────────────────────────────── */
+    .menu-section {
+      padding: 8rem 5rem;
+      background: var(--ink);
+      position: relative;
+      overflow: hidden;
+    }
+    .menu-section::before {
+      content: 'MENU';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.018);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+    }
+
+    .section-tag {
+      font-size: 0.65rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .8rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .section-tag::after { content:''; width:36px; height:1px; background:var(--gold); }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+    }
+
+    .menu-header p {
+      color: var(--muted);
+      font-size: 0.83rem;
+      max-width: 250px;
+      text-align: right;
+      line-height: 1.9;
+    }
+
+    .menu-list { display: flex; flex-direction: column; }
+
+    .menu-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.8rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      cursor: default;
+      transition: padding-left .4s;
+    }
+    .menu-item:hover { padding-left: 1rem; }
+
+    .menu-item-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.65rem;
+      font-weight: 300;
+      color: var(--warm);
+      letter-spacing: .5px;
+    }
+    .menu-item-name em {
+      display: block;
+      font-style: italic;
+      color: var(--muted);
+      font-size: .82rem;
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      letter-spacing: 1px;
+      margin-top: .2rem;
+    }
+    .menu-dots {
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+      flex: 1;
+    }
+    .menu-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--gold);
+    }
+
+    /* ─── QUOTE ───────────────────────────── */
+    .quote-section {
+      background: var(--gold);
+      padding: 6rem 5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .quote-section::before {
+      content: '"';
+      position: absolute;
+      top: -3rem; left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28rem;
+      color: rgba(255,255,255,0.1);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .quote-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.7rem, 3vw, 2.8rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--dark);
+      max-width: 740px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.45;
+      position: relative;
+    }
+    .quote-author {
+      font-size: 0.68rem;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: rgba(18,13,8,.45);
+    }
+
+    /* ─── ABOUT ───────────────────────────── */
+    .about-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 65vh;
+    }
+
+    .about-visual {
+      background: var(--pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rings {
+      position: relative;
+      width: 260px;
+      height: 260px;
+    }
+    .ring {
+      position: absolute;
+      top: 50%; left: 50%;
+      border-radius: 50%;
+      border: 1px solid rgba(184,137,74,.22);
+      transform: translate(-50%,-50%);
+    }
+    .r1 { width:260px; height:260px; animation: spin 28s linear infinite; }
+    .r2 { width:180px; height:180px; animation: spin 18s linear infinite reverse; }
+    .r3 { width:90px; height:90px; background: var(--gold); opacity:.13; border:none; }
+    .rdot {
+      position:absolute;
+      width:6px; height:6px;
+      border-radius:50%;
+      background: var(--gold);
+      top: -3px; left: 50%;
+      transform: translateX(-50%);
+    }
+    @keyframes spin { to{ transform: translate(-50%,-50%) rotate(360deg); } }
+
+    .about-text {
+      background: var(--warm);
+      padding: 6rem 5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .about-text .section-title { margin-bottom: 2rem; }
+    .about-text p {
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 2;
+      margin-bottom: 1.4rem;
+    }
+    .btn-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      padding: .85rem 0;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: .72rem;
+      font-weight: 400;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--ink);
+      width: fit-content;
+      margin-top: .8rem;
+      transition: color .3s, border-color .3s;
+    }
+    .btn-link::after { content:'→'; transition: transform .3s; }
+    .btn-link:hover { color: var(--gold); border-color: var(--gold); }
+    .btn-link:hover::after { transform: translateX(6px); }
+
+    /* ─── FOOTER ──────────────────────────── */
+    footer {
+      background: var(--dark);
+      padding: 2.5rem 5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    footer .logo { color: var(--warm); }
+    .footer-links { display: flex; gap: 2rem; list-style: none; }
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: color .3s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy { font-size: .68rem; color: rgba(138,116,96,.45); letter-spacing: 1px; }
+
+    /* ─── SCROLL ANIMATION ─────────────────── */
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity .9s ease, transform .9s ease; }
+    .reveal.in  { opacity: 1; transform: none; }
+
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      nav { padding: 1rem 1.5rem; }
+      .hero-left { padding: 8rem 2rem 5rem; }
+      .menu-section { padding: 5rem 1.5rem; }
+      .menu-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .menu-header p { text-align: left; }
+      .about-section { grid-template-columns: 1fr; }
+      .about-visual { height: 280px; }
+      .about-text { padding: 4rem 2rem; }
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Brew <span>&</span> Co.</div>
+    <ul class="nav-links">
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#">Find Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-tag">Specialty Coffee · Bangkok</div>
+      <h1 class="hero-title">
+        Every<br>cup,<br><em>crafted</em><br>with love.
+      </h1>
+      <p class="hero-desc">
+        เราเชื่อว่ากาแฟที่ดีเริ่มจากเมล็ดที่ดี
+        คัดสรรจากไร่ที่ใส่ใจ คั่วสดทุกสัปดาห์
+        และชงด้วยความตั้งใจในทุกแก้ว
+      </p>
+      <div class="scroll-hint">
+        <span class="scroll-line"></span>Scroll
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="cup-wrap">
+        <svg viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="120" cy="196" rx="82" ry="11" fill="#d4a96a" opacity=".2"/>
+          <path d="M58 120 Q53 188 120 192 Q187 188 182 120 Z" fill="#2b1a0f" stroke="#b8894a" stroke-width="1.2"/>
+          <ellipse cx="120" cy="120" rx="62" ry="13" fill="#1a120a" stroke="#b8894a" stroke-width="1.2"/>
+          <ellipse cx="120" cy="120" rx="56" ry="10" fill="#3d2410"/>
+          <path d="M120 116 Q132 110 144 116 Q132 122 120 116" stroke="#d4a96a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M100 119 Q110 113 120 116" stroke="#d4a96a" stroke-width="1" fill="none" stroke-linecap="round" opacity=".55"/>
+          <path d="M182 136 Q218 136 218 158 Q218 178 182 178" stroke="#b8894a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M96 107 Q90 92 97 80 Q104 68 98 55" stroke="#b8894a" stroke-width="1.5" fill="none" stroke-linecap="round">
+            <animate attributeName="opacity" values=".45;.08;.45" dur="3s" repeatCount="indefinite"/>
+          </path>
+          <path d="M120 102 Q114 87 121 75 Q128 63 122 50" stroke="#b8894a" stroke-width="1.5" fill="none" stroke-linecap="round">
+            <animate attributeName="opacity" values=".35;.06;.35" dur="3s" begin=".6s" repeatCount="indefinite"/>
+          </path>
+          <path d="M144 107 Q150 92 143 80 Q136 68 142 55" stroke="#b8894a" stroke-width="1.5" fill="none" stroke-linecap="round">
+            <animate attributeName="opacity" values=".45;.08;.45" dur="3s" begin="1.2s" repeatCount="indefinite"/>
+          </path>
+        </svg>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><span class="stat-num">6+</span><span class="stat-label">Origins</span></div>
+        <div class="stat"><span class="stat-num">12</span><span class="stat-label">Recipes</span></div>
+        <div class="stat"><span class="stat-num">4yr</span><span class="stat-label">Roasting</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="menu-section" id="menu">
+    <div class="menu-header reveal">
+      <div>
+        <div class="section-tag">Our Offerings</div>
+        <h2 class="section-title" style="color:var(--warm)">The Menu</h2>
+      </div>
+      <p>เมนูทุกแก้วออกแบบมาเพื่อให้คุณ<br>ได้รับประสบการณ์ที่ดีที่สุด<br>จากกาแฟ</p>
+    </div>
+
+    <div class="menu-list reveal">
+      <div class="menu-item">
+        <div class="menu-item-name">Espresso<em>Pure · Intense · Bold</em></div>
+        <div class="menu-dots"></div>
+        <div class="menu-price">฿65</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-name">Flat White<em>Silky · Creamy · Smooth</em></div>
+        <div class="menu-dots"></div>
+        <div class="menu-price">฿90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-name">Cold Brew<em>18-hour steep · Dark · Natural sweetness</em></div>
+        <div class="menu-dots"></div>
+        <div class="menu-price">฿110</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-name">Rose Latte<em>Damascus rose · Floral · Soft</em></div>
+        <div class="menu-dots"></div>
+        <div class="menu-price">฿120</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-name">Yuzu Sparkling<em>Bright · Citrus · Refreshing</em></div>
+        <div class="menu-dots"></div>
+        <div class="menu-price">฿130</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="quote-section reveal">
+    <p class="quote-text">
+      "Coffee is not just a drink — it's a ritual, a pause in the day,
+      a reason to slow down and breathe."
+    </p>
+    <p class="quote-author">— The Brew & Co. Manifesto</p>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about">
+    <div class="about-visual">
+      <div class="rings">
+        <div class="ring r1"><div class="rdot"></div></div>
+        <div class="ring r2"><div class="rdot"></div></div>
+        <div class="ring r3"></div>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <div class="section-tag">Our Story</div>
+      <h2 class="section-title">
+        Passion in<br>
+        <span style="font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--gold)">every bean</span>
+      </h2>
+      <p>
+        เราเริ่มต้นจากความรักในกาแฟและความเชื่อว่า
+        กาแฟที่ดีสามารถเปลี่ยนวันที่ธรรมดา
+        ให้กลายเป็นช่วงเวลาที่น่าจดจำได้
+      </p>
+      <p>
+        เมล็ดกาแฟทุกเม็ดถูกคัดสรรจากเกษตรกรที่เราไว้วางใจ
+        ทั้งจากดอยสูงของเชียงราย ไปจนถึงไร่กาแฟในเอธิโอเปีย
+        และอเมริกาใต้
+      </p>
+      <a href="#" class="btn-link">Learn our story</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="logo">Brew <span style="color:var(--gold)">&</span> Co.</div>
+    <ul class="footer-links">
+      <li><a href="#">Menu</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Instagram</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 Brew & Co. Bangkok</p>
+  </footer>
+
+  <script>
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in') }),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
+
+</body>
+</html>

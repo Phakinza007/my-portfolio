@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOIR Coffee — Specialty Coffee Bangkok</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,600&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0A0806;
+    --black-2: #111009;
+    --black-3: #1C1A16;
+    --charcoal: #2A2720;
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-pale: #F5E9C8;
+    --white: #FAF8F4;
+    --white-dim: rgba(250,248,244,0.65);
+    --white-muted: rgba(250,248,244,0.35);
+    --border: rgba(201,168,76,0.2);
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Josefin Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(201,168,76,0.4);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.15s ease;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 1000; opacity: 0.5;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 28px 60px;
+    border-bottom: 1px solid transparent;
+    transition: all 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(10,8,6,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom-color: var(--border);
+    padding: 18px 60px;
+  }
+  .logo {
+    font-family: var(--font-serif);
+    font-size: 1.5rem; font-weight: 300;
+    letter-spacing: 0.25em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .logo span { color: var(--gold); }
+  .nav-center {
+    display: flex; gap: 3rem;
+    position: absolute; left: 50%; transform: translateX(-50%);
+  }
+  .nav-center a {
+    font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--white-dim); text-decoration: none;
+    transition: color 0.2s;
+    font-weight: 300;
+  }
+  .nav-center a:hover { color: var(--gold); }
+  .nav-cta {
+    font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); border: 1px solid var(--border);
+    padding: 10px 24px; text-decoration: none;
+    transition: all 0.3s; font-weight: 300;
+  }
+  .nav-cta:hover { background: var(--gold); color: var(--black); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 60px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 75% 40%, rgba(201,168,76,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 20% 70%, rgba(201,168,76,0.05) 0%, transparent 50%),
+      linear-gradient(180deg, var(--black) 0%, var(--black-2) 100%);
+  }
+  .hero-line-art {
+    position: absolute; right: 0; top: 0; bottom: 0;
+    width: 55%; display: flex; align-items: center; justify-content: center;
+  }
+  .hero-circle-decor {
+    position: absolute;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    animation: slowRotate 30s linear infinite;
+  }
+  @keyframes slowRotate { to { transform: rotate(360deg); } }
+  .hero-content { position: relative; z-index: 2; max-width: 580px; }
+  .hero-eyebrow {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 2rem;
+  }
+  .hero-eyebrow-line { width: 40px; height: 1px; background: var(--gold); }
+  .hero-eyebrow span {
+    font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); font-weight: 300;
+  }
+  .hero-headline {
+    font-family: var(--font-serif);
+    font-size: clamp(4rem, 7vw, 7rem);
+    font-weight: 300; line-height: 0.95;
+    margin-bottom: 2rem;
+    color: var(--white);
+  }
+  .hero-headline em {
+    font-style: italic; color: var(--gold-light);
+  }
+  .hero-sub {
+    font-size: 0.8rem; font-weight: 200; letter-spacing: 0.08em;
+    line-height: 1.9; color: var(--white-dim);
+    max-width: 380px; margin-bottom: 3rem;
+  }
+  .hero-btns { display: flex; align-items: center; gap: 2rem; }
+  .btn-gold {
+    background: var(--gold); color: var(--black);
+    border: none; padding: 16px 40px;
+    font-family: var(--font-sans); font-size: 0.68rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    font-weight: 400; cursor: pointer; transition: all 0.3s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-ghost {
+    font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--white-dim); text-decoration: none; font-weight: 300;
+    border-bottom: 1px solid var(--border); padding-bottom: 4px;
+    transition: all 0.3s;
+  }
+  .btn-ghost:hover { color: var(--gold); border-color: var(--gold); }
+  .hero-scroll {
+    position: absolute; bottom: 80px; right: 60px;
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    z-index: 2;
+  }
+  .hero-scroll span {
+    font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--white-muted); writing-mode: vertical-rl;
+  }
+  .scroll-line {
+    width: 1px; height: 60px; background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse { 0%,100%{opacity:0.4; transform:scaleY(1)} 50%{opacity:1; transform:scaleY(1.1)} }
+
+  /* SECTION BASE */
+  .section { padding: 120px 60px; }
+  .section-num {
+    font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); font-weight: 300; margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 300; line-height: 1.1;
+    color: var(--white);
+  }
+  .section-title em { font-style: italic; color: var(--gold-light); }
+  .divider {
+    width: 60px; height: 1px; background: var(--gold);
+    margin: 2rem 0;
+  }
+
+  /* MENU */
+  .menu-section { background: var(--black-2); }
+  .menu-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 5rem;
+    border-bottom: 1px solid var(--border); padding-bottom: 3rem;
+  }
+  .menu-header-right {
+    font-size: 0.75rem; letter-spacing: 0.1em;
+    color: var(--white-muted); max-width: 280px; line-height: 1.8; font-weight: 200;
+  }
+  .menu-list { display: flex; flex-direction: column; }
+  .menu-item {
+    display: grid; grid-template-columns: 60px 1fr auto auto;
+    align-items: center; gap: 2rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+    transition: all 0.3s; cursor: pointer;
+  }
+  .menu-item:hover { padding-left: 20px; border-bottom-color: var(--gold); }
+  .menu-item:hover .menu-item-num { color: var(--gold); }
+  .menu-item-num {
+    font-family: var(--font-serif); font-size: 0.85rem;
+    color: var(--white-muted); font-weight: 300; letter-spacing: 0.1em;
+    transition: color 0.3s;
+  }
+  .menu-item-info { }
+  .menu-item-name {
+    font-family: var(--font-serif); font-size: 1.8rem; font-weight: 300;
+    color: var(--white); margin-bottom: 0.4rem;
+  }
+  .menu-item-desc {
+    font-size: 0.72rem; letter-spacing: 0.08em;
+    color: var(--white-muted); font-weight: 200;
+  }
+  .menu-item-tag {
+    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); border: 1px solid var(--border);
+    padding: 4px 12px; font-weight: 300;
+  }
+  .menu-item-price {
+    font-family: var(--font-serif); font-size: 1.4rem; font-weight: 300;
+    color: var(--gold-light); text-align: right;
+  }
+  .menu-item-price span { font-size: 0.75rem; color: var(--white-muted); }
+
+  /* ABOUT */
+  .about-section {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    padding: 0; min-height: 80vh;
+  }
+  .about-visual {
+    background: var(--charcoal);
+    position: relative; overflow: hidden;
+    min-height: 500px;
+  }
+  .about-visual svg { width: 100%; height: 100%; position: absolute; inset: 0; }
+  .about-text {
+    background: var(--black-3); padding: 100px 80px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .about-body {
+    font-size: 0.82rem; font-weight: 200; letter-spacing: 0.06em;
+    line-height: 2; color: var(--white-dim); margin-bottom: 3rem;
+  }
+  .perks { display: flex; flex-direction: column; gap: 0; }
+  .perk {
+    display: flex; align-items: center; gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+  .perk-num {
+    font-family: var(--font-serif); font-size: 1.8rem; font-weight: 300;
+    color: var(--gold); opacity: 0.4; min-width: 40px;
+  }
+  .perk-text { }
+  .perk-text strong { display: block; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); font-weight: 300; margin-bottom: 4px; }
+  .perk-text span { font-size: 0.72rem; color: var(--white-muted); font-weight: 200; letter-spacing: 0.05em; }
+
+  /* GALLERY */
+  .gallery-section { background: var(--black); padding: 120px 60px; }
+  .gallery-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    grid-template-rows: 260px 260px;
+    gap: 4px;
+  }
+  .g-item {
+    overflow: hidden; position: relative;
+    background: var(--charcoal);
+  }
+  .g-item.tall { grid-row: span 2; }
+  .g-item svg { width: 100%; height: 100%; transition: transform 0.6s ease; }
+  .g-item:hover svg { transform: scale(1.05); }
+  .g-item-label {
+    position: absolute; bottom: 16px; left: 16px;
+    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--white-muted); font-weight: 300;
+  }
+
+  /* CONTACT */
+  .contact-section { background: var(--black-2); }
+  .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+  .contact-details { display: flex; flex-direction: column; gap: 2.5rem; margin-top: 2rem; }
+  .c-row { }
+  .c-label {
+    font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 8px; font-weight: 300;
+  }
+  .c-val {
+    font-family: var(--font-serif); font-size: 1.1rem; font-weight: 300;
+    color: var(--white); line-height: 1.6;
+  }
+  .c-sub { font-size: 0.72rem; color: var(--white-muted); letter-spacing: 0.06em; font-weight: 200; }
+  .social-panel { border: 1px solid var(--border); padding: 3rem; }
+  .social-title {
+    font-family: var(--font-serif); font-size: 1.5rem; font-weight: 300;
+    color: var(--white); margin-bottom: 2rem;
+  }
+  .social-links { display: flex; flex-direction: column; gap: 0; }
+  .s-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+    text-decoration: none; color: var(--white-dim);
+    transition: all 0.3s; cursor: pointer;
+  }
+  .s-link:hover { color: var(--gold); padding-left: 12px; }
+  .s-link-name { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 300; }
+  .s-link-handle { font-family: var(--font-serif); font-size: 1rem; font-weight: 300; }
+  .s-arrow { font-size: 0.7rem; color: var(--white-muted); }
+  .reserve-btn {
+    display: block; width: 100%; margin-top: 2rem;
+    background: transparent; border: 1px solid var(--gold);
+    color: var(--gold); padding: 18px;
+    font-family: var(--font-sans); font-size: 0.68rem;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.3s; font-weight: 300;
+  }
+  .reserve-btn:hover { background: var(--gold); color: var(--black); }
+
+  /* FOOTER */
+  footer {
+    background: var(--black); border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 2rem 60px;
+  }
+  .footer-logo {
+    font-family: var(--font-serif); font-size: 1rem; font-weight: 300;
+    letter-spacing: 0.2em; color: var(--white-muted);
+  }
+  .footer-copy {
+    font-size: 0.65rem; letter-spacing: 0.15em;
+    color: var(--white-muted); font-weight: 200;
+  }
+  .footer-gold { color: var(--gold); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-content > * {
+    animation: fadeUp 0.8s ease forwards;
+    opacity: 0;
+  }
+  .hero-eyebrow { animation-delay: 0.2s; }
+  .hero-headline { animation-delay: 0.4s; }
+  .hero-sub { animation-delay: 0.6s; }
+  .hero-btns { animation-delay: 0.8s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    nav.scrolled { padding: 14px 24px; }
+    .nav-center { display: none; }
+    .hero { padding: 0 24px 60px; }
+    .hero-headline { font-size: 3.5rem; }
+    .hero-scroll { display: none; }
+    .section { padding: 80px 24px; }
+    .menu-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .menu-item { grid-template-columns: 40px 1fr auto; }
+    .menu-item-tag { display: none; }
+    .about-section { grid-template-columns: 1fr; }
+    .about-visual { min-height: 300px; }
+    .about-text { padding: 60px 24px; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .g-item.tall { grid-row: span 1; }
+    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .gallery-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    footer { flex-direction: column; gap: 1rem; padding: 1.5rem 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="logo">NOIR<span>.</span></a>
+  <div class="nav-center">
+    <a href="#menu">Menu</a>
+    <a href="#about">About</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#contact" class="nav-cta">Reserve a Table</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+
+  <!-- Decorative circles -->
+  <div class="hero-line-art">
+    <div class="hero-circle-decor" style="width:420px;height:420px;right:80px;top:50%;transform:translateY(-50%)"></div>
+    <div class="hero-circle-decor" style="width:280px;height:280px;right:160px;top:50%;transform:translateY(-50%);animation-duration:20s;animation-direction:reverse"></div>
+    <svg viewBox="0 0 480 580" style="position:absolute;right:40px;top:50%;transform:translateY(-50%);width:480px;height:580px;opacity:0.9" xmlns="http://www.w3.org/2000/svg">
+      <!-- Large cup elegant illustration -->
+      <defs>
+        <linearGradient id="cupGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#2A2720"/>
+          <stop offset="100%" stop-color="#1C1A16"/>
+        </linearGradient>
+        <linearGradient id="coffeeGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#4A2E1A"/>
+          <stop offset="100%" stop-color="#1A0F08"/>
+        </linearGradient>
+        <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#C9A84C"/>
+          <stop offset="100%" stop-color="#E8C97A"/>
+        </linearGradient>
+        <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+
+      <!-- Decorative thin ring -->
+      <circle cx="240" cy="290" r="200" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.25"/>
+      <circle cx="240" cy="290" r="160" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.15"/>
+
+      <!-- Saucer -->
+      <ellipse cx="240" cy="400" rx="130" ry="18" fill="url(#cupGrad)"/>
+      <ellipse cx="240" cy="396" rx="110" ry="12" fill="#2A2720"/>
+      <ellipse cx="240" cy="393" rx="90" ry="8" fill="#322E24"/>
+
+      <!-- Cup body -->
+      <path d="M155 210 Q148 360 200 390 Q240 405 280 390 Q332 360 325 210 Z" fill="url(#cupGrad)"/>
+      <!-- Cup inner -->
+      <path d="M163 210 Q157 350 210 380 Q240 392 270 380 Q323 350 317 210 Z" fill="#1C1A16"/>
+
+      <!-- Coffee surface -->
+      <ellipse cx="240" cy="212" rx="77" ry="20" fill="url(#coffeeGrad)"/>
+
+      <!-- Latte art — elegant leaf -->
+      <ellipse cx="240" cy="212" rx="50" ry="13" fill="#6B3A1F" opacity="0.8"/>
+      <path d="M210 212 Q225 200 240 205 Q255 200 270 212 Q255 220 240 217 Q225 220 210 212Z" fill="#C9804C" opacity="0.6"/>
+      <path d="M222 212 Q231 206 240 209 Q249 206 258 212 Q249 216 240 214 Q231 216 222 212Z" fill="#E8C97A" opacity="0.4"/>
+      <line x1="240" y1="200" x2="240" y2="225" stroke="#E8C97A" stroke-width="0.8" opacity="0.3"/>
+
+      <!-- Handle elegant -->
+      <path d="M325 240 Q380 240 380 280 Q380 330 325 330" stroke="#2A2720" stroke-width="18" fill="none" stroke-linecap="round"/>
+      <path d="M325 245 Q372 245 372 280 Q372 325 325 325" stroke="#322E24" stroke-width="10" fill="none" stroke-linecap="round"/>
+
+      <!-- Gold rim -->
+      <path d="M155 210 Q240 228 325 210" stroke="url(#goldGrad)" stroke-width="1.5" fill="none" opacity="0.8"/>
+
+      <!-- Steam — elegant curves -->
+      <path d="M200 185 Q192 162 200 140 Q208 118 200 96" stroke="#C9A84C" stroke-width="1" fill="none" opacity="0.3" stroke-linecap="round"/>
+      <path d="M240 178 Q232 155 240 133 Q248 111 240 89" stroke="#C9A84C" stroke-width="1" fill="none" opacity="0.25" stroke-linecap="round"/>
+      <path d="M278 185 Q270 162 278 140 Q286 118 278 96" stroke="#C9A84C" stroke-width="1" fill="none" opacity="0.3" stroke-linecap="round"/>
+
+      <!-- Decorative dots -->
+      <circle cx="130" cy="120" r="3" fill="#C9A84C" opacity="0.3"/>
+      <circle cx="355" cy="160" r="2" fill="#C9A84C" opacity="0.2"/>
+      <circle cx="100" cy="350" r="4" fill="#C9A84C" opacity="0.15"/>
+      <circle cx="380" cy="420" r="2.5" fill="#C9A84C" opacity="0.2"/>
+
+      <!-- Text accent -->
+      <text x="240" y="500" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="11" letter-spacing="8" fill="#C9A84C" opacity="0.4" font-weight="300">SPECIALTY COFFEE</text>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span>Bangkok Specialty Coffee · Est. 2021</span>
+    </div>
+    <h1 class="hero-headline">
+      Fresh<br>Coffee,<br><em>Cozy Space.</em>
+    </h1>
+    <p class="hero-sub">
+      กาแฟหอมสดใหม่ในบรรยากาศอบอุ่น<br>
+      เหมาะสำหรับการพักผ่อน ทำงาน<br>
+      หรือพบปะเพื่อนในทุกวัน
+    </p>
+    <div class="hero-btns">
+      <a href="#menu" class="btn-gold">ดูเมนู</a>
+      <a href="#contact" class="btn-ghost">จองโต๊ะ →</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="section menu-section" id="menu">
+  <div class="menu-header">
+    <div>
+      <div class="section-num">01 — Popular Menu</div>
+      <h2 class="section-title">เมนู<br><em>ยอดนิยม</em></h2>
+    </div>
+    <p class="menu-header-right">
+      เมล็ดกาแฟคัดสรรจากแหล่งปลูกชั้นนำ คั่วสดทุกสัปดาห์โดยผู้เชี่ยวชาญ เพื่อรสชาติที่ดีที่สุดในทุกแก้ว
+    </p>
+  </div>
+  <div class="menu-list">
+    <div class="menu-item">
+      <div class="menu-item-num">01</div>
+      <div class="menu-item-info">
+        <div class="menu-item-name">Americano</div>
+        <div class="menu-item-desc">Espresso · Hot Water · Single or Double Shot</div>
+      </div>
+      <div class="menu-item-tag">Best Seller</div>
+      <div class="menu-item-price">฿65 <span>/ cup</span></div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-num">02</div>
+      <div class="menu-item-info">
+        <div class="menu-item-name">Café Latte</div>
+        <div class="menu-item-desc">Espresso · Steamed Milk · Latte Art</div>
+      </div>
+      <div class="menu-item-tag">Popular</div>
+      <div class="menu-item-price">฿85 <span>/ cup</span></div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-num">03</div>
+      <div class="menu-item-info">
+        <div class="menu-item-name">Matcha Latte</div>
+        <div class="menu-item-desc">Premium Japanese Matcha · Fresh Milk · Light Sweetness</div>
+      </div>
+      <div class="menu-item-tag">New</div>
+      <div class="menu-item-price">฿95 <span>/ cup</span></div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-num">04</div>
+      <div class="menu-item-info">
+        <div class="menu-item-name">Butter Croissant</div>
+        <div class="menu-item-desc">French Butter · Baked Fresh Daily · Crispy Outside</div>
+      </div>
+      <div class="menu-item-tag">Chef's Pick</div>
+      <div class="menu-item-price">฿75 <span>/ piece</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<div class="about-section" id="about">
+  <div class="about-visual">
+    <svg viewBox="0 0 600 700" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="700" fill="#1C1A16"/>
+      <!-- Abstract coffee beans pattern -->
+      <ellipse cx="120" cy="150" rx="55" ry="35" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.3" transform="rotate(-30 120 150)"/>
+      <ellipse cx="120" cy="150" rx="55" ry="35" fill="#2A2720" transform="rotate(-30 120 150)"/>
+      <line x1="80" y1="135" x2="160" y2="165" stroke="#C9A84C" stroke-width="0.8" opacity="0.4" transform="rotate(-30 120 150)"/>
+
+      <ellipse cx="380" cy="280" rx="65" ry="40" fill="#322E24" transform="rotate(20 380 280)"/>
+      <ellipse cx="380" cy="280" rx="65" ry="40" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.25" transform="rotate(20 380 280)"/>
+      <line x1="330" y1="270" x2="430" y2="290" stroke="#C9A84C" stroke-width="0.8" opacity="0.35" transform="rotate(20 380 280)"/>
+
+      <ellipse cx="200" cy="480" rx="50" ry="30" fill="#2A2720" transform="rotate(-15 200 480)"/>
+      <ellipse cx="200" cy="480" rx="50" ry="30" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.2" transform="rotate(-15 200 480)"/>
+      <line x1="162" y1="472" x2="238" y2="488" stroke="#C9A84C" stroke-width="0.8" opacity="0.3" transform="rotate(-15 200 480)"/>
+
+      <ellipse cx="480" cy="560" rx="45" ry="28" fill="#1C1A16" transform="rotate(35 480 560)"/>
+      <ellipse cx="480" cy="560" rx="45" ry="28" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.2" transform="rotate(35 480 560)"/>
+
+      <!-- Gold circle large decoration -->
+      <circle cx="300" cy="350" r="160" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.15"/>
+      <circle cx="300" cy="350" r="100" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.1"/>
+
+      <!-- Central elegant coffee illustration -->
+      <ellipse cx="300" cy="360" rx="70" ry="12" fill="#2A2720"/>
+      <path d="M240 260 Q234 355 270 370 Q300 382 330 370 Q366 355 360 260 Z" fill="#1C1A16"/>
+      <ellipse cx="300" cy="262" rx="58" ry="15" fill="#2A2720"/>
+      <ellipse cx="300" cy="262" rx="48" ry="11" fill="#3D1F0F"/>
+      <!-- latte art mini -->
+      <ellipse cx="300" cy="262" rx="28" ry="7" fill="#6B3A1F" opacity="0.8"/>
+      <path d="M282 262 Q291 257 300 260 Q309 257 318 262 Q309 266 300 264 Q291 266 282 262Z" fill="#C9A84C" opacity="0.5"/>
+
+      <!-- Label text -->
+      <text x="300" y="640" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="10" letter-spacing="10" fill="#C9A84C" opacity="0.35" font-weight="300">NOIR COFFEE · 2021</text>
+
+      <!-- Small scatter dots -->
+      <circle cx="60" cy="600" r="2" fill="#C9A84C" opacity="0.25"/>
+      <circle cx="540" cy="100" r="3" fill="#C9A84C" opacity="0.2"/>
+      <circle cx="500" cy="420" r="1.5" fill="#C9A84C" opacity="0.3"/>
+      <circle cx="80" cy="320" r="2" fill="#C9A84C" opacity="0.15"/>
+    </svg>
+  </div>
+  <div class="about-text">
+    <div class="section-num">02 — About Us</div>
+    <h2 class="section-title">เรื่องราว<br><em>ของเรา</em></h2>
+    <div class="divider"></div>
+    <p class="about-body">
+      NOIR Coffee เกิดจากความหลงใหลในกาแฟและศิลปะ เราเชื่อว่าทุกแก้วกาแฟดีคือประสบการณ์ที่สมบูรณ์แบบ — ตั้งแต่เมล็ดที่คัดสรร กระบวนการคั่วที่พิถีพิถัน จนถึงการชงที่ใส่ใจทุกรายละเอียด ในพื้นที่ที่ออกแบบมาเพื่อให้คุณได้ชะลอความเร่งรีบของชีวิต
+    </p>
+    <div class="perks">
+      <div class="perk">
+        <div class="perk-num">I</div>
+        <div class="perk-text">
+          <strong>กาแฟคั่วสด</strong>
+          <span>คั่วใหม่ทุกสัปดาห์ จากไร่ชั้นนำในไทยและต่างประเทศ</span>
+        </div>
+      </div>
+      <div class="perk">
+        <div class="perk-num">II</div>
+        <div class="perk-text">
+          <strong>บรรยากาศอบอุ่น</strong>
+          <span>ตกแต่งสไตล์ Nordic-Minimal ผ่อนคลายและสร้างสรรค์</span>
+        </div>
+      </div>
+      <div class="perk">
+        <div class="perk-num">III</div>
+        <div class="perk-text">
+          <strong>Wi-Fi ความเร็วสูง</strong>
+          <span>รองรับ Work from Café ได้ทุกวัน ไม่มีจำกัดเวลา</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery">
+  <div class="gallery-header">
+    <div>
+      <div class="section-num">03 — Gallery</div>
+      <h2 class="section-title">บรรยากาศ<em>ร้าน</em></h2>
+    </div>
+    <p style="font-size:0.72rem;color:var(--white-muted);max-width:220px;line-height:1.8;font-weight:200;letter-spacing:0.06em;">ออกแบบเพื่อสร้างประสบการณ์ที่น่าจดจำในทุกมุมของร้าน</p>
+  </div>
+  <div class="gallery-grid">
+    <div class="g-item tall">
+      <svg viewBox="0 0 400 524" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="400" height="524" fill="#2A2720"/>
+        <rect width="400" height="524" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.2"/>
+        <circle cx="200" cy="200" r="130" fill="#322E24"/>
+        <circle cx="200" cy="200" r="80" fill="#1C1A16"/>
+        <circle cx="200" cy="200" r="40" fill="#2A2720"/>
+        <circle cx="200" cy="200" r="15" fill="#C9A84C" opacity="0.4"/>
+        <text x="200" y="420" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="60" fill="#C9A84C" opacity="0.15" font-weight="300">☕</text>
+        <text x="200" y="490" text-anchor="middle" font-family="'Josefin Sans',sans-serif" font-size="9" letter-spacing="6" fill="#C9A84C" opacity="0.4">INTERIOR</text>
+      </svg>
+      <div class="g-item-label">Interior View</div>
+    </div>
+    <div class="g-item">
+      <svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="260" height="260" fill="#322E24"/>
+        <ellipse cx="130" cy="160" rx="80" ry="12" fill="#1C1A16" opacity="0.5"/>
+        <path d="M85 80 Q80 150 100 165 Q130 178 160 165 Q180 150 175 80 Z" fill="#2A2720"/>
+        <ellipse cx="130" cy="82" rx="43" ry="11" fill="#4A2E1A"/>
+        <ellipse cx="130" cy="82" rx="30" ry="7" fill="#C9A84C" opacity="0.35"/>
+        <path d="M175 100 Q200 100 200 120 Q200 145 175 145" stroke="#2A2720" stroke-width="12" fill="none" stroke-linecap="round"/>
+        <text x="130" y="220" text-anchor="middle" font-family="'Josefin Sans',sans-serif" font-size="8" letter-spacing="5" fill="#C9A84C" opacity="0.4">COFFEE</text>
+      </svg>
+      <div class="g-item-label">Signature Cup</div>
+    </div>
+    <div class="g-item">
+      <svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="260" height="260" fill="#1C1A16"/>
+        <circle cx="130" cy="120" r="70" fill="#2A2720"/>
+        <circle cx="130" cy="120" r="50" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.4"/>
+        <path d="M100 105 Q115 90 130 98 Q145 90 160 105 Q145 118 130 112 Q115 118 100 105Z" fill="#C9A84C" opacity="0.5"/>
+        <line x1="130" y1="90" x2="130" y2="135" stroke="#C9A84C" stroke-width="0.8" opacity="0.4"/>
+        <text x="130" y="220" text-anchor="middle" font-family="'Josefin Sans',sans-serif" font-size="8" letter-spacing="5" fill="#C9A84C" opacity="0.4">LATTE ART</text>
+      </svg>
+      <div class="g-item-label">Latte Art</div>
+    </div>
+    <div class="g-item">
+      <svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="260" height="260" fill="#2A2720"/>
+        <rect x="40" y="60" width="180" height="140" rx="4" fill="#1C1A16"/>
+        <rect x="40" y="60" width="180" height="140" rx="4" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.3"/>
+        <rect x="55" y="80" width="80" height="6" rx="3" fill="#C9A84C" opacity="0.4"/>
+        <rect x="55" y="95" width="120" height="4" rx="2" fill="#C9A84C" opacity="0.2"/>
+        <rect x="55" y="107" width="100" height="4" rx="2" fill="#C9A84C" opacity="0.15"/>
+        <circle cx="190" cy="100" r="20" fill="#2A2720"/>
+        <circle cx="190" cy="100" r="12" fill="#C9A84C" opacity="0.3"/>
+        <text x="130" y="230" text-anchor="middle" font-family="'Josefin Sans',sans-serif" font-size="8" letter-spacing="5" fill="#C9A84C" opacity="0.4">WORKSPACE</text>
+      </svg>
+      <div class="g-item-label">Work Space</div>
+    </div>
+    <div class="g-item">
+      <svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="260" height="260" fill="#322E24"/>
+        <rect x="30" y="100" width="80" height="110" rx="4" fill="#2A2720"/>
+        <rect x="120" y="80" width="80" height="130" rx="4" fill="#1C1A16"/>
+        <rect x="50" y="60" width="60" height="50" rx="4" fill="#2A2720" opacity="0.7"/>
+        <rect x="30" y="100" width="80" height="110" rx="4" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.2"/>
+        <rect x="120" y="80" width="80" height="130" rx="4" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.2"/>
+        <text x="130" y="240" text-anchor="middle" font-family="'Josefin Sans',sans-serif" font-size="8" letter-spacing="5" fill="#C9A84C" opacity="0.4">AMBIENCE</text>
+      </svg>
+      <div class="g-item-label">Ambience</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact-section" id="contact">
+  <div class="section-num">04 — Find Us</div>
+  <h2 class="section-title" style="margin-bottom:4rem;">ติดต่อ<em>ร้าน</em></h2>
+  <div class="contact-inner">
+    <div>
+      <div class="contact-details">
+        <div class="c-row">
+          <div class="c-label">Address · ที่อยู่</div>
+          <div class="c-val">42/7 ถนนสุขุมวิท ซอย 11<br>คลองเตย กรุงเทพฯ 10110</div>
+        </div>
+        <div class="c-row">
+          <div class="c-label">Hours · เวลาเปิด–ปิด</div>
+          <div class="c-val">จันทร์–ศุกร์</div>
+          <div class="c-sub" style="margin-top:4px;">07:00 – 21:00 น.</div>
+          <div class="c-val" style="margin-top:12px;">เสาร์–อาทิตย์</div>
+          <div class="c-sub" style="margin-top:4px;">08:00 – 22:00 น.</div>
+        </div>
+        <div class="c-row">
+          <div class="c-label">Phone · โทรศัพท์</div>
+          <div class="c-val">062-XXX-XXXX</div>
+        </div>
+        <div class="c-row">
+          <div class="c-label">Email · อีเมล</div>
+          <div class="c-val" style="font-size:0.95rem;">hello@noircoffee.co.th</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="social-panel">
+        <div class="social-title">Connect <em>with us</em></div>
+        <div class="social-links">
+          <div class="s-link">
+            <div>
+              <div class="s-link-name">Line Official</div>
+              <div class="s-link-handle">@noircoffee</div>
+            </div>
+            <span class="s-arrow">↗</span>
+          </div>
+          <div class="s-link">
+            <div>
+              <div class="s-link-name">Facebook</div>
+              <div class="s-link-handle">NOIR Coffee Bangkok</div>
+            </div>
+            <span class="s-arrow">↗</span>
+          </div>
+          <div class="s-link">
+            <div>
+              <div class="s-link-name">Instagram</div>
+              <div class="s-link-handle">@noir.coffee.bkk</div>
+            </div>
+            <span class="s-arrow">↗</span>
+          </div>
+          <div class="s-link">
+            <div>
+              <div class="s-link-name">Google Maps</div>
+              <div class="s-link-handle">ดูเส้นทาง →</div>
+            </div>
+            <span class="s-arrow">↗</span>
+          </div>
+        </div>
+        <button class="reserve-btn">จองโต๊ะ — Reserve a Table</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">NOIR<span class="footer-gold">.</span></div>
+  <div class="footer-copy">© 2024 NOIR Coffee · <span class="footer-gold">Specialty Coffee Bangkok</span> · All Rights Reserved</div>
+</footer>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  });
+  function animateRing() {
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+  document.querySelectorAll('a,button,.menu-item,.s-link').forEach(el => {
+    el.addEventListener('mouseenter', () => { ring.style.transform = 'translate(-50%,-50%) scale(1.8)'; ring.style.borderColor = 'rgba(201,168,76,0.6)'; });
+    el.addEventListener('mouseleave', () => { ring.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.borderColor = 'rgba(201,168,76,0.4)'; });
+  });
+
+  // Nav scroll
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Smooth links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) t.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Menu hover
+  document.querySelectorAll('.menu-item').forEach(item => {
+    item.addEventListener('mouseenter', () => item.style.transition = 'all 0.3s ease');
+  });
+</script>
+</body>
+</html>

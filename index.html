@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-store" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>ภาพปกงาน | Portfolio Cover</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper: oklch(96% 0.018 62);
+      --paper-soft: oklch(93% 0.026 48);
+      --ink: oklch(22% 0.035 40);
+      --muted: oklch(48% 0.035 52);
+      --line: oklch(80% 0.028 56);
+      --cobalt: oklch(56% 0.19 256);
+      --coral: oklch(68% 0.135 35);
+      --mint: oklch(79% 0.09 165);
+      --butter: oklch(91% 0.09 88);
+      --surface: oklch(98% 0.012 65);
+      --shadow: 0 26px 70px oklch(24% 0.04 42 / 0.16);
+      --radius: 8px;
+      --max: 1180px;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Noto Sans Thai", "Bai Jamjuree", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, var(--paper) 0%, oklch(95% 0.017 78) 48%, oklch(92% 0.03 165) 100%);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background-image:
+        linear-gradient(oklch(40% 0.05 50 / 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, oklch(40% 0.05 50 / 0.06) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: linear-gradient(to bottom, oklch(0% 0 0 / 0.42), transparent 72%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .page-shell {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: oklch(96% 0.018 62 / 0.95);
+      border-bottom: 1px solid oklch(78% 0.03 55 / 0.55);
+    }
+
+    .nav {
+      min-height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "Bai Jamjuree", sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--cobalt);
+      color: var(--surface);
+      font-size: 0.8rem;
+      box-shadow: 0 10px 24px oklch(56% 0.19 256 / 0.24);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      min-height: 38px;
+      align-items: center;
+      padding: 0 13px;
+      border-radius: 8px;
+      transition: background 180ms var(--ease), color 180ms var(--ease);
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+      background: oklch(89% 0.046 65);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 650px;
+      display: grid;
+      align-items: center;
+      padding: 72px 0 48px;
+      overflow: hidden;
+    }
+
+    .cover-ribbon {
+      position: absolute;
+      top: 32px;
+      left: max(16px, calc((100vw - var(--max)) / 2));
+      z-index: 5;
+      min-width: 128px;
+      padding: 8px 18px 9px;
+      border-radius: 0 8px 8px 0;
+      background: var(--cobalt);
+      color: var(--surface);
+      font-family: "Bai Jamjuree", sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      box-shadow: 0 16px 34px oklch(56% 0.19 256 / 0.26);
+    }
+
+    .hero-art {
+      position: absolute;
+      top: 28px;
+      right: max(-30px, calc((100vw - var(--max)) / 2 - 46px));
+      width: 680px;
+      height: 545px;
+      pointer-events: auto;
+    }
+
+    .stage-disc {
+      position: absolute;
+      right: 52px;
+      top: 22px;
+      width: 470px;
+      height: 470px;
+      border-radius: 50%;
+      background:
+        linear-gradient(145deg, oklch(91% 0.04 39), oklch(96% 0.019 68));
+      border: 1px solid oklch(81% 0.034 50 / 0.72);
+      box-shadow: inset 0 18px 45px oklch(100% 0 0 / 0.65), var(--shadow);
+      pointer-events: none;
+    }
+
+    .main-preview,
+    .float-preview {
+      position: absolute;
+      display: block;
+      overflow: hidden;
+      border-radius: 8px;
+      border: 1px solid oklch(82% 0.035 48);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      color: inherit;
+      cursor: pointer;
+      transition: transform 220ms var(--ease), box-shadow 220ms var(--ease), border-color 220ms var(--ease);
+    }
+
+    .main-preview:hover,
+    .main-preview:focus-visible {
+      transform: rotate(1deg) translateY(-7px);
+      border-color: oklch(56% 0.19 256 / 0.58);
+      box-shadow: 0 34px 82px oklch(24% 0.04 42 / 0.2);
+      outline: none;
+    }
+
+    .float-preview.one:hover,
+    .float-preview.one:focus-visible {
+      transform: rotate(-2deg) translateY(-6px);
+    }
+
+    .float-preview.two:hover,
+    .float-preview.two:focus-visible {
+      transform: rotate(3deg) translateY(-6px);
+    }
+
+    .float-preview.three:hover,
+    .float-preview.three:focus-visible {
+      transform: rotate(0deg) translateY(-6px);
+    }
+
+    .main-preview {
+      right: 132px;
+      top: 78px;
+      width: 260px;
+      height: 336px;
+      transform: rotate(3deg);
+    }
+
+    .float-preview {
+      width: 154px;
+      height: 106px;
+    }
+
+    .float-preview.one {
+      left: 36px;
+      top: 214px;
+      transform: rotate(-4deg);
+    }
+
+    .float-preview.two {
+      right: 24px;
+      bottom: 66px;
+      transform: rotate(5deg);
+    }
+
+    .float-preview.three {
+      left: 160px;
+      bottom: 28px;
+      width: 132px;
+      height: 92px;
+      transform: rotate(2deg);
+    }
+
+    .shot {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      isolation: isolate;
+      background: var(--surface);
+    }
+
+    .shot::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(135deg, var(--shot-a), var(--shot-b));
+    }
+
+    .shot::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(oklch(98% 0.012 65 / 0.18) 1px, transparent 1px),
+        linear-gradient(90deg, oklch(98% 0.012 65 / 0.18) 1px, transparent 1px);
+      background-size: 22px 22px;
+      opacity: var(--grid-opacity, 0.34);
+    }
+
+    .shot-academy {
+      --shot-a: oklch(18% 0.038 204);
+      --shot-b: oklch(32% 0.08 168);
+      --shot-ink: oklch(92% 0.018 92);
+      --shot-muted: oklch(76% 0.04 186);
+      --shot-accent: oklch(77% 0.142 168);
+    }
+
+    .shot-brew {
+      --shot-a: oklch(22% 0.042 42);
+      --shot-b: oklch(76% 0.07 67);
+      --shot-ink: oklch(96% 0.018 72);
+      --shot-muted: oklch(86% 0.036 72);
+      --shot-accent: oklch(73% 0.092 71);
+      --grid-opacity: 0.12;
+    }
+
+    .shot-noir {
+      --shot-a: oklch(15% 0.03 54);
+      --shot-b: oklch(28% 0.04 76);
+      --shot-ink: oklch(94% 0.018 78);
+      --shot-muted: oklch(78% 0.04 79);
+      --shot-accent: oklch(76% 0.11 82);
+      --grid-opacity: 0.1;
+    }
+
+    .shot-drip {
+      --shot-a: oklch(12% 0.01 120);
+      --shot-b: oklch(20% 0.05 126);
+      --shot-ink: oklch(92% 0.02 118);
+      --shot-muted: oklch(72% 0.05 128);
+      --shot-accent: oklch(90% 0.22 128);
+      --grid-opacity: 0.22;
+    }
+
+    .shot-cozy {
+      --shot-a: oklch(95% 0.036 74);
+      --shot-b: oklch(82% 0.08 145);
+      --shot-ink: oklch(28% 0.052 45);
+      --shot-muted: oklch(45% 0.046 57);
+      --shot-accent: oklch(66% 0.11 45);
+      --grid-opacity: 0.18;
+    }
+
+    .shot-nav,
+    .shot-line,
+    .shot-panel,
+    .shot-pill,
+    .shot-disc,
+    .shot-ticker {
+      position: absolute;
+      display: block;
+      border-radius: 8px;
+    }
+
+    .shot-nav {
+      top: 7%;
+      left: 9%;
+      right: 9%;
+      height: 7%;
+      background: oklch(100% 0 0 / 0.18);
+      border: 1px solid oklch(100% 0 0 / 0.18);
+    }
+
+    .shot-title {
+      position: absolute;
+      left: 9%;
+      top: 22%;
+      color: var(--shot-ink);
+      font-family: "Bai Jamjuree", sans-serif;
+      font-size: 1.08rem;
+      font-weight: 700;
+      line-height: 1.05;
+      max-width: 8ch;
+    }
+
+    .main-preview .shot-title {
+      font-size: 1.62rem;
+    }
+
+    .feature-shot .shot-title {
+      font-size: 2.8rem;
+      max-width: 10ch;
+    }
+
+    .shot-line {
+      left: 9%;
+      height: 4%;
+      background: oklch(100% 0 0 / 0.28);
+    }
+
+    .shot-line.one {
+      top: 48%;
+      width: 48%;
+    }
+
+    .shot-line.two {
+      top: 57%;
+      width: 36%;
+      background: var(--shot-accent);
+    }
+
+    .shot-line.three {
+      top: 67%;
+      width: 58%;
+    }
+
+    .shot-panel {
+      right: 9%;
+      bottom: 11%;
+      width: 34%;
+      height: 28%;
+      background: oklch(100% 0 0 / 0.2);
+      border: 1px solid oklch(100% 0 0 / 0.22);
+    }
+
+    .shot-disc {
+      right: 11%;
+      top: 24%;
+      width: 34%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: var(--shot-accent);
+      box-shadow: inset 0 14px 22px oklch(100% 0 0 / 0.24);
+    }
+
+    .shot-pill {
+      left: 9%;
+      bottom: 10%;
+      width: 32%;
+      height: 9%;
+      background: var(--shot-accent);
+    }
+
+    .shot-ticker {
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 12%;
+      border-radius: 0;
+      background: var(--shot-accent);
+    }
+
+    .shot-drip .shot-title {
+      top: 28%;
+      font-size: 1.85rem;
+      color: var(--shot-accent);
+    }
+
+    .feature-shot.shot-drip .shot-title {
+      font-size: 3.6rem;
+    }
+
+    .shot-cozy .shot-title {
+      color: var(--shot-ink);
+    }
+
+    .mini-shot .shot-title,
+    .float-preview .shot-title {
+      font-size: 0.7rem;
+    }
+
+    .mini-shot .shot-line,
+    .float-preview .shot-line {
+      height: 5%;
+    }
+
+    .shot-open {
+      position: absolute;
+      right: 8%;
+      bottom: 8%;
+      z-index: 2;
+      display: inline-grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: oklch(98% 0.012 65 / 0.9);
+      color: oklch(20% 0.035 40);
+      font-family: "Bai Jamjuree", sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      box-shadow: 0 10px 24px oklch(15% 0.03 40 / 0.18);
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 6;
+      max-width: 560px;
+      padding-top: 36px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      color: var(--coral);
+      font-weight: 700;
+      font-size: 0.94rem;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 2px;
+      border-radius: 99px;
+      background: var(--coral);
+    }
+
+    h1 {
+      font-family: "Bai Jamjuree", sans-serif;
+      font-size: 5.35rem;
+      line-height: 0.94;
+      font-weight: 700;
+      max-width: 9ch;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy p {
+      max-width: 58ch;
+      color: var(--muted);
+      font-size: 1.06rem;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .button {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      padding: 0 18px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: transform 180ms var(--ease), background 180ms var(--ease), border-color 180ms var(--ease);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button:focus-visible,
+    .stack-link:focus-visible,
+    .feature-panel:focus-visible,
+    .work-card:focus-visible {
+      outline: 3px solid oklch(56% 0.19 256 / 0.36);
+      outline-offset: 3px;
+    }
+
+    .button.primary {
+      background: var(--ink);
+      color: var(--surface);
+      box-shadow: 0 14px 28px oklch(22% 0.035 40 / 0.18);
+    }
+
+    .button.secondary {
+      color: var(--ink);
+      border-color: var(--line);
+      background: oklch(98% 0.012 65 / 0.72);
+    }
+
+    .repo-strip {
+      position: relative;
+      z-index: 7;
+      width: min(760px, 100%);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-top: 44px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--line);
+    }
+
+    .repo-item {
+      min-height: 82px;
+      display: grid;
+      align-content: center;
+      gap: 2px;
+      padding: 14px 18px;
+      background: oklch(98% 0.012 65 / 0.86);
+    }
+
+    .repo-item strong {
+      font-family: "Bai Jamjuree", sans-serif;
+      font-size: 1.55rem;
+      line-height: 1;
+    }
+
+    .repo-item span {
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    .section {
+      padding: 64px 0;
+      border-top: 1px solid oklch(80% 0.028 56 / 0.52);
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.6fr);
+      align-items: end;
+      gap: 32px;
+      margin-bottom: 26px;
+    }
+
+    .section-kicker {
+      color: var(--cobalt);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-family: "Bai Jamjuree", sans-serif;
+      font-size: 2.4rem;
+      line-height: 1.12;
+      max-width: 16ch;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      max-width: 54ch;
+      overflow-wrap: anywhere;
+    }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .feature-panel {
+      position: relative;
+      min-height: 430px;
+      overflow: hidden;
+      border-radius: 8px;
+      background: oklch(19% 0.033 42);
+      color: var(--surface);
+      border: 1px solid oklch(70% 0.04 50 / 0.28);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: transform 220ms var(--ease), box-shadow 220ms var(--ease), border-color 220ms var(--ease);
+    }
+
+    .feature-panel:hover {
+      transform: translateY(-4px);
+      border-color: oklch(56% 0.19 256 / 0.42);
+      box-shadow: 0 34px 78px oklch(22% 0.035 40 / 0.18);
+    }
+
+    .feature-shot {
+      min-height: 100%;
+    }
+
+    .feature-caption {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px;
+      border-radius: 8px;
+      background: oklch(97% 0.014 66 / 0.96);
+      color: var(--ink);
+      border: 1px solid oklch(79% 0.032 54 / 0.64);
+    }
+
+    .feature-caption strong {
+      font-family: "Bai Jamjuree", sans-serif;
+      font-size: 1.12rem;
+    }
+
+    .feature-caption span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .stack-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .stack-link {
+      display: grid;
+      grid-template-columns: 74px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 14px;
+      min-height: 94px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: oklch(98% 0.012 65 / 0.8);
+      transition: transform 180ms var(--ease), border-color 180ms var(--ease), box-shadow 180ms var(--ease);
+    }
+
+    .stack-link:hover {
+      transform: translateY(-2px);
+      border-color: oklch(60% 0.1 255 / 0.42);
+      box-shadow: 0 18px 36px oklch(22% 0.035 40 / 0.11);
+    }
+
+    .mini-shot {
+      width: 74px;
+      height: 74px;
+      overflow: hidden;
+      border-radius: 8px;
+      background: var(--paper-soft);
+      border: 1px solid oklch(78% 0.034 54 / 0.64);
+    }
+
+    .stack-copy strong {
+      display: block;
+      font-family: "Bai Jamjuree", sans-serif;
+      line-height: 1.24;
+    }
+
+    .stack-copy span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.88rem;
+      overflow-wrap: anywhere;
+    }
+
+    .open-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 84px;
+      min-height: 36px;
+      border-radius: 8px;
+      background: var(--butter);
+      color: oklch(28% 0.05 55);
+      font-weight: 700;
+      font-size: 0.86rem;
+    }
+
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .work-card {
+      min-height: 320px;
+      display: grid;
+      grid-template-rows: 158px 1fr;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: oklch(98% 0.012 65);
+      color: inherit;
+      text-decoration: none;
+      box-shadow: 0 14px 30px oklch(22% 0.035 40 / 0.08);
+      transition: transform 180ms var(--ease), box-shadow 180ms var(--ease), border-color 180ms var(--ease);
+    }
+
+    .work-card:hover {
+      transform: translateY(-4px);
+      border-color: oklch(60% 0.1 255 / 0.42);
+      box-shadow: 0 24px 48px oklch(22% 0.035 40 / 0.14);
+    }
+
+    .work-preview {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      background: var(--paper-soft);
+    }
+
+    .work-preview::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 58%, oklch(19% 0.033 42 / 0.34));
+    }
+
+    .work-body {
+      display: grid;
+      align-content: space-between;
+      gap: 18px;
+      padding: 16px;
+    }
+
+    .work-title {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .work-title h3 {
+      font-family: "Bai Jamjuree", sans-serif;
+      font-size: 1.12rem;
+      line-height: 1.22;
+    }
+
+    .work-number {
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--cobalt);
+      color: var(--surface);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .work-body p {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .work-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 9px;
+      border-radius: 8px;
+      background: oklch(91% 0.04 165);
+      color: oklch(32% 0.06 160);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .tag.alt {
+      background: oklch(91% 0.056 38);
+      color: oklch(34% 0.066 34);
+    }
+
+    .tag.open {
+      margin-left: auto;
+      background: var(--ink);
+      color: var(--surface);
+    }
+
+    .process-band {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 32px;
+      align-items: center;
+      padding: 44px;
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, oklch(25% 0.052 44), oklch(31% 0.06 165));
+      color: var(--surface);
+      overflow: hidden;
+    }
+
+    .process-band h2 {
+      max-width: 12ch;
+    }
+
+    .process-band p {
+      color: oklch(89% 0.02 76 / 0.86);
+      max-width: 62ch;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-top: 24px;
+      overflow: hidden;
+      border: 1px solid oklch(86% 0.022 76 / 0.22);
+      border-radius: 8px;
+      background: oklch(86% 0.022 76 / 0.22);
+    }
+
+    .step {
+      min-height: 132px;
+      display: grid;
+      align-content: start;
+      gap: 8px;
+      padding: 18px;
+      background: oklch(100% 0 0 / 0.08);
+    }
+
+    .step span {
+      color: var(--mint);
+      font-family: "Bai Jamjuree", sans-serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .step strong {
+      font-family: "Bai Jamjuree", sans-serif;
+      line-height: 1.2;
+    }
+
+    .step p {
+      color: oklch(89% 0.02 76 / 0.76);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .footer {
+      padding: 34px 0 44px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      border-top: 1px solid var(--line);
+      padding-top: 22px;
+    }
+
+    @media (max-width: 1080px) {
+      h1 {
+        font-size: 4.25rem;
+      }
+
+      .hero-art {
+        opacity: 0.58;
+        right: -210px;
+      }
+
+      .featured-grid,
+      .process-band {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page-shell {
+        width: calc(100vw - 24px);
+        max-width: var(--max);
+      }
+
+      .nav {
+        min-height: auto;
+        align-items: flex-start;
+        padding: 13px 0;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 4px;
+        font-size: 0.86rem;
+      }
+
+      .nav-links a {
+        justify-content: center;
+        padding: 0 4px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 86px 0 34px;
+      }
+
+      .cover-ribbon {
+        top: 82px;
+        left: 0;
+        border-radius: 0 8px 8px 0;
+      }
+
+      .hero-art {
+        position: relative;
+        top: auto;
+        right: auto;
+        width: 100%;
+        height: 330px;
+        opacity: 1;
+        order: 2;
+        margin-top: 24px;
+      }
+
+      .stage-disc {
+        right: 50%;
+        top: 8px;
+        width: 300px;
+        height: 300px;
+        transform: translateX(50%);
+      }
+
+      .main-preview {
+        right: 50%;
+        top: 44px;
+        width: 184px;
+        height: 238px;
+        transform: translateX(50%) rotate(2deg);
+      }
+
+      .float-preview {
+        width: 112px;
+        height: 78px;
+      }
+
+      .float-preview.one {
+        left: 8px;
+        top: 124px;
+      }
+
+      .float-preview.two {
+        right: 8px;
+        bottom: 38px;
+      }
+
+      .float-preview.three {
+        left: 46px;
+        bottom: 16px;
+      }
+
+      .hero-copy {
+        max-width: calc(100vw - 24px);
+        padding-top: 38px;
+      }
+
+      .hero-copy p {
+        max-width: calc(100vw - 24px);
+      }
+
+      h1 {
+        max-width: 10ch;
+        font-size: 3.18rem;
+      }
+
+      .repo-strip,
+      .section-heading,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .section {
+        padding: 44px 0;
+      }
+
+      h2 {
+        font-size: 1.92rem;
+      }
+
+      .feature-panel {
+        min-height: 330px;
+      }
+
+      .feature-caption {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .stack-link {
+        grid-template-columns: 64px minmax(0, 1fr);
+      }
+
+      .mini-shot {
+        width: 64px;
+        height: 64px;
+      }
+
+      .open-chip {
+        grid-column: 2;
+        justify-self: start;
+      }
+
+      .process-band {
+        padding: 24px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 460px) {
+      .page-shell,
+      .hero-copy,
+      .hero-copy p {
+        width: 342px;
+        max-width: calc(100vw - 24px);
+      }
+
+      h1 {
+        font-size: 2.55rem;
+      }
+
+      .hero-copy p,
+      .section-heading p {
+        font-size: 0.96rem;
+      }
+
+      .hero-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .works-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="page-shell nav" aria-label="หลัก">
+      <a class="brand" href="#top" aria-label="Portfolio Cover">
+        <span class="brand-mark">PC</span>
+        <span>Portfolio Cover</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#featured">ปกงาน</a></li>
+        <li><a href="#works">ไฟล์ทั้งหมด</a></li>
+        <li><a href="#system">โครงงาน</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="cover-ribbon">ภาพปกงาน</div>
+      <div class="page-shell">
+        <div class="hero-copy">
+          <div class="eyebrow">repo gallery for web projects</div>
+          <h1>รวมงานหน้าเว็บ</h1>
+          <p>
+            หน้าแรกของโฟลเดอร์พอร์ตนี้ รวมทุกไฟล์ HTML<br />
+            ให้เป็นภาพปกเดียว เปิดดูงานได้ทันที<br />
+            และยังคงไฟล์เดิมไว้ครบ.
+          </p>
+          <div class="hero-actions" aria-label="ลิงก์สำคัญ">
+            <a class="button primary" href="#works">ดูไฟล์ทั้งหมด</a>
+            <a class="button secondary" href="intern_landing_page_html_css.html">เปิดงานล่าสุด ↗</a>
+          </div>
+          <div class="repo-strip" aria-label="ข้อมูล repo">
+            <div class="repo-item">
+              <strong>5</strong>
+              <span>HTML works</span>
+            </div>
+            <div class="repo-item">
+              <strong>1</strong>
+              <span>cover index</span>
+            </div>
+            <div class="repo-item">
+              <strong>May</strong>
+              <span>2026 update</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-art" aria-label="ลิงก์เปิดเว็บตัวอย่าง">
+        <div class="stage-disc"></div>
+        <a class="main-preview" href="intern_landing_page_html_css.html" aria-label="เปิดเว็บจริง DevLaunch Academy">
+          <span class="shot shot-academy">
+            <span class="shot-nav"></span>
+            <span class="shot-title">DevLaunch</span>
+            <span class="shot-line one"></span>
+            <span class="shot-line two"></span>
+            <span class="shot-line three"></span>
+            <span class="shot-panel"></span>
+            <span class="shot-pill"></span>
+            <span class="shot-open" aria-hidden="true">↗</span>
+          </span>
+        </a>
+        <a class="float-preview one" href="coffee_shop_landing_page.html" aria-label="เปิดเว็บจริง Cozy Coffee Shop">
+          <span class="shot shot-cozy">
+            <span class="shot-nav"></span>
+            <span class="shot-title">Cozy Coffee</span>
+            <span class="shot-disc"></span>
+            <span class="shot-line one"></span>
+            <span class="shot-line two"></span>
+            <span class="shot-open" aria-hidden="true">↗</span>
+          </span>
+        </a>
+        <a class="float-preview two" href="coffee-landing.html" aria-label="เปิดเว็บจริง NOIR Coffee">
+          <span class="shot shot-noir">
+            <span class="shot-nav"></span>
+            <span class="shot-title">NOIR</span>
+            <span class="shot-disc"></span>
+            <span class="shot-line one"></span>
+            <span class="shot-line two"></span>
+            <span class="shot-open" aria-hidden="true">↗</span>
+          </span>
+        </a>
+        <a class="float-preview three" href="DRIP.html" aria-label="เปิดเว็บจริง DRIP Coffee Bar">
+          <span class="shot shot-drip">
+            <span class="shot-ticker"></span>
+            <span class="shot-title">DRIP</span>
+            <span class="shot-line one"></span>
+            <span class="shot-line two"></span>
+            <span class="shot-open" aria-hidden="true">↗</span>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="featured">
+      <div class="page-shell">
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">ภาพรวมงาน</div>
+            <h2>หน้าเดียวที่พาไปทุกโปรเจกต์</h2>
+          </div>
+          <p>
+            กดที่ภาพใหญ่หรือรายการด้านขวาเพื่อเข้าเว็บเต็มหน้าของแต่ละไฟล์ได้ทันที.
+            หน้าแรกนี้จึงเป็นทั้งภาพปกและประตูเข้าโปรเจกต์จริง.
+          </p>
+        </div>
+
+        <div class="featured-grid">
+          <a class="feature-panel" href="intern_landing_page_html_css.html" aria-label="เปิด DevLaunch Academy">
+            <span class="shot feature-shot shot-academy">
+              <span class="shot-nav"></span>
+              <span class="shot-title">DevLaunch Academy</span>
+              <span class="shot-line one"></span>
+              <span class="shot-line two"></span>
+              <span class="shot-line three"></span>
+              <span class="shot-panel"></span>
+              <span class="shot-pill"></span>
+            </span>
+            <div class="feature-caption">
+              <div>
+                <strong>DevLaunch Academy</strong>
+                <span>งานล่าสุด, landing page หลักสูตรฝึก frontend</span>
+              </div>
+              <span class="open-chip">เปิดเว็บ ↗</span>
+            </div>
+          </a>
+
+          <div class="stack-list" aria-label="งานแนะนำ">
+            <a class="stack-link" href="Brew%20%26%20Co..html">
+              <span class="mini-shot">
+                <span class="shot shot-brew">
+                  <span class="shot-nav"></span>
+                  <span class="shot-title">Brew</span>
+                  <span class="shot-disc"></span>
+                  <span class="shot-line one"></span>
+                </span>
+              </span>
+              <span class="stack-copy">
+                <strong>Brew &amp; Co.</strong>
+                <span>Brew &amp; Co..html</span>
+              </span>
+              <span class="open-chip">เปิดเว็บ</span>
+            </a>
+            <a class="stack-link" href="coffee-landing.html">
+              <span class="mini-shot">
+                <span class="shot shot-noir">
+                  <span class="shot-nav"></span>
+                  <span class="shot-title">NOIR</span>
+                  <span class="shot-disc"></span>
+                  <span class="shot-line one"></span>
+                </span>
+              </span>
+              <span class="stack-copy">
+                <strong>NOIR Coffee</strong>
+                <span>coffee-landing.html</span>
+              </span>
+              <span class="open-chip">เปิดเว็บ</span>
+            </a>
+            <a class="stack-link" href="DRIP.html">
+              <span class="mini-shot">
+                <span class="shot shot-drip">
+                  <span class="shot-ticker"></span>
+                  <span class="shot-title">DRIP</span>
+                  <span class="shot-line one"></span>
+                </span>
+              </span>
+              <span class="stack-copy">
+                <strong>DRIP Coffee Bar</strong>
+                <span>DRIP.html</span>
+              </span>
+              <span class="open-chip">เปิดเว็บ</span>
+            </a>
+            <a class="stack-link" href="coffee_shop_landing_page.html">
+              <span class="mini-shot">
+                <span class="shot shot-cozy">
+                  <span class="shot-nav"></span>
+                  <span class="shot-title">Cozy</span>
+                  <span class="shot-disc"></span>
+                  <span class="shot-line one"></span>
+                </span>
+              </span>
+              <span class="stack-copy">
+                <strong>Cozy Coffee Shop</strong>
+                <span>coffee_shop_landing_page.html</span>
+              </span>
+              <span class="open-chip">เปิดเว็บ</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="works">
+      <div class="page-shell">
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">ไฟล์ทั้งหมดในโฟลเดอร์</div>
+            <h2>งานทุกชิ้นเป็นการ์ดปก</h2>
+          </div>
+          <p>
+            กดตรงไหนบนการ์ดก็เข้าเว็บจริงของงานนั้น ไม่ต้องเล็งเฉพาะรูปหรือปุ่มเล็ก.
+          </p>
+        </div>
+
+        <div class="works-grid">
+          <a class="work-card" href="intern_landing_page_html_css.html" aria-label="เปิดเว็บจริง DevLaunch Academy">
+            <span class="work-preview">
+              <span class="shot shot-academy">
+                <span class="shot-nav"></span>
+                <span class="shot-title">DevLaunch</span>
+                <span class="shot-line one"></span>
+                <span class="shot-line two"></span>
+                <span class="shot-line three"></span>
+                <span class="shot-panel"></span>
+                <span class="shot-open" aria-hidden="true">↗</span>
+              </span>
+            </span>
+            <div class="work-body">
+              <div>
+                <div class="work-title">
+                  <h3>DevLaunch Academy</h3>
+                  <span class="work-number">01</span>
+                </div>
+                <p>Landing page ภาษาไทยสำหรับหลักสูตรฝึก frontend พร้อมโทน tech ที่จริงจัง.</p>
+              </div>
+              <div class="work-meta">
+                <span class="tag">education</span>
+                <span class="tag alt">latest</span>
+                <span class="tag open">เปิดเว็บ ↗</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="work-card" href="Brew%20%26%20Co..html" aria-label="เปิดเว็บจริง Brew and Co">
+            <span class="work-preview">
+              <span class="shot shot-brew">
+                <span class="shot-nav"></span>
+                <span class="shot-title">Brew</span>
+                <span class="shot-disc"></span>
+                <span class="shot-line one"></span>
+                <span class="shot-line two"></span>
+                <span class="shot-open" aria-hidden="true">↗</span>
+              </span>
+            </span>
+            <div class="work-body">
+              <div>
+                <div class="work-title">
+                  <h3>Brew &amp; Co.</h3>
+                  <span class="work-number">02</span>
+                </div>
+                <p>หน้า coffee brand โทนอุ่น เน้นเมนู บรรยากาศร้าน และภาพลักษณ์ specialty.</p>
+              </div>
+              <div class="work-meta">
+                <span class="tag">coffee</span>
+                <span class="tag alt">warm</span>
+                <span class="tag open">เปิดเว็บ ↗</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="work-card" href="coffee-landing.html" aria-label="เปิดเว็บจริง NOIR Coffee">
+            <span class="work-preview">
+              <span class="shot shot-noir">
+                <span class="shot-nav"></span>
+                <span class="shot-title">NOIR</span>
+                <span class="shot-disc"></span>
+                <span class="shot-line one"></span>
+                <span class="shot-line two"></span>
+                <span class="shot-open" aria-hidden="true">↗</span>
+              </span>
+            </span>
+            <div class="work-body">
+              <div>
+                <div class="work-title">
+                  <h3>NOIR Coffee</h3>
+                  <span class="work-number">03</span>
+                </div>
+                <p>คาเฟ่โทนมืด เน้นอารมณ์พรีเมียมและจังหวะ visual แบบ cinematic.</p>
+              </div>
+              <div class="work-meta">
+                <span class="tag">coffee</span>
+                <span class="tag alt">dark</span>
+                <span class="tag open">เปิดเว็บ ↗</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="work-card" href="DRIP.html" aria-label="เปิดเว็บจริง DRIP Coffee Bar">
+            <span class="work-preview">
+              <span class="shot shot-drip">
+                <span class="shot-ticker"></span>
+                <span class="shot-title">DRIP</span>
+                <span class="shot-line one"></span>
+                <span class="shot-line two"></span>
+                <span class="shot-panel"></span>
+                <span class="shot-open" aria-hidden="true">↗</span>
+              </span>
+            </span>
+            <div class="work-body">
+              <div>
+                <div class="work-title">
+                  <h3>DRIP Coffee Bar</h3>
+                  <span class="work-number">04</span>
+                </div>
+                <p>งานทดลองโทน neon, ticker, contrast สูง และบุคลิกที่แตกต่างจากงานคาเฟ่ทั่วไป.</p>
+              </div>
+              <div class="work-meta">
+                <span class="tag">coffee</span>
+                <span class="tag alt">neon</span>
+                <span class="tag open">เปิดเว็บ ↗</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="work-card" href="coffee_shop_landing_page.html" aria-label="เปิดเว็บจริง Cozy Coffee Shop">
+            <span class="work-preview">
+              <span class="shot shot-cozy">
+                <span class="shot-nav"></span>
+                <span class="shot-title">Cozy Coffee</span>
+                <span class="shot-disc"></span>
+                <span class="shot-line one"></span>
+                <span class="shot-line two"></span>
+                <span class="shot-open" aria-hidden="true">↗</span>
+              </span>
+            </span>
+            <div class="work-body">
+              <div>
+                <div class="work-title">
+                  <h3>Cozy Coffee Shop</h3>
+                  <span class="work-number">05</span>
+                </div>
+                <p>หน้า landing page คาเฟ่ในโทนอบอุ่น มีเมนู บรรยากาศร้าน และส่วนติดต่อครบ.</p>
+              </div>
+              <div class="work-meta">
+                <span class="tag">coffee</span>
+                <span class="tag alt">cozy</span>
+                <span class="tag open">เปิดเว็บ ↗</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="system">
+      <div class="page-shell">
+        <div class="process-band">
+          <div>
+            <div class="section-kicker">repo structure</div>
+            <h2>ไฟล์เดิมอยู่ครบ หน้าใหม่เป็นปก</h2>
+          </div>
+          <div>
+            <p>
+              โครงนี้ทำให้โฟลเดอร์กลายเป็นพอร์ตแบบเปิดแล้วเห็นภาพทันที:
+              `index.html` เป็นหน้าปก ส่วนไฟล์งานเดิมยังเป็นหน้าเดี่ยวที่แชร์หรือเปิดแยกได้.
+            </p>
+            <div class="steps" aria-label="ขั้นตอนการใช้งาน">
+              <div class="step">
+                <span>01</span>
+                <strong>เปิด index</strong>
+                <p>ใช้เป็นหน้าแรกของ repo หรือโฟลเดอร์ portfolio.</p>
+              </div>
+              <div class="step">
+                <span>02</span>
+                <strong>เลือกงาน</strong>
+                <p>ภาพปกย่อช่วยให้เห็นสไตล์ของแต่ละไฟล์ก่อนคลิก.</p>
+              </div>
+              <div class="step">
+                <span>03</span>
+                <strong>เพิ่มไฟล์ต่อได้</strong>
+                <p>เมื่องานเพิ่ม ก็เพิ่มการ์ดใหม่ในส่วนไฟล์ทั้งหมด.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="page-shell footer-inner">
+      <span>Portfolio Cover, local HTML gallery</span>
+      <span>Built from 5 existing work files</span>
+    </div>
+  </footer>
+</body>
+</html>
