@@ -692,6 +692,8 @@
 
     .feature-panel {
       position: relative;
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
       min-height: 430px;
       overflow: hidden;
       border-radius: 8px;
@@ -713,31 +715,44 @@
       min-height: 100%;
     }
 
+    .feature-panel > .preview-image {
+      min-height: 352px;
+    }
+
     .feature-caption {
-      position: absolute;
-      left: 18px;
-      right: 18px;
-      bottom: 18px;
-      display: flex;
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
       align-items: center;
-      justify-content: space-between;
       gap: 16px;
-      padding: 14px;
-      border-radius: 8px;
-      background: oklch(97% 0.014 66 / 0.96);
+      padding: 14px 16px;
+      background: oklch(97% 0.014 66 / 0.98);
       color: var(--ink);
-      border: 1px solid oklch(79% 0.032 54 / 0.64);
+      border-top: 1px solid oklch(79% 0.032 54 / 0.64);
+    }
+
+    .feature-caption > div {
+      min-width: 0;
     }
 
     .feature-caption strong {
+      display: block;
       font-family: "Bai Jamjuree", sans-serif;
       font-size: 1.12rem;
+      overflow-wrap: anywhere;
     }
 
     .feature-caption span {
       display: block;
       color: var(--muted);
       font-size: 0.86rem;
+      overflow-wrap: anywhere;
+    }
+
+    .feature-caption .open-chip {
+      justify-self: end;
+      white-space: nowrap;
     }
 
     .stack-list {
@@ -1320,9 +1335,14 @@
         min-height: 330px;
       }
 
+      .feature-panel > .preview-image {
+        min-height: 254px;
+      }
+
       .feature-caption {
+        grid-template-columns: 1fr;
         align-items: flex-start;
-        flex-direction: column;
+        gap: 12px;
       }
 
       .stack-link {
@@ -1334,7 +1354,11 @@
         height: 64px;
       }
 
-      .open-chip {
+      .feature-caption .open-chip {
+        justify-self: start;
+      }
+
+      .stack-link .open-chip {
         grid-column: 2;
         justify-self: start;
       }
