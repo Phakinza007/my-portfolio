@@ -939,6 +939,126 @@
       color: var(--ink);
     }
 
+    .case-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .case-panel {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.18fr);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: oklch(98% 0.012 65 / 0.9);
+      box-shadow: 0 18px 42px oklch(22% 0.035 40 / 0.08);
+    }
+
+    .case-shot {
+      position: relative;
+      min-height: 340px;
+      overflow: hidden;
+      background: var(--paper-soft);
+      border-right: 1px solid var(--line);
+    }
+
+    .case-shot::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 52%, oklch(19% 0.033 42 / 0.36));
+      pointer-events: none;
+    }
+
+    .case-content {
+      display: grid;
+      gap: 18px;
+      padding: 28px;
+    }
+
+    .case-topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+    .case-title {
+      display: grid;
+      gap: 10px;
+    }
+
+    .case-title h3 {
+      font-family: "Bai Jamjuree", sans-serif;
+      font-size: clamp(1.55rem, 3vw, 2.1rem);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .case-title p {
+      color: var(--muted);
+      max-width: 66ch;
+    }
+
+    .case-decisions {
+      display: grid;
+      gap: 0;
+      border-top: 1px solid oklch(80% 0.028 56 / 0.7);
+      border-bottom: 1px solid oklch(80% 0.028 56 / 0.7);
+    }
+
+    .case-decision {
+      display: grid;
+      grid-template-columns: 38px minmax(0, 1fr);
+      gap: 12px;
+      padding: 14px 0;
+    }
+
+    .case-decision + .case-decision {
+      border-top: 1px solid oklch(80% 0.028 56 / 0.48);
+    }
+
+    .case-decision span {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--cobalt);
+      color: var(--surface);
+      font-family: "Bai Jamjuree", sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .case-decision strong {
+      display: block;
+      margin-bottom: 3px;
+      font-family: "Bai Jamjuree", sans-serif;
+      line-height: 1.24;
+    }
+
+    .case-decision p {
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .practice-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      align-items: center;
+    }
+
+    .practice-label {
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
     .contact-band {
       display: grid;
       grid-template-columns: minmax(260px, 0.72fr) minmax(320px, 1.28fr);
@@ -1071,9 +1191,16 @@
       }
 
       .featured-grid,
+      .case-panel,
       .process-band,
       .contact-band {
         grid-template-columns: 1fr;
+      }
+
+      .case-shot {
+        min-height: 300px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
       }
     }
 
@@ -1216,6 +1343,14 @@
         padding: 24px;
       }
 
+      .case-content {
+        padding: 24px;
+      }
+
+      .case-decision {
+        grid-template-columns: 32px minmax(0, 1fr);
+      }
+
       .contact-band {
         padding: 24px;
       }
@@ -1254,6 +1389,20 @@
       .works-grid {
         grid-template-columns: 1fr;
       }
+
+      .case-topline {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .case-shot {
+        min-height: 220px;
+      }
+
+      .case-content .project-actions {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -1267,6 +1416,7 @@
       <ul class="nav-links">
         <li><a href="#featured">ปกงาน</a></li>
         <li><a href="#works">ไฟล์ทั้งหมด</a></li>
+        <li><a href="#case-studies">เบื้องหลังงาน</a></li>
         <li><a href="#contact">ติดต่อ</a></li>
         <li><a href="#system">โครงงาน</a></li>
       </ul>
@@ -1561,6 +1711,131 @@
               <div class="project-actions">
                 <a class="project-action live" href="coffee_shop_landing_page.html">View live</a>
                 <a class="project-action source" href="https://github.com/Phakinza007/my-portfolio/blob/main/coffee_shop_landing_page.html">Source file</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="case-studies">
+      <div class="page-shell">
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">เบื้องหลังงาน</div>
+            <h2>Case studies for reviewer-ready work</h2>
+          </div>
+          <p>
+            Two stronger pieces with the thinking behind the UI: what the page needed
+            to solve, which choices shaped it, and what frontend skills each project practiced.
+          </p>
+        </div>
+
+        <div class="case-grid">
+          <article class="case-panel">
+            <a class="case-shot" href="PulseBoard.html" aria-label="View live PulseBoard case study project">
+              <img class="preview-image" src="assets/thumbs/pulseboard.jpg" alt="PulseBoard dashboard screenshot" />
+              <span class="shot-open" aria-hidden="true">↗</span>
+            </a>
+            <div class="case-content">
+              <div class="case-topline">
+                <span>01 · Product UI</span>
+                <span>Event operations dashboard</span>
+              </div>
+              <div class="case-title">
+                <h3>PulseBoard: make a busy room readable.</h3>
+                <p>
+                  Challenge: design a single-screen command center where event staff can scan
+                  crowd flow, ownership, and timeline pressure without reading a long report.
+                </p>
+              </div>
+              <div class="case-decisions" aria-label="PulseBoard design decisions">
+                <div class="case-decision">
+                  <span>01</span>
+                  <div>
+                    <strong>Status hierarchy first</strong>
+                    <p>Large floor signals and color-coded states make the most urgent room conditions visible before the details.</p>
+                  </div>
+                </div>
+                <div class="case-decision">
+                  <span>02</span>
+                  <div>
+                    <strong>Task ownership stays close</strong>
+                    <p>Activity rows pair each event update with a responsible role so the dashboard feels actionable.</p>
+                  </div>
+                </div>
+                <div class="case-decision">
+                  <span>03</span>
+                  <div>
+                    <strong>Dashboard density without clutter</strong>
+                    <p>Panels, rhythm, and spacing keep the interface information-rich while still easy to scan.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="practice-tags" aria-label="PulseBoard practiced skills">
+                <span class="practice-label">Practiced:</span>
+                <span class="tag">dashboard UI</span>
+                <span class="tag">visual hierarchy</span>
+                <span class="tag alt">responsive layout</span>
+                <span class="tag alt">semantic HTML</span>
+              </div>
+              <div class="project-actions">
+                <a class="project-action live" href="PulseBoard.html">View live</a>
+                <a class="project-action source" href="https://github.com/Phakinza007/my-portfolio/blob/main/PulseBoard.html">Source file</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="case-panel">
+            <a class="case-shot" href="intern_landing_page_html_css.html" aria-label="View live DevLaunch Academy case study project">
+              <img class="preview-image" src="assets/thumbs/devlaunch.jpg" alt="DevLaunch Academy landing page screenshot" />
+              <span class="shot-open" aria-hidden="true">↗</span>
+            </a>
+            <div class="case-content">
+              <div class="case-topline">
+                <span>02 · Landing Page</span>
+                <span>Internship learning offer</span>
+              </div>
+              <div class="case-title">
+                <h3>DevLaunch Academy: turn practice into a path.</h3>
+                <p>
+                  Challenge: present a Thai frontend learning track in a way that feels structured,
+                  trustworthy, and easy for a beginner to understand before applying.
+                </p>
+              </div>
+              <div class="case-decisions" aria-label="DevLaunch Academy design decisions">
+                <div class="case-decision">
+                  <span>01</span>
+                  <div>
+                    <strong>Thai learning copy with clear momentum</strong>
+                    <p>The page explains the offer in familiar Thai while keeping action labels and section flow recruiter-friendly.</p>
+                  </div>
+                </div>
+                <div class="case-decision">
+                  <span>02</span>
+                  <div>
+                    <strong>Roadmap before pricing</strong>
+                    <p>Learning steps and project outcomes come before plan choices, so visitors understand the value first.</p>
+                  </div>
+                </div>
+                <div class="case-decision">
+                  <span>03</span>
+                  <div>
+                    <strong>Marketing UI with real structure</strong>
+                    <p>Hero, dashboard mockup, roadmap, showcase, pricing, and form sections practice a full landing-page IA.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="practice-tags" aria-label="DevLaunch Academy practiced skills">
+                <span class="practice-label">Practiced:</span>
+                <span class="tag">landing page IA</span>
+                <span class="tag">thai copy</span>
+                <span class="tag alt">responsive CSS</span>
+                <span class="tag alt">form states</span>
+              </div>
+              <div class="project-actions">
+                <a class="project-action live" href="intern_landing_page_html_css.html">View live</a>
+                <a class="project-action source" href="https://github.com/Phakinza007/my-portfolio/blob/main/intern_landing_page_html_css.html">Source file</a>
               </div>
             </div>
           </article>
