@@ -452,6 +452,25 @@
       height: 5%;
     }
 
+    .preview-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top left;
+      transform: scale(1.01);
+      transition: transform 260ms var(--ease), filter 260ms var(--ease);
+    }
+
+    .main-preview:hover .preview-image,
+    .float-preview:hover .preview-image,
+    .feature-panel:hover .preview-image,
+    .stack-link:hover .preview-image,
+    .work-card:hover .preview-image {
+      transform: scale(1.045);
+      filter: saturate(1.04);
+    }
+
     .shot-open {
       position: absolute;
       right: 8%;
@@ -539,7 +558,9 @@
     .button:focus-visible,
     .stack-link:focus-visible,
     .feature-panel:focus-visible,
-    .work-card:focus-visible {
+    .work-card:focus-visible,
+    .project-action:focus-visible,
+    .contact-link:focus-visible {
       outline: 3px solid oklch(56% 0.19 256 / 0.36);
       outline-offset: 3px;
     }
@@ -754,7 +775,6 @@
       border: 1px solid var(--line);
       background: oklch(98% 0.012 65);
       color: inherit;
-      text-decoration: none;
       box-shadow: 0 14px 30px oklch(22% 0.035 40 / 0.08);
       transition: transform 180ms var(--ease), box-shadow 180ms var(--ease), border-color 180ms var(--ease);
     }
@@ -847,6 +867,85 @@
       color: var(--surface);
     }
 
+    .project-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .project-action {
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      font-size: 0.84rem;
+      font-weight: 800;
+      transition: transform 180ms var(--ease), background 180ms var(--ease), border-color 180ms var(--ease);
+    }
+
+    .project-action:hover {
+      transform: translateY(-2px);
+    }
+
+    .project-action.live {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--surface);
+    }
+
+    .project-action.source {
+      background: oklch(97% 0.014 66);
+      color: var(--ink);
+    }
+
+    .contact-band {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.72fr) minmax(320px, 1.28fr);
+      gap: 34px;
+      align-items: center;
+      padding: 44px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: oklch(98% 0.012 65 / 0.86);
+      box-shadow: 0 18px 42px oklch(22% 0.035 40 / 0.08);
+    }
+
+    .contact-band h2 {
+      max-width: 11ch;
+    }
+
+    .contact-copy p {
+      color: var(--muted);
+      max-width: 65ch;
+      margin-bottom: 18px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .contact-link {
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      font-weight: 800;
+    }
+
+    .contact-link.primary {
+      background: var(--cobalt);
+      border-color: var(--cobalt);
+      color: var(--surface);
+    }
+
     .process-band {
       display: grid;
       grid-template-columns: 0.8fr 1.2fr;
@@ -933,7 +1032,8 @@
       }
 
       .featured-grid,
-      .process-band {
+      .process-band,
+      .contact-band {
         grid-template-columns: 1fr;
       }
     }
@@ -954,7 +1054,7 @@
       .nav-links {
         width: 100%;
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 4px;
         font-size: 0.86rem;
       }
@@ -1077,6 +1177,10 @@
         padding: 24px;
       }
 
+      .contact-band {
+        padding: 24px;
+      }
+
       .footer-inner {
         flex-direction: column;
       }
@@ -1124,6 +1228,7 @@
       <ul class="nav-links">
         <li><a href="#featured">ปกงาน</a></li>
         <li><a href="#works">ไฟล์ทั้งหมด</a></li>
+        <li><a href="#contact">ติดต่อ</a></li>
         <li><a href="#system">โครงงาน</a></li>
       </ul>
     </nav>
@@ -1143,11 +1248,11 @@
           </p>
           <div class="hero-actions" aria-label="ลิงก์สำคัญ">
             <a class="button primary" href="#works">ดูไฟล์ทั้งหมด</a>
-            <a class="button secondary" href="intern_landing_page_html_css.html">เปิดงานล่าสุด ↗</a>
+            <a class="button secondary" href="PulseBoard.html">เปิดงานใหม่ ↗</a>
           </div>
           <div class="repo-strip" aria-label="ข้อมูล repo">
             <div class="repo-item">
-              <strong>5</strong>
+              <strong>6</strong>
               <span>HTML works</span>
             </div>
             <div class="repo-item">
@@ -1164,46 +1269,21 @@
 
       <div class="hero-art" aria-label="ลิงก์เปิดเว็บตัวอย่าง">
         <div class="stage-disc"></div>
-        <a class="main-preview" href="intern_landing_page_html_css.html" aria-label="เปิดเว็บจริง DevLaunch Academy">
-          <span class="shot shot-academy">
-            <span class="shot-nav"></span>
-            <span class="shot-title">DevLaunch</span>
-            <span class="shot-line one"></span>
-            <span class="shot-line two"></span>
-            <span class="shot-line three"></span>
-            <span class="shot-panel"></span>
-            <span class="shot-pill"></span>
-            <span class="shot-open" aria-hidden="true">↗</span>
-          </span>
+        <a class="main-preview" href="PulseBoard.html" aria-label="เปิดเว็บจริง PulseBoard">
+          <img class="preview-image" src="assets/thumbs/pulseboard.jpg" alt="" />
+          <span class="shot-open" aria-hidden="true">↗</span>
         </a>
         <a class="float-preview one" href="coffee_shop_landing_page.html" aria-label="เปิดเว็บจริง Cozy Coffee Shop">
-          <span class="shot shot-cozy">
-            <span class="shot-nav"></span>
-            <span class="shot-title">Cozy Coffee</span>
-            <span class="shot-disc"></span>
-            <span class="shot-line one"></span>
-            <span class="shot-line two"></span>
-            <span class="shot-open" aria-hidden="true">↗</span>
-          </span>
+          <img class="preview-image" src="assets/thumbs/cozy-coffee.jpg" alt="" />
+          <span class="shot-open" aria-hidden="true">↗</span>
         </a>
         <a class="float-preview two" href="coffee-landing.html" aria-label="เปิดเว็บจริง NOIR Coffee">
-          <span class="shot shot-noir">
-            <span class="shot-nav"></span>
-            <span class="shot-title">NOIR</span>
-            <span class="shot-disc"></span>
-            <span class="shot-line one"></span>
-            <span class="shot-line two"></span>
-            <span class="shot-open" aria-hidden="true">↗</span>
-          </span>
+          <img class="preview-image" src="assets/thumbs/noir-coffee.jpg" alt="" />
+          <span class="shot-open" aria-hidden="true">↗</span>
         </a>
         <a class="float-preview three" href="DRIP.html" aria-label="เปิดเว็บจริง DRIP Coffee Bar">
-          <span class="shot shot-drip">
-            <span class="shot-ticker"></span>
-            <span class="shot-title">DRIP</span>
-            <span class="shot-line one"></span>
-            <span class="shot-line two"></span>
-            <span class="shot-open" aria-hidden="true">↗</span>
-          </span>
+          <img class="preview-image" src="assets/thumbs/drip.jpg" alt="" />
+          <span class="shot-open" aria-hidden="true">↗</span>
         </a>
       </div>
     </section>
@@ -1222,34 +1302,31 @@
         </div>
 
         <div class="featured-grid">
-          <a class="feature-panel" href="intern_landing_page_html_css.html" aria-label="เปิด DevLaunch Academy">
-            <span class="shot feature-shot shot-academy">
-              <span class="shot-nav"></span>
-              <span class="shot-title">DevLaunch Academy</span>
-              <span class="shot-line one"></span>
-              <span class="shot-line two"></span>
-              <span class="shot-line three"></span>
-              <span class="shot-panel"></span>
-              <span class="shot-pill"></span>
-            </span>
+          <a class="feature-panel" href="PulseBoard.html" aria-label="เปิด PulseBoard">
+            <img class="preview-image" src="assets/thumbs/pulseboard.jpg" alt="PulseBoard event operations dashboard screenshot" />
             <div class="feature-caption">
               <div>
-                <strong>DevLaunch Academy</strong>
-                <span>งานล่าสุด, landing page หลักสูตรฝึก frontend</span>
+                <strong>PulseBoard</strong>
+                <span>งานใหม่, event operations dashboard concept</span>
               </div>
               <span class="open-chip">เปิดเว็บ ↗</span>
             </div>
           </a>
 
           <div class="stack-list" aria-label="งานแนะนำ">
+            <a class="stack-link" href="intern_landing_page_html_css.html">
+              <span class="mini-shot">
+                <img class="preview-image" src="assets/thumbs/devlaunch.jpg" alt="" />
+              </span>
+              <span class="stack-copy">
+                <strong>DevLaunch Academy</strong>
+                <span>intern_landing_page_html_css.html</span>
+              </span>
+              <span class="open-chip">เปิดเว็บ</span>
+            </a>
             <a class="stack-link" href="Brew%20%26%20Co..html">
               <span class="mini-shot">
-                <span class="shot shot-brew">
-                  <span class="shot-nav"></span>
-                  <span class="shot-title">Brew</span>
-                  <span class="shot-disc"></span>
-                  <span class="shot-line one"></span>
-                </span>
+                <img class="preview-image" src="assets/thumbs/brew-co.jpg" alt="" />
               </span>
               <span class="stack-copy">
                 <strong>Brew &amp; Co.</strong>
@@ -1259,12 +1336,7 @@
             </a>
             <a class="stack-link" href="coffee-landing.html">
               <span class="mini-shot">
-                <span class="shot shot-noir">
-                  <span class="shot-nav"></span>
-                  <span class="shot-title">NOIR</span>
-                  <span class="shot-disc"></span>
-                  <span class="shot-line one"></span>
-                </span>
+                <img class="preview-image" src="assets/thumbs/noir-coffee.jpg" alt="" />
               </span>
               <span class="stack-copy">
                 <strong>NOIR Coffee</strong>
@@ -1274,11 +1346,7 @@
             </a>
             <a class="stack-link" href="DRIP.html">
               <span class="mini-shot">
-                <span class="shot shot-drip">
-                  <span class="shot-ticker"></span>
-                  <span class="shot-title">DRIP</span>
-                  <span class="shot-line one"></span>
-                </span>
+                <img class="preview-image" src="assets/thumbs/drip.jpg" alt="" />
               </span>
               <span class="stack-copy">
                 <strong>DRIP Coffee Bar</strong>
@@ -1288,12 +1356,7 @@
             </a>
             <a class="stack-link" href="coffee_shop_landing_page.html">
               <span class="mini-shot">
-                <span class="shot shot-cozy">
-                  <span class="shot-nav"></span>
-                  <span class="shot-title">Cozy</span>
-                  <span class="shot-disc"></span>
-                  <span class="shot-line one"></span>
-                </span>
+                <img class="preview-image" src="assets/thumbs/cozy-coffee.jpg" alt="" />
               </span>
               <span class="stack-copy">
                 <strong>Cozy Coffee Shop</strong>
@@ -1314,146 +1377,176 @@
             <h2>งานทุกชิ้นเป็นการ์ดปก</h2>
           </div>
           <p>
-            กดตรงไหนบนการ์ดก็เข้าเว็บจริงของงานนั้น ไม่ต้องเล็งเฉพาะรูปหรือปุ่มเล็ก.
+            แต่ละงานมีทางเข้าเว็บจริงและลิงก์ไฟล์ source แยกกัน เพื่อให้ดูผลงานและตรวจโค้ดได้ง่าย.
           </p>
         </div>
 
         <div class="works-grid">
-          <a class="work-card" href="intern_landing_page_html_css.html" aria-label="เปิดเว็บจริง DevLaunch Academy">
-            <span class="work-preview">
-              <span class="shot shot-academy">
-                <span class="shot-nav"></span>
-                <span class="shot-title">DevLaunch</span>
-                <span class="shot-line one"></span>
-                <span class="shot-line two"></span>
-                <span class="shot-line three"></span>
-                <span class="shot-panel"></span>
-                <span class="shot-open" aria-hidden="true">↗</span>
-              </span>
-            </span>
+          <article class="work-card">
+            <a class="work-preview" href="PulseBoard.html" aria-label="เปิดเว็บจริง PulseBoard">
+              <img class="preview-image" src="assets/thumbs/pulseboard.jpg" alt="PulseBoard dashboard screenshot" />
+              <span class="shot-open" aria-hidden="true">↗</span>
+            </a>
+            <div class="work-body">
+              <div>
+                <div class="work-title">
+                  <h3>PulseBoard</h3>
+                  <span class="work-number">01</span>
+                </div>
+                <p>Event operations dashboard concept with live floor status, task ownership, and schedule rhythm.</p>
+              </div>
+              <div class="work-meta">
+                <span class="tag">dashboard</span>
+                <span class="tag alt">new</span>
+              </div>
+              <div class="project-actions">
+                <a class="project-action live" href="PulseBoard.html">View live</a>
+                <a class="project-action source" href="https://github.com/Phakinza007/my-portfolio/blob/main/PulseBoard.html">Source file</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="work-card">
+            <a class="work-preview" href="intern_landing_page_html_css.html" aria-label="เปิดเว็บจริง DevLaunch Academy">
+              <img class="preview-image" src="assets/thumbs/devlaunch.jpg" alt="DevLaunch Academy screenshot" />
+              <span class="shot-open" aria-hidden="true">↗</span>
+            </a>
             <div class="work-body">
               <div>
                 <div class="work-title">
                   <h3>DevLaunch Academy</h3>
-                  <span class="work-number">01</span>
+                  <span class="work-number">02</span>
                 </div>
                 <p>Landing page ภาษาไทยสำหรับหลักสูตรฝึก frontend พร้อมโทน tech ที่จริงจัง.</p>
               </div>
               <div class="work-meta">
                 <span class="tag">education</span>
-                <span class="tag alt">latest</span>
-                <span class="tag open">เปิดเว็บ ↗</span>
+                <span class="tag alt">thai</span>
+              </div>
+              <div class="project-actions">
+                <a class="project-action live" href="intern_landing_page_html_css.html">View live</a>
+                <a class="project-action source" href="https://github.com/Phakinza007/my-portfolio/blob/main/intern_landing_page_html_css.html">Source file</a>
               </div>
             </div>
-          </a>
+          </article>
 
-          <a class="work-card" href="Brew%20%26%20Co..html" aria-label="เปิดเว็บจริง Brew and Co">
-            <span class="work-preview">
-              <span class="shot shot-brew">
-                <span class="shot-nav"></span>
-                <span class="shot-title">Brew</span>
-                <span class="shot-disc"></span>
-                <span class="shot-line one"></span>
-                <span class="shot-line two"></span>
-                <span class="shot-open" aria-hidden="true">↗</span>
-              </span>
-            </span>
+          <article class="work-card">
+            <a class="work-preview" href="Brew%20%26%20Co..html" aria-label="เปิดเว็บจริง Brew and Co">
+              <img class="preview-image" src="assets/thumbs/brew-co.jpg" alt="Brew and Co screenshot" />
+              <span class="shot-open" aria-hidden="true">↗</span>
+            </a>
             <div class="work-body">
               <div>
                 <div class="work-title">
                   <h3>Brew &amp; Co.</h3>
-                  <span class="work-number">02</span>
+                  <span class="work-number">03</span>
                 </div>
                 <p>หน้า coffee brand โทนอุ่น เน้นเมนู บรรยากาศร้าน และภาพลักษณ์ specialty.</p>
               </div>
               <div class="work-meta">
                 <span class="tag">coffee</span>
                 <span class="tag alt">warm</span>
-                <span class="tag open">เปิดเว็บ ↗</span>
+              </div>
+              <div class="project-actions">
+                <a class="project-action live" href="Brew%20%26%20Co..html">View live</a>
+                <a class="project-action source" href="https://github.com/Phakinza007/my-portfolio/blob/main/Brew%20%26%20Co..html">Source file</a>
               </div>
             </div>
-          </a>
+          </article>
 
-          <a class="work-card" href="coffee-landing.html" aria-label="เปิดเว็บจริง NOIR Coffee">
-            <span class="work-preview">
-              <span class="shot shot-noir">
-                <span class="shot-nav"></span>
-                <span class="shot-title">NOIR</span>
-                <span class="shot-disc"></span>
-                <span class="shot-line one"></span>
-                <span class="shot-line two"></span>
-                <span class="shot-open" aria-hidden="true">↗</span>
-              </span>
-            </span>
+          <article class="work-card">
+            <a class="work-preview" href="coffee-landing.html" aria-label="เปิดเว็บจริง NOIR Coffee">
+              <img class="preview-image" src="assets/thumbs/noir-coffee.jpg" alt="NOIR Coffee screenshot" />
+              <span class="shot-open" aria-hidden="true">↗</span>
+            </a>
             <div class="work-body">
               <div>
                 <div class="work-title">
                   <h3>NOIR Coffee</h3>
-                  <span class="work-number">03</span>
+                  <span class="work-number">04</span>
                 </div>
                 <p>คาเฟ่โทนมืด เน้นอารมณ์พรีเมียมและจังหวะ visual แบบ cinematic.</p>
               </div>
               <div class="work-meta">
                 <span class="tag">coffee</span>
                 <span class="tag alt">dark</span>
-                <span class="tag open">เปิดเว็บ ↗</span>
+              </div>
+              <div class="project-actions">
+                <a class="project-action live" href="coffee-landing.html">View live</a>
+                <a class="project-action source" href="https://github.com/Phakinza007/my-portfolio/blob/main/coffee-landing.html">Source file</a>
               </div>
             </div>
-          </a>
+          </article>
 
-          <a class="work-card" href="DRIP.html" aria-label="เปิดเว็บจริง DRIP Coffee Bar">
-            <span class="work-preview">
-              <span class="shot shot-drip">
-                <span class="shot-ticker"></span>
-                <span class="shot-title">DRIP</span>
-                <span class="shot-line one"></span>
-                <span class="shot-line two"></span>
-                <span class="shot-panel"></span>
-                <span class="shot-open" aria-hidden="true">↗</span>
-              </span>
-            </span>
+          <article class="work-card">
+            <a class="work-preview" href="DRIP.html" aria-label="เปิดเว็บจริง DRIP Coffee Bar">
+              <img class="preview-image" src="assets/thumbs/drip.jpg" alt="DRIP Coffee Bar screenshot" />
+              <span class="shot-open" aria-hidden="true">↗</span>
+            </a>
             <div class="work-body">
               <div>
                 <div class="work-title">
                   <h3>DRIP Coffee Bar</h3>
-                  <span class="work-number">04</span>
+                  <span class="work-number">05</span>
                 </div>
                 <p>งานทดลองโทน neon, ticker, contrast สูง และบุคลิกที่แตกต่างจากงานคาเฟ่ทั่วไป.</p>
               </div>
               <div class="work-meta">
                 <span class="tag">coffee</span>
                 <span class="tag alt">neon</span>
-                <span class="tag open">เปิดเว็บ ↗</span>
+              </div>
+              <div class="project-actions">
+                <a class="project-action live" href="DRIP.html">View live</a>
+                <a class="project-action source" href="https://github.com/Phakinza007/my-portfolio/blob/main/DRIP.html">Source file</a>
               </div>
             </div>
-          </a>
+          </article>
 
-          <a class="work-card" href="coffee_shop_landing_page.html" aria-label="เปิดเว็บจริง Cozy Coffee Shop">
-            <span class="work-preview">
-              <span class="shot shot-cozy">
-                <span class="shot-nav"></span>
-                <span class="shot-title">Cozy Coffee</span>
-                <span class="shot-disc"></span>
-                <span class="shot-line one"></span>
-                <span class="shot-line two"></span>
-                <span class="shot-open" aria-hidden="true">↗</span>
-              </span>
-            </span>
+          <article class="work-card">
+            <a class="work-preview" href="coffee_shop_landing_page.html" aria-label="เปิดเว็บจริง Cozy Coffee Shop">
+              <img class="preview-image" src="assets/thumbs/cozy-coffee.jpg" alt="Cozy Coffee Shop screenshot" />
+              <span class="shot-open" aria-hidden="true">↗</span>
+            </a>
             <div class="work-body">
               <div>
                 <div class="work-title">
                   <h3>Cozy Coffee Shop</h3>
-                  <span class="work-number">05</span>
+                  <span class="work-number">06</span>
                 </div>
                 <p>หน้า landing page คาเฟ่ในโทนอบอุ่น มีเมนู บรรยากาศร้าน และส่วนติดต่อครบ.</p>
               </div>
               <div class="work-meta">
                 <span class="tag">coffee</span>
                 <span class="tag alt">cozy</span>
-                <span class="tag open">เปิดเว็บ ↗</span>
+              </div>
+              <div class="project-actions">
+                <a class="project-action live" href="coffee_shop_landing_page.html">View live</a>
+                <a class="project-action source" href="https://github.com/Phakinza007/my-portfolio/blob/main/coffee_shop_landing_page.html">Source file</a>
               </div>
             </div>
-          </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="page-shell">
+        <div class="contact-band">
+          <div>
+            <div class="section-kicker">contact</div>
+            <h2>Phakin Chawanpunya</h2>
+          </div>
+          <div class="contact-copy">
+            <p>
+              Frontend and landing page practice portfolio focused on static HTML,
+              responsive CSS, visual direction, and polished project presentation.
+            </p>
+            <div class="contact-links" aria-label="contact links">
+              <a class="contact-link primary" href="https://github.com/Phakinza007">GitHub Profile</a>
+              <a class="contact-link" href="mailto:273589474+Pakkihaveuni@users.noreply.github.com">Email</a>
+              <a class="contact-link" href="https://github.com/Phakinza007/my-portfolio">Repository</a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1496,7 +1589,7 @@
   <footer class="footer">
     <div class="page-shell footer-inner">
       <span>Portfolio Cover, local HTML gallery</span>
-      <span>Built from 5 existing work files</span>
+      <span>Built from 6 HTML work files</span>
     </div>
   </footer>
 </body>

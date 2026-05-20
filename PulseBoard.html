@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PulseBoard | Event Operations Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: oklch(19% 0.035 248);
+      --muted: oklch(49% 0.042 240);
+      --paper: oklch(97% 0.015 92);
+      --panel: oklch(99% 0.009 98);
+      --line: oklch(83% 0.025 96);
+      --blue: oklch(57% 0.18 251);
+      --aqua: oklch(78% 0.12 188);
+      --lime: oklch(87% 0.17 128);
+      --coral: oklch(70% 0.16 34);
+      --violet: oklch(62% 0.16 298);
+      --shadow: 0 26px 80px oklch(20% 0.035 248 / 0.16);
+      --radius: 8px;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Manrope", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(140deg, oklch(96% 0.018 96), oklch(92% 0.05 184) 52%, oklch(96% 0.035 326));
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 800;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--ink);
+      color: var(--lime);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 0 13px;
+      border-radius: 8px;
+    }
+
+    .nav-links a:hover {
+      background: oklch(99% 0.009 98 / 0.72);
+      color: var(--ink);
+    }
+
+    .hero {
+      min-height: calc(100vh - 76px);
+      display: grid;
+      grid-template-columns: minmax(320px, 0.82fr) minmax(520px, 1.18fr);
+      align-items: center;
+      gap: clamp(28px, 5vw, 72px);
+      padding: 38px 0 74px;
+    }
+
+    .hero-copy {
+      max-width: 560px;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: oklch(42% 0.12 251);
+      font-size: 0.88rem;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .kicker::before {
+      content: "";
+      width: 26px;
+      height: 2px;
+      border-radius: 99px;
+      background: var(--blue);
+    }
+
+    h1 {
+      max-width: 10ch;
+      font-size: clamp(3.1rem, 8vw, 6.6rem);
+      line-height: 0.94;
+      font-weight: 800;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy p {
+      max-width: 62ch;
+      color: var(--muted);
+      font-size: 1.04rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      padding: 0 18px;
+      border: 1px solid transparent;
+      font-weight: 800;
+      transition: transform 180ms var(--ease), box-shadow 180ms var(--ease), background 180ms var(--ease);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button.primary {
+      color: oklch(98% 0.01 96);
+      background: var(--ink);
+      box-shadow: 0 18px 38px oklch(20% 0.035 248 / 0.18);
+    }
+
+    .button.secondary {
+      border-color: var(--line);
+      background: oklch(99% 0.009 98 / 0.72);
+    }
+
+    .command-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-top: 38px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--line);
+    }
+
+    .command-strip div {
+      min-height: 78px;
+      display: grid;
+      align-content: center;
+      gap: 3px;
+      padding: 14px;
+      background: oklch(99% 0.009 98 / 0.76);
+    }
+
+    .command-strip strong {
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+
+    .command-strip span {
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .board {
+      position: relative;
+      min-height: 610px;
+      border-radius: 8px;
+      border: 1px solid oklch(85% 0.03 104);
+      background:
+        linear-gradient(180deg, oklch(99% 0.009 98 / 0.94), oklch(96% 0.018 100 / 0.92));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .board::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(oklch(38% 0.06 240 / 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, oklch(38% 0.06 240 / 0.08) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+
+    .board-top {
+      position: relative;
+      z-index: 1;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .board-top strong {
+      font-size: 1rem;
+    }
+
+    .status-dot {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: oklch(35% 0.09 154);
+      font-size: 0.86rem;
+      font-weight: 800;
+    }
+
+    .status-dot::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--lime);
+      box-shadow: 0 0 0 6px oklch(87% 0.17 128 / 0.22);
+    }
+
+    .board-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 0.72fr;
+      gap: 14px;
+      padding: 18px;
+    }
+
+    .panel {
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: oklch(99% 0.009 98 / 0.82);
+      overflow: hidden;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .panel-head span {
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .stage-map {
+      min-height: 322px;
+      position: relative;
+      padding: 18px;
+    }
+
+    .stage {
+      position: absolute;
+      border-radius: 8px;
+      border: 1px solid oklch(30% 0.04 248 / 0.12);
+      display: grid;
+      place-items: center;
+      color: oklch(98% 0.01 96);
+      font-size: 0.76rem;
+      font-weight: 800;
+      box-shadow: 0 18px 38px oklch(25% 0.05 248 / 0.12);
+    }
+
+    .stage.main {
+      left: 28px;
+      top: 32px;
+      width: 48%;
+      height: 36%;
+      background: var(--blue);
+    }
+
+    .stage.gallery {
+      right: 26px;
+      top: 36px;
+      width: 34%;
+      height: 29%;
+      background: var(--coral);
+    }
+
+    .stage.lounge {
+      left: 20%;
+      bottom: 28px;
+      width: 54%;
+      height: 28%;
+      background: var(--violet);
+    }
+
+    .stage.service {
+      right: 28px;
+      bottom: 36px;
+      width: 20%;
+      height: 20%;
+      background: var(--ink);
+    }
+
+    .activity {
+      display: grid;
+      gap: 12px;
+      padding: 14px;
+    }
+
+    .activity-row {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .activity-row b {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      background: oklch(91% 0.09 188);
+      color: oklch(32% 0.09 206);
+      font-size: 0.8rem;
+    }
+
+    .activity-row strong {
+      display: block;
+      font-size: 0.9rem;
+      line-height: 1.2;
+    }
+
+    .activity-row span {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .activity-row em {
+      font-style: normal;
+      color: oklch(32% 0.09 154);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .timeline {
+      grid-column: 1 / -1;
+      padding: 16px;
+    }
+
+    .timeline-track {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .slot {
+      min-height: 84px;
+      display: grid;
+      align-content: space-between;
+      border-radius: 8px;
+      padding: 10px;
+      background: oklch(94% 0.035 108);
+      border: 1px solid oklch(82% 0.035 108);
+    }
+
+    .slot.hot {
+      background: oklch(91% 0.07 35);
+      border-color: oklch(76% 0.09 35);
+    }
+
+    .slot.cool {
+      background: oklch(92% 0.06 188);
+      border-color: oklch(78% 0.06 188);
+    }
+
+    .slot strong {
+      font-size: 0.78rem;
+    }
+
+    .slot span {
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .section {
+      padding: 74px 0;
+      border-top: 1px solid oklch(80% 0.03 100 / 0.62);
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: 0.7fr 1.3fr;
+      gap: 34px;
+      align-items: start;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.05;
+      max-width: 12ch;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      min-height: 210px;
+      display: grid;
+      align-content: space-between;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: oklch(99% 0.009 98 / 0.76);
+      padding: 18px;
+    }
+
+    .card span {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--ink);
+      color: var(--lime);
+      font-weight: 800;
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .footer {
+      padding: 32px 0 42px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      border-top: 1px solid var(--line);
+      padding-top: 22px;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .section-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .board {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 26px;
+      }
+
+      .command-strip,
+      .board-grid,
+      .cards,
+      .timeline-track {
+        grid-template-columns: 1fr;
+      }
+
+      .stage-map {
+        min-height: 280px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 460px) {
+      .shell {
+        width: calc(100% - 24px);
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell nav">
+    <a class="brand" href="#top" aria-label="PulseBoard home">
+      <span class="brand-mark">PB</span>
+      <span>PulseBoard</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#floor">Floor</a></li>
+      <li><a href="#flow">Flow</a></li>
+      <li><a href="#systems">Systems</a></li>
+    </ul>
+  </header>
+
+  <main id="top">
+    <section class="shell hero">
+      <div class="hero-copy">
+        <div class="kicker">live event command center</div>
+        <h1>Run the room in real time.</h1>
+        <p>
+          PulseBoard is a front-of-house operations dashboard for talks, pop-ups,
+          launches, and campus events where every minute has a job to do.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="#floor">View floor status</a>
+          <a class="button secondary" href="#systems">Open playbook</a>
+        </div>
+        <div class="command-strip" aria-label="current event metrics">
+          <div>
+            <strong>14</strong>
+            <span>active zones</span>
+          </div>
+          <div>
+            <strong>92%</strong>
+            <span>check-in flow</span>
+          </div>
+          <div>
+            <strong>07</strong>
+            <span>crew tasks</span>
+          </div>
+        </div>
+      </div>
+
+      <section class="board" id="floor" aria-label="event operations board">
+        <div class="board-top">
+          <strong>Today: Bangkok Design Night</strong>
+          <span class="status-dot">stable flow</span>
+        </div>
+        <div class="board-grid">
+          <article class="panel">
+            <div class="panel-head">
+              <strong>Floor Map</strong>
+              <span>live capacity</span>
+            </div>
+            <div class="stage-map">
+              <span class="stage main">Main Stage 78%</span>
+              <span class="stage gallery">Gallery 64%</span>
+              <span class="stage lounge">Lounge 41%</span>
+              <span class="stage service">Crew</span>
+            </div>
+          </article>
+
+          <article class="panel" id="flow">
+            <div class="panel-head">
+              <strong>Operations Feed</strong>
+              <span>next 18 min</span>
+            </div>
+            <div class="activity">
+              <div class="activity-row">
+                <b>A1</b>
+                <div>
+                  <strong>Speaker green room ready</strong>
+                  <span>host team confirmed arrival</span>
+                </div>
+                <em>done</em>
+              </div>
+              <div class="activity-row">
+                <b>B4</b>
+                <div>
+                  <strong>Queue spillover moved</strong>
+                  <span>north entrance now clear</span>
+                </div>
+                <em>live</em>
+              </div>
+              <div class="activity-row">
+                <b>C2</b>
+                <div>
+                  <strong>Workshop kit count</strong>
+                  <span>16 seats left in studio</span>
+                </div>
+                <em>soon</em>
+              </div>
+              <div class="activity-row">
+                <b>D8</b>
+                <div>
+                  <strong>Vendor reset window</strong>
+                  <span>coffee bar rotation at 20:10</span>
+                </div>
+                <em>hold</em>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel timeline">
+            <div class="panel-head">
+              <strong>Run Of Show</strong>
+              <span>room rhythm</span>
+            </div>
+            <div class="timeline-track">
+              <div class="slot cool">
+                <strong>18:00</strong>
+                <span>doors</span>
+              </div>
+              <div class="slot">
+                <strong>18:30</strong>
+                <span>opening</span>
+              </div>
+              <div class="slot hot">
+                <strong>19:10</strong>
+                <span>keynote</span>
+              </div>
+              <div class="slot">
+                <strong>19:55</strong>
+                <span>breakout</span>
+              </div>
+              <div class="slot cool">
+                <strong>20:40</strong>
+                <span>showcase</span>
+              </div>
+              <div class="slot">
+                <strong>21:15</strong>
+                <span>close</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </section>
+
+    <section class="section" id="systems">
+      <div class="shell section-grid">
+        <div>
+          <div class="kicker">built for quick reads</div>
+          <h2>Small signals before big problems.</h2>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <span>01</span>
+            <div>
+              <h3>Capacity Signals</h3>
+              <p>Know which rooms are warming up before a doorway gets crowded.</p>
+            </div>
+          </article>
+          <article class="card">
+            <span>02</span>
+            <div>
+              <h3>Task Ownership</h3>
+              <p>Every handoff has a status, owner, and location in one scan.</p>
+            </div>
+          </article>
+          <article class="card">
+            <span>03</span>
+            <div>
+              <h3>Show Timing</h3>
+              <p>Keep hosts, crews, vendors, and stage teams aligned to the minute.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell footer">
+    <div class="footer-inner">
+      <span>PulseBoard concept interface</span>
+      <span>Static HTML, CSS, responsive layout</span>
+    </div>
+  </footer>
+</body>
+</html>

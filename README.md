@@ -1,18 +1,21 @@
 # Portfolio Cover Gallery
 
-A static HTML portfolio gallery that collects five standalone landing-page projects into one cover page. The root `index.html` works as the portfolio entry point, and every project card opens the real full-page website.
+A static HTML portfolio gallery that collects six standalone front-end projects into one cover page. The root `index.html` works as the portfolio entry point, with separate links for viewing each live page and opening its source file.
+
+Live site: <https://phakinza007.github.io/my-portfolio/>
 
 ![Portfolio cover](assets/screenshots/cover.png)
 
 ## Projects
 
-| Project | File | Preview |
-| --- | --- | --- |
-| DevLaunch Academy | [`intern_landing_page_html_css.html`](intern_landing_page_html_css.html) | ![DevLaunch Academy screenshot](assets/screenshots/devlaunch.png) |
-| Brew & Co. | [`Brew & Co..html`](Brew%20%26%20Co..html) | ![Brew and Co screenshot](assets/screenshots/brew-co.png) |
-| NOIR Coffee | [`coffee-landing.html`](coffee-landing.html) | ![NOIR Coffee screenshot](assets/screenshots/noir-coffee.png) |
-| DRIP Coffee Bar | [`DRIP.html`](DRIP.html) | ![DRIP Coffee Bar screenshot](assets/screenshots/drip.png) |
-| Cozy Coffee Shop | [`coffee_shop_landing_page.html`](coffee_shop_landing_page.html) | ![Cozy Coffee Shop screenshot](assets/screenshots/cozy-coffee.png) |
+| Project | Live page | Source file | Preview |
+| --- | --- | --- | --- |
+| PulseBoard | [`PulseBoard.html`](PulseBoard.html) | [`PulseBoard.html`](https://github.com/Phakinza007/my-portfolio/blob/main/PulseBoard.html) | ![PulseBoard screenshot](assets/screenshots/pulseboard.png) |
+| DevLaunch Academy | [`intern_landing_page_html_css.html`](intern_landing_page_html_css.html) | [`intern_landing_page_html_css.html`](https://github.com/Phakinza007/my-portfolio/blob/main/intern_landing_page_html_css.html) | ![DevLaunch Academy screenshot](assets/screenshots/devlaunch.png) |
+| Brew & Co. | [`Brew & Co..html`](Brew%20%26%20Co..html) | [`Brew & Co..html`](https://github.com/Phakinza007/my-portfolio/blob/main/Brew%20%26%20Co..html) | ![Brew and Co screenshot](assets/screenshots/brew-co.png) |
+| NOIR Coffee | [`coffee-landing.html`](coffee-landing.html) | [`coffee-landing.html`](https://github.com/Phakinza007/my-portfolio/blob/main/coffee-landing.html) | ![NOIR Coffee screenshot](assets/screenshots/noir-coffee.png) |
+| DRIP Coffee Bar | [`DRIP.html`](DRIP.html) | [`DRIP.html`](https://github.com/Phakinza007/my-portfolio/blob/main/DRIP.html) | ![DRIP Coffee Bar screenshot](assets/screenshots/drip.png) |
+| Cozy Coffee Shop | [`coffee_shop_landing_page.html`](coffee_shop_landing_page.html) | [`coffee_shop_landing_page.html`](https://github.com/Phakinza007/my-portfolio/blob/main/coffee_shop_landing_page.html) | ![Cozy Coffee Shop screenshot](assets/screenshots/cozy-coffee.png) |
 
 ## How To Open
 
@@ -34,33 +37,33 @@ Then visit:
 http://127.0.0.1:4173/index.html
 ```
 
-## Deploy With GitHub Pages
+## GitHub Pages
 
-After pushing this repository to GitHub:
-
-1. Open the repository on GitHub.
-2. Go to `Settings` -> `Pages`.
-3. Under `Build and deployment`, choose `Deploy from a branch`.
-4. Select the `main` branch and `/ (root)` folder.
-5. Save, then wait for GitHub Pages to publish the site.
-
-The public URL will usually look like:
+This repository is deployed from the `main` branch and root folder:
 
 ```text
-https://YOUR-USERNAME.github.io/my-portfolio/
+https://phakinza007.github.io/my-portfolio/
 ```
+
+## Contact
+
+Phakin Chawanpunya
+
+- GitHub: <https://github.com/Phakinza007>
+- Email: <273589474+Pakkihaveuni@users.noreply.github.com>
 
 ## Structure
 
 ```text
 .
 ├── index.html
+├── PulseBoard.html
 ├── intern_landing_page_html_css.html
 ├── Brew & Co..html
 ├── coffee-landing.html
 ├── DRIP.html
 ├── coffee_shop_landing_page.html
 └── assets/
-    └── screenshots/
+    ├── screenshots/
+    └── thumbs/
 ```
-
