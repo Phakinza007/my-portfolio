@@ -5,6 +5,7 @@ A static HTML portfolio gallery that collects six standalone front-end projects 
 Live site: <https://phakinza007.github.io/my-portfolio/>
 
 ![Portfolio cover](assets/screenshots/cover.png)
+![Social preview](assets/social-preview.png)
 
 ## Projects
 
@@ -45,6 +46,8 @@ This repository is deployed from the `main` branch and root folder:
 https://phakinza007.github.io/my-portfolio/
 ```
 
+The launch setup includes SEO metadata, Open Graph/Twitter preview tags, a custom favicon, a web manifest, and a GitHub Pages `404.html` fallback.
+
 ## Contact
 
 Phakin Chawanpunya
@@ -57,6 +60,8 @@ Phakin Chawanpunya
 ```text
 .
 ├── index.html
+├── 404.html
+├── site.webmanifest
 ├── PulseBoard.html
 ├── intern_landing_page_html_css.html
 ├── Brew & Co..html
@@ -64,6 +69,8 @@ Phakin Chawanpunya
 ├── DRIP.html
 ├── coffee_shop_landing_page.html
 └── assets/
+    ├── favicon.svg
+    ├── social-preview.png
     ├── screenshots/
     └── thumbs/
 ```
