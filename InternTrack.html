@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InternTrack | Internship Application Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper: oklch(96% 0.018 79);
+      --surface: oklch(99% 0.01 86);
+      --ink: oklch(20% 0.038 238);
+      --muted: oklch(48% 0.04 238);
+      --line: oklch(82% 0.03 82);
+      --blue: oklch(55% 0.18 248);
+      --leaf: oklch(74% 0.13 150);
+      --coral: oklch(68% 0.15 34);
+      --amber: oklch(86% 0.14 82);
+      --violet: oklch(60% 0.14 296);
+      --shadow: 0 24px 70px oklch(23% 0.04 238 / 0.14);
+      --radius: 8px;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Noto Sans Thai", "Bai Jamjuree", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, oklch(97% 0.014 88) 0%, oklch(93% 0.045 150) 52%, oklch(95% 0.026 247) 100%);
+      line-height: 1.62;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background-image:
+        linear-gradient(oklch(24% 0.04 238 / 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, oklch(24% 0.04 238 / 0.06) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: linear-gradient(to bottom, oklch(0% 0 0 / 0.45), transparent 72%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "Bai Jamjuree", sans-serif;
+      font-weight: 700;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--ink);
+      color: var(--amber);
+      box-shadow: 0 14px 30px oklch(23% 0.04 238 / 0.18);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      min-height: 38px;
+      align-items: center;
+      padding: 0 13px;
+      border-radius: 8px;
+      transition: background 180ms var(--ease), color 180ms var(--ease);
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+      background: oklch(99% 0.01 86 / 0.72);
+    }
+
+    .hero {
+      min-height: calc(100vh - 76px);
+      display: grid;
+      grid-template-columns: minmax(300px, 0.82fr) minmax(520px, 1.18fr);
+      align-items: center;
+      gap: clamp(30px, 5vw, 72px);
+      padding: 36px 0 74px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: oklch(42% 0.14 248);
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 2px;
+      border-radius: 99px;
+      background: var(--blue);
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Bai Jamjuree", sans-serif;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 10ch;
+      font-size: clamp(3rem, 7.4vw, 6.2rem);
+      line-height: 0.94;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy p {
+      max-width: 62ch;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 18px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      font-weight: 800;
+      transition: transform 180ms var(--ease), box-shadow 180ms var(--ease), background 180ms var(--ease);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button.primary {
+      background: var(--ink);
+      color: var(--surface);
+      box-shadow: 0 18px 38px oklch(23% 0.04 238 / 0.18);
+    }
+
+    .button.secondary {
+      border-color: var(--line);
+      background: oklch(99% 0.01 86 / 0.76);
+    }
+
+    .status-strip {
+      width: min(680px, 100%);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-top: 38px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--line);
+    }
+
+    .status-strip div {
+      min-height: 82px;
+      display: grid;
+      align-content: center;
+      gap: 4px;
+      padding: 15px;
+      background: oklch(99% 0.01 86 / 0.8);
+    }
+
+    .status-strip strong {
+      font-family: "Bai Jamjuree", sans-serif;
+      font-size: 1.45rem;
+      line-height: 1;
+    }
+
+    .status-strip span {
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    .tracker {
+      position: relative;
+      min-height: 620px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, oklch(99% 0.01 86 / 0.9), oklch(96% 0.025 150 / 0.92)),
+        linear-gradient(90deg, oklch(24% 0.04 238 / 0.07) 1px, transparent 1px),
+        linear-gradient(oklch(24% 0.04 238 / 0.07) 1px, transparent 1px);
+      background-size: auto, 34px 34px, 34px 34px;
+      box-shadow: var(--shadow);
+    }
+
+    .tracker-head {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .tracker-head strong {
+      display: block;
+      font-family: "Bai Jamjuree", sans-serif;
+    }
+
+    .tracker-head span {
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+    .today-pill {
+      display: inline-flex;
+      min-height: 34px;
+      align-items: center;
+      padding: 0 10px;
+      border-radius: 8px;
+      background: var(--amber);
+      color: oklch(28% 0.05 82);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .tracker-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 14px;
+      padding: 14px;
+    }
+
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .lane {
+      min-height: 376px;
+      display: grid;
+      align-content: start;
+      gap: 10px;
+      padding: 10px;
+      border: 1px solid oklch(82% 0.03 82 / 0.8);
+      border-radius: 8px;
+      background: oklch(99% 0.01 86 / 0.76);
+    }
+
+    .lane-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 0.84rem;
+    }
+
+    .count {
+      display: grid;
+      place-items: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      background: var(--blue);
+      color: var(--surface);
+      font-size: 0.76rem;
+    }
+
+    .app-card {
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+      border: 1px solid oklch(82% 0.03 82 / 0.74);
+      border-radius: 8px;
+      background: var(--surface);
+      box-shadow: 0 12px 26px oklch(23% 0.04 238 / 0.08);
+    }
+
+    .app-card strong {
+      font-family: "Bai Jamjuree", sans-serif;
+      line-height: 1.18;
+    }
+
+    .app-card small {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .app-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      display: inline-flex;
+      min-height: 24px;
+      align-items: center;
+      padding: 0 8px;
+      border-radius: 8px;
+      background: oklch(91% 0.06 150);
+      color: oklch(33% 0.08 150);
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .tag.hot {
+      background: oklch(91% 0.07 34);
+      color: oklch(36% 0.08 34);
+    }
+
+    .tag.focus {
+      background: oklch(90% 0.07 248);
+      color: oklch(34% 0.12 248);
+    }
+
+    .side-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .mini-panel {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: oklch(99% 0.01 86 / 0.82);
+    }
+
+    .mini-panel h3 {
+      font-size: 1rem;
+      margin-bottom: 12px;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+    }
+
+    .day {
+      min-height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: oklch(94% 0.025 86);
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    .day.active {
+      background: var(--ink);
+      color: var(--surface);
+    }
+
+    .day.interview {
+      background: var(--coral);
+      color: var(--surface);
+    }
+
+    .checklist {
+      display: grid;
+      gap: 8px;
+    }
+
+    .check-row {
+      display: grid;
+      grid-template-columns: 24px minmax(0, 1fr);
+      gap: 8px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .check {
+      width: 20px;
+      height: 20px;
+      border-radius: 8px;
+      background: var(--leaf);
+      box-shadow: inset 0 0 0 5px oklch(99% 0.01 86);
+    }
+
+    .section {
+      padding: 74px 0;
+      border-top: 1px solid oklch(82% 0.03 82 / 0.64);
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.62fr);
+      align-items: end;
+      gap: 32px;
+      margin-bottom: 26px;
+    }
+
+    .section-kicker {
+      color: var(--blue);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      max-width: 13ch;
+      font-size: clamp(2rem, 4.2vw, 3.4rem);
+      line-height: 1;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      max-width: 58ch;
+    }
+
+    .insight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .insight {
+      min-height: 220px;
+      display: grid;
+      align-content: space-between;
+      gap: 18px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: oklch(99% 0.01 86 / 0.84);
+      box-shadow: 0 14px 34px oklch(23% 0.04 238 / 0.08);
+    }
+
+    .insight span {
+      width: fit-content;
+      min-height: 32px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 10px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: var(--surface);
+      font-weight: 800;
+      font-size: 0.82rem;
+    }
+
+    .insight p {
+      color: var(--muted);
+    }
+
+    .interview-kit {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .notes-panel,
+    .schedule-panel {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: oklch(99% 0.01 86 / 0.86);
+      box-shadow: 0 16px 38px oklch(23% 0.04 238 / 0.09);
+    }
+
+    .notes-panel h3,
+    .schedule-panel h3 {
+      margin-bottom: 14px;
+      font-size: 1.25rem;
+    }
+
+    .note-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .note {
+      display: grid;
+      grid-template-columns: 48px minmax(0, 1fr);
+      gap: 12px;
+      padding: 12px 0;
+      border-top: 1px solid oklch(82% 0.03 82 / 0.64);
+    }
+
+    .note:first-child {
+      border-top: 0;
+    }
+
+    .note time {
+      color: var(--blue);
+      font-weight: 800;
+    }
+
+    .note strong {
+      display: block;
+      font-family: "Bai Jamjuree", sans-serif;
+    }
+
+    .note p {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .schedule-track {
+      display: grid;
+      gap: 10px;
+    }
+
+    .schedule-row {
+      display: grid;
+      grid-template-columns: 86px minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid oklch(82% 0.03 82 / 0.74);
+      border-radius: 8px;
+      background: var(--surface);
+    }
+
+    .schedule-row span {
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 0.82rem;
+    }
+
+    .schedule-row strong {
+      font-family: "Bai Jamjuree", sans-serif;
+    }
+
+    .status {
+      min-height: 30px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 9px;
+      border-radius: 8px;
+      background: var(--amber);
+      color: oklch(28% 0.05 82);
+      font-weight: 800;
+      font-size: 0.76rem;
+    }
+
+    .footer {
+      padding: 34px 0 44px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      border-top: 1px solid oklch(82% 0.03 82 / 0.64);
+      padding-top: 20px;
+    }
+
+    a:focus-visible,
+    .button:focus-visible {
+      outline: 3px solid oklch(55% 0.18 248 / 0.35);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .tracker-grid,
+      .section-heading,
+      .interview-kit {
+        grid-template-columns: 1fr;
+      }
+
+      .tracker {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .shell {
+        width: calc(100vw - 24px);
+      }
+
+      .nav {
+        min-height: auto;
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 4px;
+      }
+
+      .nav-links a {
+        justify-content: center;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 32px 0 50px;
+      }
+
+      h1 {
+        font-size: 3.25rem;
+      }
+
+      .status-strip,
+      .pipeline,
+      .insight-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tracker-head,
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 460px) {
+      h1 {
+        font-size: 2.64rem;
+      }
+
+      .actions,
+      .schedule-row {
+        align-items: stretch;
+        grid-template-columns: 1fr;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .tracker-grid,
+      .interview-kit {
+        gap: 12px;
+      }
+
+      .notes-panel,
+      .schedule-panel {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell nav" id="top">
+    <a class="brand" href="#top" aria-label="InternTrack home">
+      <span class="brand-mark">IT</span>
+      <span>InternTrack</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#pipeline">Pipeline</a></li>
+      <li><a href="#kit">Interview kit</a></li>
+      <li><a href="#thinking">Why it works</a></li>
+      <li><a href="index.html">Portfolio</a></li>
+    </ul>
+  </header>
+
+  <main>
+    <section class="shell hero">
+      <div class="hero-copy">
+        <div class="eyebrow">internship application workspace</div>
+        <h1>Track every internship move.</h1>
+        <p>
+          InternTrack is a front-end concept for students who need one calm place
+          to manage applications, interview prep, follow-ups, and portfolio tasks.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="#pipeline">View pipeline</a>
+          <a class="button secondary" href="#kit">Open interview kit</a>
+        </div>
+        <div class="status-strip" aria-label="application metrics">
+          <div>
+            <strong>12</strong>
+            <span>active applications</span>
+          </div>
+          <div>
+            <strong>4</strong>
+            <span>interview steps</span>
+          </div>
+          <div>
+            <strong>2</strong>
+            <span>follow-ups today</span>
+          </div>
+        </div>
+      </div>
+
+      <section class="tracker" aria-label="Internship tracker preview">
+        <div class="tracker-head">
+          <div>
+            <strong>May application board</strong>
+            <span>Frontend internship search, Bangkok + remote</span>
+          </div>
+          <span class="today-pill">2 tasks due today</span>
+        </div>
+
+        <div class="tracker-grid">
+          <div class="pipeline" aria-label="application pipeline">
+            <div class="lane">
+              <div class="lane-title">Applied <span class="count">5</span></div>
+              <div class="app-card">
+                <strong>Junior Frontend Intern</strong>
+                <small>Bangkok product studio</small>
+                <div class="app-meta">
+                  <span class="tag focus">portfolio sent</span>
+                  <span class="tag">CSS</span>
+                </div>
+              </div>
+              <div class="app-card">
+                <strong>Web Designer Intern</strong>
+                <small>Education platform</small>
+                <div class="app-meta">
+                  <span class="tag">landing page</span>
+                  <span class="tag hot">reply soon</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="lane">
+              <div class="lane-title">Interview <span class="count">4</span></div>
+              <div class="app-card">
+                <strong>Frontend Trainee</strong>
+                <small>Design systems team</small>
+                <div class="app-meta">
+                  <span class="tag focus">case study</span>
+                  <span class="tag hot">Fri 10:30</span>
+                </div>
+              </div>
+              <div class="app-card">
+                <strong>HTML CSS Intern</strong>
+                <small>Marketing site team</small>
+                <div class="app-meta">
+                  <span class="tag">task prep</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="lane">
+              <div class="lane-title">Follow-up <span class="count">2</span></div>
+              <div class="app-card">
+                <strong>Product UI Internship</strong>
+                <small>Dashboard practice role</small>
+                <div class="app-meta">
+                  <span class="tag hot">send email</span>
+                </div>
+              </div>
+              <div class="app-card">
+                <strong>Landing Page Intern</strong>
+                <small>Cafe brand studio</small>
+                <div class="app-meta">
+                  <span class="tag">thank-you note</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <aside class="side-stack">
+            <div class="mini-panel">
+              <h3>Interview week</h3>
+              <div class="calendar" aria-label="interview calendar">
+                <span class="day">M</span>
+                <span class="day">T</span>
+                <span class="day active">W</span>
+                <span class="day">T</span>
+                <span class="day interview">F</span>
+                <span class="day">S</span>
+                <span class="day">S</span>
+                <span class="day">20</span>
+                <span class="day">21</span>
+                <span class="day active">22</span>
+                <span class="day">23</span>
+                <span class="day interview">24</span>
+                <span class="day">25</span>
+                <span class="day">26</span>
+              </div>
+            </div>
+
+            <div class="mini-panel">
+              <h3>Prep checklist</h3>
+              <div class="checklist">
+                <div class="check-row"><span class="check"></span><span>Portfolio link tested</span></div>
+                <div class="check-row"><span class="check"></span><span>Case study notes ready</span></div>
+                <div class="check-row"><span class="check"></span><span>Email follow-up drafted</span></div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </section>
+
+    <section class="section" id="pipeline">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">pipeline view</div>
+            <h2>Make progress visible.</h2>
+          </div>
+          <p>
+            The board groups applications by decision stage, then uses compact tags
+            to show what matters next: portfolio sent, reply soon, task prep, or email follow-up.
+          </p>
+        </div>
+
+        <div class="insight-grid">
+          <article class="insight">
+            <span>01</span>
+            <div>
+              <h3>Stage-based scanning</h3>
+              <p>Columns answer the first question quickly: where is every opportunity right now?</p>
+            </div>
+          </article>
+          <article class="insight">
+            <span>02</span>
+            <div>
+              <h3>Small status tags</h3>
+              <p>Tags keep the board useful without turning every card into a long note.</p>
+            </div>
+          </article>
+          <article class="insight">
+            <span>03</span>
+            <div>
+              <h3>Readable on mobile</h3>
+              <p>The dashboard collapses cleanly so a student can check next steps from a phone.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="kit">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">interview kit</div>
+            <h2>Keep prep close to the work.</h2>
+          </div>
+          <p>
+            The project pairs applications with practical interview prep: case study notes,
+            portfolio checks, follow-up timing, and visible next actions.
+          </p>
+        </div>
+
+        <div class="interview-kit">
+          <article class="notes-panel">
+            <h3>Prep notes</h3>
+            <div class="note-list">
+              <div class="note">
+                <time>01</time>
+                <div>
+                  <strong>Pick two portfolio stories</strong>
+                  <p>Prepare PulseBoard for dashboard thinking and DevLaunch for landing-page communication.</p>
+                </div>
+              </div>
+              <div class="note">
+                <time>02</time>
+                <div>
+                  <strong>Check responsive states</strong>
+                  <p>Open each page on desktop and mobile before sharing links with reviewers.</p>
+                </div>
+              </div>
+              <div class="note">
+                <time>03</time>
+                <div>
+                  <strong>Send clean follow-up</strong>
+                  <p>Keep one short email ready with portfolio link, GitHub link, and availability.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="schedule-panel">
+            <h3>Next actions</h3>
+            <div class="schedule-track">
+              <div class="schedule-row">
+                <span>Today</span>
+                <strong>Polish README screenshots</strong>
+                <div class="status">ready</div>
+              </div>
+              <div class="schedule-row">
+                <span>Thu</span>
+                <strong>Practice 5-minute project walkthrough</strong>
+                <div class="status">prep</div>
+              </div>
+              <div class="schedule-row">
+                <span>Fri</span>
+                <strong>Frontend trainee interview</strong>
+                <div class="status">10:30</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="thinking">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">why it works</div>
+            <h2>A project about real student workflow.</h2>
+          </div>
+          <p>
+            InternTrack adds a practical app-style piece to the portfolio, showing
+            dashboard layout, responsive CSS, status systems, and UX writing for a real use case.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell footer">
+    <div class="footer-inner">
+      <span>InternTrack concept interface</span>
+      <span>Static HTML, CSS, and responsive dashboard layout</span>
+    </div>
+  </footer>
+</body>
+</html>

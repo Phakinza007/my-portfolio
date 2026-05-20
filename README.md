@@ -1,6 +1,6 @@
 # Portfolio Cover Gallery
 
-A static HTML portfolio gallery that collects six standalone front-end projects into one cover page. The root `index.html` works as the portfolio entry point, with separate links for viewing each live page and opening its source file.
+A static HTML portfolio gallery that collects seven standalone front-end projects into one cover page. The root `index.html` works as the portfolio entry point, with separate links for viewing each live page and opening its source file.
 
 Live site: <https://phakinza007.github.io/my-portfolio/>
 
@@ -11,6 +11,7 @@ Live site: <https://phakinza007.github.io/my-portfolio/>
 
 | Project | Live page | Source file | Preview |
 | --- | --- | --- | --- |
+| InternTrack | [`InternTrack.html`](InternTrack.html) | [`InternTrack.html`](https://github.com/Phakinza007/my-portfolio/blob/main/InternTrack.html) | ![InternTrack screenshot](assets/screenshots/interntrack.png) |
 | PulseBoard | [`PulseBoard.html`](PulseBoard.html) | [`PulseBoard.html`](https://github.com/Phakinza007/my-portfolio/blob/main/PulseBoard.html) | ![PulseBoard screenshot](assets/screenshots/pulseboard.png) |
 | DevLaunch Academy | [`intern_landing_page_html_css.html`](intern_landing_page_html_css.html) | [`intern_landing_page_html_css.html`](https://github.com/Phakinza007/my-portfolio/blob/main/intern_landing_page_html_css.html) | ![DevLaunch Academy screenshot](assets/screenshots/devlaunch.png) |
 | Brew & Co. | [`Brew & Co..html`](Brew%20%26%20Co..html) | [`Brew & Co..html`](https://github.com/Phakinza007/my-portfolio/blob/main/Brew%20%26%20Co..html) | ![Brew and Co screenshot](assets/screenshots/brew-co.png) |
@@ -53,7 +54,7 @@ The launch setup includes SEO metadata, Open Graph/Twitter preview tags, a custo
 Phakin Chawanpunya
 
 - GitHub: <https://github.com/Phakinza007>
-- Email: <273589474+Pakkihaveuni@users.noreply.github.com>
+- Email: <a0626568471@gmail.com>
 
 ## Structure
 
@@ -62,6 +63,7 @@ Phakin Chawanpunya
 ├── index.html
 ├── 404.html
 ├── site.webmanifest
+├── InternTrack.html
 ├── PulseBoard.html
 ├── intern_landing_page_html_css.html
 ├── Brew & Co..html
