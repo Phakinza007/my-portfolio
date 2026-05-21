@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Frontend and landing page practice portfolio by Phakin Chawanpunya, featuring nine static HTML projects with live previews and source links." />
+  <meta name="description" content="Frontend and landing page practice portfolio by Phakin Chawanpunya, featuring nine static HTML projects, full case-study notes, live previews, and source links." />
   <meta name="author" content="Phakin Chawanpunya" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#2f5df5" />
@@ -11,7 +11,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Phakin Chawanpunya Portfolio" />
   <meta property="og:title" content="Phakin Chawanpunya | Frontend Portfolio" />
-  <meta property="og:description" content="A polished static HTML portfolio gallery with real page previews, live project links, and source files." />
+  <meta property="og:description" content="Frontend and landing page practice portfolio by Phakin Chawanpunya, featuring nine static HTML projects, full case-study notes, live previews, and source links." />
   <meta property="og:url" content="https://phakinza007.github.io/my-portfolio/" />
   <meta property="og:image" content="https://phakinza007.github.io/my-portfolio/assets/social-preview.png" />
   <meta property="og:image:secure_url" content="https://phakinza007.github.io/my-portfolio/assets/social-preview.png" />
@@ -22,7 +22,7 @@
   <meta property="og:locale" content="th_TH" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Phakin Chawanpunya | Frontend Portfolio" />
-  <meta name="twitter:description" content="Nine static HTML projects gathered into one professional portfolio cover page." />
+  <meta name="twitter:description" content="Frontend and landing page practice portfolio by Phakin Chawanpunya, featuring nine static HTML projects, full case-study notes, live previews, and source links." />
   <meta name="twitter:image" content="https://phakinza007.github.io/my-portfolio/assets/social-preview.png" />
   <meta name="twitter:image:alt" content="Screenshot of Phakin Chawanpunya frontend portfolio gallery." />
   <title>Phakin Chawanpunya | Frontend Portfolio</title>
@@ -631,6 +631,7 @@
     .feature-panel:focus-visible,
     .work-card:focus-visible,
     .project-action:focus-visible,
+    .resume-link:focus-visible,
     .contact-link:focus-visible {
       outline: 3px solid oklch(56% 0.19 256 / 0.36);
       outline-offset: 3px;
@@ -697,6 +698,7 @@
     }
 
     .section {
+      scroll-margin-top: 82px;
       padding: 64px 0;
       border-top: 1px solid oklch(80% 0.028 56 / 0.52);
     }
@@ -841,6 +843,127 @@
     .skill-pill.alt {
       background: oklch(91% 0.056 38);
       color: oklch(34% 0.066 34);
+    }
+
+    .resume-strip {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.82fr) minmax(320px, 1.18fr);
+      gap: 0;
+      margin-top: 16px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: oklch(98% 0.012 65 / 0.9);
+      box-shadow: 0 18px 42px oklch(22% 0.035 40 / 0.08);
+    }
+
+    .resume-profile,
+    .resume-details {
+      padding: 26px;
+    }
+
+    .resume-profile {
+      display: grid;
+      align-content: space-between;
+      gap: 22px;
+      background:
+        radial-gradient(circle at 12% 18%, oklch(56% 0.19 256 / 0.14), transparent 32%),
+        oklch(97% 0.014 66);
+      border-right: 1px solid var(--line);
+    }
+
+    .resume-profile h3 {
+      font-family: "Bai Jamjuree", sans-serif;
+      font-size: clamp(1.8rem, 3.4vw, 2.7rem);
+      line-height: 1.02;
+      letter-spacing: 0;
+      margin-bottom: 10px;
+    }
+
+    .resume-role {
+      display: inline-flex;
+      width: fit-content;
+      min-height: 32px;
+      align-items: center;
+      padding: 0 10px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: var(--surface);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .resume-profile p {
+      color: var(--muted);
+      max-width: 54ch;
+    }
+
+    .resume-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .resume-link {
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      padding: 0 12px;
+      background: oklch(98% 0.012 65 / 0.74);
+      color: var(--ink);
+      font-weight: 800;
+      font-size: 0.84rem;
+      transition: transform 180ms var(--ease), border-color 180ms var(--ease), background 180ms var(--ease);
+    }
+
+    .resume-link:hover {
+      transform: translateY(-2px);
+      border-color: oklch(56% 0.19 256 / 0.42);
+      background: oklch(98% 0.012 65);
+    }
+
+    .resume-link.primary {
+      background: var(--cobalt);
+      border-color: var(--cobalt);
+      color: var(--surface);
+      box-shadow: 0 12px 24px oklch(56% 0.19 256 / 0.18);
+    }
+
+    .resume-details {
+      display: grid;
+      gap: 16px;
+    }
+
+    .resume-row {
+      display: grid;
+      grid-template-columns: 132px minmax(0, 1fr);
+      gap: 18px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid oklch(80% 0.028 56 / 0.58);
+    }
+
+    .resume-row:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .resume-row strong {
+      font-family: "Bai Jamjuree", sans-serif;
+      line-height: 1.24;
+    }
+
+    .resume-row p {
+      color: var(--muted);
+      max-width: 68ch;
+    }
+
+    .resume-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
     }
 
     .featured-grid {
@@ -1439,6 +1562,7 @@
 
       .featured-grid,
       .about-band,
+      .resume-strip,
       .case-panel,
       .process-band,
       .contact-band {
@@ -1447,6 +1571,11 @@
 
       .case-shot {
         min-height: 300px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .resume-profile {
         border-right: 0;
         border-bottom: 1px solid var(--line);
       }
@@ -1608,6 +1737,11 @@
         grid-template-columns: 1fr;
       }
 
+      .resume-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
       .stack-link .open-chip {
         grid-column: 2;
         justify-self: start;
@@ -1693,7 +1827,7 @@
       <ul class="nav-links">
         <li><a href="#featured">ปกงาน</a></li>
         <li><a href="#works">ไฟล์ทั้งหมด</a></li>
-        <li><a href="#about">ทักษะ</a></li>
+        <li><a href="#about">โปรไฟล์</a></li>
         <li><a href="#case-studies">เบื้องหลังงาน</a></li>
         <li><a href="#contact">ติดต่อ</a></li>
         <li><a href="#system">โครงงาน</a></li>
@@ -2093,21 +2227,21 @@
       <div class="page-shell">
         <div class="section-heading">
           <div>
-            <div class="section-kicker">about / skills</div>
-            <h2>ทำพอร์ตให้ดูงานง่ายและเชื่อถือได้</h2>
+            <div class="section-kicker">about / resume</div>
+            <h2>Phakin Chawanpunya, frontend practice portfolio</h2>
           </div>
           <p>
-            ส่วนนี้สรุปว่าพอร์ตนี้ฝึกอะไรบ้าง: จากหน้า landing page,
-            dashboard UI, responsive layout ไปจนถึงการจัด presentation ให้คนรีวิวเข้าใจเร็ว.
+            สรุปตัวตน ทักษะ เครื่องมือ และช่องทางติดต่อสำหรับ hiring reviewer,
+            teacher, หรือคนที่อยากดูพัฒนาการ frontend จากงานจริงใน repo นี้.
           </p>
         </div>
 
         <div class="about-band">
           <div class="about-lead">
-            <h3>Frontend practice with real pages.</h3>
+            <h3>Frontend practice with real pages and clear source links.</h3>
             <p>
-              I build static HTML pages as complete portfolio pieces: clear first screen,
-              responsive CSS, real screenshots, source transparency, and pages that open directly from GitHub Pages.
+              I build static HTML pages as complete portfolio pieces: clear first screens,
+              responsive CSS, real screenshots, readable source, and live pages that open directly from GitHub Pages.
             </p>
             <div class="about-metrics" aria-label="portfolio proof points">
               <div class="about-metric">
@@ -2151,6 +2285,46 @@
                 <span class="skill-pill">GitHub Pages</span>
                 <span class="skill-pill alt">Source links</span>
                 <span class="skill-pill alt">Accessible focus</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="resume-strip" aria-label="resume summary">
+          <div class="resume-profile">
+            <div>
+              <span class="resume-role">Frontend / landing page practice</span>
+              <h3>Phakin Chawanpunya</h3>
+              <p>
+                A learning-forward frontend portfolio focused on HTML, CSS, responsive layout,
+                dashboard concepts, and landing pages that can be reviewed from both design and code.
+              </p>
+            </div>
+            <div class="resume-links" aria-label="resume contact links">
+              <a class="resume-link primary" href="mailto:a0626568471@gmail.com">a0626568471@gmail.com</a>
+              <a class="resume-link" href="https://github.com/Phakinza007">GitHub</a>
+              <a class="resume-link" href="https://github.com/Phakinza007/my-portfolio">Repo</a>
+            </div>
+          </div>
+
+          <div class="resume-details">
+            <div class="resume-row">
+              <strong>Role target</strong>
+              <p>Frontend intern, junior web designer, or landing page practice reviewer.</p>
+            </div>
+            <div class="resume-row">
+              <strong>Strongest work</strong>
+              <p>InternTrack for product thinking, PulseBoard for dashboard hierarchy, and DevLaunch Academy for Thai landing-page communication.</p>
+            </div>
+            <div class="resume-row">
+              <strong>Tools</strong>
+              <div class="resume-tools" aria-label="tools and skills">
+                <span class="skill-pill">HTML</span>
+                <span class="skill-pill">CSS</span>
+                <span class="skill-pill">Git</span>
+                <span class="skill-pill">GitHub Pages</span>
+                <span class="skill-pill alt">Responsive QA</span>
+                <span class="skill-pill alt">SEO metadata</span>
               </div>
             </div>
           </div>

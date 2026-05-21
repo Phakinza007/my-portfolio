@@ -3,8 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="InternTrack is a frontend case study for an internship application tracker, focused on pipeline status, interview prep, and portfolio tasks." />
-  <title>InternTrack | Internship Tracker Case Study | Phakin Portfolio</title>
+  <meta name="description" content="InternTrack is a full frontend case study for an internship application tracker, covering problem, goal, design decisions, practiced skills, and result." />
+  <meta name="author" content="Phakin Chawanpunya" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#2f5df5" />
+  <link rel="canonical" href="https://phakinza007.github.io/my-portfolio/InternTrack.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Phakin Chawanpunya Portfolio" />
+  <meta property="og:title" content="InternTrack | Full Internship Tracker Case Study | Phakin Portfolio" />
+  <meta property="og:description" content="InternTrack is a full frontend case study for an internship application tracker, covering problem, goal, design decisions, practiced skills, and result." />
+  <meta property="og:url" content="https://phakinza007.github.io/my-portfolio/InternTrack.html" />
+  <meta property="og:image" content="https://phakinza007.github.io/my-portfolio/assets/screenshots/interntrack.png" />
+  <meta property="og:image:secure_url" content="https://phakinza007.github.io/my-portfolio/assets/screenshots/interntrack.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1365" />
+  <meta property="og:image:height" content="768" />
+  <meta property="og:image:alt" content="InternTrack internship application tracker case study screenshot." />
+  <meta property="og:locale" content="th_TH" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="InternTrack | Full Internship Tracker Case Study | Phakin Portfolio" />
+  <meta name="twitter:description" content="InternTrack is a full frontend case study for an internship application tracker, covering problem, goal, design decisions, practiced skills, and result." />
+  <meta name="twitter:image" content="https://phakinza007.github.io/my-portfolio/assets/screenshots/interntrack.png" />
+  <meta name="twitter:image:alt" content="InternTrack internship application tracker case study screenshot." />
+  <title>InternTrack | Full Internship Tracker Case Study | Phakin Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -441,6 +462,7 @@
     }
 
     .section {
+      scroll-margin-top: 92px;
       padding: 74px 0;
       border-top: 1px solid oklch(82% 0.03 82 / 0.64);
     }
@@ -597,6 +619,131 @@
       font-size: 0.76rem;
     }
 
+    .case-study-block {
+      display: grid;
+      gap: 16px;
+    }
+
+    .case-overview {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .case-brief,
+    .decision-item,
+    .practice-panel,
+    .result-panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: oklch(99% 0.01 86 / 0.86);
+      box-shadow: 0 16px 38px oklch(23% 0.04 238 / 0.08);
+    }
+
+    .case-brief {
+      min-height: 210px;
+      display: grid;
+      align-content: space-between;
+      gap: 20px;
+      padding: 24px;
+    }
+
+    .case-label {
+      width: fit-content;
+      min-height: 32px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 10px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: var(--surface);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .case-brief h3,
+    .decision-copy h3,
+    .practice-panel h3,
+    .result-panel h3 {
+      font-size: 1.28rem;
+      line-height: 1.18;
+      margin-bottom: 8px;
+    }
+
+    .case-brief p,
+    .decision-copy p,
+    .practice-panel p,
+    .result-panel p {
+      color: var(--muted);
+    }
+
+    .decision-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .decision-item {
+      display: grid;
+      grid-template-columns: 112px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+      padding: 18px;
+    }
+
+    .decision-number {
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      background: var(--blue);
+      color: var(--surface);
+      font-family: "Bai Jamjuree", sans-serif;
+      font-weight: 800;
+    }
+
+    .practice-result {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 16px;
+    }
+
+    .practice-panel,
+    .result-panel {
+      padding: 24px;
+    }
+
+    .practice-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .result-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .result-list li {
+      display: grid;
+      grid-template-columns: 26px minmax(0, 1fr);
+      gap: 10px;
+      color: var(--muted);
+      list-style: none;
+    }
+
+    .result-list li::before {
+      content: "";
+      width: 18px;
+      height: 18px;
+      margin-top: 4px;
+      border-radius: 8px;
+      background: var(--leaf);
+      box-shadow: inset 0 0 0 5px oklch(99% 0.01 86);
+    }
+
     .footer {
       padding: 34px 0 44px;
       color: var(--muted);
@@ -621,7 +768,9 @@
       .hero,
       .tracker-grid,
       .section-heading,
-      .interview-kit {
+      .interview-kit,
+      .case-overview,
+      .practice-result {
         grid-template-columns: 1fr;
       }
 
@@ -681,7 +830,8 @@
       }
 
       .actions,
-      .schedule-row {
+      .schedule-row,
+      .decision-item {
         align-items: stretch;
         grid-template-columns: 1fr;
       }
@@ -724,7 +874,7 @@
     <ul class="nav-links">
       <li><a href="#pipeline">Pipeline</a></li>
       <li><a href="#kit">Interview kit</a></li>
-      <li><a href="#thinking">Why it works</a></li>
+      <li><a href="#case-study">Case study</a></li>
       <li><a href="index.html">Portfolio</a></li>
     </ul>
   </header>
@@ -741,6 +891,7 @@
         <div class="actions">
           <a class="button primary" href="#pipeline">View pipeline</a>
           <a class="button secondary" href="#kit">Open interview kit</a>
+          <a class="button secondary" href="#case-study">Read case study</a>
         </div>
         <div class="status-strip" aria-label="application metrics">
           <div>
@@ -965,17 +1116,110 @@
       </div>
     </section>
 
-    <section class="section" id="thinking">
+    <section class="section" id="case-study">
       <div class="shell">
         <div class="section-heading">
           <div>
-            <div class="section-kicker">why it works</div>
-            <h2>A project about real student workflow.</h2>
+            <div class="section-kicker">full case study</div>
+            <h2>From scattered applications to one calm workflow.</h2>
           </div>
           <p>
-            InternTrack adds a practical app-style piece to the portfolio, showing
-            dashboard layout, responsive CSS, status systems, and UX writing for a real use case.
+            This page is not only a dashboard mockup. It explains the problem, goal,
+            design decisions, practiced skills, and result so a reviewer can understand
+            the thinking behind the interface.
           </p>
+        </div>
+
+        <div class="case-study-block">
+          <div class="case-overview">
+            <article class="case-brief">
+              <span class="case-label">Problem</span>
+              <div>
+                <h3>Internship search work gets split across notes, email, calendar, and portfolio tasks.</h3>
+                <p>
+                  A student can miss follow-ups or walk into interviews unprepared when application status,
+                  prep notes, and portfolio checks live in different places.
+                </p>
+              </div>
+            </article>
+
+            <article class="case-brief">
+              <span class="case-label">Goal</span>
+              <div>
+                <h3>Create a fast-scanning workspace for applications, prep, and next actions.</h3>
+                <p>
+                  The interface should make progress visible in seconds, keep interviews tied to prep work,
+                  and feel simple enough to check from a phone before class or a meeting.
+                </p>
+              </div>
+            </article>
+          </div>
+
+          <div class="decision-list" aria-label="InternTrack design decisions">
+            <article class="decision-item">
+              <span class="decision-number">01</span>
+              <div class="decision-copy">
+                <h3>Pipeline first, because status is the main question.</h3>
+                <p>
+                  Applied, Interview, and Follow-up lanes create an immediate map of the search.
+                  This avoids a heavy spreadsheet feeling while still showing what needs attention.
+                </p>
+              </div>
+            </article>
+
+            <article class="decision-item">
+              <span class="decision-number">02</span>
+              <div class="decision-copy">
+                <h3>Prep tools stay beside the board instead of becoming a separate page.</h3>
+                <p>
+                  The interview calendar and checklist sit next to applications, so portfolio checks,
+                  case-study notes, and follow-up drafts feel connected to real opportunities.
+                </p>
+              </div>
+            </article>
+
+            <article class="decision-item">
+              <span class="decision-number">03</span>
+              <div class="decision-copy">
+                <h3>Compact tags carry urgency without adding long copy to every card.</h3>
+                <p>
+                  Tags like portfolio sent, reply soon, task prep, and send email keep each application
+                  scannable while still giving enough context for the next move.
+                </p>
+              </div>
+            </article>
+          </div>
+
+          <div class="practice-result">
+            <article class="practice-panel">
+              <h3>What I Practiced</h3>
+              <p>
+                InternTrack was built to show product thinking as much as visual polish.
+                The page practices app-style layout, responsive dashboard behavior, and clear UX writing.
+              </p>
+              <div class="practice-tags" aria-label="Practiced skills">
+                <span class="tag focus">dashboard UI</span>
+                <span class="tag">responsive CSS</span>
+                <span class="tag hot">UX writing</span>
+                <span class="tag">semantic HTML</span>
+                <span class="tag focus">visual hierarchy</span>
+                <span class="tag">case-study storytelling</span>
+              </div>
+            </article>
+
+            <article class="result-panel">
+              <h3>Result</h3>
+              <p>
+                The final page gives the portfolio a practical product concept that reviewers can inspect,
+                open from the homepage, and understand without extra explanation.
+              </p>
+              <ul class="result-list" aria-label="Case study results">
+                <li>Shows a real student workflow instead of a generic dashboard shell.</li>
+                <li>Combines status, interview prep, and follow-up tasks in one responsive layout.</li>
+                <li>Documents the design reasoning so the project reads like reviewer-ready portfolio work.</li>
+              </ul>
+            </article>
+          </div>
         </div>
       </div>
     </section>
