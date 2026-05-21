@@ -168,6 +168,8 @@ Motion should use `cubic-bezier(0.16, 1, 0.3, 1)` and short 180-260ms transition
 
 **Project Cards:** Each card pairs a screenshot with title, short description, tags, and split actions for `View live` and `Source file`. Cards use 8px radius, warm borders, light surfaces, and subtle hover lift.
 
+**Case Study Panels:** Wider reviewer-facing panels that pair a real screenshot with the challenge, three numbered decisions, practiced skill tags, and the same split `View live` / `Source file` actions. Use them for the strongest projects when the thinking behind the UI matters.
+
 **Stack Links:** Compact project links in the featured section. They must include a mini screenshot, project name, source filename, and a clear open affordance.
 
 **Contact Band:** A dark ink band that closes the page with identity and contact actions. Keep it direct: name, short practice portfolio intro, GitHub, email, and repository.

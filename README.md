@@ -19,6 +19,10 @@ Live site: <https://phakinza007.github.io/my-portfolio/>
 | DRIP Coffee Bar | [`DRIP.html`](DRIP.html) | [`DRIP.html`](https://github.com/Phakinza007/my-portfolio/blob/main/DRIP.html) | ![DRIP Coffee Bar screenshot](assets/screenshots/drip.png) |
 | Cozy Coffee Shop | [`coffee_shop_landing_page.html`](coffee_shop_landing_page.html) | [`coffee_shop_landing_page.html`](https://github.com/Phakinza007/my-portfolio/blob/main/coffee_shop_landing_page.html) | ![Cozy Coffee Shop screenshot](assets/screenshots/cozy-coffee.png) |
 
+## Case Studies
+
+The homepage includes compact case-study notes for InternTrack, PulseBoard, and DevLaunch Academy. Each one explains the challenge, three design decisions, practiced skills, and links to both the live page and source file.
+
 ## How To Open
 
 ### Open directly
