@@ -69,6 +69,7 @@ Phakin Chawanpunya
 - GitHub: <https://github.com/Phakinza007>
 - Instagram: <https://www.instagram.com/phakinkinpa/>
 - Email: <a0626568471@gmail.com>
+- Resume notes: [`RESUME.md`](RESUME.md)
 
 ## Structure
 

@@ -88,7 +88,36 @@
   font-weight: 800;
 }
 
-.portfolio-back:focus-visible {
+.portfolio-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.portfolio-contact {
+  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  padding: 0 9px;
+  border: 1px solid oklch(80% 0.028 56 / 0.72);
+  background: oklch(98% 0.012 65 / 0.72);
+  color: oklch(22% 0.035 40);
+  text-decoration: none;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.portfolio-contact.instagram {
+  background: oklch(68% 0.135 35);
+  border-color: oklch(68% 0.135 35);
+  color: oklch(98% 0.012 65);
+}
+
+.portfolio-back:focus-visible,
+.portfolio-contact:focus-visible {
   outline: 3px solid oklch(56% 0.19 256 / 0.36);
   outline-offset: 3px;
 }

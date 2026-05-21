@@ -46,6 +46,10 @@
     --font-body: 'DM Sans', system-ui, sans-serif;
   }
 
+  html {
+    overflow-x: hidden;
+  }
+
   body {
     font-family: var(--font-body);
     background: var(--cream-light);
@@ -297,6 +301,57 @@
     font-size: 0.78rem;
   }
   footer span { color: var(--brown-light); }
+
+  @media (max-width: 760px) {
+    nav {
+      height: auto;
+      min-height: 64px;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      flex-direction: column;
+    }
+
+    .nav-links {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px 12px;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      min-height: 34px;
+      align-items: center;
+      font-size: 0.78rem;
+    }
+
+    .hero {
+      min-height: auto;
+      grid-template-columns: 1fr;
+      padding: 3rem 1rem 2rem;
+      gap: 2rem;
+    }
+
+    .hero-visual {
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    .hero-image-frame {
+      width: min(300px, 100%);
+      height: auto;
+      aspect-ratio: 340 / 420;
+    }
+
+    .float-tag.rating {
+      left: 8px;
+    }
+
+    .float-tag.open {
+      right: 8px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -310,6 +365,10 @@
         <span>Landing page</span>
         <span>Cafe UI</span>
         <span>Responsive CSS</span>
+      </div>
+      <div class="portfolio-actions" aria-label="Project contact links">
+        <a class="portfolio-contact instagram" href="https://www.instagram.com/phakinkinpa/" rel="me noopener">IG @phakinkinpa</a>
+        <a class="portfolio-contact" href="mailto:a0626568471@gmail.com">Email</a>
       </div>
     </div>
   </aside>
