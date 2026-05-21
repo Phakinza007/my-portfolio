@@ -160,7 +160,7 @@ Motion should use `cubic-bezier(0.16, 1, 0.3, 1)` and short 180-260ms transition
 
 ## Components
 
-**Sticky Topbar:** A warm translucent bar with a cobalt `PC` mark, compact navigation, and visible border. It should stay calm and utility-focused.
+**Sticky Topbar:** A warm translucent bar with a cobalt abstract stacked-work mark, compact navigation, and visible border. It should stay calm and utility-focused. The mark should stay symbolic rather than using initials or letterforms.
 
 **Hero Preview Cluster:** The signature brand moment. Use real thumbnails layered around a large preview disc. The cluster should imply that every preview opens a real project.
 

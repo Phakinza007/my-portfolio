@@ -144,11 +144,43 @@
       height: 34px;
       display: grid;
       place-items: center;
+      position: relative;
+      overflow: hidden;
       border-radius: 8px;
       background: var(--cobalt);
       color: var(--surface);
-      font-size: 0.8rem;
       box-shadow: 0 10px 24px oklch(56% 0.19 256 / 0.24);
+    }
+
+    .brand-mark svg {
+      width: 24px;
+      height: 24px;
+      display: block;
+      overflow: visible;
+    }
+
+    .brand-mark .mark-back {
+      fill: oklch(91% 0.09 88 / 0.28);
+      stroke: oklch(98% 0.012 65 / 0.78);
+      stroke-width: 1.7;
+    }
+
+    .brand-mark .mark-front {
+      fill: oklch(98% 0.012 65 / 0.16);
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    .brand-mark .mark-line {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      opacity: 0.92;
+    }
+
+    .brand-mark .mark-dot {
+      fill: var(--butter);
     }
 
     .nav-links {
@@ -1450,7 +1482,14 @@
   <header class="topbar">
     <nav class="page-shell nav" aria-label="หลัก">
       <a class="brand" href="#top" aria-label="Portfolio Cover">
-        <span class="brand-mark">PC</span>
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 34 34" focusable="false">
+            <rect class="mark-back" x="8" y="7" width="16" height="13" rx="3" />
+            <rect class="mark-front" x="12" y="12" width="16" height="15" rx="3" />
+            <path class="mark-line" d="M16 18h7M16 23h4" />
+            <circle class="mark-dot" cx="24" cy="17" r="2.1" />
+          </svg>
+        </span>
         <span>Portfolio Cover</span>
       </a>
       <ul class="nav-links">
