@@ -1,0 +1,662 @@
+:root {
+  --paper: oklch(96% 0.018 62);
+  --paper-soft: oklch(93% 0.026 48);
+  --surface: oklch(98% 0.012 65);
+  --ink: oklch(22% 0.035 40);
+  --muted: oklch(48% 0.035 52);
+  --line: oklch(80% 0.028 56);
+  --cobalt: oklch(56% 0.19 256);
+  --coral: oklch(68% 0.135 35);
+  --mint: oklch(79% 0.09 165);
+  --butter: oklch(91% 0.09 88);
+  --deep: oklch(18% 0.04 42);
+  --max: 1180px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  font-family: "Noto Sans Thai", "Bai Jamjuree", Arial, sans-serif;
+  line-height: 1.65;
+  background:
+    radial-gradient(circle at 12% 8%, oklch(91% 0.09 88 / 0.55), transparent 28rem),
+    radial-gradient(circle at 88% 4%, oklch(79% 0.09 165 / 0.36), transparent 30rem),
+    linear-gradient(180deg, var(--paper) 0%, oklch(94% 0.021 58) 100%);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+figure {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid oklch(68% 0.135 35 / 0.6);
+  outline-offset: 4px;
+}
+
+.page-shell {
+  width: min(var(--max), calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid oklch(80% 0.028 56 / 0.8);
+  background: oklch(96% 0.018 62 / 0.92);
+  backdrop-filter: blur(18px);
+}
+
+.nav {
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Bai Jamjuree", "Noto Sans Thai", Arial, sans-serif;
+  font-weight: 700;
+}
+
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--cobalt);
+  box-shadow: 0 10px 24px oklch(56% 0.19 256 / 0.24);
+}
+
+.brand-mark svg {
+  width: 24px;
+  height: 24px;
+  overflow: visible;
+}
+
+.brand-mark .mark-back {
+  fill: oklch(91% 0.09 88 / 0.28);
+  stroke: oklch(98% 0.012 65 / 0.78);
+  stroke-width: 1.7;
+}
+
+.brand-mark .mark-front {
+  fill: oklch(98% 0.012 65 / 0.16);
+  stroke: oklch(98% 0.012 65);
+  stroke-width: 2;
+}
+
+.brand-mark .mark-line {
+  fill: none;
+  stroke: oklch(98% 0.012 65);
+  stroke-width: 1.9;
+  stroke-linecap: round;
+}
+
+.brand-mark .mark-dot {
+  fill: var(--butter);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.nav-links a {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 13px;
+  border-radius: 8px;
+  transition: background 180ms var(--ease), color 180ms var(--ease), transform 180ms var(--ease);
+}
+
+.nav-links a:hover {
+  color: var(--ink);
+  background: oklch(89% 0.046 65);
+  transform: translateY(-1px);
+}
+
+.nav-links .nav-primary {
+  background: var(--ink);
+  color: var(--surface);
+}
+
+.nav-links .nav-primary:hover {
+  background: var(--cobalt);
+  color: var(--surface);
+}
+
+.hero {
+  padding: clamp(56px, 8vw, 96px) 0 48px;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.03fr) minmax(320px, 0.72fr);
+  gap: clamp(28px, 5vw, 64px);
+  align-items: center;
+}
+
+.hero-grid > * {
+  min-width: 0;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--cobalt);
+  font-family: "Bai Jamjuree", "Noto Sans Thai", Arial, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 38px;
+  height: 3px;
+  border-radius: 99px;
+  background: var(--coral);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: "Bai Jamjuree", "Noto Sans Thai", Arial, sans-serif;
+  letter-spacing: 0;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+h1 {
+  max-width: 760px;
+  margin-top: 18px;
+  font-size: clamp(3.2rem, 9vw, 6.6rem);
+  line-height: 0.92;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.02;
+}
+
+h3 {
+  font-size: 1.18rem;
+  line-height: 1.25;
+}
+
+p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.hero-copy {
+  max-width: 700px;
+  margin-top: 22px;
+  font-size: 1.08rem;
+}
+
+.hero-actions,
+.inline-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.button {
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  padding: 0 18px;
+  border: 1px solid oklch(66% 0.052 48 / 0.62);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: "Bai Jamjuree", "Noto Sans Thai", Arial, sans-serif;
+  font-weight: 700;
+  transition: transform 180ms var(--ease), box-shadow 180ms var(--ease), background 180ms var(--ease);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 38px oklch(24% 0.04 42 / 0.14);
+}
+
+.button.primary {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--surface);
+}
+
+.button.cobalt {
+  border-color: var(--cobalt);
+  background: var(--cobalt);
+  color: var(--surface);
+}
+
+.button.ghost {
+  background: transparent;
+}
+
+.proof-panel,
+.resume-panel,
+.study-shot,
+.result-band {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: oklch(98% 0.012 65 / 0.88);
+  box-shadow: 0 26px 70px oklch(24% 0.04 42 / 0.16);
+}
+
+.proof-panel {
+  padding: 18px;
+}
+
+.proof-image {
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--paper-soft);
+}
+
+.proof-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.proof-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid oklch(80% 0.028 56 / 0.7);
+}
+
+.proof-item:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.proof-item strong {
+  font-family: "Bai Jamjuree", "Noto Sans Thai", Arial, sans-serif;
+  font-size: 1.35rem;
+}
+
+.proof-item span {
+  max-width: 210px;
+  text-align: right;
+  color: var(--muted);
+}
+
+.section {
+  padding: clamp(46px, 7vw, 80px) 0;
+}
+
+.section-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(260px, 0.55fr);
+  gap: 28px;
+  align-items: end;
+  margin-bottom: 26px;
+}
+
+.section-heading p {
+  max-width: 58ch;
+}
+
+.resume-grid,
+.study-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.resume-panel {
+  padding: 24px;
+}
+
+.resume-panel h3,
+.decision h3 {
+  margin-bottom: 10px;
+}
+
+.tag-list,
+.skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.tag,
+.skill {
+  display: inline-flex;
+  min-height: 32px;
+  align-items: center;
+  border-radius: 8px;
+  padding: 0 11px;
+  background: oklch(79% 0.09 165 / 0.5);
+  color: oklch(28% 0.06 160);
+  font-family: "Bai Jamjuree", "Noto Sans Thai", Arial, sans-serif;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.tag.alt,
+.skill.alt {
+  background: oklch(91% 0.09 88 / 0.72);
+  color: oklch(34% 0.07 66);
+}
+
+.timeline {
+  display: grid;
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--line);
+}
+
+.timeline-row {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 18px;
+  padding: 18px;
+  background: var(--surface);
+}
+
+.timeline-row strong {
+  font-family: "Bai Jamjuree", "Noto Sans Thai", Arial, sans-serif;
+}
+
+.project-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.project-link {
+  min-height: 118px;
+  display: grid;
+  align-content: space-between;
+  gap: 16px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  transition: transform 180ms var(--ease), box-shadow 180ms var(--ease);
+}
+
+.project-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px oklch(24% 0.04 42 / 0.14);
+}
+
+.project-link span {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.case-hero {
+  padding-bottom: 30px;
+}
+
+.study-shot {
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.study-shot img {
+  width: 100%;
+  height: auto;
+}
+
+.study-meta {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 20px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--line);
+}
+
+.study-meta div {
+  padding: 16px;
+  background: var(--surface);
+}
+
+.study-meta strong {
+  display: block;
+  font-family: "Bai Jamjuree", "Noto Sans Thai", Arial, sans-serif;
+  margin-bottom: 4px;
+}
+
+.study-meta span {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.study-grid {
+  align-items: start;
+}
+
+.study-block {
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.study-block.featured {
+  background: var(--ink);
+}
+
+.study-block.featured h2,
+.study-block.featured h3,
+.study-block.featured p,
+.study-block.featured li,
+.study-block.featured .eyebrow {
+  color: var(--surface);
+}
+
+.study-block.featured .eyebrow::before {
+  background: var(--butter);
+}
+
+.decision-list,
+.practice-list {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.decision {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 14px;
+}
+
+.decision-number {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--cobalt);
+  color: var(--surface);
+  font-family: "Bai Jamjuree", "Noto Sans Thai", Arial, sans-serif;
+  font-weight: 700;
+}
+
+.result-band {
+  display: grid;
+  grid-template-columns: minmax(0, 0.86fr) minmax(280px, 0.42fr);
+  gap: 24px;
+  align-items: center;
+  padding: clamp(24px, 4vw, 44px);
+  background:
+    linear-gradient(135deg, oklch(98% 0.012 65 / 0.92), oklch(91% 0.09 88 / 0.28)),
+    var(--surface);
+}
+
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.footer-band {
+  padding: 32px 0 48px;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+@media (max-width: 860px) {
+  .nav {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 14px 0;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .hero-grid,
+  .section-heading,
+  .resume-grid,
+  .study-grid,
+  .result-band {
+    grid-template-columns: 1fr;
+  }
+
+  .study-meta {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .project-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .result-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 560px) {
+  .page-shell {
+    width: min(100% - 24px, var(--max));
+  }
+
+  .nav-links a {
+    min-height: 36px;
+    padding: 0 10px;
+    font-size: 0.84rem;
+  }
+
+  h1 {
+    font-size: clamp(2.75rem, 16vw, 4.4rem);
+  }
+
+  .timeline-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .study-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .proof-item {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .proof-item span {
+    text-align: left;
+  }
+}
+
+@media print {
+  body {
+    background: var(--surface);
+  }
+
+  .topbar,
+  .hero-actions,
+  .footer-band,
+  .button {
+    display: none;
+  }
+
+  .hero {
+    padding: 24px 0;
+  }
+
+  .section {
+    padding: 18px 0;
+  }
+
+  .proof-panel,
+  .resume-panel,
+  .study-shot,
+  .study-block,
+  .result-band {
+    box-shadow: none;
+  }
+}

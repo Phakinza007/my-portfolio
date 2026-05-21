@@ -166,7 +166,7 @@ Motion should use `cubic-bezier(0.16, 1, 0.3, 1)` and short 180-260ms transition
 
 **Buttons:** Primary buttons use dark ink or cobalt with high contrast. Secondary buttons use a light surface, warm border, and the same 8px radius. Buttons should have clear hover lift and visible focus outlines.
 
-**Hero Actions:** The hero should offer a fast scan path: all projects, newest project, featured case study, and contact. Keep labels direct, and point the featured case study to the strongest reviewer-ready project.
+**Hero Actions:** The hero should offer a fast scan path: all projects, newest project, featured case study, resume, and contact. Keep labels direct, and point the featured case study to the strongest reviewer-ready project.
 
 **Project Cards:** Each card pairs a screenshot with title, short description, tags, and split actions for `View live` and `Source file`. Cards use 8px radius, warm borders, light surfaces, and subtle hover lift.
 
@@ -174,11 +174,15 @@ Motion should use `cubic-bezier(0.16, 1, 0.3, 1)` and short 180-260ms transition
 
 **About / Skills Band:** A concise reviewer-facing band that explains the portfolio owner, live project count, case-study count, and practiced skills. It should support scanning without reading like a resume wall.
 
-**Case Study Panels:** Wider reviewer-facing panels that pair a real screenshot with the challenge, three numbered decisions, practiced skill tags, and the same split `View live` / `Source file` actions. Use them for the strongest projects when the thinking behind the UI matters.
+**Resume Page:** A public `resume.html` page should translate `RESUME.md` into a polished web surface with contact links, role target, skills, tools, selected work, and a downloadable PDF action. It should feel like part of the portfolio, not a separate document template.
+
+**Case Study Panels:** Wider reviewer-facing panels that pair a real screenshot with the challenge, three numbered decisions, practiced skill tags, and actions for `Case study`, `View live`, and `Source file`. Use them for the strongest projects when the thinking behind the UI matters.
+
+**Full Case Study Pages:** Dedicated case study pages should use Problem / Goal / Design Decisions / What I Practiced / Result. They should use real screenshots, stay readable on mobile, and include clear paths back to the portfolio, live project, source file, and resume.
 
 **Stack Links:** Compact project links in the featured section. They must include a mini screenshot, project name, source filename, and a clear open affordance.
 
-**Project Context Rail:** Every standalone project page should include a compact fixed context panel with `Back to Portfolio`, a short project type label, one-sentence intent, practiced-skill tags, and small Instagram/email contact actions. It prevents visitors from getting stranded after opening a project from the portfolio.
+**Project Context Rail:** Every standalone project page should include a compact fixed context panel with `Back to Portfolio`, a short project type label, one-sentence intent, practiced-skill tags, and small Instagram/email contact actions. Stronger projects may include a direct `Case study` link. It prevents visitors from getting stranded after opening a project from the portfolio.
 
 **Contact Band:** A dark ink band that closes the page with identity and contact actions. Keep Instagram and email visually prominent, then support them with GitHub and repository links.
 

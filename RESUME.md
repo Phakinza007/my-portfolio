@@ -5,6 +5,8 @@ Frontend / landing page practice portfolio focused on static HTML, responsive CS
 ## Contact
 
 - Portfolio: <https://phakinza007.github.io/my-portfolio/>
+- Web resume: <https://phakinza007.github.io/my-portfolio/resume.html>
+- PDF resume: <https://phakinza007.github.io/my-portfolio/assets/resume-phakin-chawanpunya.pdf>
 - GitHub: <https://github.com/Phakinza007>
 - Instagram: <https://www.instagram.com/phakinkinpa/>
 - Email: <a0626568471@gmail.com>
@@ -33,6 +35,8 @@ Junior frontend / landing page practice work where layout, responsiveness, UI po
 
 ## Featured Projects
 
+- **InternTrack Case Study:** full case study page covering problem, goal, design decisions, practiced skills, and result.
+- **LaunchLedger Case Study:** full case study page covering runway visibility, spend planning, and launch decision hierarchy.
 - **InternTrack:** full case study for an internship application tracker, focused on pipeline clarity and reviewer-ready project notes.
 - **PulseBoard:** event operations dashboard concept, focused on live status scanning and task ownership.
 - **LaunchLedger:** startup budget dashboard concept, focused on runway, spend planning, and decision queues.

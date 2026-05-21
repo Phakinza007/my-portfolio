@@ -1292,6 +1292,10 @@
       gap: 8px;
     }
 
+    .case-content .project-actions {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
     .project-action {
       min-height: 38px;
       display: inline-flex;
@@ -1311,6 +1315,12 @@
     .project-action.live {
       background: var(--ink);
       border-color: var(--ink);
+      color: var(--surface);
+    }
+
+    .project-action.case {
+      background: var(--cobalt);
+      border-color: var(--cobalt);
       color: var(--surface);
     }
 
@@ -2147,6 +2157,7 @@
         <li><a href="#featured">ปกงาน</a></li>
         <li><a href="#works">ไฟล์ทั้งหมด</a></li>
         <li><a href="#about">โปรไฟล์</a></li>
+        <li><a href="resume.html">Resume</a></li>
         <li><a href="#case-studies">เบื้องหลังงาน</a></li>
         <li><a href="#contact">ติดต่อ</a></li>
         <li><a href="#system">โครงงาน</a></li>
@@ -2170,7 +2181,8 @@
           <div class="hero-actions" aria-label="ลิงก์สำคัญ">
             <a class="button primary" href="#works">ดูไฟล์ทั้งหมด</a>
             <a class="button secondary" href="LaunchLedger.html">เปิดงานใหม่ ↗</a>
-            <a class="button case-study" href="InternTrack.html">Case study: InternTrack ↗</a>
+            <a class="button case-study" href="case-study-interntrack.html">Case study: InternTrack ↗</a>
+            <a class="button secondary" href="resume.html">Resume</a>
             <a class="button contact" href="#contact" aria-label="ไปยังลิงก์ Instagram และ email">ติดต่อ</a>
           </div>
           <div class="repo-strip" aria-label="ข้อมูล repo">
@@ -2604,8 +2616,8 @@
                 <span>live HTML projects</span>
               </div>
               <div class="about-metric">
-                <strong>3</strong>
-                <span>reviewer-ready case studies</span>
+                <strong>2</strong>
+                <span>full case study pages</span>
               </div>
               <div class="about-metric">
                 <strong>1</strong>
@@ -2657,6 +2669,8 @@
             </div>
             <div class="resume-links" aria-label="resume contact links">
               <a class="resume-link primary" href="mailto:a0626568471@gmail.com">a0626568471@gmail.com</a>
+              <a class="resume-link" href="resume.html">Resume page</a>
+              <a class="resume-link" href="assets/resume-phakin-chawanpunya.pdf" download>Download PDF</a>
               <a class="resume-link" href="https://www.instagram.com/phakinkinpa/" rel="me noopener">Instagram @phakinkinpa</a>
               <a class="resume-link" href="https://github.com/Phakinza007">GitHub</a>
               <a class="resume-link" href="https://github.com/Phakinza007/my-portfolio">Repo</a>
@@ -2696,14 +2710,14 @@
             <h2>Case studies for reviewer-ready work</h2>
           </div>
           <p>
-            Three focused pieces with the thinking behind the UI: what the page needed
-            to solve, which choices shaped it, and what frontend skills each project practiced.
+            Full case study pages for the two strongest reviewer examples, plus compact notes
+            for extra project range.
           </p>
         </div>
 
         <div class="case-grid">
           <article class="case-panel">
-            <a class="case-shot" href="InternTrack.html" aria-label="View live InternTrack case study project">
+            <a class="case-shot" href="case-study-interntrack.html" aria-label="Read InternTrack full case study">
               <img class="preview-image" src="assets/thumbs/interntrack.jpg" alt="InternTrack internship application tracker screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
@@ -2750,8 +2764,64 @@
                 <span class="tag alt">semantic HTML</span>
               </div>
               <div class="project-actions">
+                <a class="project-action case" href="case-study-interntrack.html">Case study</a>
                 <a class="project-action live" href="InternTrack.html">View live</a>
                 <a class="project-action source" href="https://github.com/Phakinza007/my-portfolio/blob/main/InternTrack.html">Source file</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="case-panel">
+            <a class="case-shot" href="case-study-launchledger.html" aria-label="Read LaunchLedger full case study">
+              <img class="preview-image" src="assets/thumbs/launch-ledger.jpg" alt="LaunchLedger startup budget dashboard screenshot" />
+              <span class="shot-open" aria-hidden="true">↗</span>
+            </a>
+            <div class="case-content">
+              <div class="case-topline">
+                <span>02 · Full Case Study</span>
+                <span>Startup budget dashboard</span>
+              </div>
+              <div class="case-title">
+                <h3>LaunchLedger: make launch money visible.</h3>
+                <p>
+                  Challenge: help a small launch team see runway, spend pressure,
+                  and decision timing without reading a spreadsheet first.
+                </p>
+              </div>
+              <div class="case-decisions" aria-label="LaunchLedger design decisions">
+                <div class="case-decision">
+                  <span>01</span>
+                  <div>
+                    <strong>Runway becomes the lead signal</strong>
+                    <p>The page gives remaining time the strongest visual weight because every spend decision depends on it.</p>
+                  </div>
+                </div>
+                <div class="case-decision">
+                  <span>02</span>
+                  <div>
+                    <strong>Spend categories support action</strong>
+                    <p>Budget areas are grouped around launch decisions so the dashboard feels operational, not decorative.</p>
+                  </div>
+                </div>
+                <div class="case-decision">
+                  <span>03</span>
+                  <div>
+                    <strong>Decision queue turns numbers into next steps</strong>
+                    <p>Short action prompts help reviewers understand how the interface could guide a real team.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="practice-tags" aria-label="LaunchLedger practiced skills">
+                <span class="practice-label">Practiced:</span>
+                <span class="tag">dashboard UI</span>
+                <span class="tag">finance concept</span>
+                <span class="tag alt">visual hierarchy</span>
+                <span class="tag alt">responsive CSS</span>
+              </div>
+              <div class="project-actions">
+                <a class="project-action case" href="case-study-launchledger.html">Case study</a>
+                <a class="project-action live" href="LaunchLedger.html">View live</a>
+                <a class="project-action source" href="https://github.com/Phakinza007/my-portfolio/blob/main/LaunchLedger.html">Source file</a>
               </div>
             </div>
           </article>
@@ -2763,7 +2833,7 @@
             </a>
             <div class="case-content">
               <div class="case-topline">
-                <span>02 · Product UI</span>
+                <span>03 · Product UI</span>
                 <span>Event operations dashboard</span>
               </div>
               <div class="case-title">
@@ -2817,7 +2887,7 @@
             </a>
             <div class="case-content">
               <div class="case-topline">
-                <span>03 · Landing Page</span>
+                <span>04 · Landing Page</span>
                 <span>Internship learning offer</span>
               </div>
               <div class="case-title">
