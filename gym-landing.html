@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Iron Republic is a high-contrast gym landing page practice project for elite training programs, coach profiles, membership pricing, and class scheduling." />
+<meta name="author" content="Phakin Chawanpunya" />
+<meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#c41e1e" />
+<link rel="canonical" href="https://phakinza007.github.io/my-portfolio/gym-landing.html" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Phakin Chawanpunya Portfolio" />
+<meta property="og:title" content="Iron Republic | Gym Landing Page | Phakin Portfolio" />
+<meta property="og:description" content="A high-contrast gym landing page practice project with programs, coach profiles, pricing, schedule, and trial signup." />
+<meta property="og:url" content="https://phakinza007.github.io/my-portfolio/gym-landing.html" />
+<meta property="og:image" content="https://phakinza007.github.io/my-portfolio/assets/screenshots/gym-landing.png" />
+<meta property="og:image:secure_url" content="https://phakinza007.github.io/my-portfolio/assets/screenshots/gym-landing.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1365" />
+<meta property="og:image:height" content="768" />
+<meta property="og:image:alt" content="Iron Republic gym landing page screenshot." />
+<meta property="og:locale" content="th_TH" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Iron Republic | Gym Landing Page | Phakin Portfolio" />
+<meta name="twitter:description" content="A high-contrast gym landing page practice project with programs, coach profiles, pricing, schedule, and trial signup." />
+<meta name="twitter:image" content="https://phakinza007.github.io/my-portfolio/assets/screenshots/gym-landing.png" />
+<meta name="twitter:image:alt" content="Iron Republic gym landing page screenshot." />
+<title>Iron Republic | Gym Landing Page | Phakin Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;1,700&family=Barlow:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/portfolio-context.css?v=project-context">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:     #080808;
+  --black-2:   #0F0F0F;
+  --black-3:   #161616;
+  --iron:      #1E1E1E;
+  --steel:     #2C2C2C;
+  --red:       #C41E1E;
+  --red-hot:   #E82020;
+  --red-dim:   rgba(196,30,30,0.15);
+  --white:     #F0EFED;
+  --white-dim: rgba(240,239,237,0.55);
+  --white-faint: rgba(240,239,237,0.2);
+  --ash:       #888580;
+  --border:    rgba(240,239,237,0.08);
+  --border-red: rgba(196,30,30,0.3);
+  --font-display: 'Bebas Neue', Impact, sans-serif;
+  --font-cond:    'Barlow Condensed', sans-serif;
+  --font-body:    'Barlow', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 92px;
+}
+body {
+  font-family: var(--font-body);
+  background: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
+}
+
+/* SCANLINE OVERLAY */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 999; pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 56px;
+  transition: all 0.4s;
+}
+nav.scrolled {
+  background: rgba(8,8,8,0.96);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 56px;
+}
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.8rem; letter-spacing: 0.1em;
+  color: var(--white); text-decoration: none;
+  line-height: 1;
+}
+.logo span { color: var(--red); }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-family: var(--font-cond); font-weight: 400;
+  font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--white-dim); text-decoration: none; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--red); }
+.nav-join {
+  font-family: var(--font-cond); font-weight: 600;
+  font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase;
+  background: var(--red); color: var(--white);
+  padding: 12px 28px; text-decoration: none;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  transition: background 0.2s;
+}
+.nav-join:hover { background: var(--red-hot); }
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--red-hot);
+  outline-offset: 4px;
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 0 56px 80px;
+}
+.hero-bg-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(196,30,30,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(196,30,30,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-bg-glow {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 60% 30%, rgba(196,30,30,0.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 10% 80%, rgba(196,30,30,0.06) 0%, transparent 40%),
+    linear-gradient(180deg, var(--black) 0%, var(--black-2) 100%);
+}
+/* Big number bg */
+.hero-bignumber {
+  position: absolute; right: -20px; top: 50%; transform: translateY(-50%);
+  font-family: var(--font-display); font-size: clamp(280px, 35vw, 460px);
+  color: rgba(240,239,237,0.025); line-height: 1; user-select: none;
+  pointer-events: none;
+}
+/* diagonal red bar */
+.hero-bar {
+  position: absolute; left: 0; top: 0; width: 6px; height: 100%;
+  background: linear-gradient(180deg, transparent 0%, var(--red) 30%, var(--red) 70%, transparent 100%);
+}
+
+.hero-content { position: relative; z-index: 2; }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-bottom: 1.5rem;
+}
+.hero-tag-dash { width: 30px; height: 2px; background: var(--red); }
+.hero-tag span {
+  font-family: var(--font-cond); font-size: 0.78rem; font-weight: 400;
+  letter-spacing: 0.3em; text-transform: uppercase; color: var(--red);
+}
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 12vw, 13rem);
+  line-height: 0.88; color: var(--white);
+  margin-bottom: 2rem;
+}
+.hero-headline .stroke {
+  -webkit-text-stroke: 2px var(--white-faint);
+  color: transparent;
+}
+.hero-headline .red { color: var(--red); }
+.hero-sub {
+  font-size: 0.9rem; font-weight: 300; letter-spacing: 0.06em;
+  line-height: 1.8; color: var(--white-dim);
+  max-width: 480px; margin-bottom: 3rem;
+  border-left: 2px solid var(--red); padding-left: 1.2rem;
+}
+.hero-btns { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+.btn-red {
+  font-family: var(--font-cond); font-weight: 600;
+  font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase;
+  background: var(--red); color: var(--white); border: none;
+  padding: 18px 44px; cursor: pointer; transition: all 0.25s;
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  text-decoration: none; display: inline-block;
+}
+.btn-red:hover { background: var(--red-hot); transform: translateY(-2px); }
+.btn-outline-white {
+  font-family: var(--font-cond); font-weight: 400;
+  font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase;
+  background: transparent; color: var(--white);
+  border: 1px solid var(--border); padding: 17px 36px;
+  cursor: pointer; transition: all 0.25s; text-decoration: none;
+}
+.btn-outline-white:hover { border-color: var(--red); color: var(--red); }
+.hero-stats {
+  position: absolute; right: 56px; bottom: 80px;
+  display: flex; flex-direction: column; gap: 1.5rem; z-index: 2; text-align: right;
+}
+.h-stat-num {
+  font-family: var(--font-display); font-size: 2.8rem; color: var(--white); line-height: 1; display: block;
+}
+.h-stat-num span { color: var(--red); }
+.h-stat-label {
+  font-family: var(--font-cond); font-size: 0.65rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--ash); display: block;
+}
+.hero-scroll {
+  position: absolute; left: 56px; bottom: 32px; z-index: 2;
+  display: flex; align-items: center; gap: 12px;
+}
+.scroll-bar { width: 40px; height: 1px; background: var(--red); animation: expand 2s ease-in-out infinite; }
+@keyframes expand { 0%,100%{width:20px; opacity:0.4} 50%{width:40px; opacity:1} }
+.hero-scroll span { font-family: var(--font-cond); font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ash); }
+
+/* SECTION */
+.section {
+  scroll-margin-top: 92px;
+  padding: 110px 56px;
+}
+.sec-eyebrow {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 1rem;
+}
+.sec-eyebrow-line { width: 24px; height: 2px; background: var(--red); }
+.sec-eyebrow span {
+  font-family: var(--font-cond); font-size: 0.72rem; font-weight: 400;
+  letter-spacing: 0.3em; text-transform: uppercase; color: var(--red);
+}
+.sec-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 5vw, 5.5rem);
+  line-height: 0.92; color: var(--white);
+}
+.sec-title .stroke { -webkit-text-stroke: 1.5px rgba(240,239,237,0.3); color: transparent; }
+
+/* PROGRAMS */
+.programs-section { background: var(--black-2); }
+.programs-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 5rem; }
+.programs-header-right { font-size: 0.82rem; font-weight: 300; color: var(--white-dim); max-width: 280px; line-height: 1.8; }
+.programs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+.prog-card {
+  background: var(--black-2); padding: 3rem 2.5rem;
+  position: relative; overflow: hidden; cursor: pointer;
+  transition: background 0.3s;
+}
+.prog-card::before {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; background: var(--red);
+  transform: scaleX(0); transform-origin: left; transition: transform 0.4s;
+}
+.prog-card:hover { background: var(--iron); }
+.prog-card:hover::before { transform: scaleX(1); }
+.prog-num {
+  font-family: var(--font-display); font-size: 5rem; color: rgba(240,239,237,0.04);
+  position: absolute; top: 1rem; right: 1.5rem; line-height: 1; user-select: none;
+}
+.prog-icon { font-size: 2rem; margin-bottom: 1.5rem; display: block; }
+.prog-name {
+  font-family: var(--font-display); font-size: 2rem; color: var(--white);
+  line-height: 1; margin-bottom: 0.6rem;
+}
+.prog-level {
+  font-family: var(--font-cond); font-size: 0.65rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--red); margin-bottom: 1.2rem; display: block;
+}
+.prog-desc { font-size: 0.8rem; font-weight: 300; color: var(--white-dim); line-height: 1.7; margin-bottom: 2rem; }
+.prog-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.prog-tag {
+  font-family: var(--font-cond); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+  border: 1px solid var(--border); color: var(--ash); padding: 4px 12px;
+}
+.prog-duration {
+  position: absolute; bottom: 2rem; right: 2rem;
+  font-family: var(--font-display); font-size: 1.4rem; color: var(--white-faint);
+}
+
+/* TRAINERS */
+.trainers-section { background: var(--black-3); }
+.trainers-header { margin-bottom: 5rem; }
+.trainers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.trainer-card { position: relative; overflow: hidden; background: var(--iron); cursor: pointer; }
+.trainer-card:hover .trainer-overlay { opacity: 1; }
+.trainer-card:hover .trainer-img { transform: scale(1.04); }
+.trainer-img-wrap { aspect-ratio: 3/4; overflow: hidden; position: relative; }
+.trainer-img {
+  width: 100%; height: 100%; transition: transform 0.6s ease;
+  display: flex; align-items: center; justify-content: center;
+}
+.trainer-img svg { width: 100%; height: 100%; }
+.trainer-overlay {
+  position: absolute; inset: 0; background: rgba(196,30,30,0.7);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.3s;
+}
+.trainer-overlay-text {
+  font-family: var(--font-display); font-size: 1.2rem; letter-spacing: 0.2em;
+  color: var(--white); text-transform: uppercase;
+}
+.trainer-info { padding: 1.5rem 1.8rem; background: var(--iron); }
+.trainer-name { font-family: var(--font-display); font-size: 1.8rem; color: var(--white); line-height: 1; margin-bottom: 4px; }
+.trainer-title { font-family: var(--font-cond); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 0.8rem; }
+.trainer-spec { font-size: 0.75rem; font-weight: 300; color: var(--ash); }
+
+/* PRICING */
+.pricing-section { background: var(--black); }
+.pricing-header { text-align: center; margin-bottom: 5rem; }
+.pricing-header .sec-eyebrow { justify-content: center; }
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+.plan-card {
+  background: var(--black-2); padding: 3.5rem 2.5rem;
+  position: relative; overflow: hidden;
+  transition: background 0.3s;
+}
+.plan-card.featured { background: var(--red); }
+.plan-card.featured .plan-price-num { color: var(--white); }
+.plan-card.featured .plan-name { color: var(--white); }
+.plan-card.featured .plan-desc { color: rgba(240,239,237,0.75); }
+.plan-card.featured .plan-feature { border-color: rgba(240,239,237,0.2); color: var(--white); }
+.plan-card.featured .plan-feature-icon { color: var(--white); }
+.plan-card.featured .plan-badge { background: var(--white); color: var(--red); }
+.plan-badge {
+  display: inline-block; font-family: var(--font-cond); font-size: 0.6rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  background: var(--red); color: var(--white);
+  padding: 4px 14px; margin-bottom: 2rem;
+}
+.plan-name {
+  font-family: var(--font-display); font-size: 2.5rem; color: var(--white);
+  line-height: 1; margin-bottom: 0.5rem;
+}
+.plan-desc { font-size: 0.78rem; font-weight: 300; color: var(--ash); margin-bottom: 2rem; }
+.plan-price { margin-bottom: 2.5rem; }
+.plan-price-num { font-family: var(--font-display); font-size: 3.5rem; color: var(--white); line-height: 1; }
+.plan-price-unit { font-family: var(--font-cond); font-size: 0.72rem; letter-spacing: 0.1em; color: var(--ash); text-transform: uppercase; }
+.plan-features { display: flex; flex-direction: column; gap: 0; margin-bottom: 2.5rem; }
+.plan-feature {
+  display: flex; align-items: center; gap: 12px;
+  padding: 0.9rem 0; border-bottom: 1px solid var(--border);
+  font-size: 0.8rem; font-weight: 300; color: var(--white-dim);
+}
+.plan-feature-icon { color: var(--red); font-size: 0.8rem; }
+.plan-btn {
+  display: block; width: 100%; text-align: center;
+  font-family: var(--font-cond); font-weight: 600;
+  font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 16px; cursor: pointer; transition: all 0.25s; text-decoration: none;
+  border: 1px solid var(--border); color: var(--white); background: transparent;
+}
+.plan-btn:hover { background: var(--red); border-color: var(--red); }
+.plan-card.featured .plan-btn { background: var(--white); color: var(--red); border-color: var(--white); }
+.plan-card.featured .plan-btn:hover { background: var(--black); color: var(--white); border-color: var(--black); }
+
+/* SCHEDULE */
+.schedule-section { background: var(--black-3); }
+.schedule-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; background: var(--border); margin-top: 4rem; }
+.schedule-day { background: var(--iron); }
+.schedule-day-header {
+  padding: 1rem; border-bottom: 1px solid var(--border);
+  font-family: var(--font-cond); font-size: 0.72rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--red); font-weight: 400;
+}
+.schedule-class {
+  padding: 1rem; border-bottom: 1px solid var(--border);
+  cursor: pointer; transition: background 0.2s;
+}
+.schedule-class:hover { background: var(--red-dim); }
+.sc-time { font-family: var(--font-cond); font-size: 0.65rem; letter-spacing: 0.1em; color: var(--ash); margin-bottom: 4px; }
+.sc-name { font-family: var(--font-cond); font-size: 0.85rem; font-weight: 600; color: var(--white); text-transform: uppercase; }
+.sc-trainer { font-size: 0.65rem; font-weight: 300; color: var(--ash); }
+
+/* CONTACT */
+.contact-section {
+  scroll-margin-top: 92px;
+  background: var(--black-2);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.contact-left { padding: 110px 56px; }
+.contact-right {
+  background: var(--red); padding: 110px 56px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.contact-right .sec-eyebrow span { color: var(--white); opacity: 0.7; }
+.contact-right .sec-eyebrow-line { background: var(--white); }
+.contact-right .sec-title { color: var(--white); }
+.contact-details { display: flex; flex-direction: column; gap: 2.5rem; margin-top: 3rem; }
+.c-label { font-family: var(--font-cond); font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 6px; }
+.c-val { font-family: var(--font-cond); font-size: 1.05rem; font-weight: 400; color: var(--white); letter-spacing: 0.03em; }
+.c-sub { font-size: 0.75rem; font-weight: 300; color: var(--ash); margin-top: 2px; }
+.social-row { display: flex; flex-direction: column; gap: 0; margin-top: 2.5rem; }
+.soc {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 0; border-bottom: 1px solid var(--border);
+  cursor: pointer; transition: all 0.2s;
+}
+.soc:hover { padding-left: 10px; }
+.soc:hover .soc-name { color: var(--red); }
+.soc-name { font-family: var(--font-cond); font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ash); transition: color 0.2s; }
+.soc-handle { font-family: var(--font-cond); font-size: 1rem; color: var(--white-dim); }
+.soc-arr { font-size: 0.65rem; color: var(--border); }
+
+.trial-form { display: flex; flex-direction: column; gap: 0; }
+.trial-title { font-family: var(--font-display); font-size: 2.5rem; color: var(--white); margin-bottom: 0.5rem; line-height: 1; }
+.trial-sub { font-size: 0.8rem; font-weight: 300; color: rgba(240,239,237,0.7); margin-bottom: 2rem; }
+.form-input {
+  padding: 16px 18px; border: 1px solid rgba(240,239,237,0.3);
+  background: rgba(0,0,0,0.2); font-family: var(--font-body);
+  font-size: 0.85rem; font-weight: 300; color: var(--white); outline: none;
+  transition: border-color 0.2s; margin-bottom: 1px;
+}
+.form-input::placeholder { color: rgba(240,239,237,0.45); }
+.form-input:focus { border-color: var(--white); }
+.form-select {
+  padding: 16px 18px; border: 1px solid rgba(240,239,237,0.3);
+  background: rgba(0,0,0,0.25); font-family: var(--font-body);
+  font-size: 0.85rem; font-weight: 300; color: var(--white); outline: none;
+  margin-bottom: 1.5rem; appearance: none; cursor: pointer;
+}
+.form-select option { background: var(--black-3); color: var(--white); }
+.form-submit {
+  font-family: var(--font-cond); font-weight: 600;
+  font-size: 0.85rem; letter-spacing: 0.25em; text-transform: uppercase;
+  background: var(--white); color: var(--red); border: none;
+  padding: 18px; cursor: pointer; transition: all 0.25s;
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+}
+.form-submit:hover { background: var(--black); color: var(--white); }
+
+/* FOOTER */
+footer {
+  background: var(--black); border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 2rem 56px;
+}
+.footer-logo { font-family: var(--font-display); font-size: 1.2rem; letter-spacing: 0.12em; color: var(--white-dim); }
+.footer-logo span { color: var(--red); }
+.footer-copy { font-family: var(--font-cond); font-size: 0.65rem; letter-spacing: 0.15em; color: var(--ash); text-transform: uppercase; }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity:0; transform:translateY(32px); } to { opacity:1; transform:translateY(0); } }
+.hero-content > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
+.hero-tag        { animation-delay: 0.1s; }
+.hero-headline   { animation-delay: 0.25s; }
+.hero-sub        { animation-delay: 0.45s; }
+.hero-btns       { animation-delay: 0.6s; }
+@keyframes pulse { 0%,100%{opacity:0.3} 50%{opacity:0.7} }
+.hero-bar { animation: pulse 3s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav { padding: 18px 24px; }
+  nav.scrolled { padding: 14px 24px; }
+  .nav-links { display:none; }
+  .hero { padding: 0 24px 140px; }
+  .hero-headline { font-size: 4.5rem; }
+  .hero-stats { right:24px; bottom:80px; }
+  .hero-scroll { left:24px; bottom: 40px; }
+  .section { padding: 70px 24px; }
+  .programs-header { flex-direction:column; align-items:flex-start; gap:1rem; }
+  .programs-grid { grid-template-columns:1fr; }
+  .trainers-grid { grid-template-columns:1fr 1fr; }
+  .pricing-grid { grid-template-columns:1fr; }
+  .schedule-grid { grid-template-columns:1fr 1fr; }
+  .contact-section { grid-template-columns:1fr; }
+  .contact-left,.contact-right { padding: 70px 24px; }
+  footer { flex-direction:column; gap:1rem; padding:1.5rem 24px; text-align:center; }
+}
+</style>
+</head>
+<body>
+
+<aside class="portfolio-context" aria-label="Portfolio project context">
+  <a class="portfolio-back" href="index.html">&larr; Back to Portfolio</a>
+  <div class="portfolio-mini">
+    <span>Brand landing page</span>
+    <strong>Iron Republic</strong>
+    <p>Gym landing page concept for programs, trainers, pricing, schedule, and trial signup.</p>
+    <div class="portfolio-tags" aria-label="Practiced skills">
+      <span>Landing page IA</span>
+      <span>High-contrast UI</span>
+      <span>Responsive CSS</span>
+    </div>
+  </div>
+</aside>
+
+<!-- NAV -->
+<nav id="nav" aria-label="Iron Republic navigation">
+  <a class="logo" href="#home">IRON<span>.</span>REPUBLIC</a>
+  <ul class="nav-links">
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#trainers">Trainers</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#schedule">Schedule</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-join">Free Trial</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-bg-glow"></div>
+  <div class="hero-bar"></div>
+  <div class="hero-bignumber">01</div>
+
+  <div class="hero-content">
+    <div class="hero-tag">
+      <div class="hero-tag-dash"></div>
+      <span>Elite Training · Bangkok · Est. 2018</span>
+    </div>
+    <h1 class="hero-headline">
+      <span class="stroke">FORGE</span><br>
+      YOUR<br>
+      <span class="red">LIMIT.</span>
+    </h1>
+    <p class="hero-sub">
+      ยิมระดับ Elite ใจกลางกรุงเทพฯ ที่ออกแบบมาเพื่อคนที่จริงจังกับการฝึก
+      ไม่ว่าจะเป็นมือใหม่หรือนักกีฬา เราพร้อมดันคุณไปอีกขั้น
+    </p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-red">ทดลองฟรี 1 วัน</a>
+      <a href="#programs" class="btn-outline-white">ดูโปรแกรม</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div>
+      <span class="h-stat-num">8<span>K+</span></span>
+      <span class="h-stat-label">สมาชิก</span>
+    </div>
+    <div>
+      <span class="h-stat-num">24<span>h</span></span>
+      <span class="h-stat-label">เปิดตลอด</span>
+    </div>
+    <div>
+      <span class="h-stat-num">40<span>+</span></span>
+      <span class="h-stat-label">คลาสต่อสัปดาห์</span>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-bar"></div>
+    <span>Scroll Down</span>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section class="section programs-section" id="programs">
+  <div class="programs-header">
+    <div>
+      <div class="sec-eyebrow"><div class="sec-eyebrow-line"></div><span>Training Programs</span></div>
+      <h2 class="sec-title">โปรแกรม<br><span class="stroke">ฝึกซ้อม</span></h2>
+    </div>
+    <p class="programs-header-right">ทุกโปรแกรมออกแบบโดย Certified Coach ปรับได้ตามระดับและเป้าหมายของคุณ</p>
+  </div>
+  <div class="programs-grid">
+    <div class="prog-card">
+      <div class="prog-num">01</div>
+      <span class="prog-icon">🥊</span>
+      <div class="prog-name">Muay Thai</div>
+      <span class="prog-level">All Levels</span>
+      <p class="prog-desc">มวยไทยดั้งเดิม ฝึกทั้ง Technique, Fitness และ Sparring กับครูมวยมืออาชีพ ทั้งสายกีฬาและสายออกกำลังกาย</p>
+      <div class="prog-tags">
+        <span class="prog-tag">Striking</span>
+        <span class="prog-tag">Cardio</span>
+        <span class="prog-tag">Flexibility</span>
+      </div>
+      <div class="prog-duration">60 MIN</div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-num">02</div>
+      <span class="prog-icon">🏋️</span>
+      <div class="prog-name">Powerlifting</div>
+      <span class="prog-level">Intermediate+</span>
+      <p class="prog-desc">ยกน้ำหนักสามท่าหลัก Squat, Bench, Deadlift โปรแกรมวิทยาศาสตร์ที่วัดผลได้ เพิ่มความแข็งแกร่งสูงสุด</p>
+      <div class="prog-tags">
+        <span class="prog-tag">Strength</span>
+        <span class="prog-tag">Hypertrophy</span>
+      </div>
+      <div class="prog-duration">90 MIN</div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-num">03</div>
+      <span class="prog-icon">⚡</span>
+      <div class="prog-name">HIIT Combat</div>
+      <span class="prog-level">All Levels</span>
+      <p class="prog-desc">ผสมผสาน High Intensity Interval Training กับ Combat Movement เผาผลาญสูงสุด ไขมันหายไวมาก</p>
+      <div class="prog-tags">
+        <span class="prog-tag">Fat Burn</span>
+        <span class="prog-tag">Endurance</span>
+        <span class="prog-tag">Core</span>
+      </div>
+      <div class="prog-duration">45 MIN</div>
+    </div>
+  </div>
+</section>
+
+<!-- TRAINERS -->
+<section class="section trainers-section" id="trainers">
+  <div class="trainers-header">
+    <div class="sec-eyebrow"><div class="sec-eyebrow-line"></div><span>Our Coaches</span></div>
+    <h2 class="sec-title">ทีม<br><span class="stroke">โค้ช</span></h2>
+  </div>
+  <div class="trainers-grid">
+    <div class="trainer-card">
+      <div class="trainer-img-wrap">
+        <div class="trainer-img">
+          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="400" fill="#1E1E1E"/>
+            <rect width="300" height="400" fill="url(#tg1)"/>
+            <defs>
+              <linearGradient id="tg1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#C41E1E" stop-opacity="0.06"/>
+                <stop offset="100%" stop-color="#080808" stop-opacity="0.8"/>
+              </linearGradient>
+            </defs>
+            <!-- Silhouette fighter stance -->
+            <circle cx="150" cy="100" r="40" fill="#2C2C2C"/>
+            <path d="M120 140 Q110 200 100 280 Q130 290 150 285 Q170 290 200 280 Q190 200 180 140 Z" fill="#2C2C2C"/>
+            <!-- Arms in guard -->
+            <path d="M120 150 Q80 170 70 210 Q90 215 95 190 Q110 175 125 168Z" fill="#2C2C2C"/>
+            <path d="M180 150 Q220 170 230 210 Q210 215 205 190 Q190 175 175 168Z" fill="#2C2C2C"/>
+            <!-- Fist left -->
+            <rect x="62" y="200" width="38" height="28" rx="6" fill="#1E1E1E" stroke="#C41E1E" stroke-width="1" opacity="0.6"/>
+            <!-- Fist right -->
+            <rect x="200" y="200" width="38" height="28" rx="6" fill="#1E1E1E" stroke="#C41E1E" stroke-width="1" opacity="0.6"/>
+            <!-- Red accent line -->
+            <line x1="0" y1="380" x2="300" y2="380" stroke="#C41E1E" stroke-width="2"/>
+            <text x="150" y="360" text-anchor="middle" font-family="'Bebas Neue'" font-size="11" letter-spacing="8" fill="#C41E1E" opacity="0.5">MUAY THAI</text>
+          </svg>
+        </div>
+        <div class="trainer-overlay">
+          <span class="trainer-overlay-text">View Profile →</span>
+        </div>
+      </div>
+      <div class="trainer-info">
+        <div class="trainer-name">SOMCHAI K.</div>
+        <div class="trainer-title">Head Muay Thai Coach</div>
+        <div class="trainer-spec">อดีตนักมวยอาชีพ · ประสบการณ์ 15 ปี · 3× แชมป์</div>
+      </div>
+    </div>
+    <div class="trainer-card">
+      <div class="trainer-img-wrap">
+        <div class="trainer-img">
+          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="400" fill="#1A1A1A"/>
+            <rect width="300" height="400" fill="url(#tg2)"/>
+            <defs>
+              <linearGradient id="tg2" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#C41E1E" stop-opacity="0.04"/>
+                <stop offset="100%" stop-color="#080808" stop-opacity="0.9"/>
+              </linearGradient>
+            </defs>
+            <!-- Deadlift silhouette -->
+            <circle cx="150" cy="95" r="38" fill="#2C2C2C"/>
+            <!-- Barbell -->
+            <rect x="30" y="220" width="240" height="14" rx="7" fill="#2C2C2C"/>
+            <rect x="20" y="200" width="30" height="54" rx="5" fill="#1E1E1E" stroke="#C41E1E" stroke-width="0.8" opacity="0.5"/>
+            <rect x="250" y="200" width="30" height="54" rx="5" fill="#1E1E1E" stroke="#C41E1E" stroke-width="0.8" opacity="0.5"/>
+            <!-- Body lifting -->
+            <path d="M130 133 Q120 165 100 220 L200 220 Q180 165 170 133 Z" fill="#2C2C2C"/>
+            <path d="M100 220 Q90 260 95 310 L125 310 Q130 270 135 230 Z" fill="#2C2C2C"/>
+            <path d="M200 220 Q210 260 205 310 L175 310 Q170 270 165 230 Z" fill="#2C2C2C"/>
+            <line x1="0" y1="380" x2="300" y2="380" stroke="#C41E1E" stroke-width="2"/>
+            <text x="150" y="360" text-anchor="middle" font-family="'Bebas Neue'" font-size="11" letter-spacing="8" fill="#C41E1E" opacity="0.5">STRENGTH</text>
+          </svg>
+        </div>
+        <div class="trainer-overlay">
+          <span class="trainer-overlay-text">View Profile →</span>
+        </div>
+      </div>
+      <div class="trainer-info">
+        <div class="trainer-name">ARNUT W.</div>
+        <div class="trainer-title">Strength & Conditioning</div>
+        <div class="trainer-spec">NSCA-CSCS · IPF Competitor · MSc Sports Science</div>
+      </div>
+    </div>
+    <div class="trainer-card">
+      <div class="trainer-img-wrap">
+        <div class="trainer-img">
+          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="400" fill="#161616"/>
+            <rect width="300" height="400" fill="url(#tg3)"/>
+            <defs>
+              <linearGradient id="tg3" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#C41E1E" stop-opacity="0.08"/>
+                <stop offset="100%" stop-color="#080808" stop-opacity="0.85"/>
+              </linearGradient>
+            </defs>
+            <!-- Jump/sprint silhouette -->
+            <circle cx="155" cy="90" r="36" fill="#2C2C2C"/>
+            <!-- Body running -->
+            <path d="M140 126 Q130 170 125 220 L165 220 Q165 170 170 126 Z" fill="#2C2C2C"/>
+            <!-- Legs stride -->
+            <path d="M125 220 Q105 265 90 310 L115 310 Q125 268 140 228 Z" fill="#2C2C2C"/>
+            <path d="M165 220 Q175 255 185 310 L210 310 Q200 258 175 222 Z" fill="#2C2C2C"/>
+            <!-- Arms pump -->
+            <path d="M140 140 Q110 165 90 200 L110 210 Q125 178 145 158Z" fill="#2C2C2C"/>
+            <path d="M170 140 Q200 158 215 185 L200 205 Q188 178 165 160Z" fill="#2C2C2C"/>
+            <!-- Speed lines -->
+            <line x1="30" y1="180" x2="75" y2="180" stroke="#C41E1E" stroke-width="1" opacity="0.3"/>
+            <line x1="20" y1="195" x2="60" y2="195" stroke="#C41E1E" stroke-width="1" opacity="0.2"/>
+            <line x1="0" y1="380" x2="300" y2="380" stroke="#C41E1E" stroke-width="2"/>
+            <text x="150" y="360" text-anchor="middle" font-family="'Bebas Neue'" font-size="11" letter-spacing="8" fill="#C41E1E" opacity="0.5">HIIT COMBAT</text>
+          </svg>
+        </div>
+        <div class="trainer-overlay">
+          <span class="trainer-overlay-text">View Profile →</span>
+        </div>
+      </div>
+      <div class="trainer-info">
+        <div class="trainer-name">NIDA P.</div>
+        <div class="trainer-title">HIIT & Combat Coach</div>
+        <div class="trainer-spec">ACE Certified · TriAthlete · Nutrition Coach</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section pricing-section" id="pricing">
+  <div class="pricing-header">
+    <div class="sec-eyebrow"><div class="sec-eyebrow-line"></div><span>Membership Plans</span></div>
+    <h2 class="sec-title">ราคา<span class="stroke">สมาชิก</span></h2>
+  </div>
+  <div class="pricing-grid">
+    <div class="plan-card">
+      <div class="plan-badge">Starter</div>
+      <div class="plan-name">ROOKIE</div>
+      <p class="plan-desc">เหมาะสำหรับผู้เริ่มต้น</p>
+      <div class="plan-price">
+        <div class="plan-price-num">฿990</div>
+        <div class="plan-price-unit">/ เดือน</div>
+      </div>
+      <div class="plan-features">
+        <div class="plan-feature"><span class="plan-feature-icon">✓</span> เข้ายิมได้ไม่จำกัด</div>
+        <div class="plan-feature"><span class="plan-feature-icon">✓</span> Locker & Shower</div>
+        <div class="plan-feature"><span class="plan-feature-icon">✓</span> คลาส Group 4 ครั้ง/เดือน</div>
+        <div class="plan-feature"><span class="plan-feature-icon" style="color:var(--ash)">—</span> Personal Training</div>
+        <div class="plan-feature"><span class="plan-feature-icon" style="color:var(--ash)">—</span> Nutrition Plan</div>
+      </div>
+      <a href="#contact" class="plan-btn">เลือกแพลนนี้</a>
+    </div>
+    <div class="plan-card featured">
+      <div class="plan-badge">Most Popular</div>
+      <div class="plan-name">WARRIOR</div>
+      <p class="plan-desc">เหมาะสำหรับคนจริงจัง</p>
+      <div class="plan-price">
+        <div class="plan-price-num">฿1,890</div>
+        <div class="plan-price-unit">/ เดือน</div>
+      </div>
+      <div class="plan-features">
+        <div class="plan-feature"><span class="plan-feature-icon">✓</span> เข้ายิมได้ไม่จำกัด 24h</div>
+        <div class="plan-feature"><span class="plan-feature-icon">✓</span> Locker & Shower</div>
+        <div class="plan-feature"><span class="plan-feature-icon">✓</span> คลาส Group ไม่จำกัด</div>
+        <div class="plan-feature"><span class="plan-feature-icon">✓</span> PT Session 4 ครั้ง/เดือน</div>
+        <div class="plan-feature"><span class="plan-feature-icon" style="color:rgba(240,239,237,0.4)">—</span> Nutrition Plan</div>
+      </div>
+      <a href="#contact" class="plan-btn">เลือกแพลนนี้</a>
+    </div>
+    <div class="plan-card">
+      <div class="plan-badge">Premium</div>
+      <div class="plan-name">ELITE</div>
+      <p class="plan-desc">สำหรับนักกีฬาและผู้บริหาร</p>
+      <div class="plan-price">
+        <div class="plan-price-num">฿3,290</div>
+        <div class="plan-price-unit">/ เดือน</div>
+      </div>
+      <div class="plan-features">
+        <div class="plan-feature"><span class="plan-feature-icon">✓</span> เข้ายิมได้ไม่จำกัด 24h</div>
+        <div class="plan-feature"><span class="plan-feature-icon">✓</span> Private Locker</div>
+        <div class="plan-feature"><span class="plan-feature-icon">✓</span> คลาส Group ไม่จำกัด</div>
+        <div class="plan-feature"><span class="plan-feature-icon">✓</span> PT Session 8 ครั้ง/เดือน</div>
+        <div class="plan-feature"><span class="plan-feature-icon">✓</span> Custom Nutrition Plan</div>
+      </div>
+      <a href="#contact" class="plan-btn">เลือกแพลนนี้</a>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section class="section schedule-section" id="schedule">
+  <div class="sec-eyebrow"><div class="sec-eyebrow-line"></div><span>Weekly Schedule</span></div>
+  <h2 class="sec-title">ตาราง<span class="stroke">คลาส</span></h2>
+  <div class="schedule-grid">
+    <div class="schedule-day">
+      <div class="schedule-day-header">จันทร์</div>
+      <div class="schedule-class"><div class="sc-time">06:00</div><div class="sc-name">Muay Thai</div><div class="sc-trainer">Somchai K.</div></div>
+      <div class="schedule-class"><div class="sc-time">12:00</div><div class="sc-name">HIIT Combat</div><div class="sc-trainer">Nida P.</div></div>
+      <div class="schedule-class"><div class="sc-time">19:00</div><div class="sc-name">Powerlifting</div><div class="sc-trainer">Arnut W.</div></div>
+    </div>
+    <div class="schedule-day">
+      <div class="schedule-day-header">อังคาร</div>
+      <div class="schedule-class"><div class="sc-time">07:00</div><div class="sc-name">HIIT Combat</div><div class="sc-trainer">Nida P.</div></div>
+      <div class="schedule-class"><div class="sc-time">18:00</div><div class="sc-name">Muay Thai</div><div class="sc-trainer">Somchai K.</div></div>
+      <div class="schedule-class"><div class="sc-time">20:00</div><div class="sc-name">Strength</div><div class="sc-trainer">Arnut W.</div></div>
+    </div>
+    <div class="schedule-day">
+      <div class="schedule-day-header">พุธ</div>
+      <div class="schedule-class"><div class="sc-time">06:00</div><div class="sc-name">Powerlifting</div><div class="sc-trainer">Arnut W.</div></div>
+      <div class="schedule-class"><div class="sc-time">12:00</div><div class="sc-name">HIIT Combat</div><div class="sc-trainer">Nida P.</div></div>
+      <div class="schedule-class"><div class="sc-time">19:00</div><div class="sc-name">Muay Thai</div><div class="sc-trainer">Somchai K.</div></div>
+    </div>
+    <div class="schedule-day">
+      <div class="schedule-day-header">พฤหัส</div>
+      <div class="schedule-class"><div class="sc-time">07:00</div><div class="sc-name">Muay Thai</div><div class="sc-trainer">Somchai K.</div></div>
+      <div class="schedule-class"><div class="sc-time">18:00</div><div class="sc-name">Powerlifting</div><div class="sc-trainer">Arnut W.</div></div>
+      <div class="schedule-class"><div class="sc-time">20:00</div><div class="sc-name">HIIT Combat</div><div class="sc-trainer">Nida P.</div></div>
+    </div>
+    <div class="schedule-day">
+      <div class="schedule-day-header">ศุกร์</div>
+      <div class="schedule-class"><div class="sc-time">06:00</div><div class="sc-name">HIIT Combat</div><div class="sc-trainer">Nida P.</div></div>
+      <div class="schedule-class"><div class="sc-time">12:00</div><div class="sc-name">Strength</div><div class="sc-trainer">Arnut W.</div></div>
+      <div class="schedule-class"><div class="sc-time">19:00</div><div class="sc-name">Muay Thai</div><div class="sc-trainer">Somchai K.</div></div>
+    </div>
+    <div class="schedule-day">
+      <div class="schedule-day-header">เสาร์–อาทิตย์</div>
+      <div class="schedule-class"><div class="sc-time">08:00</div><div class="sc-name">Muay Thai Open</div><div class="sc-trainer">All Coaches</div></div>
+      <div class="schedule-class"><div class="sc-time">10:00</div><div class="sc-name">HIIT Combat</div><div class="sc-trainer">Nida P.</div></div>
+      <div class="schedule-class"><div class="sc-time">14:00</div><div class="sc-name">Powerlifting</div><div class="sc-trainer">Arnut W.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="contact-left">
+    <div class="sec-eyebrow"><div class="sec-eyebrow-line"></div><span>Find Us</span></div>
+    <h2 class="sec-title">ติดต่อ<br><span class="stroke">เรา</span></h2>
+    <div class="contact-details">
+      <div>
+        <div class="c-label">Address · ที่อยู่</div>
+        <div class="c-val">88 ถนนรัชดาภิเษก แขวงดินแดง<br>เขตดินแดง กรุงเทพฯ 10400</div>
+      </div>
+      <div>
+        <div class="c-label">Hours · เวลาเปิด</div>
+        <div class="c-val">จันทร์–ศุกร์: 05:30 – 23:00</div>
+        <div class="c-sub">เสาร์–อาทิตย์: 07:00 – 21:00</div>
+        <div class="c-sub" style="margin-top:6px;color:var(--red);">สมาชิก Elite เข้าได้ 24 ชั่วโมง</div>
+      </div>
+      <div>
+        <div class="c-label">Phone · โทรศัพท์</div>
+        <div class="c-val">02-XXX-XXXX</div>
+      </div>
+    </div>
+    <div class="social-row">
+      <div class="soc"><div><div class="soc-name">Line</div><div class="soc-handle">@ironrepublic.bkk</div></div><span class="soc-arr">↗</span></div>
+      <div class="soc"><div><div class="soc-name">Instagram</div><div class="soc-handle">@iron.republic</div></div><span class="soc-arr">↗</span></div>
+      <div class="soc"><div><div class="soc-name">Facebook</div><div class="soc-handle">Iron Republic Gym</div></div><span class="soc-arr">↗</span></div>
+    </div>
+  </div>
+  <div class="contact-right">
+    <div class="trial-title">FREE<br>TRIAL DAY</div>
+    <p class="trial-sub">กรอกข้อมูลเพื่อรับสิทธิ์ทดลองฝึกฟรี 1 วัน ไม่มีข้อผูกมัด</p>
+    <div class="trial-form">
+      <input class="form-input" type="text" placeholder="ชื่อ – Name">
+      <input class="form-input" type="tel" placeholder="เบอร์โทร – Phone">
+      <input class="form-input" type="email" placeholder="อีเมล – Email">
+      <select class="form-select">
+        <option value="" disabled selected>สนใจโปรแกรม – Program Interest</option>
+        <option>Muay Thai</option>
+        <option>Powerlifting</option>
+        <option>HIIT Combat</option>
+        <option>ยังไม่แน่ใจ / Not Sure</option>
+      </select>
+      <button class="form-submit" type="button">จองทดลองฟรี →</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">IRON<span>.</span>REPUBLIC</div>
+  <div class="footer-copy">© 2024 Iron Republic Gym · Elite Training Bangkok · All Rights Reserved</div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+  document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    const target = a.getAttribute('href');
+    if (!target || target === '#') return;
+    e.preventDefault();
+    document.querySelector(target)?.scrollIntoView({ behavior: 'smooth' });
+  }));
+</script>
+</body>
+</html>

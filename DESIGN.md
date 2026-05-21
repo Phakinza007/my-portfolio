@@ -1,6 +1,6 @@
 ---
 name: Portfolio Cover Gallery
-description: Static frontend portfolio cover for nine standalone HTML projects.
+description: Static frontend portfolio cover for ten standalone HTML projects.
 colors:
   paper: "oklch(96% 0.018 62)"
   paper-soft: "oklch(93% 0.026 48)"
