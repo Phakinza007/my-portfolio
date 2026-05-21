@@ -648,6 +648,12 @@
       background: oklch(98% 0.012 65 / 0.72);
     }
 
+    .button.contact {
+      background: var(--cobalt);
+      color: var(--surface);
+      box-shadow: 0 14px 28px oklch(56% 0.19 256 / 0.2);
+    }
+
     .repo-strip {
       position: relative;
       z-index: 7;
@@ -713,6 +719,121 @@
       color: var(--muted);
       max-width: 54ch;
       overflow-wrap: anywhere;
+    }
+
+    .about-band {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+      gap: 30px;
+      align-items: start;
+      padding: 34px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, oklch(98% 0.012 65 / 0.94), oklch(92% 0.032 76 / 0.76)),
+        var(--surface);
+      box-shadow: 0 18px 42px oklch(22% 0.035 40 / 0.08);
+    }
+
+    .about-lead {
+      display: grid;
+      gap: 18px;
+      align-content: start;
+    }
+
+    .about-lead h3 {
+      max-width: 14ch;
+      font-family: "Bai Jamjuree", sans-serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+
+    .about-lead p {
+      color: var(--muted);
+      max-width: 62ch;
+    }
+
+    .about-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      overflow: hidden;
+      border: 1px solid oklch(80% 0.028 56 / 0.72);
+      border-radius: 8px;
+      background: oklch(98% 0.012 65 / 0.72);
+    }
+
+    .about-metric {
+      min-height: 92px;
+      padding: 14px;
+    }
+
+    .about-metric + .about-metric {
+      border-left: 1px solid oklch(80% 0.028 56 / 0.72);
+    }
+
+    .about-metric strong {
+      display: block;
+      color: var(--cobalt);
+      font-family: "Bai Jamjuree", sans-serif;
+      font-size: 1.45rem;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .about-metric span {
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .skills-board {
+      display: grid;
+      overflow: hidden;
+      border: 1px solid oklch(80% 0.028 56 / 0.72);
+      border-radius: 8px;
+      background: oklch(98% 0.012 65 / 0.64);
+    }
+
+    .skill-row {
+      display: grid;
+      grid-template-columns: 152px minmax(0, 1fr);
+      gap: 16px;
+      padding: 16px;
+    }
+
+    .skill-row + .skill-row {
+      border-top: 1px solid oklch(80% 0.028 56 / 0.58);
+    }
+
+    .skill-row strong {
+      font-family: "Bai Jamjuree", sans-serif;
+      line-height: 1.24;
+    }
+
+    .skill-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .skill-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 10px;
+      border-radius: 8px;
+      background: oklch(91% 0.04 165);
+      color: oklch(32% 0.06 160);
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    .skill-pill.alt {
+      background: oklch(91% 0.056 38);
+      color: oklch(34% 0.066 34);
     }
 
     .featured-grid {
@@ -897,6 +1018,33 @@
       position: absolute;
       inset: 0;
       background: linear-gradient(180deg, transparent 58%, oklch(19% 0.033 42 / 0.34));
+    }
+
+    .status-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 10px;
+      border-radius: 8px;
+      background: oklch(98% 0.012 65 / 0.94);
+      color: var(--ink);
+      font-size: 0.74rem;
+      font-weight: 800;
+      box-shadow: 0 10px 24px oklch(15% 0.03 40 / 0.16);
+    }
+
+    .status-badge.case {
+      background: var(--cobalt);
+      color: var(--surface);
+    }
+
+    .status-badge.brand {
+      background: var(--butter);
+      color: oklch(28% 0.05 55);
     }
 
     .work-body {
@@ -1127,19 +1275,40 @@
       align-items: center;
       padding: 44px;
       border-radius: 8px;
-      border: 1px solid var(--line);
-      background: oklch(98% 0.012 65 / 0.86);
-      box-shadow: 0 18px 42px oklch(22% 0.035 40 / 0.08);
+      border: 1px solid oklch(98% 0.012 65 / 0.14);
+      background:
+        radial-gradient(circle at 18% 20%, oklch(56% 0.19 256 / 0.28), transparent 34%),
+        var(--ink);
+      color: var(--surface);
+      box-shadow: 0 26px 60px oklch(22% 0.035 40 / 0.18);
     }
 
     .contact-band h2 {
-      max-width: 11ch;
+      max-width: 13ch;
+    }
+
+    .contact-band .section-kicker {
+      color: var(--butter);
     }
 
     .contact-copy p {
-      color: var(--muted);
+      color: oklch(89% 0.02 76 / 0.78);
       max-width: 65ch;
       margin-bottom: 18px;
+    }
+
+    .contact-intent {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      margin-bottom: 14px;
+      padding: 0 10px;
+      border-radius: 8px;
+      border: 1px solid oklch(98% 0.012 65 / 0.18);
+      background: oklch(98% 0.012 65 / 0.08);
+      color: var(--butter);
+      font-size: 0.82rem;
+      font-weight: 800;
     }
 
     .contact-links {
@@ -1155,15 +1324,25 @@
       justify-content: center;
       border-radius: 8px;
       padding: 0 14px;
-      border: 1px solid var(--line);
-      background: var(--surface);
+      border: 1px solid oklch(98% 0.012 65 / 0.18);
+      background: oklch(98% 0.012 65 / 0.08);
+      color: var(--surface);
       font-weight: 800;
+      transition: transform 180ms var(--ease), background 180ms var(--ease), border-color 180ms var(--ease);
+    }
+
+    .contact-link:hover {
+      transform: translateY(-2px);
+      background: oklch(98% 0.012 65 / 0.14);
     }
 
     .contact-link.primary {
-      background: var(--cobalt);
-      border-color: var(--cobalt);
-      color: var(--surface);
+      min-height: 50px;
+      padding: 0 20px;
+      background: var(--butter);
+      border-color: var(--butter);
+      color: var(--ink);
+      box-shadow: 0 16px 30px oklch(91% 0.09 88 / 0.18);
     }
 
     .process-band {
@@ -1252,6 +1431,7 @@
       }
 
       .featured-grid,
+      .about-band,
       .case-panel,
       .process-band,
       .contact-band {
@@ -1365,6 +1545,7 @@
 
       .repo-strip,
       .section-heading,
+      .about-metrics,
       .steps {
         grid-template-columns: 1fr;
       }
@@ -1406,6 +1587,20 @@
         justify-self: start;
       }
 
+      .about-band,
+      .contact-band {
+        padding: 24px;
+      }
+
+      .about-metric + .about-metric {
+        border-left: 0;
+        border-top: 1px solid oklch(80% 0.028 56 / 0.72);
+      }
+
+      .skill-row {
+        grid-template-columns: 1fr;
+      }
+
       .stack-link .open-chip {
         grid-column: 2;
         justify-self: start;
@@ -1421,10 +1616,6 @@
 
       .case-decision {
         grid-template-columns: 32px minmax(0, 1fr);
-      }
-
-      .contact-band {
-        padding: 24px;
       }
 
       .footer-inner {
@@ -1495,6 +1686,7 @@
       <ul class="nav-links">
         <li><a href="#featured">ปกงาน</a></li>
         <li><a href="#works">ไฟล์ทั้งหมด</a></li>
+        <li><a href="#about">ทักษะ</a></li>
         <li><a href="#case-studies">เบื้องหลังงาน</a></li>
         <li><a href="#contact">ติดต่อ</a></li>
         <li><a href="#system">โครงงาน</a></li>
@@ -1517,6 +1709,7 @@
           <div class="hero-actions" aria-label="ลิงก์สำคัญ">
             <a class="button primary" href="#works">ดูไฟล์ทั้งหมด</a>
             <a class="button secondary" href="LaunchLedger.html">เปิดงานใหม่ ↗</a>
+            <a class="button contact" href="#contact">ติดต่อ</a>
           </div>
           <div class="repo-strip" aria-label="ข้อมูล repo">
             <div class="repo-item">
@@ -1662,6 +1855,7 @@
         <div class="works-grid">
           <article class="work-card">
             <a class="work-preview" href="LaunchLedger.html" aria-label="เปิดเว็บจริง LaunchLedger">
+              <span class="status-badge">New build</span>
               <img class="preview-image" src="assets/thumbs/launch-ledger.jpg" alt="LaunchLedger startup budget dashboard screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
@@ -1686,6 +1880,7 @@
 
           <article class="work-card">
             <a class="work-preview" href="MuseRoom.html" aria-label="เปิดเว็บจริง MuseRoom">
+              <span class="status-badge brand">Visual study</span>
               <img class="preview-image" src="assets/thumbs/museroom.jpg" alt="MuseRoom digital gallery landing page screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
@@ -1710,6 +1905,7 @@
 
           <article class="work-card">
             <a class="work-preview" href="InternTrack.html" aria-label="เปิดเว็บจริง InternTrack">
+              <span class="status-badge case">Case study</span>
               <img class="preview-image" src="assets/thumbs/interntrack.jpg" alt="InternTrack internship application tracker screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
@@ -1734,6 +1930,7 @@
 
           <article class="work-card">
             <a class="work-preview" href="PulseBoard.html" aria-label="เปิดเว็บจริง PulseBoard">
+              <span class="status-badge case">Case study</span>
               <img class="preview-image" src="assets/thumbs/pulseboard.jpg" alt="PulseBoard dashboard screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
@@ -1758,6 +1955,7 @@
 
           <article class="work-card">
             <a class="work-preview" href="intern_landing_page_html_css.html" aria-label="เปิดเว็บจริง DevLaunch Academy">
+              <span class="status-badge case">Case study</span>
               <img class="preview-image" src="assets/thumbs/devlaunch.jpg" alt="DevLaunch Academy screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
@@ -1782,6 +1980,7 @@
 
           <article class="work-card">
             <a class="work-preview" href="Brew%20%26%20Co..html" aria-label="เปิดเว็บจริง Brew and Co">
+              <span class="status-badge brand">Brand page</span>
               <img class="preview-image" src="assets/thumbs/brew-co.jpg" alt="Brew and Co screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
@@ -1806,6 +2005,7 @@
 
           <article class="work-card">
             <a class="work-preview" href="coffee-landing.html" aria-label="เปิดเว็บจริง NOIR Coffee">
+              <span class="status-badge brand">Mood page</span>
               <img class="preview-image" src="assets/thumbs/noir-coffee.jpg" alt="NOIR Coffee screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
@@ -1830,6 +2030,7 @@
 
           <article class="work-card">
             <a class="work-preview" href="DRIP.html" aria-label="เปิดเว็บจริง DRIP Coffee Bar">
+              <span class="status-badge">Experiment</span>
               <img class="preview-image" src="assets/thumbs/drip.jpg" alt="DRIP Coffee Bar screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
@@ -1854,6 +2055,7 @@
 
           <article class="work-card">
             <a class="work-preview" href="coffee_shop_landing_page.html" aria-label="เปิดเว็บจริง Cozy Coffee Shop">
+              <span class="status-badge brand">Landing page</span>
               <img class="preview-image" src="assets/thumbs/cozy-coffee.jpg" alt="Cozy Coffee Shop screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
@@ -1875,6 +2077,75 @@
               </div>
             </div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="page-shell">
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">about / skills</div>
+            <h2>ทำพอร์ตให้ดูงานง่ายและเชื่อถือได้</h2>
+          </div>
+          <p>
+            ส่วนนี้สรุปว่าพอร์ตนี้ฝึกอะไรบ้าง: จากหน้า landing page,
+            dashboard UI, responsive layout ไปจนถึงการจัด presentation ให้คนรีวิวเข้าใจเร็ว.
+          </p>
+        </div>
+
+        <div class="about-band">
+          <div class="about-lead">
+            <h3>Frontend practice with real pages.</h3>
+            <p>
+              I build static HTML pages as complete portfolio pieces: clear first screen,
+              responsive CSS, real screenshots, source transparency, and pages that open directly from GitHub Pages.
+            </p>
+            <div class="about-metrics" aria-label="portfolio proof points">
+              <div class="about-metric">
+                <strong>9</strong>
+                <span>live HTML projects</span>
+              </div>
+              <div class="about-metric">
+                <strong>3</strong>
+                <span>reviewer-ready case studies</span>
+              </div>
+              <div class="about-metric">
+                <strong>1</strong>
+                <span>public GitHub Pages portfolio</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skills-board" aria-label="skills practiced">
+            <div class="skill-row">
+              <strong>Core frontend</strong>
+              <div class="skill-pills">
+                <span class="skill-pill">HTML</span>
+                <span class="skill-pill">CSS</span>
+                <span class="skill-pill">Responsive layout</span>
+                <span class="skill-pill alt">Semantic sections</span>
+              </div>
+            </div>
+            <div class="skill-row">
+              <strong>UI direction</strong>
+              <div class="skill-pills">
+                <span class="skill-pill">Visual hierarchy</span>
+                <span class="skill-pill">Dashboard UI</span>
+                <span class="skill-pill alt">Landing page IA</span>
+                <span class="skill-pill alt">Thai / English copy</span>
+              </div>
+            </div>
+            <div class="skill-row">
+              <strong>Portfolio polish</strong>
+              <div class="skill-pills">
+                <span class="skill-pill">Real screenshots</span>
+                <span class="skill-pill">GitHub Pages</span>
+                <span class="skill-pill alt">Source links</span>
+                <span class="skill-pill alt">Accessible focus</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -2066,13 +2337,14 @@
             <h2>Phakin Chawanpunya</h2>
           </div>
           <div class="contact-copy">
+            <span class="contact-intent">Open for feedback, reviews, and frontend opportunities</span>
             <p>
               Frontend and landing page practice portfolio focused on static HTML,
               responsive CSS, visual direction, and polished project presentation.
             </p>
             <div class="contact-links" aria-label="contact links">
-              <a class="contact-link primary" href="https://github.com/Phakinza007">GitHub Profile</a>
-              <a class="contact-link" href="mailto:a0626568471@gmail.com">Email</a>
+              <a class="contact-link primary" href="mailto:a0626568471@gmail.com">Email me</a>
+              <a class="contact-link" href="https://github.com/Phakinza007">GitHub Profile</a>
               <a class="contact-link" href="https://github.com/Phakinza007/my-portfolio">Repository</a>
             </div>
           </div>

@@ -168,11 +168,15 @@ Motion should use `cubic-bezier(0.16, 1, 0.3, 1)` and short 180-260ms transition
 
 **Project Cards:** Each card pairs a screenshot with title, short description, tags, and split actions for `View live` and `Source file`. Cards use 8px radius, warm borders, light surfaces, and subtle hover lift.
 
+**Status Badges:** Small screenshot badges clarify the role of each project, such as `Case study`, `Brand page`, `Experiment`, or `New build`. Keep them compact, high-contrast, and tied to real project status rather than decorative labels.
+
+**About / Skills Band:** A concise reviewer-facing band that explains the portfolio owner, live project count, case-study count, and practiced skills. It should support scanning without reading like a resume wall.
+
 **Case Study Panels:** Wider reviewer-facing panels that pair a real screenshot with the challenge, three numbered decisions, practiced skill tags, and the same split `View live` / `Source file` actions. Use them for the strongest projects when the thinking behind the UI matters.
 
 **Stack Links:** Compact project links in the featured section. They must include a mini screenshot, project name, source filename, and a clear open affordance.
 
-**Contact Band:** A dark ink band that closes the page with identity and contact actions. Keep it direct: name, short practice portfolio intro, GitHub, email, and repository.
+**Contact Band:** A dark ink band that closes the page with identity and contact actions. Keep the email action visually primary, then support it with GitHub and repository links.
 
 **404 Panel:** A single focused fallback panel with a large `404` block, Thai explanation, and two actions back to the portfolio and repository. It should feel like the same portfolio system, not a browser default error.
 
@@ -182,6 +186,7 @@ Do:
 
 - Use real screenshots from `assets/screenshots/` or thumbnails from `assets/thumbs/`.
 - Keep each project action split into `View live` and `Source file`.
+- Keep status badges truthful and useful for reviewers.
 - Preserve Thai-first page copy where it gives the portfolio personality.
 - Keep cards, panels, buttons, and preview frames at 8px radius unless the existing system requires another token.
 - Use OKLCH colors when editing CSS so the warm neutral system stays consistent.

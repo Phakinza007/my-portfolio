@@ -25,6 +25,8 @@ Live site: <https://phakinza007.github.io/my-portfolio/>
 
 The homepage includes compact case-study notes for InternTrack, PulseBoard, and DevLaunch Academy. Each one explains the challenge, three design decisions, practiced skills, and links to both the live page and source file.
 
+The homepage also includes an About / Skills band, project status badges, and a stronger contact CTA so reviewers can understand the portfolio without copying links or searching through files.
+
 ## How To Open
 
 ### Open directly
