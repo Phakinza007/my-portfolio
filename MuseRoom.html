@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MuseRoom | Digital Gallery Landing Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper: oklch(95% 0.024 72);
+      --surface: oklch(98% 0.014 74);
+      --ink: oklch(18% 0.032 305);
+      --muted: oklch(47% 0.042 305);
+      --line: oklch(79% 0.034 68);
+      --plum: oklch(37% 0.12 310);
+      --cyan: oklch(76% 0.11 205);
+      --rose: oklch(71% 0.13 24);
+      --gold: oklch(88% 0.12 87);
+      --shadow: 0 26px 70px oklch(18% 0.032 305 / 0.17);
+      --radius: 8px;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Noto Sans Thai", "Bai Jamjuree", Arial, sans-serif;
+      line-height: 1.62;
+      color: var(--ink);
+      background:
+        linear-gradient(115deg, oklch(95% 0.024 72), oklch(93% 0.035 32) 45%, oklch(91% 0.035 306));
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 78% 16%, oklch(88% 0.12 87 / 0.52), transparent 28%),
+        linear-gradient(90deg, oklch(18% 0.032 305 / 0.05) 1px, transparent 1px),
+        linear-gradient(oklch(18% 0.032 305 / 0.05) 1px, transparent 1px);
+      background-size: auto, 38px 38px, 38px 38px;
+      mask-image: linear-gradient(to bottom, oklch(0% 0 0 / 0.58), transparent 76%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid oklch(79% 0.034 68 / 0.7);
+      background: oklch(95% 0.024 72 / 0.88);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "Bai Jamjuree", sans-serif;
+      font-weight: 700;
+    }
+
+    .mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: var(--radius);
+      background: var(--plum);
+      color: var(--gold);
+      box-shadow: 0 14px 30px oklch(18% 0.032 305 / 0.18);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .nav-links a {
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 12px;
+      border-radius: var(--radius);
+      transition: background 180ms var(--ease), color 180ms var(--ease);
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+      background: oklch(98% 0.014 74 / 0.72);
+    }
+
+    .hero {
+      min-height: calc(100vh - 72px);
+      display: grid;
+      grid-template-columns: minmax(300px, 0.86fr) minmax(520px, 1.14fr);
+      align-items: center;
+      gap: clamp(34px, 6vw, 78px);
+      padding: 54px 0 78px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      color: var(--plum);
+      font-weight: 800;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 30px;
+      height: 2px;
+      border-radius: 99px;
+      background: var(--rose);
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Bai Jamjuree", sans-serif;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 10ch;
+      margin-bottom: 24px;
+      font-size: clamp(3.1rem, 7.4vw, 6.6rem);
+      line-height: 0.92;
+    }
+
+    .hero-copy p {
+      max-width: 62ch;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 18px;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      font-weight: 800;
+      transition: transform 180ms var(--ease), box-shadow 180ms var(--ease), background 180ms var(--ease);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button.primary {
+      background: var(--plum);
+      color: var(--surface);
+      box-shadow: 0 18px 38px oklch(18% 0.032 305 / 0.18);
+    }
+
+    .button.secondary {
+      border-color: var(--line);
+      background: oklch(98% 0.014 74 / 0.74);
+    }
+
+    .gallery-stage {
+      position: relative;
+      min-height: 640px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, oklch(98% 0.014 74 / 0.94), oklch(90% 0.04 305 / 0.84)),
+        linear-gradient(90deg, oklch(18% 0.032 305 / 0.06) 1px, transparent 1px),
+        linear-gradient(oklch(18% 0.032 305 / 0.06) 1px, transparent 1px);
+      background-size: auto, 34px 34px, 34px 34px;
+      box-shadow: var(--shadow);
+    }
+
+    .stage-head {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .stage-head strong {
+      display: block;
+      font-family: "Bai Jamjuree", sans-serif;
+    }
+
+    .stage-head span {
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 800;
+    }
+
+    .ticket {
+      display: inline-flex;
+      min-height: 34px;
+      align-items: center;
+      padding: 0 10px;
+      border-radius: var(--radius);
+      background: var(--gold);
+      color: oklch(28% 0.05 82);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .room {
+      position: absolute;
+      inset: 96px 24px 24px;
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, oklch(94% 0.025 70) 0 58%, oklch(81% 0.048 66) 58% 100%);
+      border: 1px solid oklch(79% 0.034 68 / 0.78);
+      box-shadow: inset 0 24px 70px oklch(98% 0.014 74 / 0.74);
+    }
+
+    .bench {
+      position: absolute;
+      left: 34%;
+      right: 34%;
+      bottom: 78px;
+      height: 34px;
+      border-radius: 8px 8px 3px 3px;
+      background: var(--ink);
+      box-shadow:
+        0 32px 0 -22px oklch(18% 0.032 305 / 0.5),
+        0 18px 40px oklch(18% 0.032 305 / 0.18);
+    }
+
+    .frame {
+      position: absolute;
+      overflow: hidden;
+      border: 10px solid oklch(98% 0.014 74);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: 0 20px 44px oklch(18% 0.032 305 / 0.16);
+    }
+
+    .frame.one {
+      left: 38px;
+      top: 56px;
+      width: 210px;
+      height: 260px;
+    }
+
+    .frame.two {
+      left: 284px;
+      top: 30px;
+      width: 252px;
+      height: 184px;
+    }
+
+    .frame.three {
+      right: 40px;
+      top: 70px;
+      width: 190px;
+      height: 246px;
+    }
+
+    .art {
+      width: 100%;
+      height: 100%;
+    }
+
+    .art.one {
+      background:
+        radial-gradient(circle at 70% 26%, var(--gold) 0 12%, transparent 13%),
+        linear-gradient(135deg, var(--plum), oklch(51% 0.14 310) 42%, var(--cyan) 43% 64%, var(--rose) 65%);
+    }
+
+    .art.two {
+      background:
+        linear-gradient(90deg, var(--cyan) 0 32%, transparent 33%),
+        repeating-linear-gradient(135deg, var(--plum) 0 12px, oklch(53% 0.14 310) 12px 24px, var(--gold) 24px 36px);
+    }
+
+    .art.three {
+      background:
+        radial-gradient(circle at 30% 32%, var(--rose) 0 17%, transparent 18%),
+        radial-gradient(circle at 74% 66%, var(--cyan) 0 19%, transparent 20%),
+        linear-gradient(160deg, oklch(96% 0.026 88), var(--gold), var(--plum));
+    }
+
+    .room-label {
+      position: absolute;
+      left: 38px;
+      bottom: 34px;
+      display: grid;
+      gap: 3px;
+      padding: 12px 14px;
+      border: 1px solid oklch(79% 0.034 68 / 0.72);
+      border-radius: var(--radius);
+      background: oklch(98% 0.014 74 / 0.86);
+      box-shadow: 0 14px 34px oklch(18% 0.032 305 / 0.12);
+    }
+
+    .room-label strong {
+      font-family: "Bai Jamjuree", sans-serif;
+    }
+
+    .room-label span {
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 800;
+    }
+
+    .section {
+      padding: 74px 0;
+      border-top: 1px solid oklch(79% 0.034 68 / 0.58);
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 0.85fr) minmax(280px, 0.65fr);
+      align-items: end;
+      gap: 34px;
+      margin-bottom: 28px;
+    }
+
+    .section-kicker {
+      color: var(--plum);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      max-width: 13ch;
+      font-size: clamp(2rem, 4.4vw, 3.45rem);
+      line-height: 1;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      max-width: 60ch;
+    }
+
+    .exhibitions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .exhibit {
+      min-height: 280px;
+      display: grid;
+      grid-template-rows: 138px 1fr;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: oklch(98% 0.014 74 / 0.86);
+      box-shadow: 0 14px 34px oklch(18% 0.032 305 / 0.08);
+    }
+
+    .swatch {
+      position: relative;
+      overflow: hidden;
+      background: var(--plum);
+    }
+
+    .swatch::before,
+    .swatch::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .swatch::before {
+      width: 150px;
+      height: 150px;
+      left: 20px;
+      top: 22px;
+      background: var(--gold);
+    }
+
+    .swatch::after {
+      width: 180px;
+      height: 180px;
+      right: -30px;
+      top: -46px;
+      background: var(--cyan);
+      mix-blend-mode: screen;
+    }
+
+    .exhibit:nth-child(2) .swatch {
+      background: var(--rose);
+    }
+
+    .exhibit:nth-child(2) .swatch::before {
+      background: var(--plum);
+    }
+
+    .exhibit:nth-child(3) .swatch {
+      background: var(--cyan);
+    }
+
+    .exhibit:nth-child(3) .swatch::before {
+      background: var(--rose);
+    }
+
+    .exhibit-body {
+      display: grid;
+      align-content: space-between;
+      gap: 18px;
+      padding: 18px;
+    }
+
+    .exhibit h3 {
+      margin-bottom: 8px;
+      font-size: 1.12rem;
+    }
+
+    .exhibit p {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .tag {
+      min-height: 28px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 9px;
+      border-radius: var(--radius);
+      background: oklch(90% 0.052 205);
+      color: oklch(32% 0.08 205);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .tag.alt {
+      background: oklch(91% 0.064 24);
+      color: oklch(35% 0.08 24);
+    }
+
+    .visit-band {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.72fr) minmax(320px, 1.28fr);
+      gap: 34px;
+      align-items: center;
+      padding: 42px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(135deg, var(--plum), oklch(30% 0.08 305));
+      color: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .visit-band h2 {
+      max-width: 11ch;
+    }
+
+    .visit-band p {
+      color: oklch(92% 0.018 74 / 0.86);
+      max-width: 64ch;
+    }
+
+    .visit-list {
+      display: grid;
+      gap: 1px;
+      overflow: hidden;
+      border: 1px solid oklch(92% 0.018 74 / 0.22);
+      border-radius: var(--radius);
+      background: oklch(92% 0.018 74 / 0.22);
+    }
+
+    .visit-item {
+      min-height: 68px;
+      display: grid;
+      grid-template-columns: 86px minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      padding: 14px;
+      background: oklch(98% 0.014 74 / 0.1);
+    }
+
+    .visit-item span {
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    .visit-item strong {
+      font-family: "Bai Jamjuree", sans-serif;
+    }
+
+    .visit-item em {
+      color: oklch(92% 0.018 74 / 0.78);
+      font-style: normal;
+      font-size: 0.86rem;
+      font-weight: 800;
+    }
+
+    .footer {
+      padding: 34px 0 44px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      border-top: 1px solid oklch(79% 0.034 68 / 0.58);
+      padding-top: 20px;
+    }
+
+    a:focus-visible,
+    .button:focus-visible {
+      outline: 3px solid oklch(71% 0.13 24 / 0.36);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 1040px) {
+      .hero,
+      .section-heading,
+      .visit-band {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-stage {
+        min-height: 560px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .shell {
+        width: calc(100vw - 24px);
+      }
+
+      .nav {
+        min-height: auto;
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 4px;
+      }
+
+      .nav-links a {
+        justify-content: center;
+        padding: 0 6px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 36px 0 50px;
+      }
+
+      .gallery-stage {
+        min-height: 520px;
+      }
+
+      .room {
+        inset: 96px 12px 18px;
+      }
+
+      .frame.one {
+        left: 18px;
+        top: 38px;
+        width: 150px;
+        height: 220px;
+      }
+
+      .frame.two {
+        left: auto;
+        right: 16px;
+        top: 46px;
+        width: 150px;
+        height: 122px;
+      }
+
+      .frame.three {
+        right: 30px;
+        top: 198px;
+        width: 132px;
+        height: 172px;
+      }
+
+      .bench {
+        left: 28%;
+        right: 28%;
+        bottom: 58px;
+      }
+
+      .room-label {
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+      }
+
+      .exhibitions {
+        grid-template-columns: 1fr;
+      }
+
+      .visit-band {
+        padding: 24px;
+      }
+
+      .visit-item {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 460px) {
+      h1 {
+        font-size: 2.7rem;
+      }
+
+      .actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="shell nav" aria-label="MuseRoom navigation">
+      <a class="brand" href="#top" aria-label="MuseRoom home">
+        <span class="mark">MR</span>
+        <span>MuseRoom</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#rooms">Rooms</a></li>
+        <li><a href="#exhibitions">Shows</a></li>
+        <li><a href="#visit">Visit</a></li>
+        <li><a href="index.html">Portfolio</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="shell hero">
+      <div class="hero-copy">
+        <div class="eyebrow">digital gallery landing page</div>
+        <h1>Step into a room made of color.</h1>
+        <p>
+          MuseRoom is a landing page concept for a small digital gallery. It focuses
+          on art direction, exhibit cards, responsive layout, and a clear visit flow.
+        </p>
+        <div class="actions" aria-label="MuseRoom actions">
+          <a class="button primary" href="#exhibitions">Explore shows</a>
+          <a class="button secondary" href="#visit">Plan a visit</a>
+        </div>
+      </div>
+
+      <div class="gallery-stage" id="rooms" aria-label="Digital gallery room preview">
+        <div class="stage-head">
+          <div>
+            <strong>Room A · chroma studies</strong>
+            <span>Three responsive exhibit walls</span>
+          </div>
+          <span class="ticket">Open today</span>
+        </div>
+        <div class="room">
+          <div class="frame one"><div class="art one" aria-hidden="true"></div></div>
+          <div class="frame two"><div class="art two" aria-hidden="true"></div></div>
+          <div class="frame three"><div class="art three" aria-hidden="true"></div></div>
+          <div class="bench" aria-hidden="true"></div>
+          <div class="room-label">
+            <strong>Soft Signal</strong>
+            <span>generative color, 2026</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="exhibitions">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">current rooms</div>
+            <h2>Three small shows, one clean route.</h2>
+          </div>
+          <p>
+            The page practices a brand-forward layout with visual assets built in CSS,
+            useful exhibit metadata, and mobile-friendly cards.
+          </p>
+        </div>
+        <div class="exhibitions">
+          <article class="exhibit">
+            <div class="swatch" aria-hidden="true"></div>
+            <div class="exhibit-body">
+              <div>
+                <h3>Soft Signal</h3>
+                <p>A color study about ambient screens, quiet alerts, and gentle digital light.</p>
+              </div>
+              <div class="meta">
+                <span class="tag">generative</span>
+                <span class="tag alt">color</span>
+              </div>
+            </div>
+          </article>
+          <article class="exhibit">
+            <div class="swatch" aria-hidden="true"></div>
+            <div class="exhibit-body">
+              <div>
+                <h3>Afterimage Notes</h3>
+                <p>Layered posters and motion stills arranged for a fast first impression.</p>
+              </div>
+              <div class="meta">
+                <span class="tag">poster</span>
+                <span class="tag alt">motion</span>
+              </div>
+            </div>
+          </article>
+          <article class="exhibit">
+            <div class="swatch" aria-hidden="true"></div>
+            <div class="exhibit-body">
+              <div>
+                <h3>Room Tone</h3>
+                <p>A compact exhibit system with cards, time slots, and clear visitor rhythm.</p>
+              </div>
+              <div class="meta">
+                <span class="tag">gallery</span>
+                <span class="tag alt">responsive</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="visit">
+      <div class="shell visit-band">
+        <div>
+          <div class="section-kicker">visit flow</div>
+          <h2>Simple enough to choose a room fast.</h2>
+        </div>
+        <div>
+          <p>
+            The visitor path is kept short: choose a show, check the next room slot,
+            then return to the portfolio source when reviewing the implementation.
+          </p>
+          <div class="visit-list" aria-label="MuseRoom visit schedule">
+            <div class="visit-item">
+              <span>10:30</span>
+              <strong>Soft Signal walkthrough</strong>
+              <em>12 seats</em>
+            </div>
+            <div class="visit-item">
+              <span>13:00</span>
+              <strong>Afterimage Notes talk</strong>
+              <em>8 seats</em>
+            </div>
+            <div class="visit-item">
+              <span>16:15</span>
+              <strong>Room Tone open study</strong>
+              <em>open floor</em>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-inner">
+      <span>MuseRoom gallery landing concept</span>
+      <a href="index.html">Back to portfolio</a>
+    </div>
+  </footer>
+</body>
+</html>

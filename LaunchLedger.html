@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LaunchLedger | Startup Budget Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper: oklch(96% 0.02 82);
+      --surface: oklch(99% 0.012 84);
+      --ink: oklch(20% 0.035 205);
+      --muted: oklch(48% 0.038 210);
+      --line: oklch(81% 0.032 82);
+      --teal: oklch(68% 0.14 178);
+      --cobalt: oklch(55% 0.17 254);
+      --clay: oklch(66% 0.13 38);
+      --butter: oklch(90% 0.11 88);
+      --shadow: 0 24px 64px oklch(20% 0.04 205 / 0.15);
+      --radius: 8px;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Noto Sans Thai", "Bai Jamjuree", Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--ink);
+      background:
+        linear-gradient(120deg, oklch(97% 0.018 83), oklch(92% 0.052 175)),
+        linear-gradient(90deg, oklch(20% 0.035 205 / 0.07) 1px, transparent 1px);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(oklch(20% 0.035 205 / 0.055) 1px, transparent 1px),
+        linear-gradient(90deg, oklch(20% 0.035 205 / 0.055) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, oklch(0% 0 0 / 0.5), transparent 72%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid oklch(81% 0.032 82 / 0.7);
+      background: oklch(96% 0.02 82 / 0.88);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "Bai Jamjuree", sans-serif;
+      font-weight: 700;
+    }
+
+    .mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: var(--butter);
+      box-shadow: 0 14px 30px oklch(20% 0.035 205 / 0.18);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .nav-links a {
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 12px;
+      border-radius: var(--radius);
+      transition: background 180ms var(--ease), color 180ms var(--ease);
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+      background: oklch(99% 0.012 84 / 0.74);
+    }
+
+    .hero {
+      min-height: calc(100vh - 72px);
+      display: grid;
+      grid-template-columns: minmax(300px, 0.82fr) minmax(520px, 1.18fr);
+      align-items: center;
+      gap: clamp(32px, 6vw, 76px);
+      padding: 54px 0 78px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      color: oklch(38% 0.13 178);
+      font-weight: 800;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 30px;
+      height: 2px;
+      border-radius: 99px;
+      background: var(--teal);
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Bai Jamjuree", sans-serif;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 11ch;
+      margin-bottom: 24px;
+      font-size: clamp(3.1rem, 7.6vw, 6.7rem);
+      line-height: 0.92;
+    }
+
+    .hero-copy p {
+      max-width: 62ch;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 18px;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      font-weight: 800;
+      transition: transform 180ms var(--ease), box-shadow 180ms var(--ease), background 180ms var(--ease);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button.primary {
+      background: var(--ink);
+      color: var(--surface);
+      box-shadow: 0 18px 38px oklch(20% 0.035 205 / 0.18);
+    }
+
+    .button.secondary {
+      border-color: var(--line);
+      background: oklch(99% 0.012 84 / 0.74);
+    }
+
+    .metrics {
+      width: min(720px, 100%);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-top: 38px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--line);
+    }
+
+    .metric {
+      min-height: 82px;
+      display: grid;
+      align-content: center;
+      gap: 4px;
+      padding: 15px;
+      background: oklch(99% 0.012 84 / 0.82);
+    }
+
+    .metric strong {
+      font-family: "Bai Jamjuree", sans-serif;
+      font-size: 1.42rem;
+      line-height: 1;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 800;
+    }
+
+    .dashboard {
+      position: relative;
+      min-height: 638px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, oklch(99% 0.012 84 / 0.94), oklch(94% 0.036 174 / 0.9)),
+        linear-gradient(90deg, oklch(20% 0.035 205 / 0.06) 1px, transparent 1px),
+        linear-gradient(oklch(20% 0.035 205 / 0.06) 1px, transparent 1px);
+      background-size: auto, 34px 34px, 34px 34px;
+      box-shadow: var(--shadow);
+    }
+
+    .dash-head {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .dash-head strong {
+      display: block;
+      font-family: "Bai Jamjuree", sans-serif;
+    }
+
+    .dash-head span {
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 800;
+    }
+
+    .health {
+      display: inline-flex;
+      min-height: 34px;
+      align-items: center;
+      padding: 0 10px;
+      border-radius: var(--radius);
+      background: var(--butter);
+      color: oklch(28% 0.05 82);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .dash-grid {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.86fr) minmax(320px, 1.14fr);
+      gap: 14px;
+      padding: 14px;
+    }
+
+    .runway-card,
+    .spend-card,
+    .decision-card,
+    .launch-card {
+      border: 1px solid oklch(81% 0.032 82 / 0.82);
+      border-radius: var(--radius);
+      background: oklch(99% 0.012 84 / 0.82);
+      box-shadow: 0 12px 28px oklch(20% 0.035 205 / 0.08);
+    }
+
+    .runway-card {
+      min-height: 304px;
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      gap: 18px;
+      padding: 22px;
+    }
+
+    .ring {
+      width: min(260px, 72vw);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background:
+        conic-gradient(var(--teal) 0 72%, oklch(88% 0.035 82) 72% 100%);
+      box-shadow: inset 0 0 0 24px oklch(99% 0.012 84), 0 20px 50px oklch(20% 0.035 205 / 0.13);
+    }
+
+    .ring-core {
+      width: 64%;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--surface);
+      text-align: center;
+      box-shadow: inset 0 0 0 1px var(--line);
+    }
+
+    .ring-core strong {
+      display: block;
+      font-family: "Bai Jamjuree", sans-serif;
+      font-size: 2.5rem;
+      line-height: 1;
+    }
+
+    .ring-core span {
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .runway-note {
+      max-width: 28ch;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .spend-card {
+      min-height: 304px;
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+    }
+
+    .panel-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 2px;
+    }
+
+    .panel-title h2,
+    .panel-title h3 {
+      font-size: 1rem;
+    }
+
+    .panel-title span {
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .spend-row {
+      display: grid;
+      grid-template-columns: 82px minmax(72px, 1fr) 52px;
+      gap: 10px;
+      align-items: center;
+      padding: 11px 0;
+      border-top: 1px solid oklch(81% 0.032 82 / 0.64);
+    }
+
+    .spend-row:first-of-type {
+      border-top: 0;
+    }
+
+    .spend-row strong {
+      font-family: "Bai Jamjuree", sans-serif;
+      font-size: 0.92rem;
+    }
+
+    .bar {
+      height: 12px;
+      overflow: hidden;
+      border-radius: 99px;
+      background: oklch(90% 0.034 82);
+    }
+
+    .bar i {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--cobalt);
+    }
+
+    .spend-row:nth-of-type(3) .bar i {
+      background: var(--clay);
+    }
+
+    .spend-row:nth-of-type(4) .bar i {
+      background: var(--teal);
+    }
+
+    .amount {
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 800;
+      text-align: right;
+    }
+
+    .decision-card {
+      min-height: 236px;
+      display: grid;
+      gap: 10px;
+      padding: 18px;
+    }
+
+    .decision {
+      display: grid;
+      grid-template-columns: 36px minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      padding: 11px;
+      border: 1px solid oklch(81% 0.032 82 / 0.7);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .token {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: var(--surface);
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    .decision strong {
+      display: block;
+      font-family: "Bai Jamjuree", sans-serif;
+      line-height: 1.2;
+    }
+
+    .decision span:last-child {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .launch-card {
+      min-height: 236px;
+      padding: 18px;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .week {
+      min-height: 138px;
+      display: grid;
+      align-content: space-between;
+      gap: 14px;
+      padding: 12px;
+      border: 1px solid oklch(81% 0.032 82 / 0.7);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .week strong {
+      font-family: "Bai Jamjuree", sans-serif;
+    }
+
+    .week span {
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .dot-row {
+      display: flex;
+      gap: 4px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--teal);
+    }
+
+    .dot.warn {
+      background: var(--clay);
+    }
+
+    .section {
+      padding: 74px 0;
+      border-top: 1px solid oklch(81% 0.032 82 / 0.6);
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 0.85fr) minmax(280px, 0.65fr);
+      align-items: end;
+      gap: 34px;
+      margin-bottom: 28px;
+    }
+
+    .section-kicker {
+      color: oklch(38% 0.13 178);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      max-width: 13ch;
+      font-size: clamp(2rem, 4.4vw, 3.5rem);
+      line-height: 1;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      max-width: 60ch;
+    }
+
+    .insights {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .insight {
+      min-height: 218px;
+      display: grid;
+      align-content: space-between;
+      gap: 18px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: oklch(99% 0.012 84 / 0.84);
+      box-shadow: 0 14px 34px oklch(20% 0.035 205 / 0.08);
+    }
+
+    .insight span {
+      width: fit-content;
+      min-height: 32px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 10px;
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: var(--surface);
+      font-weight: 800;
+      font-size: 0.82rem;
+    }
+
+    .insight p {
+      color: var(--muted);
+    }
+
+    .footer {
+      padding: 34px 0 44px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      border-top: 1px solid oklch(81% 0.032 82 / 0.6);
+      padding-top: 20px;
+    }
+
+    a:focus-visible,
+    .button:focus-visible {
+      outline: 3px solid oklch(68% 0.14 178 / 0.36);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 1040px) {
+      .hero,
+      .dash-grid,
+      .section-heading {
+        grid-template-columns: 1fr;
+      }
+
+      .dashboard {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .shell {
+        width: calc(100vw - 24px);
+      }
+
+      .nav {
+        min-height: auto;
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 4px;
+      }
+
+      .nav-links a {
+        justify-content: center;
+        padding: 0 6px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 36px 0 50px;
+      }
+
+      .metrics,
+      .insights,
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .spend-row,
+      .decision {
+        grid-template-columns: 1fr;
+      }
+
+      .amount,
+      .decision span:last-child {
+        justify-self: start;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 460px) {
+      h1 {
+        font-size: 2.7rem;
+      }
+
+      .actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .dash-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="shell nav" aria-label="LaunchLedger navigation">
+      <a class="brand" href="#top" aria-label="LaunchLedger home">
+        <span class="mark">LL</span>
+        <span>LaunchLedger</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#runway">Runway</a></li>
+        <li><a href="#decisions">Decisions</a></li>
+        <li><a href="#practice">Practice</a></li>
+        <li><a href="index.html">Portfolio</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="shell hero">
+      <div class="hero-copy">
+        <div class="eyebrow">launch budget command center</div>
+        <h1>Launch money, made visible.</h1>
+        <p>
+          LaunchLedger is a front-end dashboard concept for small teams that need
+          one readable place to track runway, campaign spend, and go-live tradeoffs.
+        </p>
+        <div class="actions" aria-label="LaunchLedger actions">
+          <a class="button primary" href="#runway">View runway</a>
+          <a class="button secondary" href="#decisions">Review decisions</a>
+        </div>
+        <div class="metrics" aria-label="Launch metrics">
+          <div class="metric">
+            <strong>72%</strong>
+            <span>budget allocated</span>
+          </div>
+          <div class="metric">
+            <strong>14</strong>
+            <span>weeks runway</span>
+          </div>
+          <div class="metric">
+            <strong>3</strong>
+            <span>launch risks</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard" id="runway" aria-label="Launch budget dashboard preview">
+        <div class="dash-head">
+          <div>
+            <strong>May launch board</strong>
+            <span>Product launch, content sprint, paid tests</span>
+          </div>
+          <span class="health">Runway healthy</span>
+        </div>
+        <div class="dash-grid">
+          <section class="runway-card" aria-label="Runway summary">
+            <div class="ring" aria-hidden="true">
+              <div class="ring-core">
+                <strong>14</strong>
+                <span>weeks left</span>
+              </div>
+            </div>
+            <p class="runway-note">Keep paid acquisition capped until onboarding conversion clears the next target.</p>
+          </section>
+
+          <section class="spend-card" aria-label="Spend by channel">
+            <div class="panel-title">
+              <h2>Spend map</h2>
+              <span>$18.4k planned</span>
+            </div>
+            <div class="spend-row">
+              <strong>Product</strong>
+              <div class="bar" aria-hidden="true"><i style="width: 74%"></i></div>
+              <span class="amount">$6.2k</span>
+            </div>
+            <div class="spend-row">
+              <strong>Content</strong>
+              <div class="bar" aria-hidden="true"><i style="width: 56%"></i></div>
+              <span class="amount">$4.1k</span>
+            </div>
+            <div class="spend-row">
+              <strong>Paid test</strong>
+              <div class="bar" aria-hidden="true"><i style="width: 39%"></i></div>
+              <span class="amount">$2.8k</span>
+            </div>
+            <div class="spend-row">
+              <strong>Ops</strong>
+              <div class="bar" aria-hidden="true"><i style="width: 47%"></i></div>
+              <span class="amount">$3.6k</span>
+            </div>
+          </section>
+
+          <section class="decision-card" id="decisions" aria-label="Launch decisions">
+            <div class="panel-title">
+              <h3>Decision queue</h3>
+              <span>Next 48h</span>
+            </div>
+            <div class="decision">
+              <span class="token">01</span>
+              <div>
+                <strong>Delay ads by one week</strong>
+                <span>Protect runway before analytics are clean.</span>
+              </div>
+              <span>Review</span>
+            </div>
+            <div class="decision">
+              <span class="token">02</span>
+              <div>
+                <strong>Fund onboarding polish</strong>
+                <span>Highest impact for activation and retention.</span>
+              </div>
+              <span>Approve</span>
+            </div>
+            <div class="decision">
+              <span class="token">03</span>
+              <div>
+                <strong>Hold founder video spend</strong>
+                <span>Wait for message testing results.</span>
+              </div>
+              <span>Hold</span>
+            </div>
+          </section>
+
+          <section class="launch-card" aria-label="Launch timeline">
+            <div class="panel-title">
+              <h3>Launch sequence</h3>
+              <span>4 weeks</span>
+            </div>
+            <div class="timeline">
+              <div class="week">
+                <strong>W1</strong>
+                <span>Landing QA</span>
+                <div class="dot-row"><i class="dot"></i><i class="dot"></i><i class="dot warn"></i></div>
+              </div>
+              <div class="week">
+                <strong>W2</strong>
+                <span>Beta invites</span>
+                <div class="dot-row"><i class="dot"></i><i class="dot"></i></div>
+              </div>
+              <div class="week">
+                <strong>W3</strong>
+                <span>Paid test</span>
+                <div class="dot-row"><i class="dot warn"></i><i class="dot"></i></div>
+              </div>
+              <div class="week">
+                <strong>W4</strong>
+                <span>Public launch</span>
+                <div class="dot-row"><i class="dot"></i><i class="dot"></i><i class="dot"></i></div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="practice">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">what this project shows</div>
+            <h2>Business data without visual noise.</h2>
+          </div>
+          <p>
+            The page practices dashboard hierarchy, dense information layout,
+            accessible contrast, responsive grids, and action-oriented product copy.
+          </p>
+        </div>
+        <div class="insights">
+          <article class="insight">
+            <span>01</span>
+            <div>
+              <h3>Runway first</h3>
+              <p>The largest visual answers the question a founder asks first: how long can the launch keep moving?</p>
+            </div>
+          </article>
+          <article class="insight">
+            <span>02</span>
+            <div>
+              <h3>Decisions over decoration</h3>
+              <p>Budget rows and decision cards are grouped so the interface points toward the next action.</p>
+            </div>
+          </article>
+          <article class="insight">
+            <span>03</span>
+            <div>
+              <h3>Responsive by structure</h3>
+              <p>Every chart, card, and row collapses into a readable mobile stack without changing the message.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-inner">
+      <span>LaunchLedger concept interface</span>
+      <a href="index.html">Back to portfolio</a>
+    </div>
+  </footer>
+</body>
+</html>

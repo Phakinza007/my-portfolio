@@ -1,6 +1,6 @@
 # Portfolio Cover Gallery
 
-A static HTML portfolio gallery that collects seven standalone front-end projects into one cover page. The root `index.html` works as the portfolio entry point, with separate links for viewing each live page and opening its source file.
+A static HTML portfolio gallery that collects nine standalone front-end projects into one cover page. The root `index.html` works as the portfolio entry point, with separate links for viewing each live page and opening its source file.
 
 Live site: <https://phakinza007.github.io/my-portfolio/>
 
@@ -11,6 +11,8 @@ Live site: <https://phakinza007.github.io/my-portfolio/>
 
 | Project | Live page | Source file | Preview |
 | --- | --- | --- | --- |
+| LaunchLedger | [`LaunchLedger.html`](LaunchLedger.html) | [`LaunchLedger.html`](https://github.com/Phakinza007/my-portfolio/blob/main/LaunchLedger.html) | ![LaunchLedger screenshot](assets/screenshots/launch-ledger.png) |
+| MuseRoom | [`MuseRoom.html`](MuseRoom.html) | [`MuseRoom.html`](https://github.com/Phakinza007/my-portfolio/blob/main/MuseRoom.html) | ![MuseRoom screenshot](assets/screenshots/museroom.png) |
 | InternTrack | [`InternTrack.html`](InternTrack.html) | [`InternTrack.html`](https://github.com/Phakinza007/my-portfolio/blob/main/InternTrack.html) | ![InternTrack screenshot](assets/screenshots/interntrack.png) |
 | PulseBoard | [`PulseBoard.html`](PulseBoard.html) | [`PulseBoard.html`](https://github.com/Phakinza007/my-portfolio/blob/main/PulseBoard.html) | ![PulseBoard screenshot](assets/screenshots/pulseboard.png) |
 | DevLaunch Academy | [`intern_landing_page_html_css.html`](intern_landing_page_html_css.html) | [`intern_landing_page_html_css.html`](https://github.com/Phakinza007/my-portfolio/blob/main/intern_landing_page_html_css.html) | ![DevLaunch Academy screenshot](assets/screenshots/devlaunch.png) |
@@ -67,6 +69,8 @@ Phakin Chawanpunya
 ├── index.html
 ├── 404.html
 ├── site.webmanifest
+├── LaunchLedger.html
+├── MuseRoom.html
 ├── InternTrack.html
 ├── PulseBoard.html
 ├── intern_landing_page_html_css.html
