@@ -187,7 +187,7 @@
     h1 {
       max-width: 10ch;
       margin-bottom: 24px;
-      font-size: clamp(3.1rem, 7.4vw, 6.6rem);
+      font-size: clamp(3.05rem, 6vw, 5.3rem);
       line-height: 0.92;
     }
 
@@ -229,6 +229,67 @@
     .button.secondary {
       border-color: var(--line);
       background: oklch(98% 0.014 74 / 0.74);
+    }
+
+    .art-shelf {
+      width: min(450px, 100%);
+      min-height: 128px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.76fr 0.9fr;
+      align-items: end;
+      gap: 12px;
+      margin: -2px 0 22px;
+      padding: 14px;
+      border: 1px solid oklch(78% 0.058 305 / 0.56);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, oklch(98% 0.014 74 / 0.88) 0 62%, oklch(82% 0.045 62 / 0.66) 62%),
+        radial-gradient(circle at 74% 18%, oklch(82% 0.09 315 / 0.45), transparent 34%);
+      box-shadow: 0 18px 42px oklch(20% 0.04 305 / 0.12);
+    }
+
+    .mini-art {
+      position: relative;
+      display: block;
+      height: var(--art-h);
+      border: 9px solid oklch(99% 0.012 84);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 26px oklch(25% 0.04 42 / 0.14);
+    }
+
+    .mini-art.one {
+      --art-h: 94px;
+      background:
+        linear-gradient(135deg, var(--plum) 0 44%, var(--cyan) 44% 68%, var(--rose) 68%),
+        radial-gradient(circle at 74% 24%, var(--gold) 0 18px, transparent 19px);
+    }
+
+    .mini-art.two {
+      --art-h: 74px;
+      margin-bottom: 18px;
+      background:
+        repeating-linear-gradient(135deg, var(--plum) 0 12px, var(--gold) 12px 24px, var(--rose) 24px 36px),
+        var(--cyan);
+    }
+
+    .mini-art.three {
+      --art-h: 102px;
+      background:
+        radial-gradient(circle at 32% 28%, var(--rose) 0 18px, transparent 19px),
+        radial-gradient(circle at 74% 66%, var(--cyan) 0 21px, transparent 22px),
+        linear-gradient(180deg, var(--gold), oklch(55% 0.08 305));
+    }
+
+    .mini-art::after {
+      content: "";
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: -18px;
+      height: 6px;
+      border-radius: 99px;
+      background: oklch(58% 0.04 62 / 0.28);
+      filter: blur(3px);
     }
 
     .gallery-stage {
@@ -739,6 +800,11 @@
     <section class="shell hero">
       <div class="hero-copy">
         <div class="eyebrow">digital gallery landing page</div>
+        <div class="art-shelf" aria-label="Mini gallery artwork preview">
+          <span class="mini-art one" aria-hidden="true"></span>
+          <span class="mini-art two" aria-hidden="true"></span>
+          <span class="mini-art three" aria-hidden="true"></span>
+        </div>
         <h1>Step into a room made of color.</h1>
         <p>
           MuseRoom is a landing page concept for a small digital gallery. It focuses

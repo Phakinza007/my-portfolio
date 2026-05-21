@@ -177,7 +177,7 @@
 
     h1 {
       max-width: 10ch;
-      font-size: clamp(3rem, 7.4vw, 6.2rem);
+      font-size: clamp(3rem, 6.2vw, 5.25rem);
       line-height: 0.94;
       margin-bottom: 24px;
     }
@@ -220,6 +220,83 @@
     .button.secondary {
       border-color: var(--line);
       background: oklch(99% 0.01 86 / 0.76);
+    }
+
+    .pipeline-map {
+      width: min(470px, 100%);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin: -2px 0 22px;
+      padding: 10px;
+      border: 1px solid oklch(72% 0.08 180 / 0.48);
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, oklch(99% 0.01 86 / 0.88), oklch(92% 0.04 150 / 0.72)),
+        linear-gradient(90deg, oklch(42% 0.14 248 / 0.08) 1px, transparent 1px);
+      background-size: auto, 24px 24px;
+      box-shadow: 0 18px 42px oklch(24% 0.04 238 / 0.11);
+    }
+
+    .pipeline-step {
+      position: relative;
+      min-height: 96px;
+      display: grid;
+      align-content: space-between;
+      gap: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      background: oklch(99% 0.01 86 / 0.82);
+      border: 1px solid oklch(84% 0.045 145);
+    }
+
+    .pipeline-step::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -9px;
+      width: 10px;
+      height: 2px;
+      background: var(--blue);
+      transform: translateY(-50%);
+    }
+
+    .pipeline-step:last-child::after {
+      display: none;
+    }
+
+    .pipeline-dot {
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--blue);
+      color: var(--surface);
+      font-size: 0.72rem;
+      font-weight: 900;
+    }
+
+    .pipeline-cardlet {
+      height: 28px;
+      border-radius: 8px;
+      background: var(--mint);
+      box-shadow: inset 28px 0 0 oklch(84% 0.08 205);
+    }
+
+    .pipeline-step:nth-child(2) .pipeline-cardlet {
+      background: oklch(89% 0.07 62);
+      box-shadow: inset 46px 0 0 oklch(72% 0.14 45);
+    }
+
+    .pipeline-step:nth-child(3) .pipeline-cardlet {
+      background: oklch(88% 0.07 205);
+      box-shadow: inset 32px 0 0 var(--blue);
+    }
+
+    .pipeline-step:nth-child(4) .pipeline-cardlet {
+      background: oklch(90% 0.06 138);
+      box-shadow: inset 54px 0 0 oklch(70% 0.1 144);
     }
 
     .status-strip {
@@ -883,6 +960,24 @@
     <section class="shell hero">
       <div class="hero-copy">
         <div class="eyebrow">internship application workspace</div>
+        <div class="pipeline-map" aria-label="Application pipeline visual preview">
+          <span class="pipeline-step">
+            <span class="pipeline-dot">1</span>
+            <span class="pipeline-cardlet" aria-hidden="true"></span>
+          </span>
+          <span class="pipeline-step">
+            <span class="pipeline-dot">2</span>
+            <span class="pipeline-cardlet" aria-hidden="true"></span>
+          </span>
+          <span class="pipeline-step">
+            <span class="pipeline-dot">3</span>
+            <span class="pipeline-cardlet" aria-hidden="true"></span>
+          </span>
+          <span class="pipeline-step">
+            <span class="pipeline-dot">4</span>
+            <span class="pipeline-cardlet" aria-hidden="true"></span>
+          </span>
+        </div>
         <h1>Track every internship move.</h1>
         <p>
           InternTrack is a front-end concept for students who need one calm place
