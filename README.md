@@ -67,6 +67,7 @@ The launch setup includes SEO metadata, Open Graph/Twitter preview tags, a custo
 Phakin Chawanpunya
 
 - GitHub: <https://github.com/Phakinza007>
+- Instagram: <https://www.instagram.com/phakinkinpa/>
 - Email: <a0626568471@gmail.com>
 
 ## Structure

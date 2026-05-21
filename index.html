@@ -38,7 +38,8 @@
       "name": "Phakin Chawanpunya",
       "url": "https://phakinza007.github.io/my-portfolio/",
       "sameAs": [
-        "https://github.com/Phakinza007"
+        "https://github.com/Phakinza007",
+        "https://www.instagram.com/phakinkinpa/"
       ],
       "email": "mailto:a0626568471@gmail.com",
       "knowsAbout": [
@@ -653,6 +654,17 @@
       background: var(--cobalt);
       color: var(--surface);
       box-shadow: 0 14px 28px oklch(56% 0.19 256 / 0.2);
+    }
+
+    .button.contact::after {
+      content: "IG + Mail";
+      margin-left: 8px;
+      padding: 3px 7px 4px;
+      border-radius: 999px;
+      background: oklch(98% 0.012 65 / 0.18);
+      color: oklch(98% 0.012 65);
+      font-size: 0.72rem;
+      line-height: 1;
     }
 
     .button.case-study {
@@ -1761,6 +1773,15 @@
       box-shadow: 0 16px 30px oklch(91% 0.09 88 / 0.18);
     }
 
+    .contact-link.instagram {
+      min-height: 50px;
+      padding: 0 20px;
+      background: var(--coral);
+      border-color: var(--coral);
+      color: var(--surface);
+      box-shadow: 0 16px 30px oklch(68% 0.135 35 / 0.22);
+    }
+
     .process-band {
       display: grid;
       grid-template-columns: 0.8fr 1.2fr;
@@ -2138,7 +2159,7 @@
             <a class="button primary" href="#works">ดูไฟล์ทั้งหมด</a>
             <a class="button secondary" href="LaunchLedger.html">เปิดงานใหม่ ↗</a>
             <a class="button case-study" href="InternTrack.html">Case study: InternTrack ↗</a>
-            <a class="button contact" href="#contact">ติดต่อ</a>
+            <a class="button contact" href="#contact" aria-label="ไปยังลิงก์ Instagram และ email">ติดต่อ</a>
           </div>
           <div class="repo-strip" aria-label="ข้อมูล repo">
             <div class="repo-item">
@@ -2624,6 +2645,7 @@
             </div>
             <div class="resume-links" aria-label="resume contact links">
               <a class="resume-link primary" href="mailto:a0626568471@gmail.com">a0626568471@gmail.com</a>
+              <a class="resume-link" href="https://www.instagram.com/phakinkinpa/" rel="me noopener">Instagram @phakinkinpa</a>
               <a class="resume-link" href="https://github.com/Phakinza007">GitHub</a>
               <a class="resume-link" href="https://github.com/Phakinza007/my-portfolio">Repo</a>
             </div>
@@ -2847,6 +2869,7 @@
               responsive CSS, visual direction, and polished project presentation.
             </p>
             <div class="contact-links" aria-label="contact links">
+              <a class="contact-link instagram" href="https://www.instagram.com/phakinkinpa/" rel="me noopener">Instagram @phakinkinpa</a>
               <a class="contact-link primary" href="mailto:a0626568471@gmail.com">Email me</a>
               <a class="contact-link" href="https://github.com/Phakinza007">GitHub Profile</a>
               <a class="contact-link" href="https://github.com/Phakinza007/my-portfolio">Repository</a>

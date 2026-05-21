@@ -180,7 +180,7 @@ Motion should use `cubic-bezier(0.16, 1, 0.3, 1)` and short 180-260ms transition
 
 **Project Context Rail:** Every standalone project page should include a compact fixed context panel with `Back to Portfolio`, a short project type label, one-sentence intent, and practiced-skill tags. It prevents visitors from getting stranded after opening a project from the portfolio.
 
-**Contact Band:** A dark ink band that closes the page with identity and contact actions. Keep the email action visually primary, then support it with GitHub and repository links.
+**Contact Band:** A dark ink band that closes the page with identity and contact actions. Keep Instagram and email visually prominent, then support them with GitHub and repository links.
 
 **404 Panel:** A single focused fallback panel with a large `404` block, Thai explanation, and two actions back to the portfolio and repository. It should feel like the same portfolio system, not a browser default error.
 
