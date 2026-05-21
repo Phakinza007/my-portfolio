@@ -27,6 +27,8 @@ The homepage includes compact case-study notes for InternTrack, PulseBoard, and 
 
 The homepage also includes an About / Skills band, project status badges, and a stronger contact CTA so reviewers can understand the portfolio without copying links or searching through files.
 
+The hero includes a featured case-study link to InternTrack so reviewers can jump straight into a stronger product-thinking example.
+
 Each standalone project page includes a fixed `Back to Portfolio` context panel, page-specific title metadata, a short project intro, and practiced-skill tags.
 
 ## How To Open
