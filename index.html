@@ -1143,10 +1143,21 @@
       background: var(--paper-soft);
     }
 
+    .work-preview::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      opacity: 0;
+      pointer-events: none;
+    }
+
     .work-preview::after {
       content: "";
       position: absolute;
       inset: 0;
+      z-index: 1;
+      pointer-events: none;
       background: linear-gradient(180deg, transparent 58%, oklch(19% 0.033 42 / 0.34));
     }
 
@@ -1178,10 +1189,17 @@
     }
 
     .work-body {
+      position: relative;
       display: grid;
       align-content: space-between;
       gap: 18px;
       padding: 16px;
+      overflow: hidden;
+    }
+
+    .work-body > * {
+      position: relative;
+      z-index: 1;
     }
 
     .work-title {
@@ -1276,6 +1294,274 @@
     .project-action.source {
       background: oklch(97% 0.014 66);
       color: var(--ink);
+    }
+
+    .work-card.identity-launch {
+      --card-accent: oklch(58% 0.115 176);
+      --card-accent-2: oklch(74% 0.112 178);
+      --card-soft: oklch(95% 0.032 164);
+      --card-ink: oklch(23% 0.055 178);
+      border-color: oklch(66% 0.082 174 / 0.58);
+      background: var(--card-soft);
+    }
+
+    .work-card.identity-launch .work-preview::before {
+      opacity: 0.72;
+      background:
+        linear-gradient(90deg, transparent 0 72%, oklch(58% 0.115 176 / 0.28) 72% 73%, transparent 73%),
+        linear-gradient(0deg, transparent 0 78%, oklch(23% 0.055 178 / 0.18) 78% 79%, transparent 79%),
+        repeating-linear-gradient(90deg, transparent 0 38px, oklch(58% 0.115 176 / 0.16) 38px 39px),
+        radial-gradient(circle at 78% 28%, oklch(84% 0.11 178 / 0.52) 0 42px, transparent 44px);
+    }
+
+    .work-card.identity-launch .work-body {
+      background:
+        linear-gradient(135deg, oklch(98% 0.012 65) 0%, oklch(94% 0.038 166) 100%);
+    }
+
+    .work-card.identity-launch .work-body::after {
+      content: "";
+      position: absolute;
+      right: 16px;
+      bottom: 74px;
+      width: 66px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background:
+        conic-gradient(var(--card-accent) 0 64%, oklch(87% 0.045 79) 64% 100%);
+      opacity: 0.24;
+      pointer-events: none;
+    }
+
+    .work-card.identity-launch .status-badge {
+      background: var(--card-ink);
+      color: oklch(97% 0.014 66);
+    }
+
+    .work-card.identity-launch .work-number {
+      background: var(--card-accent);
+      box-shadow: inset 0 -10px 0 oklch(23% 0.055 178 / 0.13);
+    }
+
+    .work-card.identity-launch .tag {
+      background: oklch(88% 0.074 170);
+      color: var(--card-ink);
+    }
+
+    .work-card.identity-launch .tag.alt {
+      background: oklch(91% 0.061 92);
+      color: oklch(34% 0.058 72);
+    }
+
+    .work-card.identity-muse {
+      --card-accent: oklch(64% 0.16 315);
+      --card-accent-2: oklch(76% 0.14 52);
+      --card-soft: oklch(95% 0.032 28);
+      --card-ink: oklch(26% 0.04 25);
+      border-color: oklch(72% 0.085 35 / 0.56);
+      background: var(--card-soft);
+    }
+
+    .work-card.identity-muse .work-preview::before {
+      opacity: 0.6;
+      background:
+        radial-gradient(circle at 18% 20%, oklch(87% 0.15 86 / 0.8) 0 22px, transparent 23px),
+        radial-gradient(circle at 76% 20%, oklch(72% 0.15 315 / 0.62) 0 34px, transparent 35px),
+        linear-gradient(135deg, transparent 0 52%, oklch(72% 0.14 224 / 0.2) 52% 64%, transparent 64%),
+        linear-gradient(90deg, oklch(98% 0.012 65 / 0) 0 58%, oklch(98% 0.012 65 / 0.24) 58% 100%);
+    }
+
+    .work-card.identity-muse .work-body {
+      background:
+        radial-gradient(circle at right 20%, oklch(86% 0.09 315 / 0.42), transparent 32%),
+        linear-gradient(150deg, oklch(98% 0.012 65) 0%, oklch(95% 0.033 35) 100%);
+    }
+
+    .work-card.identity-muse .work-body::after {
+      content: "";
+      position: absolute;
+      right: 14px;
+      top: 18px;
+      width: 58px;
+      height: 44px;
+      border-radius: 8px;
+      border: 1px solid oklch(64% 0.16 315 / 0.26);
+      background:
+        linear-gradient(135deg, oklch(76% 0.14 52 / 0.78) 0 38%, oklch(64% 0.16 315 / 0.58) 38% 64%, oklch(73% 0.14 224 / 0.52) 64% 100%);
+      transform: rotate(4deg);
+      opacity: 0.34;
+      pointer-events: none;
+    }
+
+    .work-card.identity-muse .status-badge {
+      background: oklch(90% 0.088 84);
+      color: oklch(32% 0.055 32);
+      transform: rotate(-2deg);
+    }
+
+    .work-card.identity-muse .work-number {
+      border-radius: 50%;
+      background: var(--card-accent);
+      color: oklch(98% 0.012 65);
+    }
+
+    .work-card.identity-muse .tag {
+      background: oklch(88% 0.07 155);
+      color: oklch(29% 0.06 154);
+    }
+
+    .work-card.identity-muse .tag.alt {
+      background: oklch(90% 0.06 315);
+      color: oklch(35% 0.078 318);
+    }
+
+    .work-card.identity-intern {
+      --card-accent: oklch(56% 0.19 256);
+      --card-accent-2: oklch(77% 0.1 165);
+      --card-soft: oklch(95% 0.03 138);
+      --card-ink: oklch(21% 0.04 205);
+      border-color: oklch(69% 0.086 204 / 0.56);
+      background: var(--card-soft);
+    }
+
+    .work-card.identity-intern .work-preview::before {
+      opacity: 0.54;
+      background:
+        repeating-linear-gradient(90deg, transparent 0 48px, oklch(56% 0.19 256 / 0.16) 48px 50px),
+        linear-gradient(90deg, transparent 0 54%, oklch(79% 0.09 165 / 0.34) 54% 76%, transparent 76%),
+        radial-gradient(circle at 86% 72%, oklch(56% 0.19 256 / 0.34) 0 9px, transparent 10px),
+        radial-gradient(circle at 86% 50%, oklch(77% 0.1 165 / 0.48) 0 8px, transparent 9px);
+    }
+
+    .work-card.identity-intern .work-body {
+      background:
+        linear-gradient(180deg, oklch(98% 0.012 65) 0%, oklch(94% 0.035 145) 100%);
+    }
+
+    .work-card.identity-intern .work-body::after {
+      content: "";
+      position: absolute;
+      right: 20px;
+      top: 18px;
+      width: 10px;
+      height: 92px;
+      border-radius: 99px;
+      background: oklch(79% 0.09 165 / 0.42);
+      box-shadow:
+        0 0 0 7px oklch(56% 0.19 256 / 0.1),
+        0 28px 0 oklch(56% 0.19 256 / 0.34),
+        0 56px 0 oklch(68% 0.135 35 / 0.26);
+      pointer-events: none;
+    }
+
+    .work-card.identity-intern .status-badge {
+      background: var(--card-accent);
+      color: oklch(98% 0.012 65);
+    }
+
+    .work-card.identity-intern .work-number {
+      border-radius: 8px 8px 8px 20px;
+      background: var(--card-accent);
+    }
+
+    .work-card.identity-intern .tag {
+      background: oklch(88% 0.06 190);
+      color: oklch(28% 0.06 205);
+    }
+
+    .work-card.identity-intern .tag.alt {
+      background: oklch(91% 0.06 132);
+      color: oklch(30% 0.066 138);
+    }
+
+    .work-card.identity-pulse {
+      --card-accent: oklch(78% 0.13 177);
+      --card-accent-2: oklch(91% 0.09 88);
+      --card-soft: oklch(20% 0.044 198);
+      --card-ink: oklch(94% 0.018 78);
+      border-color: oklch(78% 0.13 177 / 0.42);
+      background: oklch(18% 0.04 202);
+      color: var(--card-ink);
+    }
+
+    .work-card.identity-pulse:hover {
+      border-color: oklch(78% 0.13 177 / 0.7);
+      box-shadow: 0 28px 54px oklch(18% 0.04 202 / 0.22);
+    }
+
+    .work-card.identity-pulse .work-preview::before {
+      opacity: 0.68;
+      background:
+        radial-gradient(circle at 82% 22%, oklch(78% 0.13 177 / 0.64) 0 7px, transparent 8px),
+        radial-gradient(circle at 82% 22%, transparent 0 16px, oklch(78% 0.13 177 / 0.32) 17px 18px, transparent 19px),
+        repeating-linear-gradient(0deg, transparent 0 18px, oklch(78% 0.13 177 / 0.17) 18px 19px),
+        linear-gradient(120deg, oklch(18% 0.04 202 / 0) 0 48%, oklch(78% 0.13 177 / 0.18) 48% 52%, transparent 52%);
+    }
+
+    .work-card.identity-pulse .work-preview::after {
+      background: linear-gradient(180deg, transparent 48%, oklch(15% 0.035 202 / 0.68));
+    }
+
+    .work-card.identity-pulse .work-body {
+      background:
+        radial-gradient(circle at 88% 18%, oklch(78% 0.13 177 / 0.2), transparent 28%),
+        linear-gradient(145deg, oklch(17% 0.04 202) 0%, oklch(24% 0.05 188) 100%);
+    }
+
+    .work-card.identity-pulse .work-body::after {
+      content: "";
+      position: absolute;
+      right: 16px;
+      bottom: 82px;
+      width: 74px;
+      height: 28px;
+      border-radius: 99px;
+      background:
+        linear-gradient(90deg, var(--card-accent) 0 34%, oklch(98% 0.012 65 / 0.14) 34% 100%);
+      box-shadow: 0 0 0 1px oklch(78% 0.13 177 / 0.18);
+      opacity: 0.52;
+      pointer-events: none;
+    }
+
+    .work-card.identity-pulse .work-title h3,
+    .work-card.identity-pulse .work-body p {
+      color: var(--card-ink);
+    }
+
+    .work-card.identity-pulse .work-body p {
+      opacity: 0.78;
+    }
+
+    .work-card.identity-pulse .status-badge {
+      background: oklch(78% 0.13 177);
+      color: oklch(18% 0.04 202);
+    }
+
+    .work-card.identity-pulse .work-number {
+      background: var(--card-accent-2);
+      color: oklch(24% 0.05 188);
+    }
+
+    .work-card.identity-pulse .tag {
+      background: oklch(78% 0.13 177 / 0.24);
+      color: oklch(91% 0.07 178);
+    }
+
+    .work-card.identity-pulse .tag.alt {
+      background: oklch(91% 0.09 88 / 0.24);
+      color: oklch(94% 0.06 88);
+    }
+
+    .work-card.identity-pulse .project-action.live {
+      background: var(--card-accent-2);
+      border-color: var(--card-accent-2);
+      color: oklch(24% 0.05 188);
+    }
+
+    .work-card.identity-pulse .project-action.source {
+      background: oklch(98% 0.012 65 / 0.07);
+      border-color: oklch(78% 0.13 177 / 0.38);
+      color: var(--card-ink);
     }
 
     .case-grid {
@@ -1687,6 +1973,7 @@
       }
 
       .section {
+        scroll-margin-top: 206px;
         padding: 44px 0;
       }
 
@@ -2005,9 +2292,9 @@
         </div>
 
         <div class="works-grid">
-          <article class="work-card">
+          <article class="work-card identity-launch">
             <a class="work-preview" href="LaunchLedger.html" aria-label="เปิดเว็บจริง LaunchLedger">
-              <span class="status-badge">New build</span>
+              <span class="status-badge">Budget lab</span>
               <img class="preview-image" src="assets/thumbs/launch-ledger.jpg" alt="LaunchLedger startup budget dashboard screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
@@ -2030,7 +2317,7 @@
             </div>
           </article>
 
-          <article class="work-card">
+          <article class="work-card identity-muse">
             <a class="work-preview" href="MuseRoom.html" aria-label="เปิดเว็บจริง MuseRoom">
               <span class="status-badge brand">Visual study</span>
               <img class="preview-image" src="assets/thumbs/museroom.jpg" alt="MuseRoom digital gallery landing page screenshot" />
@@ -2055,7 +2342,7 @@
             </div>
           </article>
 
-          <article class="work-card">
+          <article class="work-card identity-intern">
             <a class="work-preview" href="InternTrack.html" aria-label="เปิดเว็บจริง InternTrack">
               <span class="status-badge case">Case study</span>
               <img class="preview-image" src="assets/thumbs/interntrack.jpg" alt="InternTrack internship application tracker screenshot" />
@@ -2080,9 +2367,9 @@
             </div>
           </article>
 
-          <article class="work-card">
+          <article class="work-card identity-pulse">
             <a class="work-preview" href="PulseBoard.html" aria-label="เปิดเว็บจริง PulseBoard">
-              <span class="status-badge case">Case study</span>
+              <span class="status-badge case">Live ops</span>
               <img class="preview-image" src="assets/thumbs/pulseboard.jpg" alt="PulseBoard dashboard screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
