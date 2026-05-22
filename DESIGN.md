@@ -166,7 +166,7 @@ Motion should use `cubic-bezier(0.16, 1, 0.3, 1)` and short 180-260ms transition
 
 **Buttons:** Primary buttons use dark ink or cobalt with high contrast. Secondary buttons use a light surface, warm border, and the same 8px radius. Buttons should have clear hover lift and visible focus outlines.
 
-**Hero Actions:** The hero should offer a fast scan path: all projects, newest project, featured case study, resume, and contact. Keep labels direct, and point the featured case study to the strongest reviewer-ready project.
+**Hero Actions:** The hero should stay compact with only the main scan path: all projects, featured case studies, and contact. Keep resume and individual project links in the nav, project grid, and about sections rather than crowding the hero.
 
 **Project Cards:** Each card pairs a screenshot with title, short description, tags, and split actions for `View live` and `Source file`. Cards use 8px radius, warm borders, light surfaces, and subtle hover lift.
 

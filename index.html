@@ -13,8 +13,8 @@
   <meta property="og:title" content="Phakin Chawanpunya | Frontend Portfolio" />
   <meta property="og:description" content="Frontend and landing page practice portfolio by Phakin Chawanpunya, featuring ten static HTML projects, full case-study notes, live previews, and source links." />
   <meta property="og:url" content="https://phakinza007.github.io/my-portfolio/" />
-  <meta property="og:image" content="https://phakinza007.github.io/my-portfolio/assets/social-preview.png?v=hero-clear" />
-  <meta property="og:image:secure_url" content="https://phakinza007.github.io/my-portfolio/assets/social-preview.png?v=hero-clear" />
+  <meta property="og:image" content="https://phakinza007.github.io/my-portfolio/assets/social-preview.png?v=hero-type-clean" />
+  <meta property="og:image:secure_url" content="https://phakinza007.github.io/my-portfolio/assets/social-preview.png?v=hero-type-clean" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -23,7 +23,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Phakin Chawanpunya | Frontend Portfolio" />
   <meta name="twitter:description" content="Frontend and landing page practice portfolio by Phakin Chawanpunya, featuring ten static HTML projects, full case-study notes, live previews, and source links." />
-  <meta name="twitter:image" content="https://phakinza007.github.io/my-portfolio/assets/social-preview.png?v=hero-clear" />
+  <meta name="twitter:image" content="https://phakinza007.github.io/my-portfolio/assets/social-preview.png?v=hero-type-clean" />
   <meta name="twitter:image:alt" content="Screenshot of Phakin Chawanpunya frontend portfolio gallery." />
   <title>Phakin Chawanpunya | Frontend Portfolio</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
@@ -588,11 +588,11 @@
 
     h1 {
       font-family: "Bai Jamjuree", sans-serif;
-      font-size: clamp(4.2rem, 9vw, 7rem);
-      line-height: 0.9;
+      font-size: clamp(3.5rem, 7.2vw, 5.9rem);
+      line-height: 1.08;
       font-weight: 700;
-      max-width: 10.4ch;
-      margin-bottom: 24px;
+      max-width: 11.5ch;
+      margin-bottom: 18px;
       text-wrap: balance;
     }
 
@@ -604,40 +604,12 @@
       word-break: break-word;
     }
 
-    .hero-proofline {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 22px;
-    }
-
-    .hero-proof {
-      min-height: 34px;
-      display: inline-flex;
-      align-items: center;
-      border-radius: 8px;
-      padding: 0 11px;
-      border: 1px solid oklch(80% 0.028 56 / 0.72);
-      background: oklch(98% 0.012 65 / 0.72);
-      color: var(--ink);
-      font-family: "Bai Jamjuree", sans-serif;
-      font-size: 0.82rem;
-      font-weight: 800;
-      box-shadow: 0 10px 24px oklch(24% 0.04 42 / 0.06);
-    }
-
-    .hero-proof.is-hot {
-      border-color: oklch(68% 0.135 35 / 0.36);
-      background: oklch(91% 0.056 38 / 0.72);
-      color: oklch(34% 0.066 34);
-    }
-
     .hero-actions {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
-      margin-top: 32px;
+      margin-top: 28px;
     }
 
     .button {
@@ -703,41 +675,6 @@
       border-color: oklch(83% 0.06 84);
       background: var(--butter);
       box-shadow: 0 14px 28px oklch(91% 0.09 88 / 0.22);
-    }
-
-    .repo-strip {
-      position: relative;
-      z-index: 7;
-      width: min(760px, 100%);
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      margin-top: 44px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      overflow: hidden;
-      background: var(--line);
-    }
-
-    .repo-item {
-      min-height: 82px;
-      display: grid;
-      align-content: center;
-      gap: 2px;
-      padding: 14px 18px;
-      background: oklch(98% 0.012 65 / 0.86);
-    }
-
-    .repo-item strong {
-      font-family: "Bai Jamjuree", sans-serif;
-      font-size: 1.55rem;
-      line-height: 1;
-    }
-
-    .repo-item span {
-      color: var(--muted);
-      font-size: 0.86rem;
-      font-weight: 600;
     }
 
     .section {
@@ -2008,10 +1945,6 @@
     }
 
     @media (max-width: 1080px) {
-      h1 {
-        font-size: 4.25rem;
-      }
-
       .hero-art {
         opacity: 0.58;
         right: -210px;
@@ -2141,10 +2074,9 @@
 
       h1 {
         max-width: 10ch;
-        font-size: 3.18rem;
+        font-size: 3rem;
       }
 
-      .repo-strip,
       .section-heading,
       .about-metrics,
       .steps {
@@ -2248,7 +2180,7 @@
       }
 
       h1 {
-        font-size: 2.55rem;
+        font-size: 2.35rem;
       }
 
       .hero-copy p,
@@ -2322,32 +2254,10 @@
             Portfolio cover สำหรับงาน HTML/CSS ที่มีหน้า live, source file,
             case study และ resume พร้อมให้ reviewer เปิดดูได้โดยไม่ต้องเดาทาง.
           </p>
-          <div class="hero-proofline" aria-label="portfolio proof points">
-            <span class="hero-proof is-hot">10 live pages</span>
-            <span class="hero-proof">3 case studies</span>
-            <span class="hero-proof">real screenshots</span>
-            <span class="hero-proof">source visible</span>
-          </div>
           <div class="hero-actions" aria-label="ลิงก์สำคัญ">
             <a class="button primary" href="#works">ดูไฟล์ทั้งหมด</a>
-            <a class="button secondary" href="LaunchLedger.html">เปิดงานใหม่ ↗</a>
             <a class="button case-study" href="#case-studies">Reviewer case studies ↗</a>
-            <a class="button secondary" href="resume.html">Resume</a>
             <a class="button contact" href="#contact" aria-label="ไปยังลิงก์ Instagram และ email">ติดต่อ</a>
-          </div>
-          <div class="repo-strip" aria-label="ข้อมูล repo">
-            <div class="repo-item">
-              <strong>10</strong>
-              <span>live project pages</span>
-            </div>
-            <div class="repo-item">
-              <strong>3</strong>
-              <span>full case studies</span>
-            </div>
-            <div class="repo-item">
-              <strong>PDF</strong>
-              <span>resume ready</span>
-            </div>
           </div>
         </div>
       </div>
@@ -2802,7 +2712,6 @@
                 <p>Package the work with screenshots, source links, case studies, and contact paths.</p>
               </div>
               <div class="skill-pills">
-                <span class="skill-pill">Real screenshots</span>
                 <span class="skill-pill">GitHub Pages</span>
                 <span class="skill-pill alt">Source links</span>
                 <span class="skill-pill alt">Accessible focus</span>
