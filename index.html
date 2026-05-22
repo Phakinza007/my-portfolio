@@ -52,8 +52,8 @@
   </script>
   <style>
     :root {
-      --paper: oklch(96% 0.018 62);
-      --paper-soft: oklch(93% 0.026 48);
+      --paper: oklch(95.5% 0.021 63);
+      --paper-soft: oklch(92.5% 0.032 58);
       --ink: oklch(22% 0.035 40);
       --muted: oklch(48% 0.035 52);
       --line: oklch(80% 0.028 56);
@@ -61,8 +61,11 @@
       --coral: oklch(68% 0.135 35);
       --mint: oklch(79% 0.09 165);
       --butter: oklch(91% 0.09 88);
+      --bench: oklch(89% 0.04 72);
+      --aqua-ink: oklch(26% 0.075 175);
       --surface: oklch(98% 0.012 65);
-      --shadow: 0 26px 70px oklch(24% 0.04 42 / 0.16);
+      --shadow: 0 28px 70px oklch(24% 0.04 42 / 0.16);
+      --shadow-strong: 0 34px 88px oklch(24% 0.04 42 / 0.22);
       --radius: 8px;
       --max: 1180px;
       --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -83,6 +86,7 @@
       font-family: "Noto Sans Thai", "Bai Jamjuree", Arial, sans-serif;
       color: var(--ink);
       background:
+        linear-gradient(140deg, oklch(91% 0.045 168 / 0.42), transparent 42%),
         linear-gradient(180deg, var(--paper) 0%, oklch(95% 0.017 78) 48%, oklch(92% 0.03 165) 100%);
       line-height: 1.65;
       overflow-x: hidden;
@@ -98,7 +102,7 @@
         linear-gradient(oklch(40% 0.05 50 / 0.06) 1px, transparent 1px),
         linear-gradient(90deg, oklch(40% 0.05 50 / 0.06) 1px, transparent 1px);
       background-size: 34px 34px;
-      mask-image: linear-gradient(to bottom, oklch(0% 0 0 / 0.42), transparent 72%);
+      mask-image: linear-gradient(to bottom, oklch(0% 0 0 / 0.48), transparent 76%);
     }
 
     a {
@@ -119,8 +123,9 @@
       position: sticky;
       top: 0;
       z-index: 30;
-      background: oklch(96% 0.018 62 / 0.95);
+      background: oklch(96% 0.018 62 / 0.9);
       border-bottom: 1px solid oklch(78% 0.03 55 / 0.55);
+      backdrop-filter: blur(18px);
     }
 
     .nav {
@@ -221,11 +226,39 @@
 
     .hero {
       position: relative;
-      min-height: 650px;
+      min-height: 710px;
       display: grid;
       align-items: center;
-      padding: 72px 0 48px;
+      padding: 86px 0 58px;
       overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 54px max(12px, calc((100vw - var(--max)) / 2)) 34px;
+      border: 1px solid oklch(80% 0.028 56 / 0.78);
+      border-radius: 8px;
+      background:
+        linear-gradient(90deg, oklch(98% 0.012 65 / 0.7) 0 1px, transparent 1px 22px),
+        linear-gradient(180deg, oklch(98% 0.012 65 / 0.68) 0 1px, transparent 1px 22px),
+        linear-gradient(135deg, oklch(98% 0.012 65 / 0.62), oklch(91% 0.09 88 / 0.2));
+      opacity: 0.72;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: "OPENABLE WORKS";
+      position: absolute;
+      left: max(16px, calc((100vw - var(--max)) / 2 + 18px));
+      bottom: 42px;
+      color: oklch(72% 0.035 58 / 0.42);
+      font-family: "Bai Jamjuree", sans-serif;
+      font-size: clamp(2.2rem, 8vw, 7.2rem);
+      font-weight: 700;
+      line-height: 0.8;
+      pointer-events: none;
+      z-index: 0;
     }
 
     .cover-ribbon {
@@ -576,7 +609,7 @@
       position: relative;
       z-index: 6;
       max-width: 650px;
-      padding-top: 36px;
+      padding-top: 44px;
     }
 
     .eyebrow {
@@ -599,19 +632,48 @@
 
     h1 {
       font-family: "Bai Jamjuree", sans-serif;
-      font-size: 5.35rem;
-      line-height: 0.94;
+      font-size: clamp(4.2rem, 9vw, 7rem);
+      line-height: 0.9;
       font-weight: 700;
-      max-width: 9ch;
+      max-width: 10.4ch;
       margin-bottom: 24px;
+      text-wrap: balance;
     }
 
     .hero-copy p {
-      max-width: 58ch;
+      max-width: 62ch;
       color: var(--muted);
-      font-size: 1.06rem;
+      font-size: 1.08rem;
       overflow-wrap: anywhere;
       word-break: break-word;
+    }
+
+    .hero-proofline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .hero-proof {
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 8px;
+      padding: 0 11px;
+      border: 1px solid oklch(80% 0.028 56 / 0.72);
+      background: oklch(98% 0.012 65 / 0.72);
+      color: var(--ink);
+      font-family: "Bai Jamjuree", sans-serif;
+      font-size: 0.82rem;
+      font-weight: 800;
+      box-shadow: 0 10px 24px oklch(24% 0.04 42 / 0.06);
+    }
+
+    .hero-proof.is-hot {
+      border-color: oklch(68% 0.135 35 / 0.36);
+      background: oklch(91% 0.056 38 / 0.72);
+      color: oklch(34% 0.066 34);
     }
 
     .hero-actions {
@@ -631,11 +693,13 @@
       padding: 0 18px;
       border: 1px solid transparent;
       font-weight: 700;
-      transition: transform 180ms var(--ease), background 180ms var(--ease), border-color 180ms var(--ease);
+      box-shadow: 0 12px 24px oklch(24% 0.04 42 / 0.06);
+      transition: transform 180ms var(--ease), background 180ms var(--ease), border-color 180ms var(--ease), box-shadow 180ms var(--ease);
     }
 
     .button:hover {
       transform: translateY(-2px);
+      box-shadow: 0 18px 36px oklch(24% 0.04 42 / 0.13);
     }
 
     .button:focus-visible,
@@ -722,7 +786,7 @@
 
     .section {
       scroll-margin-top: 82px;
-      padding: 64px 0;
+      padding: clamp(58px, 8vw, 92px) 0;
       border-top: 1px solid oklch(80% 0.028 56 / 0.52);
     }
 
@@ -742,9 +806,10 @@
 
     h2 {
       font-family: "Bai Jamjuree", sans-serif;
-      font-size: 2.4rem;
-      line-height: 1.12;
-      max-width: 16ch;
+      font-size: clamp(2.1rem, 4vw, 3.3rem);
+      line-height: 1.04;
+      max-width: 17ch;
+      text-wrap: balance;
     }
 
     .section-heading p {
@@ -755,16 +820,16 @@
 
     .about-band {
       display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
-      gap: 30px;
+      grid-template-columns: minmax(0, 0.84fr) minmax(340px, 1.16fr);
+      gap: 34px;
       align-items: start;
-      padding: 34px;
+      padding: clamp(28px, 5vw, 44px);
       border-radius: 8px;
       border: 1px solid var(--line);
       background:
-        linear-gradient(135deg, oklch(98% 0.012 65 / 0.94), oklch(92% 0.032 76 / 0.76)),
+        linear-gradient(135deg, oklch(98% 0.012 65 / 0.98), oklch(91% 0.04 165 / 0.35)),
         var(--surface);
-      box-shadow: 0 18px 42px oklch(22% 0.035 40 / 0.08);
+      box-shadow: 0 24px 58px oklch(22% 0.035 40 / 0.1);
     }
 
     .about-lead {
@@ -774,10 +839,10 @@
     }
 
     .about-lead h3 {
-      max-width: 14ch;
+      max-width: 15ch;
       font-family: "Bai Jamjuree", sans-serif;
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      line-height: 1.04;
+      font-size: clamp(2rem, 4vw, 3.35rem);
+      line-height: 0.98;
       letter-spacing: 0;
     }
 
@@ -797,7 +862,10 @@
 
     .about-metric {
       min-height: 92px;
-      padding: 14px;
+      display: grid;
+      align-content: space-between;
+      gap: 12px;
+      padding: 16px;
     }
 
     .about-metric + .about-metric {
@@ -825,23 +893,48 @@
       overflow: hidden;
       border: 1px solid oklch(80% 0.028 56 / 0.72);
       border-radius: 8px;
-      background: oklch(98% 0.012 65 / 0.64);
+      background: oklch(98% 0.012 65 / 0.74);
     }
 
     .skill-row {
       display: grid;
-      grid-template-columns: 152px minmax(0, 1fr);
+      grid-template-columns: 42px minmax(130px, 0.42fr) minmax(0, 1fr);
       gap: 16px;
-      padding: 16px;
+      padding: 18px;
+      align-items: start;
     }
 
     .skill-row + .skill-row {
       border-top: 1px solid oklch(80% 0.028 56 / 0.58);
     }
 
+    .skill-index {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--ink);
+      color: var(--surface);
+      font-family: "Bai Jamjuree", sans-serif;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    .skill-copy {
+      display: grid;
+      gap: 5px;
+    }
+
     .skill-row strong {
       font-family: "Bai Jamjuree", sans-serif;
       line-height: 1.24;
+    }
+
+    .skill-row p {
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.45;
     }
 
     .skill-pills {
@@ -1136,27 +1229,47 @@
 
     .works-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
     }
 
     .work-card {
       min-height: 320px;
       display: grid;
       grid-template-rows: 158px 1fr;
+      position: relative;
+      isolation: isolate;
       border-radius: 8px;
       overflow: hidden;
       border: 1px solid var(--line);
       background: oklch(98% 0.012 65);
       color: inherit;
       box-shadow: 0 14px 30px oklch(22% 0.035 40 / 0.08);
-      transition: transform 180ms var(--ease), box-shadow 180ms var(--ease), border-color 180ms var(--ease);
+      transform-origin: 50% 100%;
+      transition: transform 220ms var(--ease), box-shadow 220ms var(--ease), border-color 220ms var(--ease), background 220ms var(--ease);
     }
 
     .work-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-8px);
       border-color: oklch(60% 0.1 255 / 0.42);
-      box-shadow: 0 24px 48px oklch(22% 0.035 40 / 0.14);
+      box-shadow: var(--shadow-strong);
+    }
+
+    .work-card::after {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      z-index: -1;
+      border-radius: 8px;
+      background: oklch(56% 0.19 256 / 0.1);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 220ms var(--ease), transform 220ms var(--ease);
+    }
+
+    .work-card:hover::after {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .work-preview {
@@ -1167,12 +1280,31 @@
     }
 
     .work-preview::before {
-      content: "";
+      content: "Open project";
       position: absolute;
-      inset: 0;
-      z-index: 1;
+      right: 12px;
+      bottom: 12px;
+      z-index: 3;
+      min-height: 32px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 8px;
+      padding: 0 10px;
+      background: oklch(98% 0.012 65 / 0.94);
+      color: var(--ink);
+      font-family: "Bai Jamjuree", sans-serif;
+      font-size: 0.74rem;
+      font-weight: 800;
       opacity: 0;
       pointer-events: none;
+      transform: translateY(8px);
+      box-shadow: 0 10px 24px oklch(15% 0.03 40 / 0.18);
+      transition: opacity 200ms var(--ease), transform 200ms var(--ease);
+    }
+
+    .work-card:hover .work-preview::before {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .work-preview::after {
@@ -1215,8 +1347,8 @@
       position: relative;
       display: grid;
       align-content: space-between;
-      gap: 18px;
-      padding: 16px;
+      gap: 20px;
+      padding: 18px;
       overflow: hidden;
     }
 
@@ -1234,8 +1366,8 @@
 
     .work-title h3 {
       font-family: "Bai Jamjuree", sans-serif;
-      font-size: 1.12rem;
-      line-height: 1.22;
+      font-size: 1.2rem;
+      line-height: 1.18;
     }
 
     .work-number {
@@ -1253,7 +1385,7 @@
 
     .work-body p {
       color: var(--muted);
-      font-size: 0.92rem;
+      font-size: 0.94rem;
     }
 
     .work-meta {
@@ -1305,11 +1437,12 @@
       border: 1px solid var(--line);
       font-size: 0.84rem;
       font-weight: 800;
-      transition: transform 180ms var(--ease), background 180ms var(--ease), border-color 180ms var(--ease);
+      transition: transform 180ms var(--ease), background 180ms var(--ease), border-color 180ms var(--ease), box-shadow 180ms var(--ease);
     }
 
     .project-action:hover {
       transform: translateY(-2px);
+      box-shadow: 0 10px 22px oklch(24% 0.04 42 / 0.1);
     }
 
     .project-action.live {
@@ -1718,18 +1851,34 @@
     }
 
     .contact-band {
+      position: relative;
+      isolation: isolate;
       display: grid;
       grid-template-columns: minmax(260px, 0.72fr) minmax(320px, 1.28fr);
       gap: 34px;
       align-items: center;
-      padding: 44px;
+      overflow: hidden;
+      padding: clamp(32px, 6vw, 58px);
       border-radius: 8px;
       border: 1px solid oklch(98% 0.012 65 / 0.14);
       background:
-        radial-gradient(circle at 18% 20%, oklch(56% 0.19 256 / 0.28), transparent 34%),
+        linear-gradient(135deg, oklch(56% 0.19 256 / 0.18), transparent 42%),
         var(--ink);
       color: var(--surface);
       box-shadow: 0 26px 60px oklch(22% 0.035 40 / 0.18);
+    }
+
+    .contact-band::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      z-index: -1;
+      border: 1px solid oklch(98% 0.012 65 / 0.12);
+      border-radius: 8px;
+      background-image:
+        linear-gradient(oklch(98% 0.012 65 / 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, oklch(98% 0.012 65 / 0.06) 1px, transparent 1px);
+      background-size: 28px 28px;
     }
 
     .contact-band h2 {
@@ -1744,6 +1893,29 @@
       color: oklch(89% 0.02 76 / 0.78);
       max-width: 65ch;
       margin-bottom: 18px;
+    }
+
+    .contact-note {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr);
+      gap: 14px;
+      margin: 18px 0 20px;
+      padding: 14px;
+      border: 1px solid oklch(98% 0.012 65 / 0.14);
+      border-radius: 8px;
+      background: oklch(98% 0.012 65 / 0.07);
+    }
+
+    .contact-note strong {
+      color: var(--butter);
+      font-family: "Bai Jamjuree", sans-serif;
+      line-height: 1.2;
+    }
+
+    .contact-note span {
+      color: oklch(89% 0.02 76 / 0.78);
+      font-size: 0.92rem;
+      line-height: 1.5;
     }
 
     .contact-intent {
@@ -1777,12 +1949,13 @@
       background: oklch(98% 0.012 65 / 0.08);
       color: var(--surface);
       font-weight: 800;
-      transition: transform 180ms var(--ease), background 180ms var(--ease), border-color 180ms var(--ease);
+      transition: transform 180ms var(--ease), background 180ms var(--ease), border-color 180ms var(--ease), box-shadow 180ms var(--ease);
     }
 
     .contact-link:hover {
       transform: translateY(-2px);
       background: oklch(98% 0.012 65 / 0.14);
+      box-shadow: 0 16px 30px oklch(10% 0.02 40 / 0.18);
     }
 
     .contact-link.primary {
@@ -1903,6 +2076,14 @@
         border-bottom: 1px solid var(--line);
       }
 
+      .skill-row {
+        grid-template-columns: 40px minmax(0, 1fr);
+      }
+
+      .skill-pills {
+        grid-column: 2;
+      }
+
       .resume-profile {
         border-right: 0;
         border-bottom: 1px solid var(--line);
@@ -1938,6 +2119,14 @@
       .hero {
         min-height: auto;
         padding: 86px 0 34px;
+      }
+
+      .hero::before {
+        inset: 70px 8px 18px;
+      }
+
+      .hero::after {
+        display: none;
       }
 
       .cover-ribbon {
@@ -2063,7 +2252,12 @@
       }
 
       .skill-row {
-        grid-template-columns: 1fr;
+        grid-template-columns: 34px minmax(0, 1fr);
+        gap: 12px;
+      }
+
+      .skill-pills {
+        grid-column: 1 / -1;
       }
 
       .resume-row {
@@ -2082,6 +2276,10 @@
 
       .case-content {
         padding: 24px;
+      }
+
+      .contact-note {
+        grid-template-columns: 1fr;
       }
 
       .case-decision {
@@ -2161,7 +2359,7 @@
         <li><a href="#case-studies">เบื้องหลังงาน</a></li>
         <li><a href="#contact">ติดต่อ</a></li>
         <li><a href="#system">โครงงาน</a></li>
-        <li><a class="nav-hire" href="#contact">Hire me</a></li>
+        <li><a class="nav-hire" href="#contact">Get in touch</a></li>
       </ul>
     </nav>
   </header>
@@ -2172,31 +2370,36 @@
       <div class="page-shell">
         <div class="hero-copy">
           <div class="eyebrow">repo gallery for web projects</div>
-          <h1>รวมงานหน้าเว็บ</h1>
+          <h1>เว็บทดลองที่เปิดดูได้จริง</h1>
           <p>
-            หน้าแรกของโฟลเดอร์พอร์ตนี้ รวมทุกไฟล์ HTML<br />
-            ให้เป็นภาพปกเดียว เปิดดูงานได้ทันที<br />
-            และยังคงไฟล์เดิมไว้ครบ.
+            Portfolio cover สำหรับงาน HTML/CSS ที่มีหน้า live, source file,
+            case study และ resume พร้อมให้ reviewer เปิดดูได้โดยไม่ต้องเดาทาง.
           </p>
+          <div class="hero-proofline" aria-label="portfolio proof points">
+            <span class="hero-proof is-hot">10 live pages</span>
+            <span class="hero-proof">3 case studies</span>
+            <span class="hero-proof">real screenshots</span>
+            <span class="hero-proof">source visible</span>
+          </div>
           <div class="hero-actions" aria-label="ลิงก์สำคัญ">
             <a class="button primary" href="#works">ดูไฟล์ทั้งหมด</a>
             <a class="button secondary" href="LaunchLedger.html">เปิดงานใหม่ ↗</a>
-            <a class="button case-study" href="case-study-interntrack.html">Case study: InternTrack ↗</a>
+            <a class="button case-study" href="#case-studies">Reviewer case studies ↗</a>
             <a class="button secondary" href="resume.html">Resume</a>
             <a class="button contact" href="#contact" aria-label="ไปยังลิงก์ Instagram และ email">ติดต่อ</a>
           </div>
           <div class="repo-strip" aria-label="ข้อมูล repo">
             <div class="repo-item">
               <strong>10</strong>
-              <span>HTML works</span>
+              <span>live project pages</span>
             </div>
             <div class="repo-item">
-              <strong>1</strong>
-              <span>cover index</span>
+              <strong>3</strong>
+              <span>full case studies</span>
             </div>
             <div class="repo-item">
-              <strong>May</strong>
-              <span>2026 update</span>
+              <strong>PDF</strong>
+              <span>resume ready</span>
             </div>
           </div>
         </div>
@@ -2605,10 +2808,10 @@
 
         <div class="about-band">
           <div class="about-lead">
-            <h3>Frontend practice with real pages and clear source links.</h3>
+            <h3>Practice pages, organized like client-facing work.</h3>
             <p>
-              I build static HTML pages as complete portfolio pieces: clear first screens,
-              responsive CSS, real screenshots, readable source, and live pages that open directly from GitHub Pages.
+              I turn static HTML files into complete portfolio surfaces: clear first screens,
+              responsive CSS, reviewer context, readable source, and live pages that open directly.
             </p>
             <div class="about-metrics" aria-label="portfolio proof points">
               <div class="about-metric">
@@ -2616,7 +2819,7 @@
                 <span>live HTML projects</span>
               </div>
               <div class="about-metric">
-                <strong>2</strong>
+                <strong>3</strong>
                 <span>full case study pages</span>
               </div>
               <div class="about-metric">
@@ -2628,7 +2831,11 @@
 
           <div class="skills-board" aria-label="skills practiced">
             <div class="skill-row">
-              <strong>Core frontend</strong>
+              <span class="skill-index">01</span>
+              <div class="skill-copy">
+                <strong>Core frontend</strong>
+                <p>Build clean static pages with predictable structure and responsive CSS.</p>
+              </div>
               <div class="skill-pills">
                 <span class="skill-pill">HTML</span>
                 <span class="skill-pill">CSS</span>
@@ -2637,7 +2844,11 @@
               </div>
             </div>
             <div class="skill-row">
-              <strong>UI direction</strong>
+              <span class="skill-index">02</span>
+              <div class="skill-copy">
+                <strong>UI direction</strong>
+                <p>Shape each project around hierarchy, intent, and the first scan.</p>
+              </div>
               <div class="skill-pills">
                 <span class="skill-pill">Visual hierarchy</span>
                 <span class="skill-pill">Dashboard UI</span>
@@ -2646,7 +2857,11 @@
               </div>
             </div>
             <div class="skill-row">
-              <strong>Portfolio polish</strong>
+              <span class="skill-index">03</span>
+              <div class="skill-copy">
+                <strong>Portfolio polish</strong>
+                <p>Package the work with screenshots, source links, case studies, and contact paths.</p>
+              </div>
               <div class="skill-pills">
                 <span class="skill-pill">Real screenshots</span>
                 <span class="skill-pill">GitHub Pages</span>
@@ -2710,7 +2925,7 @@
             <h2>Case studies for reviewer-ready work</h2>
           </div>
           <p>
-            Full case study pages for the two strongest reviewer examples, plus compact notes
+            Full case study pages for the three strongest reviewer examples, plus compact notes
             for extra project range.
           </p>
         </div>
@@ -2827,13 +3042,13 @@
           </article>
 
           <article class="case-panel">
-            <a class="case-shot" href="PulseBoard.html" aria-label="View live PulseBoard case study project">
+            <a class="case-shot" href="case-study-pulseboard.html" aria-label="Read PulseBoard full case study">
               <img class="preview-image" src="assets/thumbs/pulseboard.jpg" alt="PulseBoard dashboard screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
             <div class="case-content">
               <div class="case-topline">
-                <span>03 · Product UI</span>
+                <span>03 · Full Case Study</span>
                 <span>Event operations dashboard</span>
               </div>
               <div class="case-title">
@@ -2874,6 +3089,7 @@
                 <span class="tag alt">semantic HTML</span>
               </div>
               <div class="project-actions">
+                <a class="project-action case" href="case-study-pulseboard.html">Case study</a>
                 <a class="project-action live" href="PulseBoard.html">View live</a>
                 <a class="project-action source" href="https://github.com/Phakinza007/my-portfolio/blob/main/PulseBoard.html">Source file</a>
               </div>
@@ -2887,7 +3103,7 @@
             </a>
             <div class="case-content">
               <div class="case-topline">
-                <span>04 · Landing Page</span>
+                <span>04 · Project Notes</span>
                 <span>Internship learning offer</span>
               </div>
               <div class="case-title">
@@ -2947,12 +3163,18 @@
           <div class="contact-copy">
             <span class="contact-intent">Open for feedback, reviews, and frontend opportunities</span>
             <p>
-              Frontend and landing page practice portfolio focused on static HTML,
-              responsive CSS, visual direction, and polished project presentation.
+              Need a quick review path? Start with the resume, open the case studies,
+              then check the live pages and source files. Everything important is one click away.
             </p>
+            <div class="contact-note">
+              <strong>Best review flow</strong>
+              <span>Resume first, InternTrack or PulseBoard case study next, then any live project card that catches your eye.</span>
+            </div>
             <div class="contact-links" aria-label="contact links">
               <a class="contact-link instagram" href="https://www.instagram.com/phakinkinpa/" rel="me noopener">Instagram @phakinkinpa</a>
               <a class="contact-link primary" href="mailto:a0626568471@gmail.com">Email me</a>
+              <a class="contact-link" href="resume.html">Resume</a>
+              <a class="contact-link" href="assets/resume-phakin-chawanpunya.pdf" download>PDF resume</a>
               <a class="contact-link" href="https://github.com/Phakinza007">GitHub Profile</a>
               <a class="contact-link" href="https://github.com/Phakinza007/my-portfolio">Repository</a>
             </div>

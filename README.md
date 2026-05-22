@@ -29,10 +29,11 @@ The portfolio includes a public resume page and downloadable PDF:
 - Resume page: <https://phakinza007.github.io/my-portfolio/resume.html>
 - Resume PDF: [`assets/resume-phakin-chawanpunya.pdf`](assets/resume-phakin-chawanpunya.pdf)
 
-Two full case study pages explain the thinking behind the strongest reviewer examples:
+Three full case study pages explain the thinking behind the strongest reviewer examples:
 
 - InternTrack: <https://phakinza007.github.io/my-portfolio/case-study-interntrack.html>
 - LaunchLedger: <https://phakinza007.github.io/my-portfolio/case-study-launchledger.html>
+- PulseBoard: <https://phakinza007.github.io/my-portfolio/case-study-pulseboard.html>
 
 The homepage also includes compact case-study notes for extra project range, an About / Skills band, project status badges, and a stronger contact CTA so reviewers can understand the portfolio without copying links or searching through files.
 
@@ -90,6 +91,7 @@ Phakin Chawanpunya
 ├── resume.html
 ├── case-study-interntrack.html
 ├── case-study-launchledger.html
+├── case-study-pulseboard.html
 ├── site.webmanifest
 ├── LaunchLedger.html
 ├── MuseRoom.html

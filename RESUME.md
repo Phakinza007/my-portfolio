@@ -30,7 +30,7 @@ Junior frontend / landing page practice work where layout, responsiveness, UI po
 - CSS
 - Git and GitHub
 - GitHub Pages
-- Browser QA with Playwright
+- Browser QA (responsive checks)
 - Figma workflow support through Codex skills
 
 ## Featured Projects

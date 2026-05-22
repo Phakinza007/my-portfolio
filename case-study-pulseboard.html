@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Full case study for PulseBoard, an event operations dashboard concept focused on scan-first status hierarchy, role ownership, timeline pressure, and responsive frontend practice." />
+  <meta name="theme-color" content="#1677e8" />
+  <link rel="canonical" href="https://phakinza007.github.io/my-portfolio/case-study-pulseboard.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="PulseBoard Case Study | Phakin Portfolio" />
+  <meta property="og:description" content="Problem, goal, design decisions, practiced skills, and result for the PulseBoard event operations dashboard concept." />
+  <meta property="og:url" content="https://phakinza007.github.io/my-portfolio/case-study-pulseboard.html" />
+  <meta property="og:image" content="https://phakinza007.github.io/my-portfolio/assets/screenshots/pulseboard.png" />
+  <meta property="og:image:alt" content="PulseBoard event operations dashboard interface screenshot." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PulseBoard Case Study | Phakin Portfolio" />
+  <meta name="twitter:description" content="A reviewer-ready case study for an event operations dashboard concept." />
+  <meta name="twitter:image" content="https://phakinza007.github.io/my-portfolio/assets/screenshots/pulseboard.png" />
+  <title>PulseBoard Case Study | Phakin Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="stylesheet" href="assets/portfolio-pages.css?v=case-pulseboard-1" />
+</head>
+<body>
+  <header class="topbar">
+    <nav class="page-shell nav" aria-label="Case study navigation">
+      <a class="brand" href="index.html" aria-label="Back to portfolio">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 34 34" focusable="false">
+            <rect class="mark-back" x="8" y="7" width="16" height="13" rx="3" />
+            <rect class="mark-front" x="12" y="12" width="16" height="15" rx="3" />
+            <path class="mark-line" d="M16 18h7M16 23h4" />
+            <circle class="mark-dot" cx="24" cy="17" r="2.1" />
+          </svg>
+        </span>
+        <span>PulseBoard Case Study</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Portfolio</a></li>
+        <li><a href="#decisions">Decisions</a></li>
+        <li><a href="#result">Result</a></li>
+        <li><a href="PulseBoard.html">Live page</a></li>
+        <li><a class="nav-primary" href="resume.html">Resume</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero case-hero">
+      <div class="page-shell hero-grid">
+        <div>
+          <span class="eyebrow">full case study</span>
+          <h1>PulseBoard turns a busy room into a readable plan.</h1>
+          <p class="hero-copy">
+            A scan-first dashboard concept for event teams who need to track crowd flow,
+            task ownership, and timeline pressure in one screen.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="PulseBoard.html">View live project</a>
+            <a class="button" href="https://github.com/Phakinza007/my-portfolio/blob/main/PulseBoard.html">Project source</a>
+            <a class="button ghost" href="index.html#case-studies">Back to case studies</a>
+          </div>
+        </div>
+
+        <figure class="study-shot">
+          <img src="assets/thumbs/pulseboard.jpg" alt="PulseBoard dashboard screenshot showing floor status, active roles, and a scanning-friendly operations layout." />
+        </figure>
+      </div>
+
+      <div class="page-shell">
+        <div class="study-meta" aria-label="PulseBoard case study facts">
+          <div>
+            <strong>Project type</strong>
+            <span>Event operations dashboard concept</span>
+          </div>
+          <div>
+            <strong>Audience</strong>
+            <span>Event staff and operations leads</span>
+          </div>
+          <div>
+            <strong>Focus</strong>
+            <span>Status hierarchy, ownership, and timeline pressure</span>
+          </div>
+          <div>
+            <strong>Build</strong>
+            <span>Static HTML and CSS</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="problem">
+      <div class="page-shell study-grid">
+        <article class="study-block featured">
+          <span class="eyebrow">problem</span>
+          <h2>Event updates break down when the room is hard to scan.</h2>
+          <p>
+            In a busy venue, information comes from many places: walkie talkies, chat threads, paper run sheets,
+            and quick verbal updates. The risk is not missing data; it is missing what matters right now.
+          </p>
+        </article>
+
+        <article class="study-block">
+          <span class="eyebrow">goal</span>
+          <h2>Give the team one screen that answers “what needs attention next?”</h2>
+          <p>
+            PulseBoard is designed as a command center: show the most urgent signals first,
+            keep task ownership visible, and support fast scanning without turning into visual noise.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="decisions">
+      <div class="page-shell">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">design decisions</span>
+            <h2>Three choices that made the dashboard usable at a glance.</h2>
+          </div>
+          <p>
+            Each decision focuses on scan-first hierarchy: signal, owner, then detail.
+          </p>
+        </div>
+
+        <ol class="decision-list" aria-label="PulseBoard decisions">
+          <li class="study-block decision">
+            <span class="decision-number">01</span>
+            <div>
+              <h3>Status hierarchy before detail</h3>
+              <p>
+                Large floor signals and color-coded states surface urgent conditions (crowd, queue, access)
+                before a reviewer reads tables or logs.
+              </p>
+            </div>
+          </li>
+
+          <li class="study-block decision">
+            <span class="decision-number">02</span>
+            <div>
+              <h3>Ownership stays close to updates</h3>
+              <p>
+                Activity rows pair each update with a responsible role so the dashboard feels actionable,
+                not just informative.
+              </p>
+            </div>
+          </li>
+
+          <li class="study-block decision">
+            <span class="decision-number">03</span>
+            <div>
+              <h3>Density without clutter</h3>
+              <p>
+                Panels, typographic rhythm, and consistent spacing keep the interface information-rich,
+                while preserving clear scan lanes on desktop and mobile.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="practice">
+      <div class="page-shell study-grid">
+        <article class="study-block">
+          <span class="eyebrow">what i practiced</span>
+          <h2>Frontend and product thinking in one page.</h2>
+          <p>
+            This build focuses on responsive layout, semantic structure, visual hierarchy, and readable UI density.
+            The goal is to make the concept understandable without requiring a backend demo account.
+          </p>
+          <div class="tag-list" aria-label="Practiced skills">
+            <span class="tag">dashboard UI</span>
+            <span class="tag">visual hierarchy</span>
+            <span class="tag alt">responsive CSS</span>
+            <span class="tag alt">semantic HTML</span>
+          </div>
+        </article>
+
+        <article class="study-block">
+          <span class="eyebrow">why this matters</span>
+          <h2>Operations UIs are judged by clarity under pressure.</h2>
+          <p>
+            A reviewer should be able to see the intent: what is urgent, who owns it,
+            and where to look next, even when the page is dense.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="result">
+      <div class="page-shell">
+        <div class="result-band">
+          <div>
+            <span class="eyebrow">result</span>
+            <h2>A dashboard concept that stays readable when the room gets busy.</h2>
+            <p>
+              PulseBoard demonstrates scan-first layout, clear hierarchy, and ownership cues.
+              A reviewer can understand the product surface quickly, open the live page, and inspect the source file.
+            </p>
+          </div>
+          <div class="result-actions">
+            <a class="button primary" href="PulseBoard.html">View live project</a>
+            <a class="button" href="index.html">Back to portfolio</a>
+            <a class="button ghost" href="resume.html">Resume</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
