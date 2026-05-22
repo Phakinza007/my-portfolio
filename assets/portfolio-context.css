@@ -3,6 +3,16 @@
   left: 16px;
   bottom: 16px;
   z-index: 9400;
+  display: inline-flex;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
   font-family: "Bai Jamjuree", "Noto Sans Thai", Arial, sans-serif;
 }
 
@@ -16,6 +26,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  max-width: 100%;
   white-space: nowrap;
   border-radius: 8px;
   padding: 0 13px;
