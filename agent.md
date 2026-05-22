@@ -130,7 +130,8 @@ Keep these contact links consistent across:
 - `index.html`
 - `resume.html`
 - `RESUME.md`
-- project context rails in standalone project pages
+
+Standalone project pages should keep their floating portfolio context minimal: only the `Back to Portfolio` link belongs there.
 
 ## Best Next Improvements
 
