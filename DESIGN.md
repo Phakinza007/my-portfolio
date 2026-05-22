@@ -162,7 +162,7 @@ Motion should use `cubic-bezier(0.16, 1, 0.3, 1)` and short 180-260ms transition
 
 **Sticky Topbar:** A warm translucent bar with a cobalt abstract stacked-work mark, compact navigation, and visible border. It should stay calm and utility-focused. The mark should stay symbolic rather than using initials or letterforms.
 
-**Hero Preview Cluster:** The signature brand moment. Use real thumbnails layered around a large preview disc. The cluster should imply that every preview opens a real project.
+**Hero Preview Cluster:** The signature brand moment. Use real thumbnails on an open hero stage without a framed background panel. The cluster should imply that every preview opens a real project while keeping the hero background clean.
 
 **Buttons:** Primary buttons use dark ink or cobalt with high contrast. Secondary buttons use a light surface, warm border, and the same 8px radius. Buttons should have clear hover lift and visible focus outlines.
 

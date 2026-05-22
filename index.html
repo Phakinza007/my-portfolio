@@ -13,8 +13,8 @@
   <meta property="og:title" content="Phakin Chawanpunya | Frontend Portfolio" />
   <meta property="og:description" content="Frontend and landing page practice portfolio by Phakin Chawanpunya, featuring ten static HTML projects, full case-study notes, live previews, and source links." />
   <meta property="og:url" content="https://phakinza007.github.io/my-portfolio/" />
-  <meta property="og:image" content="https://phakinza007.github.io/my-portfolio/assets/social-preview.png?v=preview-clean" />
-  <meta property="og:image:secure_url" content="https://phakinza007.github.io/my-portfolio/assets/social-preview.png?v=preview-clean" />
+  <meta property="og:image" content="https://phakinza007.github.io/my-portfolio/assets/social-preview.png?v=hero-clear" />
+  <meta property="og:image:secure_url" content="https://phakinza007.github.io/my-portfolio/assets/social-preview.png?v=hero-clear" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -23,7 +23,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Phakin Chawanpunya | Frontend Portfolio" />
   <meta name="twitter:description" content="Frontend and landing page practice portfolio by Phakin Chawanpunya, featuring ten static HTML projects, full case-study notes, live previews, and source links." />
-  <meta name="twitter:image" content="https://phakinza007.github.io/my-portfolio/assets/social-preview.png?v=preview-clean" />
+  <meta name="twitter:image" content="https://phakinza007.github.io/my-portfolio/assets/social-preview.png?v=hero-clear" />
   <meta name="twitter:image:alt" content="Screenshot of Phakin Chawanpunya frontend portfolio gallery." />
   <title>Phakin Chawanpunya | Frontend Portfolio</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
@@ -220,34 +220,15 @@
       align-items: center;
       padding: 86px 0 58px;
       overflow: hidden;
+      background: linear-gradient(180deg, var(--paper) 0%, oklch(96% 0.014 72) 100%);
     }
 
     .hero::before {
-      content: "";
-      position: absolute;
-      inset: 54px max(12px, calc((100vw - var(--max)) / 2)) 34px;
-      border: 1px solid oklch(80% 0.028 56 / 0.78);
-      border-radius: 8px;
-      background:
-        linear-gradient(90deg, oklch(98% 0.012 65 / 0.7) 0 1px, transparent 1px 22px),
-        linear-gradient(180deg, oklch(98% 0.012 65 / 0.68) 0 1px, transparent 1px 22px),
-        linear-gradient(135deg, oklch(98% 0.012 65 / 0.62), oklch(91% 0.09 88 / 0.2));
-      opacity: 0.72;
-      pointer-events: none;
+      display: none;
     }
 
     .hero::after {
-      content: "OPENABLE WORKS";
-      position: absolute;
-      left: max(16px, calc((100vw - var(--max)) / 2 + 18px));
-      bottom: 42px;
-      color: oklch(72% 0.035 58 / 0.42);
-      font-family: "Bai Jamjuree", sans-serif;
-      font-size: clamp(2.2rem, 8vw, 7.2rem);
-      font-weight: 700;
-      line-height: 0.8;
-      pointer-events: none;
-      z-index: 0;
+      display: none;
     }
 
     .cover-ribbon {
@@ -273,20 +254,6 @@
       width: 680px;
       height: 545px;
       pointer-events: auto;
-    }
-
-    .stage-disc {
-      position: absolute;
-      right: 52px;
-      top: 22px;
-      width: 470px;
-      height: 470px;
-      border-radius: 50%;
-      background:
-        linear-gradient(145deg, oklch(91% 0.04 39), oklch(96% 0.019 68));
-      border: 1px solid oklch(81% 0.034 50 / 0.72);
-      box-shadow: inset 0 18px 45px oklch(100% 0 0 / 0.65), var(--shadow);
-      pointer-events: none;
     }
 
     .main-preview,
@@ -2135,14 +2102,6 @@
         margin-top: 24px;
       }
 
-      .stage-disc {
-        right: 50%;
-        top: 8px;
-        width: 300px;
-        height: 300px;
-        transform: translateX(50%);
-      }
-
       .main-preview {
         right: 50%;
         top: 44px;
@@ -2394,21 +2353,20 @@
       </div>
 
       <div class="hero-art" aria-label="ลิงก์เปิดเว็บตัวอย่าง">
-        <div class="stage-disc"></div>
         <a class="main-preview" href="LaunchLedger.html" aria-label="เปิดเว็บจริง LaunchLedger">
-          <img class="preview-image" src="assets/thumbs/launch-ledger.jpg?v=preview-clean" alt="" />
+          <img class="preview-image" src="assets/thumbs/launch-ledger.jpg?v=hero-clear" alt="" />
           <span class="shot-open" aria-hidden="true">↗</span>
         </a>
         <a class="float-preview one" href="MuseRoom.html" aria-label="เปิดเว็บจริง MuseRoom">
-          <img class="preview-image" src="assets/thumbs/museroom.jpg?v=preview-clean" alt="" />
+          <img class="preview-image" src="assets/thumbs/museroom.jpg?v=hero-clear" alt="" />
           <span class="shot-open" aria-hidden="true">↗</span>
         </a>
         <a class="float-preview two" href="coffee-landing.html" aria-label="เปิดเว็บจริง NOIR Coffee">
-          <img class="preview-image" src="assets/thumbs/noir-coffee.jpg?v=preview-clean" alt="" />
+          <img class="preview-image" src="assets/thumbs/noir-coffee.jpg?v=hero-clear" alt="" />
           <span class="shot-open" aria-hidden="true">↗</span>
         </a>
         <a class="float-preview three" href="DRIP.html" aria-label="เปิดเว็บจริง DRIP Coffee Bar">
-          <img class="preview-image" src="assets/thumbs/drip.jpg?v=preview-clean" alt="" />
+          <img class="preview-image" src="assets/thumbs/drip.jpg?v=hero-clear" alt="" />
           <span class="shot-open" aria-hidden="true">↗</span>
         </a>
       </div>
@@ -2425,7 +2383,7 @@
 
         <div class="featured-grid">
           <a class="feature-panel" href="LaunchLedger.html" aria-label="เปิด LaunchLedger">
-            <img class="preview-image" src="assets/thumbs/launch-ledger.jpg?v=preview-clean" alt="LaunchLedger startup budget dashboard screenshot" />
+            <img class="preview-image" src="assets/thumbs/launch-ledger.jpg?v=hero-clear" alt="LaunchLedger startup budget dashboard screenshot" />
             <div class="feature-caption">
               <div>
                 <strong>LaunchLedger</strong>
@@ -2438,7 +2396,7 @@
           <div class="stack-list" aria-label="งานแนะนำ">
             <a class="stack-link" href="MuseRoom.html">
               <span class="mini-shot">
-                <img class="preview-image" src="assets/thumbs/museroom.jpg?v=preview-clean" alt="" />
+                <img class="preview-image" src="assets/thumbs/museroom.jpg?v=hero-clear" alt="" />
               </span>
               <span class="stack-copy">
                 <strong>MuseRoom</strong>
@@ -2448,7 +2406,7 @@
             </a>
             <a class="stack-link" href="InternTrack.html">
               <span class="mini-shot">
-                <img class="preview-image" src="assets/thumbs/interntrack.jpg?v=preview-clean" alt="" />
+                <img class="preview-image" src="assets/thumbs/interntrack.jpg?v=hero-clear" alt="" />
               </span>
               <span class="stack-copy">
                 <strong>InternTrack</strong>
@@ -2458,7 +2416,7 @@
             </a>
             <a class="stack-link" href="PulseBoard.html">
               <span class="mini-shot">
-                <img class="preview-image" src="assets/thumbs/pulseboard.jpg?v=preview-clean" alt="" />
+                <img class="preview-image" src="assets/thumbs/pulseboard.jpg?v=hero-clear" alt="" />
               </span>
               <span class="stack-copy">
                 <strong>PulseBoard</strong>
@@ -2468,7 +2426,7 @@
             </a>
             <a class="stack-link" href="intern_landing_page_html_css.html">
               <span class="mini-shot">
-                <img class="preview-image" src="assets/thumbs/devlaunch.jpg?v=preview-clean" alt="" />
+                <img class="preview-image" src="assets/thumbs/devlaunch.jpg?v=hero-clear" alt="" />
               </span>
               <span class="stack-copy">
                 <strong>DevLaunch Academy</strong>
@@ -2478,7 +2436,7 @@
             </a>
             <a class="stack-link" href="Brew%20%26%20Co..html">
               <span class="mini-shot">
-                <img class="preview-image" src="assets/thumbs/brew-co.jpg?v=preview-clean" alt="" />
+                <img class="preview-image" src="assets/thumbs/brew-co.jpg?v=hero-clear" alt="" />
               </span>
               <span class="stack-copy">
                 <strong>Brew &amp; Co.</strong>
@@ -2488,7 +2446,7 @@
             </a>
             <a class="stack-link" href="gym-landing.html">
               <span class="mini-shot">
-                <img class="preview-image" src="assets/thumbs/gym-landing.jpg?v=preview-clean" alt="" />
+                <img class="preview-image" src="assets/thumbs/gym-landing.jpg?v=hero-clear" alt="" />
               </span>
               <span class="stack-copy">
                 <strong>Iron Republic</strong>
@@ -2498,7 +2456,7 @@
             </a>
             <a class="stack-link" href="coffee-landing.html">
               <span class="mini-shot">
-                <img class="preview-image" src="assets/thumbs/noir-coffee.jpg?v=preview-clean" alt="" />
+                <img class="preview-image" src="assets/thumbs/noir-coffee.jpg?v=hero-clear" alt="" />
               </span>
               <span class="stack-copy">
                 <strong>NOIR Coffee</strong>
@@ -2524,7 +2482,7 @@
           <article class="work-card identity-launch">
             <a class="work-preview" href="LaunchLedger.html" aria-label="เปิดเว็บจริง LaunchLedger">
               <span class="status-badge">Budget lab</span>
-              <img class="preview-image" src="assets/thumbs/launch-ledger.jpg?v=preview-clean" alt="LaunchLedger startup budget dashboard screenshot" />
+              <img class="preview-image" src="assets/thumbs/launch-ledger.jpg?v=hero-clear" alt="LaunchLedger startup budget dashboard screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
             <div class="work-body">
@@ -2549,7 +2507,7 @@
           <article class="work-card identity-muse">
             <a class="work-preview" href="MuseRoom.html" aria-label="เปิดเว็บจริง MuseRoom">
               <span class="status-badge brand">Visual study</span>
-              <img class="preview-image" src="assets/thumbs/museroom.jpg?v=preview-clean" alt="MuseRoom digital gallery landing page screenshot" />
+              <img class="preview-image" src="assets/thumbs/museroom.jpg?v=hero-clear" alt="MuseRoom digital gallery landing page screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
             <div class="work-body">
@@ -2574,7 +2532,7 @@
           <article class="work-card identity-intern">
             <a class="work-preview" href="InternTrack.html" aria-label="เปิดเว็บจริง InternTrack">
               <span class="status-badge case">Case study</span>
-              <img class="preview-image" src="assets/thumbs/interntrack.jpg?v=preview-clean" alt="InternTrack internship application tracker screenshot" />
+              <img class="preview-image" src="assets/thumbs/interntrack.jpg?v=hero-clear" alt="InternTrack internship application tracker screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
             <div class="work-body">
@@ -2599,7 +2557,7 @@
           <article class="work-card identity-pulse">
             <a class="work-preview" href="PulseBoard.html" aria-label="เปิดเว็บจริง PulseBoard">
               <span class="status-badge case">Live ops</span>
-              <img class="preview-image" src="assets/thumbs/pulseboard.jpg?v=preview-clean" alt="PulseBoard dashboard screenshot" />
+              <img class="preview-image" src="assets/thumbs/pulseboard.jpg?v=hero-clear" alt="PulseBoard dashboard screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
             <div class="work-body">
@@ -2624,7 +2582,7 @@
           <article class="work-card">
             <a class="work-preview" href="intern_landing_page_html_css.html" aria-label="เปิดเว็บจริง DevLaunch Academy">
               <span class="status-badge case">Case study</span>
-              <img class="preview-image" src="assets/thumbs/devlaunch.jpg?v=preview-clean" alt="DevLaunch Academy screenshot" />
+              <img class="preview-image" src="assets/thumbs/devlaunch.jpg?v=hero-clear" alt="DevLaunch Academy screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
             <div class="work-body">
@@ -2649,7 +2607,7 @@
           <article class="work-card">
             <a class="work-preview" href="gym-landing.html" aria-label="เปิดเว็บจริง Iron Republic">
               <span class="status-badge brand">New brand</span>
-              <img class="preview-image" src="assets/thumbs/gym-landing.jpg?v=preview-clean" alt="Iron Republic gym landing page screenshot" />
+              <img class="preview-image" src="assets/thumbs/gym-landing.jpg?v=hero-clear" alt="Iron Republic gym landing page screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
             <div class="work-body">
@@ -2674,7 +2632,7 @@
           <article class="work-card">
             <a class="work-preview" href="Brew%20%26%20Co..html" aria-label="เปิดเว็บจริง Brew and Co">
               <span class="status-badge brand">Brand page</span>
-              <img class="preview-image" src="assets/thumbs/brew-co.jpg?v=preview-clean" alt="Brew and Co screenshot" />
+              <img class="preview-image" src="assets/thumbs/brew-co.jpg?v=hero-clear" alt="Brew and Co screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
             <div class="work-body">
@@ -2699,7 +2657,7 @@
           <article class="work-card">
             <a class="work-preview" href="coffee-landing.html" aria-label="เปิดเว็บจริง NOIR Coffee">
               <span class="status-badge brand">Mood page</span>
-              <img class="preview-image" src="assets/thumbs/noir-coffee.jpg?v=preview-clean" alt="NOIR Coffee screenshot" />
+              <img class="preview-image" src="assets/thumbs/noir-coffee.jpg?v=hero-clear" alt="NOIR Coffee screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
             <div class="work-body">
@@ -2724,7 +2682,7 @@
           <article class="work-card">
             <a class="work-preview" href="DRIP.html" aria-label="เปิดเว็บจริง DRIP Coffee Bar">
               <span class="status-badge">Experiment</span>
-              <img class="preview-image" src="assets/thumbs/drip.jpg?v=preview-clean" alt="DRIP Coffee Bar screenshot" />
+              <img class="preview-image" src="assets/thumbs/drip.jpg?v=hero-clear" alt="DRIP Coffee Bar screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
             <div class="work-body">
@@ -2749,7 +2707,7 @@
           <article class="work-card">
             <a class="work-preview" href="coffee_shop_landing_page.html" aria-label="เปิดเว็บจริง Cozy Coffee Shop">
               <span class="status-badge brand">Landing page</span>
-              <img class="preview-image" src="assets/thumbs/cozy-coffee.jpg?v=preview-clean" alt="Cozy Coffee Shop screenshot" />
+              <img class="preview-image" src="assets/thumbs/cozy-coffee.jpg?v=hero-clear" alt="Cozy Coffee Shop screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
             <div class="work-body">
@@ -2914,7 +2872,7 @@
         <div class="case-grid">
           <article class="case-panel">
             <a class="case-shot" href="case-study-interntrack.html" aria-label="Read InternTrack full case study">
-              <img class="preview-image" src="assets/thumbs/interntrack.jpg?v=preview-clean" alt="InternTrack internship application tracker screenshot" />
+              <img class="preview-image" src="assets/thumbs/interntrack.jpg?v=hero-clear" alt="InternTrack internship application tracker screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
             <div class="case-content">
@@ -2969,7 +2927,7 @@
 
           <article class="case-panel">
             <a class="case-shot" href="case-study-launchledger.html" aria-label="Read LaunchLedger full case study">
-              <img class="preview-image" src="assets/thumbs/launch-ledger.jpg?v=preview-clean" alt="LaunchLedger startup budget dashboard screenshot" />
+              <img class="preview-image" src="assets/thumbs/launch-ledger.jpg?v=hero-clear" alt="LaunchLedger startup budget dashboard screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
             <div class="case-content">
@@ -3024,7 +2982,7 @@
 
           <article class="case-panel">
             <a class="case-shot" href="case-study-pulseboard.html" aria-label="Read PulseBoard full case study">
-              <img class="preview-image" src="assets/thumbs/pulseboard.jpg?v=preview-clean" alt="PulseBoard dashboard screenshot" />
+              <img class="preview-image" src="assets/thumbs/pulseboard.jpg?v=hero-clear" alt="PulseBoard dashboard screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
             <div class="case-content">
@@ -3079,7 +3037,7 @@
 
           <article class="case-panel">
             <a class="case-shot" href="intern_landing_page_html_css.html" aria-label="View live DevLaunch Academy case study project">
-              <img class="preview-image" src="assets/thumbs/devlaunch.jpg?v=preview-clean" alt="DevLaunch Academy landing page screenshot" />
+              <img class="preview-image" src="assets/thumbs/devlaunch.jpg?v=hero-clear" alt="DevLaunch Academy landing page screenshot" />
               <span class="shot-open" aria-hidden="true">↗</span>
             </a>
             <div class="case-content">
