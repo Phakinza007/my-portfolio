@@ -1,2999 +1,1034 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Phakin Chawanpunya is a frontend developer focused on dashboard UI and landing pages, with live HTML projects, case studies, and source links." />
   <meta name="author" content="Phakin Chawanpunya" />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#2f5df5" />
+  <meta name="theme-color" content="#4f6ef7" />
   <link rel="canonical" href="https://phakinza007.github.io/my-portfolio/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Phakin Chawanpunya Portfolio" />
-  <meta property="og:title" content="Phakin — Frontend Developer, dashboards &amp; landing pages" />
-  <meta property="og:description" content="Frontend developer focused on dashboard UI and landing pages, with live HTML projects, case studies, and source links." />
+  <meta property="og:title" content="Phakin Chawanpunya — Frontend Developer" />
+  <meta property="og:description" content="Frontend developer focused on dashboard UI and landing pages." />
   <meta property="og:url" content="https://phakinza007.github.io/my-portfolio/" />
   <meta property="og:image" content="https://phakinza007.github.io/my-portfolio/assets/social-preview.png?v=hero-type-clean" />
-  <meta property="og:image:secure_url" content="https://phakinza007.github.io/my-portfolio/assets/social-preview.png?v=hero-type-clean" />
-  <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Screenshot of Phakin Chawanpunya frontend portfolio gallery." />
-  <meta property="og:locale" content="th_TH" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Phakin — Frontend Developer, dashboards &amp; landing pages" />
-  <meta name="twitter:description" content="Frontend developer focused on dashboard UI and landing pages, with live HTML projects, case studies, and source links." />
+  <meta name="twitter:title" content="Phakin Chawanpunya — Frontend Developer" />
+  <meta name="twitter:description" content="Frontend developer focused on dashboard UI and landing pages." />
   <meta name="twitter:image" content="https://phakinza007.github.io/my-portfolio/assets/social-preview.png?v=hero-type-clean" />
-  <meta name="twitter:image:alt" content="Screenshot of Phakin Chawanpunya frontend portfolio gallery." />
-  <title>Phakin Chawanpunya | Frontend Portfolio</title>
+  <title>Phakin Chawanpunya | Frontend Developer</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Phakin Chawanpunya",
-      "url": "https://phakinza007.github.io/my-portfolio/",
-      "sameAs": [
-        "https://github.com/Phakinza007",
-        "https://www.instagram.com/phakinkinpa/"
-      ],
-      "email": "mailto:a0626568471@gmail.com",
-      "knowsAbout": [
-        "Frontend development",
-        "Landing page design",
-        "HTML",
-        "CSS"
-      ]
-    }
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Phakin Chawanpunya",
+    "url": "https://phakinza007.github.io/my-portfolio/",
+    "sameAs": ["https://github.com/Phakinza007", "https://www.instagram.com/phakinkinpa/"],
+    "email": "mailto:a0626568471@gmail.com",
+    "knowsAbout": ["Frontend development", "Dashboard UI", "Landing page design", "HTML", "CSS"]
+  }
   </script>
-  <script>
-    (() => {
-      try {
-        const savedTheme = localStorage.getItem("portfolio-theme");
-        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-          document.documentElement.dataset.theme = "dark";
-        }
-      } catch (error) {
-        document.documentElement.dataset.theme = "";
-      }
-    })();
-  </script>
+
   <style>
+    /* ============================================================
+       DESIGN TOKENS
+    ============================================================ */
     :root {
-      --paper: oklch(95.5% 0.021 63);
-      --paper-soft: oklch(92.5% 0.032 58);
-      --ink: oklch(22% 0.035 40);
-      --muted: oklch(48% 0.035 52);
-      --line: oklch(80% 0.028 56);
-      --cobalt: oklch(56% 0.19 256);
-      --coral: oklch(68% 0.135 35);
-      --mint: oklch(79% 0.09 165);
-      --butter: oklch(91% 0.09 88);
-      --bench: oklch(89% 0.04 72);
-      --aqua-ink: oklch(26% 0.075 175);
-      --surface: oklch(98% 0.012 65);
-      --on-accent: oklch(98% 0.012 65);
-      --shadow: 0 28px 70px oklch(24% 0.04 42 / 0.16);
-      --shadow-strong: 0 34px 88px oklch(24% 0.04 42 / 0.22);
-      --radius: 8px;
-      --max: 1180px;
-      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --bg:           #eef1ff;
+      --surface:      #ffffff;
+      --surface-2:    #f8f9fd;
+      --ink:          #111827;
+      --ink-2:        #374151;
+      --muted:        #6b7280;
+      --muted-2:      #9ca3af;
+      --border:       #e5e7eb;
+      --border-2:     #d1d5db;
+      --accent:       #4f6ef7;
+      --accent-dark:  #3651d4;
+      --accent-light: #eef2ff;
+      --mint:         #d1fae5;
+      --mint-text:    #065f46;
+      --amber:        #fef3c7;
+      --amber-text:   #92400e;
+      --rose:         #fee2e2;
+      --rose-text:    #991b1b;
+      --dark:         #0f172a;
+      --dark-2:       #1e293b;
+      --max:          1100px;
+      --ease:         cubic-bezier(0.16, 1, 0.3, 1);
+      --r-sm:         8px;
+      --r:            14px;
+      --r-lg:         20px;
+      --sh-sm:        0 1px 3px rgba(0,0,0,.07);
+      --sh:           0 4px 14px rgba(0,0,0,.08), 0 1px 3px rgba(0,0,0,.05);
+      --sh-lg:        0 16px 48px rgba(0,0,0,.1), 0 4px 12px rgba(0,0,0,.06);
     }
 
-    html[data-theme="dark"] {
-      --paper: oklch(20% 0.025 46);
-      --paper-soft: oklch(24% 0.03 52);
-      --ink: oklch(93% 0.018 68);
-      --muted: oklch(84% 0.022 64);
-      --line: oklch(39% 0.028 56);
-      --bench: oklch(27% 0.032 64);
-      --aqua-ink: oklch(82% 0.08 175);
-      --surface: oklch(26% 0.028 52);
-      --on-accent: oklch(98% 0.012 65);
-      --shadow: 0 28px 70px oklch(8% 0.02 42 / 0.34);
-      --shadow-strong: 0 34px 88px oklch(7% 0.018 42 / 0.48);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
-      min-height: 100vh;
-      font-family: "Noto Sans Thai", "Bai Jamjuree", Arial, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
       color: var(--ink);
-      background:
-        linear-gradient(140deg, oklch(91% 0.045 168 / 0.42), transparent 42%),
-        linear-gradient(180deg, var(--paper) 0%, oklch(95% 0.017 78) 48%, oklch(92% 0.03 165) 100%);
       line-height: 1.65;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button { font: inherit; cursor: pointer; border: none; background: none; }
 
-    html[data-theme="dark"] body {
-      background:
-        linear-gradient(140deg, oklch(25% 0.045 168 / 0.28), transparent 42%),
-        linear-gradient(180deg, oklch(17% 0.024 46) 0%, oklch(15% 0.02 58) 52%, oklch(18% 0.032 165) 100%);
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      background-image:
-        linear-gradient(oklch(40% 0.05 50 / 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, oklch(40% 0.05 50 / 0.06) 1px, transparent 1px);
-      background-size: 34px 34px;
-      mask-image: linear-gradient(to bottom, oklch(0% 0 0 / 0.48), transparent 76%);
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button {
-      font: inherit;
-    }
-
-    .page-shell {
-      width: min(var(--max), calc(100% - 32px));
+    .container {
+      width: min(var(--max), calc(100% - 40px));
       margin: 0 auto;
     }
 
-    .topbar {
+    /* ============================================================
+       NAVBAR
+    ============================================================ */
+    .navbar {
       position: sticky;
       top: 0;
-      z-index: 30;
-      background: oklch(96% 0.018 62 / 0.9);
-      border-bottom: 1px solid oklch(78% 0.03 55 / 0.55);
-      backdrop-filter: blur(18px);
+      z-index: 100;
+      background: rgba(238, 241, 255, 0.9);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(229, 231, 235, 0.9);
     }
 
-    html[data-theme="dark"] .topbar {
-      background: oklch(20% 0.025 46 / 0.92);
-      border-bottom-color: var(--line);
-    }
-
-    .nav {
-      min-height: 66px;
+    .nav-inner {
+      height: 68px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 20px;
     }
 
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-family: "Bai Jamjuree", sans-serif;
+    .nav-brand {
       font-weight: 700;
-      font-size: 1rem;
-    }
-
-    .brand-mark {
-      width: 34px;
-      height: 34px;
-      display: grid;
-      place-items: center;
-      position: relative;
-      overflow: hidden;
-      border-radius: 8px;
-      background: var(--cobalt);
-      color: var(--on-accent);
-      box-shadow: 0 10px 24px oklch(56% 0.19 256 / 0.24);
-    }
-
-    .brand-mark svg {
-      width: 24px;
-      height: 24px;
-      display: block;
-      overflow: visible;
-    }
-
-    .brand-mark .mark-back {
-      fill: oklch(91% 0.09 88 / 0.28);
-      stroke: oklch(98% 0.012 65 / 0.78);
-      stroke-width: 1.7;
-    }
-
-    .brand-mark .mark-front {
-      fill: oklch(98% 0.012 65 / 0.16);
-      stroke: currentColor;
-      stroke-width: 2;
-    }
-
-    .brand-mark .mark-line {
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.9;
-      stroke-linecap: round;
-      opacity: 0.92;
-    }
-
-    .brand-mark .mark-dot {
-      fill: var(--butter);
+      font-size: 0.97rem;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      flex-shrink: 0;
+      white-space: nowrap;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 2px;
       list-style: none;
-      color: var(--muted);
-      font-size: 0.92rem;
-      font-weight: 600;
     }
 
     .nav-links a {
       display: inline-flex;
-      min-height: 38px;
       align-items: center;
-      padding: 0 13px;
-      border-radius: 8px;
-      transition: background 180ms var(--ease), color 180ms var(--ease);
+      height: 38px;
+      padding: 0 14px;
+      border-radius: var(--r-sm);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color 150ms, background 150ms;
     }
 
-    .nav-links a:hover {
-      color: var(--ink);
-      background: oklch(89% 0.046 65);
-    }
+    .nav-links a:hover { color: var(--ink); background: rgba(0,0,0,0.05); }
 
-    html[data-theme="dark"] .nav-links a:hover {
-      background: oklch(32% 0.035 55);
-    }
-
-    .nav-controls {
+    .nav-resume {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      height: 40px;
+      padding: 0 20px;
+      border-radius: var(--r-sm);
+      background: var(--ink);
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 600;
+      flex-shrink: 0;
+      transition: background 150ms, transform 160ms;
     }
 
-    .theme-toggle,
-    .nav-toggle {
-      width: 38px;
-      height: 38px;
-      display: inline-grid;
-      place-items: center;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: oklch(98% 0.012 65 / 0.72);
-      color: var(--ink);
-      cursor: pointer;
-      transition: transform 180ms var(--ease), background 180ms var(--ease), border-color 180ms var(--ease);
-    }
+    .nav-resume:hover { background: var(--accent); transform: translateY(-1px); }
 
-    html[data-theme="dark"] .theme-toggle,
-    html[data-theme="dark"] .nav-toggle {
-      background: var(--surface);
-    }
-
-    .theme-toggle:hover,
-    .nav-toggle:hover {
-      transform: translateY(-1px);
-      background: oklch(89% 0.046 65);
-    }
-
-    html[data-theme="dark"] .theme-toggle:hover,
-    html[data-theme="dark"] .nav-toggle:hover {
-      background: oklch(32% 0.035 55);
-    }
-
-    .theme-toggle:focus-visible,
-    .nav-toggle:focus-visible {
-      outline: 3px solid oklch(56% 0.19 256 / 0.36);
-      outline-offset: 3px;
-    }
-
-    .theme-toggle-icon {
-      font-size: 1rem;
-      line-height: 1;
-    }
-
+    /* mobile hamburger */
     .nav-toggle {
       display: none;
-      gap: 4px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--border);
+      flex-shrink: 0;
     }
 
     .nav-toggle span {
+      display: block;
       width: 16px;
       height: 2px;
       border-radius: 99px;
-      background: currentColor;
+      background: var(--ink);
+      transition: transform 220ms var(--ease), opacity 180ms;
     }
 
-    .hero {
-      position: relative;
-      min-height: 710px;
-      display: grid;
-      align-items: center;
-      padding: 86px 0 58px;
-      overflow: hidden;
-      background: linear-gradient(180deg, var(--paper) 0%, oklch(96% 0.014 72) 100%);
-    }
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    html[data-theme="dark"] .hero {
-      background: linear-gradient(180deg, var(--paper) 0%, oklch(18% 0.026 56) 100%);
-    }
-
-    .hero::before {
+    /* mobile drawer */
+    .nav-mobile-panel {
       display: none;
-    }
-
-    .hero::after {
-      display: none;
-    }
-
-    .cover-ribbon {
       position: absolute;
-      top: 32px;
-      left: max(16px, calc((100vw - var(--max)) / 2));
-      z-index: 5;
-      min-width: 128px;
-      padding: 8px 18px 9px;
-      border-radius: 0 8px 8px 0;
-      background: var(--cobalt);
-      color: var(--on-accent);
-      font-family: "Bai Jamjuree", sans-serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      box-shadow: 0 16px 34px oklch(56% 0.19 256 / 0.26);
-    }
-
-    .hero-art {
-      position: absolute;
-      top: 28px;
-      right: max(-30px, calc((100vw - var(--max)) / 2 - 46px));
-      width: 680px;
-      height: 545px;
-      pointer-events: auto;
-    }
-
-    .main-preview,
-    .float-preview {
-      position: absolute;
-      display: block;
-      overflow: hidden;
-      border-radius: 8px;
-      border: 1px solid oklch(82% 0.035 48);
-      background: var(--surface);
-      box-shadow: var(--shadow);
-      color: inherit;
-      cursor: pointer;
-      transition: transform 220ms var(--ease), box-shadow 220ms var(--ease), border-color 220ms var(--ease);
-    }
-
-    .main-preview:hover,
-    .main-preview:focus-visible {
-      transform: rotate(1deg) translateY(-7px);
-      border-color: oklch(56% 0.19 256 / 0.58);
-      box-shadow: 0 34px 82px oklch(24% 0.04 42 / 0.2);
-      outline: none;
-    }
-
-    .float-preview.one:hover,
-    .float-preview.one:focus-visible {
-      transform: rotate(-2deg) translateY(-6px);
-    }
-
-    .float-preview.two:hover,
-    .float-preview.two:focus-visible {
-      transform: rotate(3deg) translateY(-6px);
-    }
-
-    .float-preview.three:hover,
-    .float-preview.three:focus-visible {
-      transform: rotate(0deg) translateY(-6px);
-    }
-
-    .main-preview {
-      right: 132px;
-      top: 78px;
-      width: 260px;
-      height: 336px;
-      transform: rotate(3deg);
-    }
-
-    .float-preview {
-      width: 154px;
-      height: 106px;
-    }
-
-    .float-preview.one {
-      left: 36px;
-      top: 214px;
-      transform: rotate(-4deg);
-    }
-
-    .float-preview.two {
-      right: 24px;
-      bottom: 66px;
-      transform: rotate(5deg);
-    }
-
-    .float-preview.three {
-      left: 160px;
-      bottom: 28px;
-      width: 132px;
-      height: 92px;
-      transform: rotate(2deg);
-    }
-
-    .shot {
-      position: relative;
-      display: block;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      isolation: isolate;
-      background: var(--surface);
-    }
-
-    .shot::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background:
-        linear-gradient(135deg, var(--shot-a), var(--shot-b));
-    }
-
-    .shot::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background-image:
-        linear-gradient(oklch(98% 0.012 65 / 0.18) 1px, transparent 1px),
-        linear-gradient(90deg, oklch(98% 0.012 65 / 0.18) 1px, transparent 1px);
-      background-size: 22px 22px;
-      opacity: var(--grid-opacity, 0.34);
-    }
-
-    .shot-academy {
-      --shot-a: oklch(18% 0.038 204);
-      --shot-b: oklch(32% 0.08 168);
-      --shot-ink: oklch(92% 0.018 92);
-      --shot-muted: oklch(76% 0.04 186);
-      --shot-accent: oklch(77% 0.142 168);
-    }
-
-    .shot-noir {
-      --shot-a: oklch(15% 0.03 54);
-      --shot-b: oklch(28% 0.04 76);
-      --shot-ink: oklch(94% 0.018 78);
-      --shot-muted: oklch(78% 0.04 79);
-      --shot-accent: oklch(76% 0.11 82);
-      --grid-opacity: 0.1;
-    }
-
-    .shot-drip {
-      --shot-a: oklch(12% 0.01 120);
-      --shot-b: oklch(20% 0.05 126);
-      --shot-ink: oklch(92% 0.02 118);
-      --shot-muted: oklch(72% 0.05 128);
-      --shot-accent: oklch(90% 0.22 128);
-      --grid-opacity: 0.22;
-    }
-
-    .shot-nav,
-    .shot-line,
-    .shot-panel,
-    .shot-pill,
-    .shot-disc,
-    .shot-ticker {
-      position: absolute;
-      display: block;
-      border-radius: 8px;
-    }
-
-    .shot-nav {
-      top: 7%;
-      left: 9%;
-      right: 9%;
-      height: 7%;
-      background: oklch(100% 0 0 / 0.18);
-      border: 1px solid oklch(100% 0 0 / 0.18);
-    }
-
-    .shot-title {
-      position: absolute;
-      left: 9%;
-      top: 22%;
-      color: var(--shot-ink);
-      font-family: "Bai Jamjuree", sans-serif;
-      font-size: 1.08rem;
-      font-weight: 700;
-      line-height: 1.05;
-      max-width: 8ch;
-    }
-
-    .main-preview .shot-title {
-      font-size: 1.62rem;
-    }
-
-    .feature-shot .shot-title {
-      font-size: 2.8rem;
-      max-width: 10ch;
-    }
-
-    .shot-line {
-      left: 9%;
-      height: 4%;
-      background: oklch(100% 0 0 / 0.28);
-    }
-
-    .shot-line.one {
-      top: 48%;
-      width: 48%;
-    }
-
-    .shot-line.two {
-      top: 57%;
-      width: 36%;
-      background: var(--shot-accent);
-    }
-
-    .shot-line.three {
-      top: 67%;
-      width: 58%;
-    }
-
-    .shot-panel {
-      right: 9%;
-      bottom: 11%;
-      width: 34%;
-      height: 28%;
-      background: oklch(100% 0 0 / 0.2);
-      border: 1px solid oklch(100% 0 0 / 0.22);
-    }
-
-    .shot-disc {
-      right: 11%;
-      top: 24%;
-      width: 34%;
-      aspect-ratio: 1;
-      border-radius: 50%;
-      background: var(--shot-accent);
-      box-shadow: inset 0 14px 22px oklch(100% 0 0 / 0.24);
-    }
-
-    .shot-pill {
-      left: 9%;
-      bottom: 10%;
-      width: 32%;
-      height: 9%;
-      background: var(--shot-accent);
-    }
-
-    .shot-ticker {
+      top: 68px;
       left: 0;
       right: 0;
-      top: 0;
-      height: 12%;
-      border-radius: 0;
-      background: var(--shot-accent);
+      background: rgba(238, 241, 255, 0.97);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 20px 20px;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 99;
     }
 
-    .shot-drip .shot-title {
-      top: 28%;
-      font-size: 1.85rem;
-      color: var(--shot-accent);
+    .nav-mobile-panel.open { display: flex; }
+
+    .nav-mobile-panel a {
+      display: flex;
+      align-items: center;
+      height: 44px;
+      padding: 0 14px;
+      border-radius: var(--r-sm);
+      font-size: 0.93rem;
+      font-weight: 500;
+      color: var(--ink-2);
+      transition: background 150ms;
     }
 
-    .feature-shot.shot-drip .shot-title {
-      font-size: 3.6rem;
+    .nav-mobile-panel a:hover { background: rgba(0,0,0,0.05); }
+
+    .nav-mobile-panel .resume-mobile {
+      margin-top: 6px;
+      justify-content: center;
+      background: var(--ink);
+      color: #fff;
+      font-weight: 600;
     }
 
-    .mini-shot .shot-title,
-    .float-preview .shot-title {
-      font-size: 0.7rem;
+    .nav-mobile-panel .resume-mobile:hover { background: var(--accent); }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      padding: clamp(64px, 10vw, 108px) 0 clamp(52px, 8vw, 88px);
     }
 
-    .mini-shot .shot-line,
-    .float-preview .shot-line {
-      height: 5%;
-    }
-
-    .preview-image {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top left;
-      transform: scale(1.01);
-      transition: transform 260ms var(--ease), filter 260ms var(--ease);
-    }
-
-    .main-preview:hover .preview-image,
-    .float-preview:hover .preview-image,
-    .feature-panel:hover .preview-image,
-    .stack-link:hover .preview-image,
-    .work-card:hover .preview-image {
-      transform: scale(1.045);
-      filter: saturate(1.04);
-    }
-
-    .shot-open {
-      position: absolute;
-      right: 8%;
-      bottom: 8%;
-      z-index: 2;
-      display: inline-grid;
-      place-items: center;
-      width: 34px;
-      height: 34px;
-      border-radius: 8px;
-      background: oklch(98% 0.012 65 / 0.9);
-      color: oklch(20% 0.035 40);
-      font-family: "Bai Jamjuree", sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      box-shadow: 0 10px 24px oklch(15% 0.03 40 / 0.18);
-    }
-
-    .hero-copy {
-      position: relative;
-      z-index: 6;
-      max-width: 650px;
-      padding-top: 44px;
-    }
-
-    .eyebrow {
+    .hero-eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 18px;
-      color: var(--coral);
+      margin-bottom: 24px;
+      font-size: 0.76rem;
       font-weight: 700;
-      font-size: 0.94rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
     }
 
-    .eyebrow::before {
-      content: "";
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
       width: 28px;
-      height: 2px;
+      height: 2.5px;
       border-radius: 99px;
-      background: var(--coral);
+      background: var(--accent);
     }
 
-    h1 {
-      font-family: "Bai Jamjuree", sans-serif;
-      font-size: clamp(3.5rem, 7.2vw, 5.9rem);
-      line-height: 1.08;
-      font-weight: 700;
-      max-width: 11.5ch;
-      margin-bottom: 18px;
-      text-wrap: balance;
+    .hero h1 {
+      font-size: clamp(3rem, 7.5vw, 5.8rem);
+      font-weight: 800;
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      max-width: 13ch;
+      margin-bottom: 22px;
     }
 
-    .hero-copy p {
-      max-width: 62ch;
+    .hero-desc {
+      font-size: clamp(1rem, 1.6vw, 1.15rem);
       color: var(--muted);
-      font-size: 1.08rem;
-      overflow-wrap: anywhere;
-      word-break: break-word;
+      max-width: 50ch;
+      line-height: 1.8;
+      margin-bottom: 36px;
     }
 
-    .hero-actions {
+    .hero-ctas {
       display: flex;
-      align-items: center;
       flex-wrap: wrap;
       gap: 12px;
-      margin-top: 28px;
     }
 
-    .button {
-      min-height: 46px;
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
+    .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      border-radius: 8px;
-      padding: 0 18px;
-      border: 1px solid transparent;
-      font-weight: 700;
-      box-shadow: 0 12px 24px oklch(24% 0.04 42 / 0.06);
-      transition: transform 180ms var(--ease), background 180ms var(--ease), border-color 180ms var(--ease), box-shadow 180ms var(--ease);
+      gap: 6px;
+      height: 48px;
+      padding: 0 26px;
+      border-radius: var(--r-sm);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 180ms var(--ease), box-shadow 180ms var(--ease), background 150ms;
+      line-height: 1;
+      white-space: nowrap;
     }
 
-    .button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 18px 36px oklch(24% 0.04 42 / 0.13);
-    }
+    .btn:hover { transform: translateY(-2px); }
 
-    .button:focus-visible,
-    .stack-link:focus-visible,
-    .feature-panel:focus-visible,
-    .work-card:focus-visible,
-    .project-action:focus-visible,
-    .resume-link:focus-visible,
-    .contact-link:focus-visible {
-      outline: 3px solid oklch(56% 0.19 256 / 0.36);
-      outline-offset: 3px;
-    }
-
-    .button.primary {
+    .btn-dark {
       background: var(--ink);
-      color: var(--surface);
-      box-shadow: 0 14px 28px oklch(22% 0.035 40 / 0.18);
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(17,24,39,.22);
     }
 
-    html[data-theme="dark"] .button.primary,
-    html[data-theme="dark"] .project-action.live {
-      background: oklch(94% 0.018 68);
-      border-color: oklch(94% 0.018 68);
-      color: oklch(18% 0.025 46);
+    .btn-dark:hover {
+      background: #1f2937;
+      box-shadow: 0 10px 28px rgba(17,24,39,.3);
     }
 
-    .button.secondary {
+    .btn-ghost {
+      background: var(--surface);
       color: var(--ink);
-      border-color: var(--line);
-      background: oklch(98% 0.012 65 / 0.72);
+      border: 1.5px solid var(--border-2);
+      box-shadow: var(--sh-sm);
     }
 
-    html[data-theme="dark"] .button.secondary,
-    html[data-theme="dark"] .stack-link,
-    html[data-theme="dark"] .feature-caption,
-    html[data-theme="dark"] .about-metrics {
-      background: oklch(28% 0.028 52 / 0.9);
-    }
+    .btn-ghost:hover { border-color: #9ca3af; box-shadow: var(--sh); }
 
-    .button.contact {
-      background: var(--cobalt);
-      color: var(--on-accent);
-      box-shadow: 0 14px 28px oklch(56% 0.19 256 / 0.2);
-    }
-
-    .button.contact::after {
-      content: "IG + Mail";
-      margin-left: 8px;
-      padding: 3px 7px 4px;
-      border-radius: 999px;
-      background: oklch(98% 0.012 65 / 0.18);
-      color: oklch(98% 0.012 65);
-      font-size: 0.72rem;
-      line-height: 1;
-    }
-
-    .button.case-study {
-      color: oklch(28% 0.05 55);
-      border-color: oklch(83% 0.06 84);
-      background: var(--butter);
-      box-shadow: 0 14px 28px oklch(91% 0.09 88 / 0.22);
-    }
-
+    /* ============================================================
+       SECTION SHELL
+    ============================================================ */
     .section {
-      scroll-margin-top: 82px;
-      padding: clamp(58px, 8vw, 92px) 0;
-      border-top: 1px solid oklch(80% 0.028 56 / 0.52);
+      padding: clamp(56px, 9vw, 88px) 0;
+      scroll-margin-top: 80px;
     }
 
-    .section-heading {
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.6fr);
-      align-items: end;
-      gap: 32px;
-      margin-bottom: 26px;
-    }
-
-    .section-kicker {
-      color: var(--cobalt);
+    .section-label {
+      display: inline-block;
+      font-size: 0.73rem;
       font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    h2 {
-      font-family: "Bai Jamjuree", sans-serif;
-      font-size: clamp(2.1rem, 4vw, 3.3rem);
-      line-height: 1.04;
-      max-width: 17ch;
-      text-wrap: balance;
-    }
-
-    .section-heading p {
-      color: var(--muted);
-      max-width: 54ch;
-      overflow-wrap: anywhere;
-    }
-
-    .about-band {
-      display: grid;
-      grid-template-columns: minmax(0, 0.84fr) minmax(340px, 1.16fr);
-      gap: 34px;
-      align-items: start;
-      padding: clamp(28px, 5vw, 44px);
-      border-radius: 8px;
-      border: 1px solid var(--line);
-      background:
-        linear-gradient(135deg, oklch(98% 0.012 65 / 0.98), oklch(91% 0.04 165 / 0.35)),
-        var(--surface);
-      box-shadow: 0 24px 58px oklch(22% 0.035 40 / 0.1);
-    }
-
-    .about-lead {
-      display: grid;
-      gap: 18px;
-      align-content: start;
-    }
-
-    .about-lead h3 {
-      max-width: 15ch;
-      font-family: "Bai Jamjuree", sans-serif;
-      font-size: clamp(2rem, 4vw, 3.35rem);
-      line-height: 0.98;
-      letter-spacing: 0;
-    }
-
-    .about-lead p {
-      color: var(--muted);
-      max-width: 62ch;
-    }
-
-    .about-metrics {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      overflow: hidden;
-      border: 1px solid oklch(80% 0.028 56 / 0.72);
-      border-radius: 8px;
-      background: oklch(98% 0.012 65 / 0.72);
-    }
-
-    .about-metric {
-      min-height: 92px;
-      display: grid;
-      align-content: space-between;
-      gap: 12px;
-      padding: 16px;
-    }
-
-    .about-metric + .about-metric {
-      border-left: 1px solid oklch(80% 0.028 56 / 0.72);
-    }
-
-    .about-metric strong {
-      display: block;
-      color: var(--cobalt);
-      font-family: "Bai Jamjuree", sans-serif;
-      font-size: 1.45rem;
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-
-    .about-metric span {
-      color: var(--muted);
-      font-size: 0.84rem;
-      font-weight: 700;
-      line-height: 1.35;
-    }
-
-    .skills-board {
-      display: grid;
-      overflow: hidden;
-      border: 1px solid oklch(80% 0.028 56 / 0.72);
-      border-radius: 8px;
-      background: oklch(98% 0.012 65 / 0.74);
-    }
-
-    .skill-row {
-      display: grid;
-      grid-template-columns: 42px minmax(130px, 0.42fr) minmax(0, 1fr);
-      gap: 16px;
-      padding: 18px;
-      align-items: start;
-    }
-
-    .skill-row + .skill-row {
-      border-top: 1px solid oklch(80% 0.028 56 / 0.58);
-    }
-
-    .skill-index {
-      width: 34px;
-      height: 34px;
-      display: grid;
-      place-items: center;
-      border-radius: 8px;
-      background: var(--ink);
-      color: var(--surface);
-      font-family: "Bai Jamjuree", sans-serif;
-      font-size: 0.8rem;
-      font-weight: 800;
-    }
-
-    .skill-copy {
-      display: grid;
-      gap: 5px;
-    }
-
-    .skill-row strong {
-      font-family: "Bai Jamjuree", sans-serif;
-      line-height: 1.24;
-    }
-
-    .skill-row p {
-      color: var(--muted);
-      font-size: 0.86rem;
-      line-height: 1.45;
-    }
-
-    .skill-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-      min-width: 0;
-    }
-
-    .skill-pill {
-      display: inline-flex;
-      align-items: center;
-      min-height: 30px;
-      padding: 0 10px;
-      border-radius: 8px;
-      background: oklch(91% 0.04 165);
-      color: oklch(32% 0.06 160);
-      font-size: 0.8rem;
-      font-weight: 800;
-    }
-
-    .skill-pill.alt {
-      background: oklch(91% 0.056 38);
-      color: oklch(34% 0.066 34);
-    }
-
-    .resume-strip {
-      display: grid;
-      grid-template-columns: minmax(260px, 0.82fr) minmax(320px, 1.18fr);
-      gap: 0;
-      margin-top: 16px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: oklch(98% 0.012 65 / 0.9);
-      box-shadow: 0 18px 42px oklch(22% 0.035 40 / 0.08);
-    }
-
-    .resume-profile,
-    .resume-details {
-      padding: 26px;
-    }
-
-    .resume-profile {
-      display: grid;
-      align-content: space-between;
-      gap: 22px;
-      background:
-        radial-gradient(circle at 12% 18%, oklch(56% 0.19 256 / 0.14), transparent 32%),
-        oklch(97% 0.014 66);
-      border-right: 1px solid var(--line);
-    }
-
-    .resume-profile h3 {
-      font-family: "Bai Jamjuree", sans-serif;
-      font-size: clamp(1.8rem, 3.4vw, 2.7rem);
-      line-height: 1.02;
-      letter-spacing: 0;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
       margin-bottom: 10px;
     }
 
-    .resume-role {
-      display: inline-flex;
-      width: fit-content;
-      min-height: 32px;
-      align-items: center;
-      padding: 0 10px;
-      border-radius: 8px;
-      background: var(--ink);
-      color: var(--surface);
-      font-size: 0.82rem;
-      font-weight: 800;
-    }
-
-    .resume-profile p {
-      color: var(--muted);
-      max-width: 54ch;
-    }
-
-    .resume-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .resume-link {
-      min-height: 38px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 8px;
-      border: 1px solid var(--line);
-      padding: 0 12px;
-      background: oklch(98% 0.012 65 / 0.74);
-      color: var(--ink);
-      font-weight: 800;
-      font-size: 0.84rem;
-      transition: transform 180ms var(--ease), border-color 180ms var(--ease), background 180ms var(--ease);
-    }
-
-    .resume-link:hover {
-      transform: translateY(-2px);
-      border-color: oklch(56% 0.19 256 / 0.42);
-      background: oklch(98% 0.012 65);
-    }
-
-    .resume-link.primary {
-      background: var(--cobalt);
-      border-color: var(--cobalt);
-      color: var(--on-accent);
-      box-shadow: 0 12px 24px oklch(56% 0.19 256 / 0.18);
-    }
-
-    .resume-details {
-      display: grid;
-      gap: 16px;
-    }
-
-    .resume-row {
-      display: grid;
-      grid-template-columns: 132px minmax(0, 1fr);
-      gap: 18px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid oklch(80% 0.028 56 / 0.58);
-    }
-
-    .resume-row:last-child {
-      padding-bottom: 0;
-      border-bottom: 0;
-    }
-
-    .resume-row strong {
-      font-family: "Bai Jamjuree", sans-serif;
-      line-height: 1.24;
-    }
-
-    .resume-row p {
-      color: var(--muted);
-      max-width: 68ch;
-    }
-
-    .resume-tools {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-    }
-
-    .featured-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
-      gap: 16px;
-      align-items: stretch;
-    }
-
-    .feature-panel {
-      position: relative;
-      display: grid;
-      grid-template-rows: minmax(0, 1fr) auto;
-      min-height: 430px;
-      overflow: hidden;
-      border-radius: 8px;
-      background: oklch(19% 0.033 42);
-      color: var(--surface);
-      border: 1px solid oklch(70% 0.04 50 / 0.28);
-      box-shadow: var(--shadow);
-      cursor: pointer;
-      transition: transform 220ms var(--ease), box-shadow 220ms var(--ease), border-color 220ms var(--ease);
-    }
-
-    .feature-panel:hover {
-      transform: translateY(-4px);
-      border-color: oklch(56% 0.19 256 / 0.42);
-      box-shadow: 0 34px 78px oklch(22% 0.035 40 / 0.18);
-    }
-
-    .feature-shot {
-      min-height: 100%;
-    }
-
-    .feature-panel > .preview-image {
-      min-height: 352px;
-    }
-
-    .feature-caption {
-      position: relative;
-      z-index: 2;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(112px, auto);
-      align-items: center;
-      gap: 18px;
-      padding: 16px 18px;
-      background: oklch(97% 0.014 66 / 0.98);
-      color: var(--ink);
-      border-top: 1px solid oklch(79% 0.032 54 / 0.64);
-    }
-
-    .feature-caption > div {
-      min-width: 0;
-    }
-
-    .feature-caption strong {
-      display: block;
-      font-family: "Bai Jamjuree", sans-serif;
-      font-size: 1.12rem;
-      overflow-wrap: anywhere;
-    }
-
-    .feature-caption span {
-      display: block;
-      color: var(--muted);
-      font-size: 0.86rem;
-      overflow-wrap: anywhere;
-    }
-
-    .feature-caption .open-chip {
-      display: inline-grid;
-      place-items: center;
-      justify-self: end;
-      align-self: center;
-      white-space: nowrap;
-      min-width: 112px;
-      min-height: 44px;
-      padding: 0 18px;
-      background: var(--ink);
-      color: var(--surface);
-      font-family: "Bai Jamjuree", "Noto Sans Thai", Arial, sans-serif;
-      font-size: 0.88rem;
-      font-weight: 800;
-      line-height: 1;
-      text-align: center;
-      box-shadow: 0 12px 24px oklch(22% 0.035 40 / 0.16);
-    }
-
-    .stack-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .stack-link {
-      display: grid;
-      grid-template-columns: 74px minmax(0, 1fr) auto;
-      align-items: center;
-      gap: 14px;
-      min-height: 94px;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid var(--line);
-      background: oklch(98% 0.012 65 / 0.8);
-      transition: transform 180ms var(--ease), border-color 180ms var(--ease), box-shadow 180ms var(--ease);
-    }
-
-    .stack-link:hover {
-      transform: translateY(-2px);
-      border-color: oklch(60% 0.1 255 / 0.42);
-      box-shadow: 0 18px 36px oklch(22% 0.035 40 / 0.11);
-    }
-
-    .mini-shot {
-      width: 74px;
-      height: 74px;
-      overflow: hidden;
-      border-radius: 8px;
-      background: var(--paper-soft);
-      border: 1px solid oklch(78% 0.034 54 / 0.64);
-    }
-
-    .stack-copy strong {
-      display: block;
-      font-family: "Bai Jamjuree", sans-serif;
-      line-height: 1.24;
-    }
-
-    .stack-copy span {
-      display: block;
-      color: var(--muted);
-      font-size: 0.88rem;
-      overflow-wrap: anywhere;
-    }
-
-    .open-chip {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 84px;
-      min-height: 36px;
-      border-radius: 8px;
-      background: var(--butter);
-      color: oklch(28% 0.05 55);
+    .section-title {
+      font-size: clamp(1.75rem, 3.6vw, 2.5rem);
       font-weight: 700;
-      font-size: 0.86rem;
+      letter-spacing: -0.022em;
+      color: var(--ink);
+      line-height: 1.12;
+      margin-bottom: 36px;
     }
 
+    /* ============================================================
+       WORK CARDS
+    ============================================================ */
     .works-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
     }
 
     .work-card {
-      min-height: 320px;
-      display: grid;
-      grid-template-rows: 158px 1fr;
-      position: relative;
-      isolation: isolate;
-      border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
       overflow: hidden;
-      border: 1px solid var(--line);
-      background: oklch(98% 0.012 65);
-      color: inherit;
-      box-shadow: 0 14px 30px oklch(22% 0.035 40 / 0.08);
-      transform-origin: 50% 100%;
-      transition: opacity 420ms var(--ease), transform 420ms var(--ease), box-shadow 220ms var(--ease), border-color 220ms var(--ease), background 220ms var(--ease);
-    }
-
-    .work-card.reveal-ready {
-      opacity: 0;
-      transform: translateY(18px);
-    }
-
-    .work-card.reveal-ready.is-visible {
-      opacity: 1;
-      transform: translateY(0);
+      box-shadow: var(--sh-sm);
+      display: flex;
+      flex-direction: column;
+      transition: transform 240ms var(--ease), box-shadow 240ms var(--ease), border-color 200ms;
     }
 
     .work-card:hover {
-      transform: translateY(-8px);
-      border-color: oklch(60% 0.1 255 / 0.42);
-      box-shadow: var(--shadow-strong);
+      transform: translateY(-5px);
+      box-shadow: var(--sh-lg);
+      border-color: transparent;
     }
 
-    .work-card.reveal-ready.is-visible:hover {
-      transform: translateY(-8px);
-    }
-
-    .work-card::after {
-      content: "";
-      position: absolute;
-      inset: 8px;
-      z-index: -1;
-      border-radius: 8px;
-      background: oklch(56% 0.19 256 / 0.1);
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 220ms var(--ease), transform 220ms var(--ease);
-    }
-
-    .work-card:hover::after {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .work-preview {
-      position: relative;
-      display: block;
+    .work-thumb {
+      aspect-ratio: 16 / 10;
       overflow: hidden;
-      background: var(--paper-soft);
+      background: var(--surface-2);
+      flex-shrink: 0;
+      display: block;
     }
 
-    .work-preview::before {
-      content: "Open project";
-      position: absolute;
-      right: 12px;
-      bottom: 12px;
-      z-index: 3;
-      min-height: 32px;
-      display: inline-flex;
-      align-items: center;
-      border-radius: 8px;
-      padding: 0 10px;
-      background: oklch(98% 0.012 65 / 0.94);
-      color: var(--ink);
-      font-family: "Bai Jamjuree", sans-serif;
-      font-size: 0.74rem;
-      font-weight: 800;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(8px);
-      box-shadow: 0 10px 24px oklch(15% 0.03 40 / 0.18);
-      transition: opacity 200ms var(--ease), transform 200ms var(--ease);
+    .work-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 360ms var(--ease);
     }
 
-    .work-card:hover .work-preview::before {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .work-preview::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      background: linear-gradient(180deg, transparent 58%, oklch(19% 0.033 42 / 0.34));
-    }
-
-    .status-badge {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      z-index: 2;
-      display: inline-flex;
-      align-items: center;
-      min-height: 30px;
-      padding: 0 10px;
-      border-radius: 8px;
-      background: oklch(98% 0.012 65 / 0.94);
-      color: var(--ink);
-      font-size: 0.74rem;
-      font-weight: 800;
-      box-shadow: 0 10px 24px oklch(15% 0.03 40 / 0.16);
-    }
-
-    .status-badge.case {
-      background: var(--cobalt);
-      color: var(--on-accent);
-    }
-
-    .status-badge.brand {
-      background: var(--butter);
-      color: oklch(28% 0.05 55);
-    }
+    .work-card:hover .work-thumb img { transform: scale(1.05); }
 
     .work-body {
-      position: relative;
-      display: grid;
-      align-content: space-between;
-      gap: 20px;
-      padding: 18px;
-      overflow: hidden;
-    }
-
-    .work-body > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    .work-title {
+      padding: 20px;
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 14px;
+      flex-direction: column;
+      gap: 13px;
+      flex: 1;
     }
 
-    .work-title h3 {
-      font-family: "Bai Jamjuree", sans-serif;
-      font-size: 1.2rem;
-      line-height: 1.18;
-    }
-
-    .work-number {
-      flex: 0 0 auto;
-      display: grid;
-      place-items: center;
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      background: var(--cobalt);
-      color: var(--surface);
-      font-size: 0.82rem;
+    .work-name {
+      font-size: 1rem;
       font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
     }
 
-    .work-body p {
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
-
-    .work-meta {
+    .work-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      align-items: center;
     }
 
+    /* ============================================================
+       TAGS
+    ============================================================ */
     .tag {
       display: inline-flex;
       align-items: center;
-      min-height: 28px;
-      padding: 0 9px;
-      border-radius: 8px;
-      background: oklch(91% 0.04 165);
-      color: oklch(32% 0.06 160);
-      font-size: 0.78rem;
-      font-weight: 700;
-    }
-
-    .tag.alt {
-      background: oklch(91% 0.056 38);
-      color: oklch(34% 0.066 34);
-    }
-
-    .tag.open {
-      margin-left: auto;
-      background: var(--ink);
-      color: var(--surface);
-    }
-
-    .project-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .case-content .project-actions {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .project-action {
-      min-height: 38px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 8px;
-      border: 1px solid var(--line);
-      font-size: 0.84rem;
-      font-weight: 800;
-      transition: transform 180ms var(--ease), background 180ms var(--ease), border-color 180ms var(--ease), box-shadow 180ms var(--ease);
-    }
-
-    .project-action:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 22px oklch(24% 0.04 42 / 0.1);
-    }
-
-    .project-action.live {
-      background: var(--ink);
-      border-color: var(--ink);
-      color: var(--surface);
-    }
-
-    .project-action.case {
-      background: var(--cobalt);
-      border-color: var(--cobalt);
-      color: var(--on-accent);
-    }
-
-    .project-action.source {
-      background: oklch(97% 0.014 66);
-      color: var(--ink);
-    }
-
-    .work-card.identity-launch {
-      --card-accent: oklch(58% 0.115 176);
-      --card-accent-2: oklch(74% 0.112 178);
-      --card-soft: oklch(95% 0.032 164);
-      --card-ink: oklch(23% 0.055 178);
-      border-color: oklch(66% 0.082 174 / 0.58);
-      background: var(--card-soft);
-    }
-
-    .work-card.identity-launch .work-preview::before {
-      opacity: 0.72;
-      background:
-        linear-gradient(90deg, transparent 0 72%, oklch(58% 0.115 176 / 0.28) 72% 73%, transparent 73%),
-        linear-gradient(0deg, transparent 0 78%, oklch(23% 0.055 178 / 0.18) 78% 79%, transparent 79%),
-        repeating-linear-gradient(90deg, transparent 0 38px, oklch(58% 0.115 176 / 0.16) 38px 39px),
-        radial-gradient(circle at 78% 28%, oklch(84% 0.11 178 / 0.52) 0 42px, transparent 44px);
-    }
-
-    .work-card.identity-launch .work-body {
-      background:
-        linear-gradient(135deg, oklch(98% 0.012 65) 0%, oklch(94% 0.038 166) 100%);
-    }
-
-    .work-card.identity-launch .work-body::after {
-      content: "";
-      position: absolute;
-      right: 16px;
-      bottom: 74px;
-      width: 66px;
-      aspect-ratio: 1;
-      border-radius: 50%;
-      background:
-        conic-gradient(var(--card-accent) 0 64%, oklch(87% 0.045 79) 64% 100%);
-      opacity: 0.24;
-      pointer-events: none;
-    }
-
-    .work-card.identity-launch .status-badge {
-      background: var(--card-ink);
-      color: oklch(97% 0.014 66);
-    }
-
-    .work-card.identity-launch .work-number {
-      background: var(--card-accent);
-      box-shadow: inset 0 -10px 0 oklch(23% 0.055 178 / 0.13);
-    }
-
-    .work-card.identity-launch .tag {
-      background: oklch(88% 0.074 170);
-      color: var(--card-ink);
-    }
-
-    .work-card.identity-launch .tag.alt {
-      background: oklch(91% 0.061 92);
-      color: oklch(34% 0.058 72);
-    }
-
-    .work-card.identity-muse {
-      --card-accent: oklch(64% 0.16 315);
-      --card-accent-2: oklch(76% 0.14 52);
-      --card-soft: oklch(95% 0.032 28);
-      --card-ink: oklch(26% 0.04 25);
-      border-color: oklch(72% 0.085 35 / 0.56);
-      background: var(--card-soft);
-    }
-
-    .work-card.identity-muse .work-preview::before {
-      opacity: 0.6;
-      background:
-        radial-gradient(circle at 18% 20%, oklch(87% 0.15 86 / 0.8) 0 22px, transparent 23px),
-        radial-gradient(circle at 76% 20%, oklch(72% 0.15 315 / 0.62) 0 34px, transparent 35px),
-        linear-gradient(135deg, transparent 0 52%, oklch(72% 0.14 224 / 0.2) 52% 64%, transparent 64%),
-        linear-gradient(90deg, oklch(98% 0.012 65 / 0) 0 58%, oklch(98% 0.012 65 / 0.24) 58% 100%);
-    }
-
-    .work-card.identity-muse .work-body {
-      background:
-        radial-gradient(circle at right 20%, oklch(86% 0.09 315 / 0.42), transparent 32%),
-        linear-gradient(150deg, oklch(98% 0.012 65) 0%, oklch(95% 0.033 35) 100%);
-    }
-
-    .work-card.identity-muse .work-body::after {
-      content: "";
-      position: absolute;
-      right: 14px;
-      top: 18px;
-      width: 58px;
-      height: 44px;
-      border-radius: 8px;
-      border: 1px solid oklch(64% 0.16 315 / 0.26);
-      background:
-        linear-gradient(135deg, oklch(76% 0.14 52 / 0.78) 0 38%, oklch(64% 0.16 315 / 0.58) 38% 64%, oklch(73% 0.14 224 / 0.52) 64% 100%);
-      transform: rotate(4deg);
-      opacity: 0.34;
-      pointer-events: none;
-    }
-
-    .work-card.identity-muse .status-badge {
-      background: oklch(90% 0.088 84);
-      color: oklch(32% 0.055 32);
-      transform: rotate(-2deg);
-    }
-
-    .work-card.identity-muse .work-number {
-      border-radius: 50%;
-      background: var(--card-accent);
-      color: oklch(98% 0.012 65);
-    }
-
-    .work-card.identity-muse .tag {
-      background: oklch(88% 0.07 155);
-      color: oklch(29% 0.06 154);
-    }
-
-    .work-card.identity-muse .tag.alt {
-      background: oklch(90% 0.06 315);
-      color: oklch(35% 0.078 318);
-    }
-
-    .work-card.identity-intern {
-      --card-accent: oklch(56% 0.19 256);
-      --card-accent-2: oklch(77% 0.1 165);
-      --card-soft: oklch(95% 0.03 138);
-      --card-ink: oklch(21% 0.04 205);
-      border-color: oklch(69% 0.086 204 / 0.56);
-      background: var(--card-soft);
-    }
-
-    .work-card.identity-intern .work-preview::before {
-      opacity: 0.54;
-      background:
-        repeating-linear-gradient(90deg, transparent 0 48px, oklch(56% 0.19 256 / 0.16) 48px 50px),
-        linear-gradient(90deg, transparent 0 54%, oklch(79% 0.09 165 / 0.34) 54% 76%, transparent 76%),
-        radial-gradient(circle at 86% 72%, oklch(56% 0.19 256 / 0.34) 0 9px, transparent 10px),
-        radial-gradient(circle at 86% 50%, oklch(77% 0.1 165 / 0.48) 0 8px, transparent 9px);
-    }
-
-    .work-card.identity-intern .work-body {
-      background:
-        linear-gradient(180deg, oklch(98% 0.012 65) 0%, oklch(94% 0.035 145) 100%);
-    }
-
-    .work-card.identity-intern .work-body::after {
-      content: "";
-      position: absolute;
-      right: 20px;
-      top: 18px;
-      width: 10px;
-      height: 92px;
+      height: 27px;
+      padding: 0 11px;
       border-radius: 99px;
-      background: oklch(79% 0.09 165 / 0.42);
-      box-shadow:
-        0 0 0 7px oklch(56% 0.19 256 / 0.1),
-        0 28px 0 oklch(56% 0.19 256 / 0.34),
-        0 56px 0 oklch(68% 0.135 35 / 0.26);
-      pointer-events: none;
+      font-size: 0.74rem;
+      font-weight: 600;
+      white-space: nowrap;
     }
 
-    .work-card.identity-intern .status-badge {
-      background: var(--card-accent);
-      color: oklch(98% 0.012 65);
-    }
+    .tag-accent { background: var(--accent-light); color: var(--accent); }
+    .tag-mint   { background: var(--mint);         color: var(--mint-text); }
+    .tag-amber  { background: var(--amber);         color: var(--amber-text); }
+    .tag-rose   { background: var(--rose);           color: var(--rose-text); }
+    .tag-gray   { background: #f3f4f6;              color: #4b5563; }
 
-    .work-card.identity-intern .work-number {
-      border-radius: 8px 8px 8px 20px;
-      background: var(--card-accent);
-    }
+    /* ============================================================
+       VIEW PROJECT BUTTON (in card)
+    ============================================================ */
+    .work-foot { margin-top: auto; }
 
-    .work-card.identity-intern .tag {
-      background: oklch(88% 0.06 190);
-      color: oklch(28% 0.06 205);
-    }
-
-    .work-card.identity-intern .tag.alt {
-      background: oklch(91% 0.06 132);
-      color: oklch(30% 0.066 138);
-    }
-
-    .work-card.identity-pulse {
-      --card-accent: oklch(78% 0.13 177);
-      --card-accent-2: oklch(91% 0.09 88);
-      --card-soft: oklch(20% 0.044 198);
-      --card-ink: oklch(94% 0.018 78);
-      border-color: oklch(78% 0.13 177 / 0.42);
-      background: oklch(18% 0.04 202);
-      color: var(--card-ink);
-    }
-
-    .work-card.identity-pulse:hover {
-      border-color: oklch(78% 0.13 177 / 0.7);
-      box-shadow: 0 28px 54px oklch(18% 0.04 202 / 0.22);
-    }
-
-    .work-card.identity-pulse .work-preview::before {
-      opacity: 0.68;
-      background:
-        radial-gradient(circle at 82% 22%, oklch(78% 0.13 177 / 0.64) 0 7px, transparent 8px),
-        radial-gradient(circle at 82% 22%, transparent 0 16px, oklch(78% 0.13 177 / 0.32) 17px 18px, transparent 19px),
-        repeating-linear-gradient(0deg, transparent 0 18px, oklch(78% 0.13 177 / 0.17) 18px 19px),
-        linear-gradient(120deg, oklch(18% 0.04 202 / 0) 0 48%, oklch(78% 0.13 177 / 0.18) 48% 52%, transparent 52%);
-    }
-
-    .work-card.identity-pulse .work-preview::after {
-      background: linear-gradient(180deg, transparent 48%, oklch(15% 0.035 202 / 0.68));
-    }
-
-    .work-card.identity-pulse .work-body {
-      background:
-        radial-gradient(circle at 88% 18%, oklch(78% 0.13 177 / 0.2), transparent 28%),
-        linear-gradient(145deg, oklch(17% 0.04 202) 0%, oklch(24% 0.05 188) 100%);
-    }
-
-    .work-card.identity-pulse .work-body::after {
-      content: "";
-      position: absolute;
-      right: 16px;
-      bottom: 82px;
-      width: 74px;
-      height: 28px;
-      border-radius: 99px;
-      background:
-        linear-gradient(90deg, var(--card-accent) 0 34%, oklch(98% 0.012 65 / 0.14) 34% 100%);
-      box-shadow: 0 0 0 1px oklch(78% 0.13 177 / 0.18);
-      opacity: 0.52;
-      pointer-events: none;
-    }
-
-    .work-card.identity-pulse .work-title h3,
-    .work-card.identity-pulse .work-body p {
-      color: var(--card-ink);
-    }
-
-    .work-card.identity-pulse .work-body p {
-      opacity: 0.78;
-    }
-
-    .work-card.identity-pulse .status-badge {
-      background: oklch(78% 0.13 177);
-      color: oklch(18% 0.04 202);
-    }
-
-    .work-card.identity-pulse .work-number {
-      background: var(--card-accent-2);
-      color: oklch(24% 0.05 188);
-    }
-
-    .work-card.identity-pulse .tag {
-      background: oklch(78% 0.13 177 / 0.24);
-      color: oklch(91% 0.07 178);
-    }
-
-    .work-card.identity-pulse .tag.alt {
-      background: oklch(91% 0.09 88 / 0.24);
-      color: oklch(94% 0.06 88);
-    }
-
-    .work-card.identity-pulse .project-action.live {
-      background: var(--card-accent-2);
-      border-color: var(--card-accent-2);
-      color: oklch(24% 0.05 188);
-    }
-
-    .work-card.identity-pulse .project-action.source {
-      background: oklch(98% 0.012 65 / 0.07);
-      border-color: oklch(78% 0.13 177 / 0.38);
-      color: var(--card-ink);
-    }
-
-    .case-grid {
-      display: grid;
-      gap: 16px;
-    }
-
-    .case-panel {
-      display: grid;
-      grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.18fr);
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: oklch(98% 0.012 65 / 0.9);
-      box-shadow: 0 18px 42px oklch(22% 0.035 40 / 0.08);
-    }
-
-    .case-shot {
-      position: relative;
-      min-height: 340px;
-      overflow: hidden;
-      background: var(--paper-soft);
-      border-right: 1px solid var(--line);
-    }
-
-    .case-shot::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, transparent 52%, oklch(19% 0.033 42 / 0.36));
-      pointer-events: none;
-    }
-
-    .case-content {
-      display: grid;
-      gap: 18px;
-      padding: 28px;
-    }
-
-    .case-topline {
+    .btn-project {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      color: var(--muted);
-      font-size: 0.86rem;
+      justify-content: center;
+      height: 42px;
+      width: 100%;
+      border-radius: var(--r-sm);
+      background: var(--ink);
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: background 150ms, transform 150ms;
+    }
+
+    .btn-project:hover { background: var(--accent); transform: translateY(-1px); }
+
+    /* ============================================================
+       ABOUT + EXPERIENCE — 2-COL CARDS
+    ============================================================ */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: clamp(22px, 3vw, 32px);
+      box-shadow: var(--sh-sm);
+    }
+
+    .card-title {
+      font-size: 1.15rem;
       font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      margin-bottom: 14px;
     }
 
-    .case-title {
-      display: grid;
-      gap: 10px;
-    }
-
-    .case-title h3 {
-      font-family: "Bai Jamjuree", sans-serif;
-      font-size: clamp(1.55rem, 3vw, 2.1rem);
-      line-height: 1.08;
-      letter-spacing: 0;
-    }
-
-    .case-title p {
-      color: var(--muted);
-      max-width: 66ch;
-    }
-
-    .case-decisions {
-      display: grid;
-      gap: 0;
-      border-top: 1px solid oklch(80% 0.028 56 / 0.7);
-      border-bottom: 1px solid oklch(80% 0.028 56 / 0.7);
-    }
-
-    .case-decision {
-      display: grid;
-      grid-template-columns: 38px minmax(0, 1fr);
-      gap: 12px;
-      padding: 14px 0;
-    }
-
-    .case-decision + .case-decision {
-      border-top: 1px solid oklch(80% 0.028 56 / 0.48);
-    }
-
-    .case-decision span {
-      display: grid;
-      place-items: center;
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      background: var(--cobalt);
-      color: var(--surface);
-      font-family: "Bai Jamjuree", sans-serif;
-      font-size: 0.8rem;
-      font-weight: 700;
-    }
-
-    .case-decision strong {
-      display: block;
-      margin-bottom: 3px;
-      font-family: "Bai Jamjuree", sans-serif;
-      line-height: 1.24;
-    }
-
-    .case-decision p {
-      color: var(--muted);
+    .card-text {
       font-size: 0.93rem;
+      color: var(--muted);
+      line-height: 1.78;
+      margin-bottom: 12px;
     }
 
-    .focus-tags {
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 6px;
+      transition: gap 150ms;
+    }
+
+    .card-link:hover { gap: 9px; }
+
+    /* experience items */
+    .exp-item { margin-bottom: 22px; }
+    .exp-item:last-child { margin-bottom: 0; }
+
+    .exp-role {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 3px;
+    }
+
+    .exp-period {
+      font-size: 0.81rem;
+      color: var(--muted);
+      margin-bottom: 13px;
+    }
+
+    .exp-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 7px;
-      align-items: center;
     }
 
-    .focus-label {
-      color: var(--muted);
-      font-size: 0.84rem;
-      font-weight: 700;
-    }
-
-    .contact-band {
-      position: relative;
-      isolation: isolate;
+    /* ============================================================
+       CASE STUDIES — DARK CARDS
+    ============================================================ */
+    .case-grid {
       display: grid;
-      grid-template-columns: minmax(260px, 0.72fr) minmax(320px, 1.28fr);
-      gap: 34px;
-      align-items: center;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .case-card {
+      background: var(--dark);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--r);
       overflow: hidden;
-      padding: clamp(32px, 6vw, 58px);
-      border-radius: 8px;
-      border: 1px solid oklch(98% 0.012 65 / 0.14);
-      background:
-        linear-gradient(135deg, oklch(56% 0.19 256 / 0.18), transparent 42%),
-        var(--ink);
-      color: var(--surface);
-      box-shadow: 0 26px 60px oklch(22% 0.035 40 / 0.18);
-    }
-
-    .contact-band::before {
-      content: "";
-      position: absolute;
-      inset: 14px;
-      z-index: -1;
-      border: 1px solid oklch(98% 0.012 65 / 0.12);
-      border-radius: 8px;
-      background-image:
-        linear-gradient(oklch(98% 0.012 65 / 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, oklch(98% 0.012 65 / 0.06) 1px, transparent 1px);
-      background-size: 28px 28px;
-    }
-
-    .contact-band h2 {
-      max-width: 13ch;
-    }
-
-    .contact-band .section-kicker {
-      color: var(--butter);
-    }
-
-    .contact-copy p {
-      color: oklch(89% 0.02 76 / 0.78);
-      max-width: 65ch;
-      margin-bottom: 18px;
-    }
-
-    .contact-note {
-      display: grid;
-      grid-template-columns: 120px minmax(0, 1fr);
-      gap: 14px;
-      margin: 18px 0 20px;
-      padding: 14px;
-      border: 1px solid oklch(98% 0.012 65 / 0.14);
-      border-radius: 8px;
-      background: oklch(98% 0.012 65 / 0.07);
-    }
-
-    .contact-note strong {
-      color: var(--butter);
-      font-family: "Bai Jamjuree", sans-serif;
-      line-height: 1.2;
-    }
-
-    .contact-note span {
-      color: oklch(89% 0.02 76 / 0.78);
-      font-size: 0.92rem;
-      line-height: 1.5;
-    }
-
-    .contact-intent {
-      display: inline-flex;
-      align-items: center;
-      min-height: 32px;
-      margin-bottom: 14px;
-      padding: 0 10px;
-      border-radius: 8px;
-      border: 1px solid oklch(98% 0.012 65 / 0.18);
-      background: oklch(98% 0.012 65 / 0.08);
-      color: var(--butter);
-      font-size: 0.82rem;
-      font-weight: 800;
-    }
-
-    .contact-links {
+      box-shadow: var(--sh-lg);
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+      flex-direction: column;
+      transition: transform 240ms var(--ease), box-shadow 240ms;
     }
 
-    .contact-link {
-      min-height: 42px;
+    .case-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 28px 72px rgba(0,0,0,.22);
+    }
+
+    .case-thumb {
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: var(--dark-2);
+      position: relative;
+      display: block;
+    }
+
+    .case-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      opacity: 0.78;
+      transition: transform 360ms var(--ease), opacity 220ms;
+    }
+
+    .case-card:hover .case-thumb img { transform: scale(1.04); opacity: 0.9; }
+
+    .case-thumb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 44%, rgba(15,23,42,.62));
+      pointer-events: none;
+    }
+
+    .case-body {
+      padding: 22px 24px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .case-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.38);
+    }
+
+    .case-name {
+      font-size: 1.06rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+
+    .case-desc {
+      font-size: 0.86rem;
+      color: rgba(255,255,255,.52);
+      line-height: 1.68;
+      flex: 1;
+    }
+
+    .btn-live {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      border-radius: 8px;
-      padding: 0 14px;
-      border: 1px solid oklch(98% 0.012 65 / 0.18);
-      background: oklch(98% 0.012 65 / 0.08);
-      color: var(--surface);
-      font-weight: 800;
-      transition: transform 180ms var(--ease), background 180ms var(--ease), border-color 180ms var(--ease), box-shadow 180ms var(--ease);
-    }
-
-    .contact-link:hover {
-      transform: translateY(-2px);
-      background: oklch(98% 0.012 65 / 0.14);
-      box-shadow: 0 16px 30px oklch(10% 0.02 40 / 0.18);
-    }
-
-    .contact-link.primary {
-      min-height: 50px;
+      height: 38px;
       padding: 0 20px;
-      background: var(--butter);
-      border-color: var(--butter);
-      color: var(--ink);
-      box-shadow: 0 16px 30px oklch(91% 0.09 88 / 0.18);
+      border-radius: var(--r-sm);
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      align-self: flex-start;
+      margin-top: 8px;
+      transition: background 150ms, transform 150ms;
     }
 
-    .contact-link.instagram {
-      min-height: 50px;
-      padding: 0 20px;
-      background: var(--coral);
-      border-color: var(--coral);
-      color: var(--surface);
-      box-shadow: 0 16px 30px oklch(68% 0.135 35 / 0.22);
+    .btn-live:hover { background: var(--accent-dark); transform: translateY(-1px); }
+
+    /* ============================================================
+       CONTACT / FOOTER
+    ============================================================ */
+    .footer-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: clamp(48px, 7vw, 72px) 0 clamp(36px, 5vw, 52px);
+      scroll-margin-top: 80px;
     }
 
-    .process-band {
+    .footer-grid {
       display: grid;
-      grid-template-columns: 0.8fr 1.2fr;
-      gap: 32px;
-      align-items: center;
-      padding: 44px;
-      border-radius: 8px;
-      background:
-        linear-gradient(135deg, oklch(25% 0.052 44), oklch(31% 0.06 165));
-      color: var(--surface);
-      overflow: hidden;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: clamp(32px, 5vw, 72px);
+      align-items: start;
     }
 
-    .process-band h2 {
-      max-width: 12ch;
-    }
-
-    .process-band p {
-      color: oklch(89% 0.02 76 / 0.86);
-      max-width: 62ch;
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      margin-top: 24px;
-      overflow: hidden;
-      border: 1px solid oklch(86% 0.022 76 / 0.22);
-      border-radius: 8px;
-      background: oklch(86% 0.022 76 / 0.22);
-    }
-
-    .step {
-      min-height: 132px;
-      display: grid;
-      align-content: start;
-      gap: 8px;
-      padding: 18px;
-      background: oklch(100% 0 0 / 0.08);
-    }
-
-    .step span {
-      color: var(--mint);
-      font-family: "Bai Jamjuree", sans-serif;
-      font-size: 1.55rem;
+    .footer-brand-name {
+      font-size: 1rem;
       font-weight: 700;
-      line-height: 1;
+      color: var(--ink);
+      margin-bottom: 5px;
     }
 
-    .step strong {
-      font-family: "Bai Jamjuree", sans-serif;
-      line-height: 1.2;
-    }
-
-    .step p {
-      color: oklch(89% 0.02 76 / 0.76);
-      font-size: 0.9rem;
-      line-height: 1.55;
-    }
-
-    .footer {
-      padding: 34px 0 44px;
+    .footer-brand-email {
+      font-size: 0.87rem;
       color: var(--muted);
-      font-size: 0.9rem;
     }
 
-    .footer-inner {
+    .footer-col-label {
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .footer-nav {
+      list-style: none;
       display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      border-top: 1px solid var(--line);
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .footer-nav a {
+      font-size: 0.88rem;
+      color: var(--ink-2);
+      transition: color 150ms;
+    }
+
+    .footer-nav a:hover { color: var(--accent); }
+
+    .social-row { display: flex; gap: 10px; }
+
+    .social-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--r-sm);
+      border: 1.5px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      background: var(--surface);
+      transition: color 150ms, border-color 150ms, transform 160ms, background 150ms;
+    }
+
+    .social-btn:hover {
+      color: var(--ink);
+      border-color: var(--border-2);
+      background: var(--surface-2);
+      transform: translateY(-2px);
+    }
+
+    .social-btn svg { width: 17px; height: 17px; fill: currentColor; }
+
+    .footer-copy {
+      margin-top: 48px;
       padding-top: 22px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.82rem;
+      color: var(--muted);
     }
 
-    @media (max-width: 1080px) {
-      .hero-art {
-        opacity: 0.58;
-        right: -210px;
-      }
+    .footer-copy a { color: var(--accent); font-weight: 600; }
+    .footer-copy a:hover { text-decoration: underline; }
 
-      .featured-grid,
-      .about-band,
-      .resume-strip,
-      .case-panel,
-      .process-band,
-      .contact-band {
-        grid-template-columns: 1fr;
-      }
-
-      .case-shot {
-        min-height: 300px;
-        border-right: 0;
-        border-bottom: 1px solid var(--line);
-      }
-
-      .skill-row {
-        grid-template-columns: 40px minmax(0, 1fr);
-      }
-
-      .skill-pills {
-        grid-column: 2;
-      }
-
-      .resume-profile {
-        border-right: 0;
-        border-bottom: 1px solid var(--line);
-      }
+    /* ============================================================
+       SCROLL REVEAL
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 560ms var(--ease), transform 560ms var(--ease);
     }
 
-    @media (max-width: 760px) {
-      .page-shell {
-        width: calc(100vw - 24px);
-        max-width: var(--max);
-      }
-
-      .nav {
-        min-height: auto;
-        align-items: center;
-        padding: 13px 0;
-        flex-wrap: wrap;
-      }
-
-      .brand {
-        flex: 1 1 auto;
-      }
-
-      .nav-controls {
-        margin-left: auto;
-      }
-
-      .nav-toggle {
-        display: inline-grid;
-      }
-
-      .nav-links {
-        order: 3;
-        width: 100%;
-        display: none;
-        grid-template-columns: 1fr;
-        gap: 4px;
-        font-size: 0.86rem;
-      }
-
-      .nav-links.is-open {
-        display: grid;
-      }
-
-      .nav-links a {
-        justify-content: center;
-        padding: 0 4px;
-      }
-
-      .hero {
-        min-height: auto;
-        padding: 86px 0 34px;
-      }
-
-      .hero::before {
-        inset: 70px 8px 18px;
-      }
-
-      .hero::after {
-        display: none;
-      }
-
-      .cover-ribbon {
-        top: 82px;
-        left: 0;
-        border-radius: 0 8px 8px 0;
-      }
-
-      .hero-art {
-        position: relative;
-        top: auto;
-        right: auto;
-        width: 100%;
-        height: 330px;
-        opacity: 1;
-        order: 2;
-        margin-top: 24px;
-      }
-
-      .main-preview {
-        right: 50%;
-        top: 44px;
-        width: 184px;
-        height: 238px;
-        transform: translateX(50%) rotate(2deg);
-      }
-
-      .float-preview {
-        width: 112px;
-        height: 78px;
-      }
-
-      .float-preview.one {
-        left: 8px;
-        top: 124px;
-      }
-
-      .float-preview.two {
-        right: 8px;
-        bottom: 38px;
-      }
-
-      .float-preview.three {
-        left: 46px;
-        bottom: 16px;
-      }
-
-      .hero-copy {
-        max-width: calc(100vw - 24px);
-        padding-top: 38px;
-      }
-
-      .hero-copy p {
-        max-width: calc(100vw - 24px);
-      }
-
-      h1 {
-        max-width: 10ch;
-        font-size: 3rem;
-      }
-
-      .section-heading,
-      .about-metrics,
-      .steps {
-        grid-template-columns: 1fr;
-      }
-
-      .section {
-        scroll-margin-top: 206px;
-        padding: 44px 0;
-      }
-
-      h2 {
-        font-size: 1.92rem;
-      }
-
-      .feature-panel {
-        min-height: 330px;
-      }
-
-      .feature-panel > .preview-image {
-        min-height: 254px;
-      }
-
-      .feature-caption {
-        grid-template-columns: 1fr;
-        align-items: flex-start;
-        gap: 14px;
-        padding: 16px;
-      }
-
-      .stack-link {
-        grid-template-columns: 64px minmax(0, 1fr);
-      }
-
-      .mini-shot {
-        width: 64px;
-        height: 64px;
-      }
-
-      .feature-caption .open-chip {
-        width: 100%;
-        justify-self: start;
-      }
-
-      .about-band,
-      .contact-band {
-        padding: 24px;
-      }
-
-      .about-metric + .about-metric {
-        border-left: 0;
-        border-top: 1px solid oklch(80% 0.028 56 / 0.72);
-      }
-
-      .skill-row {
-        grid-template-columns: 34px minmax(0, 1fr);
-        gap: 12px;
-      }
-
-      .skill-pills {
-        grid-column: 1 / -1;
-      }
-
-      .resume-row {
-        grid-template-columns: 1fr;
-        gap: 8px;
-      }
-
-      .stack-link .open-chip {
-        grid-column: 2;
-        justify-self: start;
-      }
-
-      .process-band {
-        padding: 24px;
-      }
-
-      .case-content {
-        padding: 24px;
-      }
-
-      .contact-note {
-        grid-template-columns: 1fr;
-      }
-
-      .case-decision {
-        grid-template-columns: 32px minmax(0, 1fr);
-      }
-
-      .footer-inner {
-        flex-direction: column;
-      }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    @media (max-width: 460px) {
-      .page-shell,
-      .hero-copy,
-      .hero-copy p {
-        width: 342px;
-        max-width: calc(100vw - 24px);
-      }
-
-      h1 {
-        font-size: 2.35rem;
-      }
-
-      .hero-copy p,
-      .section-heading p {
-        font-size: 0.96rem;
-      }
-
-      .hero-actions {
-        align-items: stretch;
-        flex-direction: column;
-      }
-
-      .button {
-        width: 100%;
-      }
-
-      .works-grid {
-        grid-template-columns: 1fr;
-      }
+    /* ============================================================
+       FOCUS STYLES
+    ============================================================ */
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid rgba(79,110,247,.46);
+      outline-offset: 3px;
+      border-radius: 4px;
     }
 
-    @media (max-width: 600px) {
-      .works-grid {
-        grid-template-columns: 1fr;
-      }
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .works-grid { grid-template-columns: repeat(2, 1fr); }
+    }
 
-      .case-topline {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 6px;
-      }
+    @media (max-width: 768px) {
+      .nav-links  { display: none; }
+      .nav-resume { display: none; }
+      .nav-toggle { display: flex; }
+      .two-col    { grid-template-columns: 1fr; }
+      .case-grid  { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
 
-      .case-shot {
-        min-height: 220px;
-      }
+    @media (max-width: 640px) {
+      .works-grid  { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
 
-      .case-content .project-actions {
-        grid-template-columns: 1fr;
-      }
+    @media (max-width: 480px) {
+      .hero h1    { font-size: clamp(2.6rem, 14vw, 3.4rem); }
+      .hero-ctas  { flex-direction: column; }
+      .hero-ctas .btn { width: 100%; }
     }
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <nav class="page-shell nav" aria-label="หลัก">
-      <a class="brand" href="#top" aria-label="Portfolio Cover">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 34 34" focusable="false">
-            <rect class="mark-back" x="8" y="7" width="16" height="13" rx="3" />
-            <rect class="mark-front" x="12" y="12" width="16" height="15" rx="3" />
-            <path class="mark-line" d="M16 18h7M16 23h4" />
-            <circle class="mark-dot" cx="24" cy="17" r="2.1" />
-          </svg>
-        </span>
-        <span>Portfolio Cover</span>
-      </a>
-      <ul class="nav-links" id="site-navigation">
-        <li><a href="#featured">ปกงาน</a></li>
-        <li><a href="#works">ไฟล์ทั้งหมด</a></li>
-        <li><a href="#about">โปรไฟล์</a></li>
-        <li><a href="resume.html">Resume</a></li>
-        <li><a href="#case-studies">เบื้องหลังงาน</a></li>
-        <li><a href="#contact">ติดต่อ</a></li>
-        <li><a href="#system">โครงงาน</a></li>
-      </ul>
-      <div class="nav-controls" aria-label="site controls">
-        <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
-          <span class="theme-toggle-icon" aria-hidden="true">◐</span>
-        </button>
-        <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="site-navigation">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </button>
-      </div>
+
+  <!-- =============================================
+       NAVBAR
+  ============================================= -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a class="nav-brand" href="#top">Phakin Chawanpunya</a>
+
+      <nav aria-label="Main navigation">
+        <ul class="nav-links">
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <a class="nav-resume" href="resume.html">Resume</a>
+
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-panel">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Mobile drawer -->
+    <nav class="nav-mobile-panel" id="mobile-panel" aria-label="Mobile navigation">
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+      <a class="resume-mobile" href="resume.html">Resume</a>
     </nav>
   </header>
 
   <main id="top">
-    <section class="hero">
-      <div class="cover-ribbon">ภาพปกงาน</div>
-      <div class="page-shell">
-        <div class="hero-copy">
-          <div class="eyebrow">repo gallery for web projects</div>
-          <h1>Phakin — Frontend Developer, dashboards &amp; landing pages</h1>
-          <p>
-            Portfolio cover สำหรับงาน HTML/CSS ที่มีหน้า live, source file,
-            case study และ resume พร้อมให้ reviewer เปิดดูได้โดยไม่ต้องเดาทาง.
-          </p>
-          <div class="hero-actions" aria-label="ลิงก์สำคัญ">
-            <a class="button primary" href="#works">ดูไฟล์ทั้งหมด</a>
-            <a class="button case-study" href="#case-studies">Reviewer case studies ↗</a>
-            <a class="button contact" href="#contact" aria-label="ไปยังลิงก์ Instagram และ email">ติดต่อ</a>
-          </div>
-        </div>
-      </div>
 
-      <div class="hero-art" aria-label="ลิงก์เปิดเว็บตัวอย่าง">
-        <a class="main-preview" href="LaunchLedger.html" aria-label="เปิดเว็บจริง LaunchLedger">
-          <img class="preview-image" src="assets/thumbs/launch-ledger.jpg?v=hero-clear" alt="" />
-          <span class="shot-open" aria-hidden="true">↗</span>
-        </a>
-        <a class="float-preview one" href="MuseRoom.html" aria-label="เปิดเว็บจริง MuseRoom">
-          <img class="preview-image" src="assets/thumbs/museroom.jpg?v=hero-clear" alt="" />
-          <span class="shot-open" aria-hidden="true">↗</span>
-        </a>
-        <a class="float-preview two" href="coffee-landing.html" aria-label="เปิดเว็บจริง NOIR Coffee">
-          <img class="preview-image" src="assets/thumbs/noir-coffee.jpg?v=hero-clear" alt="" />
-          <span class="shot-open" aria-hidden="true">↗</span>
-        </a>
-        <a class="float-preview three" href="DRIP.html" aria-label="เปิดเว็บจริง DRIP Coffee Bar">
-          <img class="preview-image" src="assets/thumbs/drip.jpg?v=hero-clear" alt="" />
-          <span class="shot-open" aria-hidden="true">↗</span>
-        </a>
-      </div>
-    </section>
-
-    <section class="section" id="featured">
-      <div class="page-shell">
-        <div class="section-heading">
-          <div>
-            <div class="section-kicker">ภาพรวมงาน</div>
-            <h2>หน้าเดียวที่พาไปทุกโปรเจกต์</h2>
-          </div>
-        </div>
-
-        <div class="featured-grid">
-          <a class="feature-panel" href="LaunchLedger.html" aria-label="เปิด LaunchLedger">
-            <img class="preview-image" src="assets/thumbs/launch-ledger.jpg?v=hero-clear" alt="LaunchLedger startup budget dashboard screenshot" />
-            <div class="feature-caption">
-              <div>
-                <strong>LaunchLedger</strong>
-                <span>งานใหม่, startup budget dashboard concept</span>
-              </div>
-              <span class="open-chip">เปิดเว็บ ↗</span>
-            </div>
-          </a>
-
-          <div class="stack-list" aria-label="งานแนะนำ">
-            <a class="stack-link" href="MuseRoom.html">
-              <span class="mini-shot">
-                <img class="preview-image" src="assets/thumbs/museroom.jpg?v=hero-clear" alt="" />
-              </span>
-              <span class="stack-copy">
-                <strong>MuseRoom</strong>
-                <span>MuseRoom.html</span>
-              </span>
-              <span class="open-chip">เปิดเว็บ</span>
-            </a>
-            <a class="stack-link" href="InternTrack.html">
-              <span class="mini-shot">
-                <img class="preview-image" src="assets/thumbs/interntrack.jpg?v=hero-clear" alt="" />
-              </span>
-              <span class="stack-copy">
-                <strong>InternTrack</strong>
-                <span>InternTrack.html</span>
-              </span>
-              <span class="open-chip">เปิดเว็บ</span>
-            </a>
-            <a class="stack-link" href="PulseBoard.html">
-              <span class="mini-shot">
-                <img class="preview-image" src="assets/thumbs/pulseboard.jpg?v=hero-clear" alt="" />
-              </span>
-              <span class="stack-copy">
-                <strong>PulseBoard</strong>
-                <span>PulseBoard.html</span>
-              </span>
-              <span class="open-chip">เปิดเว็บ</span>
-            </a>
-            <a class="stack-link" href="gym-landing.html">
-              <span class="mini-shot">
-                <img class="preview-image" src="assets/thumbs/gym-landing.jpg?v=hero-clear" alt="" />
-              </span>
-              <span class="stack-copy">
-                <strong>Iron Republic</strong>
-                <span>gym-landing.html</span>
-              </span>
-              <span class="open-chip">เปิดเว็บ</span>
-            </a>
-            <a class="stack-link" href="coffee-landing.html">
-              <span class="mini-shot">
-                <img class="preview-image" src="assets/thumbs/noir-coffee.jpg?v=hero-clear" alt="" />
-              </span>
-              <span class="stack-copy">
-                <strong>NOIR Coffee</strong>
-                <span>coffee-landing.html</span>
-              </span>
-              <span class="open-chip">เปิดเว็บ</span>
-            </a>
-          </div>
+    <!-- =============================================
+         HERO
+    ============================================= -->
+    <section class="hero" aria-label="Introduction">
+      <div class="container">
+        <div class="hero-eyebrow">Frontend Developer</div>
+        <h1>Phakin<br>Chawanpunya</h1>
+        <p class="hero-desc">Frontend Developer specializing in dashboards and landing pages.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-dark" href="#projects">View Projects</a>
+          <a class="btn btn-ghost" href="#contact">Contact Me</a>
         </div>
       </div>
     </section>
 
-    <section class="section" id="works">
-      <div class="page-shell">
-        <div class="section-heading">
-          <div>
-            <div class="section-kicker">ไฟล์ทั้งหมดในโฟลเดอร์</div>
-            <h2>งานทุกชิ้นเป็นการ์ดปก</h2>
-          </div>
-        </div>
+    <!-- =============================================
+         SELECTED WORK
+    ============================================= -->
+    <section class="section" id="projects" aria-labelledby="projects-heading">
+      <div class="container">
+        <span class="section-label">Portfolio</span>
+        <h2 class="section-title" id="projects-heading">Selected Work</h2>
 
         <div class="works-grid">
-          <article class="work-card identity-launch">
-            <a class="work-preview" href="LaunchLedger.html" aria-label="เปิดเว็บจริง LaunchLedger">
-              <span class="status-badge">Budget lab</span>
-              <img class="preview-image" src="assets/thumbs/launch-ledger.jpg?v=hero-clear" alt="LaunchLedger startup budget dashboard screenshot" />
-              <span class="shot-open" aria-hidden="true">↗</span>
+
+          <article class="work-card reveal">
+            <a class="work-thumb" href="LaunchLedger.html" aria-label="Open LaunchLedger project">
+              <img src="assets/thumbs/launch-ledger.jpg" alt="LaunchLedger startup budget dashboard" loading="lazy" />
             </a>
             <div class="work-body">
-              <div>
-                <div class="work-title">
-                  <h3>LaunchLedger</h3>
-                  <span class="work-number">01</span>
-                </div>
-                <p>Startup budget dashboard concept for runway, spend planning, and launch decision queues.</p>
+              <div class="work-name">LaunchLedger</div>
+              <div class="work-tags">
+                <span class="tag tag-accent">Dashboard</span>
+                <span class="tag tag-mint">Finance</span>
               </div>
-              <div class="work-meta">
-                <span class="tag">dashboard</span>
-                <span class="tag alt">finance</span>
-              </div>
-              <div class="project-actions">
-                <a class="project-action live" href="LaunchLedger.html">View live</a>
-                <a class="project-action source" href="https://github.com/Phakinza007/my-portfolio/blob/main/LaunchLedger.html">Source file</a>
+              <div class="work-foot">
+                <a class="btn-project" href="LaunchLedger.html">View Project</a>
               </div>
             </div>
           </article>
 
-          <article class="work-card identity-muse">
-            <a class="work-preview" href="MuseRoom.html" aria-label="เปิดเว็บจริง MuseRoom">
-              <span class="status-badge brand">Visual study</span>
-              <img class="preview-image" src="assets/thumbs/museroom.jpg?v=hero-clear" alt="MuseRoom digital gallery landing page screenshot" />
-              <span class="shot-open" aria-hidden="true">↗</span>
+          <article class="work-card reveal">
+            <a class="work-thumb" href="MuseRoom.html" aria-label="Open MuseRoom project">
+              <img src="assets/thumbs/museroom.jpg" alt="MuseRoom digital gallery landing page" loading="lazy" />
             </a>
             <div class="work-body">
-              <div>
-                <div class="work-title">
-                  <h3>MuseRoom</h3>
-                  <span class="work-number">02</span>
-                </div>
-                <p>Digital gallery landing page concept with CSS art direction, exhibit cards, and visit flow.</p>
+              <div class="work-name">MuseRoom</div>
+              <div class="work-tags">
+                <span class="tag tag-amber">Gallery</span>
+                <span class="tag tag-gray">Brand</span>
               </div>
-              <div class="work-meta">
-                <span class="tag">gallery</span>
-                <span class="tag alt">brand</span>
-              </div>
-              <div class="project-actions">
-                <a class="project-action live" href="MuseRoom.html">View live</a>
-                <a class="project-action source" href="https://github.com/Phakinza007/my-portfolio/blob/main/MuseRoom.html">Source file</a>
+              <div class="work-foot">
+                <a class="btn-project" href="MuseRoom.html">View Project</a>
               </div>
             </div>
           </article>
 
-          <article class="work-card identity-intern">
-            <a class="work-preview" href="InternTrack.html" aria-label="เปิดเว็บจริง InternTrack">
-              <span class="status-badge case">Case study</span>
-              <img class="preview-image" src="assets/thumbs/interntrack.jpg?v=hero-clear" alt="InternTrack internship application tracker screenshot" />
-              <span class="shot-open" aria-hidden="true">↗</span>
+          <article class="work-card reveal">
+            <a class="work-thumb" href="InternTrack.html" aria-label="Open InternTrack project">
+              <img src="assets/thumbs/interntrack.jpg" alt="InternTrack internship application tracker" loading="lazy" />
             </a>
             <div class="work-body">
-              <div>
-                <div class="work-title">
-                  <h3>InternTrack</h3>
-                  <span class="work-number">03</span>
-                </div>
-                <p>Internship application tracker concept for pipeline status, interview prep, and follow-up rhythm.</p>
+              <div class="work-name">InternTrack</div>
+              <div class="work-tags">
+                <span class="tag tag-accent">Tracker</span>
+                <span class="tag tag-mint">Product UI</span>
               </div>
-              <div class="work-meta">
-                <span class="tag">tracker</span>
-                <span class="tag alt">new</span>
-              </div>
-              <div class="project-actions">
-                <a class="project-action live" href="InternTrack.html">View live</a>
-                <a class="project-action source" href="https://github.com/Phakinza007/my-portfolio/blob/main/InternTrack.html">Source file</a>
+              <div class="work-foot">
+                <a class="btn-project" href="InternTrack.html">View Project</a>
               </div>
             </div>
           </article>
 
-          <article class="work-card identity-pulse">
-            <a class="work-preview" href="PulseBoard.html" aria-label="เปิดเว็บจริง PulseBoard">
-              <span class="status-badge case">Live ops</span>
-              <img class="preview-image" src="assets/thumbs/pulseboard.jpg?v=hero-clear" alt="PulseBoard dashboard screenshot" />
-              <span class="shot-open" aria-hidden="true">↗</span>
+          <article class="work-card reveal">
+            <a class="work-thumb" href="PulseBoard.html" aria-label="Open PulseBoard project">
+              <img src="assets/thumbs/pulseboard.jpg" alt="PulseBoard event operations dashboard" loading="lazy" />
             </a>
             <div class="work-body">
-              <div>
-                <div class="work-title">
-                  <h3>PulseBoard</h3>
-                  <span class="work-number">04</span>
-                </div>
-                <p>Event operations dashboard concept with live floor status, task ownership, and schedule rhythm.</p>
+              <div class="work-name">PulseBoard</div>
+              <div class="work-tags">
+                <span class="tag tag-accent">Dashboard</span>
+                <span class="tag tag-mint">UI Design</span>
               </div>
-              <div class="work-meta">
-                <span class="tag">dashboard</span>
-                <span class="tag alt">new</span>
-              </div>
-              <div class="project-actions">
-                <a class="project-action live" href="PulseBoard.html">View live</a>
-                <a class="project-action source" href="https://github.com/Phakinza007/my-portfolio/blob/main/PulseBoard.html">Source file</a>
+              <div class="work-foot">
+                <a class="btn-project" href="PulseBoard.html">View Project</a>
               </div>
             </div>
           </article>
 
-
-          <article class="work-card">
-            <a class="work-preview" href="gym-landing.html" aria-label="เปิดเว็บจริง Iron Republic">
-              <span class="status-badge brand">New brand</span>
-              <img class="preview-image" src="assets/thumbs/gym-landing.jpg?v=hero-clear" alt="Iron Republic gym landing page screenshot" />
-              <span class="shot-open" aria-hidden="true">↗</span>
+          <article class="work-card reveal">
+            <a class="work-thumb" href="gym-landing.html" aria-label="Open Iron Republic project">
+              <img src="assets/thumbs/gym-landing.jpg" alt="Iron Republic gym landing page" loading="lazy" />
             </a>
             <div class="work-body">
-              <div>
-                <div class="work-title">
-                  <h3>Iron Republic</h3>
-                  <span class="work-number">05</span>
-                </div>
-                <p>Gym landing page concept with high-contrast art direction, programs, pricing, schedule, and trial signup.</p>
+              <div class="work-name">Iron Republic</div>
+              <div class="work-tags">
+                <span class="tag tag-amber">Fitness</span>
+                <span class="tag tag-gray">Brand</span>
               </div>
-              <div class="work-meta">
-                <span class="tag">fitness</span>
-                <span class="tag alt">brand</span>
-              </div>
-              <div class="project-actions">
-                <a class="project-action live" href="gym-landing.html">View live</a>
-                <a class="project-action source" href="https://github.com/Phakinza007/my-portfolio/blob/main/gym-landing.html">Source file</a>
+              <div class="work-foot">
+                <a class="btn-project" href="gym-landing.html">View Project</a>
               </div>
             </div>
           </article>
 
-
-          <article class="work-card">
-            <a class="work-preview" href="coffee-landing.html" aria-label="เปิดเว็บจริง NOIR Coffee">
-              <span class="status-badge brand">Mood page</span>
-              <img class="preview-image" src="assets/thumbs/noir-coffee.jpg?v=hero-clear" alt="NOIR Coffee screenshot" />
-              <span class="shot-open" aria-hidden="true">↗</span>
+          <article class="work-card reveal">
+            <a class="work-thumb" href="coffee-landing.html" aria-label="Open NOIR Coffee project">
+              <img src="assets/thumbs/noir-coffee.jpg" alt="NOIR Coffee landing page" loading="lazy" />
             </a>
             <div class="work-body">
-              <div>
-                <div class="work-title">
-                  <h3>NOIR Coffee</h3>
-                  <span class="work-number">06</span>
-                </div>
-                <p>คาเฟ่โทนมืด เน้นอารมณ์พรีเมียมและจังหวะ visual แบบ cinematic.</p>
+              <div class="work-name">NOIR Coffee</div>
+              <div class="work-tags">
+                <span class="tag tag-rose">Dark</span>
+                <span class="tag tag-gray">Coffee</span>
               </div>
-              <div class="work-meta">
-                <span class="tag">coffee</span>
-                <span class="tag alt">dark</span>
-              </div>
-              <div class="project-actions">
-                <a class="project-action live" href="coffee-landing.html">View live</a>
-                <a class="project-action source" href="https://github.com/Phakinza007/my-portfolio/blob/main/coffee-landing.html">Source file</a>
+              <div class="work-foot">
+                <a class="btn-project" href="coffee-landing.html">View Project</a>
               </div>
             </div>
           </article>
-
-          <article class="work-card">
-            <a class="work-preview" href="DRIP.html" aria-label="เปิดเว็บจริง DRIP Coffee Bar">
-              <span class="status-badge">Experiment</span>
-              <img class="preview-image" src="assets/thumbs/drip.jpg?v=hero-clear" alt="DRIP Coffee Bar screenshot" />
-              <span class="shot-open" aria-hidden="true">↗</span>
-            </a>
-            <div class="work-body">
-              <div>
-                <div class="work-title">
-                  <h3>DRIP Coffee Bar</h3>
-                  <span class="work-number">07</span>
-                </div>
-                <p>งานทดลองโทน neon, ticker, contrast สูง และบุคลิกที่แตกต่างจากงานคาเฟ่ทั่วไป.</p>
-              </div>
-              <div class="work-meta">
-                <span class="tag">coffee</span>
-                <span class="tag alt">neon</span>
-              </div>
-              <div class="project-actions">
-                <a class="project-action live" href="DRIP.html">View live</a>
-                <a class="project-action source" href="https://github.com/Phakinza007/my-portfolio/blob/main/DRIP.html">Source file</a>
-              </div>
-            </div>
-          </article>
-
 
         </div>
       </div>
     </section>
 
-    <section class="section" id="about">
-      <div class="page-shell">
-        <div class="section-heading">
-          <div>
-            <div class="section-kicker">about / resume</div>
-            <h2>Phakin Chawanpunya, frontend portfolio</h2>
-          </div>
-          <p>
-            สรุปตัวตน ทักษะ เครื่องมือ และช่องทางติดต่อสำหรับ hiring reviewer,
-            teacher, หรือคนที่อยากดูพัฒนาการ frontend จากงานจริงใน repo นี้.
-          </p>
-        </div>
+    <!-- =============================================
+         ABOUT + EXPERIENCE
+    ============================================= -->
+    <section class="section" id="about" aria-labelledby="about-heading">
+      <div class="container">
+        <div class="two-col">
 
-        <div class="about-band">
-          <div class="about-lead">
-            <h3>Frontend projects, organized like client-facing work.</h3>
-            <p>
-              I turn static HTML files into complete portfolio surfaces: clear first screens,
-              responsive CSS, reviewer context, readable source, and live pages that open directly.
+          <div class="card reveal">
+            <h2 class="card-title" id="about-heading">About Me</h2>
+            <p class="card-text">
+              I'm Phakin Chawanpunya — a frontend developer focused on building clean,
+              structured UI for dashboards and landing pages. I work primarily with HTML
+              and CSS, turning design concepts into responsive, accessible pages that are
+              easy to navigate and review.
             </p>
-            <div class="about-metrics" aria-label="portfolio proof points">
-              <div class="about-metric">
-                <strong>7</strong>
-                <span>live HTML projects</span>
+            <p class="card-text">
+              My portfolio covers live projects across budget dashboards, product trackers,
+              gallery pages, and brand landing pages — each with direct links, source files,
+              and full case studies.
+            </p>
+            <a class="card-link" href="resume.html">Learn more about my work →</a>
+          </div>
+
+          <div class="card reveal" id="experience">
+            <h2 class="card-title">Experience</h2>
+
+            <div class="exp-item">
+              <div class="exp-role">JavaScript · HTML / CSS</div>
+              <div class="exp-period">Personal Projects &amp; Portfolio · 2022 – Present</div>
+              <div class="exp-tags">
+                <span class="tag tag-accent">JavaScript</span>
+                <span class="tag tag-accent">HTML</span>
+                <span class="tag tag-accent">CSS</span>
+                <span class="tag tag-mint">Responsive</span>
+                <span class="tag tag-mint">Tailwind CSS</span>
+                <span class="tag tag-gray">Figma</span>
               </div>
-              <div class="about-metric">
-                <strong>3</strong>
-                <span>full case study pages</span>
-              </div>
-              <div class="about-metric">
-                <strong>1</strong>
-                <span>public GitHub Pages portfolio</span>
+            </div>
+
+            <div class="exp-item">
+              <div class="exp-role">Dashboard UI &amp; Landing Pages</div>
+              <div class="exp-period">7 live projects on GitHub Pages</div>
+              <div class="exp-tags">
+                <span class="tag tag-accent">GitHub Pages</span>
+                <span class="tag tag-mint">SEO</span>
+                <span class="tag tag-gray">Accessibility</span>
+                <span class="tag tag-gray">Case Studies</span>
               </div>
             </div>
           </div>
 
-          <div class="skills-board" aria-label="skills and expertise">
-            <div class="skill-row">
-              <span class="skill-index">01</span>
-              <div class="skill-copy">
-                <strong>Core frontend</strong>
-                <p>Build clean static pages with predictable structure and responsive CSS.</p>
-              </div>
-              <div class="skill-pills">
-                <span class="skill-pill">HTML</span>
-                <span class="skill-pill">CSS</span>
-                <span class="skill-pill">Responsive layout</span>
-                <span class="skill-pill alt">Semantic sections</span>
-              </div>
-            </div>
-            <div class="skill-row">
-              <span class="skill-index">02</span>
-              <div class="skill-copy">
-                <strong>UI direction</strong>
-                <p>Shape each project around hierarchy, intent, and the first scan.</p>
-              </div>
-              <div class="skill-pills">
-                <span class="skill-pill">Visual hierarchy</span>
-                <span class="skill-pill">Dashboard UI</span>
-                <span class="skill-pill alt">Landing page IA</span>
-                <span class="skill-pill alt">Thai / English copy</span>
-              </div>
-            </div>
-            <div class="skill-row">
-              <span class="skill-index">03</span>
-              <div class="skill-copy">
-                <strong>Portfolio polish</strong>
-                <p>Package the work with screenshots, source links, case studies, and contact paths.</p>
-              </div>
-              <div class="skill-pills">
-                <span class="skill-pill">GitHub Pages</span>
-                <span class="skill-pill alt">Source links</span>
-                <span class="skill-pill alt">Accessible focus</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="resume-strip" aria-label="resume summary">
-          <div class="resume-profile">
-            <div>
-              <span class="resume-role">Frontend / landing page developer</span>
-              <h3>Phakin Chawanpunya</h3>
-              <p>
-                Frontend developer focused on dashboard UI and landing pages.
-              </p>
-            </div>
-            <div class="resume-links" aria-label="resume contact links">
-              <a class="resume-link primary" href="mailto:a0626568471@gmail.com">a0626568471@gmail.com</a>
-              <a class="resume-link" href="resume.html">Resume page</a>
-              <a class="resume-link" href="assets/resume-phakin-chawanpunya.pdf" download>Download PDF</a>
-              <a class="resume-link" href="https://www.instagram.com/phakinkinpa/" rel="me noopener">Instagram @phakinkinpa</a>
-              <a class="resume-link" href="https://github.com/Phakinza007">GitHub</a>
-              <a class="resume-link" href="https://github.com/Phakinza007/my-portfolio">Repo</a>
-            </div>
-          </div>
-
-          <div class="resume-details">
-            <div class="resume-row">
-              <strong>Role target</strong>
-              <p>Frontend intern / junior developer</p>
-            </div>
-            <div class="resume-row">
-              <strong>Strongest work</strong>
-              <p>InternTrack for product thinking, PulseBoard for dashboard hierarchy, and LaunchLedger for budget visibility.</p>
-            </div>
-            <div class="resume-row">
-              <strong>Tools</strong>
-              <div class="resume-tools" aria-label="tools and skills">
-                <span class="skill-pill">HTML</span>
-                <span class="skill-pill">CSS</span>
-                <span class="skill-pill">Git</span>
-                <span class="skill-pill">GitHub Pages</span>
-                <span class="skill-pill alt">Responsive QA</span>
-                <span class="skill-pill alt">SEO metadata</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="case-studies">
-      <div class="page-shell">
-        <div class="section-heading">
-          <div>
-            <div class="section-kicker">เบื้องหลังงาน</div>
-            <h2>Case studies for reviewer-ready work</h2>
-          </div>
-          <p>
-            Full case study pages for the three strongest reviewer examples, plus compact notes
-            for extra project range.
-          </p>
-        </div>
+    <!-- =============================================
+         CASE STUDIES
+    ============================================= -->
+    <section class="section" id="case-studies" aria-labelledby="case-heading">
+      <div class="container">
+        <span class="section-label">Design Thinking</span>
+        <h2 class="section-title" id="case-heading">Case Studies</h2>
 
         <div class="case-grid">
-          <article class="case-panel">
-            <a class="case-shot" href="case-study-interntrack.html" aria-label="Read InternTrack full case study">
-              <img class="preview-image" src="assets/thumbs/interntrack.jpg?v=hero-clear" alt="InternTrack internship application tracker screenshot" />
-              <span class="shot-open" aria-hidden="true">↗</span>
+
+          <article class="case-card reveal">
+            <a class="case-thumb" href="case-study-pulseboard.html" aria-label="Read PulseBoard case study">
+              <img src="assets/thumbs/pulseboard.jpg" alt="PulseBoard operations dashboard" loading="lazy" />
             </a>
-            <div class="case-content">
-              <div class="case-topline">
-                <span>01 · Product Concept</span>
-                <span>Internship tracker workspace</span>
-              </div>
-              <div class="case-title">
-                <h3>InternTrack: keep every application moving.</h3>
-                <p>
-                  Challenge: help students track internship applications, interview steps,
-                  follow-ups, and portfolio tasks in one calm screen instead of scattered notes.
-                </p>
-              </div>
-              <div class="case-decisions" aria-label="InternTrack design decisions">
-                <div class="case-decision">
-                  <span>01</span>
-                  <div>
-                    <strong>Pipeline status stays visible</strong>
-                    <p>Applied, interview, and follow-up lanes make progress readable without forcing visitors into a dense table.</p>
-                  </div>
-                </div>
-                <div class="case-decision">
-                  <span>02</span>
-                  <div>
-                    <strong>Interview prep is part of the product</strong>
-                    <p>Calendar and checklist panels sit beside the application board so prep work feels connected to each opportunity.</p>
-                  </div>
-                </div>
-                <div class="case-decision">
-                  <span>03</span>
-                  <div>
-                    <strong>Portfolio tasks get treated like real work</strong>
-                    <p>The concept links follow-ups, case-study notes, and screenshot polish to the same rhythm as job applications.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="focus-tags" aria-label="InternTrack applied skills">
-                <span class="focus-label">Key Skills:</span>
-                <span class="tag">product thinking</span>
-                <span class="tag">dashboard UI</span>
-                <span class="tag alt">responsive layout</span>
-                <span class="tag alt">semantic HTML</span>
-              </div>
-              <div class="project-actions">
-                <a class="project-action case" href="case-study-interntrack.html">Case study</a>
-                <a class="project-action live" href="InternTrack.html">View live</a>
-                <a class="project-action source" href="https://github.com/Phakinza007/my-portfolio/blob/main/InternTrack.html">Source file</a>
-              </div>
+            <div class="case-body">
+              <span class="case-eyebrow">03 · Full Case Study</span>
+              <div class="case-name">PulseBoard — Event Operations Dashboard</div>
+              <p class="case-desc">
+                A single-screen command center for event staff to scan crowd flow,
+                task ownership, and timeline pressure without reading a long report.
+                Designed around status hierarchy, ownership context, and scan-first density.
+              </p>
+              <a class="btn-live" href="case-study-pulseboard.html">View Live</a>
             </div>
           </article>
 
-          <article class="case-panel">
-            <a class="case-shot" href="case-study-launchledger.html" aria-label="Read LaunchLedger full case study">
-              <img class="preview-image" src="assets/thumbs/launch-ledger.jpg?v=hero-clear" alt="LaunchLedger startup budget dashboard screenshot" />
-              <span class="shot-open" aria-hidden="true">↗</span>
+          <article class="case-card reveal">
+            <a class="case-thumb" href="case-study-launchledger.html" aria-label="Read LaunchLedger case study">
+              <img src="assets/thumbs/launch-ledger.jpg" alt="LaunchLedger budget dashboard" loading="lazy" />
             </a>
-            <div class="case-content">
-              <div class="case-topline">
-                <span>02 · Full Case Study</span>
-                <span>Startup budget dashboard</span>
-              </div>
-              <div class="case-title">
-                <h3>LaunchLedger: make launch money visible.</h3>
-                <p>
-                  Challenge: help a small launch team see runway, spend pressure,
-                  and decision timing without reading a spreadsheet first.
-                </p>
-              </div>
-              <div class="case-decisions" aria-label="LaunchLedger design decisions">
-                <div class="case-decision">
-                  <span>01</span>
-                  <div>
-                    <strong>Runway becomes the lead signal</strong>
-                    <p>The page gives remaining time the strongest visual weight because every spend decision depends on it.</p>
-                  </div>
-                </div>
-                <div class="case-decision">
-                  <span>02</span>
-                  <div>
-                    <strong>Spend categories support action</strong>
-                    <p>Budget areas are grouped around launch decisions so the dashboard feels operational, not decorative.</p>
-                  </div>
-                </div>
-                <div class="case-decision">
-                  <span>03</span>
-                  <div>
-                    <strong>Decision queue turns numbers into next steps</strong>
-                    <p>Short action prompts help reviewers understand how the interface could guide a real team.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="focus-tags" aria-label="LaunchLedger applied skills">
-                <span class="focus-label">Key Skills:</span>
-                <span class="tag">dashboard UI</span>
-                <span class="tag">finance concept</span>
-                <span class="tag alt">visual hierarchy</span>
-                <span class="tag alt">responsive CSS</span>
-              </div>
-              <div class="project-actions">
-                <a class="project-action case" href="case-study-launchledger.html">Case study</a>
-                <a class="project-action live" href="LaunchLedger.html">View live</a>
-                <a class="project-action source" href="https://github.com/Phakinza007/my-portfolio/blob/main/LaunchLedger.html">Source file</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="case-panel">
-            <a class="case-shot" href="case-study-pulseboard.html" aria-label="Read PulseBoard full case study">
-              <img class="preview-image" src="assets/thumbs/pulseboard.jpg?v=hero-clear" alt="PulseBoard dashboard screenshot" />
-              <span class="shot-open" aria-hidden="true">↗</span>
-            </a>
-            <div class="case-content">
-              <div class="case-topline">
-                <span>03 · Full Case Study</span>
-                <span>Event operations dashboard</span>
-              </div>
-              <div class="case-title">
-                <h3>PulseBoard: make a busy room readable.</h3>
-                <p>
-                  Challenge: design a single-screen command center where event staff can scan
-                  crowd flow, ownership, and timeline pressure without reading a long report.
-                </p>
-              </div>
-              <div class="case-decisions" aria-label="PulseBoard design decisions">
-                <div class="case-decision">
-                  <span>01</span>
-                  <div>
-                    <strong>Status hierarchy first</strong>
-                    <p>Large floor signals and color-coded states make the most urgent room conditions visible before the details.</p>
-                  </div>
-                </div>
-                <div class="case-decision">
-                  <span>02</span>
-                  <div>
-                    <strong>Task ownership stays close</strong>
-                    <p>Activity rows pair each event update with a responsible role so the dashboard feels actionable.</p>
-                  </div>
-                </div>
-                <div class="case-decision">
-                  <span>03</span>
-                  <div>
-                    <strong>Dashboard density without clutter</strong>
-                    <p>Panels, rhythm, and spacing keep the interface information-rich while still easy to scan.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="focus-tags" aria-label="PulseBoard applied skills">
-                <span class="focus-label">Key Skills:</span>
-                <span class="tag">dashboard UI</span>
-                <span class="tag">visual hierarchy</span>
-                <span class="tag alt">responsive layout</span>
-                <span class="tag alt">semantic HTML</span>
-              </div>
-              <div class="project-actions">
-                <a class="project-action case" href="case-study-pulseboard.html">Case study</a>
-                <a class="project-action live" href="PulseBoard.html">View live</a>
-                <a class="project-action source" href="https://github.com/Phakinza007/my-portfolio/blob/main/PulseBoard.html">Source file</a>
-              </div>
+            <div class="case-body">
+              <span class="case-eyebrow">02 · Full Case Study</span>
+              <div class="case-name">LaunchLedger — Startup Budget Dashboard</div>
+              <p class="case-desc">
+                A finance dashboard that makes runway, spend pressure, and decision
+                timing visible without reading a spreadsheet. Runway leads because
+                every spend decision depends on it.
+              </p>
+              <a class="btn-live" href="case-study-launchledger.html">View Live</a>
             </div>
           </article>
 
@@ -3001,147 +1036,108 @@
       </div>
     </section>
 
-    <section class="section" id="contact">
-      <div class="page-shell">
-        <div class="contact-band">
-          <div>
-            <div class="section-kicker">contact</div>
-            <h2>Phakin Chawanpunya</h2>
-          </div>
-          <div class="contact-copy">
-            <span class="contact-intent">Open for feedback, reviews, and frontend opportunities</span>
-            <p>
-              Need a quick review path? Start with the resume, open the case studies,
-              then check the live pages and source files. Everything important is one click away.
-            </p>
-            <div class="contact-note">
-              <strong>Best review flow</strong>
-              <span>Resume first, InternTrack or PulseBoard case study next, then any live project card that catches your eye.</span>
-            </div>
-            <div class="contact-links" aria-label="contact links">
-              <a class="contact-link instagram" href="https://www.instagram.com/phakinkinpa/" rel="me noopener">Instagram @phakinkinpa</a>
-              <a class="contact-link primary" href="mailto:a0626568471@gmail.com">Email me</a>
-              <a class="contact-link" href="resume.html">Resume</a>
-              <a class="contact-link" href="assets/resume-phakin-chawanpunya.pdf" download>PDF resume</a>
-              <a class="contact-link" href="https://github.com/Phakinza007">GitHub Profile</a>
-              <a class="contact-link" href="https://github.com/Phakinza007/my-portfolio">Repository</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="system">
-      <div class="page-shell">
-        <div class="process-band">
-          <div>
-            <div class="section-kicker">repo structure</div>
-            <h2>ไฟล์เดิมอยู่ครบ หน้าใหม่เป็นปก</h2>
-          </div>
-          <div>
-            <p>
-              โครงนี้ทำให้โฟลเดอร์กลายเป็นพอร์ตแบบเปิดแล้วเห็นภาพทันที:
-              `index.html` เป็นหน้าปก ส่วนไฟล์งานเดิมยังเป็นหน้าเดี่ยวที่แชร์หรือเปิดแยกได้.
-            </p>
-            <div class="steps" aria-label="ขั้นตอนการใช้งาน">
-              <div class="step">
-                <span>01</span>
-                <strong>เปิด index</strong>
-                <p>ใช้เป็นหน้าแรกของ repo หรือโฟลเดอร์ portfolio.</p>
-              </div>
-              <div class="step">
-                <span>02</span>
-                <strong>เลือกงาน</strong>
-                <p>ภาพปกย่อช่วยให้เห็นสไตล์ของแต่ละไฟล์ก่อนคลิก.</p>
-              </div>
-              <div class="step">
-                <span>03</span>
-                <strong>เพิ่มไฟล์ต่อได้</strong>
-                <p>เมื่องานเพิ่ม ก็เพิ่มการ์ดใหม่ในส่วนไฟล์ทั้งหมด.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
 
-  <footer class="footer">
-    <div class="page-shell footer-inner">
-      <span>Portfolio Cover, local HTML gallery</span>
+  <!-- =============================================
+       CONTACT FOOTER
+  ============================================= -->
+  <footer class="footer-section" id="contact" aria-labelledby="footer-heading">
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div>
+          <div class="footer-brand-name" id="footer-heading">Phakin Chawanpunya</div>
+          <div class="footer-brand-email">a0626568471@gmail.com</div>
+        </div>
+
+        <div>
+          <div class="footer-col-label">Contact</div>
+          <ul class="footer-nav">
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="resume.html">Resume</a></li>
+            <li><a href="mailto:a0626568471@gmail.com">Email</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-label">Social Icons</div>
+          <div class="social-row">
+
+            <!-- LinkedIn -->
+            <a class="social-btn" href="https://linkedin.com" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+
+            <!-- GitHub -->
+            <a class="social-btn" href="https://github.com/Phakinza007" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+              </svg>
+            </a>
+
+            <!-- Instagram -->
+            <a class="social-btn" href="https://www.instagram.com/phakinkinpa/" aria-label="Instagram @phakinkinpa" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+              </svg>
+            </a>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-copy">
+        <span>© 2024 Phakin Chawanpunya — Frontend Portfolio</span>
+        <a href="mailto:a0626568471@gmail.com">a0626568471@gmail.com</a>
+      </div>
+
     </div>
   </footer>
+
   <script>
     (() => {
-      const root = document.documentElement;
-      const themeToggle = document.querySelector(".theme-toggle");
-      const navToggle = document.querySelector(".nav-toggle");
-      const navLinks = document.querySelector(".nav-links");
-      const themeMeta = document.querySelector('meta[name="theme-color"]');
+      /* ---- Scroll reveal ---- */
+      const reveals = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              e.target.classList.add('visible');
+              obs.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+        reveals.forEach(el => obs.observe(el));
+      } else {
+        reveals.forEach(el => el.classList.add('visible'));
+      }
 
-      const syncThemeControl = () => {
-        const isDark = root.dataset.theme === "dark";
-        if (themeToggle) {
-          themeToggle.setAttribute("aria-pressed", String(isDark));
-          themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
-        }
-        if (themeMeta) {
-          themeMeta.setAttribute("content", isDark ? "#211c1a" : "#2f5df5");
-        }
-      };
+      /* ---- Mobile nav ---- */
+      const toggle = document.querySelector('.nav-toggle');
+      const panel  = document.getElementById('mobile-panel');
 
-      syncThemeControl();
-
-      themeToggle?.addEventListener("click", () => {
-        const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
-        if (nextTheme === "dark") {
-          root.dataset.theme = "dark";
-        } else {
-          delete root.dataset.theme;
-        }
-        try {
-          localStorage.setItem("portfolio-theme", nextTheme);
-        } catch (error) {
-          // Theme still changes for the current page when storage is unavailable.
-        }
-        syncThemeControl();
+      toggle?.addEventListener('click', () => {
+        const open = panel.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
       });
 
-      navToggle?.addEventListener("click", () => {
-        const isOpen = navLinks?.classList.toggle("is-open") ?? false;
-        navToggle.setAttribute("aria-expanded", String(isOpen));
-        navToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
-      });
-
-      document.querySelectorAll('.nav a[href^="#"]').forEach((link) => {
-        link.addEventListener("click", (event) => {
-          const target = document.querySelector(link.getAttribute("href"));
-          if (!target) return;
-          event.preventDefault();
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
-          navLinks?.classList.remove("is-open");
-          navToggle?.setAttribute("aria-expanded", "false");
-          navToggle?.setAttribute("aria-label", "Open navigation");
+      /* Close drawer on in-page link tap */
+      panel?.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', () => {
+          panel.classList.remove('open');
+          toggle?.setAttribute('aria-expanded', 'false');
+          toggle?.setAttribute('aria-label', 'Open navigation');
         });
       });
-
-      const projectCards = document.querySelectorAll(".work-card");
-      projectCards.forEach((card) => card.classList.add("reveal-ready"));
-
-      if ("IntersectionObserver" in window) {
-        const cardObserver = new IntersectionObserver((entries, observer) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          });
-        }, { rootMargin: "0px 0px -8% 0px", threshold: 0.16 });
-
-        projectCards.forEach((card) => cardObserver.observe(card));
-      } else {
-        projectCards.forEach((card) => card.classList.add("is-visible"));
-      }
     })();
   </script>
+
 </body>
 </html>
