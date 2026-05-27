@@ -504,6 +504,20 @@
 
     .card-link:hover { gap: 9px; }
 
+    /* About photo */
+    .about-photo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      margin-bottom: 18px;
+      border: 2.5px solid var(--border-2);
+      box-shadow: var(--sh-sm);
+      background: var(--surface-2); /* fallback while loading */
+    }
+
     /* experience items */
     .exp-item { margin-bottom: 22px; }
     .exp-item:last-child { margin-bottom: 0; }
@@ -1103,6 +1117,14 @@
         <div class="two-col">
 
           <div class="card reveal">
+            <!-- Replace assets/photo.jpg with your real photo -->
+            <img
+              class="about-photo"
+              src="assets/photo.jpg"
+              alt="Phakin Chawanpunya"
+              loading="lazy"
+              onerror="this.style.display='none'"
+            />
             <h2 class="card-title" id="about-heading">About Me</h2>
             <p class="card-text">
               I'm Phakin Chawanpunya — a frontend developer focused on building clean,
