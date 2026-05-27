@@ -26,6 +26,17 @@
   <meta name="twitter:image" content="https://phakinza007.github.io/my-portfolio/assets/social-preview.png?v=hero-type-clean" />
   <meta name="twitter:image:alt" content="Screenshot of Phakin Chawanpunya frontend portfolio gallery." />
   <title>Phakin Chawanpunya | Frontend Portfolio</title>
+  <script>
+    (() => {
+      const savedTheme = localStorage.getItem("portfolio-theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    })();
+  </script>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -52,23 +63,158 @@
   </script>
   <style>
     :root {
-      --paper: oklch(95.5% 0.021 63);
+      /* Theme core variables */
+      --bg: oklch(95.5% 0.021 63);
+      --text: oklch(22% 0.035 40);
+      --card: oklch(98% 0.012 65);
+      --border: oklch(80% 0.028 56);
+      --accent: oklch(56% 0.19 256);
+
+      /* Compatibility variables */
+      --paper: var(--bg);
       --paper-soft: oklch(92.5% 0.032 58);
-      --ink: oklch(22% 0.035 40);
+      --ink: var(--text);
       --muted: oklch(48% 0.035 52);
-      --line: oklch(80% 0.028 56);
-      --cobalt: oklch(56% 0.19 256);
+      --line: var(--border);
+      --cobalt: var(--accent);
       --coral: oklch(68% 0.135 35);
       --mint: oklch(79% 0.09 165);
       --butter: oklch(91% 0.09 88);
       --bench: oklch(89% 0.04 72);
       --aqua-ink: oklch(26% 0.075 175);
-      --surface: oklch(98% 0.012 65);
+      --surface: var(--card);
+
       --shadow: 0 28px 70px oklch(24% 0.04 42 / 0.16);
       --shadow-strong: 0 34px 88px oklch(24% 0.04 42 / 0.22);
       --radius: 8px;
       --max: 1180px;
       --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+      /* Custom supporting layout/component tokens */
+      --body-gradient-1: oklch(91% 0.045 168 / 0.42);
+      --body-gradient-2: oklch(95% 0.017 78);
+      --body-gradient-3: oklch(92% 0.03 165);
+      --grid-color: oklch(40% 0.05 50 / 0.06);
+      --grid-mask-color: oklch(0% 0 0 / 0.48);
+      --topbar-bg: oklch(96% 0.018 62 / 0.9);
+      --topbar-border: oklch(78% 0.03 55 / 0.55);
+      --brand-shadow: oklch(56% 0.19 256 / 0.24);
+      --brand-back-fill: oklch(91% 0.09 88 / 0.28);
+      --brand-back-stroke: oklch(98% 0.012 65 / 0.78);
+      --brand-front-fill: oklch(98% 0.012 65 / 0.16);
+      --nav-hover-bg: oklch(89% 0.046 65);
+      --hero-gradient-end: oklch(96% 0.014 72);
+      --accent-shadow: oklch(56% 0.19 256 / 0.26);
+
+      --pill-bg: oklch(91% 0.04 165);
+      --pill-text: oklch(32% 0.06 160);
+      --pill-alt-bg: oklch(91% 0.056 38);
+      --pill-alt-text: oklch(34% 0.066 34);
+
+      --radial-glow: oklch(56% 0.19 256 / 0.14);
+      --profile-bg: oklch(97% 0.014 66);
+
+      --about-bg-gradient: linear-gradient(135deg, oklch(98% 0.012 65 / 0.98), oklch(91% 0.04 165 / 0.35));
+
+      --contact-bg: var(--text);
+      --contact-text: oklch(98% 0.012 65);
+      --contact-p-text: oklch(89% 0.02 76 / 0.78);
+      --contact-border: oklch(98% 0.012 65 / 0.14);
+      --contact-overlay: oklch(56% 0.19 256 / 0.18);
+      --contact-shadow: 0 26px 60px oklch(22% 0.035 40 / 0.18);
+      --contact-inner-border: oklch(98% 0.012 65 / 0.12);
+      --contact-inner-grid: oklch(98% 0.012 65 / 0.06);
+      --contact-inner-bg: oklch(98% 0.012 65 / 0.07);
+      --contact-link-hover-bg: oklch(98% 0.012 65 / 0.14);
+      --contact-link-hover-shadow: 0 16px 30px oklch(10% 0.02 40 / 0.18);
+      --contact-primary-text: oklch(22% 0.035 40);
+      --contact-primary-shadow: 0 16px 30px oklch(91% 0.09 88 / 0.18);
+      --instagram-shadow: 0 16px 30px oklch(68% 0.135 35 / 0.22);
+
+      --process-text: oklch(98% 0.012 65);
+      --process-p-text: oklch(89% 0.02 76 / 0.86);
+      --process-border: oklch(86% 0.022 76 / 0.22);
+
+      --case-study-text: oklch(28% 0.05 55);
+      --case-study-border: var(--case-study-border);
+      --case-study-shadow: 0 14px 28px var(--case-study-shadow);
+    }
+
+    html.dark {
+      /* Dark mode custom values */
+      --bg: #0d0d0d;
+      --card: #161616;
+      --text: #e8e8e8;
+      --border: #2a2a2a;
+      --accent: #2f5df5;
+
+      /* Overridden supporting tokens */
+      --paper-soft: #121212;
+      --muted: #8a8a8a;
+      --coral: oklch(68% 0.135 35);
+      --mint: oklch(79% 0.09 165);
+      --butter: oklch(85% 0.09 88);
+      --bench: #1f1f1f;
+      --aqua-ink: #c2e9e6;
+
+      --shadow: 0 28px 70px rgba(0, 0, 0, 0.5);
+      --shadow-strong: 0 34px 88px rgba(0, 0, 0, 0.7);
+
+      --body-gradient-1: rgba(47, 93, 245, 0.04);
+      --body-gradient-2: #0d0d0d;
+      --body-gradient-3: #0d0d0d;
+      --grid-color: rgba(255, 255, 255, 0.02);
+      --grid-mask-color: rgba(0, 0, 0, 0.85);
+      --topbar-bg: rgba(13, 13, 13, 0.85);
+      --topbar-border: #2a2a2a;
+      --brand-shadow: rgba(47, 93, 245, 0.3);
+      --brand-back-fill: rgba(255, 255, 255, 0.05);
+      --brand-back-stroke: rgba(255, 255, 255, 0.2);
+      --brand-front-fill: rgba(255, 255, 255, 0.02);
+      --nav-hover-bg: #222222;
+      --hero-gradient-end: #0f0f0f;
+      --accent-shadow: rgba(47, 93, 245, 0.3);
+
+      --pill-bg: rgba(47, 93, 245, 0.12);
+      --pill-text: #aae0db;
+      --pill-alt-bg: rgba(233, 30, 99, 0.12);
+      --pill-alt-text: #ff8da1;
+
+      --radial-glow: rgba(47, 93, 245, 0.08);
+      --profile-bg: #121212;
+
+      --about-bg-gradient: linear-gradient(135deg, rgba(22, 22, 22, 0.95), rgba(13, 13, 13, 0.35));
+
+      --contact-bg: var(--card);
+      --contact-text: var(--text);
+      --contact-p-text: rgba(232, 232, 232, 0.7);
+      --contact-border: var(--border);
+      --contact-overlay: rgba(47, 93, 245, 0.12);
+      --contact-shadow: var(--shadow-strong);
+      --contact-inner-border: rgba(255, 255, 255, 0.08);
+      --contact-inner-grid: rgba(255, 255, 255, 0.03);
+      --contact-inner-bg: rgba(255, 255, 255, 0.04);
+      --contact-link-hover-bg: rgba(255, 255, 255, 0.1);
+      --contact-link-hover-shadow: var(--shadow);
+      --contact-primary-text: #0d0d0d;
+      --contact-primary-shadow: 0 16px 30px rgba(245, 212, 47, 0.2);
+      --instagram-shadow: 0 16px 30px rgba(233, 30, 99, 0.15);
+
+      --process-text: var(--text);
+      --process-p-text: rgba(232, 232, 232, 0.8);
+      --process-border: rgba(255, 255, 255, 0.15);
+
+      --case-study-text: var(--text);
+      --case-study-border: var(--border);
+      --case-study-shadow: var(--shadow);
+    }
+
+    /* Transition for all color-related properties */
+    body,
+    body *,
+    body *::before,
+    body *::after {
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, fill 0.2s ease, stroke 0.2s ease;
     }
 
     * {
@@ -86,8 +232,8 @@
       font-family: "Noto Sans Thai", "Bai Jamjuree", Arial, sans-serif;
       color: var(--ink);
       background:
-        linear-gradient(140deg, oklch(91% 0.045 168 / 0.42), transparent 42%),
-        linear-gradient(180deg, var(--paper) 0%, oklch(95% 0.017 78) 48%, oklch(92% 0.03 165) 100%);
+        linear-gradient(140deg, var(--body-gradient-1), transparent 42%),
+        linear-gradient(180deg, var(--paper) 0%, var(--body-gradient-2) 48%, var(--body-gradient-3) 100%);
       line-height: 1.65;
       overflow-x: hidden;
     }
@@ -99,10 +245,10 @@
       z-index: -1;
       pointer-events: none;
       background-image:
-        linear-gradient(oklch(40% 0.05 50 / 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, oklch(40% 0.05 50 / 0.06) 1px, transparent 1px);
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
       background-size: 34px 34px;
-      mask-image: linear-gradient(to bottom, oklch(0% 0 0 / 0.48), transparent 76%);
+      mask-image: linear-gradient(to bottom, var(--grid-mask-color), transparent 76%);
     }
 
     a {
@@ -123,8 +269,8 @@
       position: sticky;
       top: 0;
       z-index: 30;
-      background: oklch(96% 0.018 62 / 0.9);
-      border-bottom: 1px solid oklch(78% 0.03 55 / 0.55);
+      background: var(--topbar-bg);
+      border-bottom: 1px solid var(--topbar-border);
       backdrop-filter: blur(18px);
     }
 
@@ -154,8 +300,8 @@
       overflow: hidden;
       border-radius: 8px;
       background: var(--cobalt);
-      color: var(--surface);
-      box-shadow: 0 10px 24px oklch(56% 0.19 256 / 0.24);
+      color: #ffffff;
+      box-shadow: 0 10px 24px var(--brand-shadow);
     }
 
     .brand-mark svg {
@@ -166,13 +312,13 @@
     }
 
     .brand-mark .mark-back {
-      fill: oklch(91% 0.09 88 / 0.28);
-      stroke: oklch(98% 0.012 65 / 0.78);
+      fill: var(--brand-back-fill);
+      stroke: var(--brand-back-stroke);
       stroke-width: 1.7;
     }
 
     .brand-mark .mark-front {
-      fill: oklch(98% 0.012 65 / 0.16);
+      fill: var(--brand-front-fill);
       stroke: currentColor;
       stroke-width: 2;
     }
@@ -210,7 +356,34 @@
 
     .nav-links a:hover {
       color: var(--ink);
-      background: oklch(89% 0.046 65);
+      background: var(--nav-hover-bg);
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 1.15rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      padding: 0;
+      margin-left: 8px;
+    }
+
+    .theme-toggle:hover {
+      color: var(--ink);
+      background: var(--nav-hover-bg);
+    }
+
+    .theme-toggle:focus-visible {
+      outline: 2px solid var(--cobalt);
+      outline-offset: -2px;
     }
 
     .hero {
@@ -220,7 +393,7 @@
       align-items: center;
       padding: 86px 0 58px;
       overflow: hidden;
-      background: linear-gradient(180deg, var(--paper) 0%, oklch(96% 0.014 72) 100%);
+      background: linear-gradient(180deg, var(--paper) 0%, var(--hero-gradient-end) 100%);
     }
 
     .hero::before {
@@ -240,11 +413,11 @@
       padding: 8px 18px 9px;
       border-radius: 0 8px 8px 0;
       background: var(--cobalt);
-      color: var(--surface);
+      color: #ffffff;
       font-family: "Bai Jamjuree", sans-serif;
       font-size: 1.05rem;
       font-weight: 700;
-      box-shadow: 0 16px 34px oklch(56% 0.19 256 / 0.26);
+      box-shadow: 0 16px 34px var(--accent-shadow);
     }
 
     .hero-art {
@@ -262,7 +435,7 @@
       display: block;
       overflow: hidden;
       border-radius: 8px;
-      border: 1px solid oklch(82% 0.035 48);
+      border: 1px solid var(--border);
       background: var(--surface);
       box-shadow: var(--shadow);
       color: inherit;
@@ -273,8 +446,8 @@
     .main-preview:hover,
     .main-preview:focus-visible {
       transform: rotate(1deg) translateY(-7px);
-      border-color: oklch(56% 0.19 256 / 0.58);
-      box-shadow: 0 34px 82px oklch(24% 0.04 42 / 0.2);
+      border-color: var(--accent);
+      box-shadow: var(--shadow-strong);
       outline: none;
     }
 
@@ -650,13 +823,13 @@
     .button.secondary {
       color: var(--ink);
       border-color: var(--line);
-      background: oklch(98% 0.012 65 / 0.72);
+      background: var(--surface);
     }
 
     .button.contact {
       background: var(--cobalt);
-      color: var(--surface);
-      box-shadow: 0 14px 28px oklch(56% 0.19 256 / 0.2);
+      color: #ffffff;
+      box-shadow: 0 14px 28px var(--accent-shadow);
     }
 
     .button.contact::after {
@@ -672,15 +845,15 @@
 
     .button.case-study {
       color: oklch(28% 0.05 55);
-      border-color: oklch(83% 0.06 84);
+      border-color: var(--case-study-border);
       background: var(--butter);
-      box-shadow: 0 14px 28px oklch(91% 0.09 88 / 0.22);
+      box-shadow: 0 14px 28px var(--case-study-shadow);
     }
 
     .section {
       scroll-margin-top: 82px;
       padding: clamp(58px, 8vw, 92px) 0;
-      border-top: 1px solid oklch(80% 0.028 56 / 0.52);
+      border-top: 1px solid var(--border);
     }
 
     .section-heading {
@@ -720,9 +893,9 @@
       border-radius: 8px;
       border: 1px solid var(--line);
       background:
-        linear-gradient(135deg, oklch(98% 0.012 65 / 0.98), oklch(91% 0.04 165 / 0.35)),
+        var(--about-bg-gradient),
         var(--surface);
-      box-shadow: 0 24px 58px oklch(22% 0.035 40 / 0.1);
+      box-shadow: var(--shadow);
     }
 
     .about-lead {
@@ -748,9 +921,9 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       overflow: hidden;
-      border: 1px solid oklch(80% 0.028 56 / 0.72);
+      border: 1px solid var(--line);
       border-radius: 8px;
-      background: oklch(98% 0.012 65 / 0.72);
+      background: var(--surface);
     }
 
     .about-metric {
@@ -762,7 +935,7 @@
     }
 
     .about-metric + .about-metric {
-      border-left: 1px solid oklch(80% 0.028 56 / 0.72);
+      border-left: 1px solid var(--line);
     }
 
     .about-metric strong {
@@ -784,9 +957,9 @@
     .skills-board {
       display: grid;
       overflow: hidden;
-      border: 1px solid oklch(80% 0.028 56 / 0.72);
+      border: 1px solid var(--line);
       border-radius: 8px;
-      background: oklch(98% 0.012 65 / 0.74);
+      background: var(--surface);
     }
 
     .skill-row {
@@ -798,7 +971,7 @@
     }
 
     .skill-row + .skill-row {
-      border-top: 1px solid oklch(80% 0.028 56 / 0.58);
+      border-top: 1px solid var(--line);
     }
 
     .skill-index {
@@ -843,15 +1016,15 @@
       min-height: 30px;
       padding: 0 10px;
       border-radius: 8px;
-      background: oklch(91% 0.04 165);
-      color: oklch(32% 0.06 160);
+      background: var(--pill-bg);
+      color: var(--pill-text);
       font-size: 0.8rem;
       font-weight: 800;
     }
 
     .skill-pill.alt {
-      background: oklch(91% 0.056 38);
-      color: oklch(34% 0.066 34);
+      background: var(--pill-alt-bg);
+      color: var(--pill-alt-text);
     }
 
     .resume-strip {
@@ -862,8 +1035,8 @@
       overflow: hidden;
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: oklch(98% 0.012 65 / 0.9);
-      box-shadow: 0 18px 42px oklch(22% 0.035 40 / 0.08);
+      background: var(--surface);
+      box-shadow: var(--shadow);
     }
 
     .resume-profile,
@@ -876,8 +1049,8 @@
       align-content: space-between;
       gap: 22px;
       background:
-        radial-gradient(circle at 12% 18%, oklch(56% 0.19 256 / 0.14), transparent 32%),
-        oklch(97% 0.014 66);
+        radial-gradient(circle at 12% 18%, var(--radial-glow), transparent 32%),
+        var(--profile-bg);
       border-right: 1px solid var(--line);
     }
 
@@ -921,7 +1094,7 @@
       border-radius: 8px;
       border: 1px solid var(--line);
       padding: 0 12px;
-      background: oklch(98% 0.012 65 / 0.74);
+      background: var(--surface);
       color: var(--ink);
       font-weight: 800;
       font-size: 0.84rem;
@@ -930,15 +1103,15 @@
 
     .resume-link:hover {
       transform: translateY(-2px);
-      border-color: oklch(56% 0.19 256 / 0.42);
-      background: oklch(98% 0.012 65);
+      border-color: var(--cobalt);
+      background: var(--surface);
     }
 
     .resume-link.primary {
       background: var(--cobalt);
       border-color: var(--cobalt);
-      color: var(--surface);
-      box-shadow: 0 12px 24px oklch(56% 0.19 256 / 0.18);
+      color: #ffffff;
+      box-shadow: 0 12px 24px var(--accent-shadow);
     }
 
     .resume-details {
@@ -951,7 +1124,7 @@
       grid-template-columns: 132px minmax(0, 1fr);
       gap: 18px;
       padding-bottom: 16px;
-      border-bottom: 1px solid oklch(80% 0.028 56 / 0.58);
+      border-bottom: 1px solid var(--line);
     }
 
     .resume-row:last-child {
@@ -990,8 +1163,8 @@
       overflow: hidden;
       border-radius: 8px;
       background: oklch(19% 0.033 42);
-      color: var(--surface);
-      border: 1px solid oklch(70% 0.04 50 / 0.28);
+      color: oklch(98% 0.012 65);
+      border: 1px solid var(--line);
       box-shadow: var(--shadow);
       cursor: pointer;
       transition: transform 220ms var(--ease), box-shadow 220ms var(--ease), border-color 220ms var(--ease);
@@ -999,8 +1172,8 @@
 
     .feature-panel:hover {
       transform: translateY(-4px);
-      border-color: oklch(56% 0.19 256 / 0.42);
-      box-shadow: 0 34px 78px oklch(22% 0.035 40 / 0.18);
+      border-color: var(--cobalt);
+      box-shadow: var(--shadow-strong);
     }
 
     .feature-shot {
@@ -1019,9 +1192,9 @@
       align-items: center;
       gap: 18px;
       padding: 16px 18px;
-      background: oklch(97% 0.014 66 / 0.98);
+      background: var(--topbar-bg);
       color: var(--ink);
-      border-top: 1px solid oklch(79% 0.032 54 / 0.64);
+      border-top: 1px solid var(--line);
     }
 
     .feature-caption > div {
@@ -1058,7 +1231,7 @@
       font-weight: 800;
       line-height: 1;
       text-align: center;
-      box-shadow: 0 12px 24px oklch(22% 0.035 40 / 0.16);
+      box-shadow: var(--shadow);
     }
 
     .stack-list {
@@ -1075,14 +1248,14 @@
       padding: 10px;
       border-radius: 8px;
       border: 1px solid var(--line);
-      background: oklch(98% 0.012 65 / 0.8);
+      background: var(--surface);
       transition: transform 180ms var(--ease), border-color 180ms var(--ease), box-shadow 180ms var(--ease);
     }
 
     .stack-link:hover {
       transform: translateY(-2px);
-      border-color: oklch(60% 0.1 255 / 0.42);
-      box-shadow: 0 18px 36px oklch(22% 0.035 40 / 0.11);
+      border-color: var(--cobalt);
+      box-shadow: var(--shadow);
     }
 
     .mini-shot {
@@ -1091,7 +1264,7 @@
       overflow: hidden;
       border-radius: 8px;
       background: var(--paper-soft);
-      border: 1px solid oklch(78% 0.034 54 / 0.64);
+      border: 1px solid var(--line);
     }
 
     .stack-copy strong {
@@ -1135,16 +1308,16 @@
       border-radius: 8px;
       overflow: hidden;
       border: 1px solid var(--line);
-      background: oklch(98% 0.012 65);
+      background: var(--surface);
       color: inherit;
-      box-shadow: 0 14px 30px oklch(22% 0.035 40 / 0.08);
+      box-shadow: var(--shadow);
       transform-origin: 50% 100%;
       transition: transform 220ms var(--ease), box-shadow 220ms var(--ease), border-color 220ms var(--ease), background 220ms var(--ease);
     }
 
     .work-card:hover {
       transform: translateY(-8px);
-      border-color: oklch(60% 0.1 255 / 0.42);
+      border-color: var(--cobalt);
       box-shadow: var(--shadow-strong);
     }
 
@@ -1154,7 +1327,7 @@
       inset: 8px;
       z-index: -1;
       border-radius: 8px;
-      background: oklch(56% 0.19 256 / 0.1);
+      background: var(--accent-shadow);
       opacity: 0;
       transform: translateY(8px);
       transition: opacity 220ms var(--ease), transform 220ms var(--ease);
@@ -1183,7 +1356,7 @@
       align-items: center;
       border-radius: 8px;
       padding: 0 10px;
-      background: oklch(98% 0.012 65 / 0.94);
+      background: var(--surface);
       color: var(--ink);
       font-family: "Bai Jamjuree", sans-serif;
       font-size: 0.74rem;
@@ -1191,7 +1364,7 @@
       opacity: 0;
       pointer-events: none;
       transform: translateY(8px);
-      box-shadow: 0 10px 24px oklch(15% 0.03 40 / 0.18);
+      box-shadow: var(--shadow);
       transition: opacity 200ms var(--ease), transform 200ms var(--ease);
     }
 
@@ -1219,16 +1392,16 @@
       min-height: 30px;
       padding: 0 10px;
       border-radius: 8px;
-      background: oklch(98% 0.012 65 / 0.94);
+      background: var(--surface);
       color: var(--ink);
       font-size: 0.74rem;
       font-weight: 800;
-      box-shadow: 0 10px 24px oklch(15% 0.03 40 / 0.16);
+      box-shadow: var(--shadow);
     }
 
     .status-badge.case {
       background: var(--cobalt);
-      color: var(--surface);
+      color: #ffffff;
     }
 
     .status-badge.brand {
@@ -1271,7 +1444,7 @@
       height: 32px;
       border-radius: 8px;
       background: var(--cobalt);
-      color: var(--surface);
+      color: #ffffff;
       font-size: 0.82rem;
       font-weight: 700;
     }
@@ -1294,15 +1467,15 @@
       min-height: 28px;
       padding: 0 9px;
       border-radius: 8px;
-      background: oklch(91% 0.04 165);
-      color: oklch(32% 0.06 160);
+      background: var(--pill-bg);
+      color: var(--pill-text);
       font-size: 0.78rem;
       font-weight: 700;
     }
 
     .tag.alt {
-      background: oklch(91% 0.056 38);
-      color: oklch(34% 0.066 34);
+      background: var(--pill-alt-bg);
+      color: var(--pill-alt-text);
     }
 
     .tag.open {
@@ -1335,7 +1508,7 @@
 
     .project-action:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 22px oklch(24% 0.04 42 / 0.1);
+      box-shadow: var(--shadow);
     }
 
     .project-action.live {
@@ -1347,11 +1520,11 @@
     .project-action.case {
       background: var(--cobalt);
       border-color: var(--cobalt);
-      color: var(--surface);
+      color: #ffffff;
     }
 
     .project-action.source {
-      background: oklch(97% 0.014 66);
+      background: var(--paper-soft);
       color: var(--ink);
     }
 
@@ -1360,7 +1533,13 @@
       --card-accent-2: oklch(74% 0.112 178);
       --card-soft: oklch(95% 0.032 164);
       --card-ink: oklch(23% 0.055 178);
-      border-color: oklch(66% 0.082 174 / 0.58);
+      --card-border: oklch(66% 0.082 174 / 0.58);
+      --card-body-bg: linear-gradient(135deg, oklch(98% 0.012 65) 0%, oklch(94% 0.038 166) 100%);
+      --tag-bg: oklch(88% 0.074 170);
+      --tag-text: var(--card-ink);
+      --tag-alt-bg: oklch(91% 0.061 92);
+      --tag-alt-text: oklch(34% 0.058 72);
+      border-color: var(--card-border);
       background: var(--card-soft);
     }
 
@@ -1374,8 +1553,7 @@
     }
 
     .work-card.identity-launch .work-body {
-      background:
-        linear-gradient(135deg, oklch(98% 0.012 65) 0%, oklch(94% 0.038 166) 100%);
+      background: var(--card-body-bg);
     }
 
     .work-card.identity-launch .work-body::after {
@@ -1403,13 +1581,13 @@
     }
 
     .work-card.identity-launch .tag {
-      background: oklch(88% 0.074 170);
-      color: var(--card-ink);
+      background: var(--tag-bg);
+      color: var(--tag-text);
     }
 
     .work-card.identity-launch .tag.alt {
-      background: oklch(91% 0.061 92);
-      color: oklch(34% 0.058 72);
+      background: var(--tag-alt-bg);
+      color: var(--tag-alt-text);
     }
 
     .work-card.identity-muse {
@@ -1417,7 +1595,13 @@
       --card-accent-2: oklch(76% 0.14 52);
       --card-soft: oklch(95% 0.032 28);
       --card-ink: oklch(26% 0.04 25);
-      border-color: oklch(72% 0.085 35 / 0.56);
+      --card-border: oklch(72% 0.085 35 / 0.56);
+      --card-body-bg: radial-gradient(circle at right 20%, oklch(86% 0.09 315 / 0.42), transparent 32%), linear-gradient(150deg, oklch(98% 0.012 65) 0%, oklch(95% 0.033 35) 100%);
+      --tag-bg: oklch(88% 0.07 155);
+      --tag-text: oklch(29% 0.06 154);
+      --tag-alt-bg: oklch(90% 0.06 315);
+      --tag-alt-text: oklch(35% 0.078 318);
+      border-color: var(--card-border);
       background: var(--card-soft);
     }
 
@@ -1431,9 +1615,7 @@
     }
 
     .work-card.identity-muse .work-body {
-      background:
-        radial-gradient(circle at right 20%, oklch(86% 0.09 315 / 0.42), transparent 32%),
-        linear-gradient(150deg, oklch(98% 0.012 65) 0%, oklch(95% 0.033 35) 100%);
+      background: var(--card-body-bg);
     }
 
     .work-card.identity-muse .work-body::after {
@@ -1465,13 +1647,13 @@
     }
 
     .work-card.identity-muse .tag {
-      background: oklch(88% 0.07 155);
-      color: oklch(29% 0.06 154);
+      background: var(--tag-bg);
+      color: var(--tag-text);
     }
 
     .work-card.identity-muse .tag.alt {
-      background: oklch(90% 0.06 315);
-      color: oklch(35% 0.078 318);
+      background: var(--tag-alt-bg);
+      color: var(--tag-alt-text);
     }
 
     .work-card.identity-intern {
@@ -1479,7 +1661,13 @@
       --card-accent-2: oklch(77% 0.1 165);
       --card-soft: oklch(95% 0.03 138);
       --card-ink: oklch(21% 0.04 205);
-      border-color: oklch(69% 0.086 204 / 0.56);
+      --card-border: oklch(69% 0.086 204 / 0.56);
+      --card-body-bg: linear-gradient(180deg, oklch(98% 0.012 65) 0%, oklch(94% 0.035 145) 100%);
+      --tag-bg: oklch(88% 0.06 190);
+      --tag-text: oklch(28% 0.06 205);
+      --tag-alt-bg: oklch(91% 0.06 132);
+      --tag-alt-text: oklch(30% 0.066 138);
+      border-color: var(--card-border);
       background: var(--card-soft);
     }
 
@@ -1493,8 +1681,7 @@
     }
 
     .work-card.identity-intern .work-body {
-      background:
-        linear-gradient(180deg, oklch(98% 0.012 65) 0%, oklch(94% 0.035 145) 100%);
+      background: var(--card-body-bg);
     }
 
     .work-card.identity-intern .work-body::after {
@@ -1524,13 +1711,13 @@
     }
 
     .work-card.identity-intern .tag {
-      background: oklch(88% 0.06 190);
-      color: oklch(28% 0.06 205);
+      background: var(--tag-bg);
+      color: var(--tag-text);
     }
 
     .work-card.identity-intern .tag.alt {
-      background: oklch(91% 0.06 132);
-      color: oklch(30% 0.066 138);
+      background: var(--tag-alt-bg);
+      color: var(--tag-alt-text);
     }
 
     .work-card.identity-pulse {
@@ -1634,8 +1821,8 @@
       overflow: hidden;
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: oklch(98% 0.012 65 / 0.9);
-      box-shadow: 0 18px 42px oklch(22% 0.035 40 / 0.08);
+      background: var(--surface);
+      box-shadow: var(--shadow);
     }
 
     .case-shot {
@@ -1690,8 +1877,8 @@
     .case-decisions {
       display: grid;
       gap: 0;
-      border-top: 1px solid oklch(80% 0.028 56 / 0.7);
-      border-bottom: 1px solid oklch(80% 0.028 56 / 0.7);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
 
     .case-decision {
@@ -1702,7 +1889,7 @@
     }
 
     .case-decision + .case-decision {
-      border-top: 1px solid oklch(80% 0.028 56 / 0.48);
+      border-top: 1px solid var(--border);
     }
 
     .case-decision span {
@@ -1712,7 +1899,7 @@
       height: 32px;
       border-radius: 8px;
       background: var(--cobalt);
-      color: var(--surface);
+      color: #ffffff;
       font-family: "Bai Jamjuree", sans-serif;
       font-size: 0.8rem;
       font-weight: 700;
@@ -1753,12 +1940,12 @@
       overflow: hidden;
       padding: clamp(32px, 6vw, 58px);
       border-radius: 8px;
-      border: 1px solid oklch(98% 0.012 65 / 0.14);
+      border: 1px solid var(--contact-border);
       background:
-        linear-gradient(135deg, oklch(56% 0.19 256 / 0.18), transparent 42%),
-        var(--ink);
-      color: var(--surface);
-      box-shadow: 0 26px 60px oklch(22% 0.035 40 / 0.18);
+        linear-gradient(135deg, var(--contact-overlay), transparent 42%),
+        var(--contact-bg);
+      color: var(--contact-text);
+      box-shadow: var(--contact-shadow);
     }
 
     .contact-band::before {
@@ -1766,11 +1953,11 @@
       position: absolute;
       inset: 14px;
       z-index: -1;
-      border: 1px solid oklch(98% 0.012 65 / 0.12);
+      border: 1px solid var(--contact-inner-border);
       border-radius: 8px;
       background-image:
-        linear-gradient(oklch(98% 0.012 65 / 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, oklch(98% 0.012 65 / 0.06) 1px, transparent 1px);
+        linear-gradient(var(--contact-inner-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--contact-inner-grid) 1px, transparent 1px);
       background-size: 28px 28px;
     }
 
@@ -1783,7 +1970,7 @@
     }
 
     .contact-copy p {
-      color: oklch(89% 0.02 76 / 0.78);
+      color: var(--contact-p-text);
       max-width: 65ch;
       margin-bottom: 18px;
     }
@@ -1794,9 +1981,9 @@
       gap: 14px;
       margin: 18px 0 20px;
       padding: 14px;
-      border: 1px solid oklch(98% 0.012 65 / 0.14);
+      border: 1px solid var(--contact-inner-border);
       border-radius: 8px;
-      background: oklch(98% 0.012 65 / 0.07);
+      background: var(--contact-inner-bg);
     }
 
     .contact-note strong {
@@ -1806,7 +1993,7 @@
     }
 
     .contact-note span {
-      color: oklch(89% 0.02 76 / 0.78);
+      color: var(--contact-p-text);
       font-size: 0.92rem;
       line-height: 1.5;
     }
@@ -1818,8 +2005,8 @@
       margin-bottom: 14px;
       padding: 0 10px;
       border-radius: 8px;
-      border: 1px solid oklch(98% 0.012 65 / 0.18);
-      background: oklch(98% 0.012 65 / 0.08);
+      border: 1px solid var(--contact-inner-border);
+      background: var(--contact-inner-bg);
       color: var(--butter);
       font-size: 0.82rem;
       font-weight: 800;
@@ -1838,8 +2025,8 @@
       justify-content: center;
       border-radius: 8px;
       padding: 0 14px;
-      border: 1px solid oklch(98% 0.012 65 / 0.18);
-      background: oklch(98% 0.012 65 / 0.08);
+      border: 1px solid var(--contact-inner-border);
+      background: var(--contact-inner-bg);
       color: var(--surface);
       font-weight: 800;
       transition: transform 180ms var(--ease), background 180ms var(--ease), border-color 180ms var(--ease), box-shadow 180ms var(--ease);
@@ -1847,8 +2034,8 @@
 
     .contact-link:hover {
       transform: translateY(-2px);
-      background: oklch(98% 0.012 65 / 0.14);
-      box-shadow: 0 16px 30px oklch(10% 0.02 40 / 0.18);
+      background: var(--contact-link-hover-bg);
+      box-shadow: var(--contact-link-hover-shadow);
     }
 
     .contact-link.primary {
@@ -1856,8 +2043,8 @@
       padding: 0 20px;
       background: var(--butter);
       border-color: var(--butter);
-      color: var(--ink);
-      box-shadow: 0 16px 30px oklch(91% 0.09 88 / 0.18);
+      color: var(--contact-primary-text);
+      box-shadow: var(--contact-primary-shadow);
     }
 
     .contact-link.instagram {
@@ -1865,8 +2052,8 @@
       padding: 0 20px;
       background: var(--coral);
       border-color: var(--coral);
-      color: var(--surface);
-      box-shadow: 0 16px 30px oklch(68% 0.135 35 / 0.22);
+      color: #ffffff;
+      box-shadow: var(--instagram-shadow);
     }
 
     .process-band {
@@ -1878,7 +2065,7 @@
       border-radius: 8px;
       background:
         linear-gradient(135deg, oklch(25% 0.052 44), oklch(31% 0.06 165));
-      color: var(--surface);
+      color: var(--process-text);
       overflow: hidden;
     }
 
@@ -1887,7 +2074,7 @@
     }
 
     .process-band p {
-      color: oklch(89% 0.02 76 / 0.86);
+      color: var(--process-p-text);
       max-width: 62ch;
     }
 
@@ -1897,9 +2084,9 @@
       gap: 1px;
       margin-top: 24px;
       overflow: hidden;
-      border: 1px solid oklch(86% 0.022 76 / 0.22);
+      border: 1px solid var(--process-border);
       border-radius: 8px;
-      background: oklch(86% 0.022 76 / 0.22);
+      background: var(--process-border);
     }
 
     .step {
@@ -1925,7 +2112,7 @@
     }
 
     .step p {
-      color: oklch(89% 0.02 76 / 0.76);
+      color: var(--process-p-text);
       font-size: 0.9rem;
       line-height: 1.55;
     }
@@ -2128,7 +2315,7 @@
 
       .about-metric + .about-metric {
         border-left: 0;
-        border-top: 1px solid oklch(80% 0.028 56 / 0.72);
+        border-top: 1px solid var(--line);
       }
 
       .skill-row {
@@ -2240,6 +2427,7 @@
         <li><a href="#contact">ติดต่อ</a></li>
         <li><a href="#system">โครงงาน</a></li>
       </ul>
+      <button class="theme-toggle" type="button" aria-label="Toggle theme">◐</button>
     </nav>
   </header>
 
@@ -2979,5 +3167,32 @@
       <span>Portfolio Cover, local HTML gallery</span>
     </div>
   </footer>
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const themeToggle = document.querySelector(".theme-toggle");
+
+      const syncThemeToggle = () => {
+        const isDark = root.classList.contains("dark");
+        if (themeToggle) {
+          themeToggle.setAttribute("aria-pressed", String(isDark));
+          themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+        }
+      };
+
+      // Set initial aria attrs
+      syncThemeToggle();
+
+      themeToggle?.addEventListener("click", () => {
+        const isDark = root.classList.toggle("dark");
+        try {
+          localStorage.setItem("portfolio-theme", isDark ? "dark" : "light");
+        } catch (error) {
+          // Fallback if localStorage is disabled
+        }
+        syncThemeToggle();
+      });
+    })();
+  </script>
 </body>
 </html>
