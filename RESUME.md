@@ -1,6 +1,6 @@
 # Phakin Chawanpunya
 
-Frontend / landing page practice portfolio focused on static HTML, responsive CSS, visual hierarchy, and clear project presentation.
+Frontend / landing page portfolio focused on static HTML, responsive CSS, visual hierarchy, and clear project presentation.
 
 ## Contact
 
@@ -13,7 +13,7 @@ Frontend / landing page practice portfolio focused on static HTML, responsive CS
 
 ## Role Target
 
-Junior frontend / landing page practice work where layout, responsiveness, UI polish, and source transparency matter.
+Junior frontend / landing page work where layout, responsiveness, UI polish, and source transparency matter.
 
 ## Skills
 
@@ -35,9 +35,8 @@ Junior frontend / landing page practice work where layout, responsiveness, UI po
 
 ## Featured Projects
 
-- **InternTrack Case Study:** full case study page covering problem, goal, design decisions, practiced skills, and result.
+- **InternTrack Case Study:** full case study page covering problem, goal, design decisions, applied skills, and result.
 - **LaunchLedger Case Study:** full case study page covering runway visibility, spend planning, and launch decision hierarchy.
-- **InternTrack:** full case study for an internship application tracker, focused on pipeline clarity and reviewer-ready project notes.
 - **PulseBoard:** event operations dashboard concept, focused on live status scanning and task ownership.
 - **LaunchLedger:** startup budget dashboard concept, focused on runway, spend planning, and decision queues.
 - **MuseRoom:** digital gallery landing page, focused on art direction and visitor flow.
@@ -45,4 +44,4 @@ Junior frontend / landing page practice work where layout, responsiveness, UI po
 
 ## Portfolio Notes
 
-This is a learning-forward portfolio. The pages are static practice projects, but each one is presented with live links, source links, screenshots, and project context so reviewers can inspect both the design and the code.
+This is a learning-forward portfolio. The pages are static projects, but each one is presented with live links, source links, screenshots, and project context so reviewers can inspect both the design and the code.

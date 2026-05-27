@@ -1,6 +1,6 @@
 # Portfolio Cover Gallery
 
-A static HTML portfolio gallery that collects ten standalone front-end projects into one cover page. The root `index.html` works as the portfolio entry point, with separate links for viewing each live page and opening its source file.
+A static HTML portfolio gallery that collects seven featured front-end projects into one cover page. The root `index.html` works as the portfolio entry point, with separate links for viewing each live page and opening its source file.
 
 Live site: <https://phakinza007.github.io/my-portfolio/>
 
@@ -15,12 +15,9 @@ Live site: <https://phakinza007.github.io/my-portfolio/>
 | MuseRoom | [Open live](https://phakinza007.github.io/my-portfolio/MuseRoom.html) | [`MuseRoom.html`](https://github.com/Phakinza007/my-portfolio/blob/main/MuseRoom.html) | ![MuseRoom screenshot](assets/screenshots/museroom.png) |
 | InternTrack | [Open live](https://phakinza007.github.io/my-portfolio/InternTrack.html) | [`InternTrack.html`](https://github.com/Phakinza007/my-portfolio/blob/main/InternTrack.html) | ![InternTrack screenshot](assets/screenshots/interntrack.png) |
 | PulseBoard | [Open live](https://phakinza007.github.io/my-portfolio/PulseBoard.html) | [`PulseBoard.html`](https://github.com/Phakinza007/my-portfolio/blob/main/PulseBoard.html) | ![PulseBoard screenshot](assets/screenshots/pulseboard.png) |
-| DevLaunch Academy | [Open live](https://phakinza007.github.io/my-portfolio/intern_landing_page_html_css.html) | [`intern_landing_page_html_css.html`](https://github.com/Phakinza007/my-portfolio/blob/main/intern_landing_page_html_css.html) | ![DevLaunch Academy screenshot](assets/screenshots/devlaunch.png) |
 | Iron Republic | [Open live](https://phakinza007.github.io/my-portfolio/gym-landing.html) | [`gym-landing.html`](https://github.com/Phakinza007/my-portfolio/blob/main/gym-landing.html) | ![Iron Republic screenshot](assets/screenshots/gym-landing.png) |
-| Brew & Co. | [Open live](https://phakinza007.github.io/my-portfolio/Brew%20%26%20Co..html) | [`Brew & Co..html`](https://github.com/Phakinza007/my-portfolio/blob/main/Brew%20%26%20Co..html) | ![Brew and Co screenshot](assets/screenshots/brew-co.png) |
 | NOIR Coffee | [Open live](https://phakinza007.github.io/my-portfolio/coffee-landing.html) | [`coffee-landing.html`](https://github.com/Phakinza007/my-portfolio/blob/main/coffee-landing.html) | ![NOIR Coffee screenshot](assets/screenshots/noir-coffee.png) |
 | DRIP Coffee Bar | [Open live](https://phakinza007.github.io/my-portfolio/DRIP.html) | [`DRIP.html`](https://github.com/Phakinza007/my-portfolio/blob/main/DRIP.html) | ![DRIP Coffee Bar screenshot](assets/screenshots/drip.png) |
-| Cozy Coffee Shop | [Open live](https://phakinza007.github.io/my-portfolio/coffee_shop_landing_page.html) | [`coffee_shop_landing_page.html`](https://github.com/Phakinza007/my-portfolio/blob/main/coffee_shop_landing_page.html) | ![Cozy Coffee Shop screenshot](assets/screenshots/cozy-coffee.png) |
 
 ## Resume and Case Studies
 
@@ -35,11 +32,11 @@ Three full case study pages explain the thinking behind the strongest reviewer e
 - LaunchLedger: <https://phakinza007.github.io/my-portfolio/case-study-launchledger.html>
 - PulseBoard: <https://phakinza007.github.io/my-portfolio/case-study-pulseboard.html>
 
-The homepage also includes compact case-study notes for extra project range, an About / Skills band, project status badges, and a stronger contact CTA so reviewers can understand the portfolio without copying links or searching through files.
+The homepage also includes compact DevLaunch Academy project notes, an About / Skills band, project status badges, and a stronger contact CTA so reviewers can understand the portfolio without copying links or searching through files.
 
-The hero includes a featured case-study link to InternTrack so reviewers can jump straight into a stronger product-thinking example, plus a Resume link in the top navigation.
+The hero includes a featured LaunchLedger preview, reviewer case-study CTA, and Resume link in the top navigation.
 
-Each standalone project page includes a fixed `Back to Portfolio` context panel, page-specific title metadata, a short project intro, and practiced-skill tags.
+Each standalone project page includes a fixed `Back to Portfolio` context panel, page-specific title metadata, a short project intro, and skill tags.
 
 ## How To Open
 
