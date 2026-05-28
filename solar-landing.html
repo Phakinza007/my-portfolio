@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SolarPeak — a clean-energy solar company landing page practice project with hero, stats, how-it-works, plans, and contact." />
+  <meta name="author" content="Phakin Chawanpunya" />
+  <title>SolarPeak | Clean Energy Landing Page | Phakin Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/portfolio-context.css?v=back-button-clean" />
+  <style>
+    :root {
+      --bg:        #050d1a;
+      --bg2:       #081020;
+      --bg3:       #0c1830;
+      --card:      rgba(255,255,255,0.05);
+      --card-h:    rgba(255,255,255,0.09);
+      --sun:       #f5a623;
+      --sun-warm:  #f7c355;
+      --sun-pale:  rgba(245,166,35,0.12);
+      --green:     #22d3a3;
+      --green-dim: rgba(34,211,163,0.12);
+      --blue:      #38bdf8;
+      --white:     #f0f4ff;
+      --muted:     rgba(240,244,255,0.5);
+      --border:    rgba(255,255,255,0.09);
+      --radius-xl: 28px;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      overflow-x: hidden;
+      line-height: 1.65;
+    }
+
+    /* ── NOISE + GRID BG ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background-image:
+        linear-gradient(rgba(245,166,35,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245,166,35,0.025) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent 60%);
+    }
+
+    /* ── SUN GLOW ── */
+    .sun-glow {
+      position: fixed; top: -280px; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(245,166,35,0.22) 0%, rgba(245,166,35,0.06) 45%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 4rem;
+      background: rgba(5,13,26,0.82);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 1.1rem; font-weight: 800; letter-spacing: -0.4px;
+    }
+
+    .nav-logo .sun-mark {
+      width: 28px; height: 28px;
+      background: linear-gradient(135deg, var(--sun), var(--sun-warm));
+      border-radius: 50%;
+      box-shadow: 0 0 18px rgba(245,166,35,0.5);
+    }
+
+    .nav-links { display: flex; gap: 2.4rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.83rem; font-weight: 500; letter-spacing: 0.02em;
+      color: var(--muted); text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--sun), #e8941a);
+      color: #050d1a;
+      font-size: 0.83rem; font-weight: 700; letter-spacing: 0.04em;
+      padding: 0.6rem 1.4rem; border-radius: 99px; text-decoration: none;
+      box-shadow: 0 4px 18px rgba(245,166,35,0.35);
+      transition: all 0.2s;
+    }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(245,166,35,0.5); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 4rem 6rem;
+      position: relative; z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--sun);
+      background: var(--sun-pale); border: 1px solid rgba(245,166,35,0.2);
+      padding: 0.35rem 1rem; border-radius: 99px;
+      margin-bottom: 2rem; width: fit-content;
+    }
+
+    .badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--sun); animation: blink 1.8s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    .hero-headline {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: clamp(3.2rem, 7vw, 7.5rem);
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      max-width: 900px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-headline .highlight {
+      color: var(--sun);
+      font-style: italic;
+    }
+
+    .hero-sub {
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.85;
+      margin-bottom: 3rem;
+    }
+
+    .hero-actions { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
+
+    .btn-sun {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: linear-gradient(135deg, var(--sun), #e8941a);
+      color: #050d1a; font-size: 0.9rem; font-weight: 700;
+      padding: 1rem 2.2rem; border-radius: 99px;
+      text-decoration: none; border: none; cursor: pointer;
+      box-shadow: 0 6px 24px rgba(245,166,35,0.4);
+      transition: all 0.22s;
+    }
+    .btn-sun:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(245,166,35,0.55); }
+
+    .btn-ghost-white {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: transparent; color: var(--white);
+      font-size: 0.9rem; font-weight: 500;
+      padding: 0.95rem 1.8rem; border-radius: 99px;
+      border: 1px solid var(--border); text-decoration: none;
+      transition: all 0.22s;
+    }
+    .btn-ghost-white:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.05); }
+
+    /* Hero stats */
+    .hero-stats {
+      display: flex; gap: 3rem; margin-top: 5rem;
+      padding-top: 3rem; border-top: 1px solid var(--border);
+    }
+    .h-stat-num {
+      font-size: 2.4rem; font-weight: 800; letter-spacing: -1.5px;
+      color: var(--white); display: block;
+    }
+    .h-stat-num .unit { font-size: 1.4rem; color: var(--sun); }
+    .h-stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
+
+    /* ── SUN SVG ── */
+    .hero-sun-wrap {
+      position: absolute; right: 4rem; top: 50%; transform: translateY(-50%);
+      z-index: 0; pointer-events: none;
+    }
+
+    /* ── SECTION ── */
+    section { position: relative; z-index: 1; }
+    .section { padding: 7rem 4rem; }
+
+    .sec-eyebrow {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--sun);
+      margin-bottom: 0.75rem;
+    }
+
+    .sec-title {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 1.1; letter-spacing: -0.02em;
+      color: var(--white);
+    }
+
+    .sec-title em { color: var(--sun); font-style: italic; }
+
+    /* ── STATS BAND ── */
+    .stats-band {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 4rem;
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 1px; background: var(--border);
+    }
+    .stat-cell {
+      background: var(--bg2); padding: 2.5rem;
+      text-align: center;
+    }
+    .stat-big {
+      font-size: 3rem; font-weight: 800; letter-spacing: -2px;
+      display: block; color: var(--white);
+    }
+    .stat-big span { color: var(--sun); }
+    .stat-desc { font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; }
+
+    /* ── HOW IT WORKS ── */
+    .how-section { background: var(--bg); }
+    .steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; margin-top: 5rem; position: relative; }
+
+    .steps::before {
+      content: '';
+      position: absolute; top: 2.5rem; left: 12.5%; right: 12.5%;
+      height: 1px; background: linear-gradient(90deg, transparent, var(--sun), transparent);
+      opacity: 0.35;
+    }
+
+    .step { padding: 0 1.5rem; text-align: center; }
+    .step-num {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--sun-pale); border: 1px solid rgba(245,166,35,0.3);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 0.85rem; font-weight: 800; color: var(--sun);
+    }
+    .step-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.6rem; }
+    .step-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── WHY SOLAR ── */
+    .why-section { background: var(--bg2); }
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 3rem; }
+    .why-visual {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .benefits { display: flex; flex-direction: column; gap: 0; }
+    .benefit {
+      display: flex; gap: 1.2rem; padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .benefit:last-child { border-bottom: none; }
+    .benefit-icon {
+      width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; font-weight: 800;
+    }
+    .bi-sun  { background: var(--sun-pale); color: var(--sun); }
+    .bi-leaf { background: var(--green-dim); color: var(--green); }
+    .bi-bolt { background: rgba(56,189,248,0.1); color: var(--blue); }
+    .bi-shield { background: rgba(167,139,250,0.1); color: #a78bfa; }
+
+    .benefit-title { font-size: 0.93rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .benefit-desc  { font-size: 0.8rem; color: var(--muted); line-height: 1.65; }
+
+    /* ── PLANS ── */
+    .plans-section { background: var(--bg); }
+    .plans-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 4rem; }
+    .plan-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); padding: 2.5rem;
+      position: relative; overflow: hidden; transition: all 0.25s;
+    }
+    .plan-card:hover { background: var(--card-h); transform: translateY(-4px); }
+    .plan-card.featured {
+      background: linear-gradient(135deg, rgba(245,166,35,0.14), rgba(245,166,35,0.04));
+      border-color: rgba(245,166,35,0.35);
+    }
+    .plan-badge {
+      display: inline-block; font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      background: var(--sun); color: #050d1a;
+      padding: 0.2rem 0.7rem; border-radius: 99px;
+      margin-bottom: 1.5rem;
+    }
+    .plan-name { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.3px; margin-bottom: 0.4rem; }
+    .plan-tag  { font-size: 0.78rem; color: var(--muted); margin-bottom: 1.8rem; }
+    .plan-price-row { margin-bottom: 2rem; }
+    .plan-price {
+      font-size: 2.8rem; font-weight: 800; letter-spacing: -2px;
+      color: var(--white); line-height: 1;
+    }
+    .plan-price .curr { font-size: 1.4rem; vertical-align: top; margin-top: 0.4rem; display: inline-block; }
+    .plan-unit { font-size: 0.78rem; color: var(--muted); margin-top: 0.3rem; }
+    .plan-features { display: flex; flex-direction: column; gap: 0; margin-bottom: 2rem; }
+    .plan-feat {
+      display: flex; align-items: center; gap: 0.7rem;
+      padding: 0.75rem 0; border-bottom: 1px solid var(--border);
+      font-size: 0.82rem; color: var(--muted);
+    }
+    .plan-feat:last-child { border-bottom: none; }
+    .feat-check { color: var(--green); font-weight: 800; font-size: 0.75rem; }
+    .feat-dash  { color: rgba(255,255,255,0.2); }
+    .plan-btn {
+      display: block; width: 100%; text-align: center;
+      padding: 0.85rem; border-radius: 99px;
+      font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s;
+      text-decoration: none;
+    }
+    .plan-btn-outline {
+      border: 1px solid var(--border); color: var(--white); background: transparent;
+    }
+    .plan-btn-outline:hover { border-color: var(--sun); color: var(--sun); }
+    .plan-btn-filled {
+      background: linear-gradient(135deg, var(--sun), #e8941a);
+      color: #050d1a; border: none;
+      box-shadow: 0 4px 16px rgba(245,166,35,0.35);
+    }
+    .plan-btn-filled:hover { box-shadow: 0 8px 28px rgba(245,166,35,0.55); }
+
+    /* ── TESTIMONIALS ── */
+    .testi-section { background: var(--bg2); }
+    .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 4rem; }
+    .testi-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 2rem;
+      transition: all 0.22s;
+    }
+    .testi-card:hover { background: var(--card-h); }
+    .testi-stars { color: var(--sun); font-size: 0.75rem; letter-spacing: 0.1em; margin-bottom: 0.9rem; }
+    .testi-text { font-size: 0.88rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.2rem; font-style: italic; }
+    .testi-name { font-size: 0.85rem; font-weight: 700; }
+    .testi-role { font-size: 0.75rem; color: var(--muted); }
+
+    /* ── CONTACT ── */
+    .contact-section {
+      background: var(--bg);
+      display: grid; grid-template-columns: 1fr 1fr; min-height: 70vh;
+    }
+    .contact-left { padding: 7rem 4rem; }
+    .contact-right {
+      background: linear-gradient(135deg, rgba(245,166,35,0.18), rgba(245,166,35,0.05));
+      border-left: 1px solid rgba(245,166,35,0.2);
+      padding: 7rem 4rem;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .form-group { margin-bottom: 1rem; }
+    .form-label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--muted); margin-bottom: 0.4rem; letter-spacing: 0.05em; }
+    .form-input, .form-select {
+      width: 100%; padding: 0.8rem 1rem;
+      background: rgba(255,255,255,0.06); border: 1px solid var(--border);
+      border-radius: var(--radius-md); color: var(--white); font-size: 0.88rem;
+      font-family: inherit; outline: none; transition: border-color 0.2s;
+    }
+    .form-input::placeholder { color: var(--muted); }
+    .form-input:focus, .form-select:focus { border-color: var(--sun); }
+    .form-select option { background: #0c1830; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .form-sub { font-size: 0.8rem; font-weight: 700; color: var(--sun); margin-bottom: 1.5rem; }
+    .contact-perks { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2.5rem; }
+    .c-perk { display: flex; gap: 1rem; align-items: flex-start; }
+    .c-perk-num {
+      width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+      background: var(--sun-pale); border: 1px solid rgba(245,166,35,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 800; color: var(--sun);
+    }
+    .c-perk-title { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .c-perk-desc  { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg2); border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 2rem 4rem;
+      position: relative; z-index: 1;
+    }
+    .footer-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 800; font-size: 0.95rem; }
+    .footer-logo .sm { width: 18px; height: 18px; background: var(--sun); border-radius: 50%; }
+    .footer-copy { font-size: 0.72rem; color: var(--muted); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { padding: 6rem 1.5rem 4rem; }
+      .hero-sun-wrap { display: none; }
+      .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+      .section { padding: 5rem 1.5rem; }
+      .stats-band { grid-template-columns: 1fr 1fr; padding: 0; }
+      .stat-cell { padding: 2rem 1.5rem; }
+      .steps { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+      .steps::before { display: none; }
+      .why-grid { grid-template-columns: 1fr; }
+      .why-visual { display: none; }
+      .plans-grid { grid-template-columns: 1fr; max-width: 420px; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .contact-section { grid-template-columns: 1fr; }
+      .contact-left, .contact-right { padding: 4rem 1.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 0.8rem; padding: 1.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="sun-glow"></div>
+
+<aside class="portfolio-context" aria-label="Portfolio navigation">
+  <a class="portfolio-back" href="index.html">&larr; Back to Portfolio</a>
+</aside>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="sun-mark"></div>
+    SolarPeak
+  </div>
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#why">Benefits</a></li>
+    <li><a href="#plans">Plans</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get Free Quote</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-sun-wrap">
+    <svg viewBox="0 0 540 540" width="540" height="540" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="sg" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#f5a623" stop-opacity="0.55"/>
+          <stop offset="50%" stop-color="#f5a623" stop-opacity="0.12"/>
+          <stop offset="100%" stop-color="#f5a623" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="core" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#f7c355"/>
+          <stop offset="100%" stop-color="#f5a623"/>
+        </radialGradient>
+      </defs>
+      <!-- Outer glow -->
+      <circle cx="270" cy="270" r="265" fill="url(#sg)"/>
+      <!-- Rays -->
+      <g stroke="#f5a623" stroke-width="1" opacity="0.25">
+        <line x1="270" y1="0" x2="270" y2="50"/>
+        <line x1="270" y1="490" x2="270" y2="540"/>
+        <line x1="0" y1="270" x2="50" y2="270"/>
+        <line x1="490" y1="270" x2="540" y2="270"/>
+        <line x1="38" y1="38" x2="73" y2="73"/>
+        <line x1="467" y1="467" x2="502" y2="502"/>
+        <line x1="502" y1="38" x2="467" y2="73"/>
+        <line x1="73" y1="467" x2="38" y2="502"/>
+        <line x1="165" y1="10" x2="180" y2="44"/>
+        <line x1="375" y1="10" x2="360" y2="44"/>
+        <line x1="165" y1="530" x2="180" y2="496"/>
+        <line x1="375" y1="530" x2="360" y2="496"/>
+        <line x1="10" y1="165" x2="44" y2="180"/>
+        <line x1="530" y1="165" x2="496" y2="180"/>
+        <line x1="10" y1="375" x2="44" y2="360"/>
+        <line x1="530" y1="375" x2="496" y2="360"/>
+      </g>
+      <!-- Ring -->
+      <circle cx="270" cy="270" r="120" fill="none" stroke="#f5a623" stroke-width="0.8" opacity="0.2"/>
+      <circle cx="270" cy="270" r="80" fill="none" stroke="#f5a623" stroke-width="0.8" opacity="0.15"/>
+      <!-- Core sun -->
+      <circle cx="270" cy="270" r="60" fill="url(#core)" opacity="0.9"/>
+      <circle cx="270" cy="270" r="44" fill="#f7c355" opacity="0.95"/>
+      <!-- Panel grid on sun -->
+      <line x1="252" y1="250" x2="252" y2="290" stroke="#e8941a" stroke-width="1.2" opacity="0.5"/>
+      <line x1="270" y1="250" x2="270" y2="290" stroke="#e8941a" stroke-width="1.2" opacity="0.5"/>
+      <line x1="288" y1="250" x2="288" y2="290" stroke="#e8941a" stroke-width="1.2" opacity="0.5"/>
+      <line x1="235" y1="262" x2="305" y2="262" stroke="#e8941a" stroke-width="1.2" opacity="0.5"/>
+      <line x1="235" y1="278" x2="305" y2="278" stroke="#e8941a" stroke-width="1.2" opacity="0.5"/>
+    </svg>
+  </div>
+
+  <div class="hero-badge">
+    <div class="badge-dot"></div>
+    Clean Energy · Est. 2019
+  </div>
+
+  <h1 class="hero-headline">
+    Power Your Future<br>with <span class="highlight">Solar.</span>
+  </h1>
+
+  <p class="hero-sub">
+    SolarPeak delivers premium residential and commercial solar installations — reducing bills, carbon footprints, and energy dependence since 2019.
+  </p>
+
+  <div class="hero-actions">
+    <a href="#contact" class="btn-sun">
+      Get a Free Quote
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="#how" class="btn-ghost-white">How It Works</a>
+  </div>
+
+  <div class="hero-stats">
+    <div>
+      <span class="h-stat-num">12<span class="unit">K+</span></span>
+      <div class="h-stat-label">Panels Installed</div>
+    </div>
+    <div>
+      <span class="h-stat-num">98<span class="unit">%</span></span>
+      <div class="h-stat-label">Customer Satisfaction</div>
+    </div>
+    <div>
+      <span class="h-stat-num">40<span class="unit">%</span></span>
+      <div class="h-stat-label">Average Bill Reduction</div>
+    </div>
+    <div>
+      <span class="h-stat-num">5<span class="unit">yr</span></span>
+      <div class="h-stat-label">Full Warranty</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAND -->
+<div class="stats-band">
+  <div class="stat-cell">
+    <span class="stat-big">2,400<span>+</span></span>
+    <div class="stat-desc">Homes powered by clean solar</div>
+  </div>
+  <div class="stat-cell">
+    <span class="stat-big">18<span>MW</span></span>
+    <div class="stat-desc">Total clean capacity installed</div>
+  </div>
+  <div class="stat-cell">
+    <span class="stat-big">34<span>k</span></span>
+    <div class="stat-desc">Tonnes of CO₂ offset per year</div>
+  </div>
+  <div class="stat-cell">
+    <span class="stat-big">15<span>yr</span></span>
+    <div class="stat-desc">Panel performance guarantee</div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="section how-section" id="how">
+  <div class="sec-eyebrow">How It Works</div>
+  <div class="sec-title">Simple as <em>Sunlight</em></div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Free Site Assessment</div>
+      <p class="step-desc">Our engineers visit your property to assess roof orientation, shading, and energy needs — at zero cost to you.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Custom System Design</div>
+      <p class="step-desc">We design a system tailored to your usage and roof, with a projected savings report and clear ROI timeline.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Professional Installation</div>
+      <p class="step-desc">Certified solar technicians install your system in 1–2 days. Fully permitted, grid-connected, and warranty-backed.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-title">Monitor & Save</div>
+      <p class="step-desc">Track your production and savings live via our app. Most customers break even within 5–7 years.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY SOLAR -->
+<section class="section why-section" id="why">
+  <div class="sec-eyebrow">Why Solar</div>
+  <div class="sec-title">Built for the Long<br><em>Run</em></div>
+  <div class="why-grid">
+    <div class="benefits">
+      <div class="benefit">
+        <div class="benefit-icon bi-sun">☀</div>
+        <div>
+          <div class="benefit-title">Cut Electricity Bills by Up to 40%</div>
+          <p class="benefit-desc">Generate your own power and dramatically reduce monthly utility costs. Excess energy goes back to the grid — earning you credits.</p>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon bi-leaf">↺</div>
+        <div>
+          <div class="benefit-title">Zero-Emission Clean Energy</div>
+          <p class="benefit-desc">Each SolarPeak household offsets an average of 14 tonnes of CO₂ per year — equivalent to planting 200 trees annually.</p>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon bi-bolt">↯</div>
+        <div>
+          <div class="benefit-title">Energy Independence</div>
+          <p class="benefit-desc">With optional battery storage, keep your home powered during grid outages and protect against rising energy prices.</p>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon bi-shield">✦</div>
+        <div>
+          <div class="benefit-title">Increase Property Value</div>
+          <p class="benefit-desc">Homes with solar sell faster and for up to 4% more than comparable non-solar properties, according to industry studies.</p>
+        </div>
+      </div>
+    </div>
+    <div class="why-visual">
+      <svg viewBox="0 0 400 400" width="400" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="400" fill="#0c1830"/>
+        <!-- House silhouette -->
+        <polygon points="200,60 320,160 320,340 80,340 80,160" fill="#0a1525"/>
+        <polygon points="200,60 320,160 80,160" fill="#081020"/>
+        <!-- Door -->
+        <rect x="170" y="270" width="60" height="70" rx="4" fill="#0f1d35"/>
+        <!-- Windows -->
+        <rect x="100" y="200" width="55" height="45" rx="3" fill="#0f1d35"/>
+        <rect x="245" y="200" width="55" height="45" rx="3" fill="#0f1d35"/>
+        <!-- Solar panels on roof -->
+        <g opacity="0.85">
+          <rect x="120" y="125" width="35" height="22" rx="2" fill="#1a3a6e"/>
+          <rect x="162" y="110" width="35" height="22" rx="2" fill="#1a3a6e"/>
+          <rect x="204" y="125" width="35" height="22" rx="2" fill="#1a3a6e"/>
+          <rect x="246" y="140" width="35" height="22" rx="2" fill="#1a3a6e"/>
+          <!-- Panel lines -->
+          <line x1="137" y1="125" x2="137" y2="147" stroke="#f5a623" stroke-width="0.8" opacity="0.6"/>
+          <line x1="179" y1="110" x2="179" y2="132" stroke="#f5a623" stroke-width="0.8" opacity="0.6"/>
+          <line x1="221" y1="125" x2="221" y2="147" stroke="#f5a623" stroke-width="0.8" opacity="0.6"/>
+          <line x1="263" y1="140" x2="263" y2="162" stroke="#f5a623" stroke-width="0.8" opacity="0.6"/>
+          <line x1="120" y1="136" x2="155" y2="136" stroke="#f5a623" stroke-width="0.8" opacity="0.4"/>
+          <line x1="162" y1="121" x2="197" y2="121" stroke="#f5a623" stroke-width="0.8" opacity="0.4"/>
+          <line x1="204" y1="136" x2="239" y2="136" stroke="#f5a623" stroke-width="0.8" opacity="0.4"/>
+          <line x1="246" y1="151" x2="281" y2="151" stroke="#f5a623" stroke-width="0.8" opacity="0.4"/>
+        </g>
+        <!-- Sun top right -->
+        <circle cx="340" cy="60" r="28" fill="#f5a623" opacity="0.25"/>
+        <circle cx="340" cy="60" r="18" fill="#f7c355" opacity="0.7"/>
+        <!-- Glow under panels -->
+        <ellipse cx="200" cy="350" rx="90" ry="10" fill="#f5a623" opacity="0.06"/>
+        <!-- Energy line -->
+        <path d="M200 140 Q200 220 200 250" stroke="#f5a623" stroke-width="1.5" fill="none" stroke-dasharray="4,4" opacity="0.4"/>
+        <circle cx="200" cy="255" r="5" fill="#f5a623" opacity="0.5"/>
+        <!-- Label -->
+        <text x="200" y="385" text-anchor="middle" font-family="'Inter',sans-serif" font-size="9" letter-spacing="4" fill="#f5a623" opacity="0.4" font-weight="700">SOLARPEAK SYSTEM</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- PLANS -->
+<section class="section plans-section" id="plans">
+  <div class="sec-eyebrow">Pricing Plans</div>
+  <div class="sec-title">Find Your<br><em>Perfect Fit</em></div>
+  <div class="plans-grid">
+    <div class="plan-card">
+      <div class="plan-badge">Starter</div>
+      <div class="plan-name">Essential</div>
+      <div class="plan-tag">Great for small households</div>
+      <div class="plan-price-row">
+        <div class="plan-price"><span class="curr">$</span>8,900</div>
+        <div class="plan-unit">installed · after rebates</div>
+      </div>
+      <div class="plan-features">
+        <div class="plan-feat"><span class="feat-check">✓</span> 4 kW Solar System</div>
+        <div class="plan-feat"><span class="feat-check">✓</span> 12 Premium Panels</div>
+        <div class="plan-feat"><span class="feat-check">✓</span> 5-Year Workmanship Warranty</div>
+        <div class="plan-feat"><span class="feat-check">✓</span> Smart Monitoring App</div>
+        <div class="plan-feat"><span class="feat-dash">—</span> Battery Storage</div>
+        <div class="plan-feat"><span class="feat-dash">—</span> EV Charger Add-on</div>
+      </div>
+      <a href="#contact" class="plan-btn plan-btn-outline">Get This Plan</a>
+    </div>
+    <div class="plan-card featured">
+      <div class="plan-badge">Most Popular</div>
+      <div class="plan-name">Power Home</div>
+      <div class="plan-tag">Best for average households</div>
+      <div class="plan-price-row">
+        <div class="plan-price"><span class="curr">$</span>14,500</div>
+        <div class="plan-unit">installed · after rebates</div>
+      </div>
+      <div class="plan-features">
+        <div class="plan-feat"><span class="feat-check">✓</span> 8 kW Solar System</div>
+        <div class="plan-feat"><span class="feat-check">✓</span> 24 Premium Panels</div>
+        <div class="plan-feat"><span class="feat-check">✓</span> 10-Year Full Warranty</div>
+        <div class="plan-feat"><span class="feat-check">✓</span> Smart Monitoring App</div>
+        <div class="plan-feat"><span class="feat-check">✓</span> 10 kWh Battery Storage</div>
+        <div class="plan-feat"><span class="feat-dash">—</span> EV Charger Add-on</div>
+      </div>
+      <a href="#contact" class="plan-btn plan-btn-filled">Get This Plan</a>
+    </div>
+    <div class="plan-card">
+      <div class="plan-badge">Premium</div>
+      <div class="plan-name">Full Independence</div>
+      <div class="plan-tag">For large homes & businesses</div>
+      <div class="plan-price-row">
+        <div class="plan-price"><span class="curr">$</span>22,000</div>
+        <div class="plan-unit">installed · after rebates</div>
+      </div>
+      <div class="plan-features">
+        <div class="plan-feat"><span class="feat-check">✓</span> 15 kW Solar System</div>
+        <div class="plan-feat"><span class="feat-check">✓</span> 40 Premium Panels</div>
+        <div class="plan-feat"><span class="feat-check">✓</span> 15-Year Full Warranty</div>
+        <div class="plan-feat"><span class="feat-check">✓</span> Smart Monitoring App</div>
+        <div class="plan-feat"><span class="feat-check">✓</span> 20 kWh Battery Storage</div>
+        <div class="plan-feat"><span class="feat-check">✓</span> EV Charger Included</div>
+      </div>
+      <a href="#contact" class="plan-btn plan-btn-outline">Get This Plan</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section testi-section">
+  <div class="sec-eyebrow">Customer Stories</div>
+  <div class="sec-title">Real People,<br><em>Real Savings</em></div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★ ★ ★ ★ ★</div>
+      <p class="testi-text">"Our electricity bill dropped from $280 to $42 in the first month. The installation team was professional and finished in a single day."</p>
+      <div class="testi-name">Sarah M.</div>
+      <div class="testi-role">Homeowner · Power Home Plan</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★ ★ ★ ★ ★</div>
+      <p class="testi-text">"SolarPeak handled everything — permits, installation, grid connection. Six months later, our restaurant runs almost entirely on solar."</p>
+      <div class="testi-name">David K.</div>
+      <div class="testi-role">Restaurant Owner · Full Independence</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★ ★ ★ ★ ★</div>
+      <p class="testi-text">"The ROI calculator was spot-on. We broke even in 5 years and now the system just generates income through feed-in credits every month."</p>
+      <div class="testi-name">Linda T.</div>
+      <div class="testi-role">Homeowner · Essential Plan</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="contact-left">
+    <div class="sec-eyebrow">Get a Quote</div>
+    <div class="sec-title" style="margin-bottom:2rem;">Start Your<br><em>Solar Journey</em></div>
+    <div class="form-sub">Free assessment — no obligation</div>
+    <form onsubmit="submitForm(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input type="text" class="form-input" placeholder="John" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input type="text" class="form-input" placeholder="Smith" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" placeholder="john@example.com" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone Number</label>
+        <input type="tel" class="form-input" placeholder="+1 (555) 000-0000" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Property Type</label>
+        <select class="form-select">
+          <option value="" disabled selected>Select type...</option>
+          <option>Residential Home</option>
+          <option>Apartment / Condo</option>
+          <option>Commercial Building</option>
+          <option>Industrial</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Monthly Power Bill (approx.)</label>
+        <select class="form-select">
+          <option value="" disabled selected>Select range...</option>
+          <option>Under $100</option>
+          <option>$100 – $200</option>
+          <option>$200 – $400</option>
+          <option>$400+</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-sun" style="margin-top:1rem;width:100%;justify-content:center;">
+        Request Free Assessment
+      </button>
+    </form>
+    <p id="form-thanks" style="display:none;margin-top:1rem;color:#22d3a3;font-size:0.88rem;font-weight:600;">
+      Thank you! We'll contact you within 24 hours to schedule your free site assessment.
+    </p>
+  </div>
+  <div class="contact-right">
+    <div class="sec-eyebrow" style="margin-bottom:1rem;">Why Choose Us</div>
+    <div class="sec-title" style="font-size:2rem;margin-bottom:2rem;">Every Step<br><em>Covered</em></div>
+    <div class="contact-perks">
+      <div class="c-perk">
+        <div class="c-perk-num">01</div>
+        <div>
+          <div class="c-perk-title">Free Site Assessment</div>
+          <p class="c-perk-desc">Our certified engineers visit at no cost to design your custom system.</p>
+        </div>
+      </div>
+      <div class="c-perk">
+        <div class="c-perk-num">02</div>
+        <div>
+          <div class="c-perk-title">Full Permit Handling</div>
+          <p class="c-perk-desc">We manage all council permits and grid connection paperwork end-to-end.</p>
+        </div>
+      </div>
+      <div class="c-perk">
+        <div class="c-perk-num">03</div>
+        <div>
+          <div class="c-perk-title">Flexible Financing</div>
+          <p class="c-perk-desc">Zero-deposit plans available. Pay from your savings, not your pocket.</p>
+        </div>
+      </div>
+      <div class="c-perk">
+        <div class="c-perk-num">04</div>
+        <div>
+          <div class="c-perk-title">Ongoing Support</div>
+          <p class="c-perk-desc">24/7 monitoring, annual servicing, and a dedicated account manager for life.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo"><div class="sm"></div> SolarPeak</div>
+  <div class="footer-copy">© 2024 SolarPeak · Clean Energy Solutions · All Rights Reserved</div>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => nav.style.background = window.scrollY > 40 ? 'rgba(5,13,26,0.96)' : 'rgba(5,13,26,0.82)');
+
+  // Smooth links
+  document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+  }));
+
+  // Form
+  function submitForm(e) {
+    e.preventDefault();
+    document.getElementById('form-thanks').style.display = 'block';
+    e.target.style.display = 'none';
+  }
+</script>
+</body>
+</html>
