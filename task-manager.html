@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task Manager</title>
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-soft: #0b1024;
+      --card: rgba(255, 255, 255, 0.06);
+      --card-hover: rgba(255, 255, 255, 0.10);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --primary: #38bdf8;
+      --secondary: #a78bfa;
+      --accent: #22c55e;
+      --danger: #fb7185;
+      --warning: #fbbf24;
+      --border: rgba(255, 255, 255, 0.12);
+      --radius-xl: 28px;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      font-family: Inter, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.15), transparent 35%),
+        radial-gradient(circle at top right, rgba(167, 139, 250, 0.15), transparent 32%),
+        radial-gradient(circle at bottom center, rgba(34, 197, 94, 0.06), transparent 40%),
+        var(--bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, black, transparent 70%);
+      z-index: -1;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(5, 8, 22, 0.75);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .nav-brand .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+
+    .nav-stats {
+      display: flex;
+      gap: 1.2rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .nav-stats span { display: flex; align-items: center; gap: 0.3rem; }
+    .nav-stats .badge {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 0.15rem 0.55rem;
+      border-radius: 20px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 5rem;
+    }
+
+    /* ── HEADER ── */
+    .page-header {
+      margin-bottom: 2rem;
+    }
+
+    .page-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.15;
+      background: linear-gradient(135deg, var(--text) 40%, var(--muted));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-header p {
+      margin-top: 0.5rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    /* ── ADD TASK ── */
+    .add-task-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 1.4rem 1.6rem;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(12px);
+    }
+
+    .add-task-row {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .task-input {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      color: var(--text);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .task-input::placeholder { color: var(--muted); }
+
+    .task-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12);
+    }
+
+    .add-options {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 0.9rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .priority-select, .tag-input {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.4rem 0.75rem;
+      color: var(--text);
+      font-size: 0.8rem;
+      outline: none;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .priority-select option { background: #1e293b; }
+
+    .priority-select:focus, .tag-input:focus {
+      border-color: var(--primary);
+    }
+
+    .tag-input { width: 130px; }
+    .tag-input::placeholder { color: var(--muted); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.18s;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #0ea5e9);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(56,189,248,0.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 22px rgba(56,189,248,0.38);
+    }
+
+    .btn-primary:active { transform: translateY(0); }
+
+    /* ── FILTERS ── */
+    .filters {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+
+    .filter-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.22); }
+
+    .filter-btn.active {
+      background: rgba(56,189,248,0.12);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .filter-btn[data-filter="completed"].active {
+      background: rgba(34,197,94,0.12);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .filter-btn[data-filter="high"].active {
+      background: rgba(251,113,133,0.12);
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    /* ── TASK LIST ── */
+    .task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .task-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      backdrop-filter: blur(10px);
+      transition: background 0.18s, border-color 0.18s, transform 0.18s;
+      animation: slideIn 0.22s ease;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .task-item:hover {
+      background: var(--card-hover);
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    .task-item.completed {
+      opacity: 0.55;
+    }
+
+    .task-item.completed .task-title {
+      text-decoration: line-through;
+      color: var(--muted);
+    }
+
+    /* Checkbox */
+    .task-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      border: 2px solid var(--border);
+      background: transparent;
+      cursor: pointer;
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.18s;
+    }
+
+    .task-check:hover { border-color: var(--primary); }
+
+    .task-check.checked {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .task-check.checked::after {
+      content: "";
+      width: 5px;
+      height: 9px;
+      border: 2px solid #fff;
+      border-top: none;
+      border-left: none;
+      transform: rotate(42deg) translateY(-1px);
+    }
+
+    /* Body */
+    .task-body { flex: 1; min-width: 0; }
+
+    .task-title {
+      font-size: 0.95rem;
+      font-weight: 500;
+      word-break: break-word;
+      transition: color 0.2s;
+    }
+
+    .task-meta {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.45rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .pill {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.18rem 0.6rem;
+      border-radius: 20px;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+
+    .pill-high   { background: rgba(251,113,133,0.15); color: var(--danger); }
+    .pill-medium { background: rgba(251,191,36,0.15);  color: var(--warning); }
+    .pill-low    { background: rgba(34,197,94,0.12);   color: var(--accent); }
+
+    .pill-tag {
+      background: rgba(167,139,250,0.12);
+      color: var(--secondary);
+      font-size: 0.7rem;
+      padding: 0.18rem 0.55rem;
+      border-radius: 20px;
+    }
+
+    .task-date {
+      font-size: 0.71rem;
+      color: var(--muted);
+    }
+
+    /* Actions */
+    .task-actions {
+      display: flex;
+      gap: 0.35rem;
+      flex-shrink: 0;
+    }
+
+    .icon-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      transition: all 0.18s;
+    }
+
+    .icon-btn:hover { background: rgba(255,255,255,0.08); color: var(--text); }
+    .icon-btn.del:hover { background: rgba(251,113,133,0.12); color: var(--danger); }
+
+    /* ── PROGRESS ── */
+    .progress-bar-wrap {
+      margin-bottom: 1.5rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 1.1rem 1.4rem;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .progress-label strong { color: var(--text); }
+
+    .progress-track {
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 99px;
+      transition: width 0.4s ease;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center;
+      padding: 3.5rem 1rem;
+      color: var(--muted);
+    }
+
+    .empty-state .icon { font-size: 2.8rem; margin-bottom: 0.8rem; }
+    .empty-state p { font-size: 0.9rem; }
+
+    /* ── BULK ACTIONS ── */
+    .bulk-row {
+      display: flex;
+      gap: 0.6rem;
+      justify-content: flex-end;
+      margin-bottom: 0.8rem;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.78rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+
+    .btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.22); }
+    .btn-ghost.danger:hover { color: var(--danger); border-color: var(--danger); }
+
+    /* ── EDIT INLINE ── */
+    .task-edit-input {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--primary);
+      border-radius: var(--radius-sm);
+      padding: 0.3rem 0.6rem;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-weight: 500;
+      outline: none;
+      width: 100%;
+      box-shadow: 0 0 0 3px rgba(56,189,248,0.1);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 520px) {
+      nav { padding: 0.9rem 1rem; }
+      .nav-stats { gap: 0.7rem; }
+      main { padding: 1.5rem 1rem 4rem; }
+      .add-options { gap: 0.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="dot"></div>
+    TaskFlow
+  </div>
+  <div class="nav-stats">
+    <span>Total <span class="badge" id="stat-total">0</span></span>
+    <span>Done <span class="badge" id="stat-done">0</span></span>
+    <span>Left <span class="badge" id="stat-left">0</span></span>
+  </div>
+</nav>
+
+<main>
+  <!-- Header -->
+  <div class="page-header">
+    <h1>My Tasks</h1>
+    <p>Stay organized. Track progress. Get things done.</p>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress-bar-wrap">
+    <div class="progress-label">
+      <span>Progress</span>
+      <strong id="progress-text">0 / 0 completed</strong>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- Add Task -->
+  <div class="add-task-card">
+    <div class="add-task-row">
+      <input
+        type="text"
+        class="task-input"
+        id="task-input"
+        placeholder="What needs to be done?"
+        maxlength="200"
+        autocomplete="off"
+      />
+      <button class="btn btn-primary" onclick="addTask()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add
+      </button>
+    </div>
+    <div class="add-options">
+      <select class="priority-select" id="priority-select">
+        <option value="medium">Medium priority</option>
+        <option value="high">High priority</option>
+        <option value="low">Low priority</option>
+      </select>
+      <input type="text" class="tag-input" id="tag-input" placeholder="Tag (optional)" maxlength="20" />
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all" onclick="setFilter('all', this)">All</button>
+    <button class="filter-btn" data-filter="active" onclick="setFilter('active', this)">Active</button>
+    <button class="filter-btn" data-filter="completed" onclick="setFilter('completed', this)">Completed</button>
+    <button class="filter-btn" data-filter="high" onclick="setFilter('high', this)">High Priority</button>
+  </div>
+
+  <!-- Bulk actions -->
+  <div class="bulk-row">
+    <button class="btn-ghost" onclick="markAllDone()">Mark all done</button>
+    <button class="btn-ghost danger" onclick="clearCompleted()">Clear completed</button>
+  </div>
+
+  <!-- Task list -->
+  <div class="task-list" id="task-list"></div>
+</main>
+
+<script>
+  let tasks = JSON.parse(localStorage.getItem('taskflow_tasks') || '[]');
+  let currentFilter = 'all';
+  let editingId = null;
+
+  function save() {
+    localStorage.setItem('taskflow_tasks', JSON.stringify(tasks));
+  }
+
+  function genId() {
+    return Date.now().toString(36) + Math.random().toString(36).slice(2);
+  }
+
+  function addTask() {
+    const input = document.getElementById('task-input');
+    const title = input.value.trim();
+    if (!title) { input.focus(); return; }
+
+    const priority = document.getElementById('priority-select').value;
+    const tag = document.getElementById('tag-input').value.trim();
+
+    tasks.unshift({
+      id: genId(),
+      title,
+      priority,
+      tag,
+      completed: false,
+      createdAt: new Date().toISOString(),
+    });
+
+    input.value = '';
+    document.getElementById('tag-input').value = '';
+    save();
+    render();
+    input.focus();
+  }
+
+  function toggleTask(id) {
+    const t = tasks.find(t => t.id === id);
+    if (t) { t.completed = !t.completed; save(); render(); }
+  }
+
+  function deleteTask(id) {
+    tasks = tasks.filter(t => t.id !== id);
+    save();
+    render();
+  }
+
+  function startEdit(id) {
+    editingId = id;
+    render();
+    const el = document.getElementById('edit-' + id);
+    if (el) { el.focus(); el.select(); }
+  }
+
+  function saveEdit(id) {
+    const el = document.getElementById('edit-' + id);
+    if (!el) return;
+    const val = el.value.trim();
+    if (val) {
+      const t = tasks.find(t => t.id === id);
+      if (t) t.title = val;
+    }
+    editingId = null;
+    save();
+    render();
+  }
+
+  function setFilter(filter, btn) {
+    currentFilter = filter;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    render();
+  }
+
+  function markAllDone() {
+    tasks.forEach(t => t.completed = true);
+    save();
+    render();
+  }
+
+  function clearCompleted() {
+    tasks = tasks.filter(t => !t.completed);
+    save();
+    render();
+  }
+
+  function filteredTasks() {
+    switch (currentFilter) {
+      case 'active':    return tasks.filter(t => !t.completed);
+      case 'completed': return tasks.filter(t => t.completed);
+      case 'high':      return tasks.filter(t => t.priority === 'high');
+      default:          return tasks;
+    }
+  }
+
+  function formatDate(iso) {
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+  }
+
+  function render() {
+    const list = document.getElementById('task-list');
+    const visible = filteredTasks();
+
+    // Stats
+    const total = tasks.length;
+    const done  = tasks.filter(t => t.completed).length;
+    const left  = total - done;
+    document.getElementById('stat-total').textContent = total;
+    document.getElementById('stat-done').textContent  = done;
+    document.getElementById('stat-left').textContent  = left;
+
+    // Progress
+    const pct = total === 0 ? 0 : Math.round((done / total) * 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-text').textContent = `${done} / ${total} completed`;
+
+    // Empty state
+    if (visible.length === 0) {
+      list.innerHTML = `
+        <div class="empty-state">
+          <div class="icon">✓</div>
+          <p>${total === 0 ? 'No tasks yet. Add one above!' : 'No tasks match this filter.'}</p>
+        </div>`;
+      return;
+    }
+
+    list.innerHTML = visible.map(t => {
+      const isEditing = editingId === t.id;
+      const pillClass = `pill pill-${t.priority}`;
+      const priorityLabel = t.priority.charAt(0).toUpperCase() + t.priority.slice(1);
+
+      return `
+      <div class="task-item ${t.completed ? 'completed' : ''}">
+        <div class="task-check ${t.completed ? 'checked' : ''}" onclick="toggleTask('${t.id}')"></div>
+        <div class="task-body">
+          ${isEditing
+            ? `<input class="task-edit-input" id="edit-${t.id}" value="${escHtml(t.title)}"
+                 onblur="saveEdit('${t.id}')"
+                 onkeydown="if(event.key==='Enter')saveEdit('${t.id}');if(event.key==='Escape'){editingId=null;render();}" />`
+            : `<div class="task-title">${escHtml(t.title)}</div>`
+          }
+          <div class="task-meta">
+            <span class="${pillClass}">${priorityLabel}</span>
+            ${t.tag ? `<span class="pill-tag">#${escHtml(t.tag)}</span>` : ''}
+            <span class="task-date">${formatDate(t.createdAt)}</span>
+          </div>
+        </div>
+        <div class="task-actions">
+          <button class="icon-btn" title="Edit" onclick="startEdit('${t.id}')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </button>
+          <button class="icon-btn del" title="Delete" onclick="deleteTask('${t.id}')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+          </button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // Enter key to add
+  document.getElementById('task-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') addTask();
+  });
+
+  render();
+</script>
+</body>
+</html>
