@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phakin Chawanpunya | Frontend Developer</title>
+  <meta name="description" content="Phakin Chawanpunya is a frontend developer focused on dashboard UI and landing pages, with live HTML projects, case studies, and source links.">
+  <meta name="author" content="Phakin Chawanpunya">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Phakin Chawanpunya — Frontend Developer">
+  <meta property="og:description" content="Frontend developer focused on dashboard UI and landing pages.">
+  <meta property="og:image" content="assets/social-preview.png?v=hero-type-clean">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://phakinza007.github.io/my-portfolio/">
+  <meta property="og:site_name" content="Phakin Chawanpunya Portfolio">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Phakin Chawanpunya — Frontend Developer">
+  <meta name="twitter:description" content="Frontend developer focused on dashboard UI and landing pages.">
+  <meta name="twitter:image" content="assets/social-preview.png?v=hero-type-clean">
+  <meta name="theme-color" content="#4f6ef7">
+  <link rel="canonical" href="https://phakinza007.github.io/my-portfolio/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;700&family=Noto+Sans+Thai:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/portfolio-pages.css">
+
+  <style>
+    /* ── Availability badge ── */
+    .avail-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 13px;
+      border-radius: 99px;
+      background: oklch(79% 0.09 165 / 0.28);
+      border: 1px solid oklch(60% 0.09 165 / 0.36);
+      color: oklch(28% 0.08 160);
+      font-family: "Bai Jamjuree", "Noto Sans Thai", Arial, sans-serif;
+      font-size: 0.84rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+    .avail-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: oklch(58% 0.14 145);
+      animation: pulse 2s infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ── Project grid ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface);
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 180ms var(--ease), box-shadow 180ms var(--ease);
+    }
+    .project-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 44px oklch(24% 0.04 42 / 0.14);
+    }
+    .project-thumb {
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: var(--paper-soft);
+      border-bottom: 1px solid var(--line);
+    }
+    .project-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 280ms var(--ease);
+    }
+    .project-card:hover .project-thumb img {
+      transform: scale(1.04);
+    }
+    .project-info {
+      padding: 16px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+    .project-problem {
+      font-size: 0.82rem;
+      color: var(--cobalt);
+      font-family: "Bai Jamjuree", "Noto Sans Thai", Arial, sans-serif;
+      font-weight: 700;
+      margin: 0;
+    }
+    .project-name {
+      font-family: "Bai Jamjuree", "Noto Sans Thai", Arial, sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0;
+    }
+    .project-cta {
+      margin-top: auto;
+      padding-top: 10px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      font-family: "Bai Jamjuree", "Noto Sans Thai", Arial, sans-serif;
+      color: var(--cobalt);
+    }
+
+    /* ── About photo layout ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 80px minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+    .about-photo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--line);
+      background: var(--paper-soft);
+    }
+    .about-photo-placeholder {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--paper-soft);
+      border: 2px dashed var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-family: "Bai Jamjuree", Arial, sans-serif;
+      text-align: center;
+      line-height: 1.3;
+      flex-shrink: 0;
+    }
+
+    /* ── Contact form ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr);
+      gap: 48px;
+      align-items: start;
+    }
+    .contact-info h3 {
+      margin-bottom: 12px;
+    }
+    .contact-info p {
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+      font-family: "Bai Jamjuree", Arial, sans-serif;
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 26px 70px oklch(24% 0.04 42 / 0.1);
+    }
+    .contact-form label {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      font-family: "Bai Jamjuree", "Noto Sans Thai", Arial, sans-serif;
+      color: var(--ink);
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px 13px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Noto Sans Thai", "Bai Jamjuree", Arial, sans-serif;
+      font-size: 0.95rem;
+      transition: border-color 160ms var(--ease);
+      outline: none;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: var(--cobalt);
+    }
+    .contact-form textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+    .contact-form .button {
+      width: 100%;
+      margin-top: 4px;
+      font-size: 0.95rem;
+    }
+
+    /* ── Stats row in hero panel ── */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 16px;
+    }
+    .stat-cell {
+      background: var(--surface);
+      padding: 14px;
+      text-align: center;
+    }
+    .stat-cell strong {
+      display: block;
+      font-family: "Bai Jamjuree", Arial, sans-serif;
+      font-size: 1.5rem;
+      color: var(--ink);
+    }
+    .stat-cell span {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* ── Social links in footer ── */
+    .social-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .social-link {
+      min-height: 36px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 13px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      font-size: 0.84rem;
+      font-weight: 700;
+      font-family: "Bai Jamjuree", Arial, sans-serif;
+      color: var(--muted);
+      transition: background 160ms var(--ease), color 160ms var(--ease);
+    }
+    .social-link:hover {
+      background: var(--ink);
+      color: var(--surface);
+      border-color: var(--ink);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .projects-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+    }
+    @media (max-width: 560px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+      .stat-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ── -->
+  <header class="topbar">
+    <nav class="nav page-shell" aria-label="Main navigation">
+      <a class="brand" href="#top">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect class="mark-back" x="3" y="5" width="13" height="14" rx="2"/>
+            <rect class="mark-front" x="8" y="3" width="13" height="14" rx="2"/>
+            <line class="mark-line" x1="11" y1="9" x2="18" y2="9"/>
+            <line class="mark-line" x1="11" y1="13" x2="16" y2="13"/>
+            <circle class="mark-dot" cx="7" cy="20" r="1.5"/>
+          </svg>
+        </div>
+        Phakin Chawanpunya
+      </a>
+      <ul class="nav-links">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="resume.html" class="nav-primary">Resume</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ── Hero ── -->
+    <section class="hero page-shell" id="top">
+      <div class="hero-grid">
+
+        <div class="hero-text">
+          <!-- ✅ Availability badge -->
+          <div class="avail-badge">
+            <span class="avail-dot" aria-hidden="true"></span>
+            Available for projects
+          </div>
+
+          <span class="eyebrow">Frontend Developer</span>
+
+          <h1>Phakin&nbsp; Chawanpunya</h1>
+
+          <!-- ✅ Client-focused value proposition -->
+          <p class="hero-copy">
+            I build dashboards and landing pages that are ready to ship —
+            clean code, responsive, and fast to review.
+            Based in Thailand, working with clients worldwide.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#projects" class="button primary">View Projects</a>
+            <a href="#contact" class="button ghost">Contact Me</a>
+          </div>
+        </div>
+
+        <!-- Right: proof panel with stats -->
+        <aside class="proof-panel" aria-label="Portfolio highlights">
+          <div class="proof-image">
+            <img
+              src="assets/thumbs/pulseboard.jpg"
+              alt="PulseBoard dashboard — featured project"
+              width="480"
+              height="270"
+              loading="eager"
+            >
+          </div>
+          <div class="stat-row">
+            <div class="stat-cell">
+              <strong>6</strong>
+              <span>live projects</span>
+            </div>
+            <div class="stat-cell">
+              <strong>2</strong>
+              <span>case studies</span>
+            </div>
+            <div class="stat-cell">
+              <strong>4+</strong>
+              <span>years building</span>
+            </div>
+          </div>
+          <div class="proof-list">
+            <div class="proof-item">
+              <strong>HTML / CSS</strong>
+              <span>responsive, accessible layouts</span>
+            </div>
+            <div class="proof-item">
+              <strong>JavaScript</strong>
+              <span>interactive UI components</span>
+            </div>
+            <div class="proof-item">
+              <strong>Figma → Code</strong>
+              <span>design-to-build handoff</span>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- ── Projects ── -->
+    <section class="section" id="projects">
+      <div class="page-shell">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">Portfolio</span>
+            <h2>Selected Work</h2>
+          </div>
+          <p>Six live projects — dashboards, trackers, and brand landing pages. Each with source code on GitHub.</p>
+        </div>
+
+        <div class="projects-grid">
+
+          <a class="project-card" href="LaunchLedger.html">
+            <div class="project-thumb">
+              <img src="assets/thumbs/launch-ledger.jpg" alt="LaunchLedger startup budget dashboard" loading="lazy">
+            </div>
+            <div class="project-info">
+              <!-- ✅ Problem statement -->
+              <p class="project-problem">How do you show runway risk at a glance?</p>
+              <h3 class="project-name">LaunchLedger</h3>
+              <div class="tag-list">
+                <span class="tag">Dashboard</span>
+                <span class="tag alt">Finance</span>
+              </div>
+              <span class="project-cta">View Project →</span>
+            </div>
+          </a>
+
+          <a class="project-card" href="MuseRoom.html">
+            <div class="project-thumb">
+              <img src="assets/thumbs/museroom.jpg" alt="MuseRoom digital gallery landing page" loading="lazy">
+            </div>
+            <div class="project-info">
+              <p class="project-problem">How do you make a gallery feel premium online?</p>
+              <h3 class="project-name">MuseRoom</h3>
+              <div class="tag-list">
+                <span class="tag">Gallery</span>
+                <span class="tag alt">Brand</span>
+              </div>
+              <span class="project-cta">View Project →</span>
+            </div>
+          </a>
+
+          <a class="project-card" href="InternTrack.html">
+            <div class="project-thumb">
+              <img src="assets/thumbs/interntrack.jpg" alt="InternTrack internship application tracker" loading="lazy">
+            </div>
+            <div class="project-info">
+              <p class="project-problem">How do you track 10+ applications without a spreadsheet?</p>
+              <h3 class="project-name">InternTrack</h3>
+              <div class="tag-list">
+                <span class="tag">Tracker</span>
+                <span class="tag alt">Product UI</span>
+              </div>
+              <span class="project-cta">View Project →</span>
+            </div>
+          </a>
+
+          <a class="project-card" href="PulseBoard.html">
+            <div class="project-thumb">
+              <img src="assets/thumbs/pulseboard.jpg" alt="PulseBoard event operations dashboard" loading="lazy">
+            </div>
+            <div class="project-info">
+              <p class="project-problem">How do you run an event without reading a report?</p>
+              <h3 class="project-name">PulseBoard</h3>
+              <div class="tag-list">
+                <span class="tag">Dashboard</span>
+                <span class="tag alt">UI Design</span>
+              </div>
+              <span class="project-cta">View Project →</span>
+            </div>
+          </a>
+
+          <a class="project-card" href="gym-landing.html">
+            <div class="project-thumb">
+              <img src="assets/thumbs/gym-landing.jpg" alt="Iron Republic gym landing page" loading="lazy">
+            </div>
+            <div class="project-info">
+              <p class="project-problem">How do you turn a gym brand into a landing page?</p>
+              <h3 class="project-name">Iron Republic</h3>
+              <div class="tag-list">
+                <span class="tag">Fitness</span>
+                <span class="tag alt">Brand</span>
+              </div>
+              <span class="project-cta">View Project →</span>
+            </div>
+          </a>
+
+          <a class="project-card" href="coffee-landing.html">
+            <div class="project-thumb">
+              <img src="assets/thumbs/noir-coffee.jpg" alt="NOIR Coffee landing page" loading="lazy">
+            </div>
+            <div class="project-info">
+              <p class="project-problem">How do you sell mood, not just coffee?</p>
+              <h3 class="project-name">NOIR Coffee</h3>
+              <div class="tag-list">
+                <span class="tag">Dark</span>
+                <span class="tag alt">Coffee</span>
+              </div>
+              <span class="project-cta">View Project →</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── About ── -->
+    <section class="section" id="about">
+      <div class="page-shell">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">About Me</span>
+            <h2>About Me</h2>
+          </div>
+        </div>
+
+        <!-- ✅ Photo + text layout -->
+        <div class="about-grid">
+          <!-- Replace assets/photo.jpg with your real photo -->
+          <div class="about-photo-placeholder" aria-hidden="true">Add<br>photo</div>
+
+          <div>
+            <p style="font-size:1.05rem; color: var(--muted); line-height: 1.75; margin-bottom: 16px;">
+              I'm Phakin Chawanpunya — a frontend developer focused on building clean,
+              structured UI for dashboards and landing pages. I work primarily with HTML
+              and CSS, turning design concepts into responsive, accessible pages that are
+              easy to navigate and review.
+            </p>
+            <p style="font-size:1.05rem; color: var(--muted); line-height: 1.75; margin-bottom: 16px;">
+              My portfolio covers live projects across budget dashboards, product trackers,
+              gallery pages, and brand landing pages — each with direct links, source files,
+              and full case studies.
+            </p>
+            <!-- ✅ Client targeting sentence -->
+            <p style="font-size:1.05rem; color: var(--muted); line-height: 1.75;">
+              I work best with startups and small teams who need a frontend developer
+              ready to ship fast.
+            </p>
+            <div class="inline-actions">
+              <a href="resume.html" class="button primary">View Resume</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Experience ── -->
+    <section class="section" id="experience">
+      <div class="page-shell">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">JavaScript · HTML / CSS</span>
+            <h2>Experience</h2>
+          </div>
+          <p>Personal projects and portfolio work, 2022 – present.</p>
+        </div>
+
+        <div class="resume-grid">
+          <div class="resume-panel">
+            <h3>Skills</h3>
+            <div class="skill-list">
+              <span class="skill">JavaScript</span>
+              <span class="skill">HTML</span>
+              <span class="skill">CSS</span>
+              <span class="skill">Responsive</span>
+              <span class="skill alt">Tailwind CSS</span>
+              <span class="skill alt">Figma</span>
+            </div>
+          </div>
+
+          <div class="resume-panel">
+            <h3>Work</h3>
+            <div class="timeline">
+              <div class="timeline-row">
+                <strong>2022 – Now</strong>
+                <div>
+                  <strong>Dashboard UI &amp; Landing Pages</strong>
+                  <p>6 live projects on GitHub Pages</p>
+                </div>
+              </div>
+              <div class="timeline-row">
+                <strong>Skills</strong>
+                <div>
+                  <strong>SEO · Accessibility · Case Studies</strong>
+                  <p>Design Thinking</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── Case Studies ── -->
+    <section class="section" id="case-studies">
+      <div class="page-shell">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">Case Studies</span>
+            <h2>Case Studies</h2>
+          </div>
+          <p>The thinking behind two projects — decisions, trade-offs, and results.</p>
+        </div>
+
+        <div class="study-grid">
+
+          <a class="study-block" href="case-study-pulseboard.html" style="text-decoration:none;">
+            <div class="study-shot">
+              <img src="assets/thumbs/pulseboard.jpg" alt="PulseBoard operations dashboard" loading="lazy">
+            </div>
+            <div style="margin-top: 16px;">
+              <span class="eyebrow" style="font-size:0.78rem;">03 · Full Case Study</span>
+              <h3 style="margin-top: 8px;">PulseBoard — Event Operations Dashboard</h3>
+              <p style="margin-top: 10px; font-size: 0.95rem;">
+                A single-screen command center for event staff to scan crowd flow,
+                task ownership, and timeline pressure without reading a long report.
+                Designed around status hierarchy, ownership context, and scan-first density.
+              </p>
+              <span class="button ghost" style="margin-top: 14px; display: inline-flex; font-size: 0.88rem;">View Live →</span>
+            </div>
+          </a>
+
+          <a class="study-block" href="case-study-launchledger.html" style="text-decoration:none;">
+            <div class="study-shot">
+              <img src="assets/thumbs/launch-ledger.jpg" alt="LaunchLedger budget dashboard" loading="lazy">
+            </div>
+            <div style="margin-top: 16px;">
+              <span class="eyebrow" style="font-size:0.78rem;">02 · Full Case Study</span>
+              <h3 style="margin-top: 8px;">LaunchLedger — Startup Budget Dashboard</h3>
+              <p style="margin-top: 10px; font-size: 0.95rem;">
+                A finance dashboard that makes runway, spend pressure, and decision
+                timing visible without reading a spreadsheet. Runway leads because
+                every spend decision depends on it.
+              </p>
+              <span class="button ghost" style="margin-top: 14px; display: inline-flex; font-size: 0.88rem;">View Live →</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Contact ── -->
+    <section class="section" id="contact">
+      <div class="page-shell">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">Contact</span>
+            <h2>Let's work together</h2>
+          </div>
+        </div>
+
+        <div class="contact-grid">
+
+          <div class="contact-info">
+            <!-- ✅ Availability badge repeated near contact -->
+            <div class="avail-badge" style="margin-bottom: 20px;">
+              <span class="avail-dot" aria-hidden="true"></span>
+              Available for projects
+            </div>
+            <h3>Get in touch</h3>
+            <p>
+              Have a dashboard, landing page, or frontend project?
+              Send me a message and I'll get back to you within 24 hours.
+            </p>
+            <div class="contact-detail">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+              <a href="mailto:a0626568471@gmail.com" style="color: var(--cobalt);">a0626568471@gmail.com</a>
+            </div>
+            <div class="contact-detail">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              <a href="https://github.com/Phakinza007" target="_blank" rel="noopener noreferrer" style="color: var(--cobalt);">github.com/Phakinza007</a>
+            </div>
+          </div>
+
+          <!-- ✅ Contact form (Formspree) -->
+          <form
+            class="contact-form"
+            action="https://formspree.io/f/YOUR_FORM_ID"
+            method="POST"
+            aria-label="Contact form"
+          >
+            <!-- Sign up free at formspree.io, replace YOUR_FORM_ID with your form ID -->
+            <label>
+              Name
+              <input type="text" name="name" placeholder="Your name" required autocomplete="name">
+            </label>
+            <label>
+              Email
+              <input type="email" name="email" placeholder="your@email.com" required autocomplete="email">
+            </label>
+            <label>
+              Message
+              <textarea name="message" placeholder="Tell me about your project — what do you need built?" required></textarea>
+            </label>
+            <button type="submit" class="button cobalt">Send message</button>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer class="footer-band">
+    <div class="page-shell">
+      <div class="footer-inner">
+
+        <div>
+          <p style="margin-bottom: 6px;">
+            © <script>document.write(new Date().getFullYear())</script> Phakin Chawanpunya — Frontend Portfolio
+          </p>
+          <a href="mailto:a0626568471@gmail.com" style="color: var(--cobalt); font-size: 0.88rem;">a0626568471@gmail.com</a>
+        </div>
+
+        <nav aria-label="Footer navigation" style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+          <a href="#projects" style="font-size:0.88rem; color: var(--muted);">Projects</a>
+          <a href="#about" style="font-size:0.88rem; color: var(--muted);">About</a>
+          <a href="#experience" style="font-size:0.88rem; color: var(--muted);">Experience</a>
+          <a href="resume.html" style="font-size:0.88rem; color: var(--muted);">Resume</a>
+        </nav>
+
+        <div class="social-links">
+          <!-- ✅ Fix: replace with your real LinkedIn profile URL -->
+          <a
+            class="social-link"
+            href="https://linkedin.com/in/YOUR-LINKEDIN-SLUG"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn profile"
+          >LinkedIn</a>
+          <a
+            class="social-link"
+            href="https://github.com/Phakinza007"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub profile"
+          >GitHub</a>
+          <a
+            class="social-link"
+            href="https://www.instagram.com/phakinkinpa/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram profile"
+          >Instagram</a>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

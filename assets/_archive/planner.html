@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monthly Planner — Phakin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface2: #21262d;
+      --border: #30363d;
+      --text: #e6edf3;
+      --muted: #7d8590;
+      --blue: #4f6ef7;
+      --green: #22c55e;
+      --amber: #f59e0b;
+      --purple: #a78bfa;
+      --blue-dim: rgba(79,110,247,0.15);
+      --green-dim: rgba(34,197,94,0.15);
+      --amber-dim: rgba(245,158,11,0.15);
+      --purple-dim: rgba(167,139,250,0.15);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Bai Jamjuree", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 32px 16px 64px;
+    }
+
+    .wrap {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+    .brand {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .brand span { color: var(--text); }
+
+    /* ── Cal header ── */
+    .cal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .cal-title { font-size: 22px; font-weight: 700; }
+    .cal-nav { display: flex; gap: 6px; }
+    .cal-nav button {
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--text);
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 150ms;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cal-nav button:hover { background: var(--border); }
+
+    /* ── Grid ── */
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+    }
+    .dow {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      padding-bottom: 6px;
+      letter-spacing: 0.04em;
+    }
+    .day {
+      aspect-ratio: 1;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 6px 4px 4px;
+      cursor: pointer;
+      transition: border-color 150ms, transform 150ms, background 150ms;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      min-height: 52px;
+      position: relative;
+    }
+    .day:hover { border-color: #4f6ef7; transform: scale(1.05); }
+    .day.empty { background: transparent; border-color: transparent; cursor: default; pointer-events: none; }
+    .day.today { border-color: var(--blue); border-width: 1.5px; }
+    .day .dn {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      line-height: 1;
+    }
+    .day.today .dn { color: var(--blue); }
+
+    /* intensity levels */
+    .day.lv1 { background: rgba(79,110,247,0.10); }
+    .day.lv2 { background: rgba(79,110,247,0.20); }
+    .day.lv3 { background: rgba(79,110,247,0.34); }
+    .day.lv4 { background: rgba(79,110,247,0.50); }
+
+    .dots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px;
+      justify-content: center;
+    }
+    .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .d-portfolio { background: var(--blue); }
+    .d-fastwork  { background: var(--green); }
+    .d-case      { background: var(--amber); }
+    .d-other     { background: var(--purple); }
+
+    /* ── Legend ── */
+    .legend {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--muted);
+      align-items: center;
+    }
+    .legend-item { display: flex; align-items: center; gap: 5px; }
+
+    /* ── Stats ── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+    .stat-card .num {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .stat-card .lbl { font-size: 11px; color: var(--muted); }
+    .stat-card.s-portfolio .num { color: var(--blue); }
+    .stat-card.s-fastwork  .num { color: var(--green); }
+    .stat-card.s-case      .num { color: var(--amber); }
+    .stat-card.s-other     .num { color: var(--purple); }
+
+    /* ── Modal ── */
+    .overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      padding: 16px;
+    }
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      width: 100%;
+      max-width: 380px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .modal-head h3 { font-size: 15px; font-weight: 700; }
+    .modal-head button {
+      background: none; border: none; color: var(--muted);
+      font-size: 20px; cursor: pointer; line-height: 1;
+    }
+    .modal-head button:hover { color: var(--text); }
+
+    /* Quick chips */
+    .chips-label { font-size: 11px; color: var(--muted); margin-bottom: 6px; font-weight: 700; letter-spacing: 0.04em; }
+    .chips { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }
+    .chip {
+      padding: 4px 10px;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      font-size: 12px;
+      cursor: pointer;
+      color: var(--muted);
+      transition: border-color 120ms, color 120ms;
+    }
+    .chip:hover { border-color: var(--blue); color: var(--text); }
+
+    /* Task list */
+    .task-list { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; min-height: 20px; }
+    .task-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 7px;
+      background: var(--surface2);
+      font-size: 13px;
+    }
+    .task-item .txt { flex: 1; }
+    .task-item .del {
+      background: none; border: none;
+      color: var(--muted); font-size: 16px;
+      cursor: pointer; line-height: 1; padding: 0 2px;
+    }
+    .task-item .del:hover { color: #f87171; }
+    .no-tasks { font-size: 12px; color: var(--muted); text-align: center; padding: 10px 0; }
+
+    /* Add row */
+    .add-row { display: flex; gap: 6px; margin-bottom: 12px; }
+    .add-row input {
+      flex: 1;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface2);
+      color: var(--text);
+      font-family: "Bai Jamjuree", Arial, sans-serif;
+      font-size: 13px;
+      outline: none;
+    }
+    .add-row input:focus { border-color: var(--blue); }
+    .add-row input::placeholder { color: var(--muted); }
+    .add-row .add-btn {
+      padding: 9px 14px;
+      border-radius: 8px;
+      border: none;
+      background: var(--blue);
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .add-row .add-btn:hover { opacity: 0.88; }
+
+    /* Category row */
+    .cat-row { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 16px; }
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 5px;
+      transition: border-color 120ms, background 120ms;
+    }
+    .cat-btn.active-portfolio { border-color: var(--blue); background: var(--blue-dim); color: var(--text); }
+    .cat-btn.active-fastwork  { border-color: var(--green); background: var(--green-dim); color: var(--text); }
+    .cat-btn.active-case      { border-color: var(--amber); background: var(--amber-dim); color: var(--text); }
+    .cat-btn.active-other     { border-color: var(--purple); background: var(--purple-dim); color: var(--text); }
+
+    .done-btn {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--text);
+      font-family: "Bai Jamjuree", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .done-btn:hover { background: var(--border); }
+
+    @media (max-width: 560px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      body { padding: 20px 12px 48px; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand">Phakin — <span>Work Planner</span></div>
+    <a href="index.html" style="font-size:13px; color: var(--muted); text-decoration:none;">← Portfolio</a>
+  </div>
+
+  <div class="cal-header">
+    <div class="cal-nav">
+      <button onclick="changeMonth(-1)" aria-label="Previous month">‹</button>
+    </div>
+    <div class="cal-title" id="cal-title"></div>
+    <div class="cal-nav">
+      <button onclick="changeMonth(1)" aria-label="Next month">›</button>
+    </div>
+  </div>
+
+  <div class="cal-grid" id="cal-grid"></div>
+
+  <div class="legend">
+    <span style="color: var(--muted); font-size:11px; font-weight:700; letter-spacing:.04em;">CATEGORIES</span>
+    <div class="legend-item"><div class="dot d-portfolio"></div> Portfolio</div>
+    <div class="legend-item"><div class="dot d-fastwork"></div> Fastwork</div>
+    <div class="legend-item"><div class="dot d-case"></div> Case Study</div>
+    <div class="legend-item"><div class="dot d-other"></div> Other</div>
+    <div style="margin-left:auto; font-size:11px; color:var(--muted);">Click any day to add tasks</div>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+</div>
+
+<!-- Modal -->
+<div class="overlay" id="overlay" style="display:none" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+    <div class="modal-head">
+      <h3 id="modal-title"></h3>
+      <button onclick="closeModal()" aria-label="Close">×</button>
+    </div>
+
+    <div class="chips-label">QUICK ADD</div>
+    <div class="chips">
+      <span class="chip" onclick="quickAdd('Deploy index-improved.html','portfolio')">🚀 Deploy homepage</span>
+      <span class="chip" onclick="quickAdd('Check Fastwork buyer requests','fastwork')">👀 Check Fastwork</span>
+      <span class="chip" onclick="quickAdd('Write case study','case')">📝 Write case study</span>
+      <span class="chip" onclick="quickAdd('Reply to job posting','fastwork')">💬 Reply to job</span>
+      <span class="chip" onclick="quickAdd('Add photo to portfolio','portfolio')">📸 Add photo</span>
+      <span class="chip" onclick="quickAdd('Set up Formspree form','portfolio')">📬 Set up form</span>
+      <span class="chip" onclick="quickAdd('Fix LinkedIn link','portfolio')">🔗 Fix LinkedIn</span>
+      <span class="chip" onclick="quickAdd('Send project to friend for review','fastwork')">⭐ Ask for review</span>
+    </div>
+
+    <div class="task-list" id="task-list"></div>
+
+    <div class="add-row">
+      <input id="task-input" type="text" placeholder="Type a task and press Enter..." onkeydown="if(event.key==='Enter')addTask()">
+      <button class="add-btn" onclick="addTask()">+</button>
+    </div>
+
+    <div class="cat-row" id="cat-row">
+      <button class="cat-btn active-portfolio" data-cat="portfolio" onclick="setCat(this)"><div class="dot d-portfolio"></div>Portfolio</button>
+      <button class="cat-btn" data-cat="fastwork" onclick="setCat(this)"><div class="dot d-fastwork"></div>Fastwork</button>
+      <button class="cat-btn" data-cat="case" onclick="setCat(this)"><div class="dot d-case"></div>Case Study</button>
+      <button class="cat-btn" data-cat="other" onclick="setCat(this)"><div class="dot d-other"></div>Other</button>
+    </div>
+
+    <button class="done-btn" onclick="closeModal()">Done</button>
+  </div>
+</div>
+
+<script>
+  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var DAYS   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var today  = new Date();
+  var curYear  = today.getFullYear();
+  var curMonth = today.getMonth();
+  var selDay = null;
+  var selCat = 'portfolio';
+
+  // Load tasks from localStorage
+  var tasks = JSON.parse(localStorage.getItem('planner-tasks') || '{}');
+
+  function save() {
+    localStorage.setItem('planner-tasks', JSON.stringify(tasks));
+  }
+
+  function key(y, m, d) { return y + '-' + m + '-' + d; }
+
+  function render() {
+    document.getElementById('cal-title').textContent = MONTHS[curMonth] + ' ' + curYear;
+    var grid = document.getElementById('cal-grid');
+    grid.innerHTML = '';
+
+    DAYS.forEach(function(d) {
+      var el = document.createElement('div');
+      el.className = 'dow';
+      el.textContent = d;
+      grid.appendChild(el);
+    });
+
+    var first = new Date(curYear, curMonth, 1).getDay();
+    var daysInMonth = new Date(curYear, curMonth + 1, 0).getDate();
+
+    for (var i = 0; i < first; i++) {
+      var e = document.createElement('div');
+      e.className = 'day empty';
+      grid.appendChild(e);
+    }
+
+    for (var d = 1; d <= daysInMonth; d++) {
+      var k = key(curYear, curMonth, d);
+      var t = tasks[k] || [];
+      var el = document.createElement('div');
+      var cls = 'day';
+      if (t.length === 1) cls += ' lv1';
+      else if (t.length === 2) cls += ' lv2';
+      else if (t.length === 3) cls += ' lv3';
+      else if (t.length >= 4) cls += ' lv4';
+      if (today.getFullYear() === curYear && today.getMonth() === curMonth && today.getDate() === d) cls += ' today';
+      el.className = cls;
+      el.setAttribute('aria-label', MONTHS[curMonth] + ' ' + d + (t.length ? ', ' + t.length + ' tasks' : ''));
+
+      var html = '<span class="dn">' + d + '</span>';
+      if (t.length) {
+        html += '<div class="dots">';
+        t.slice(0, 6).forEach(function(task) {
+          html += '<div class="dot d-' + task.cat + '"></div>';
+        });
+        html += '</div>';
+      }
+      el.innerHTML = html;
+      (function(day) { el.onclick = function() { openModal(day); }; })(d);
+      grid.appendChild(el);
+    }
+
+    renderStats();
+  }
+
+  function renderStats() {
+    var counts = { portfolio: 0, fastwork: 0, case: 0, other: 0 };
+    Object.values(tasks).forEach(function(list) {
+      list.forEach(function(t) { if (counts[t.cat] !== undefined) counts[t.cat]++; });
+    });
+    var labels = { portfolio: 'Portfolio', fastwork: 'Fastwork', case: 'Case Study', other: 'Other' };
+    var stats = document.getElementById('stats');
+    stats.innerHTML = '';
+    Object.keys(counts).forEach(function(cat) {
+      var card = document.createElement('div');
+      card.className = 'stat-card s-' + cat;
+      card.innerHTML = '<div class="num">' + counts[cat] + '</div><div class="lbl">' + labels[cat] + ' tasks</div>';
+      stats.appendChild(card);
+    });
+  }
+
+  function openModal(d) {
+    selDay = d;
+    var k = key(curYear, curMonth, d);
+    document.getElementById('modal-title').textContent = MONTHS[curMonth] + ' ' + d + ', ' + curYear;
+    renderTaskList(k);
+    document.getElementById('overlay').style.display = 'flex';
+    setTimeout(function() { document.getElementById('task-input').focus(); }, 50);
+  }
+
+  function closeModal() {
+    document.getElementById('overlay').style.display = 'none';
+    render();
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('overlay')) closeModal();
+  }
+
+  function renderTaskList(k) {
+    var list = document.getElementById('task-list');
+    var t = tasks[k] || [];
+    list.innerHTML = '';
+    if (!t.length) {
+      list.innerHTML = '<p class="no-tasks">No tasks yet — add one above</p>';
+      return;
+    }
+    t.forEach(function(task, i) {
+      var el = document.createElement('div');
+      el.className = 'task-item';
+      el.innerHTML = '<div class="dot d-' + task.cat + '"></div><span class="txt">' + task.text + '</span><button class="del" onclick="delTask(' + i + ')" aria-label="Delete task">×</button>';
+      list.appendChild(el);
+    });
+  }
+
+  function addTask() {
+    var inp = document.getElementById('task-input');
+    var text = inp.value.trim();
+    if (!text) return;
+    var k = key(curYear, curMonth, selDay);
+    if (!tasks[k]) tasks[k] = [];
+    tasks[k].push({ text: text, cat: selCat });
+    save();
+    inp.value = '';
+    renderTaskList(k);
+  }
+
+  function quickAdd(text, cat) {
+    var k = key(curYear, curMonth, selDay);
+    if (!tasks[k]) tasks[k] = [];
+    tasks[k].push({ text: text, cat: cat });
+    save();
+    renderTaskList(k);
+  }
+
+  function delTask(i) {
+    var k = key(curYear, curMonth, selDay);
+    tasks[k].splice(i, 1);
+    if (!tasks[k].length) delete tasks[k];
+    save();
+    renderTaskList(k);
+  }
+
+  function setCat(btn) {
+    var cat = btn.getAttribute('data-cat');
+    selCat = cat;
+    document.querySelectorAll('.cat-btn').forEach(function(b) {
+      b.className = 'cat-btn';
+    });
+    btn.className = 'cat-btn active-' + cat;
+  }
+
+  function changeMonth(dir) {
+    curMonth += dir;
+    if (curMonth > 11) { curMonth = 0; curYear++; }
+    if (curMonth < 0)  { curMonth = 11; curYear--; }
+    render();
+  }
+
+  render();
+</script>
+</body>
+</html>
