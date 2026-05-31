@@ -203,6 +203,7 @@
       background: var(--black); border-radius: var(--r-pill);
       padding: 0.55rem 1.1rem; width: 260px;
     }
+    .topnav-dark .tn-search { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.08); }
     .tn-search input {
       background: none; border: none; outline: none; color: #fff;
       font-family: inherit; font-size: 0.85rem; width: 100%;
@@ -601,38 +602,108 @@
     .sum-secure svg { width: 13px; height: 13px; }
 
     /* ============================================================
-       RESPONSIVE
+       RESPONSIVE  —  desktop ▸ laptop ▸ tablet ▸ mobile
     ============================================================ */
-    @media (max-width: 1100px) {
+
+    /* small laptops / large tablets */
+    @media (max-width: 1180px) {
       .status-body, .topup-grid { grid-template-columns: 1fr; }
+      .summary { position: static; }
+    }
+
+    @media (max-width: 1024px) {
       .game-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero { padding: 2.25rem 2rem; }
+      .hero h1 { font-size: 2.4rem; }
     }
+
+    /* tablet — sidebar becomes a top tab bar */
     @media (max-width: 860px) {
-      .sidebar {
-        position: static; width: 100%; height: auto;
-        flex-direction: row; flex-wrap: wrap; align-items: center;
-        padding: 0.85rem 1rem; gap: 0.5rem;
-      }
-      .side-brand { border: none; padding: 0; margin: 0 0.75rem 0 0; }
-      .side-label, .side-foot, .side-note { display: none; }
-      .side-nav { flex-direction: row; flex-wrap: wrap; gap: 0.4rem; }
-      .side-link { width: auto; padding: 0.5rem 0.85rem; }
-      .side-link .num { display: none; }
       .app-wrap { flex-direction: column; }
-      .tn-search { display: none; }
+      .sidebar {
+        position: sticky; top: 0; width: 100%; height: auto;
+        flex-direction: row; flex-wrap: wrap; align-items: center;
+        padding: 0.7rem 1rem; gap: 0.5rem;
+      }
+      .side-brand { border: none; padding: 0; margin: 0 0.5rem 0 0; }
+      .side-label, .side-foot, .side-note { display: none; }
+      .side-nav { flex-direction: row; flex-wrap: wrap; gap: 0.4rem; flex: 1; }
+      .side-link { width: auto; padding: 0.5rem 0.8rem; font-size: 0.82rem; }
+      .side-link .num { display: none; }
+      .viewport { padding: 1rem; }
       .tn-links { display: none; }
-      .promo-grid { grid-template-columns: 1fr; }
+      .tn-search { width: 180px; }
+      .promo-grid { grid-template-columns: repeat(2, 1fr); }
       .pkg-grid { grid-template-columns: repeat(2, 1fr); }
+      .pc-stats { gap: 1.5rem; }
+      .hist-body, .topup-body { padding: 1.5rem; }
+      .status-body { padding: 1.75rem 1.5rem; }
     }
-    @media (max-width: 620px) {
-      .viewport { padding: 0.85rem; }
-      .topnav { padding: 0 1rem; gap: 0.75rem; }
-      .hero h1 { font-size: 2rem; }
+
+    /* large phone / small tablet */
+    @media (max-width: 680px) {
+      .viewport { padding: 0.7rem; }
+      .frame { border-radius: 12px; }
+      .topnav { padding: 0 1rem; gap: 0.75rem; height: 58px; }
+      .tn-logo { font-size: 1.15rem; }
+      .tn-search { display: none; }
+      .tn-right { gap: 0.7rem; }
+      .tn-login { padding: 0.45rem 1rem; font-size: 0.82rem; }
+
+      .home-body { padding: 1.25rem 1.1rem 0; }
+      .hero { padding: 1.75rem 1.4rem; }
+      .hero h1 { font-size: 1.8rem; }
+      .hero p { font-size: 0.9rem; }
+      .game-grid { grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+      .promo-grid { grid-template-columns: 1fr; }
+      .home-section-title { font-size: 1.35rem; }
+      .hf-top { flex-direction: column; align-items: flex-start; gap: 0.85rem; }
+      .hf-links { flex-wrap: wrap; gap: 1rem; }
+
+      /* history */
+      .hist-body { padding: 1.25rem 1rem; }
+      .hist-h1 { font-size: 1.5rem; }
+      .profile-card { flex-direction: column; text-align: center; padding: 1.25rem; }
+      .pc-uid { justify-content: center; }
+      .pc-stats { width: 100%; justify-content: space-around; text-align: center; }
+      .filter-row { gap: 0.45rem; }
+      .filter-pill { padding: 0.45rem 0.9rem; font-size: 0.8rem; }
+      .txn-card { grid-template-columns: auto 1fr auto; gap: 0.85rem; padding: 1rem; }
+      .txn-card > div:nth-child(3) { display: none; }   /* package + date */
+      .txn-detail { display: none; }
+      .txn-amt { font-size: 1.1rem; }
+
+      /* top-up */
+      .topup-body { padding: 1.25rem 1rem; }
+      .steps { gap: 0; }
+      .step-text { display: none; }
+      .step-line { width: 36px; margin: 0 0.4rem; }
+      .pkg-grid { grid-template-columns: 1fr 1fr; }
+      .panel { padding: 1.25rem; }
+
+      /* status */
+      .status-body { padding: 1.25rem 1rem; gap: 1.25rem; }
+      .status-success { padding: 1.5rem; }
+      .ss-title { font-size: 1.6rem; }
+      .ss-detail { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+      .ss-detail > div:last-child { text-align: left; }
+      .ssd-ref-label, .ss-detail .ssd-ref { text-align: left; }
+      .ss-grid { grid-template-columns: 1fr; }
+      .ss-total { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+      .ss-total > div:last-child { text-align: left !important; }
+      .ss-actions { flex-direction: column; }
+      .ss-btn { justify-content: center; width: 100%; }
+    }
+
+    /* small phones */
+    @media (max-width: 420px) {
+      .side-brand-text span { display: none; }
+      .side-link { padding: 0.45rem 0.65rem; }
       .game-grid { grid-template-columns: 1fr; }
-      .txn-card { grid-template-columns: auto 1fr; gap: 0.85rem; }
-      .txn-pkg, .txn-date, .txn-detail { display: none; }
-      .pc-stats { flex-direction: column; gap: 0.75rem; }
-      .profile-card { flex-direction: column; text-align: center; }
+      .pkg-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 1.55rem; }
+      .tn-history { display: none; }
+      .pc-stats { flex-direction: column; gap: 0.85rem; }
     }
   </style>
 </head>
@@ -690,16 +761,15 @@
       <div class="vp-bar">
         <div class="vp-title">
           <span id="vp-name">Home</span>
-          <span class="tag" id="vp-tag">Skeleton / Gray Nav</span>
+          <span class="tag" id="vp-tag">Black Nav</span>
         </div>
-        <div class="vp-dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div>
       </div>
 
       <div class="frame">
 
         <!-- ===== SCREEN 1 · HOME ===== -->
         <section class="screen active" id="screen-home">
-          <nav class="topnav topnav-light">
+          <nav class="topnav topnav-dark">
             <div class="tn-left">
               <span class="tn-logo red">Elasticshop</span>
               <div class="tn-links">
@@ -1066,7 +1136,7 @@
       var vpTag   = document.getElementById('vp-tag');
 
       var meta = {
-        home:    { name: 'Home',               tag: 'Skeleton / Gray Nav' },
+        home:    { name: 'Home',               tag: 'Black Nav' },
         topup:   { name: 'Top Up Flow',        tag: 'Dark Yellow' },
         history: { name: 'History',            tag: 'Dark Yellow' },
         status:  { name: 'Transaction Status', tag: 'Dark Yellow' }
