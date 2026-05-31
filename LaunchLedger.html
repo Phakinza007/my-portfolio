@@ -380,11 +380,19 @@
       font-weight: 800;
     }
 
-    .dash-grid {
-      display: grid;
+    /* Each tab panel inside the dashboard — hidden by default, .active makes it show */
+    .dash-panel {
+      display: none;
       grid-template-columns: minmax(260px, 0.86fr) minmax(320px, 1.14fr);
       gap: 14px;
       padding: 14px;
+    }
+    .dash-panel.active { display: grid; }
+
+    /* Highlight the currently selected nav tab */
+    .nav-links a.tab-active {
+      color: var(--ink);
+      background: oklch(99% 0.012 84 / 0.74);
     }
 
     .runway-card,
@@ -700,7 +708,7 @@
 
     @media (max-width: 1040px) {
       .hero,
-      .dash-grid,
+      .dash-panel,
       .section-heading {
         grid-template-columns: 1fr;
       }
@@ -792,9 +800,9 @@
         <span>LaunchLedger</span>
       </a>
       <ul class="nav-links">
-        <li><a href="#runway">Runway</a></li>
-        <li><a href="#decisions">Decisions</a></li>
-        <li><a href="#practice">Practice</a></li>
+        <li><a href="#runway"    data-tab="runway">Runway</a></li>
+        <li><a href="#decisions" data-tab="decisions">Decisions</a></li>
+        <li><a href="#practice"  data-tab="practice">Practice</a></li>
         <li><a href="index.html">Portfolio</a></li>
       </ul>
     </nav>
@@ -860,7 +868,8 @@
           </div>
           <span class="health">Runway healthy</span>
         </div>
-        <div class="dash-grid">
+        <!-- Runway tab panel: visible by default -->
+        <div class="dash-panel active" data-panel="runway">
           <section class="runway-card" aria-label="Runway summary">
             <div class="ring" aria-hidden="true">
               <div class="ring-core">
@@ -897,8 +906,11 @@
               <span class="amount">$3.6k</span>
             </div>
           </section>
+        </div>
 
-          <section class="decision-card" id="decisions" aria-label="Launch decisions">
+        <!-- Decisions tab panel: shown when Decisions nav link is clicked -->
+        <div class="dash-panel" data-panel="decisions" id="decisions">
+          <section class="decision-card" aria-label="Launch decisions">
             <div class="panel-title">
               <h3>Decision queue</h3>
               <span>Next 48h</span>
@@ -1006,5 +1018,44 @@
       <a href="index.html">Back to portfolio</a>
     </div>
   </footer>
+  <script>
+    // Tab switching: clicking a nav link shows the matching dashboard panel
+    (function () {
+      const tabLinks = document.querySelectorAll('.nav-links a[data-tab]');
+      const panels   = document.querySelectorAll('.dash-panel');
+
+      function activate(tabName) {
+        // Highlight the active nav link
+        tabLinks.forEach(function (link) {
+          link.classList.toggle('tab-active', link.dataset.tab === tabName);
+        });
+
+        // Show the matching panel, hide the rest
+        panels.forEach(function (panel) {
+          panel.classList.toggle('active', panel.dataset.panel === tabName);
+        });
+
+        // "Practice" tab: no panel to switch — just scroll down to the section
+        if (tabName === 'practice') {
+          document.getElementById('practice')?.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+
+      tabLinks.forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          var tab = this.dataset.tab;
+          // Prevent the default anchor jump for runway/decisions (we switch panels instead)
+          if (tab !== 'practice') e.preventDefault();
+          activate(tab);
+          // Keep the URL hash in sync so sharing links still work
+          history.replaceState(null, '', this.getAttribute('href'));
+        });
+      });
+
+      // On page load, activate whichever tab matches the URL hash (default: runway)
+      var hash = location.hash.replace('#', '');
+      activate(['runway', 'decisions', 'practice'].includes(hash) ? hash : 'runway');
+    })();
+  </script>
 </body>
 </html>

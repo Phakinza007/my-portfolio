@@ -635,6 +635,19 @@
       padding-top: 22px;
     }
 
+    /* Tab switching: view-floor shows the stage map; view-flow shows the ops feed */
+    .board-grid.view-floor .bp-flow  { display: none; }
+    .board-grid.view-floor .bp-floor { grid-column: 1 / -1; }
+
+    .board-grid.view-flow .bp-floor  { display: none; }
+    .board-grid.view-flow .bp-flow   { grid-column: 1 / -1; }
+
+    /* Highlight the active nav tab */
+    .nav-links a.tab-active {
+      color: var(--ink);
+      background: oklch(99% 0.009 98 / 0.72);
+    }
+
     @media (max-width: 980px) {
       .hero,
       .section-grid {
@@ -704,9 +717,9 @@
       <span>PulseBoard</span>
     </a>
     <ul class="nav-links">
-      <li><a href="#floor">Floor</a></li>
-      <li><a href="#flow">Flow</a></li>
-      <li><a href="#systems">Systems</a></li>
+      <li><a href="#floor"   data-tab="floor">Floor</a></li>
+      <li><a href="#flow"    data-tab="flow">Flow</a></li>
+      <li><a href="#systems" data-tab="systems">Systems</a></li>
     </ul>
   </header>
 
@@ -757,8 +770,9 @@
           <strong>Today: Bangkok Design Night</strong>
           <span class="status-dot">stable flow</span>
         </div>
-        <div class="board-grid">
-          <article class="panel">
+        <!-- view-floor is the default; JS switches to view-flow when Flow tab is clicked -->
+        <div class="board-grid view-floor">
+          <article class="panel bp-floor">
             <div class="panel-head">
               <strong>Floor Map</strong>
               <span>live capacity</span>
@@ -771,7 +785,7 @@
             </div>
           </article>
 
-          <article class="panel" id="flow">
+          <article class="panel bp-flow" id="flow">
             <div class="panel-head">
               <strong>Operations Feed</strong>
               <span>next 18 min</span>
@@ -887,5 +901,45 @@
       <span>Static HTML, CSS, responsive layout</span>
     </div>
   </footer>
+
+  <script>
+    // Tab switching: clicking Floor shows the stage map; Flow shows the ops feed
+    (function () {
+      var navLinks  = document.querySelectorAll('.nav-links a[data-tab]');
+      var boardGrid = document.querySelector('.board-grid');
+
+      function activate(tabName) {
+        // Highlight the active nav link
+        navLinks.forEach(function (link) {
+          link.classList.toggle('tab-active', link.dataset.tab === tabName);
+        });
+
+        // Switch the board view by changing the CSS class
+        if (tabName === 'floor') {
+          boardGrid.className = 'board-grid view-floor';
+        } else if (tabName === 'flow') {
+          boardGrid.className = 'board-grid view-flow';
+        } else if (tabName === 'systems') {
+          // Reset the board to floor view and scroll down to the Systems section
+          boardGrid.className = 'board-grid view-floor';
+          document.getElementById('systems')?.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+
+      navLinks.forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          var tab = this.dataset.tab;
+          // "systems" uses native scroll, so only prevent default for the panel tabs
+          if (tab !== 'systems') e.preventDefault();
+          activate(tab);
+          history.replaceState(null, '', this.getAttribute('href'));
+        });
+      });
+
+      // On load, activate whichever tab the URL hash points to (default: floor)
+      var hash = location.hash.replace('#', '');
+      activate(['floor', 'flow', 'systems'].includes(hash) ? hash : 'floor');
+    })();
+  </script>
 </body>
 </html>

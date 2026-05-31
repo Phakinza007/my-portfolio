@@ -784,6 +784,8 @@
       .hero h1    { font-size: clamp(2.6rem, 14vw, 3.4rem); }
       .hero-ctas  { flex-direction: column; }
       .hero-ctas .btn { width: 100%; }
+      /* Contact form send button goes full-width on very small screens */
+      .contact-form button { width: 100%; align-self: stretch; }
     }
 
     /* ============================================================
@@ -1358,6 +1360,83 @@
           </article>
 
 
+          <!-- Ltdos Agent Market — CSS mini-UI preview -->
+          <article class="work-card reveal">
+            <a class="work-thumb" href="stock.html" aria-label="Open Ltdos Agent Market project" style="display:block;overflow:hidden;">
+              <div style="width:100%;height:100%;background:#030d1a;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
+                <!-- glow backdrop -->
+                <div style="position:absolute;top:-20%;left:10%;width:60%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(34,197,94,.1) 0%,transparent 70%);pointer-events:none;"></div>
+                <!-- header -->
+                <div style="height:13%;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(34,197,94,.18);display:flex;align-items:center;justify-content:space-between;padding:0 8%;flex-shrink:0;">
+                  <span style="font-size:0.44rem;font-weight:800;letter-spacing:0.08em;color:#22c55e;">LTDOS</span>
+                  <div style="display:flex;align-items:center;gap:4px;">
+                    <div style="width:5px;height:5px;border-radius:50%;background:#22c55e;box-shadow:0 0 4px #22c55e;"></div>
+                    <span style="font-size:0.36rem;color:rgba(34,197,94,.7);font-weight:700;">LIVE</span>
+                  </div>
+                </div>
+                <!-- chart area with SVG sparkline -->
+                <div style="height:34%;position:relative;padding:5% 8%;flex-shrink:0;overflow:hidden;">
+                  <div style="position:absolute;inset:0;">
+                    <svg viewBox="0 0 120 40" style="width:100%;height:100%;" preserveAspectRatio="none">
+                      <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#22c55e" stop-opacity="0.18"/><stop offset="100%" stop-color="#22c55e" stop-opacity="0"/></linearGradient></defs>
+                      <polygon points="0,32 18,28 36,22 54,26 72,14 90,11 108,6 120,4 120,40 0,40" fill="url(#g)"/>
+                      <polyline points="0,32 18,28 36,22 54,26 72,14 90,11 108,6 120,4" fill="none" stroke="#22c55e" stroke-width="1.5" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div style="position:relative;z-index:1;">
+                    <div style="height:2.5px;background:rgba(255,255,255,.4);border-radius:1px;width:28%;margin-bottom:3px;"></div>
+                    <div style="height:6px;background:#22c55e;border-radius:1px;width:38%;opacity:.9;"></div>
+                  </div>
+                </div>
+                <!-- stock ticker rows -->
+                <div style="flex:1;padding:3% 8%;display:flex;flex-direction:column;justify-content:space-around;overflow:hidden;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;">
+                    <div style="display:flex;align-items:center;gap:6%;">
+                      <div style="width:11px;height:11px;border-radius:3px;background:#1d4ed8;flex-shrink:0;"></div>
+                      <div style="height:2.5px;background:rgba(255,255,255,.6);border-radius:1px;width:22px;"></div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:5%;">
+                      <div style="height:2.5px;background:rgba(255,255,255,.35);border-radius:1px;width:16px;"></div>
+                      <div style="height:8px;background:#22c55e;border-radius:2px;width:22px;"></div>
+                    </div>
+                  </div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;">
+                    <div style="display:flex;align-items:center;gap:6%;">
+                      <div style="width:11px;height:11px;border-radius:3px;background:#7c3aed;flex-shrink:0;"></div>
+                      <div style="height:2.5px;background:rgba(255,255,255,.6);border-radius:1px;width:26px;"></div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:5%;">
+                      <div style="height:2.5px;background:rgba(255,255,255,.35);border-radius:1px;width:16px;"></div>
+                      <div style="height:8px;background:#ef4444;border-radius:2px;width:22px;"></div>
+                    </div>
+                  </div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;">
+                    <div style="display:flex;align-items:center;gap:6%;">
+                      <div style="width:11px;height:11px;border-radius:3px;background:#0891b2;flex-shrink:0;"></div>
+                      <div style="height:2.5px;background:rgba(255,255,255,.6);border-radius:1px;width:20px;"></div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:5%;">
+                      <div style="height:2.5px;background:rgba(255,255,255,.35);border-radius:1px;width:16px;"></div>
+                      <div style="height:8px;background:#22c55e;border-radius:2px;width:22px;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <div class="work-body">
+              <div class="work-name">Ltdos Agent Market</div>
+              <p class="work-problem">Live stock data dashboard using the Alpha Vantage API — search symbols, view prices and changes.</p>
+              <div class="work-tags">
+                <span class="tag tag-mint">Stock API</span>
+                <span class="tag tag-accent">Dashboard</span>
+                <span class="tag tag-gray">Fetch API</span>
+              </div>
+              <div class="work-foot">
+                <a class="btn-project" href="stock.html">View Project</a>
+              </div>
+            </div>
+          </article>
+
           <!-- BookEase — CSS mini-UI preview -->
           <article class="work-card reveal">
             <a class="work-thumb" href="appointment-booking.html" aria-label="Open BookEase project" style="display:block;overflow:hidden;">
@@ -1718,13 +1797,19 @@
 
   <script>
     (() => {
-      /* ---- Scroll reveal ---- */
+      /* ---- Scroll reveal with stagger ---- */
       const reveals = document.querySelectorAll('.reveal');
       if ('IntersectionObserver' in window) {
         const obs = new IntersectionObserver((entries) => {
           entries.forEach(e => {
             if (e.isIntersecting) {
+              // Cards in a grid stagger in one after another based on their column index
+              const siblings = [...(e.target.parentElement?.children ?? [])];
+              const idx      = siblings.indexOf(e.target);
+              e.target.style.transitionDelay = (idx % 3) * 90 + 'ms';
               e.target.classList.add('visible');
+              // Remove the delay once the animation is done so hover stays instant
+              setTimeout(() => { e.target.style.transitionDelay = ''; }, 700);
               obs.unobserve(e.target);
             }
           });

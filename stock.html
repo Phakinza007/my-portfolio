@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ltdos Agent Market — live stock data dashboard using the Alpha Vantage API." />
+  <meta name="author" content="Phakin Chawanpunya" />
+  <meta name="robots" content="index, follow" />
+  <title>Ltdos Agent Market | Stock Dashboard | Phakin Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/portfolio-context.css?v=back-button-clean" />
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS — dark trading-desk theme
+    ============================================================ */
+    :root {
+      --bg:        #030d1a;
+      --surface:   #0a1628;
+      --surface-2: #0f1e35;
+      --border:    rgba(255, 255, 255, 0.07);
+      --border-2:  rgba(255, 255, 255, 0.12);
+      --ink:       #f0f6ff;
+      --muted:     rgba(240, 246, 255, 0.48);
+      --gain:      #22c55e;   /* green  = price up   */
+      --loss:      #ef4444;   /* red    = price down  */
+      --accent:    #3b82f6;
+      --r:         10px;
+      --max:       1100px;
+      --ease:      cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .shell {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    /* ============================================================
+       TOPBAR
+    ============================================================ */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(3, 13, 26, 0.92);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1rem;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--gain);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    /* Live indicator pulse */
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: var(--gain);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 4px 10px;
+      border-radius: 99px;
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gain);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
+      50%       { box-shadow: 0 0 0 5px rgba(34, 197, 94, 0); }
+    }
+
+    /* ============================================================
+       HERO / HEADER
+    ============================================================ */
+    .page-hero {
+      padding: 52px 0 36px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .page-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      margin-bottom: 10px;
+    }
+
+    .page-hero h1 span { color: var(--gain); }
+
+    .page-hero p {
+      color: var(--muted);
+      font-size: 0.97rem;
+      max-width: 54ch;
+      margin-bottom: 28px;
+    }
+
+    /* ============================================================
+       SEARCH BAR
+    ============================================================ */
+    .search-form {
+      display: flex;
+      gap: 10px;
+      max-width: 480px;
+    }
+
+    .search-input {
+      flex: 1;
+      background: var(--surface);
+      border: 1px solid var(--border-2);
+      border-radius: var(--r);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 12px 16px;
+      outline: none;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      transition: border-color 0.2s;
+    }
+
+    .search-input::placeholder {
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--muted);
+    }
+
+    .search-input:focus { border-color: var(--accent); }
+
+    .search-btn {
+      background: var(--accent);
+      border: none;
+      border-radius: var(--r);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 12px 22px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s var(--ease);
+      white-space: nowrap;
+    }
+
+    .search-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .search-btn:active { transform: translateY(0); }
+
+    /* ============================================================
+       MARKET SUMMARY STRIP
+    ============================================================ */
+    .market-strip {
+      display: flex;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      margin: 32px 0;
+    }
+
+    .market-stat {
+      flex: 1;
+      min-width: 0;
+      background: var(--surface);
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .market-stat-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .market-stat-value {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .market-stat-sub {
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .up   { color: var(--gain); }
+    .down { color: var(--loss); }
+
+    /* ============================================================
+       WATCHLIST CARDS (mini stats at top)
+    ============================================================ */
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .stock-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 18px 20px;
+      transition: border-color 0.2s, transform 0.2s var(--ease);
+      cursor: pointer;
+    }
+
+    .stock-card:hover {
+      border-color: var(--border-2);
+      transform: translateY(-2px);
+    }
+
+    .stock-card.loading { opacity: 0.5; }
+
+    .card-symbol {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .card-price {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+
+    .card-change {
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    /* ============================================================
+       STOCK TABLE
+    ============================================================ */
+    .table-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      margin-bottom: 48px;
+    }
+
+    .table-head-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .table-head-bar strong {
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .table-head-bar span {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 14px 22px;
+      font-size: 0.875rem;
+    }
+
+    th {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+    }
+
+    tr { border-bottom: 1px solid var(--border); }
+    tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(255, 255, 255, 0.03); }
+
+    td.symbol-col {
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+    }
+
+    td.price-col { font-weight: 700; font-variant-numeric: tabular-nums; }
+
+    .change-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 9px;
+      border-radius: 99px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .change-badge.up   { background: rgba(34, 197, 94, 0.12); color: var(--gain); }
+    .change-badge.down { background: rgba(239, 68, 68, 0.12);  color: var(--loss); }
+
+    /* ============================================================
+       ERROR / STATUS MESSAGES
+    ============================================================ */
+    .status-msg {
+      padding: 28px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .error-msg {
+      background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: var(--r);
+      padding: 14px 18px;
+      color: #f87171;
+      font-size: 0.88rem;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    /* ============================================================
+       API KEY NOTICE
+    ============================================================ */
+    .api-notice {
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: var(--r);
+      padding: 16px 20px;
+      margin-bottom: 32px;
+      font-size: 0.86rem;
+      color: rgba(147, 197, 253, 0.9);
+      line-height: 1.6;
+    }
+
+    .api-notice strong { color: #93c5fd; }
+    .api-notice code {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 0.82rem;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .footer {
+      padding: 28px 0 40px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .footer a { color: var(--accent); }
+    .footer a:hover { text-decoration: underline; }
+
+    /* ============================================================
+       FOCUS STYLES
+    ============================================================ */
+    a:focus-visible, button:focus-visible, input:focus-visible {
+      outline: 3px solid rgba(59, 130, 246, 0.5);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 900px) {
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      .cards-grid   { grid-template-columns: repeat(2, 1fr); }
+      .market-strip { flex-direction: column; gap: 0; }
+      .search-form  { flex-direction: column; }
+      .search-btn   { width: 100%; }
+
+      /* Hide lower-priority columns on small screens */
+      th:nth-child(4), td:nth-child(4),
+      th:nth-child(5), td:nth-child(5) { display: none; }
+    }
+
+    @media (max-width: 400px) {
+      .cards-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Back to portfolio link (same pattern as other project pages) -->
+  <aside class="portfolio-context" aria-label="Portfolio navigation">
+    <a class="portfolio-back" href="index.html">&larr; Back to Portfolio</a>
+  </aside>
+
+  <!-- =============================================
+       TOPBAR
+  ============================================= -->
+  <header class="topbar">
+    <div class="shell nav">
+      <a class="brand" href="#top" aria-label="Ltdos Agent Market home">
+        <span class="brand-mark">LT</span>
+        <span>Ltdos Agent Market</span>
+      </a>
+      <span class="live-badge"><span class="live-dot"></span>Live Data</span>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="page-hero">
+      <div class="shell">
+        <h1>Stock <span>Market</span> Dashboard</h1>
+        <p>Search any ticker symbol to see live price and change data. Powered by the Alpha Vantage API.</p>
+
+        <!-- Search form — type a symbol like AAPL, TSLA, NVDA and click Search -->
+        <form class="search-form" id="search-form" aria-label="Search stock symbol">
+          <input
+            class="search-input"
+            id="search-input"
+            type="text"
+            placeholder="Enter symbol (e.g. AAPL)"
+            maxlength="10"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button class="search-btn" type="submit">Search</button>
+        </form>
+      </div>
+    </section>
+
+    <div class="shell" style="padding-top: 32px;">
+
+      <!-- API key notice — remove this block once you add your real key -->
+      <div class="api-notice" id="api-notice">
+        <strong>Developer note:</strong> This page uses the
+        <a href="https://www.alphavantage.co/support/#api-key" target="_blank" rel="noopener">Alpha Vantage API</a>.
+        Replace <code>YOUR_API_KEY</code> at the top of the <code>&lt;script&gt;</code> block with a free key from
+        <strong>alphavantage.co</strong> to enable live data. The free tier allows 25 requests/day.
+      </div>
+
+      <!-- Error banner — shown when fetch fails -->
+      <div class="error-msg" id="error-msg" role="alert"></div>
+
+      <!-- Market summary strip (static reference data) -->
+      <div class="market-strip" aria-label="Market summary">
+        <div class="market-stat">
+          <span class="market-stat-label">S&amp;P 500</span>
+          <span class="market-stat-value up" id="sp500-val">—</span>
+          <span class="market-stat-sub up" id="sp500-chg">Loading…</span>
+        </div>
+        <div class="market-stat">
+          <span class="market-stat-label">NASDAQ</span>
+          <span class="market-stat-value up" id="nas-val">—</span>
+          <span class="market-stat-sub up" id="nas-chg">Loading…</span>
+        </div>
+        <div class="market-stat">
+          <span class="market-stat-label">DOW JONES</span>
+          <span class="market-stat-value up" id="dow-val">—</span>
+          <span class="market-stat-sub up" id="dow-chg">Loading…</span>
+        </div>
+        <div class="market-stat">
+          <span class="market-stat-label">Watchlist</span>
+          <span class="market-stat-value" id="watchlist-count">4 symbols</span>
+          <span class="market-stat-sub" style="color:var(--muted);">tracked today</span>
+        </div>
+      </div>
+
+      <!-- Watchlist cards -->
+      <div class="section-label">Watchlist</div>
+      <div class="cards-grid" id="cards-grid">
+        <!-- Cards injected by JS -->
+      </div>
+
+      <!-- Stock data table -->
+      <div class="table-wrap" id="table-wrap">
+        <div class="table-head-bar">
+          <strong>Stock Details</strong>
+          <span id="last-updated">—</span>
+        </div>
+        <div id="table-container">
+          <div class="status-msg">Search a symbol above or click a watchlist card to load data.</div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="shell footer">
+    <span>Ltdos Agent Market — built with Fetch API + Alpha Vantage</span>
+    <a href="index.html">Back to portfolio</a>
+  </footer>
+
+  <script>
+    // ============================================================
+    //  CONFIGURATION
+    //  1. Sign up free at https://www.alphavantage.co/support/#api-key
+    //  2. Replace YOUR_API_KEY below with the key you receive
+    // ============================================================
+    const API_KEY = 'YOUR_API_KEY';
+
+    // Default symbols shown in the watchlist cards on page load
+    const WATCHLIST = ['AAPL', 'TSLA', 'NVDA', 'MSFT'];
+
+    // ============================================================
+    //  HELPER: fetch a single stock quote from Alpha Vantage
+    //  Returns an object like: { symbol, price, change, changePct, open, high, low, volume }
+    // ============================================================
+    async function fetchQuote(symbol) {
+      const url =
+        `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${API_KEY}`;
+
+      // fetch() sends an HTTP GET request — the response comes back as JSON
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      // Alpha Vantage wraps the data in "Global Quote" — pull out the values we need
+      const q = data['Global Quote'];
+
+      if (!q || !q['05. price']) {
+        throw new Error(`No data returned for "${symbol}". Check the symbol or your API key.`);
+      }
+
+      return {
+        symbol:    q['01. symbol'],
+        price:     parseFloat(q['05. price']).toFixed(2),
+        change:    parseFloat(q['09. change']).toFixed(2),
+        changePct: q['10. change percent'].replace('%', ''),
+        open:      parseFloat(q['02. open']).toFixed(2),
+        high:      parseFloat(q['03. high']).toFixed(2),
+        low:       parseFloat(q['04. low']).toFixed(2),
+        volume:    parseInt(q['06. volume'], 10).toLocaleString(),
+      };
+    }
+
+    // ============================================================
+    //  RENDER: update the stock data table with one or more quotes
+    // ============================================================
+    function renderTable(quotes) {
+      const container = document.getElementById('table-container');
+
+      if (!quotes.length) {
+        container.innerHTML = '<div class="status-msg">No data to display.</div>';
+        return;
+      }
+
+      // Build an HTML table row for each quote
+      const rows = quotes.map(q => {
+        const up    = parseFloat(q.change) >= 0;
+        const arrow = up ? '▲' : '▼';
+        const cls   = up ? 'up' : 'down';
+        const badge = `<span class="change-badge ${cls}">${arrow} ${Math.abs(parseFloat(q.changePct)).toFixed(2)}%</span>`;
+
+        return `
+          <tr>
+            <td class="symbol-col">${q.symbol}</td>
+            <td class="price-col">$${q.price}</td>
+            <td><span class="${cls}">${up ? '+' : ''}${q.change}</span></td>
+            <td>${badge}</td>
+            <td>$${q.open}</td>
+            <td>$${q.high} / $${q.low}</td>
+            <td>${q.volume}</td>
+          </tr>`;
+      }).join('');
+
+      container.innerHTML = `
+        <table aria-label="Stock quotes">
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Price</th>
+              <th>Change</th>
+              <th>Change %</th>
+              <th>Open</th>
+              <th>High / Low</th>
+              <th>Volume</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>`;
+
+      document.getElementById('last-updated').textContent =
+        'Updated: ' + new Date().toLocaleTimeString();
+    }
+
+    // ============================================================
+    //  RENDER: watchlist mini-cards (one card per WATCHLIST symbol)
+    // ============================================================
+    function renderCards(quotes) {
+      const grid = document.getElementById('cards-grid');
+
+      grid.innerHTML = quotes.map(q => {
+        if (!q) return ''; // skip failed fetches
+        const up  = parseFloat(q.change) >= 0;
+        const cls = up ? 'up' : 'down';
+        const arrow = up ? '▲' : '▼';
+        return `
+          <div class="stock-card" role="button" tabindex="0"
+               aria-label="View ${q.symbol} details"
+               onclick="searchSymbol('${q.symbol}')"
+               onkeydown="if(event.key==='Enter')searchSymbol('${q.symbol}')">
+            <div class="card-symbol">${q.symbol}</div>
+            <div class="card-price">$${q.price}</div>
+            <div class="card-change ${cls}">${arrow} ${up ? '+' : ''}${q.change} (${parseFloat(q.changePct).toFixed(2)}%)</div>
+          </div>`;
+      }).join('');
+
+      document.getElementById('watchlist-count').textContent = `${quotes.filter(Boolean).length} symbols`;
+    }
+
+    // ============================================================
+    //  SHOW / HIDE error banner
+    // ============================================================
+    function showError(msg) {
+      const el = document.getElementById('error-msg');
+      el.textContent = msg;
+      el.style.display = 'block';
+    }
+
+    function clearError() {
+      const el = document.getElementById('error-msg');
+      el.style.display = 'none';
+    }
+
+    // ============================================================
+    //  ACTION: search a single symbol and update the table
+    // ============================================================
+    async function searchSymbol(symbol) {
+      symbol = symbol.trim().toUpperCase();
+      if (!symbol) return;
+
+      clearError();
+      document.getElementById('table-container').innerHTML =
+        '<div class="status-msg">Loading…</div>';
+
+      // Warn the user if they haven't set a real API key yet
+      if (API_KEY === 'YOUR_API_KEY') {
+        document.getElementById('table-container').innerHTML =
+          '<div class="status-msg">Add your Alpha Vantage API key to the script to load live data.<br>See the blue notice above for instructions.</div>';
+        return;
+      }
+
+      try {
+        const quote = await fetchQuote(symbol);
+        renderTable([quote]);
+      } catch (err) {
+        showError(err.message);
+        document.getElementById('table-container').innerHTML =
+          '<div class="status-msg">Could not load data. See error above.</div>';
+      }
+    }
+
+    // ============================================================
+    //  ACTION: load all watchlist cards in parallel on page open
+    // ============================================================
+    async function loadWatchlist() {
+      // Build skeleton loading cards
+      document.getElementById('cards-grid').innerHTML = WATCHLIST.map(sym => `
+        <div class="stock-card loading">
+          <div class="card-symbol">${sym}</div>
+          <div class="card-price">—</div>
+          <div class="card-change" style="color:var(--muted)">Loading…</div>
+        </div>`).join('');
+
+      if (API_KEY === 'YOUR_API_KEY') {
+        // No real key — show placeholder cards so the page still looks good
+        document.getElementById('cards-grid').innerHTML = WATCHLIST.map(sym => `
+          <div class="stock-card">
+            <div class="card-symbol">${sym}</div>
+            <div class="card-price" style="color:var(--muted)">—</div>
+            <div class="card-change" style="color:var(--muted)">Add API key</div>
+          </div>`).join('');
+        return;
+      }
+
+      // Promise.all fetches every symbol at the same time (parallel requests)
+      const results = await Promise.allSettled(WATCHLIST.map(sym => fetchQuote(sym)));
+      const quotes  = results.map(r => r.status === 'fulfilled' ? r.value : null);
+      renderCards(quotes);
+
+      // Auto-load the first successful quote into the table
+      const first = quotes.find(Boolean);
+      if (first) renderTable([first]);
+    }
+
+    // ============================================================
+    //  WIRE UP: search form submit
+    // ============================================================
+    document.getElementById('search-form').addEventListener('submit', function (e) {
+      e.preventDefault(); // stop the page from reloading
+      const symbol = document.getElementById('search-input').value;
+      searchSymbol(symbol);
+    });
+
+    // ============================================================
+    //  INIT: run on page load
+    // ============================================================
+    loadWatchlist();
+  </script>
+
+</body>
+</html>
