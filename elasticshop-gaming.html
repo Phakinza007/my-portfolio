@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Elasticshop Gaming Top-Up Design System — dark yellow gaming UI design system for an automated game top-up platform." />
+  <meta name="author" content="Phakin Chawanpunya" />
+  <title>Elasticshop Gaming Top-Up | Design System | Phakin Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Prompt:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/portfolio-context.css?v=back-button-clean" />
+  <style>
+    :root {
+      --bg:        #0d0d0d;
+      --surface:   #161616;
+      --surface2:  #1e1e1e;
+      --surface3:  #252525;
+      --border:    rgba(255,255,255,0.08);
+      --border2:   rgba(255,255,255,0.14);
+      --ink:       #f5f5f5;
+      --ink2:      #b0b0b0;
+      --muted:     #6b6b6b;
+      --yellow:    #FFD400;
+      --yellow-d:  #e6be00;
+      --yellow-l:  rgba(255,212,0,0.12);
+      --red:       #F0442F;
+      --red-l:     rgba(240,68,47,0.12);
+      --green:     #10B981;
+      --green-l:   rgba(16,185,129,0.12);
+      --radius:    16px;
+      --radius-sm: 8px;
+      --radius-pill: 999px;
+      --shadow:    0 4px 20px rgba(0,0,0,0.4);
+      --shadow-lg: 0 20px 60px rgba(0,0,0,0.6);
+      --max:       1180px;
+      --ease:      cubic-bezier(0.16,1,0.3,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      background: rgba(13,13,13,0.92);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 64px;
+      position: sticky; top: 0; z-index: 50;
+    }
+
+    .topbar-brand {
+      display: flex; align-items: center; gap: 0.75rem;
+      font-family: 'Prompt', sans-serif;
+      font-weight: 700; font-size: 1rem; color: var(--ink);
+    }
+
+    .brand-icon {
+      width: 32px; height: 32px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--red), #c0321e);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .brand-icon svg { width: 16px; height: 16px; fill: #fff; }
+
+    .badge-ds {
+      display: inline-flex; align-items: center;
+      padding: 0.2rem 0.65rem;
+      border-radius: var(--radius-pill);
+      background: var(--yellow-l);
+      color: var(--yellow);
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      border: 1px solid rgba(255,212,0,0.25);
+    }
+
+    .topbar-back {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.45rem 1rem;
+      border-radius: var(--radius-sm);
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      color: var(--ink2);
+      font-size: 0.82rem; font-weight: 600;
+      transition: all 0.18s var(--ease);
+    }
+    .topbar-back:hover { background: var(--surface3); color: var(--ink); border-color: rgba(255,255,255,0.2); }
+    .topbar-back svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* ── SHELL ── */
+    .shell { width: min(var(--max), calc(100% - 2.5rem)); margin: 0 auto; }
+
+    /* ── HERO ── */
+    .hero {
+      padding: clamp(3rem, 6vw, 5rem) 0 clamp(2rem, 4vw, 3.5rem);
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse at 50% 0%, rgba(255,212,0,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block; width: 24px; height: 2px;
+      border-radius: 99px; background: var(--yellow);
+    }
+
+    .hero h1 {
+      font-family: 'Prompt', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      max-width: 20ch;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 span { color: var(--yellow); }
+
+    .hero-desc {
+      font-size: clamp(0.95rem, 1.4vw, 1.08rem);
+      color: var(--ink2);
+      max-width: 58ch;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .hero-meta {
+      display: flex; flex-wrap: wrap; gap: 0.65rem;
+      margin-bottom: 2rem;
+    }
+
+    .meta-chip {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-pill);
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      font-size: 0.78rem; font-weight: 600; color: var(--ink2);
+    }
+
+    .meta-chip .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--yellow); flex-shrink: 0;
+    }
+
+    /* ── SECTION HEADERS ── */
+    .section { padding: clamp(2rem, 4vw, 3.5rem) 0; }
+
+    .section-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-label::before {
+      content: ''; display: block; width: 20px; height: 1.5px;
+      border-radius: 99px; background: var(--muted);
+    }
+
+    .section-title {
+      font-family: 'Prompt', sans-serif;
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 700; color: var(--ink);
+      letter-spacing: -0.02em; margin-bottom: 0.5rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.95rem; color: var(--ink2);
+      max-width: 60ch; line-height: 1.7;
+    }
+
+    /* ── SCREENS GRID ── */
+    .screens-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 700px) {
+      .screens-grid { grid-template-columns: 1fr; }
+    }
+
+    .screen-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.2s var(--ease), transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+    }
+
+    .screen-card:hover {
+      border-color: rgba(255,212,0,0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,212,0,0.1);
+    }
+
+    .screen-img-wrap {
+      width: 100%;
+      overflow: hidden;
+      background: var(--surface2);
+    }
+
+    .screen-img-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.3s var(--ease);
+    }
+
+    .screen-card:hover .screen-img-wrap img {
+      transform: scale(1.02);
+    }
+
+    .screen-info {
+      padding: 1.1rem 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .screen-name {
+      font-weight: 700; font-size: 0.92rem; color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .screen-desc {
+      font-size: 0.8rem; color: var(--ink2); line-height: 1.5;
+    }
+
+    /* ── COLOR SWATCHES ── */
+    .colors-grid {
+      display: flex; flex-wrap: wrap; gap: 1rem;
+      margin-top: 1.75rem;
+    }
+
+    .swatch {
+      display: flex; flex-direction: column; gap: 0.5rem;
+      min-width: 80px;
+    }
+
+    .swatch-circle {
+      width: 48px; height: 48px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255,255,255,0.1);
+      flex-shrink: 0;
+    }
+
+    .swatch-label {
+      font-size: 0.72rem; font-weight: 600; color: var(--ink2);
+    }
+
+    .swatch-hex {
+      font-size: 0.68rem; color: var(--muted);
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px; background: var(--border);
+      margin: 0;
+    }
+
+    /* ── DESIGN SYSTEM INFO ── */
+    .ds-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 1.75rem;
+    }
+
+    @media (max-width: 800px) {
+      .ds-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 500px) {
+      .ds-grid { grid-template-columns: 1fr; }
+    }
+
+    .ds-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+
+    .ds-card-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 0.85rem;
+      font-size: 1.1rem;
+    }
+
+    .ds-card-title {
+      font-weight: 700; font-size: 0.9rem; color: var(--ink);
+      margin-bottom: 0.4rem;
+    }
+
+    .ds-card-body {
+      font-size: 0.8rem; color: var(--ink2); line-height: 1.6;
+    }
+
+    /* ── TYPE SCALE ── */
+    .type-rows { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.75rem; }
+
+    .type-row {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.1rem 1.4rem;
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .type-sample { color: var(--ink); font-family: 'Prompt', sans-serif; }
+    .type-token { font-size: 0.72rem; font-weight: 600; color: var(--muted); font-family: 'SF Mono', 'Fira Code', monospace; flex-shrink: 0; }
+
+    /* ── STATUS BADGES ── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 0.28rem 0.8rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.75rem; font-weight: 700;
+    }
+
+    .badge-success { background: var(--green-l); color: var(--green); }
+    .badge-pending { background: var(--yellow-l); color: var(--yellow-d); }
+    .badge-error   { background: var(--red-l); color: var(--red); }
+    .badge-grey    { background: rgba(148,163,184,0.12); color: #94A3B8; }
+
+    .badges-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+      margin-top: 4rem;
+    }
+
+    .footer-credit {
+      font-size: 0.8rem; color: var(--muted);
+    }
+
+    .footer-credit a { color: var(--yellow); }
+
+    .footer-back {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.5rem 1.25rem;
+      border-radius: var(--radius-sm);
+      background: var(--yellow);
+      color: #111;
+      font-size: 0.83rem; font-weight: 700;
+      transition: background 0.18s, transform 0.18s var(--ease);
+    }
+
+    .footer-back:hover { background: var(--yellow-d); transform: translateY(-1px); }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="topbar-brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      </div>
+      Elasticshop
+      <span class="badge-ds">Design System</span>
+    </div>
+    <a class="topbar-back" href="index.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to Portfolio
+    </a>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-eyebrow">Gaming UI · Design System</div>
+        <h1>Elasticshop <span>Gaming</span><br>Top-Up Platform</h1>
+        <p class="hero-desc">
+          A complete UI design system for an automated game top-up platform. Built with a "Reliable Pro-Gamer" brand personality — fast, trustworthy, and visually striking. Dark foundations, high-contrast yellow highlights, and precision red CTAs.
+        </p>
+        <div class="hero-meta">
+          <span class="meta-chip"><span class="dot"></span>Figma Design System</span>
+          <span class="meta-chip"><span class="dot"></span>Mobile-First</span>
+          <span class="meta-chip"><span class="dot"></span>Thai / English Bilingual</span>
+          <span class="meta-chip"><span class="dot"></span>4 Screen Flows</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SCREENS SHOWCASE -->
+    <section class="section">
+      <div class="shell">
+        <div class="section-label">Screens</div>
+        <h2 class="section-title">4 Core User Flows</h2>
+        <p class="section-subtitle">
+          From browsing games on the home screen to confirming a top-up and reviewing transaction history — every critical touchpoint designed for speed and trust.
+        </p>
+
+        <div class="screens-grid">
+
+          <div class="screen-card">
+            <div class="screen-img-wrap">
+              <img
+                src="stitch_elasticshop_gaming_top_up_design_system/home_elasticshop_skeleton_only_gray_nav/screen.png"
+                alt="Elasticshop Home Screen — skeleton loading state with gray navigation"
+                loading="lazy"
+              />
+            </div>
+            <div class="screen-info">
+              <div class="screen-name">Home Screen</div>
+              <div class="screen-desc">Game catalog with skeleton loading state and gray navigation bar. Entry point for browsing available top-up games.</div>
+            </div>
+          </div>
+
+          <div class="screen-card">
+            <div class="screen-img-wrap">
+              <img
+                src="stitch_elasticshop_gaming_top_up_design_system/top_up_flow_elasticshop_dark_yellow/screen.png"
+                alt="Elasticshop Top-Up Flow — dark yellow theme with package selection"
+                loading="lazy"
+              />
+            </div>
+            <div class="screen-info">
+              <div class="screen-name">Top-Up Flow</div>
+              <div class="screen-desc">3-step flow: Player Info → Package Selection → Payment. Yellow highlights for promotions, red CTA for confirmation.</div>
+            </div>
+          </div>
+
+          <div class="screen-card">
+            <div class="screen-img-wrap">
+              <img
+                src="stitch_elasticshop_gaming_top_up_design_system/transaction_status_elasticshop_dark_yellow/screen.png"
+                alt="Elasticshop Transaction Status — success, pending, and failed states"
+                loading="lazy"
+              />
+            </div>
+            <div class="screen-info">
+              <div class="screen-name">Transaction Status</div>
+              <div class="screen-desc">Post-payment feedback screen showing success, pending, and failed states with clear visual language and next actions.</div>
+            </div>
+          </div>
+
+          <div class="screen-card">
+            <div class="screen-img-wrap">
+              <img
+                src="stitch_elasticshop_gaming_top_up_design_system/history_elasticshop_dark_yellow/screen.png"
+                alt="Elasticshop History — transaction history list with dark yellow theme"
+                loading="lazy"
+              />
+            </div>
+            <div class="screen-info">
+              <div class="screen-name">Transaction History</div>
+              <div class="screen-desc">Full transaction log with filterable status badges, game thumbnails, and a scannable list layout for quick review.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- COLOR PALETTE -->
+    <section class="section">
+      <div class="shell">
+        <div class="section-label">Color System</div>
+        <h2 class="section-title">Palette</h2>
+        <p class="section-subtitle">45% White/Light Gray (readability) · 30% Black (structure) · 15% Yellow (highlight) · 10% Red (action)</p>
+
+        <div class="colors-grid">
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#F0442F;"></div>
+            <div class="swatch-label">Primary Red</div>
+            <div class="swatch-hex">#F0442F</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#FFD400;border-color:rgba(255,255,255,0.2);"></div>
+            <div class="swatch-label">Secondary Yellow</div>
+            <div class="swatch-hex">#FFD400</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#111111;"></div>
+            <div class="swatch-label">Main Black</div>
+            <div class="swatch-hex">#111111</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#FFFFFF;border-color:rgba(255,255,255,0.3);"></div>
+            <div class="swatch-label">White</div>
+            <div class="swatch-hex">#FFFFFF</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#F3F3F3;border-color:rgba(255,255,255,0.3);"></div>
+            <div class="swatch-label">Surface Light</div>
+            <div class="swatch-hex">#F3F3F3</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#10B981;"></div>
+            <div class="swatch-label">Status Success</div>
+            <div class="swatch-hex">#10B981</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#FFD400;opacity:0.6;"></div>
+            <div class="swatch-label">Status Pending</div>
+            <div class="swatch-hex">#FFD400</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#94A3B8;"></div>
+            <div class="swatch-label">Status Cancelled</div>
+            <div class="swatch-hex">#94A3B8</div>
+          </div>
+        </div>
+
+        <!-- Status badges preview -->
+        <div style="margin-top: 2rem;">
+          <div style="font-size:0.78rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.75rem;">Status Badges</div>
+          <div class="badges-row">
+            <span class="badge badge-success">
+              <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="3"/></svg>
+              Success
+            </span>
+            <span class="badge badge-pending">
+              <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="3"/></svg>
+              Pending
+            </span>
+            <span class="badge badge-error">
+              <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="3"/></svg>
+              Failed
+            </span>
+            <span class="badge badge-grey">
+              <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="3"/></svg>
+              Cancelled
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- TYPOGRAPHY -->
+    <section class="section">
+      <div class="shell">
+        <div class="section-label">Typography</div>
+        <h2 class="section-title">Type Scale</h2>
+        <p class="section-subtitle">Prompt for display and UI, Noto Sans Thai for functional labels. Optimized for Thai/English bilingual legibility.</p>
+
+        <div class="type-rows">
+          <div class="type-row">
+            <span class="type-sample" style="font-size:2.4rem;font-weight:800;">Display Lg</span>
+            <span class="type-token">48px · 700 · Prompt</span>
+          </div>
+          <div class="type-row">
+            <span class="type-sample" style="font-size:1.6rem;font-weight:600;">Headline Lg</span>
+            <span class="type-token">32px · 600 · Prompt</span>
+          </div>
+          <div class="type-row">
+            <span class="type-sample" style="font-size:1.15rem;font-weight:600;">Title MD</span>
+            <span class="type-token">20px · 600 · Prompt</span>
+          </div>
+          <div class="type-row">
+            <span class="type-sample" style="font-size:0.95rem;font-weight:400;">Body MD — top-up description text</span>
+            <span class="type-token">16px · 400 · Prompt</span>
+          </div>
+          <div class="type-row">
+            <span class="type-sample" style="font-size:1.2rem;font-weight:700;color:#F0442F;">฿ 199.00</span>
+            <span class="type-token">24px · 700 · Price Display</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- DESIGN PRINCIPLES -->
+    <section class="section">
+      <div class="shell">
+        <div class="section-label">System</div>
+        <h2 class="section-title">Design Principles</h2>
+        <p class="section-subtitle">Built for the "Reliable Pro-Gamer" persona — frictionless, precise, and visually energetic.</p>
+
+        <div class="ds-grid">
+          <div class="ds-card">
+            <div class="ds-card-icon" style="background:var(--yellow-l);">⚡</div>
+            <div class="ds-card-title">One-Tap Feel</div>
+            <div class="ds-card-body">Interface stays out of the way. The user's goal is getting back in the game — every interaction is designed to feel instant.</div>
+          </div>
+          <div class="ds-card">
+            <div class="ds-card-icon" style="background:var(--red-l);">🎯</div>
+            <div class="ds-card-title">Action Hierarchy</div>
+            <div class="ds-card-body">Red is reserved exclusively for high-priority CTAs (Buy Now, Confirm). Yellow for promotions and attention. Never mixed.</div>
+          </div>
+          <div class="ds-card">
+            <div class="ds-card-icon" style="background:rgba(255,255,255,0.05);">◼</div>
+            <div class="ds-card-title">Tonal Layers</div>
+            <div class="ds-card-body">Elevation through tonal contrast and 1px borders rather than heavy shadows. Keeps the UI feeling fast and flat-modern.</div>
+          </div>
+          <div class="ds-card">
+            <div class="ds-card-icon" style="background:var(--green-l);">📐</div>
+            <div class="ds-card-title">8px Grid</div>
+            <div class="ds-card-body">All spacing driven by an 8px base unit. 12-column desktop, 2-column tablet, single-column mobile-first stack.</div>
+          </div>
+          <div class="ds-card">
+            <div class="ds-card-icon" style="background:rgba(255,212,0,0.08);">🌐</div>
+            <div class="ds-card-title">Bilingual UI</div>
+            <div class="ds-card-body">Prompt handles English display type. Noto Sans Thai handles functional labels — both tested for legibility at small sizes.</div>
+          </div>
+          <div class="ds-card">
+            <div class="ds-card-icon" style="background:var(--red-l);">🔴</div>
+            <div class="ds-card-title">Selected States</div>
+            <div class="ds-card-body">Active package/payment cards get a 2px Primary Red or Yellow border with a checkmark. No elevation change needed.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-credit">
+      Designed by <a href="index.html">Phakin Chawanpunya</a> &mdash; Elasticshop Gaming Top-Up Design System
+    </div>
+    <a class="footer-back" href="index.html">
+      ← Back to Portfolio
+    </a>
+  </footer>
+
+</body>
+</html>
