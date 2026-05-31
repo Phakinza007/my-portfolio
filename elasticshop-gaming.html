@@ -586,6 +586,78 @@
     .sum-secure svg { width: 13px; height: 13px; }
 
     /* ============================================================
+       HOME — MARKETPLACE GRID (richmanshop-style, brand colors)
+    ============================================================ */
+    .cat-chips {
+      display: flex; gap: 0.55rem; margin: 1.5rem 0 0.25rem;
+      flex-wrap: wrap;
+    }
+    .cat-chip {
+      padding: 0.5rem 1.1rem; border-radius: var(--r-pill);
+      background: #fff; border: 1px solid var(--border);
+      font-size: 0.85rem; font-weight: 600; color: var(--ink-2);
+      transition: all 0.18s var(--ease);
+    }
+    .cat-chip:hover { border-color: #c8c8c8; }
+    .cat-chip.active { background: var(--black); color: var(--yellow); border-color: var(--black); }
+
+    .cat-section { margin-top: 1.75rem; }
+    .cat-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 0.9rem;
+    }
+    .cat-title {
+      display: flex; align-items: center; gap: 0.55rem;
+      font-size: 1.05rem; font-weight: 700; color: var(--black);
+    }
+    .cat-title .bar { width: 4px; height: 18px; background: var(--red); border-radius: 2px; }
+    .cat-more { font-size: 0.82rem; font-weight: 600; color: var(--muted); transition: color 0.18s; }
+    .cat-more:hover { color: var(--red); }
+
+    .tile-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.9rem; }
+    .tile {
+      background: #fff; border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden; cursor: pointer;
+      transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), border-color 0.2s var(--ease);
+    }
+    .tile:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,0.12); border-color: var(--yellow); }
+    .tile-art {
+      aspect-ratio: 1; position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .tile-art::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.45));
+    }
+    .tile-mono {
+      position: relative; z-index: 1;
+      font-weight: 800; font-size: 1.4rem; color: #fff;
+      letter-spacing: 0.04em; text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+    .tile-badge {
+      position: absolute; top: 6px; left: 6px; z-index: 2;
+      background: var(--yellow); color: #111;
+      font-size: 0.56rem; font-weight: 800; letter-spacing: 0.04em;
+      padding: 0.15rem 0.45rem; border-radius: var(--r-sm);
+    }
+    .tile-badge.new { background: var(--red); color: #fff; }
+    .tile-cap { padding: 0.5rem 0.6rem 0.65rem; }
+    .tile-name {
+      font-size: 0.76rem; font-weight: 600; color: var(--black);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .tile-price { font-size: 0.78rem; font-weight: 800; color: var(--red); margin-top: 0.1rem; }
+    .tile-price span { font-size: 0.66rem; color: var(--muted); font-weight: 500; margin-right: 2px; }
+
+    /* tile art — dark base + brand-tinted glow (red / yellow only) */
+    .a1 { background: radial-gradient(circle at 30% 25%, #4a1410, #0d0d0d 72%); }
+    .a2 { background: radial-gradient(circle at 30% 25%, #4a3a00, #0d0d0d 72%); }
+    .a3 { background: radial-gradient(circle at 30% 25%, #3a1208, #0d0d0d 72%); }
+    .a4 { background: radial-gradient(circle at 30% 25%, #3d3000, #0d0d0d 72%); }
+    .a5 { background: radial-gradient(circle at 30% 25%, #2a0d0a, #0d0d0d 72%); }
+    .a6 { background: radial-gradient(circle at 30% 25%, #332600, #0d0d0d 72%); }
+
+    /* ============================================================
        RESPONSIVE  —  desktop ▸ laptop ▸ tablet ▸ mobile
     ============================================================ */
 
@@ -597,6 +669,7 @@
 
     @media (max-width: 1024px) {
       .game-grid { grid-template-columns: repeat(2, 1fr); }
+      .tile-grid { grid-template-columns: repeat(4, 1fr); }
       .hero { padding: 2.25rem 2rem; }
       .hero h1 { font-size: 2.4rem; }
       .topnav { padding: 0 1.25rem; gap: 1rem; }
@@ -644,6 +717,7 @@
       .hero h1 { font-size: 1.8rem; }
       .hero p { font-size: 0.9rem; }
       .game-grid { grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+      .tile-grid { grid-template-columns: repeat(3, 1fr); gap: 0.7rem; }
       .promo-grid { grid-template-columns: 1fr; }
       .home-section-title { font-size: 1.35rem; }
       .hf-top { flex-direction: column; align-items: flex-start; gap: 0.85rem; }
@@ -689,6 +763,7 @@
       .side-brand-text span { display: none; }
       .side-link { padding: 0.45rem 0.65rem; }
       .game-grid { grid-template-columns: 1fr; }
+      .tile-grid { grid-template-columns: repeat(2, 1fr); }
       .pkg-grid { grid-template-columns: 1fr; }
       .hero h1 { font-size: 1.55rem; }
       .tn-history { display: none; }
@@ -779,32 +854,61 @@
               <a class="hero-cta thai">เติมเลย (Top Up Now)</a>
             </div>
 
-            <div class="skeleton-bar"></div>
+            <!-- category chips -->
+            <div class="cat-chips">
+              <button class="cat-chip active">ทั้งหมด</button>
+              <button class="cat-chip">เกมมือถือ</button>
+              <button class="cat-chip">เกม PC</button>
+              <button class="cat-chip">บัตรเงินสด</button>
+              <button class="cat-chip">แอปพลิเคชัน</button>
+            </div>
 
-            <div class="game-grid">
-              <div class="game-card">
-                <div class="game-thumb g1"><span class="gc-badge hot">HOT</span></div>
-                <div class="game-foot"><div class="gline"></div><div class="gline short"></div></div>
+            <!-- popular games -->
+            <div class="cat-section">
+              <div class="cat-head">
+                <div class="cat-title"><span class="bar"></span>เกมยอดนิยม</div>
+                <a class="cat-more">ดูทั้งหมด ›</a>
               </div>
-              <div class="game-card">
-                <div class="game-thumb g2"><span class="gc-badge bonus">+10% BONUS</span></div>
-                <div class="game-foot"><div class="gline"></div><div class="gline short"></div></div>
-              </div>
-              <div class="game-card">
-                <div class="game-thumb g3"></div>
-                <div class="game-foot"><div class="gline"></div><div class="gline short"></div></div>
-              </div>
-              <div class="game-card">
-                <div class="game-thumb g4"></div>
-                <div class="game-foot"><div class="gline"></div><div class="gline short"></div></div>
+              <div class="tile-grid">
+                <div class="tile"><div class="tile-art a1"><span class="tile-badge">HOT</span><span class="tile-mono">G1</span></div><div class="tile-cap"><div class="tile-name">Battle Royale</div><div class="tile-price"><span>เริ่ม</span>฿35</div></div></div>
+                <div class="tile"><div class="tile-art a2"><span class="tile-badge">HOT</span><span class="tile-mono">G2</span></div><div class="tile-cap"><div class="tile-name">Arena Legends</div><div class="tile-price"><span>เริ่ม</span>฿6</div></div></div>
+                <div class="tile"><div class="tile-art a3"><span class="tile-mono">G3</span></div><div class="tile-cap"><div class="tile-name">Open World RPG</div><div class="tile-price"><span>เริ่ม</span>฿120</div></div></div>
+                <div class="tile"><div class="tile-art a4"><span class="tile-badge new">NEW</span><span class="tile-mono">G4</span></div><div class="tile-cap"><div class="tile-name">Tactical FPS</div><div class="tile-price"><span>เริ่ม</span>฿25</div></div></div>
+                <div class="tile"><div class="tile-art a5"><span class="tile-mono">G5</span></div><div class="tile-cap"><div class="tile-name">Auto Chess</div><div class="tile-price"><span>เริ่ม</span>฿15</div></div></div>
+                <div class="tile"><div class="tile-art a6"><span class="tile-mono">G6</span></div><div class="tile-cap"><div class="tile-name">Racing Rivals</div><div class="tile-price"><span>เริ่ม</span>฿49</div></div></div>
               </div>
             </div>
 
-            <h2 class="home-section-title">Featured Promotions</h2>
-            <div class="promo-grid">
-              <div class="promo-card"><div class="promo-thumb p1"></div><div class="promo-foot"><div class="pline"></div><div class="pline short"></div></div></div>
-              <div class="promo-card"><div class="promo-thumb p2"></div><div class="promo-foot"><div class="pline"></div><div class="pline short"></div></div></div>
-              <div class="promo-card"><div class="promo-thumb p3"></div><div class="promo-foot"><div class="pline"></div><div class="pline short"></div></div></div>
+            <!-- mobile games -->
+            <div class="cat-section">
+              <div class="cat-head">
+                <div class="cat-title"><span class="bar"></span>เกมมือถือ</div>
+                <a class="cat-more">ดูทั้งหมด ›</a>
+              </div>
+              <div class="tile-grid">
+                <div class="tile"><div class="tile-art a3"><span class="tile-mono">M1</span></div><div class="tile-cap"><div class="tile-name">Puzzle Quest</div><div class="tile-price"><span>เริ่ม</span>฿9</div></div></div>
+                <div class="tile"><div class="tile-art a4"><span class="tile-badge">HOT</span><span class="tile-mono">M2</span></div><div class="tile-cap"><div class="tile-name">Idle Heroes</div><div class="tile-price"><span>เริ่ม</span>฿19</div></div></div>
+                <div class="tile"><div class="tile-art a1"><span class="tile-mono">M3</span></div><div class="tile-cap"><div class="tile-name">Card Masters</div><div class="tile-price"><span>เริ่ม</span>฿29</div></div></div>
+                <div class="tile"><div class="tile-art a6"><span class="tile-mono">M4</span></div><div class="tile-cap"><div class="tile-name">Farm Story</div><div class="tile-price"><span>เริ่ม</span>฿12</div></div></div>
+                <div class="tile"><div class="tile-art a2"><span class="tile-badge new">NEW</span><span class="tile-mono">M5</span></div><div class="tile-cap"><div class="tile-name">Sky Shooter</div><div class="tile-price"><span>เริ่ม</span>฿39</div></div></div>
+                <div class="tile"><div class="tile-art a5"><span class="tile-mono">M6</span></div><div class="tile-cap"><div class="tile-name">Dungeon Run</div><div class="tile-price"><span>เริ่ม</span>฿22</div></div></div>
+              </div>
+            </div>
+
+            <!-- gift cards -->
+            <div class="cat-section">
+              <div class="cat-head">
+                <div class="cat-title"><span class="bar"></span>บัตรเงินสด</div>
+                <a class="cat-more">ดูทั้งหมด ›</a>
+              </div>
+              <div class="tile-grid">
+                <div class="tile"><div class="tile-art a4"><span class="tile-mono">C1</span></div><div class="tile-cap"><div class="tile-name">Cash Card 100</div><div class="tile-price">฿100</div></div></div>
+                <div class="tile"><div class="tile-art a2"><span class="tile-mono">C2</span></div><div class="tile-cap"><div class="tile-name">Cash Card 300</div><div class="tile-price">฿300</div></div></div>
+                <div class="tile"><div class="tile-art a6"><span class="tile-badge">-5%</span><span class="tile-mono">C3</span></div><div class="tile-cap"><div class="tile-name">Cash Card 500</div><div class="tile-price">฿475</div></div></div>
+                <div class="tile"><div class="tile-art a1"><span class="tile-mono">C4</span></div><div class="tile-cap"><div class="tile-name">Store Wallet</div><div class="tile-price"><span>เริ่ม</span>฿50</div></div></div>
+                <div class="tile"><div class="tile-art a3"><span class="tile-mono">C5</span></div><div class="tile-cap"><div class="tile-name">Game Pass</div><div class="tile-price"><span>เริ่ม</span>฿199</div></div></div>
+                <div class="tile"><div class="tile-art a5"><span class="tile-badge new">NEW</span><span class="tile-mono">C6</span></div><div class="tile-cap"><div class="tile-name">Premium Coin</div><div class="tile-price"><span>เริ่ม</span>฿89</div></div></div>
+              </div>
             </div>
           </div>
 
@@ -1136,6 +1240,14 @@
         pkg.addEventListener('click', function () {
           document.querySelectorAll('#screen-topup .pkg').forEach(function (p) { p.classList.remove('sel'); });
           pkg.classList.add('sel');
+        });
+      });
+
+      // category chip toggle on the home screen
+      document.querySelectorAll('.cat-chip').forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          document.querySelectorAll('.cat-chip').forEach(function (c) { c.classList.remove('active'); });
+          chip.classList.add('active');
         });
       });
     })();
