@@ -188,8 +188,8 @@
     .tn-logo { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em; }
     .tn-logo.red { color: var(--red); }
     .tn-logo.yellow { color: var(--yellow); }
-    .tn-links { display: flex; gap: 1.6rem; }
-    .tn-links a { font-size: 0.92rem; font-weight: 500; position: relative; padding: 0.25rem 0; }
+    .tn-links { display: flex; gap: 1.6rem; flex-shrink: 0; }
+    .tn-links a { font-size: 0.92rem; font-weight: 500; position: relative; padding: 0.25rem 0; white-space: nowrap; }
     .topnav-light .tn-links a { color: #2a2a2a; }
     .topnav-dark  .tn-links a { color: #d0d0d0; }
     .tn-links a.active { color: var(--yellow); }
@@ -201,7 +201,7 @@
     .tn-search {
       display: flex; align-items: center; gap: 0.6rem;
       background: var(--black); border-radius: var(--r-pill);
-      padding: 0.55rem 1.1rem; width: 260px;
+      padding: 0.55rem 1.1rem; flex: 0 1 260px; min-width: 0;
     }
     .topnav-dark .tn-search { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.08); }
     .tn-search input {
@@ -615,6 +615,11 @@
       .game-grid { grid-template-columns: repeat(2, 1fr); }
       .hero { padding: 2.25rem 2rem; }
       .hero h1 { font-size: 2.4rem; }
+      .topnav { padding: 0 1.25rem; gap: 1rem; }
+      .tn-left { gap: 1.25rem; }
+      .tn-links { gap: 1.1rem; }
+      .tn-links a { font-size: 0.85rem; }
+      .tn-search { flex-basis: 180px; }
     }
 
     /* tablet — sidebar becomes a top tab bar */
