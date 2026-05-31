@@ -3,666 +3,1101 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Elasticshop Gaming Top-Up Design System — dark yellow gaming UI design system for an automated game top-up platform." />
+  <meta name="description" content="Elasticshop Gaming Top-Up — an interactive UI prototype for an automated game top-up platform, with home, top-up flow, history, and transaction status screens." />
   <meta name="author" content="Phakin Chawanpunya" />
-  <title>Elasticshop Gaming Top-Up | Design System | Phakin Portfolio</title>
+  <title>Elasticshop Gaming Top-Up | UI Prototype | Phakin Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Prompt:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/portfolio-context.css?v=back-button-clean" />
   <style>
     :root {
-      --bg:        #0d0d0d;
-      --surface:   #161616;
-      --surface2:  #1e1e1e;
-      --surface3:  #252525;
-      --border:    rgba(255,255,255,0.08);
-      --border2:   rgba(255,255,255,0.14);
-      --ink:       #f5f5f5;
-      --ink2:      #b0b0b0;
-      --muted:     #6b6b6b;
-      --yellow:    #FFD400;
-      --yellow-d:  #e6be00;
-      --yellow-l:  rgba(255,212,0,0.12);
-      --red:       #F0442F;
-      --red-l:     rgba(240,68,47,0.12);
-      --green:     #10B981;
-      --green-l:   rgba(16,185,129,0.12);
-      --radius:    16px;
-      --radius-sm: 8px;
-      --radius-pill: 999px;
-      --shadow:    0 4px 20px rgba(0,0,0,0.4);
-      --shadow-lg: 0 20px 60px rgba(0,0,0,0.6);
-      --max:       1180px;
-      --ease:      cubic-bezier(0.16,1,0.3,1);
+      --red:        #F0442F;
+      --red-d:      #d8331f;
+      --yellow:     #FFD400;
+      --yellow-d:   #e6be00;
+      --black:      #111111;
+      --green:      #10B981;
+      --green-l:    #d1fae5;
+      --green-t:    #047857;
+      --pending:    #FFD400;
+      --grey:       #94A3B8;
+      --surface:    #F3F3F3;
+      --white:      #FFFFFF;
+      --ink:        #1a1c1c;
+      --ink-2:      #5c5c5c;
+      --muted:      #9aa0a6;
+      --border:     #E5E7EB;
+      --r:          16px;
+      --r-sm:       8px;
+      --r-pill:     999px;
+      --ease:       cubic-bezier(0.16,1,0.3,1);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Inter', -apple-system, sans-serif;
-      background: var(--bg);
+      font-family: 'Prompt', -apple-system, sans-serif;
+      background: #0b0b0b;
       color: var(--ink);
-      line-height: 1.6;
-      min-height: 100vh;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
     a { color: inherit; text-decoration: none; }
-    img { display: block; max-width: 100%; }
+    button { font: inherit; cursor: pointer; border: none; background: none; }
+    .thai { font-family: 'Noto Sans Thai', 'Prompt', sans-serif; }
 
-    /* ── TOPBAR ── */
-    .topbar {
-      background: rgba(13,13,13,0.92);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2rem; height: 64px;
-      position: sticky; top: 0; z-index: 50;
+    /* ============================================================
+       APP SHELL  —  sidebar + viewport
+    ============================================================ */
+    .app-wrap { display: flex; min-height: 100vh; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 256px;
+      flex-shrink: 0;
+      background: #141414;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 1.5rem 1rem;
+      z-index: 40;
     }
 
-    .topbar-brand {
-      display: flex; align-items: center; gap: 0.75rem;
-      font-family: 'Prompt', sans-serif;
-      font-weight: 700; font-size: 1rem; color: var(--ink);
+    .side-brand {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0 0.6rem 1.25rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
     }
-
-    .brand-icon {
-      width: 32px; height: 32px; border-radius: 10px;
+    .side-brand-mark {
+      width: 34px; height: 34px; border-radius: 9px;
       background: linear-gradient(135deg, var(--red), #c0321e);
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
+    .side-brand-mark svg { width: 17px; height: 17px; fill: #fff; }
+    .side-brand-text { line-height: 1.2; }
+    .side-brand-text b { display: block; color: #fff; font-size: 0.95rem; font-weight: 700; }
+    .side-brand-text span { font-size: 0.68rem; color: var(--yellow); font-weight: 600; letter-spacing: 0.04em; }
 
-    .brand-icon svg { width: 16px; height: 16px; fill: #fff; }
-
-    .badge-ds {
-      display: inline-flex; align-items: center;
-      padding: 0.2rem 0.65rem;
-      border-radius: var(--radius-pill);
-      background: var(--yellow-l);
-      color: var(--yellow);
-      font-size: 0.7rem; font-weight: 700;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      border: 1px solid rgba(255,212,0,0.25);
+    .side-label {
+      font-size: 0.66rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #5e5e5e;
+      padding: 0 0.6rem; margin: 0.5rem 0 0.6rem;
     }
 
-    .topbar-back {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      padding: 0.45rem 1rem;
-      border-radius: var(--radius-sm);
-      background: var(--surface2);
-      border: 1px solid var(--border2);
-      color: var(--ink2);
-      font-size: 0.82rem; font-weight: 600;
+    .side-nav { display: flex; flex-direction: column; gap: 0.25rem; }
+
+    .side-link {
+      display: flex; align-items: center; gap: 0.7rem;
+      padding: 0.65rem 0.7rem;
+      border-radius: 10px;
+      color: #b8b8b8;
+      font-size: 0.88rem; font-weight: 500;
+      text-align: left;
       transition: all 0.18s var(--ease);
-    }
-    .topbar-back:hover { background: var(--surface3); color: var(--ink); border-color: rgba(255,255,255,0.2); }
-    .topbar-back svg { width: 14px; height: 14px; flex-shrink: 0; }
-
-    /* ── SHELL ── */
-    .shell { width: min(var(--max), calc(100% - 2.5rem)); margin: 0 auto; }
-
-    /* ── HERO ── */
-    .hero {
-      padding: clamp(3rem, 6vw, 5rem) 0 clamp(2rem, 4vw, 3.5rem);
-      position: relative;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 50%; transform: translateX(-50%);
-      width: 600px; height: 400px;
-      background: radial-gradient(ellipse at 50% 0%, rgba(255,212,0,0.06) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 0.72rem; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--yellow);
-      margin-bottom: 1.25rem;
-    }
-
-    .hero-eyebrow::before {
-      content: '';
-      display: block; width: 24px; height: 2px;
-      border-radius: 99px; background: var(--yellow);
-    }
-
-    .hero h1 {
-      font-family: 'Prompt', sans-serif;
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      color: var(--ink);
-      max-width: 20ch;
-      margin-bottom: 1.25rem;
-    }
-
-    .hero h1 span { color: var(--yellow); }
-
-    .hero-desc {
-      font-size: clamp(0.95rem, 1.4vw, 1.08rem);
-      color: var(--ink2);
-      max-width: 58ch;
-      line-height: 1.8;
-      margin-bottom: 2rem;
-    }
-
-    .hero-meta {
-      display: flex; flex-wrap: wrap; gap: 0.65rem;
-      margin-bottom: 2rem;
-    }
-
-    .meta-chip {
-      display: inline-flex; align-items: center; gap: 0.35rem;
-      padding: 0.35rem 0.85rem;
-      border-radius: var(--radius-pill);
-      background: var(--surface2);
-      border: 1px solid var(--border2);
-      font-size: 0.78rem; font-weight: 600; color: var(--ink2);
-    }
-
-    .meta-chip .dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--yellow); flex-shrink: 0;
-    }
-
-    /* ── SECTION HEADERS ── */
-    .section { padding: clamp(2rem, 4vw, 3.5rem) 0; }
-
-    .section-label {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 0.7rem; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0.75rem;
-    }
-
-    .section-label::before {
-      content: ''; display: block; width: 20px; height: 1.5px;
-      border-radius: 99px; background: var(--muted);
-    }
-
-    .section-title {
-      font-family: 'Prompt', sans-serif;
-      font-size: clamp(1.5rem, 2.5vw, 2rem);
-      font-weight: 700; color: var(--ink);
-      letter-spacing: -0.02em; margin-bottom: 0.5rem;
-    }
-
-    .section-subtitle {
-      font-size: 0.95rem; color: var(--ink2);
-      max-width: 60ch; line-height: 1.7;
-    }
-
-    /* ── SCREENS GRID ── */
-    .screens-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-
-    @media (max-width: 700px) {
-      .screens-grid { grid-template-columns: 1fr; }
-    }
-
-    .screen-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      transition: border-color 0.2s var(--ease), transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
-    }
-
-    .screen-card:hover {
-      border-color: rgba(255,212,0,0.3);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,212,0,0.1);
-    }
-
-    .screen-img-wrap {
       width: 100%;
-      overflow: hidden;
-      background: var(--surface2);
     }
-
-    .screen-img-wrap img {
-      width: 100%;
-      height: auto;
-      display: block;
-      transition: transform 0.3s var(--ease);
+    .side-link svg { width: 18px; height: 18px; flex-shrink: 0; opacity: 0.85; }
+    .side-link:hover { background: rgba(255,255,255,0.05); color: #fff; }
+    .side-link.active {
+      background: linear-gradient(135deg, rgba(240,68,47,0.16), rgba(255,212,0,0.08));
+      color: #fff;
+      box-shadow: inset 0 0 0 1px rgba(255,212,0,0.22);
     }
-
-    .screen-card:hover .screen-img-wrap img {
-      transform: scale(1.02);
-    }
-
-    .screen-info {
-      padding: 1.1rem 1.25rem;
-      border-top: 1px solid var(--border);
-    }
-
-    .screen-name {
-      font-weight: 700; font-size: 0.92rem; color: var(--ink);
-      margin-bottom: 0.3rem;
-    }
-
-    .screen-desc {
-      font-size: 0.8rem; color: var(--ink2); line-height: 1.5;
-    }
-
-    /* ── COLOR SWATCHES ── */
-    .colors-grid {
-      display: flex; flex-wrap: wrap; gap: 1rem;
-      margin-top: 1.75rem;
-    }
-
-    .swatch {
-      display: flex; flex-direction: column; gap: 0.5rem;
-      min-width: 80px;
-    }
-
-    .swatch-circle {
-      width: 48px; height: 48px;
-      border-radius: var(--radius-sm);
-      border: 1px solid rgba(255,255,255,0.1);
-      flex-shrink: 0;
-    }
-
-    .swatch-label {
-      font-size: 0.72rem; font-weight: 600; color: var(--ink2);
-    }
-
-    .swatch-hex {
-      font-size: 0.68rem; color: var(--muted);
-      font-family: 'SF Mono', 'Fira Code', monospace;
-    }
-
-    /* ── DIVIDER ── */
-    .divider {
-      height: 1px; background: var(--border);
-      margin: 0;
-    }
-
-    /* ── DESIGN SYSTEM INFO ── */
-    .ds-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-      margin-top: 1.75rem;
-    }
-
-    @media (max-width: 800px) {
-      .ds-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (max-width: 500px) {
-      .ds-grid { grid-template-columns: 1fr; }
-    }
-
-    .ds-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.25rem;
-    }
-
-    .ds-card-icon {
-      width: 36px; height: 36px; border-radius: 10px;
+    .side-link.active svg { opacity: 1; color: var(--yellow); }
+    .side-link .num {
+      margin-left: auto;
+      font-size: 0.66rem; font-weight: 700;
+      width: 20px; height: 20px; border-radius: 6px;
+      background: rgba(255,255,255,0.06);
       display: flex; align-items: center; justify-content: center;
-      margin-bottom: 0.85rem;
-      font-size: 1.1rem;
+      color: #888;
+    }
+    .side-link.active .num { background: var(--yellow); color: #111; }
+
+    .side-foot { margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.07); }
+    .side-back {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 0.7rem;
+      border-radius: 10px;
+      color: #9a9a9a;
+      font-size: 0.82rem; font-weight: 500;
+      transition: all 0.18s;
+    }
+    .side-back:hover { background: rgba(255,255,255,0.05); color: #fff; }
+    .side-back svg { width: 16px; height: 16px; }
+    .side-note { font-size: 0.66rem; color: #555; padding: 0.6rem 0.7rem 0; line-height: 1.5; }
+
+    /* ── VIEWPORT ── */
+    .viewport {
+      flex: 1;
+      min-width: 0;
+      background: #1a1a1a;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
     }
 
-    .ds-card-title {
-      font-weight: 700; font-size: 0.9rem; color: var(--ink);
-      margin-bottom: 0.4rem;
-    }
-
-    .ds-card-body {
-      font-size: 0.8rem; color: var(--ink2); line-height: 1.6;
-    }
-
-    /* ── TYPE SCALE ── */
-    .type-rows { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.75rem; }
-
-    .type-row {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.1rem 1.4rem;
-      display: flex; align-items: baseline; justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .type-sample { color: var(--ink); font-family: 'Prompt', sans-serif; }
-    .type-token { font-size: 0.72rem; font-weight: 600; color: var(--muted); font-family: 'SF Mono', 'Fira Code', monospace; flex-shrink: 0; }
-
-    /* ── STATUS BADGES ── */
-    .badge {
-      display: inline-flex; align-items: center; gap: 5px;
-      padding: 0.28rem 0.8rem;
-      border-radius: var(--radius-pill);
-      font-size: 0.75rem; font-weight: 700;
-    }
-
-    .badge-success { background: var(--green-l); color: var(--green); }
-    .badge-pending { background: var(--yellow-l); color: var(--yellow-d); }
-    .badge-error   { background: var(--red-l); color: var(--red); }
-    .badge-grey    { background: rgba(148,163,184,0.12); color: #94A3B8; }
-
-    .badges-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
-
-    /* ── FOOTER ── */
-    .footer {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      padding: 2rem;
+    .vp-bar {
       display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 1rem;
-      margin-top: 4rem;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .vp-title { color: #fff; font-size: 1.05rem; font-weight: 600; display: flex; align-items: center; gap: 0.6rem; }
+    .vp-title .tag {
+      font-size: 0.66rem; font-weight: 700; letter-spacing: 0.05em;
+      padding: 0.18rem 0.6rem; border-radius: var(--r-pill);
+      background: rgba(255,212,0,0.14); color: var(--yellow);
+      text-transform: uppercase;
+    }
+    .vp-dots { display: flex; gap: 6px; }
+    .vp-dots i { width: 11px; height: 11px; border-radius: 50%; display: block; }
+
+    /* device frame that holds each screen */
+    .frame {
+      background: var(--surface);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.06);
+      flex: 1;
     }
 
-    .footer-credit {
-      font-size: 0.8rem; color: var(--muted);
+    .screen { display: none; animation: fade 0.4s var(--ease); }
+    .screen.active { display: block; }
+    @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    /* ============================================================
+       SHARED TOP NAV (inside screens)
+    ============================================================ */
+    .topnav {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1.5rem;
+      padding: 0 2rem; height: 64px;
     }
+    .topnav-light { background: #dcdcdc; }
+    .topnav-dark  { background: var(--black); }
 
-    .footer-credit a { color: var(--yellow); }
-
-    .footer-back {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      padding: 0.5rem 1.25rem;
-      border-radius: var(--radius-sm);
-      background: var(--yellow);
-      color: #111;
-      font-size: 0.83rem; font-weight: 700;
+    .tn-left { display: flex; align-items: center; gap: 2.25rem; }
+    .tn-logo { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em; }
+    .tn-logo.red { color: var(--red); }
+    .tn-logo.yellow { color: var(--yellow); }
+    .tn-links { display: flex; gap: 1.6rem; }
+    .tn-links a { font-size: 0.92rem; font-weight: 500; position: relative; padding: 0.25rem 0; }
+    .topnav-light .tn-links a { color: #2a2a2a; }
+    .topnav-dark  .tn-links a { color: #d0d0d0; }
+    .tn-links a.active { color: var(--yellow); }
+    .tn-links a.active::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: -3px;
+      height: 2px; background: var(--yellow); border-radius: 2px;
+    }
+    .tn-right { display: flex; align-items: center; gap: 1.1rem; }
+    .tn-search {
+      display: flex; align-items: center; gap: 0.6rem;
+      background: var(--black); border-radius: var(--r-pill);
+      padding: 0.55rem 1.1rem; width: 260px;
+    }
+    .tn-search input {
+      background: none; border: none; outline: none; color: #fff;
+      font-family: inherit; font-size: 0.85rem; width: 100%;
+    }
+    .tn-search input::placeholder { color: #888; }
+    .tn-search svg { width: 16px; height: 16px; color: #fff; flex-shrink: 0; }
+    .tn-history { font-size: 0.9rem; font-weight: 500; }
+    .topnav-light .tn-history { color: #4a4a4a; }
+    .topnav-dark  .tn-history { color: #d0d0d0; }
+    .tn-history.active { color: var(--yellow); position: relative; }
+    .tn-history.active::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: -4px;
+      height: 2px; background: var(--yellow); border-radius: 2px;
+    }
+    .tn-login {
+      background: var(--yellow); color: #111;
+      font-weight: 700; font-size: 0.88rem;
+      padding: 0.55rem 1.4rem; border-radius: var(--r-sm);
       transition: background 0.18s, transform 0.18s var(--ease);
     }
+    .tn-login:hover { background: var(--yellow-d); transform: translateY(-1px); }
 
-    .footer-back:hover { background: var(--yellow-d); transform: translateY(-1px); }
+    /* ============================================================
+       SCREEN 1 — HOME
+    ============================================================ */
+    .home-body { padding: 1.75rem 2rem 0; }
+
+    .hero {
+      border-radius: var(--r);
+      background: linear-gradient(100deg, #1c1c1c 0%, #2e2e2e 45%, #8a8a8a 100%);
+      padding: 2.75rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--yellow); color: #111;
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.06em;
+      padding: 0.32rem 0.95rem; border-radius: var(--r-pill);
+      margin-bottom: 1.1rem;
+    }
+    .hero h1 {
+      color: #fff; font-size: 2.9rem; font-weight: 800;
+      line-height: 1.12; letter-spacing: -0.02em; margin-bottom: 1.1rem;
+    }
+    .hero h1 .y { color: var(--yellow); }
+    .hero p {
+      color: rgba(255,255,255,0.88); font-size: 0.98rem;
+      max-width: 34ch; line-height: 1.65; margin-bottom: 1.75rem;
+    }
+    .hero-cta {
+      display: inline-block;
+      background: var(--yellow); color: #111;
+      font-size: 1.02rem; font-weight: 700;
+      padding: 0.9rem 2rem; border-radius: var(--r-sm);
+      transition: background 0.18s, transform 0.18s var(--ease);
+    }
+    .hero-cta:hover { background: var(--yellow-d); transform: translateY(-2px); }
+
+    .skeleton-bar {
+      height: 46px; border-radius: var(--r-pill);
+      background: #e6e6e6; margin: 1.75rem 0;
+    }
+
+    .game-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem;
+    }
+    .game-card {
+      background: #fff; border-radius: var(--r);
+      overflow: hidden; border: 1px solid var(--border);
+      position: relative;
+      transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+    }
+    .game-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,0.12); }
+    .game-thumb { aspect-ratio: 1; background: #e0e0e0; position: relative; }
+    .game-thumb.g1 { background: linear-gradient(150deg, #2b1055, #7597de); }
+    .game-thumb.g2 { background: linear-gradient(150deg, #134e5e, #71b280); }
+    .game-thumb.g3 { background: linear-gradient(150deg, #870000, #190a05); }
+    .game-thumb.g4 { background: linear-gradient(150deg, #1f1c2c, #928dab); }
+    .gc-badge {
+      position: absolute; top: 0.7rem; left: 0.7rem;
+      font-size: 0.66rem; font-weight: 800; letter-spacing: 0.04em;
+      padding: 0.22rem 0.6rem; border-radius: var(--r-sm);
+    }
+    .gc-badge.hot { background: var(--yellow); color: #111; }
+    .gc-badge.bonus { background: var(--green); color: #fff; }
+    .game-foot { padding: 0.85rem 0.9rem 1rem; }
+    .game-foot .gline { height: 9px; border-radius: 4px; background: #ececec; }
+    .game-foot .gline.short { width: 60%; margin-top: 7px; height: 7px; }
+
+    .home-section-title {
+      text-align: center; font-size: 1.7rem; font-weight: 700;
+      color: var(--black); margin: 2.5rem 0 1.5rem;
+    }
+    .promo-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+      padding-bottom: 2.5rem;
+    }
+    .promo-card {
+      background: #fff; border-radius: var(--r); overflow: hidden;
+      border: 1px solid var(--border);
+      transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+    }
+    .promo-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,0.12); }
+    .promo-thumb { aspect-ratio: 16/9; }
+    .promo-thumb.p1 { background: linear-gradient(135deg, #f0442f33, #ffd40033), #e3e3e3; }
+    .promo-thumb.p2 { background: linear-gradient(135deg, #10b98133, #ffd40033), #e3e3e3; }
+    .promo-thumb.p3 { background: linear-gradient(135deg, #6d28d933, #f0442f33), #e3e3e3; }
+    .promo-foot { padding: 1rem; }
+    .promo-foot .pline { height: 10px; border-radius: 4px; background: #ececec; }
+    .promo-foot .pline.short { width: 50%; margin-top: 8px; height: 8px; }
+
+    .home-footer {
+      background: var(--black); color: #fff;
+      padding: 1.75rem 2rem;
+    }
+    .hf-top {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap;
+      padding-bottom: 1rem;
+    }
+    .hf-logo { color: var(--yellow); font-size: 1.25rem; font-weight: 800; }
+    .hf-links { display: flex; gap: 1.5rem; }
+    .hf-links a { color: #cfcfcf; font-size: 0.85rem; }
+    .hf-links a:hover { color: var(--yellow); }
+    .hf-copy {
+      text-align: center; color: #888; font-size: 0.82rem;
+      border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;
+    }
+
+    /* ============================================================
+       SCREEN 3 — HISTORY
+    ============================================================ */
+    .hist-body { padding: 2rem 2.5rem 2.5rem; background: var(--surface); min-height: 600px; }
+    .hist-h1 { font-size: 2rem; font-weight: 800; color: var(--black); margin-bottom: 1.5rem; }
+
+    .profile-card {
+      background: #fff; border-radius: var(--r); border: 1px solid var(--border);
+      padding: 1.5rem 1.75rem; display: flex; align-items: center; gap: 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+    .pc-avatar {
+      width: 74px; height: 74px; border-radius: 50%;
+      background: #e0e0e0; flex-shrink: 0;
+    }
+    .pc-info { flex: 1; }
+    .pc-name { font-size: 1.3rem; font-weight: 700; color: var(--black); }
+    .pc-uid { display: flex; align-items: center; gap: 0.4rem; color: var(--ink-2); font-size: 0.9rem; margin: 0.3rem 0 0.55rem; }
+    .pc-uid svg { width: 14px; height: 14px; }
+    .pc-member {
+      display: inline-block; font-size: 0.78rem; font-weight: 500; color: var(--ink-2);
+      background: #eef0f2; padding: 0.25rem 0.7rem; border-radius: var(--r-sm);
+    }
+    .pc-stats { display: flex; gap: 2.5rem; text-align: right; }
+    .pc-stat-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; color: var(--muted); text-transform: uppercase; }
+    .pc-stat-val { font-size: 1.5rem; font-weight: 800; color: var(--black); margin-top: 0.2rem; }
+    .pc-stat-val.red { color: var(--red); }
+
+    .filter-row { display: flex; gap: 0.65rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .filter-pill {
+      display: flex; align-items: center; gap: 0.45rem;
+      padding: 0.55rem 1.2rem; border-radius: var(--r-pill);
+      background: #fff; border: 1px solid var(--border);
+      font-size: 0.88rem; font-weight: 600; color: var(--ink-2);
+      transition: all 0.18s var(--ease);
+    }
+    .filter-pill:hover { border-color: #c8c8c8; }
+    .filter-pill.active { background: var(--black); color: #fff; border-color: var(--black); }
+    .filter-pill .fdot { width: 8px; height: 8px; border-radius: 50%; }
+    .fdot.s { background: var(--green); }
+    .fdot.p { background: var(--yellow); }
+    .fdot.f { background: var(--red); }
+    .fdot.c { background: var(--grey); }
+
+    .txn-list { display: flex; flex-direction: column; gap: 1rem; }
+    .txn-card {
+      background: #fff; border-radius: var(--r); border: 1px solid var(--border);
+      padding: 1.1rem 1.5rem;
+      display: grid; grid-template-columns: auto 1fr 1fr auto auto;
+      align-items: center; gap: 1.5rem;
+      transition: box-shadow 0.18s var(--ease), transform 0.18s var(--ease);
+    }
+    .txn-card:hover { box-shadow: 0 8px 22px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .txn-icon { width: 56px; height: 56px; border-radius: var(--r-sm); flex-shrink: 0; }
+    .txn-icon.genshin { background: linear-gradient(135deg, #4a6fa5, #b8d4f0); }
+    .txn-icon.valorant { background: linear-gradient(135deg, #ff4655, #1f2326); }
+    .txn-game { font-size: 1.05rem; font-weight: 700; color: var(--black); }
+    .txn-sub { font-size: 0.82rem; color: var(--muted); margin-top: 0.2rem; }
+    .txn-pkg { font-size: 0.95rem; font-weight: 500; color: var(--ink); }
+    .txn-date { display: flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--muted); margin-top: 0.25rem; }
+    .txn-date svg { width: 13px; height: 13px; }
+    .txn-amt { font-size: 1.25rem; font-weight: 800; color: var(--red); text-align: right; }
+    .txn-status { margin-top: 0.4rem; display: flex; justify-content: flex-end; }
+    .txn-detail {
+      padding: 0.5rem 1.1rem; border-radius: var(--r-sm);
+      border: 1px solid var(--border); background: #fff;
+      font-size: 0.85rem; font-weight: 600; color: var(--ink);
+      transition: all 0.18s;
+    }
+    .txn-detail:hover { background: var(--surface); border-color: #c8c8c8; }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 0.3rem 0.8rem; border-radius: var(--r-pill);
+      font-size: 0.78rem; font-weight: 700;
+    }
+    .badge svg { width: 12px; height: 12px; }
+    .badge-success { background: var(--green-l); color: var(--green-t); }
+    .badge-pending { background: #fef6cf; color: #92750a; }
+    .badge-error   { background: #fee2e2; color: #b91c1c; }
+    .badge-cancel  { background: #eef0f2; color: #64748b; }
+
+    /* ============================================================
+       SCREEN 4 — TRANSACTION STATUS
+    ============================================================ */
+    .status-body {
+      background: linear-gradient(160deg, #eafaf1 0%, #f3f3f3 55%);
+      padding: 3rem 2.5rem; min-height: 640px;
+      display: grid; grid-template-columns: 1.6fr 1fr; gap: 1.75rem;
+      align-items: start;
+    }
+
+    .status-success {
+      background: #fff; border-radius: 20px;
+      padding: 2.5rem; box-shadow: 0 12px 40px rgba(16,185,129,0.1);
+    }
+    .ss-check {
+      width: 84px; height: 84px; border-radius: 50%;
+      background: var(--green-l);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+    .ss-check .ring {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--green);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ss-check svg { width: 28px; height: 28px; stroke: #fff; stroke-width: 3; fill: none; }
+    .ss-title { text-align: center; font-size: 2rem; font-weight: 700; color: var(--black); margin-bottom: 0.6rem; }
+    .ss-sub { text-align: center; color: var(--ink-2); font-size: 0.95rem; margin-bottom: 1.75rem; }
+
+    .ss-detail {
+      border: 1px solid var(--border); border-radius: var(--r); padding: 1.25rem 1.4rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .ssd-left { display: flex; align-items: center; gap: 0.9rem; }
+    .ssd-icon { width: 52px; height: 52px; border-radius: var(--r-sm); background: linear-gradient(135deg, #ff4655, #1f2326); flex-shrink: 0; }
+    .ssd-game { font-size: 1.15rem; font-weight: 700; color: var(--black); }
+    .ssd-pub { font-size: 0.85rem; color: var(--muted); }
+    .ssd-ref-label { font-size: 0.74rem; color: var(--muted); text-align: right; }
+    .ssd-ref { font-weight: 700; color: var(--black); font-size: 0.95rem; }
+
+    .ss-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .ss-box { background: var(--surface); border-radius: var(--r); padding: 1.1rem 1.3rem; }
+    .ss-box-label { display: flex; align-items: center; gap: 0.45rem; font-size: 0.78rem; font-weight: 600; color: var(--muted); margin-bottom: 0.5rem; }
+    .ss-box-label svg { width: 15px; height: 15px; }
+    .ss-box-val { font-size: 1.2rem; font-weight: 700; color: var(--black); }
+
+    .ss-total {
+      background: var(--surface); border-radius: var(--r); padding: 1.1rem 1.3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.75rem;
+    }
+    .ss-total-label { font-size: 0.78rem; color: var(--muted); }
+    .ss-total-date { font-size: 1rem; font-weight: 600; color: var(--ink); }
+    .ss-total-amt { font-size: 1.5rem; font-weight: 800; color: var(--red); }
+
+    .ss-actions { display: flex; gap: 1rem; justify-content: center; }
+    .ss-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 1.9rem; border-radius: var(--r-pill);
+      font-size: 0.95rem; font-weight: 700;
+      transition: all 0.18s var(--ease);
+    }
+    .ss-btn.ghost { background: #fff; color: var(--ink); border: 2px solid var(--yellow); }
+    .ss-btn.ghost:hover { background: #fffbe6; }
+    .ss-btn.solid { background: var(--yellow); color: #111; }
+    .ss-btn.solid:hover { background: var(--yellow-d); transform: translateY(-1px); }
+
+    /* pending card */
+    .status-pending {
+      background: #fff; border-radius: 20px; padding: 2rem;
+      border-top: 4px solid var(--yellow);
+      box-shadow: 0 12px 40px rgba(255,212,0,0.12);
+      text-align: center;
+    }
+    .sp-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: #fff7d6; margin: 0 auto 1.25rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+    }
+    .sp-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: #fef6cf; color: #92750a;
+      font-size: 0.8rem; font-weight: 700;
+      padding: 0.3rem 0.9rem; border-radius: var(--r-pill);
+      margin-bottom: 1rem;
+    }
+    .sp-badge .pdot { width: 8px; height: 8px; border-radius: 50%; background: var(--yellow); }
+    .sp-title { font-size: 1.35rem; font-weight: 700; color: var(--black); margin-bottom: 0.6rem; }
+    .sp-sub { font-size: 0.88rem; color: var(--ink-2); line-height: 1.6; margin-bottom: 1.5rem; }
+    .sp-meta { background: var(--surface); border-radius: var(--r); padding: 1rem 1.2rem; margin-bottom: 1.25rem; }
+    .sp-row { display: flex; align-items: center; justify-content: space-between; font-size: 0.9rem; }
+    .sp-row + .sp-row { margin-top: 0.7rem; }
+    .sp-row .k { color: var(--muted); }
+    .sp-row .v { font-weight: 700; color: var(--black); }
+    .sp-refresh {
+      width: 100%;
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.8rem; border-radius: var(--r-pill);
+      border: 1px solid var(--border); background: #fff;
+      font-size: 0.92rem; font-weight: 600; color: var(--ink);
+      transition: all 0.18s;
+    }
+    .sp-refresh:hover { background: var(--surface); }
+    .sp-refresh svg { width: 16px; height: 16px; }
+
+    /* ============================================================
+       SCREEN 2 — TOP UP FLOW
+    ============================================================ */
+    .topup-body { background: var(--surface); padding: 2rem 2.5rem 2.5rem; min-height: 600px; }
+
+    .steps {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0; margin-bottom: 2rem;
+    }
+    .step { display: flex; align-items: center; gap: 0.6rem; }
+    .step-node {
+      width: 34px; height: 34px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.9rem;
+      background: #fff; border: 2px solid var(--border); color: var(--muted);
+    }
+    .step.done .step-node { background: var(--red); border-color: var(--red); color: #fff; }
+    .step.active .step-node { background: var(--red); border-color: var(--red); color: #fff; box-shadow: 0 0 0 4px rgba(240,68,47,0.18); }
+    .step-text { font-size: 0.9rem; font-weight: 600; color: var(--muted); }
+    .step.done .step-text, .step.active .step-text { color: var(--black); }
+    .step-line { width: 70px; height: 2px; background: var(--border); margin: 0 0.85rem; }
+    .step-line.done { background: var(--red); }
+
+    .topup-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 1.75rem; align-items: start; }
+
+    .panel { background: #fff; border-radius: var(--r); border: 1px solid var(--border); padding: 1.6rem; margin-bottom: 1.25rem; }
+    .panel-title { font-size: 1.05rem; font-weight: 700; color: var(--black); margin-bottom: 1.1rem; display: flex; align-items: center; gap: 0.5rem; }
+    .panel-title .pn { width: 24px; height: 24px; border-radius: 7px; background: var(--red); color: #fff; font-size: 0.78rem; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; }
+
+    .field { margin-bottom: 1.1rem; }
+    .field-label { font-size: 0.85rem; font-weight: 600; color: var(--ink); margin-bottom: 0.5rem; display: block; }
+    .field-input {
+      width: 100%; background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 0.85rem 1rem; font-family: inherit; font-size: 0.95rem;
+      color: var(--ink); outline: none; transition: border 0.18s;
+    }
+    .field-input:focus { border-color: var(--red); background: #fff; }
+    .field-help { font-size: 0.78rem; color: var(--muted); margin-top: 0.4rem; }
+
+    .pkg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.85rem; }
+    .pkg {
+      border: 2px solid var(--border); border-radius: var(--r);
+      padding: 1rem; text-align: center; cursor: pointer;
+      position: relative; transition: all 0.18s var(--ease); background: #fff;
+    }
+    .pkg:hover { border-color: #f0a99f; }
+    .pkg.sel { border-color: var(--red); }
+    .pkg.sel::after {
+      content: ''; position: absolute; top: 8px; right: 8px;
+      width: 18px; height: 18px; border-radius: 50%; background: var(--red);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: center;
+    }
+    .pkg-icon { width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, var(--yellow), #ffaa00); margin: 0 auto 0.6rem; }
+    .pkg-amt { font-size: 1rem; font-weight: 700; color: var(--black); }
+    .pkg-price { font-size: 0.95rem; font-weight: 700; color: var(--red); margin-top: 0.2rem; }
+    .pkg-tag { position: absolute; top: -9px; left: 50%; transform: translateX(-50%); background: var(--yellow); color: #111; font-size: 0.66rem; font-weight: 800; padding: 0.12rem 0.55rem; border-radius: var(--r-pill); }
+
+    /* order summary */
+    .summary { background: #fff; border-radius: var(--r); border: 1px solid var(--border); padding: 1.6rem; position: sticky; top: 1rem; }
+    .summary h3 { font-size: 1.05rem; font-weight: 700; color: var(--black); margin-bottom: 1.1rem; }
+    .sum-row { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 0; font-size: 0.92rem; }
+    .sum-row .k { color: var(--ink-2); }
+    .sum-row .v { font-weight: 600; color: var(--black); }
+    .sum-divider { height: 1px; background: var(--border); margin: 0.6rem 0; }
+    .sum-total { display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 0 1.25rem; }
+    .sum-total .k { font-size: 1rem; font-weight: 700; color: var(--black); }
+    .sum-total .v { font-size: 1.6rem; font-weight: 800; color: var(--red); }
+    .sum-btn {
+      width: 100%; background: var(--red); color: #fff;
+      font-size: 1.02rem; font-weight: 700;
+      padding: 0.95rem; border-radius: var(--r); text-align: center;
+      transition: background 0.18s, transform 0.18s var(--ease);
+    }
+    .sum-btn:hover { background: var(--red-d); transform: translateY(-1px); }
+    .sum-secure { display: flex; align-items: center; justify-content: center; gap: 0.4rem; font-size: 0.78rem; color: var(--muted); margin-top: 0.85rem; }
+    .sum-secure svg { width: 13px; height: 13px; }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1100px) {
+      .status-body, .topup-grid { grid-template-columns: 1fr; }
+      .game-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 860px) {
+      .sidebar {
+        position: static; width: 100%; height: auto;
+        flex-direction: row; flex-wrap: wrap; align-items: center;
+        padding: 0.85rem 1rem; gap: 0.5rem;
+      }
+      .side-brand { border: none; padding: 0; margin: 0 0.75rem 0 0; }
+      .side-label, .side-foot, .side-note { display: none; }
+      .side-nav { flex-direction: row; flex-wrap: wrap; gap: 0.4rem; }
+      .side-link { width: auto; padding: 0.5rem 0.85rem; }
+      .side-link .num { display: none; }
+      .app-wrap { flex-direction: column; }
+      .tn-search { display: none; }
+      .tn-links { display: none; }
+      .promo-grid { grid-template-columns: 1fr; }
+      .pkg-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 620px) {
+      .viewport { padding: 0.85rem; }
+      .topnav { padding: 0 1rem; gap: 0.75rem; }
+      .hero h1 { font-size: 2rem; }
+      .game-grid { grid-template-columns: 1fr; }
+      .txn-card { grid-template-columns: auto 1fr; gap: 0.85rem; }
+      .txn-pkg, .txn-date, .txn-detail { display: none; }
+      .pc-stats { flex-direction: column; gap: 0.75rem; }
+      .profile-card { flex-direction: column; text-align: center; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- TOPBAR -->
-  <header class="topbar">
-    <div class="topbar-brand">
-      <div class="brand-icon">
-        <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-      </div>
-      Elasticshop
-      <span class="badge-ds">Design System</span>
-    </div>
-    <a class="topbar-back" href="index.html">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-      Back to Portfolio
-    </a>
-  </header>
+  <div class="app-wrap">
 
-  <main>
-    <!-- HERO -->
-    <section class="hero">
-      <div class="shell">
-        <div class="hero-eyebrow">Gaming UI · Design System</div>
-        <h1>Elasticshop <span>Gaming</span><br>Top-Up Platform</h1>
-        <p class="hero-desc">
-          A complete UI design system for an automated game top-up platform. Built with a "Reliable Pro-Gamer" brand personality — fast, trustworthy, and visually striking. Dark foundations, high-contrast yellow highlights, and precision red CTAs.
-        </p>
-        <div class="hero-meta">
-          <span class="meta-chip"><span class="dot"></span>Figma Design System</span>
-          <span class="meta-chip"><span class="dot"></span>Mobile-First</span>
-          <span class="meta-chip"><span class="dot"></span>Thai / English Bilingual</span>
-          <span class="meta-chip"><span class="dot"></span>4 Screen Flows</span>
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="sidebar">
+      <div class="side-brand">
+        <div class="side-brand-mark">
+          <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <div class="side-brand-text">
+          <b>Elasticshop</b>
+          <span>UI Prototype</span>
         </div>
       </div>
-    </section>
 
-    <div class="divider"></div>
+      <div class="side-label">Screens</div>
+      <nav class="side-nav">
+        <button class="side-link active" data-screen="home">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Home
+          <span class="num">1</span>
+        </button>
+        <button class="side-link" data-screen="topup">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg>
+          Top Up Flow
+          <span class="num">2</span>
+        </button>
+        <button class="side-link" data-screen="history">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          History
+          <span class="num">3</span>
+        </button>
+        <button class="side-link" data-screen="status">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Transaction Status
+          <span class="num">4</span>
+        </button>
+      </nav>
 
-    <!-- SCREENS SHOWCASE -->
-    <section class="section">
-      <div class="shell">
-        <div class="section-label">Screens</div>
-        <h2 class="section-title">4 Core User Flows</h2>
-        <p class="section-subtitle">
-          From browsing games on the home screen to confirming a top-up and reviewing transaction history — every critical touchpoint designed for speed and trust.
-        </p>
-
-        <div class="screens-grid">
-
-          <div class="screen-card">
-            <div class="screen-img-wrap">
-              <img
-                src="stitch_elasticshop_gaming_top_up_design_system/home_elasticshop_skeleton_only_gray_nav/screen.png"
-                alt="Elasticshop Home Screen — skeleton loading state with gray navigation"
-                loading="lazy"
-              />
-            </div>
-            <div class="screen-info">
-              <div class="screen-name">Home Screen</div>
-              <div class="screen-desc">Game catalog with skeleton loading state and gray navigation bar. Entry point for browsing available top-up games.</div>
-            </div>
-          </div>
-
-          <div class="screen-card">
-            <div class="screen-img-wrap">
-              <img
-                src="stitch_elasticshop_gaming_top_up_design_system/top_up_flow_elasticshop_dark_yellow/screen.png"
-                alt="Elasticshop Top-Up Flow — dark yellow theme with package selection"
-                loading="lazy"
-              />
-            </div>
-            <div class="screen-info">
-              <div class="screen-name">Top-Up Flow</div>
-              <div class="screen-desc">3-step flow: Player Info → Package Selection → Payment. Yellow highlights for promotions, red CTA for confirmation.</div>
-            </div>
-          </div>
-
-          <div class="screen-card">
-            <div class="screen-img-wrap">
-              <img
-                src="stitch_elasticshop_gaming_top_up_design_system/transaction_status_elasticshop_dark_yellow/screen.png"
-                alt="Elasticshop Transaction Status — success, pending, and failed states"
-                loading="lazy"
-              />
-            </div>
-            <div class="screen-info">
-              <div class="screen-name">Transaction Status</div>
-              <div class="screen-desc">Post-payment feedback screen showing success, pending, and failed states with clear visual language and next actions.</div>
-            </div>
-          </div>
-
-          <div class="screen-card">
-            <div class="screen-img-wrap">
-              <img
-                src="stitch_elasticshop_gaming_top_up_design_system/history_elasticshop_dark_yellow/screen.png"
-                alt="Elasticshop History — transaction history list with dark yellow theme"
-                loading="lazy"
-              />
-            </div>
-            <div class="screen-info">
-              <div class="screen-name">Transaction History</div>
-              <div class="screen-desc">Full transaction log with filterable status badges, game thumbnails, and a scannable list layout for quick review.</div>
-            </div>
-          </div>
-
-        </div>
+      <div class="side-foot">
+        <a class="side-back" href="index.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          Back to Portfolio
+        </a>
+        <div class="side-note">Elasticshop Gaming Top-Up — a dark/yellow design system concept. Use the tabs to browse each screen.</div>
       </div>
-    </section>
+    </aside>
 
-    <div class="divider"></div>
-
-    <!-- COLOR PALETTE -->
-    <section class="section">
-      <div class="shell">
-        <div class="section-label">Color System</div>
-        <h2 class="section-title">Palette</h2>
-        <p class="section-subtitle">45% White/Light Gray (readability) · 30% Black (structure) · 15% Yellow (highlight) · 10% Red (action)</p>
-
-        <div class="colors-grid">
-          <div class="swatch">
-            <div class="swatch-circle" style="background:#F0442F;"></div>
-            <div class="swatch-label">Primary Red</div>
-            <div class="swatch-hex">#F0442F</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-circle" style="background:#FFD400;border-color:rgba(255,255,255,0.2);"></div>
-            <div class="swatch-label">Secondary Yellow</div>
-            <div class="swatch-hex">#FFD400</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-circle" style="background:#111111;"></div>
-            <div class="swatch-label">Main Black</div>
-            <div class="swatch-hex">#111111</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-circle" style="background:#FFFFFF;border-color:rgba(255,255,255,0.3);"></div>
-            <div class="swatch-label">White</div>
-            <div class="swatch-hex">#FFFFFF</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-circle" style="background:#F3F3F3;border-color:rgba(255,255,255,0.3);"></div>
-            <div class="swatch-label">Surface Light</div>
-            <div class="swatch-hex">#F3F3F3</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-circle" style="background:#10B981;"></div>
-            <div class="swatch-label">Status Success</div>
-            <div class="swatch-hex">#10B981</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-circle" style="background:#FFD400;opacity:0.6;"></div>
-            <div class="swatch-label">Status Pending</div>
-            <div class="swatch-hex">#FFD400</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-circle" style="background:#94A3B8;"></div>
-            <div class="swatch-label">Status Cancelled</div>
-            <div class="swatch-hex">#94A3B8</div>
-          </div>
+    <!-- ============ VIEWPORT ============ -->
+    <main class="viewport">
+      <div class="vp-bar">
+        <div class="vp-title">
+          <span id="vp-name">Home</span>
+          <span class="tag" id="vp-tag">Skeleton / Gray Nav</span>
         </div>
-
-        <!-- Status badges preview -->
-        <div style="margin-top: 2rem;">
-          <div style="font-size:0.78rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.75rem;">Status Badges</div>
-          <div class="badges-row">
-            <span class="badge badge-success">
-              <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="3"/></svg>
-              Success
-            </span>
-            <span class="badge badge-pending">
-              <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="3"/></svg>
-              Pending
-            </span>
-            <span class="badge badge-error">
-              <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="3"/></svg>
-              Failed
-            </span>
-            <span class="badge badge-grey">
-              <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="3"/></svg>
-              Cancelled
-            </span>
-          </div>
-        </div>
+        <div class="vp-dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div>
       </div>
-    </section>
 
-    <div class="divider"></div>
+      <div class="frame">
 
-    <!-- TYPOGRAPHY -->
-    <section class="section">
-      <div class="shell">
-        <div class="section-label">Typography</div>
-        <h2 class="section-title">Type Scale</h2>
-        <p class="section-subtitle">Prompt for display and UI, Noto Sans Thai for functional labels. Optimized for Thai/English bilingual legibility.</p>
+        <!-- ===== SCREEN 1 · HOME ===== -->
+        <section class="screen active" id="screen-home">
+          <nav class="topnav topnav-light">
+            <div class="tn-left">
+              <span class="tn-logo red">Elasticshop</span>
+              <div class="tn-links">
+                <a class="active">Home</a>
+                <a>Top Up</a>
+                <a>Promotions</a>
+                <a>How to Buy</a>
+              </div>
+            </div>
+            <div class="tn-right">
+              <div class="tn-search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input type="text" placeholder="Search games..." />
+              </div>
+              <span class="tn-history">History</span>
+              <button class="tn-login">Login</button>
+            </div>
+          </nav>
 
-        <div class="type-rows">
-          <div class="type-row">
-            <span class="type-sample" style="font-size:2.4rem;font-weight:800;">Display Lg</span>
-            <span class="type-token">48px · 700 · Prompt</span>
+          <div class="home-body">
+            <div class="hero">
+              <span class="hero-badge">FLASH SALE</span>
+              <h1>Level Up <span class="y">Faster.</span><br>Top Up Smarter.</h1>
+              <p>Get instant delivery on Free Fire Diamonds and ROV Coupons. Safe, secure, and officially trusted by pro gamers.</p>
+              <a class="hero-cta thai">เติมเลย (Top Up Now)</a>
+            </div>
+
+            <div class="skeleton-bar"></div>
+
+            <div class="game-grid">
+              <div class="game-card">
+                <div class="game-thumb g1"><span class="gc-badge hot">HOT</span></div>
+                <div class="game-foot"><div class="gline"></div><div class="gline short"></div></div>
+              </div>
+              <div class="game-card">
+                <div class="game-thumb g2"><span class="gc-badge bonus">+10% BONUS</span></div>
+                <div class="game-foot"><div class="gline"></div><div class="gline short"></div></div>
+              </div>
+              <div class="game-card">
+                <div class="game-thumb g3"></div>
+                <div class="game-foot"><div class="gline"></div><div class="gline short"></div></div>
+              </div>
+              <div class="game-card">
+                <div class="game-thumb g4"></div>
+                <div class="game-foot"><div class="gline"></div><div class="gline short"></div></div>
+              </div>
+            </div>
+
+            <h2 class="home-section-title">Featured Promotions</h2>
+            <div class="promo-grid">
+              <div class="promo-card"><div class="promo-thumb p1"></div><div class="promo-foot"><div class="pline"></div><div class="pline short"></div></div></div>
+              <div class="promo-card"><div class="promo-thumb p2"></div><div class="promo-foot"><div class="pline"></div><div class="pline short"></div></div></div>
+              <div class="promo-card"><div class="promo-thumb p3"></div><div class="promo-foot"><div class="pline"></div><div class="pline short"></div></div></div>
+            </div>
           </div>
-          <div class="type-row">
-            <span class="type-sample" style="font-size:1.6rem;font-weight:600;">Headline Lg</span>
-            <span class="type-token">32px · 600 · Prompt</span>
+
+          <footer class="home-footer">
+            <div class="hf-top">
+              <span class="hf-logo">Elasticshop</span>
+              <div class="hf-links">
+                <a>Terms of Service</a>
+                <a>Privacy Policy</a>
+                <a>Contact Us</a>
+                <a>FAQ</a>
+              </div>
+            </div>
+            <div class="hf-copy">© 2024 Elasticshop - The Reliable Pro-Gamer. All Rights Reserved.</div>
+          </footer>
+        </section>
+
+        <!-- ===== SCREEN 2 · TOP UP FLOW ===== -->
+        <section class="screen" id="screen-topup">
+          <nav class="topnav topnav-dark">
+            <div class="tn-left">
+              <span class="tn-logo yellow">Elasticshop</span>
+              <div class="tn-links">
+                <a>Home</a>
+                <a class="active">Top Up</a>
+                <a>Promotions</a>
+                <a>How to Buy</a>
+              </div>
+            </div>
+            <div class="tn-right">
+              <span class="tn-history">History</span>
+              <button class="tn-login">Login</button>
+            </div>
+          </nav>
+
+          <div class="topup-body">
+            <div class="steps">
+              <div class="step done"><div class="step-node">✓</div><span class="step-text">Player Info</span></div>
+              <div class="step-line done"></div>
+              <div class="step active"><div class="step-node">2</div><span class="step-text">Package</span></div>
+              <div class="step-line"></div>
+              <div class="step"><div class="step-node">3</div><span class="step-text">Payment</span></div>
+            </div>
+
+            <div class="topup-grid">
+              <div>
+                <div class="panel">
+                  <div class="panel-title"><span class="pn">1</span> Player Information</div>
+                  <div class="field">
+                    <label class="field-label">Player UID</label>
+                    <input class="field-input" type="text" value="1234567890" />
+                    <div class="field-help thai">หา UID ได้ที่มุมขวาบนของหน้าโปรไฟล์ในเกม</div>
+                  </div>
+                  <div class="field" style="margin-bottom:0;">
+                    <label class="field-label">Server</label>
+                    <input class="field-input" type="text" value="Thailand (TH)" />
+                  </div>
+                </div>
+
+                <div class="panel" style="margin-bottom:0;">
+                  <div class="panel-title"><span class="pn">2</span> Select Package</div>
+                  <div class="pkg-grid">
+                    <div class="pkg"><div class="pkg-icon"></div><div class="pkg-amt">100 Shells</div><div class="pkg-price">฿ 99</div></div>
+                    <div class="pkg sel"><span class="pkg-tag">-15%</span><div class="pkg-icon"></div><div class="pkg-amt">500 Shells</div><div class="pkg-price">฿ 500</div></div>
+                    <div class="pkg"><div class="pkg-icon"></div><div class="pkg-amt">1000 Shells</div><div class="pkg-price">฿ 990</div></div>
+                    <div class="pkg"><div class="pkg-icon"></div><div class="pkg-amt">2000 Shells</div><div class="pkg-price">฿ 1,950</div></div>
+                    <div class="pkg"><span class="pkg-tag">HOT</span><div class="pkg-icon"></div><div class="pkg-amt">5000 Shells</div><div class="pkg-price">฿ 4,800</div></div>
+                    <div class="pkg"><div class="pkg-icon"></div><div class="pkg-amt">10000 Shells</div><div class="pkg-price">฿ 9,500</div></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="summary">
+                <h3>Order Summary</h3>
+                <div class="sum-row"><span class="k">Game</span><span class="v">RoV: Arena of Valor</span></div>
+                <div class="sum-row"><span class="k">Player UID</span><span class="v">1234567890</span></div>
+                <div class="sum-row"><span class="k">Package</span><span class="v">500 Shells</span></div>
+                <div class="sum-divider"></div>
+                <div class="sum-row"><span class="k">Subtotal</span><span class="v">฿ 588</span></div>
+                <div class="sum-row"><span class="k">Discount (-15%)</span><span class="v" style="color:var(--green-t)">- ฿ 88</span></div>
+                <div class="sum-divider"></div>
+                <div class="sum-total"><span class="k">Total</span><span class="v">฿ 500</span></div>
+                <a class="sum-btn">Confirm &amp; Pay</a>
+                <div class="sum-secure">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  Secured by 256-bit encryption
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="type-row">
-            <span class="type-sample" style="font-size:1.15rem;font-weight:600;">Title MD</span>
-            <span class="type-token">20px · 600 · Prompt</span>
+        </section>
+
+        <!-- ===== SCREEN 3 · HISTORY ===== -->
+        <section class="screen" id="screen-history">
+          <nav class="topnav topnav-dark">
+            <div class="tn-left">
+              <span class="tn-logo yellow">Elasticshop</span>
+              <div class="tn-links">
+                <a>Home</a>
+                <a>Top Up</a>
+                <a>Promotions</a>
+                <a>How to Buy</a>
+              </div>
+            </div>
+            <div class="tn-right">
+              <span class="tn-history active">History</span>
+              <button class="tn-login">Login</button>
+            </div>
+          </nav>
+
+          <div class="hist-body">
+            <h1 class="hist-h1">Profile &amp; History</h1>
+
+            <div class="profile-card">
+              <div class="pc-avatar"></div>
+              <div class="pc-info">
+                <div class="pc-name">Ploy_Gamer99</div>
+                <div class="pc-uid">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M15 8h2M15 12h2M7 16h10"/></svg>
+                  User ID: 104958302
+                </div>
+                <span class="pc-member">Member since 2023</span>
+              </div>
+              <div class="pc-stats">
+                <div>
+                  <div class="pc-stat-label">Total Top-Ups</div>
+                  <div class="pc-stat-val red">฿ 12,450</div>
+                </div>
+                <div>
+                  <div class="pc-stat-label">Transactions</div>
+                  <div class="pc-stat-val">42</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="filter-row">
+              <button class="filter-pill active">All</button>
+              <button class="filter-pill"><span class="fdot s"></span>Success</button>
+              <button class="filter-pill"><span class="fdot p"></span>Pending</button>
+              <button class="filter-pill"><span class="fdot f"></span>Failed</button>
+              <button class="filter-pill"><span class="fdot c"></span>Cancelled</button>
+            </div>
+
+            <div class="txn-list">
+              <div class="txn-card">
+                <div class="txn-icon genshin"></div>
+                <div>
+                  <div class="txn-game">Genshin Impact</div>
+                  <div class="txn-sub">UID: 809234123</div>
+                </div>
+                <div>
+                  <div class="txn-pkg">6480 Genesis Crystals</div>
+                  <div class="txn-date">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                    24 Oct 2023, 14:30
+                  </div>
+                </div>
+                <div>
+                  <div class="txn-amt">฿ 3,200</div>
+                  <div class="txn-status">
+                    <span class="badge badge-success">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                      Success
+                    </span>
+                  </div>
+                </div>
+                <button class="txn-detail">Detail</button>
+              </div>
+
+              <div class="txn-card">
+                <div class="txn-icon valorant"></div>
+                <div>
+                  <div class="txn-game">Valorant</div>
+                  <div class="txn-sub">Riot ID: Ploy#TH1</div>
+                </div>
+                <div>
+                  <div class="txn-pkg">1050 VP</div>
+                  <div class="txn-date">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                    25 Oct 2023, 09:15
+                  </div>
+                </div>
+                <div>
+                  <div class="txn-amt">฿ 300</div>
+                  <div class="txn-status">
+                    <span class="badge badge-pending">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                      Pending
+                    </span>
+                  </div>
+                </div>
+                <button class="txn-detail">Detail</button>
+              </div>
+
+              <div class="txn-card">
+                <div class="txn-icon" style="background:linear-gradient(135deg,#f9a825,#f57f17)"></div>
+                <div>
+                  <div class="txn-game">Free Fire</div>
+                  <div class="txn-sub">UID: 552108934</div>
+                </div>
+                <div>
+                  <div class="txn-pkg">1080 Diamonds</div>
+                  <div class="txn-date">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                    20 Oct 2023, 18:42
+                  </div>
+                </div>
+                <div>
+                  <div class="txn-amt">฿ 250</div>
+                  <div class="txn-status">
+                    <span class="badge badge-cancel">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                      Cancelled
+                    </span>
+                  </div>
+                </div>
+                <button class="txn-detail">Detail</button>
+              </div>
+            </div>
           </div>
-          <div class="type-row">
-            <span class="type-sample" style="font-size:0.95rem;font-weight:400;">Body MD — top-up description text</span>
-            <span class="type-token">16px · 400 · Prompt</span>
+        </section>
+
+        <!-- ===== SCREEN 4 · TRANSACTION STATUS ===== -->
+        <section class="screen" id="screen-status">
+          <div class="status-body">
+            <!-- success -->
+            <div class="status-success">
+              <div class="ss-check">
+                <div class="ring">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+              </div>
+              <div class="ss-title thai">เติมเงินสำเร็จ</div>
+              <div class="ss-sub thai">รายการของคุณถูกดำเนินการเรียบร้อยแล้ว ขอให้สนุกกับเกม!</div>
+
+              <div class="ss-detail">
+                <div class="ssd-left">
+                  <div class="ssd-icon"></div>
+                  <div>
+                    <div class="ssd-game">RoV: Arena of Valor</div>
+                    <div class="ssd-pub">Garena Thailand</div>
+                  </div>
+                </div>
+                <div>
+                  <div class="ssd-ref-label thai">หมายเลขอ้างอิง (REF. NUMBER)</div>
+                  <div class="ssd-ref">TRX-9876543210</div>
+                </div>
+              </div>
+
+              <div class="ss-grid">
+                <div class="ss-box">
+                  <div class="ss-box-label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M15 8h2M15 12h2"/></svg>
+                    PLAYER UID
+                  </div>
+                  <div class="ss-box-val">1234567890</div>
+                </div>
+                <div class="ss-box">
+                  <div class="ss-box-label thai">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3 8 9l4 13 4-13-3-6M2 9h20"/></svg>
+                    แพ็กเกจ (PACKAGE)
+                  </div>
+                  <div class="ss-box-val">500 Shells</div>
+                </div>
+              </div>
+
+              <div class="ss-total">
+                <div>
+                  <div class="ss-total-label thai">วันที่ทำรายการ</div>
+                  <div class="ss-total-date">12 Oct 2024, 14:30:00</div>
+                </div>
+                <div style="text-align:right">
+                  <div class="ss-total-label thai">ยอดรวม</div>
+                  <div class="ss-total-amt">฿ 500.00</div>
+                </div>
+              </div>
+
+              <div class="ss-actions">
+                <a class="ss-btn ghost thai">⌂ กลับหน้าแรก</a>
+                <a class="ss-btn solid thai">ดูประวัติ</a>
+              </div>
+            </div>
+
+            <!-- pending -->
+            <div class="status-pending">
+              <div class="sp-icon">⏳</div>
+              <span class="sp-badge"><span class="pdot"></span>Pending</span>
+              <div class="sp-title thai">กำลังตรวจสอบรายการ</div>
+              <div class="sp-sub thai">ระบบกำลังยืนยันการชำระเงินของคุณ โปรดรอสักครู่...</div>
+              <div class="sp-meta">
+                <div class="sp-row"><span class="k">Ref:</span><span class="v">TRX-CHK992</span></div>
+                <div class="sp-row"><span class="k">Game:</span><span class="v">Valorant</span></div>
+              </div>
+              <button class="sp-refresh thai">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                รีเฟรชสถานะ
+              </button>
+            </div>
           </div>
-          <div class="type-row">
-            <span class="type-sample" style="font-size:1.2rem;font-weight:700;color:#F0442F;">฿ 199.00</span>
-            <span class="type-token">24px · 700 · Price Display</span>
-          </div>
-        </div>
+        </section>
+
       </div>
-    </section>
+    </main>
+  </div>
 
-    <div class="divider"></div>
+  <script>
+    (function () {
+      var links   = document.querySelectorAll('.side-link');
+      var screens = document.querySelectorAll('.screen');
+      var vpName  = document.getElementById('vp-name');
+      var vpTag   = document.getElementById('vp-tag');
 
-    <!-- DESIGN PRINCIPLES -->
-    <section class="section">
-      <div class="shell">
-        <div class="section-label">System</div>
-        <h2 class="section-title">Design Principles</h2>
-        <p class="section-subtitle">Built for the "Reliable Pro-Gamer" persona — frictionless, precise, and visually energetic.</p>
+      var meta = {
+        home:    { name: 'Home',               tag: 'Skeleton / Gray Nav' },
+        topup:   { name: 'Top Up Flow',        tag: 'Dark Yellow' },
+        history: { name: 'History',            tag: 'Dark Yellow' },
+        status:  { name: 'Transaction Status', tag: 'Dark Yellow' }
+      };
 
-        <div class="ds-grid">
-          <div class="ds-card">
-            <div class="ds-card-icon" style="background:var(--yellow-l);">⚡</div>
-            <div class="ds-card-title">One-Tap Feel</div>
-            <div class="ds-card-body">Interface stays out of the way. The user's goal is getting back in the game — every interaction is designed to feel instant.</div>
-          </div>
-          <div class="ds-card">
-            <div class="ds-card-icon" style="background:var(--red-l);">🎯</div>
-            <div class="ds-card-title">Action Hierarchy</div>
-            <div class="ds-card-body">Red is reserved exclusively for high-priority CTAs (Buy Now, Confirm). Yellow for promotions and attention. Never mixed.</div>
-          </div>
-          <div class="ds-card">
-            <div class="ds-card-icon" style="background:rgba(255,255,255,0.05);">◼</div>
-            <div class="ds-card-title">Tonal Layers</div>
-            <div class="ds-card-body">Elevation through tonal contrast and 1px borders rather than heavy shadows. Keeps the UI feeling fast and flat-modern.</div>
-          </div>
-          <div class="ds-card">
-            <div class="ds-card-icon" style="background:var(--green-l);">📐</div>
-            <div class="ds-card-title">8px Grid</div>
-            <div class="ds-card-body">All spacing driven by an 8px base unit. 12-column desktop, 2-column tablet, single-column mobile-first stack.</div>
-          </div>
-          <div class="ds-card">
-            <div class="ds-card-icon" style="background:rgba(255,212,0,0.08);">🌐</div>
-            <div class="ds-card-title">Bilingual UI</div>
-            <div class="ds-card-body">Prompt handles English display type. Noto Sans Thai handles functional labels — both tested for legibility at small sizes.</div>
-          </div>
-          <div class="ds-card">
-            <div class="ds-card-icon" style="background:var(--red-l);">🔴</div>
-            <div class="ds-card-title">Selected States</div>
-            <div class="ds-card-body">Active package/payment cards get a 2px Primary Red or Yellow border with a checkmark. No elevation change needed.</div>
-          </div>
-        </div>
-      </div>
-    </section>
+      links.forEach(function (link) {
+        link.addEventListener('click', function () {
+          var id = link.getAttribute('data-screen');
 
-  </main>
+          links.forEach(function (l) { l.classList.remove('active'); });
+          link.classList.add('active');
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-credit">
-      Designed by <a href="index.html">Phakin Chawanpunya</a> &mdash; Elasticshop Gaming Top-Up Design System
-    </div>
-    <a class="footer-back" href="index.html">
-      ← Back to Portfolio
-    </a>
-  </footer>
+          screens.forEach(function (s) { s.classList.remove('active'); });
+          document.getElementById('screen-' + id).classList.add('active');
+
+          vpName.textContent = meta[id].name;
+          vpTag.textContent  = meta[id].tag;
+
+          document.querySelector('.viewport').scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+
+      // simple package selection interactivity in the top-up flow
+      document.querySelectorAll('#screen-topup .pkg').forEach(function (pkg) {
+        pkg.addEventListener('click', function () {
+          document.querySelectorAll('#screen-topup .pkg').forEach(function (p) { p.classList.remove('sel'); });
+          pkg.classList.add('sel');
+        });
+      });
+    })();
+  </script>
 
 </body>
 </html>
