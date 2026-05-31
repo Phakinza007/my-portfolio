@@ -143,22 +143,6 @@
       flex-direction: column;
     }
 
-    .vp-bar {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 1rem;
-      flex-wrap: wrap;
-    }
-    .vp-title { color: #fff; font-size: 1.05rem; font-weight: 600; display: flex; align-items: center; gap: 0.6rem; }
-    .vp-title .tag {
-      font-size: 0.66rem; font-weight: 700; letter-spacing: 0.05em;
-      padding: 0.18rem 0.6rem; border-radius: var(--r-pill);
-      background: rgba(255,212,0,0.14); color: var(--yellow);
-      text-transform: uppercase;
-    }
-    .vp-dots { display: flex; gap: 6px; }
-    .vp-dots i { width: 11px; height: 11px; border-radius: 50%; display: block; }
-
     /* device frame that holds each screen */
     .frame {
       background: var(--surface);
@@ -763,13 +747,6 @@
 
     <!-- ============ VIEWPORT ============ -->
     <main class="viewport">
-      <div class="vp-bar">
-        <div class="vp-title">
-          <span id="vp-name">Home</span>
-          <span class="tag" id="vp-tag">Black Nav</span>
-        </div>
-      </div>
-
       <div class="frame">
 
         <!-- ===== SCREEN 1 · HOME ===== -->
@@ -1139,15 +1116,6 @@
     (function () {
       var links   = document.querySelectorAll('.side-link');
       var screens = document.querySelectorAll('.screen');
-      var vpName  = document.getElementById('vp-name');
-      var vpTag   = document.getElementById('vp-tag');
-
-      var meta = {
-        home:    { name: 'Home',               tag: 'Black Nav' },
-        topup:   { name: 'Top Up Flow',        tag: 'Dark Yellow' },
-        history: { name: 'History',            tag: 'Dark Yellow' },
-        status:  { name: 'Transaction Status', tag: 'Dark Yellow' }
-      };
 
       links.forEach(function (link) {
         link.addEventListener('click', function () {
@@ -1158,9 +1126,6 @@
 
           screens.forEach(function (s) { s.classList.remove('active'); });
           document.getElementById('screen-' + id).classList.add('active');
-
-          vpName.textContent = meta[id].name;
-          vpTag.textContent  = meta[id].tag;
 
           document.querySelector('.viewport').scrollTo({ top: 0, behavior: 'smooth' });
         });
