@@ -43,34 +43,34 @@
        DESIGN TOKENS
     ============================================================ */
     :root {
-      --bg:           #eef1ff;
-      --surface:      #ffffff;
-      --surface-2:    #f8f9fd;
-      --ink:          #111827;
-      --ink-2:        #374151;
-      --muted:        #6b7280;
-      --muted-2:      #9ca3af;
-      --border:       #e5e7eb;
-      --border-2:     #d1d5db;
+      --bg:           #0a0a0a;
+      --surface:      #111111;
+      --surface-2:    #161616;
+      --ink:          #f5f5f5;
+      --ink-2:        #d1d5db;
+      --muted:        #9ca3af;
+      --muted-2:      #6b7280;
+      --border:       #1f1f1f;
+      --border-2:     #2a2a2a;
       --accent:       #4f6ef7;
       --accent-dark:  #3651d4;
-      --accent-light: #eef2ff;
+      --accent-light: rgba(79,110,247,0.12);
       --mint:         #d1fae5;
       --mint-text:    #065f46;
       --amber:        #fef3c7;
       --amber-text:   #92400e;
       --rose:         #fee2e2;
       --rose-text:    #991b1b;
-      --dark:         #0f172a;
-      --dark-2:       #1e293b;
+      --dark:         #000000;
+      --dark-2:       #0d0d0d;
       --max:          1100px;
       --ease:         cubic-bezier(0.16, 1, 0.3, 1);
       --r-sm:         8px;
       --r:            14px;
       --r-lg:         20px;
-      --sh-sm:        0 1px 3px rgba(0,0,0,.07);
-      --sh:           0 4px 14px rgba(0,0,0,.08), 0 1px 3px rgba(0,0,0,.05);
-      --sh-lg:        0 16px 48px rgba(0,0,0,.1), 0 4px 12px rgba(0,0,0,.06);
+      --sh-sm:        0 1px 3px rgba(0,0,0,.18);
+      --sh:           0 4px 14px rgba(0,0,0,.28), 0 1px 3px rgba(0,0,0,.2);
+      --sh-lg:        0 16px 48px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.28);
     }
 
     /* ============================================================
@@ -103,10 +103,10 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(238, 241, 255, 0.9);
+      background: rgba(10, 10, 10, 0.9);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(229, 231, 235, 0.9);
+      border-bottom: 1px solid rgba(31, 31, 31, 0.9);
     }
 
     .nav-inner {
@@ -153,7 +153,7 @@
       height: 40px;
       padding: 0 20px;
       border-radius: var(--r-sm);
-      background: var(--ink);
+      background: var(--accent);
       color: #fff;
       font-size: 0.875rem;
       font-weight: 600;
@@ -161,7 +161,7 @@
       transition: background 150ms, transform 160ms;
     }
 
-    .nav-resume:hover { background: var(--accent); transform: translateY(-1px); }
+    .nav-resume:hover { background: var(--accent-dark); transform: translateY(-1px); }
 
     /* mobile hamburger */
     .nav-toggle {
@@ -197,7 +197,7 @@
       top: 68px;
       left: 0;
       right: 0;
-      background: rgba(238, 241, 255, 0.97);
+      background: rgba(10, 10, 10, 0.97);
       backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border);
       padding: 12px 20px 20px;
@@ -225,12 +225,12 @@
     .nav-mobile-panel .resume-mobile {
       margin-top: 6px;
       justify-content: center;
-      background: var(--ink);
+      background: var(--accent);
       color: #fff;
       font-weight: 600;
     }
 
-    .nav-mobile-panel .resume-mobile:hover { background: var(--accent); }
+    .nav-mobile-panel .resume-mobile:hover { background: var(--accent-dark); }
 
     /* ============================================================
        HERO
@@ -306,24 +306,24 @@
     .btn:hover { transform: translateY(-2px); }
 
     .btn-dark {
-      background: var(--ink);
+      background: #4f6ef7;
       color: #fff;
-      box-shadow: 0 4px 18px rgba(17,24,39,.22);
+      box-shadow: 0 4px 18px rgba(79,110,247,.35);
     }
 
     .btn-dark:hover {
-      background: #1f2937;
-      box-shadow: 0 10px 28px rgba(17,24,39,.3);
+      background: #3651d4;
+      box-shadow: 0 10px 28px rgba(79,110,247,.4);
     }
 
     .btn-ghost {
-      background: var(--surface);
-      color: var(--ink);
-      border: 1.5px solid var(--border-2);
+      background: #1a1a1a;
+      color: #f5f5f5;
+      border: 1.5px solid #2a2a2a;
       box-shadow: var(--sh-sm);
     }
 
-    .btn-ghost:hover { border-color: #9ca3af; box-shadow: var(--sh); }
+    .btn-ghost:hover { border-color: #444; box-shadow: var(--sh); }
 
     /* ============================================================
        SECTION SHELL
@@ -362,8 +362,8 @@
     }
 
     .work-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: #111;
+      border: 1px solid #1f1f1f;
       border-radius: var(--r);
       overflow: hidden;
       box-shadow: var(--sh-sm);
@@ -449,14 +449,14 @@
       height: 42px;
       width: 100%;
       border-radius: var(--r-sm);
-      background: var(--ink);
+      background: var(--accent);
       color: #fff;
       font-size: 0.85rem;
       font-weight: 600;
       transition: background 150ms, transform 150ms;
     }
 
-    .btn-project:hover { background: var(--accent); transform: translateY(-1px); }
+    .btn-project:hover { background: var(--accent-dark); transform: translateY(-1px); }
 
     /* ============================================================
        ABOUT + EXPERIENCE — 2-COL CARDS
@@ -469,8 +469,8 @@
     }
 
     .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: #111;
+      border: 1px solid #1f1f1f;
       border-radius: var(--r);
       padding: clamp(22px, 3vw, 32px);
       box-shadow: var(--sh-sm);
@@ -546,7 +546,7 @@
     ============================================================ */
     .case-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 20px;
     }
 
@@ -646,8 +646,8 @@
        CONTACT / FOOTER
     ============================================================ */
     .footer-section {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
+      background: #0d0d0d;
+      border-top: 1px solid #1f1f1f;
       padding: clamp(48px, 7vw, 72px) 0 clamp(36px, 5vw, 52px);
       scroll-margin-top: 80px;
     }
@@ -766,6 +766,10 @@
       .works-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
+    @media (max-width: 900px) {
+      .case-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
     @media (max-width: 768px) {
       .nav-links  { display: none; }
       .nav-resume { display: none; }
@@ -831,7 +835,7 @@
        CONTACT SECTION
     ============================================================ */
     .contact-section {
-      background: var(--ink);
+      background: #050505;
       color: #fff;
       padding: 80px 0;
     }
@@ -990,7 +994,7 @@
                     </div>
                   </div>
                   <!-- right: giant number -->
-                  <div style="display:flex;align-items:center;justify-content:center;opacity:0.07;">
+                  <div aria-hidden="true" style="display:flex;align-items:center;justify-content:center;opacity:0.07;">
                     <div style="font-size:4.5rem;font-weight:900;color:#f0efed;line-height:1;letter-spacing:-0.05em;">0</div>
                   </div>
                 </div>
@@ -1232,7 +1236,7 @@
                     <span style="width:15px;height:2.5px;background:#e2e8f0;border-radius:2px;"></span>
                     <span style="width:18px;height:2.5px;background:#e2e8f0;border-radius:2px;"></span>
                   </div>
-                  <div style="width:18px;height:18px;background:#1e293b;border-radius:3px;display:flex;align-items:center;justify-content:center;">
+                  <div aria-hidden="true" style="width:18px;height:18px;background:#1e293b;border-radius:3px;display:flex;align-items:center;justify-content:center;">
                     <span style="font-size:0.36rem;color:#fff;font-weight:700;">0</span>
                   </div>
                 </div>
@@ -1349,6 +1353,7 @@
             </a>
             <div class="work-body">
               <div class="work-name">Task Manager</div>
+              <p class="work-problem">Solo users needed a minimal task manager with priorities and status tracking — without the complexity of enterprise tools.</p>
               <div class="work-tags">
                 <span class="tag tag-accent">App UI</span>
                 <span class="tag tag-gray">Productivity</span>
@@ -1488,6 +1493,7 @@
             </a>
             <div class="work-body">
               <div class="work-name">BookEase</div>
+              <p class="work-problem">Service businesses needed a clean booking UI that guides customers from selecting a service to confirming their appointment in under 60 seconds.</p>
               <div class="work-tags">
                 <span class="tag tag-accent">App UI</span>
                 <span class="tag tag-mint">Booking</span>
@@ -1668,132 +1674,42 @@
 
         <div class="case-grid">
 
-          <!-- Elevate Commerce case study -->
+          <!-- InternTrack case study -->
           <article class="case-card reveal">
-            <a class="case-thumb" href="ElevateCommerce.html" aria-label="View Elevate Commerce project" style="display:block;overflow:hidden;position:relative;">
-              <div style="width:100%;height:100%;background:#0f172a;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
-                <!-- radial glow -->
-                <div style="position:absolute;top:-20%;right:-10%;width:55%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(99,130,255,.18) 0%,transparent 70%);pointer-events:none;"></div>
-                <!-- mini navbar -->
-                <div style="height:13%;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;padding:0 8%;flex-shrink:0;">
-                  <span style="font-size:0.48rem;font-weight:800;letter-spacing:-0.04em;color:#fff;">ELEVATE<span style="color:rgba(255,255,255,.25);font-weight:400;">.</span></span>
-                  <div style="display:flex;gap:5px;align-items:center;">
-                    <div style="width:18px;height:2px;background:rgba(255,255,255,.15);border-radius:1px;"></div>
-                    <div style="width:14px;height:2px;background:rgba(255,255,255,.12);border-radius:1px;"></div>
-                    <div style="width:14px;height:14px;background:rgba(255,255,255,.1);border-radius:3px;"></div>
-                  </div>
-                </div>
-                <!-- hero area -->
-                <div style="flex:1;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 9%;position:relative;">
-                  <div style="width:28px;height:2px;background:rgba(255,255,255,.2);border-radius:1px;margin-bottom:6px;"></div>
-                  <div style="height:7px;background:#fff;border-radius:2px;width:58%;margin-bottom:4px;opacity:.95;"></div>
-                  <div style="height:7px;background:#fff;border-radius:2px;width:44%;margin-bottom:4px;opacity:.8;"></div>
-                  <div style="height:3px;background:rgba(255,255,255,.35);border-radius:1px;width:36%;margin-bottom:10px;"></div>
-                  <div style="display:flex;gap:5px;">
-                    <span style="background:#fff;border-radius:2px;padding:3px 8px;display:flex;align-items:center;"><div style="width:24px;height:2.5px;background:#1e293b;border-radius:1px;"></div></span>
-                    <span style="border:1px solid rgba(255,255,255,.35);border-radius:2px;padding:3px 8px;display:flex;align-items:center;"><div style="width:18px;height:2.5px;background:rgba(255,255,255,.7);border-radius:1px;"></div></span>
-                  </div>
-                </div>
-                <!-- product grid -->
-                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5%;padding:0 6% 8%;flex-shrink:0;">
-                  <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:3px;overflow:hidden;">
-                    <div style="height:36px;background:linear-gradient(135deg,#1e3a8a,#3b82f6);"></div>
-                    <div style="padding:8% 10%;">
-                      <div style="height:3px;background:rgba(255,255,255,.5);border-radius:1px;width:80%;margin-bottom:3px;"></div>
-                      <div style="height:2.5px;background:rgba(255,255,255,.2);border-radius:1px;width:55%;"></div>
-                    </div>
-                  </div>
-                  <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:3px;overflow:hidden;">
-                    <div style="height:36px;background:linear-gradient(135deg,#065f46,#10b981);"></div>
-                    <div style="padding:8% 10%;">
-                      <div style="height:3px;background:rgba(255,255,255,.5);border-radius:1px;width:75%;margin-bottom:3px;"></div>
-                      <div style="height:2.5px;background:rgba(255,255,255,.2);border-radius:1px;width:50%;"></div>
-                    </div>
-                  </div>
-                  <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:3px;overflow:hidden;">
-                    <div style="height:36px;background:linear-gradient(135deg,#0e7490,#06b6d4);"></div>
-                    <div style="padding:8% 10%;">
-                      <div style="height:3px;background:rgba(255,255,255,.5);border-radius:1px;width:82%;margin-bottom:3px;"></div>
-                      <div style="height:2.5px;background:rgba(255,255,255,.2);border-radius:1px;width:58%;"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <a class="case-thumb" href="case-study-interntrack.html" aria-label="View InternTrack case study" style="display:block;overflow:hidden;">
+              <img src="assets/thumbs/interntrack.jpg" alt="InternTrack dashboard" loading="lazy" />
             </a>
             <div class="case-body">
-              <span class="case-eyebrow">01 · Live Project</span>
-              <div class="case-name">Elevate Commerce — E-commerce Landing Page</div>
-              <p class="case-desc">
-                A full e-commerce experience with a dark-mode hero, category cards, product grid with star ratings, wishlist toggles, cart badge animation, newsletter, and a fully responsive mobile-first layout.
-              </p>
-              <a class="btn-live" href="ElevateCommerce.html">View Live</a>
+              <span class="case-eyebrow">01 · Case Study</span>
+              <div class="case-name">InternTrack — Internship Management Dashboard</div>
+              <p class="case-desc">A full management system for tracking intern applications, onboarding status, and performance reviews with role-based access and status workflows.</p>
+              <a class="btn-live" href="case-study-interntrack.html">Read Case Study</a>
             </div>
           </article>
 
-          <!-- Admin Inventory case study -->
+          <!-- LaunchLedger case study -->
           <article class="case-card reveal">
-            <a class="case-thumb" href="AdminInventory.html" aria-label="View Admin Inventory project" style="display:block;overflow:hidden;">
-              <div style="width:100%;height:100%;background:#0f172a;display:flex;font-family:'Inter',sans-serif;overflow:hidden;">
-                <!-- sidebar -->
-                <div style="width:26%;background:#080f1f;display:flex;flex-direction:column;padding:8% 5%;gap:5px;flex-shrink:0;">
-                  <div style="width:14px;height:14px;background:#6366f1;border-radius:3px;margin-bottom:8px;"></div>
-                  <div style="height:5px;background:rgba(255,255,255,.1);border-radius:2px;width:85%;"></div>
-                  <div style="height:5px;background:#6366f1;border-radius:2px;width:95%;"></div>
-                  <div style="height:5px;background:rgba(255,255,255,.08);border-radius:2px;width:78%;"></div>
-                  <div style="height:5px;background:rgba(255,255,255,.08);border-radius:2px;width:82%;"></div>
-                  <div style="flex:1;"></div>
-                  <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#818cf8,#6366f1);"></div>
-                </div>
-                <!-- main -->
-                <div style="flex:1;padding:6% 5%;display:flex;flex-direction:column;gap:6%;overflow:hidden;">
-                  <!-- stats row -->
-                  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:5%;flex-shrink:0;">
-                    <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:3px;padding:9%;">
-                      <div style="width:8px;height:8px;border-radius:2px;background:#eef2ff;margin-bottom:4px;opacity:.7;"></div>
-                      <div style="height:5px;background:rgba(255,255,255,.8);border-radius:2px;width:65%;margin-bottom:3px;"></div>
-                      <div style="height:2.5px;background:#22c55e;border-radius:1px;width:45%;"></div>
-                    </div>
-                    <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:3px;padding:9%;">
-                      <div style="width:8px;height:8px;border-radius:2px;background:#fef3c7;margin-bottom:4px;opacity:.7;"></div>
-                      <div style="height:5px;background:#f59e0b;border-radius:2px;width:55%;margin-bottom:3px;"></div>
-                      <div style="height:2.5px;background:rgba(255,255,255,.15);border-radius:1px;width:50%;"></div>
-                    </div>
-                  </div>
-                  <!-- table -->
-                  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:3px;flex:1;overflow:hidden;">
-                    <div style="height:18%;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:5%;padding:0 7%;">
-                      <div style="height:2.5px;background:rgba(255,255,255,.15);border-radius:1px;flex:1;"></div>
-                      <div style="height:2.5px;background:rgba(255,255,255,.1);border-radius:1px;flex:0.6;"></div>
-                      <div style="height:2.5px;background:rgba(255,255,255,.08);border-radius:1px;flex:0.5;"></div>
-                    </div>
-                    <div style="padding:0 7%;">
-                      <div style="border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;gap:5%;padding:7% 0;">
-                        <div style="width:8px;height:8px;border-radius:50%;background:#eef2ff;opacity:.5;flex-shrink:0;"></div>
-                        <div style="flex:1;height:2.5px;background:rgba(255,255,255,.45);border-radius:1px;"></div>
-                        <div style="height:8px;background:#dcfce7;border-radius:2px;width:22%;opacity:.7;"></div>
-                      </div>
-                      <div style="border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;gap:5%;padding:7% 0;">
-                        <div style="width:8px;height:8px;border-radius:50%;background:#fff7ed;opacity:.5;flex-shrink:0;"></div>
-                        <div style="flex:1;height:2.5px;background:rgba(255,255,255,.35);border-radius:1px;"></div>
-                        <div style="height:8px;background:#fef3c7;border-radius:2px;width:22%;opacity:.7;"></div>
-                      </div>
-                      <div style="display:flex;align-items:center;gap:5%;padding:7% 0;">
-                        <div style="width:8px;height:8px;border-radius:50%;background:#fef2f2;opacity:.5;flex-shrink:0;"></div>
-                        <div style="flex:1;height:2.5px;background:rgba(255,255,255,.3);border-radius:1px;"></div>
-                        <div style="height:8px;background:#fee2e2;border-radius:2px;width:22%;opacity:.7;"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <a class="case-thumb" href="case-study-launchledger.html" aria-label="View LaunchLedger case study" style="display:block;overflow:hidden;">
+              <img src="assets/thumbs/launch-ledger.jpg" alt="LaunchLedger finance dashboard" loading="lazy" />
             </a>
             <div class="case-body">
-              <span class="case-eyebrow">02 · Live Project</span>
-              <div class="case-name">Admin Inventory — SaaS Management Dashboard</div>
-              <p class="case-desc">
-                A full admin panel with a dark sidebar, real-time stock alerts, category distribution bars, sortable product table with status badges and stock-level progress indicators, and full mobile responsiveness.
-              </p>
-              <a class="btn-live" href="AdminInventory.html">View Live</a>
+              <span class="case-eyebrow">02 · Case Study</span>
+              <div class="case-name">LaunchLedger — Startup Finance Tracker</div>
+              <p class="case-desc">A financial dashboard for early-stage startups to track runway, burn rate, and investor-ready metrics without accounting software overhead.</p>
+              <a class="btn-live" href="case-study-launchledger.html">Read Case Study</a>
+            </div>
+          </article>
+
+          <!-- PulseBoard case study -->
+          <article class="case-card reveal">
+            <a class="case-thumb" href="case-study-pulseboard.html" aria-label="View PulseBoard case study" style="display:block;overflow:hidden;">
+              <img src="assets/thumbs/pulseboard.jpg" alt="PulseBoard analytics dashboard" loading="lazy" />
+            </a>
+            <div class="case-body">
+              <span class="case-eyebrow">03 · Case Study</span>
+              <div class="case-name">PulseBoard — Real-time Analytics Dashboard</div>
+              <p class="case-desc">A live data dashboard with filterable KPI cards, trend charts, and alert thresholds — built for ops teams who need answers fast.</p>
+              <a class="btn-live" href="case-study-pulseboard.html">Read Case Study</a>
             </div>
           </article>
 
@@ -1812,13 +1728,17 @@
       <h2 class="section-title" id="contact-heading">Get In Touch</h2>
       <p class="contact-lead">Have a project in mind? Send me a message and I'll get back to you within 24 hours.</p>
 
-      <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <form class="contact-form" id="contact-form" action="https://formspree.io/f/xpwzedgy" method="POST">
+        <input type="hidden" name="_subject" value="New message from portfolio" />
         <input type="text"  name="name"    placeholder="Your name"         required />
         <input type="email" name="email"   placeholder="Your email"        required />
         <input type="text"  name="subject" placeholder="Project type (Landing page, Dashboard, etc.)" />
         <textarea           name="message" placeholder="Tell me about your project…" required></textarea>
         <button type="submit">Send Message →</button>
       </form>
+      <div id="contact-success" style="display:none;margin-top:14px;padding:14px 18px;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.35);border-radius:8px;color:#4ade80;font-size:.9rem;font-weight:500;">
+        Message sent! I'll reply within 24 hours.
+      </div>
 
       <p class="contact-direct">
         Prefer email?
@@ -1930,6 +1850,35 @@
           toggle?.setAttribute('aria-expanded', 'false');
           toggle?.setAttribute('aria-label', 'Open navigation');
         });
+      });
+
+      /* ---- Contact form async submit ---- */
+      const contactForm = document.getElementById('contact-form');
+      contactForm?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = contactForm.querySelector('button[type="submit"]');
+        const successMsg = document.getElementById('contact-success');
+        const originalText = btn.textContent;
+        btn.textContent = 'Sending…';
+        btn.disabled = true;
+        try {
+          const res = await fetch(contactForm.action, {
+            method: 'POST',
+            body: new FormData(contactForm),
+            headers: { Accept: 'application/json' }
+          });
+          if (res.ok) {
+            contactForm.reset();
+            successMsg.style.display = 'block';
+            btn.style.display = 'none';
+          } else {
+            throw new Error();
+          }
+        } catch {
+          btn.textContent = originalText;
+          btn.disabled = false;
+          alert('Something went wrong. Please try again or email me directly.');
+        }
       });
     })();
   </script>
