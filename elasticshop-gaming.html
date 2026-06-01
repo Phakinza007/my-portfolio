@@ -50,29 +50,41 @@
     /* ============================================================
        APP SHELL  —  sidebar + viewport
     ============================================================ */
-    .app-wrap { display: flex; min-height: 100vh; }
+    .app-wrap { display: flex; flex-direction: column; min-height: 100vh; }
 
-    /* ── SIDEBAR ── */
+    /* ── TOP BAR + HAMBURGER MENU ── */
     .sidebar {
-      width: 256px;
-      flex-shrink: 0;
+      width: 100%;
       background: #141414;
-      border-right: 1px solid rgba(255,255,255,0.08);
-      display: flex;
-      flex-direction: column;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       position: sticky;
       top: 0;
-      height: 100vh;
-      padding: 1.5rem 1rem;
       z-index: 40;
     }
 
-    .side-brand {
-      display: flex; align-items: center; gap: 0.6rem;
-      padding: 0 0.6rem 1.25rem;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
+    .side-head {
+      display: flex; align-items: center; gap: 0.9rem;
+      padding: 0.8rem 1.5rem;
     }
+
+    .side-toggle {
+      display: flex; flex-direction: column; justify-content: center; gap: 4px;
+      width: 40px; height: 40px; border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      flex-shrink: 0; transition: background 0.18s;
+    }
+    .side-toggle:hover { background: rgba(255,255,255,0.09); }
+    .side-toggle span {
+      display: block; width: 17px; height: 2px; border-radius: 2px;
+      background: #fff; margin: 0 auto;
+      transition: transform 0.25s var(--ease), opacity 0.2s;
+    }
+    .sidebar.menu-open .side-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .sidebar.menu-open .side-toggle span:nth-child(2) { opacity: 0; }
+    .sidebar.menu-open .side-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .side-brand { display: flex; align-items: center; gap: 0.6rem; }
     .side-brand-mark {
       width: 34px; height: 34px; border-radius: 9px;
       background: linear-gradient(135deg, var(--red), #c0321e);
@@ -80,14 +92,25 @@
       flex-shrink: 0;
     }
     .side-brand-mark svg { width: 17px; height: 17px; fill: #fff; }
-    .side-brand-text { line-height: 1.2; }
-    .side-brand-text b { display: block; color: #fff; font-size: 0.95rem; font-weight: 700; }
-    .side-brand-text span { font-size: 0.68rem; color: var(--yellow); font-weight: 600; letter-spacing: 0.04em; }
+    .side-brand-text b { color: #fff; font-size: 1rem; font-weight: 700; }
+
+    /* dropdown menu */
+    .side-menu {
+      display: none;
+      position: absolute; left: 0; top: 100%;
+      width: 280px; max-width: 92vw;
+      background: #141414;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 0 0 14px 0;
+      box-shadow: 0 18px 44px rgba(0,0,0,0.5);
+      padding: 0.85rem;
+    }
+    .sidebar.menu-open .side-menu { display: block; animation: fade 0.25s var(--ease); }
 
     .side-label {
       font-size: 0.66rem; font-weight: 700; letter-spacing: 0.12em;
       text-transform: uppercase; color: #5e5e5e;
-      padding: 0 0.6rem; margin: 0.5rem 0 0.6rem;
+      padding: 0 0.6rem; margin: 0.25rem 0 0.6rem;
     }
 
     .side-nav { display: flex; flex-direction: column; gap: 0.25rem; }
@@ -120,18 +143,8 @@
     }
     .side-link.active .num { background: var(--yellow); color: #111; }
 
-    .side-foot { margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.07); }
-    .side-back {
-      display: flex; align-items: center; gap: 0.5rem;
-      padding: 0.6rem 0.7rem;
-      border-radius: 10px;
-      color: #9a9a9a;
-      font-size: 0.82rem; font-weight: 500;
-      transition: all 0.18s;
-    }
-    .side-back:hover { background: rgba(255,255,255,0.05); color: #fff; }
-    .side-back svg { width: 16px; height: 16px; }
-    .side-note { font-size: 0.66rem; color: #555; padding: 0.6rem 0.7rem 0; line-height: 1.5; }
+    .side-foot { margin-top: 0.75rem; padding-top: 0.85rem; border-top: 1px solid rgba(255,255,255,0.07); }
+    .side-note { font-size: 0.66rem; color: #555; padding: 0 0.6rem; line-height: 1.5; }
 
     /* ── VIEWPORT ── */
     .viewport {
@@ -767,20 +780,10 @@
 
     /* tablet — sidebar becomes a top tab bar */
     @media (max-width: 860px) {
-      .app-wrap { flex-direction: column; }
-      .sidebar {
-        position: sticky; top: 0; width: 100%; height: auto;
-        flex-direction: row; flex-wrap: wrap; align-items: center;
-        padding: 0.7rem 1rem; gap: 0.5rem;
-      }
-      .side-brand { border: none; padding: 0; margin: 0 0.5rem 0 0; }
-      .side-label, .side-foot, .side-note { display: none; }
-      .side-nav { flex-direction: row; flex-wrap: wrap; gap: 0.4rem; flex: 1; }
-      .side-link { width: auto; padding: 0.5rem 0.8rem; font-size: 0.82rem; }
-      .side-link .num { display: none; }
+      .side-head { padding: 0.7rem 1rem; }
       .viewport { padding: 1rem; }
       .tn-links { display: none; }
-      .tn-search { width: 180px; }
+      .tn-search { flex-basis: 180px; }
       .promo-grid { grid-template-columns: repeat(2, 1fr); }
       .pkg-grid { grid-template-columns: repeat(2, 1fr); }
       .pc-stats { gap: 1.5rem; }
@@ -869,19 +872,24 @@
   <div class="app-wrap">
 
     <!-- ============ SIDEBAR ============ -->
-    <aside class="sidebar">
-      <div class="side-brand">
-        <div class="side-brand-mark">
-          <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-        </div>
-        <div class="side-brand-text">
-          <b>Elasticshop</b>
-          <span>UI Prototype</span>
+    <aside class="sidebar" id="sidebar">
+      <div class="side-head">
+        <button class="side-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="side-brand">
+          <div class="side-brand-mark">
+            <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <div class="side-brand-text">
+            <b>Elasticshop</b>
+          </div>
         </div>
       </div>
 
-      <div class="side-label">Screens</div>
-      <nav class="side-nav">
+      <div class="side-menu" id="sideMenu">
+        <div class="side-label">Screens</div>
+        <nav class="side-nav">
         <button class="side-link active" data-screen="home">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
           Home
@@ -902,10 +910,11 @@
           Transaction Status
           <span class="num">4</span>
         </button>
-      </nav>
+        </nav>
 
-      <div class="side-foot">
-        <div class="side-note">Elasticshop Gaming Top-Up — a dark/yellow design system concept. Use the tabs to browse each screen.</div>
+        <div class="side-foot">
+          <div class="side-note">Elasticshop Gaming Top-Up — a dark/yellow design system concept. Use the tabs to browse each screen.</div>
+        </div>
       </div>
     </aside>
 
@@ -1360,6 +1369,24 @@
     (function () {
       var links   = document.querySelectorAll('.side-link');
       var screens = document.querySelectorAll('.screen');
+      var sidebar = document.getElementById('sidebar');
+      var toggle  = document.getElementById('menuToggle');
+
+      function setMenu(open) {
+        sidebar.classList.toggle('menu-open', open);
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      }
+
+      // hamburger toggles the menu
+      toggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        setMenu(!sidebar.classList.contains('menu-open'));
+      });
+
+      // click outside closes the menu
+      document.addEventListener('click', function (e) {
+        if (!sidebar.contains(e.target)) setMenu(false);
+      });
 
       links.forEach(function (link) {
         link.addEventListener('click', function () {
@@ -1371,7 +1398,8 @@
           screens.forEach(function (s) { s.classList.remove('active'); });
           document.getElementById('screen-' + id).classList.add('active');
 
-          document.querySelector('.viewport').scrollTo({ top: 0, behavior: 'smooth' });
+          setMenu(false);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         });
       });
 

@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SORN — Modern Thai Fine Dining</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #1a2e1a;
+      --green-mid: #243524;
+      --gold: #c9a84c;
+      --gold-light: #e0c06a;
+      --cream: #faf7f2;
+      --cream-dark: #f0ead9;
+      --text-dark: #1a1a1a;
+      --text-mid: #4a4a4a;
+      --text-light: #888;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 5vw;
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+    .nav.scrolled {
+      background: rgba(26, 46, 26, 0.96);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.3);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--gold); }
+    .nav-reserve {
+      background: var(--gold);
+      color: var(--green) !important;
+      padding: 0.55rem 1.4rem !important;
+      border-radius: 2px;
+      opacity: 1 !important;
+      font-weight: 600 !important;
+      transition: background 0.2s !important;
+    }
+    .nav-reserve:hover { background: var(--gold-light) !important; }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--cream);
+      border-radius: 2px;
+      transition: transform 0.3s;
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--green);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 1.6rem;
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 0.08em;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--gold); }
+    .mobile-close {
+      position: absolute;
+      top: 1.5rem; right: 5vw;
+      font-size: 2rem;
+      color: var(--cream);
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 100svh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600');
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.05);
+      transition: transform 8s ease-out;
+    }
+    .hero-bg.loaded { transform: scale(1); }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(10,20,10,0.45) 0%,
+        rgba(10,20,10,0.65) 60%,
+        rgba(10,20,10,0.85) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 1.5rem;
+      max-width: 780px;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+      font-weight: 500;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 400;
+      color: var(--cream);
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.02em;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-sub {
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      color: rgba(250,247,242,0.75);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      margin-bottom: 2.5rem;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .btn {
+      display: inline-block;
+      padding: 1rem 2.6rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .btn-gold {
+      background: var(--gold);
+      color: var(--green);
+      border: 2px solid var(--gold);
+    }
+    .btn-gold:hover {
+      background: transparent;
+      color: var(--gold);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--cream);
+      border: 2px solid rgba(250,247,242,0.45);
+    }
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(250,247,242,0.5);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(201,168,76,0.7), transparent);
+      animation: scrollLine 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.15); }
+    }
+
+    /* ── SECTIONS SHARED ── */
+    section { padding: 6rem 5vw; }
+    .section-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--green);
+    }
+    .section-title.light { color: var(--cream); }
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: var(--gold);
+      margin: 1.2rem 0 1.6rem;
+    }
+    .divider.center { margin: 1.2rem auto 1.6rem; }
+
+    /* ── FADE-IN ANIMATION ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-up.delay-1 { transition-delay: 0.1s; }
+    .fade-up.delay-2 { transition-delay: 0.2s; }
+    .fade-up.delay-3 { transition-delay: 0.3s; }
+    .fade-up.delay-4 { transition-delay: 0.4s; }
+
+    /* ── FEATURED DISHES ── */
+    .dishes {
+      background: var(--green);
+    }
+    .dishes-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+    .dishes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.75rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .dish-card {
+      background: var(--green-mid);
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid rgba(201,168,76,0.12);
+      transition: transform 0.35s, box-shadow 0.35s;
+    }
+    .dish-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    }
+    .dish-img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.9) saturate(1.1);
+      transition: filter 0.4s, transform 0.6s;
+    }
+    .dish-card:hover .dish-img {
+      filter: brightness(1) saturate(1.2);
+      transform: scale(1.04);
+    }
+    .dish-img-wrap { overflow: hidden; }
+    .dish-body { padding: 1.6rem; }
+    .dish-tag {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .dish-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--cream);
+      margin-bottom: 0.6rem;
+      line-height: 1.3;
+    }
+    .dish-desc {
+      font-size: 0.88rem;
+      color: rgba(250,247,242,0.6);
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+    }
+    .dish-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── ABOUT ── */
+    .about { background: var(--cream); }
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img {
+      width: 100%;
+      height: 560px;
+      object-fit: cover;
+      border-radius: 2px;
+      display: block;
+      filter: saturate(0.9);
+    }
+    .about-img-accent {
+      position: absolute;
+      width: 70%;
+      height: 70%;
+      border: 2px solid var(--gold);
+      border-radius: 2px;
+      bottom: -1.5rem;
+      right: -1.5rem;
+      pointer-events: none;
+      opacity: 0.35;
+    }
+    .about-text .section-eyebrow { margin-bottom: 0.5rem; }
+    .about-lead {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1rem, 1.8vw, 1.15rem);
+      font-style: italic;
+      color: var(--green);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+      opacity: 0.85;
+    }
+    .about-body {
+      font-size: 0.95rem;
+      color: var(--text-mid);
+      line-height: 1.85;
+      margin-bottom: 1rem;
+    }
+    .about-stat-row {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 2.2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--cream-dark);
+    }
+    .about-stat strong {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .about-stat span {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      font-weight: 500;
+    }
+
+    /* ── CHEF ── */
+    .chef { background: var(--cream-dark); padding: 6rem 5vw; }
+    .chef-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      gap: 4rem;
+      align-items: center;
+    }
+    .chef-photo-wrap { flex-shrink: 0; }
+    .chef-photo {
+      width: 280px;
+      height: 340px;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 2px;
+      filter: grayscale(0.15) saturate(0.95);
+      display: block;
+    }
+    .chef-gold-line {
+      width: 3px;
+      height: 60px;
+      background: var(--gold);
+      margin-top: 1.5rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .chef-text .section-eyebrow { margin-bottom: 0.5rem; }
+    .chef-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem;
+      color: var(--green);
+      margin-bottom: 0.3rem;
+      line-height: 1.2;
+    }
+    .chef-title-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+    }
+    .chef-bio {
+      font-size: 0.95rem;
+      color: var(--text-mid);
+      line-height: 1.85;
+    }
+    .chef-sig {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      color: var(--green);
+      opacity: 0.5;
+      margin-top: 1.5rem;
+    }
+
+    /* ── RESERVATION ── */
+    .reservation {
+      background: var(--green);
+      text-align: center;
+    }
+    .reservation .section-title { margin-bottom: 0; }
+    .reservation .divider { background: var(--gold); }
+    .res-sub {
+      font-size: 0.95rem;
+      color: rgba(250,247,242,0.6);
+      max-width: 480px;
+      margin: 0 auto 3rem;
+      line-height: 1.7;
+    }
+    .res-form {
+      max-width: 680px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .res-form .field-full { grid-column: 1 / -1; }
+    .form-group { display: flex; flex-direction: column; text-align: left; }
+    .form-group label {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .form-group input,
+    .form-group select {
+      background: rgba(250,247,242,0.06);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 2px;
+      padding: 0.9rem 1rem;
+      color: var(--cream);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      -webkit-appearance: none;
+    }
+    .form-group select option { background: var(--green); color: var(--cream); }
+    .form-group input::placeholder { color: rgba(250,247,242,0.3); }
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.08);
+    }
+    .form-group input.error,
+    .form-group select.error { border-color: #e05555; }
+    .field-error {
+      font-size: 0.75rem;
+      color: #e07070;
+      margin-top: 0.3rem;
+      display: none;
+    }
+    .field-error.show { display: block; }
+    .res-submit {
+      grid-column: 1 / -1;
+      margin-top: 0.5rem;
+    }
+    .res-submit button {
+      width: 100%;
+      padding: 1.05rem;
+      background: var(--gold);
+      color: var(--green);
+      border: none;
+      border-radius: 2px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.25s, transform 0.15s;
+    }
+    .res-submit button:hover { background: var(--gold-light); }
+    .res-submit button:active { transform: scale(0.99); }
+    .res-success {
+      display: none;
+      margin-top: 1.5rem;
+      padding: 1rem 1.5rem;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.35);
+      border-radius: 2px;
+      color: var(--gold);
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+    }
+    .res-success.show { display: block; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0f1a0f;
+      padding: 4rem 5vw 2rem;
+      color: rgba(250,247,242,0.55);
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      margin-bottom: 2rem;
+    }
+    .footer-brand .nav-logo { display: inline-block; margin-bottom: 1rem; }
+    .footer-brand p {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      max-width: 260px;
+    }
+    .footer-col h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      color: var(--cream);
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+    }
+    .footer-col p, .footer-col address {
+      font-size: 0.85rem;
+      line-height: 1.8;
+      font-style: normal;
+    }
+    .footer-hours-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      margin-bottom: 0.3rem;
+    }
+    .footer-hours-row span:first-child { color: var(--cream); opacity: 0.7; }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-bottom p { font-size: 0.8rem; }
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+    }
+    .social-icons a {
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(250,247,242,0.55);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .social-icons a:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(201,168,76,0.08);
+    }
+    .footer-phone {
+      color: var(--gold);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .footer-phone:hover { opacity: 0.75; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+
+      .about-inner {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      .about-img { height: 380px; }
+      .about-img-accent { display: none; }
+
+      .chef-inner { flex-direction: column; gap: 2rem; }
+      .chef-photo { width: 100%; height: 340px; }
+      .chef-gold-line { display: none; }
+
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 600px) {
+      section { padding: 4rem 5vw; }
+
+      .res-form {
+        grid-template-columns: 1fr;
+      }
+      .res-form .field-full { grid-column: 1; }
+      .res-submit { grid-column: 1; }
+
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+
+      .about-stat-row { gap: 1.5rem; }
+      .hero-content { padding: 0 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="nav" id="nav">
+    <a href="#" class="nav-logo">SORN</a>
+    <ul class="nav-links">
+      <li><a href="#dishes">Menu</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#reserve" class="nav-reserve">Reserve</a></li>
+    </ul>
+    <div class="nav-hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose" aria-label="Close menu">✕</button>
+    <a href="#dishes" class="mobile-link">Menu</a>
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#chef" class="mobile-link">Chef</a>
+    <a href="#reserve" class="mobile-link">Reserve a Table</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-eyebrow fade-up">Bangkok · Est. 2018</span>
+      <h1 class="hero-title fade-up delay-1">
+        Where Thai Heritage<br><em>Meets Modern Craft</em>
+      </h1>
+      <p class="hero-sub fade-up delay-2">
+        A celebration of ancient flavours, reimagined through the language of contemporary fine dining.
+      </p>
+      <a href="#reserve" class="btn btn-gold fade-up delay-3">Reserve a Table</a>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- FEATURED DISHES -->
+  <section class="dishes" id="dishes">
+    <div class="dishes-header fade-up">
+      <span class="section-eyebrow">Signature Creations</span>
+      <h2 class="section-title light">A Journey Through Taste</h2>
+      <div class="divider center"></div>
+    </div>
+    <div class="dishes-grid">
+      <article class="dish-card fade-up delay-1">
+        <div class="dish-img-wrap">
+          <img
+            class="dish-img"
+            src="https://images.unsplash.com/photo-1559847844-5315695dadae?w=800"
+            alt="Khao Chae Royale"
+            loading="lazy"
+          />
+        </div>
+        <div class="dish-body">
+          <div class="dish-tag">Heritage · Summer</div>
+          <h3 class="dish-name">Khao Chae Royale</h3>
+          <p class="dish-desc">
+            Jasmine-scented rice chilled in crystal water, paired with delicate stuffed bell peppers
+            and sweet pork — a royal summer classic elevated.
+          </p>
+          <span class="dish-price">฿ 780</span>
+        </div>
+      </article>
+      <article class="dish-card fade-up delay-2">
+        <div class="dish-img-wrap">
+          <img
+            class="dish-img"
+            src="https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=800"
+            alt="Massaman Lamb Shank"
+            loading="lazy"
+          />
+        </div>
+        <div class="dish-body">
+          <div class="dish-tag">Southern · Slow-Cooked</div>
+          <h3 class="dish-name">Massaman Lamb Shank</h3>
+          <p class="dish-desc">
+            12-hour braised lamb in a velvet massaman reduction, cardamom-roasted potato, crispy shallots,
+            and a house-made chilli oil drizzle.
+          </p>
+          <span class="dish-price">฿ 1,240</span>
+        </div>
+      </article>
+      <article class="dish-card fade-up delay-3">
+        <div class="dish-img-wrap">
+          <img
+            class="dish-img"
+            src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800"
+            alt="Northern Larb Duck"
+            loading="lazy"
+          />
+        </div>
+        <div class="dish-body">
+          <div class="dish-tag">Northern · Bold</div>
+          <h3 class="dish-name">Northern Larb Duck</h3>
+          <p class="dish-desc">
+            Seared duck breast sliced over roasted-spice larb with toasted khao khua, fresh herbs,
+            and a tamarind-nam prik glaze.
+          </p>
+          <span class="dish-price">฿ 960</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-img-wrap fade-up">
+        <img
+          class="about-img"
+          src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200"
+          alt="SORN dining room interior"
+          loading="lazy"
+        />
+        <div class="about-img-accent"></div>
+      </div>
+      <div class="about-text fade-up delay-2">
+        <span class="section-eyebrow">Our Story</span>
+        <h2 class="section-title">Rooted in Tradition,<br>Refined by Passion</h2>
+        <div class="divider"></div>
+        <p class="about-lead">
+          "Thai cuisine carries centuries of wisdom — our role is simply to let it speak."
+        </p>
+        <p class="about-body">
+          SORN was born from a belief that the richness of Thai culinary heritage deserves a space
+          of quiet reverence. Named after the Thai word for "to teach", every dish here is a lesson
+          in provenance — sourced from small family farms in Chiang Rai, coastal villages in Trang,
+          and heritage paddy fields in Suphanburi.
+        </p>
+        <p class="about-body">
+          Our tasting menu changes with the seasons, guided by the rhythms of Thai agricultural
+          tradition. No shortcuts, no artificial intensifiers — only time, technique, and the
+          extraordinary raw materials this land provides.
+        </p>
+        <div class="about-stat-row">
+          <div class="about-stat">
+            <strong>12</strong>
+            <span>Course Menu</span>
+          </div>
+          <div class="about-stat">
+            <strong>48+</strong>
+            <span>Partnered Farms</span>
+          </div>
+          <div class="about-stat">
+            <strong>2★</strong>
+            <span>Michelin Stars</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHEF -->
+  <section class="chef" id="chef">
+    <div class="chef-inner">
+      <div class="chef-photo-wrap fade-up">
+        <img
+          class="chef-photo"
+          src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800"
+          alt="Chef Wicha Rattanachot"
+          loading="lazy"
+        />
+        <div class="chef-gold-line"></div>
+      </div>
+      <div class="chef-text fade-up delay-2">
+        <span class="section-eyebrow">The Craftsman</span>
+        <h2 class="chef-name">Chef Wicha Rattanachot</h2>
+        <div class="chef-title-label">Executive Chef &amp; Founder</div>
+        <div class="divider"></div>
+        <p class="chef-bio">
+          Trained under legends in Lyon and Copenhagen before returning home to Bangkok, Chef Wicha
+          spent a decade travelling every province of Thailand — eating in village homes, learning
+          from grandmothers, and mapping the forgotten spice routes of the kingdom.
+        </p>
+        <p class="chef-bio" style="margin-top:1rem;">
+          At SORN, he synthesises this living archive into menus that feel both
+          deeply familiar and startlingly new. His philosophy: <em style="color:var(--green);font-family:'Playfair Display',serif;">
+          honour the original, then let it breathe.</em>
+        </p>
+        <div class="chef-sig">Wicha R.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESERVATION -->
+  <section class="reservation" id="reserve">
+    <span class="section-eyebrow fade-up">Book Your Evening</span>
+    <h2 class="section-title light fade-up delay-1">Reserve a Table</h2>
+    <div class="divider center fade-up delay-1"></div>
+    <p class="res-sub fade-up delay-2">
+      We seat guests Tuesday through Sunday. Reservations are recommended at least 48 hours in advance.
+    </p>
+    <form class="res-form fade-up delay-3" id="resForm" action="https://formspree.io/f/PLACEHOLDER" method="POST" novalidate>
+      <div class="form-group">
+        <label for="res-name">Full Name</label>
+        <input type="text" id="res-name" name="name" placeholder="Your name" />
+        <span class="field-error" id="err-name">Please enter your full name.</span>
+      </div>
+      <div class="form-group">
+        <label for="res-email">Email Address</label>
+        <input type="email" id="res-email" name="email" placeholder="your@email.com" />
+        <span class="field-error" id="err-email">Please enter a valid email.</span>
+      </div>
+      <div class="form-group">
+        <label for="res-date">Date</label>
+        <input type="date" id="res-date" name="date" />
+        <span class="field-error" id="err-date">Please select a date.</span>
+      </div>
+      <div class="form-group">
+        <label for="res-time">Preferred Time</label>
+        <select id="res-time" name="time">
+          <option value="">Select a time</option>
+          <option value="18:00">6:00 PM</option>
+          <option value="18:30">6:30 PM</option>
+          <option value="19:00">7:00 PM</option>
+          <option value="19:30">7:30 PM</option>
+          <option value="20:00">8:00 PM</option>
+          <option value="20:30">8:30 PM</option>
+        </select>
+        <span class="field-error" id="err-time">Please select a time.</span>
+      </div>
+      <div class="form-group field-full">
+        <label for="res-guests">Number of Guests</label>
+        <select id="res-guests" name="guests">
+          <option value="">Select guests</option>
+          <option value="1">1 Guest</option>
+          <option value="2">2 Guests</option>
+          <option value="3">3 Guests</option>
+          <option value="4">4 Guests</option>
+          <option value="5">5 Guests</option>
+          <option value="6">6 Guests</option>
+          <option value="7+">7+ Guests (contact us)</option>
+        </select>
+        <span class="field-error" id="err-guests">Please select the number of guests.</span>
+      </div>
+      <div class="res-submit">
+        <button type="submit">Confirm Reservation</button>
+      </div>
+      <div class="res-success" id="resSuccess" role="alert">
+        Thank you — your reservation request has been received. We will confirm within 24 hours.
+      </div>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo">SORN</a>
+        <p>A sanctuary of Thai flavour in the heart of Bangkok. Two stars, one purpose — to honour the cuisine of the kingdom.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Find Us</h4>
+        <address>
+          56/6 Sukhumvit Soi 26<br />
+          Khlong Toei, Bangkok 10110<br />
+          Thailand<br /><br />
+          <a href="tel:+6621234567" class="footer-phone">+66 2 123 4567</a>
+        </address>
+      </div>
+      <div class="footer-col">
+        <h4>Opening Hours</h4>
+        <div class="footer-hours-row"><span>Tue – Thu</span><span>6 PM – 10 PM</span></div>
+        <div class="footer-hours-row"><span>Fri – Sat</span><span>6 PM – 11 PM</span></div>
+        <div class="footer-hours-row"><span>Sunday</span><span>12 PM – 3 PM</span></div>
+        <div class="footer-hours-row"><span>Monday</span><span>Closed</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 SORN Restaurant. All rights reserved.</p>
+      <div class="social-icons">
+        <a href="#" aria-label="Instagram">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="Facebook">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="#" aria-label="TripAdvisor">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── NAVBAR SCROLL ──
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // ── HERO BG LOAD ──
+    const heroBg = document.getElementById('heroBg');
+    const img = new Image();
+    img.onload = () => heroBg.classList.add('loaded');
+    img.src = 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600';
+
+    // ── HAMBURGER ──
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
+    hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+    mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+
+    // ── SCROLL ANIMATIONS ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // ── SET MIN DATE FOR RESERVATION ──
+    const dateInput = document.getElementById('res-date');
+    const today = new Date();
+    const minDate = new Date(today.getTime() + 48 * 60 * 60 * 1000);
+    dateInput.min = minDate.toISOString().split('T')[0];
+
+    // ── FORM VALIDATION ──
+    const form = document.getElementById('resForm');
+    const fields = [
+      { id: 'res-name',   errId: 'err-name',   validate: v => v.trim().length > 1 },
+      { id: 'res-email',  errId: 'err-email',  validate: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+      { id: 'res-date',   errId: 'err-date',   validate: v => v !== '' },
+      { id: 'res-time',   errId: 'err-time',   validate: v => v !== '' },
+      { id: 'res-guests', errId: 'err-guests', validate: v => v !== '' },
+    ];
+
+    function validateForm() {
+      let valid = true;
+      fields.forEach(({ id, errId, validate }) => {
+        const el = document.getElementById(id);
+        const errEl = document.getElementById(errId);
+        const ok = validate(el.value);
+        el.classList.toggle('error', !ok);
+        errEl.classList.toggle('show', !ok);
+        if (!ok) valid = false;
+      });
+      return valid;
+    }
+
+    fields.forEach(({ id, errId, validate }) => {
+      const el = document.getElementById(id);
+      const errEl = document.getElementById(errId);
+      el.addEventListener('blur', () => {
+        const ok = validate(el.value);
+        el.classList.toggle('error', !ok);
+        errEl.classList.toggle('show', !ok);
+      });
+      el.addEventListener('input', () => {
+        if (el.classList.contains('error') && validate(el.value)) {
+          el.classList.remove('error');
+          errEl.classList.remove('show');
+        }
+      });
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!validateForm()) return;
+
+      const btn = form.querySelector('button[type="submit"]');
+      const success = document.getElementById('resSuccess');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (res.ok) {
+          form.reset();
+          success.classList.add('show');
+          btn.style.display = 'none';
+        } else {
+          throw new Error();
+        }
+      } catch {
+        btn.textContent = 'Confirm Reservation';
+        btn.disabled = false;
+        alert('Something went wrong. Please try again or call us directly.');
+      }
+    });
+  </script>
+</body>
+</html>
