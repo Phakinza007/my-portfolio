@@ -43,34 +43,34 @@
        DESIGN TOKENS
     ============================================================ */
     :root {
-      --bg:           #0a0a0a;
-      --surface:      #111111;
-      --surface-2:    #161616;
-      --ink:          #f5f5f5;
-      --ink-2:        #d1d5db;
-      --muted:        #9ca3af;
-      --muted-2:      #6b7280;
-      --border:       #1f1f1f;
-      --border-2:     #2a2a2a;
+      --bg:           #0d1117;
+      --surface:      #161b22;
+      --surface-2:    #1c2128;
+      --ink:          #e6edf3;
+      --ink-2:        #c9d1d9;
+      --muted:        #8b949e;
+      --muted-2:      #6e7681;
+      --border:       #21262d;
+      --border-2:     #30363d;
       --accent:       #4f6ef7;
       --accent-dark:  #3651d4;
-      --accent-light: rgba(79,110,247,0.12);
+      --accent-light: rgba(79,110,247,0.14);
       --mint:         #d1fae5;
       --mint-text:    #065f46;
       --amber:        #fef3c7;
       --amber-text:   #92400e;
       --rose:         #fee2e2;
       --rose-text:    #991b1b;
-      --dark:         #000000;
-      --dark-2:       #0d0d0d;
+      --dark:         #010409;
+      --dark-2:       #0d1117;
       --max:          1100px;
       --ease:         cubic-bezier(0.16, 1, 0.3, 1);
       --r-sm:         8px;
       --r:            14px;
       --r-lg:         20px;
-      --sh-sm:        0 1px 3px rgba(0,0,0,.18);
-      --sh:           0 4px 14px rgba(0,0,0,.28), 0 1px 3px rgba(0,0,0,.2);
-      --sh-lg:        0 16px 48px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.28);
+      --sh-sm:        0 1px 3px rgba(0,0,0,.22);
+      --sh:           0 4px 16px rgba(0,0,0,.32), 0 1px 4px rgba(0,0,0,.22);
+      --sh-lg:        0 16px 48px rgba(0,0,0,.48), 0 4px 12px rgba(0,0,0,.32);
     }
 
     /* ============================================================
@@ -103,10 +103,10 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(10, 10, 10, 0.9);
+      background: rgba(13, 17, 23, 0.92);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(31, 31, 31, 0.9);
+      border-bottom: 1px solid rgba(33, 38, 45, 0.9);
     }
 
     .nav-inner {
@@ -197,7 +197,7 @@
       top: 68px;
       left: 0;
       right: 0;
-      background: rgba(10, 10, 10, 0.97);
+      background: rgba(13, 17, 23, 0.97);
       backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border);
       padding: 12px 20px 20px;
@@ -317,13 +317,13 @@
     }
 
     .btn-ghost {
-      background: #1a1a1a;
-      color: #f5f5f5;
-      border: 1.5px solid #2a2a2a;
+      background: #1c2128;
+      color: #e6edf3;
+      border: 1.5px solid #30363d;
       box-shadow: var(--sh-sm);
     }
 
-    .btn-ghost:hover { border-color: #444; box-shadow: var(--sh); }
+    .btn-ghost:hover { border-color: #484f58; box-shadow: var(--sh); }
 
     /* ============================================================
        SECTION SHELL
@@ -362,8 +362,8 @@
     }
 
     .work-card {
-      background: #111;
-      border: 1px solid #1f1f1f;
+      background: #161b22;
+      border: 1px solid #21262d;
       border-radius: var(--r);
       overflow: hidden;
       box-shadow: var(--sh-sm);
@@ -469,8 +469,8 @@
     }
 
     .card {
-      background: #111;
-      border: 1px solid #1f1f1f;
+      background: #161b22;
+      border: 1px solid #21262d;
       border-radius: var(--r);
       padding: clamp(22px, 3vw, 32px);
       box-shadow: var(--sh-sm);
@@ -646,8 +646,8 @@
        CONTACT / FOOTER
     ============================================================ */
     .footer-section {
-      background: #0d0d0d;
-      border-top: 1px solid #1f1f1f;
+      background: #010409;
+      border-top: 1px solid #21262d;
       padding: clamp(48px, 7vw, 72px) 0 clamp(36px, 5vw, 52px);
       scroll-margin-top: 80px;
     }
@@ -835,7 +835,7 @@
        CONTACT SECTION
     ============================================================ */
     .contact-section {
-      background: #050505;
+      background: #090d13;
       color: #fff;
       padding: 80px 0;
     }
@@ -1665,51 +1665,51 @@
     </section>
 
     <!-- =============================================
-         CASE STUDIES
+         LIVE PROJECTS
     ============================================= -->
-    <section class="section" id="case-studies" aria-labelledby="case-heading">
+    <section class="section" id="live-projects" aria-labelledby="live-heading">
       <div class="container">
-        <span class="section-label">Design Thinking</span>
-        <h2 class="section-title" id="case-heading">Case Studies</h2>
+        <span class="section-label">Live Work</span>
+        <h2 class="section-title" id="live-heading">Live Projects</h2>
 
         <div class="case-grid">
 
-          <!-- InternTrack case study -->
+          <!-- Iron Republic -->
           <article class="case-card reveal">
-            <a class="case-thumb" href="case-study-interntrack.html" aria-label="View InternTrack case study" style="display:block;overflow:hidden;">
-              <img src="assets/thumbs/interntrack.jpg" alt="InternTrack dashboard" loading="lazy" />
+            <a class="case-thumb" href="gym-landing.html" aria-label="Open Iron Republic project" style="display:block;overflow:hidden;">
+              <img src="assets/thumbs/gym-landing.jpg" alt="Iron Republic gym landing page" loading="lazy" />
             </a>
             <div class="case-body">
-              <span class="case-eyebrow">01 · Case Study</span>
-              <div class="case-name">InternTrack — Internship Management Dashboard</div>
-              <p class="case-desc">A full management system for tracking intern applications, onboarding status, and performance reviews with role-based access and status workflows.</p>
-              <a class="btn-live" href="case-study-interntrack.html">Read Case Study</a>
+              <span class="case-eyebrow">Fitness · Landing Page</span>
+              <div class="case-name">Iron Republic — Gym Brand Website</div>
+              <p class="case-desc">A bold, high-energy landing page for a gym brand — dark hero, class schedule, membership tiers, trainer profiles, and a strong CTA built to drive sign-ups.</p>
+              <a class="btn-live" href="gym-landing.html">View Live →</a>
             </div>
           </article>
 
-          <!-- LaunchLedger case study -->
+          <!-- NOIR Coffee -->
           <article class="case-card reveal">
-            <a class="case-thumb" href="case-study-launchledger.html" aria-label="View LaunchLedger case study" style="display:block;overflow:hidden;">
-              <img src="assets/thumbs/launch-ledger.jpg" alt="LaunchLedger finance dashboard" loading="lazy" />
+            <a class="case-thumb" href="coffee-landing.html" aria-label="Open NOIR Coffee project" style="display:block;overflow:hidden;">
+              <img src="assets/thumbs/noir-coffee.jpg" alt="NOIR Coffee landing page" loading="lazy" />
             </a>
             <div class="case-body">
-              <span class="case-eyebrow">02 · Case Study</span>
-              <div class="case-name">LaunchLedger — Startup Finance Tracker</div>
-              <p class="case-desc">A financial dashboard for early-stage startups to track runway, burn rate, and investor-ready metrics without accounting software overhead.</p>
-              <a class="btn-live" href="case-study-launchledger.html">Read Case Study</a>
+              <span class="case-eyebrow">Café · Brand</span>
+              <div class="case-name">NOIR Coffee — Specialty Café Landing Page</div>
+              <p class="case-desc">A premium dark-themed landing page for a specialty café — cinematic hero, menu cards, origin story section, and a reservation flow that matches the brand's premium tone.</p>
+              <a class="btn-live" href="coffee-landing.html">View Live →</a>
             </div>
           </article>
 
-          <!-- PulseBoard case study -->
+          <!-- PulseBoard -->
           <article class="case-card reveal">
-            <a class="case-thumb" href="case-study-pulseboard.html" aria-label="View PulseBoard case study" style="display:block;overflow:hidden;">
+            <a class="case-thumb" href="PulseBoard.html" aria-label="Open PulseBoard project" style="display:block;overflow:hidden;">
               <img src="assets/thumbs/pulseboard.jpg" alt="PulseBoard analytics dashboard" loading="lazy" />
             </a>
             <div class="case-body">
-              <span class="case-eyebrow">03 · Case Study</span>
-              <div class="case-name">PulseBoard — Real-time Analytics Dashboard</div>
-              <p class="case-desc">A live data dashboard with filterable KPI cards, trend charts, and alert thresholds — built for ops teams who need answers fast.</p>
-              <a class="btn-live" href="case-study-pulseboard.html">Read Case Study</a>
+              <span class="case-eyebrow">Dashboard · Analytics</span>
+              <div class="case-name">PulseBoard — Real-time Operations Dashboard</div>
+              <p class="case-desc">A live data dashboard with filterable KPI cards, trend sparklines, and alert thresholds — designed for ops teams who need answers at a glance without digging through reports.</p>
+              <a class="btn-live" href="PulseBoard.html">View Live →</a>
             </div>
           </article>
 
