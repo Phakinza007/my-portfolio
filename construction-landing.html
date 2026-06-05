@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BuildNest is a Thai construction and real estate landing page practice project with one-stop services, project showcase, review, blog, and contact flow." />
+  <meta name="author" content="Phakin Chawanpunya" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="oklch(33% 0.11 156)" />
+  <link rel="canonical" href="https://phakinza007.github.io/my-portfolio/construction-landing.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Phakin Chawanpunya Portfolio" />
+  <meta property="og:title" content="BuildNest | Construction Landing Page | Phakin Portfolio" />
+  <meta property="og:description" content="A Thai-first construction landing page practice project redesigned around one-stop service structure." />
+  <meta property="og:url" content="https://phakinza007.github.io/my-portfolio/construction-landing.html" />
+  <meta property="og:image" content="https://phakinza007.github.io/my-portfolio/assets/thumbs/construction-landing.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="BuildNest | Construction Landing Page | Phakin Portfolio" />
+  <meta name="twitter:description" content="A Thai-first construction landing page practice project redesigned around one-stop service structure." />
+  <meta name="twitter:image" content="https://phakinza007.github.io/my-portfolio/assets/thumbs/construction-landing.svg" />
+  <title>BuildNest | Construction Landing Page | Phakin Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/portfolio-context.css?v=back-button-clean" />
+  <style>
+    :root {
+      --leaf: oklch(33% 0.11 156);
+      --leaf-2: oklch(41% 0.13 154);
+      --leaf-soft: oklch(88% 0.08 148);
+      --gold: oklch(73% 0.13 83);
+      --clay: oklch(62% 0.12 40);
+      --sky: oklch(65% 0.11 210);
+      --paper: oklch(96% 0.018 78);
+      --paper-2: oklch(91% 0.03 76);
+      --surface: oklch(98% 0.012 78);
+      --ink: oklch(22% 0.045 150);
+      --ink-2: oklch(36% 0.04 150);
+      --muted: oklch(50% 0.036 88);
+      --line: oklch(80% 0.028 82);
+      --dark: oklch(20% 0.05 154);
+      --dark-2: oklch(16% 0.045 154);
+      --radius: 16px;
+      --shadow: 0 26px 70px oklch(24% 0.04 70 / 0.16);
+      --soft-shadow: 0 16px 38px oklch(24% 0.04 70 / 0.11);
+      --max: 1180px;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--paper);
+    }
+
+    body {
+      min-width: 320px;
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--ink);
+      font-family: "Noto Sans Thai", "Bai Jamjuree", sans-serif;
+      line-height: 1.65;
+      background:
+        radial-gradient(circle at 12% 8%, oklch(88% 0.08 148 / 0.48), transparent 28rem),
+        radial-gradient(circle at 90% 5%, oklch(73% 0.13 83 / 0.32), transparent 30rem),
+        linear-gradient(180deg, var(--paper) 0%, oklch(94% 0.02 80) 54%, oklch(89% 0.024 82) 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background-image:
+        linear-gradient(oklch(33% 0.11 156 / 0.055) 1px, transparent 1px),
+        linear-gradient(90deg, oklch(33% 0.11 156 / 0.055) 1px, transparent 1px);
+      background-size: 52px 52px;
+      mask-image: linear-gradient(to bottom, oklch(10% 0.01 80 / 0.76), transparent 78%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img,
+    svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    button {
+      border: 0;
+      background: none;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid oklch(73% 0.13 83 / 0.62);
+      outline-offset: 4px;
+    }
+
+    .shell {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      border-bottom: 1px solid oklch(80% 0.028 82 / 0.75);
+      background: oklch(96% 0.018 78 / 0.94);
+      backdrop-filter: blur(18px);
+    }
+
+    .contact-strip {
+      border-bottom: 1px solid oklch(80% 0.028 82 / 0.6);
+      background: oklch(98% 0.012 78 / 0.72);
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--ink-2);
+    }
+
+    .contact-strip-inner {
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .contact-actions-small {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .icon-chip {
+      min-height: 28px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border-radius: 999px;
+      padding: 0 10px;
+      background: var(--leaf);
+      color: var(--surface);
+      font-size: 0.78rem;
+    }
+
+    .nav {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: max-content;
+      color: var(--leaf);
+      font-family: "Bai Jamjuree", "Noto Sans Thai", sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-mark {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--leaf);
+      color: var(--surface);
+      box-shadow: 0 16px 34px oklch(33% 0.11 156 / 0.22);
+    }
+
+    .brand-text {
+      display: grid;
+      line-height: 1.1;
+    }
+
+    .brand-text strong {
+      font-size: 1.18rem;
+    }
+
+    .brand-text span {
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 4px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: var(--ink-2);
+      font-family: "Bai Jamjuree", "Noto Sans Thai", sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .nav-links a {
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 0 14px;
+      transition: color 180ms var(--ease), background 180ms var(--ease), transform 180ms var(--ease);
+    }
+
+    .nav-links a:hover {
+      color: var(--leaf);
+      background: oklch(88% 0.08 148 / 0.42);
+      transform: translateY(-1px);
+    }
+
+    .nav-cta {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 0 20px;
+      background: var(--leaf);
+      color: var(--surface);
+      font-family: "Bai Jamjuree", "Noto Sans Thai", sans-serif;
+      font-weight: 700;
+      box-shadow: 0 18px 34px oklch(33% 0.11 156 / 0.18);
+      transition: transform 180ms var(--ease), background 180ms var(--ease);
+    }
+
+    .nav-cta:hover {
+      background: var(--clay);
+      transform: translateY(-2px);
+    }
+
+    .nav-toggle {
+      display: none;
+      width: 46px;
+      height: 46px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+
+    .nav-toggle span,
+    .nav-toggle::before,
+    .nav-toggle::after {
+      content: "";
+      width: 18px;
+      height: 2px;
+      display: block;
+      border-radius: 99px;
+      background: var(--leaf);
+      transition: transform 220ms var(--ease), opacity 180ms var(--ease);
+    }
+
+    .nav-toggle span {
+      margin: 5px 0;
+    }
+
+    .nav-toggle[aria-expanded="true"]::before {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .nav-toggle[aria-expanded="true"] span {
+      opacity: 0;
+    }
+
+    .nav-toggle[aria-expanded="true"]::after {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .mobile-panel {
+      display: none;
+      border-top: 1px solid var(--line);
+      padding: 12px 0 18px;
+    }
+
+    .mobile-panel.open {
+      display: grid;
+      gap: 6px;
+    }
+
+    .mobile-panel a {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      border-radius: 12px;
+      padding: 0 13px;
+      color: var(--ink-2);
+      font-weight: 700;
+    }
+
+    .hero {
+      position: relative;
+      padding: clamp(26px, 4vw, 48px) 0 clamp(58px, 8vw, 92px);
+      overflow: hidden;
+    }
+
+    .hero-banner {
+      position: relative;
+      min-height: clamp(560px, 78vw, 700px);
+      display: grid;
+      align-items: stretch;
+      border-radius: 30px;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, oklch(18% 0.05 154 / 0.86) 0%, oklch(24% 0.06 150 / 0.7) 42%, oklch(18% 0.05 154 / 0.2) 74%),
+        linear-gradient(135deg, var(--dark), var(--leaf-2));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-banner::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(circle at 78% 26%, oklch(73% 0.13 83 / 0.24), transparent 18rem),
+        radial-gradient(circle at 88% 78%, oklch(65% 0.11 210 / 0.22), transparent 20rem),
+        linear-gradient(90deg, transparent 0 49%, oklch(98% 0.012 78 / 0.08) 49% 50%, transparent 50% 100%),
+        linear-gradient(oklch(98% 0.012 78 / 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, oklch(98% 0.012 78 / 0.08) 1px, transparent 1px);
+      background-size: auto, auto, auto, 56px 56px, 56px 56px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: min(680px, 100%);
+      display: grid;
+      align-content: center;
+      padding: clamp(34px, 7vw, 72px);
+      color: var(--surface);
+    }
+
+    .hero-kicker {
+      width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      border-radius: 999px;
+      padding: 8px 13px;
+      background: oklch(98% 0.012 78 / 0.12);
+      color: oklch(88% 0.08 148);
+      font-family: "Bai Jamjuree", "Noto Sans Thai", sans-serif;
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+    .hero-kicker::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Bai Jamjuree", "Noto Sans Thai", sans-serif;
+      letter-spacing: -0.035em;
+      overflow-wrap: anywhere;
+    }
+
+    h1 {
+      color: var(--surface);
+      font-size: clamp(3rem, 8.5vw, 6.8rem);
+      line-height: 1.06;
+      max-width: 12ch;
+      overflow-wrap: anywhere;
+      text-wrap: balance;
+    }
+
+    h1 span {
+      color: var(--gold);
+      display: inline-block;
+    }
+
+    h1 .final-line {
+      color: var(--surface);
+    }
+
+    h1 .project-line {
+      color: var(--surface);
+    }
+
+    .hero-copy {
+      max-width: 620px;
+      margin: 24px 0 0;
+      color: oklch(94% 0.018 78 / 0.78);
+      font-size: clamp(1rem, 1.55vw, 1.16rem);
+      overflow-wrap: anywhere;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .btn {
+      min-height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 0 21px;
+      font-family: "Bai Jamjuree", "Noto Sans Thai", sans-serif;
+      font-weight: 700;
+      transition: transform 180ms var(--ease), background 180ms var(--ease), color 180ms var(--ease);
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--dark-2);
+      box-shadow: 0 16px 32px oklch(73% 0.13 83 / 0.22);
+    }
+
+    .btn-secondary {
+      border: 1px solid oklch(98% 0.012 78 / 0.35);
+      background: oklch(98% 0.012 78 / 0.1);
+      color: var(--surface);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-art {
+      position: absolute;
+      right: clamp(-90px, -6vw, -32px);
+      bottom: 0;
+      z-index: 1;
+      width: min(58vw, 720px);
+      min-width: 470px;
+      opacity: 0.97;
+    }
+
+    .hero-count {
+      position: absolute;
+      left: clamp(26px, 5vw, 62px);
+      bottom: clamp(22px, 5vw, 46px);
+      z-index: 3;
+      display: inline-grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: 15px;
+      max-width: 420px;
+      border: 1px solid oklch(98% 0.012 78 / 0.18);
+      border-radius: 18px;
+      padding: 15px 18px;
+      background: oklch(16% 0.045 154 / 0.72);
+      color: var(--surface);
+    }
+
+    .hero-count strong {
+      color: var(--gold);
+      font-family: "Bai Jamjuree", "Noto Sans Thai", sans-serif;
+      font-size: 2.2rem;
+      line-height: 1;
+    }
+
+    .hero-count span {
+      color: oklch(94% 0.018 78 / 0.75);
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    .banner-dots {
+      position: absolute;
+      right: clamp(24px, 4vw, 54px);
+      bottom: clamp(24px, 4vw, 44px);
+      z-index: 3;
+      display: flex;
+      gap: 9px;
+    }
+
+    .banner-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: oklch(98% 0.012 78 / 0.38);
+    }
+
+    .banner-dots span:first-child {
+      width: 34px;
+      border-radius: 999px;
+      background: var(--gold);
+    }
+
+    .section {
+      padding: clamp(62px, 9vw, 110px) 0;
+      scroll-margin-top: 120px;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.84fr) minmax(260px, 0.44fr);
+      gap: clamp(20px, 5vw, 64px);
+      align-items: end;
+      margin-bottom: clamp(28px, 5vw, 54px);
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      color: var(--leaf);
+      font-family: "Bai Jamjuree", "Noto Sans Thai", sans-serif;
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+    .section-label::before {
+      content: "";
+      width: 34px;
+      height: 3px;
+      border-radius: 99px;
+      background: var(--gold);
+    }
+
+    h2 {
+      max-width: 760px;
+      font-size: clamp(2.05rem, 4.8vw, 4.2rem);
+      line-height: 1.08;
+    }
+
+    .section-copy,
+    p {
+      margin: 0;
+      color: var(--muted);
+      overflow-wrap: anywhere;
+    }
+
+    .mobile-line {
+      display: inline;
+    }
+
+    .about-band {
+      display: grid;
+      grid-template-columns: minmax(0, 0.76fr) minmax(320px, 0.54fr);
+      gap: clamp(28px, 5vw, 62px);
+      align-items: center;
+    }
+
+    .about-card {
+      border-radius: 24px;
+      padding: clamp(26px, 5vw, 48px);
+      background: var(--surface);
+      box-shadow: var(--soft-shadow);
+    }
+
+    .about-card p {
+      max-width: 720px;
+      margin-top: 18px;
+      color: var(--ink-2);
+      font-size: 1.05rem;
+    }
+
+    .about-mini {
+      display: grid;
+      gap: 12px;
+    }
+
+    .about-mini-item {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: 14px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 17px;
+      background: oklch(98% 0.012 78 / 0.72);
+      box-shadow: 0 10px 24px oklch(24% 0.04 70 / 0.06);
+    }
+
+    .about-mini-item strong {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--leaf);
+      color: var(--surface);
+      font-family: "Bai Jamjuree", "Noto Sans Thai", sans-serif;
+    }
+
+    .about-mini-item h3 {
+      margin-bottom: 4px;
+      font-size: 1.06rem;
+    }
+
+    .services {
+      background:
+        linear-gradient(180deg, oklch(98% 0.012 78 / 0.52), oklch(91% 0.03 76 / 0.68)),
+        var(--paper-2);
+    }
+
+    .service-layout {
+      display: grid;
+      grid-template-columns: minmax(300px, 0.45fr) minmax(0, 1fr);
+      gap: 0;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      overflow: hidden;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .service-visual {
+      position: relative;
+      min-height: 560px;
+      display: grid;
+      align-content: space-between;
+      padding: clamp(26px, 5vw, 44px);
+      background:
+        linear-gradient(160deg, var(--leaf), var(--dark-2)),
+        var(--leaf);
+      color: var(--surface);
+      overflow: hidden;
+    }
+
+    .service-visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 24% 12%, oklch(73% 0.13 83 / 0.22), transparent 18rem),
+        linear-gradient(90deg, oklch(98% 0.012 78 / 0.08) 1px, transparent 1px),
+        linear-gradient(oklch(98% 0.012 78 / 0.08) 1px, transparent 1px);
+      background-size: auto, 48px 48px, 48px 48px;
+    }
+
+    .service-visual > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .service-visual h2 {
+      color: var(--surface);
+    }
+
+    .service-visual .section-label,
+    .cta .section-label {
+      color: oklch(88% 0.08 148);
+    }
+
+    .service-visual p {
+      max-width: 440px;
+      color: oklch(94% 0.018 78 / 0.77);
+    }
+
+    .home-icon {
+      width: min(100%, 360px);
+      margin: 28px auto 0;
+    }
+
+    .service-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      background: var(--line);
+    }
+
+    .service-item {
+      min-height: 230px;
+      display: grid;
+      align-content: space-between;
+      gap: 18px;
+      padding: clamp(22px, 4vw, 34px);
+      background: var(--surface);
+    }
+
+    .service-item .num {
+      color: var(--leaf);
+      font-family: "Bai Jamjuree", "Noto Sans Thai", sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .service-item h3 {
+      margin-bottom: 8px;
+      font-size: 1.25rem;
+      line-height: 1.2;
+    }
+
+    .service-item p {
+      color: var(--muted);
+    }
+
+    .works-stage {
+      position: relative;
+    }
+
+    .works-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .work-feature,
+    .work-side {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--surface);
+      box-shadow: var(--soft-shadow);
+      overflow: hidden;
+    }
+
+    .work-feature {
+      display: grid;
+      grid-template-rows: minmax(340px, 1fr) auto;
+      min-height: 600px;
+    }
+
+    .work-image {
+      position: relative;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      background:
+        radial-gradient(circle at 68% 16%, oklch(73% 0.13 83 / 0.34), transparent 18rem),
+        linear-gradient(150deg, oklch(27% 0.08 158), oklch(18% 0.05 154));
+    }
+
+    .work-image svg {
+      width: min(100%, 650px);
+    }
+
+    .gallery-controls {
+      position: absolute;
+      right: 24px;
+      top: 24px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .gallery-controls span {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: oklch(98% 0.012 78 / 0.92);
+      color: var(--leaf);
+      font-weight: 700;
+    }
+
+    .work-body {
+      padding: clamp(24px, 4vw, 38px);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .pill {
+      min-height: 30px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 0 11px;
+      background: var(--leaf-soft);
+      color: var(--leaf);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .work-body h3 {
+      max-width: 640px;
+      font-size: clamp(1.8rem, 3.6vw, 3.1rem);
+      line-height: 1.12;
+    }
+
+    .work-body p {
+      max-width: 720px;
+      margin-top: 14px;
+    }
+
+    .side-stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .work-side {
+      min-height: 291px;
+      display: grid;
+      align-content: space-between;
+      padding: clamp(22px, 4vw, 30px);
+    }
+
+    .work-side svg {
+      width: min(100%, 210px);
+      margin-bottom: 18px;
+    }
+
+    .work-side h3 {
+      margin-bottom: 8px;
+      font-size: 1.25rem;
+    }
+
+    .review-section {
+      background: var(--surface);
+    }
+
+    .review-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 0.76fr) minmax(280px, 0.44fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .quote-card {
+      border-radius: 28px;
+      padding: clamp(30px, 6vw, 62px);
+      background:
+        radial-gradient(circle at 90% 10%, oklch(88% 0.08 148 / 0.54), transparent 18rem),
+        var(--paper);
+      box-shadow: var(--soft-shadow);
+    }
+
+    .quote-card h2 {
+      margin-bottom: 22px;
+    }
+
+    .quote-card blockquote {
+      margin: 0;
+      max-width: 780px;
+      color: var(--ink);
+      font-family: "Bai Jamjuree", "Noto Sans Thai", sans-serif;
+      font-size: clamp(1.35rem, 3vw, 2.25rem);
+      font-weight: 700;
+      line-height: 1.22;
+    }
+
+    .quote-card cite {
+      display: block;
+      margin-top: 22px;
+      color: var(--muted);
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    .testimonial-card {
+      min-height: 360px;
+      display: grid;
+      align-content: end;
+      border-radius: 28px;
+      padding: 28px;
+      background:
+        linear-gradient(180deg, transparent, oklch(16% 0.045 154 / 0.92)),
+        radial-gradient(circle at 70% 22%, oklch(73% 0.13 83 / 0.42), transparent 16rem),
+        var(--leaf);
+      color: var(--surface);
+      overflow: hidden;
+      box-shadow: var(--soft-shadow);
+    }
+
+    .testimonial-card h3 {
+      color: var(--surface);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      line-height: 1.14;
+    }
+
+    .testimonial-card p {
+      margin-top: 12px;
+      color: oklch(94% 0.018 78 / 0.78);
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .blog-card {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: clamp(22px, 4vw, 32px);
+      background: var(--surface);
+      box-shadow: var(--soft-shadow);
+    }
+
+    .blog-date {
+      width: 70px;
+      height: 70px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: var(--leaf);
+      color: var(--surface);
+      font-family: "Bai Jamjuree", "Noto Sans Thai", sans-serif;
+      font-weight: 700;
+      line-height: 1.12;
+      text-align: center;
+    }
+
+    .blog-card h3 {
+      margin-bottom: 8px;
+      font-size: 1.22rem;
+      line-height: 1.24;
+    }
+
+    .cta {
+      margin-top: clamp(36px, 6vw, 68px);
+      border-radius: 28px;
+      padding: clamp(30px, 6vw, 58px);
+      background:
+        radial-gradient(circle at 86% 20%, oklch(73% 0.13 83 / 0.3), transparent 20rem),
+        linear-gradient(145deg, var(--dark), var(--leaf));
+      color: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .cta-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 28px;
+      align-items: end;
+    }
+
+    .cta h2 {
+      color: var(--surface);
+    }
+
+    .cta p {
+      max-width: 650px;
+      margin-top: 16px;
+      color: oklch(94% 0.018 78 / 0.74);
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .cta .btn-primary {
+      background: var(--surface);
+      color: var(--leaf);
+    }
+
+    .footer {
+      padding: 56px 0 70px;
+      background: var(--dark-2);
+      color: oklch(94% 0.018 78 / 0.78);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) repeat(2, minmax(160px, 0.28fr));
+      gap: 30px;
+    }
+
+    .footer .brand {
+      color: var(--surface);
+      margin-bottom: 14px;
+    }
+
+    .footer p {
+      max-width: 420px;
+      color: oklch(94% 0.018 78 / 0.68);
+    }
+
+    .footer h3 {
+      margin-bottom: 12px;
+      color: var(--surface);
+      font-size: 1rem;
+    }
+
+    .footer-links {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: oklch(94% 0.018 78 / 0.72);
+      font-weight: 700;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1120px) {
+      .contact-strip {
+        display: none;
+      }
+
+      .nav-links,
+      .nav-cta {
+        display: none;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+
+      .hero-banner {
+        display: block;
+        min-height: 0;
+      }
+
+      .hero-content {
+        width: 100%;
+        align-content: start;
+        padding-bottom: 24px;
+      }
+
+      .hero-art {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        width: min(94%, 700px);
+        min-width: 0;
+        margin: 10px 0 0 auto;
+      }
+
+      .hero-count {
+        position: relative;
+        left: auto;
+        bottom: auto;
+        max-width: none;
+        margin: 12px clamp(28px, 6vw, 60px) clamp(28px, 5vw, 46px);
+      }
+
+      .banner-dots {
+        display: none;
+      }
+
+      .section-head,
+      .about-band,
+      .service-layout,
+      .works-grid,
+      .review-wrap,
+      .cta-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .service-list,
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        width: min(var(--max), calc(100% - 24px));
+      }
+
+      .nav {
+        min-height: 70px;
+      }
+
+      .brand-text span {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 18px;
+      }
+
+      .portfolio-context {
+        right: 10px;
+        left: auto;
+        bottom: 10px;
+      }
+
+      .portfolio-back {
+        min-height: 36px;
+        padding: 0 11px;
+        font-size: 0.76rem;
+        box-shadow: 0 10px 20px oklch(56% 0.19 256 / 0.18);
+      }
+
+      .hero-banner {
+        min-height: 0;
+        border-radius: 22px;
+      }
+
+      .hero-content {
+        padding: 28px;
+      }
+
+      .hero-kicker,
+      h1,
+      .hero-copy,
+      .hero-actions {
+        width: min(100%, 19rem);
+      }
+
+      h1 {
+        max-width: 19rem;
+        font-size: clamp(2.2rem, 11.4vw, 3.05rem);
+        line-height: 1.14;
+      }
+
+      h1 span {
+        display: block;
+      }
+
+      h1 .final-line {
+        display: block;
+        margin-top: 0.04em;
+        font-size: 0.78em;
+        line-height: 1.22;
+      }
+
+      h2 {
+        max-width: 100%;
+        font-size: clamp(1.58rem, 7.4vw, 2.12rem);
+        line-height: 1.28;
+        word-break: break-word;
+      }
+
+      .mobile-line {
+        display: block;
+      }
+
+      .hero-copy {
+        font-size: 0.96rem;
+        line-height: 1.82;
+      }
+
+      .hero-actions,
+      .cta-actions {
+        display: grid;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .hero-art {
+        width: 104%;
+        min-width: 0;
+        margin: 4px -34px 0 auto;
+      }
+
+      .hero-count {
+        grid-template-columns: 1fr;
+        margin: 12px 24px 24px;
+        max-width: none;
+      }
+
+      .service-visual {
+        min-height: 450px;
+      }
+
+      .work-feature {
+        min-height: 0;
+      }
+
+      .work-image {
+        min-height: 290px;
+      }
+
+      .blog-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 1ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="portfolio-context" aria-label="Portfolio navigation">
+    <a class="portfolio-back" href="index.html">Back to Portfolio</a>
+  </div>
+
+  <header class="topbar">
+    <div class="contact-strip" aria-label="Contact shortcuts">
+      <div class="shell contact-strip-inner">
+        <span>รับออกแบบและพัฒนา landing page สำหรับธุรกิจก่อสร้าง อสังหาฯ และบริการครบวงจร</span>
+        <div class="contact-actions-small">
+          <a class="icon-chip" href="mailto:a0626568471@gmail.com">Call</a>
+          <a class="icon-chip" href="https://github.com/Phakinza007" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a class="icon-chip" href="mailto:a0626568471@gmail.com">Line</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="shell">
+      <div class="nav">
+        <a class="brand" href="#home" aria-label="BuildNest home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" width="28" height="28">
+              <path d="M5 24.5V13.8L16 6l11 7.8v10.7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" />
+              <path d="M10 25V14h12v11" fill="none" stroke="currentColor" stroke-width="2.4" />
+              <path d="M14 25v-6h4v6" fill="none" stroke="currentColor" stroke-width="2.2" />
+            </svg>
+          </span>
+          <span class="brand-text">
+            <strong>BuildNest</strong>
+            <span>Construction Solutions</span>
+          </span>
+        </a>
+
+        <nav aria-label="Main navigation">
+          <ul class="nav-links">
+            <li><a href="#home">หน้าหลัก</a></li>
+            <li><a href="#about">เกี่ยวกับเรา</a></li>
+            <li><a href="#services">บริการ</a></li>
+            <li><a href="#projects">ผลงานของเรา</a></li>
+            <li><a href="#journal">ข่าวสารและบทความ</a></li>
+            <li><a href="#contact">ติดต่อเรา</a></li>
+          </ul>
+        </nav>
+
+        <a class="nav-cta" href="#contact">ลงทะเบียน</a>
+        <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span></button>
+      </div>
+
+      <nav class="mobile-panel" id="mobile-menu" aria-label="Mobile navigation">
+        <a href="#home">หน้าหลัก</a>
+        <a href="#about">เกี่ยวกับเรา</a>
+        <a href="#services">บริการ</a>
+        <a href="#projects">ผลงานของเรา</a>
+        <a href="#journal">ข่าวสารและบทความ</a>
+        <a href="#contact">ติดต่อเรา</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="shell">
+        <div class="hero-banner reveal">
+          <div class="hero-content">
+            <span class="hero-kicker">เป็นเลิศด้านโซลูชันก่อสร้าง</span>
+            <h1 id="hero-heading">รังสรรค์ <span class="project-line">โครงการ</span> <span>พร้อมอยู่</span> <span class="final-line">ตั้งแต่แผนแรก</span></h1>
+            <p class="hero-copy">BuildNest คือหน้า landing page practice สำหรับ ธุรกิจ ก่อสร้าง และ อสังหาฯ วางเนื้อหาให้คล้าย flow เว็บบริษัทจริง: แนะนำองค์กร, บริการ, ผลงาน, รีวิว, บทความ และช่องทางติดต่อ</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#about">เกี่ยวกับเรา</a>
+              <a class="btn btn-secondary" href="#services">บริการของเรา</a>
+            </div>
+          </div>
+
+          <svg class="hero-art" viewBox="0 0 760 560" role="img" aria-label="Apartment construction banner illustration">
+            <path d="M80 464l300-160 338 118-292 176z" fill="oklch(91% 0.03 76)" opacity="0.96" />
+            <path d="M368 110l166 64v286l-166-76z" fill="oklch(82% 0.03 82)" stroke="oklch(98% 0.012 78 / 0.42)" stroke-width="3" />
+            <path d="M160 190l208-80v274l-208 112z" fill="oklch(96% 0.018 78)" stroke="oklch(98% 0.012 78 / 0.52)" stroke-width="3" />
+            <path d="M160 190l208-80 166 64-208 96z" fill="oklch(73% 0.13 83)" />
+            <g fill="oklch(65% 0.11 210 / 0.42)" stroke="oklch(33% 0.11 156 / 0.28)" stroke-width="2">
+              <rect x="196" y="230" width="52" height="38" rx="6" />
+              <rect x="282" y="198" width="52" height="38" rx="6" />
+              <rect x="196" y="308" width="52" height="38" rx="6" />
+              <rect x="282" y="276" width="52" height="38" rx="6" />
+              <rect x="196" y="386" width="52" height="38" rx="6" />
+              <rect x="282" y="354" width="52" height="38" rx="6" />
+              <rect x="404" y="210" width="52" height="38" rx="6" />
+              <rect x="486" y="242" width="52" height="38" rx="6" />
+              <rect x="404" y="294" width="52" height="38" rx="6" />
+              <rect x="486" y="326" width="52" height="38" rx="6" />
+            </g>
+            <path d="M556 42v312M438 66h284M556 66l-116 72M556 66l124 76" fill="none" stroke="oklch(73% 0.13 83)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M722 66v86l-40 30M454 138v84" fill="none" stroke="oklch(73% 0.13 83)" stroke-width="4" stroke-linecap="round" />
+            <circle cx="142" cy="486" r="30" fill="oklch(88% 0.08 148)" />
+            <circle cx="618" cy="478" r="36" fill="oklch(88% 0.08 148)" />
+            <path d="M96 500h560" stroke="oklch(98% 0.012 78 / 0.5)" stroke-width="4" stroke-linecap="round" />
+          </svg>
+
+          <div class="hero-count">
+            <strong>5 ชั้น</strong>
+            <span>ตัวอย่างโครงการอพาร์ทเมนต์สำหรับสื่อสารคุณภาพ, ความปลอดภัย และความคืบหน้า</span>
+          </div>
+
+          <div class="banner-dots" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about" aria-labelledby="about-heading">
+      <div class="shell about-band">
+        <article class="about-card reveal">
+          <span class="section-label">เกี่ยวกับเรา</span>
+          <h2 id="about-heading">One-stop partner <span class="mobile-line">สำหรับเว็บก่อสร้าง</span> <span class="mobile-line">ที่ดูน่าเชื่อถือ</span></h2>
+          <p>หน้า redesign นี้ตั้งใจให้ใกล้กับจังหวะของเว็บบริษัทรับก่อสร้างจริง: เปิดด้วย banner ใหญ่, ต่อด้วยข้อความองค์กร, แสดงบริการครบวงจร, โชว์ผลงาน, รีวิวลูกค้า และบทความความรู้ ก่อนปิดด้วย contact CTA</p>
+          <p>ทุกภาพและข้อความในหน้านี้สร้างใหม่เพื่อใช้ใน portfolio ไม่ใช้โลโก้, รูปภาพ, หรือคำโฆษณาเฉพาะจากเว็บต้นทาง</p>
+        </article>
+
+        <div class="about-mini">
+          <article class="about-mini-item reveal">
+            <strong>01</strong>
+            <div>
+              <h3>Planning</h3>
+              <p>ช่วยเล่า feasibility และ budget ให้ลูกค้าเข้าใจเร็ว</p>
+            </div>
+          </article>
+          <article class="about-mini-item reveal">
+            <strong>02</strong>
+            <div>
+              <h3>Construction</h3>
+              <p>จัดบริการออกแบบและคุมงานให้เห็นเป็น flow เดียว</p>
+            </div>
+          </article>
+          <article class="about-mini-item reveal">
+            <strong>03</strong>
+            <div>
+              <h3>Handover</h3>
+              <p>เพิ่มความมั่นใจด้วยรีวิว, timeline และ after-sales</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section services" id="services" aria-labelledby="services-heading">
+      <div class="shell">
+        <div class="service-layout reveal">
+          <aside class="service-visual">
+            <div>
+              <span class="section-label">One-Stop Service Solutions</span>
+              <h2 id="services-heading">บริการครบวงจร <span class="mobile-line">สำหรับโครงการ</span> <span class="mobile-line">ที่พักอาศัย</span></h2>
+              <p>ครอบคลุมงานให้คำปรึกษา, ออกแบบ, ศึกษาความเป็นไปได้, บริหารโครงการ, งานก่อสร้าง และบริการหลังส่งมอบ</p>
+            </div>
+
+            <svg class="home-icon" viewBox="0 0 380 260" aria-hidden="true">
+              <path d="M52 208h286" stroke="oklch(98% 0.012 78 / 0.55)" stroke-width="4" stroke-linecap="round" />
+              <path d="M78 202V96l112-64 112 64v106z" fill="oklch(98% 0.012 78 / 0.14)" stroke="oklch(98% 0.012 78 / 0.62)" stroke-width="4" stroke-linejoin="round" />
+              <path d="M78 96l112-64 112 64" fill="none" stroke="oklch(73% 0.13 83)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M146 202v-62h56v62M222 124h52M106 124h52M222 164h52M106 164h52" fill="none" stroke="oklch(98% 0.012 78 / 0.72)" stroke-width="8" stroke-linecap="round" />
+              <circle cx="316" cy="204" r="24" fill="oklch(88% 0.08 148)" />
+            </svg>
+          </aside>
+
+          <div class="service-list">
+            <article class="service-item">
+              <span class="num">01</span>
+              <div>
+                <h3>Construction Service</h3>
+                <p>จัดลำดับงานหน้างาน, โครงสร้าง, สาธารณูปโภค และการตรวจคุณภาพในหน้าเดียว</p>
+              </div>
+            </article>
+            <article class="service-item">
+              <span class="num">02</span>
+              <div>
+                <h3>Turnkey</h3>
+                <p>สื่อสารบริการแบบจบในที่เดียว ตั้งแต่โจทย์แรกจนถึงวันส่งมอบอาคาร</p>
+              </div>
+            </article>
+            <article class="service-item">
+              <span class="num">03</span>
+              <div>
+                <h3>Project Management Control</h3>
+                <p>ออกแบบ section สำหรับ timeline, budget control, issue tracking และ milestone</p>
+              </div>
+            </article>
+            <article class="service-item">
+              <span class="num">04</span>
+              <div>
+                <h3>After-Sales Service</h3>
+                <p>เพิ่มความมั่นใจหลังส่งมอบด้วย checklist, defect flow และช่องทางติดต่อ</p>
+              </div>
+            </article>
+            <article class="service-item">
+              <span class="num">05</span>
+              <div>
+                <h3>Business Development</h3>
+                <p>วางข้อมูลให้เจ้าของโครงการนำไปต่อยอดกับทีมขาย ผู้เช่า หรือผู้ลงทุน</p>
+              </div>
+            </article>
+            <article class="service-item">
+              <span class="num">06</span>
+              <div>
+                <h3>Product Development & Feasibility</h3>
+                <p>แปลงโจทย์ที่ดินเป็น concept, scope, cost range และแผนเริ่มโครงการ</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects" aria-labelledby="projects-heading">
+      <div class="shell works-stage">
+        <div class="section-head">
+          <div>
+            <span class="section-label">ผลงานของเรา</span>
+            <h2 id="projects-heading">โครงการตัวอย่าง <span class="mobile-line">ที่เล่าเรื่อง</span> <span class="mobile-line">แบบเว็บอสังหาฯ</span></h2>
+          </div>
+          <p class="section-copy">แทนการใช้รูปจากเว็บต้นทาง หน้านี้สร้างภาพประกอบเองให้คล้ายฟีล gallery โครงการ: อาคาร, บ้านแนวราบ และระบบคุมงาน</p>
+        </div>
+
+        <div class="works-grid">
+          <article class="work-feature reveal">
+            <div class="work-image">
+              <div class="gallery-controls" aria-hidden="true"><span>‹</span><span>›</span></div>
+              <svg viewBox="0 0 660 360" role="img" aria-label="Apartment project showcase illustration">
+                <path d="M66 292h540" stroke="oklch(98% 0.012 78 / 0.42)" stroke-width="4" stroke-linecap="round" />
+                <path d="M118 278V82l164-50 172 62v184z" fill="oklch(94% 0.018 78)" />
+                <path d="M454 94l94-36v226l-94-6z" fill="oklch(78% 0.03 82)" />
+                <path d="M118 82l164-50 172 62-162 58z" fill="oklch(73% 0.13 83)" />
+                <g fill="oklch(65% 0.11 210 / 0.34)">
+                  <rect x="148" y="118" width="44" height="34" rx="5" />
+                  <rect x="224" y="96" width="44" height="34" rx="5" />
+                  <rect x="300" y="120" width="44" height="34" rx="5" />
+                  <rect x="148" y="190" width="44" height="34" rx="5" />
+                  <rect x="224" y="168" width="44" height="34" rx="5" />
+                  <rect x="300" y="192" width="44" height="34" rx="5" />
+                  <rect x="148" y="262" width="44" height="34" rx="5" />
+                  <rect x="224" y="240" width="44" height="34" rx="5" />
+                  <rect x="300" y="264" width="44" height="34" rx="5" />
+                </g>
+                <path d="M472 142h62M472 184h62M472 226h62" stroke="oklch(33% 0.11 156 / 0.36)" stroke-width="9" stroke-linecap="round" />
+                <circle cx="556" cy="284" r="24" fill="oklch(88% 0.08 148)" />
+                <circle cx="92" cy="284" r="22" fill="oklch(88% 0.08 148)" />
+              </svg>
+            </div>
+            <div class="work-body">
+              <div class="pill-row">
+                <span class="pill">Apartment</span>
+                <span class="pill">5 ชั้น</span>
+                <span class="pill">Handover</span>
+              </div>
+              <h3>ก่อสร้างอพาร์ทเมนต์สำหรับนิคมอุตสาหกรรม</h3>
+              <p>ตัวอย่าง section ผลงานที่ให้ข้อมูลแบบใกล้เว็บบริษัทจริง: ประเภทโครงการ, ขอบเขตบริการ, และความมั่นใจเรื่องคุณภาพงาน</p>
+            </div>
+          </article>
+
+          <div class="side-stack">
+            <article class="work-side reveal">
+              <div>
+                <svg viewBox="0 0 240 124" aria-hidden="true">
+                  <path d="M26 104h188" stroke="oklch(33% 0.11 156 / 0.28)" stroke-width="4" stroke-linecap="round" />
+                  <path d="M42 98V46l58-30 62 30v52z" fill="oklch(96% 0.018 78)" stroke="oklch(33% 0.11 156 / 0.28)" stroke-width="2" />
+                  <path d="M42 46l58-30 62 30-62 28z" fill="oklch(73% 0.13 83)" />
+                  <path d="M68 66h24M112 66h24M68 84h24M112 84h24" stroke="oklch(65% 0.11 210 / 0.54)" stroke-width="6" stroke-linecap="round" />
+                  <circle cx="184" cy="98" r="18" fill="oklch(88% 0.08 148)" />
+                </svg>
+                <h3>บ้านแนวราบ</h3>
+                <p>สำหรับบริษัทรับสร้างบ้านที่ต้องการหน้าแนะนำ package และจุดเด่น</p>
+              </div>
+            </article>
+            <article class="work-side reveal">
+              <div>
+                <svg viewBox="0 0 240 124" aria-hidden="true">
+                  <rect x="34" y="24" width="154" height="76" rx="14" fill="oklch(33% 0.11 156)" />
+                  <path d="M58 48h92M58 64h110M58 80h72" stroke="oklch(98% 0.012 78 / 0.74)" stroke-width="7" stroke-linecap="round" />
+                  <path d="M180 16l34 25-34 25z" fill="oklch(73% 0.13 83)" />
+                  <circle cx="42" cy="102" r="15" fill="oklch(88% 0.08 148)" />
+                </svg>
+                <h3>Project Control</h3>
+                <p>เหมาะกับ landing page ที่ต้องขายความเป็นระบบและรายงานงานก่อสร้าง</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section review-section" id="review" aria-labelledby="review-heading">
+      <div class="shell review-wrap">
+        <article class="quote-card reveal">
+          <span class="section-label">รีวิวจากลูกค้า</span>
+          <h2 id="review-heading">สร้างความมั่นใจ <span class="mobile-line">ด้วยเรื่องเล่า</span> <span class="mobile-line">จากโครงการจริง</span></h2>
+          <blockquote>ขอบคุณทีมงานที่ช่วยวางภาพรวมโครงการให้ชัด ทั้งขอบเขตงาน คุณภาพ ความปลอดภัย และการส่งมอบ ทำให้หน้าเว็บดูเหมือนบริษัทก่อสร้างที่พร้อมรับงานจริง</blockquote>
+          <cite>Fictional client quote, created for portfolio practice</cite>
+        </article>
+        <aside class="testimonial-card reveal">
+          <h3>ก่อสร้างอพาร์ทเมนต์ 5 ชั้น</h3>
+          <p>เน้นคุณภาพ แข็งแรง ปลอดภัย และตอบโจทย์การใช้งาน เหมือน narrative รีวิวในเว็บต้นแบบ แต่เขียนใหม่ทั้งหมด</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="journal" aria-labelledby="journal-heading">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <span class="section-label">ข่าวสารและบทความ</span>
+            <h2 id="journal-heading">ความรู้ที่ทำให้ลูกค้า <span class="mobile-line">ตัดสินใจง่ายขึ้น</span></h2>
+          </div>
+          <p class="section-copy">ส่วน blog ช่วยให้หน้าเว็บดูมีความเชี่ยวชาญ และช่วยรับ traffic จากคนที่ค้นหาคำตอบก่อนติดต่อ</p>
+        </div>
+
+        <div class="blog-grid">
+          <article class="blog-card reveal">
+            <div class="blog-date">05<br>Jun</div>
+            <div>
+              <h3>Precast Concrete ช่วยลดความเสี่ยงหน้างานได้อย่างไร</h3>
+              <p>อธิบายระบบชิ้นส่วนสำเร็จรูปแบบอ่านง่าย เหมาะกับลูกค้าที่อยากเข้าใจความเร็วและคุณภาพของงานก่อสร้าง</p>
+            </div>
+          </article>
+          <article class="blog-card reveal">
+            <div class="blog-date">12<br>Jun</div>
+            <div>
+              <h3>ก่อนเริ่มโครงการอพาร์ทเมนต์ควรเตรียมข้อมูลอะไร</h3>
+              <p>Checklist สำหรับเจ้าของที่ดิน: งบประมาณ, ผัง, ระบบอาคาร, ระยะเวลา, และเอกสารที่ต้องใช้ก่อนเริ่มคุยกับทีมก่อสร้าง</p>
+            </div>
+          </article>
+        </div>
+
+        <section class="cta reveal" id="contact" aria-labelledby="contact-heading">
+          <div class="cta-grid">
+            <div>
+              <span class="section-label">ลงทะเบียน</span>
+              <h2 id="contact-heading">อยากได้เว็บบริษัทก่อสร้าง <span class="mobile-line">ที่ดูพร้อมรับงานจริงไหม</span></h2>
+              <p>หน้าแบบนี้ต่อยอดได้ทั้งเว็บรับสร้างบ้าน, บริษัทก่อสร้าง, โครงการอสังหาฯ, contractor profile และ landing page สำหรับยิงโฆษณา</p>
+            </div>
+            <div class="cta-actions">
+              <a class="btn btn-primary" href="mailto:a0626568471@gmail.com">ติดต่อ Phakin</a>
+              <a class="btn btn-secondary" href="index.html#projects">ดูงานอื่น</a>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-grid">
+      <div>
+        <a class="brand" href="#home" aria-label="BuildNest footer home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" width="28" height="28">
+              <path d="M5 24.5V13.8L16 6l11 7.8v10.7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" />
+              <path d="M10 25V14h12v11" fill="none" stroke="currentColor" stroke-width="2.4" />
+            </svg>
+          </span>
+          <span class="brand-text">
+            <strong>BuildNest</strong>
+            <span>Crafting Construction Solutions</span>
+          </span>
+        </a>
+        <p>BuildNest คือ practice project สำหรับ portfolio ของ Phakin Chawanpunya สร้างจากแรงบันดาลใจด้านโครงสร้าง landing page ไม่ใช่การคัดลอกแบรนด์จริง</p>
+      </div>
+      <div>
+        <h3>Menu</h3>
+        <ul class="footer-links">
+          <li><a href="#about">เกี่ยวกับเรา</a></li>
+          <li><a href="#services">บริการ</a></li>
+          <li><a href="#projects">ผลงานของเรา</a></li>
+          <li><a href="#journal">บทความ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Follow us</h3>
+        <ul class="footer-links">
+          <li><a href="https://github.com/Phakinza007" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="mailto:a0626568471@gmail.com">Email</a></li>
+          <li><a href="index.html">Portfolio</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navToggle = document.querySelector(".nav-toggle");
+    const mobilePanel = document.querySelector("#mobile-menu");
+
+    navToggle?.addEventListener("click", () => {
+      const isOpen = navToggle.getAttribute("aria-expanded") === "true";
+      navToggle.setAttribute("aria-expanded", String(!isOpen));
+      mobilePanel?.classList.toggle("open", !isOpen);
+    });
+
+    mobilePanel?.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navToggle?.setAttribute("aria-expanded", "false");
+        mobilePanel.classList.remove("open");
+      });
+    });
+
+    const reveals = document.querySelectorAll(".reveal");
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      reveals.forEach((el) => observer.observe(el));
+    } else {
+      reveals.forEach((el) => el.classList.add("visible"));
+    }
+  </script>
+</body>
+</html>

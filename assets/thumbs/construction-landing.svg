@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">BuildNest redesigned construction landing page preview</title>
+  <desc id="desc">A green construction landing page preview with top navigation, banner hero, apartment illustration, services, and project cards.</desc>
+  <defs>
+    <style>
+      .paper { fill: oklch(96% 0.018 78); }
+      .surface { fill: oklch(98% 0.012 78); }
+      .leaf { fill: oklch(33% 0.11 156); }
+      .leaf2 { fill: oklch(41% 0.13 154); }
+      .gold { fill: oklch(73% 0.13 83); }
+      .soft { fill: oklch(88% 0.08 148); }
+      .ink { fill: oklch(22% 0.045 150); }
+      .muted { fill: oklch(50% 0.036 88); }
+      .sky { fill: oklch(65% 0.11 210 / 0.42); }
+      .line { stroke: oklch(80% 0.028 82); }
+      .label { font: 700 23px "Bai Jamjuree", "Noto Sans Thai", Arial, sans-serif; letter-spacing: -0.02em; }
+      .small { font: 700 17px "Bai Jamjuree", "Noto Sans Thai", Arial, sans-serif; }
+      .micro { font: 700 13px "Bai Jamjuree", "Noto Sans Thai", Arial, sans-serif; letter-spacing: 0.08em; }
+    </style>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="28" stdDeviation="30" flood-color="oklch(24% 0.04 70)" flood-opacity="0.18" />
+    </filter>
+    <pattern id="grid" width="56" height="56" patternUnits="userSpaceOnUse">
+      <path d="M56 0H0V56" fill="none" stroke="oklch(98% 0.012 78 / 0.12)" stroke-width="1" />
+    </pattern>
+  </defs>
+
+  <rect class="paper" width="1200" height="750" />
+  <circle cx="112" cy="92" r="230" fill="oklch(88% 0.08 148 / 0.46)" />
+  <circle cx="1034" cy="86" r="230" fill="oklch(73% 0.13 83 / 0.28)" />
+
+  <rect x="70" y="36" width="1060" height="42" rx="18" class="surface" opacity="0.86" />
+  <text x="96" y="63" class="small muted">รับออกแบบและพัฒนา landing page สำหรับธุรกิจก่อสร้าง</text>
+  <rect x="906" y="44" width="66" height="26" rx="13" class="leaf" />
+  <rect x="982" y="44" width="66" height="26" rx="13" class="leaf" />
+  <rect x="1058" y="44" width="48" height="26" rx="13" class="leaf" />
+
+  <rect x="70" y="92" width="1060" height="78" rx="24" class="surface" filter="url(#shadow)" />
+  <circle cx="116" cy="131" r="24" class="leaf" />
+  <path d="M104 141v-14l12-8 12 8v14" fill="none" stroke="oklch(98% 0.012 78)" stroke-width="3" stroke-linejoin="round" />
+  <text x="154" y="138" class="label leaf">BuildNest</text>
+  <text x="636" y="138" class="small muted">หน้าหลัก</text>
+  <text x="742" y="138" class="small muted">บริการ</text>
+  <text x="832" y="138" class="small muted">ผลงานของเรา</text>
+  <rect x="1002" y="112" width="96" height="38" rx="19" class="leaf" />
+  <text x="1024" y="137" class="small" fill="oklch(98% 0.012 78)">ติดต่อ</text>
+
+  <g transform="translate(70 198)" filter="url(#shadow)">
+    <rect width="1060" height="380" rx="30" fill="oklch(20% 0.05 154)" />
+    <rect width="1060" height="380" rx="30" fill="url(#grid)" opacity="0.9" />
+    <circle cx="888" cy="102" r="190" fill="oklch(73% 0.13 83 / 0.18)" />
+    <circle cx="978" cy="304" r="170" fill="oklch(65% 0.11 210 / 0.18)" />
+    <g transform="translate(56 62)">
+      <rect width="230" height="34" rx="17" fill="oklch(98% 0.012 78 / 0.12)" />
+      <circle cx="21" cy="17" r="5" class="gold" />
+      <text x="39" y="23" class="micro" fill="oklch(88% 0.08 148)">CONSTRUCTION SOLUTIONS</text>
+      <text x="0" y="104" fill="oklch(98% 0.012 78)" style="font: 700 70px 'Bai Jamjuree', Arial, sans-serif; letter-spacing:-0.06em;">Project</text>
+      <text x="0" y="178" fill="oklch(98% 0.012 78)" style="font: 700 70px 'Bai Jamjuree', Arial, sans-serif; letter-spacing:-0.06em;">ready</text>
+      <text x="0" y="252" fill="oklch(73% 0.13 83)" style="font: 700 70px 'Bai Jamjuree', Arial, sans-serif; letter-spacing:-0.06em;">from day one</text>
+    </g>
+
+    <g transform="translate(610 54)">
+      <path d="M24 268l190-102 214 74-184 112z" fill="oklch(91% 0.03 76)" />
+      <path d="M206 36l106 42v182l-106-48z" fill="oklch(82% 0.03 82)" stroke="oklch(98% 0.012 78 / 0.42)" stroke-width="2" />
+      <path d="M74 88l132-52v176L74 284z" class="surface" />
+      <path d="M74 88l132-52 106 42-132 62z" class="gold" />
+      <g class="sky">
+        <rect x="98" y="122" width="34" height="25" rx="4" />
+        <rect x="152" y="102" width="34" height="25" rx="4" />
+        <rect x="98" y="172" width="34" height="25" rx="4" />
+        <rect x="152" y="152" width="34" height="25" rx="4" />
+        <rect x="98" y="222" width="34" height="25" rx="4" />
+        <rect x="152" y="202" width="34" height="25" rx="4" />
+        <rect x="230" y="100" width="34" height="25" rx="4" />
+        <rect x="282" y="120" width="34" height="25" rx="4" />
+        <rect x="230" y="154" width="34" height="25" rx="4" />
+        <rect x="282" y="174" width="34" height="25" rx="4" />
+      </g>
+      <path d="M336 0v196M260 16h178M336 16l-74 46M336 16l78 48" fill="none" stroke="oklch(73% 0.13 83)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M438 16v54l-26 20M272 62v54" fill="none" stroke="oklch(73% 0.13 83)" stroke-width="3" stroke-linecap="round" />
+      <circle cx="64" cy="286" r="20" class="soft" />
+      <circle cx="388" cy="280" r="24" class="soft" />
+    </g>
+
+    <rect x="60" y="300" width="236" height="56" rx="18" fill="oklch(16% 0.045 154 / 0.78)" stroke="oklch(98% 0.012 78 / 0.2)" />
+    <text x="80" y="337" class="label gold">5 ชั้น</text>
+    <text x="154" y="335" class="small" fill="oklch(94% 0.018 78 / 0.78)">Apartment handover</text>
+  </g>
+
+  <g transform="translate(70 616)">
+    <rect width="518" height="90" rx="24" class="surface" filter="url(#shadow)" />
+    <text x="28" y="38" class="micro leaf">ONE-STOP SERVICE SOLUTIONS</text>
+    <text x="28" y="66" class="small ink">Construction, Turnkey, Project Control</text>
+
+    <rect x="608" width="522" height="90" rx="24" class="surface" filter="url(#shadow)" />
+    <text x="636" y="38" class="micro leaf">ผลงานของเรา</text>
+    <text x="636" y="66" class="small ink">Apartment, Townhome, Project Control</text>
+  </g>
+</svg>
