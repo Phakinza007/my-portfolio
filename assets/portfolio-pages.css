@@ -203,13 +203,13 @@ h3 {
   font-family: "Bai Jamjuree", "Noto Sans Thai", Arial, sans-serif;
   letter-spacing: 0;
   color: var(--ink);
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 h1 {
   max-width: 760px;
   margin-top: 18px;
-  font-size: clamp(3.2rem, 9vw, 6.6rem);
+  font-size: clamp(2.6rem, 9vw, 6.6rem);
   line-height: 0.92;
 }
 

@@ -435,19 +435,19 @@
     .tag-mint   { background: var(--mint);         color: var(--mint-text); }
     .tag-amber  { background: var(--amber);         color: var(--amber-text); }
     .tag-rose   { background: var(--rose);           color: var(--rose-text); }
-    .tag-gray   { background: #f3f4f6;              color: #4b5563; }
+    .tag-gray   { background: #21262d;              color: #8b949e; }
 
     /* ============================================================
        VIEW PROJECT BUTTON (in card)
     ============================================================ */
-    .work-foot { margin-top: auto; }
+    .work-foot { margin-top: auto; display: flex; gap: 8px; align-items: center; }
 
     .btn-project {
       display: flex;
       align-items: center;
       justify-content: center;
       height: 42px;
-      width: 100%;
+      flex: 1;
       border-radius: var(--r-sm);
       background: var(--accent);
       color: #fff;
@@ -457,6 +457,30 @@
     }
 
     .btn-project:hover { background: var(--accent-dark); transform: translateY(-1px); }
+
+    .btn-github {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      height: 42px;
+      padding: 0 13px;
+      border-radius: var(--r-sm);
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.13);
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 500;
+      text-decoration: none;
+      flex-shrink: 0;
+      transition: background 150ms, color 150ms, border-color 150ms;
+    }
+    .btn-github:hover {
+      background: rgba(255,255,255,0.06);
+      color: var(--fg);
+      border-color: rgba(255,255,255,0.28);
+    }
+    .btn-github svg { width: 15px; height: 15px; flex-shrink: 0; }
 
     /* ============================================================
        ABOUT + EXPERIENCE — 2-COL CARDS
@@ -750,6 +774,19 @@
     }
 
     /* ============================================================
+       REDUCED MOTION
+    ============================================================ */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    /* ============================================================
        FOCUS STYLES
     ============================================================ */
     a:focus-visible,
@@ -977,6 +1014,9 @@
               </div>
               <div class="work-foot">
                 <a class="btn-project" href="construction-landing.html">View Project</a>
+                <a class="btn-github" href="https://github.com/Phakinza007/my-portfolio/blob/main/construction-landing.html" target="_blank" rel="noopener noreferrer" aria-label="View BuildNest source on GitHub">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
               </div>
             </div>
           </article>
@@ -1042,6 +1082,9 @@
               </div>
               <div class="work-foot">
                 <a class="btn-project" href="gym-landing.html">View Project</a>
+                <a class="btn-github" href="https://github.com/Phakinza007/my-portfolio/blob/main/gym-landing.html" target="_blank" rel="noopener noreferrer" aria-label="View Iron Republic source on GitHub">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
               </div>
             </div>
           </article>
@@ -1094,6 +1137,9 @@
               </div>
               <div class="work-foot">
                 <a class="btn-project" href="coffee-landing.html">View Project</a>
+                <a class="btn-github" href="https://github.com/Phakinza007/my-portfolio/blob/main/coffee-landing.html" target="_blank" rel="noopener noreferrer" aria-label="View NOIR Coffee source on GitHub">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
               </div>
             </div>
           </article>
@@ -1163,6 +1209,9 @@
               </div>
               <div class="work-foot">
                 <a class="btn-project" href="AdminInventory.html">View Project</a>
+                <a class="btn-github" href="https://github.com/Phakinza007/my-portfolio/blob/main/AdminInventory.html" target="_blank" rel="noopener noreferrer" aria-label="View Admin Inventory source on GitHub">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
               </div>
             </div>
           </article>
@@ -1237,6 +1286,9 @@
               </div>
               <div class="work-foot">
                 <a class="btn-project" href="BrawAndCo.html">View Project</a>
+                <a class="btn-github" href="https://github.com/Phakinza007/my-portfolio/blob/main/BrawAndCo.html" target="_blank" rel="noopener noreferrer" aria-label="View Braw &amp; Co source on GitHub">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
               </div>
             </div>
           </article>
@@ -1319,6 +1371,9 @@
               </div>
               <div class="work-foot">
                 <a class="btn-project" href="ElevateCommerce.html">View Project</a>
+                <a class="btn-github" href="https://github.com/Phakinza007/my-portfolio/blob/main/ElevateCommerce.html" target="_blank" rel="noopener noreferrer" aria-label="View Elevate Commerce source on GitHub">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
               </div>
             </div>
           </article>
@@ -1378,6 +1433,9 @@
               </div>
               <div class="work-foot">
                 <a class="btn-project" href="task-manager.html">View Project</a>
+                <a class="btn-github" href="https://github.com/Phakinza007/my-portfolio/blob/main/task-manager.html" target="_blank" rel="noopener noreferrer" aria-label="View Task Manager source on GitHub">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
               </div>
             </div>
           </article>
@@ -1456,6 +1514,9 @@
               </div>
               <div class="work-foot">
                 <a class="btn-project" href="stock.html">View Project</a>
+                <a class="btn-github" href="https://github.com/Phakinza007/my-portfolio/blob/main/stock.html" target="_blank" rel="noopener noreferrer" aria-label="View Ltdos Agent Market source on GitHub">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
               </div>
             </div>
           </article>
@@ -1518,6 +1579,9 @@
               </div>
               <div class="work-foot">
                 <a class="btn-project" href="appointment-booking.html">View Project</a>
+                <a class="btn-github" href="https://github.com/Phakinza007/my-portfolio/blob/main/appointment-booking.html" target="_blank" rel="noopener noreferrer" aria-label="View BookEase source on GitHub">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
               </div>
             </div>
           </article>
@@ -1612,6 +1676,9 @@
               </div>
               <div class="work-foot">
                 <a class="btn-project" href="elasticshop-gaming.html">View Project</a>
+                <a class="btn-github" href="https://github.com/Phakinza007/my-portfolio/blob/main/elasticshop-gaming.html" target="_blank" rel="noopener noreferrer" aria-label="View Elasticshop Gaming source on GitHub">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
               </div>
             </div>
           </article>
@@ -1628,13 +1695,11 @@
         <div class="two-col">
 
           <div class="card reveal">
-            <!-- Replace assets/photo.jpg with your real photo -->
             <img
               class="about-photo"
               src="assets/photo.jpg"
               alt="Phakin Chawanpunya"
               loading="lazy"
-              onerror="this.style.display='none'"
             />
             <h2 class="card-title" id="about-heading">About Me</h2>
             <p class="card-text">
@@ -1652,6 +1717,16 @@
 
           <div class="card reveal" id="experience">
             <h2 class="card-title">Experience</h2>
+
+            <div class="exp-item">
+              <div class="exp-role">B.Sc. Information Technology — KMUTT</div>
+              <div class="exp-period">King Mongkut's University of Technology Thonburi · School of Information Technology · 2023 – Present</div>
+              <div class="exp-tags">
+                <span class="tag tag-accent">KMUTT</span>
+                <span class="tag tag-mint">SIT</span>
+                <span class="tag tag-gray">Information Technology</span>
+              </div>
+            </div>
 
             <div class="exp-item">
               <div class="exp-role">JavaScript · HTML / CSS</div>
@@ -1683,64 +1758,44 @@
     </section>
 
     <!-- =============================================
-         LIVE PROJECTS
+         CASE STUDIES
     ============================================= -->
-    <section class="section" id="live-projects" aria-labelledby="live-heading">
+    <section class="section" id="case-studies" aria-labelledby="case-heading">
       <div class="container">
-        <span class="section-label">Live Work</span>
-        <h2 class="section-title" id="live-heading">Live Projects</h2>
+        <span class="section-label">Deep Dives</span>
+        <h2 class="section-title" id="case-heading">Case Studies</h2>
 
         <div class="case-grid">
 
-          <!-- BuildNest Construction -->
+          <!-- PulseBoard Case Study -->
           <article class="case-card reveal">
-            <a class="case-thumb" href="construction-landing.html" aria-label="Open BuildNest construction project" style="display:block;overflow:hidden;">
-              <img src="assets/thumbs/construction-landing.svg" alt="BuildNest construction landing page" loading="eager" />
-            </a>
-            <div class="case-body">
-              <span class="case-eyebrow">Construction · Thai Landing Page</span>
-              <div class="case-name">BuildNest Construction — One-stop Service Website</div>
-              <p class="case-desc">A construction and real estate landing page with a full hero, services, project gallery, client review, knowledge notes, and custom architecture illustration built without copying the source brand.</p>
-              <a class="btn-live" href="construction-landing.html">View Live →</a>
-            </div>
-          </article>
-
-          <!-- Iron Republic -->
-          <article class="case-card reveal">
-            <a class="case-thumb" href="gym-landing.html" aria-label="Open Iron Republic project" style="display:block;overflow:hidden;">
-              <img src="assets/thumbs/gym-landing.jpg" alt="Iron Republic gym landing page" loading="lazy" />
-            </a>
-            <div class="case-body">
-              <span class="case-eyebrow">Fitness · Landing Page</span>
-              <div class="case-name">Iron Republic — Gym Brand Website</div>
-              <p class="case-desc">A bold, high-energy landing page for a gym brand — dark hero, class schedule, membership tiers, trainer profiles, and a strong CTA built to drive sign-ups.</p>
-              <a class="btn-live" href="gym-landing.html">View Live →</a>
-            </div>
-          </article>
-
-          <!-- NOIR Coffee -->
-          <article class="case-card reveal">
-            <a class="case-thumb" href="coffee-landing.html" aria-label="Open NOIR Coffee project" style="display:block;overflow:hidden;">
-              <img src="assets/thumbs/noir-coffee.jpg" alt="NOIR Coffee landing page" loading="lazy" />
-            </a>
-            <div class="case-body">
-              <span class="case-eyebrow">Café · Brand</span>
-              <div class="case-name">NOIR Coffee — Specialty Café Landing Page</div>
-              <p class="case-desc">A premium dark-themed landing page for a specialty café — cinematic hero, menu cards, origin story section, and a reservation flow that matches the brand's premium tone.</p>
-              <a class="btn-live" href="coffee-landing.html">View Live →</a>
-            </div>
-          </article>
-
-          <!-- PulseBoard -->
-          <article class="case-card reveal">
-            <a class="case-thumb" href="PulseBoard.html" aria-label="Open PulseBoard project" style="display:block;overflow:hidden;">
+            <a class="case-thumb" href="case-study-pulseboard.html" aria-label="Read PulseBoard case study" style="display:block;overflow:hidden;">
               <img src="assets/thumbs/pulseboard.jpg" alt="PulseBoard analytics dashboard" loading="lazy" />
             </a>
             <div class="case-body">
-              <span class="case-eyebrow">Dashboard · Analytics</span>
+              <span class="case-eyebrow">Dashboard · Analytics · Case Study</span>
               <div class="case-name">PulseBoard — Real-time Operations Dashboard</div>
-              <p class="case-desc">A live data dashboard with filterable KPI cards, trend sparklines, and alert thresholds — designed for ops teams who need answers at a glance without digging through reports.</p>
-              <a class="btn-live" href="PulseBoard.html">View Live →</a>
+              <p class="case-desc">From problem brief to shipped product: how I designed a live data dashboard with filterable KPI cards, trend sparklines, and alert thresholds — and the decisions behind every screen.</p>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <a class="btn-live" href="case-study-pulseboard.html">Read Case Study →</a>
+                <a class="btn-live" href="PulseBoard.html" style="background:transparent;border:1px solid rgba(255,255,255,0.15);color:var(--muted);">View Live →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- LaunchLedger Case Study -->
+          <article class="case-card reveal">
+            <a class="case-thumb" href="case-study-launchledger.html" aria-label="Read LaunchLedger case study" style="display:block;overflow:hidden;">
+              <img src="assets/thumbs/launch-ledger.jpg" alt="LaunchLedger startup budget dashboard" loading="lazy" />
+            </a>
+            <div class="case-body">
+              <span class="case-eyebrow">Dashboard · Finance · Case Study</span>
+              <div class="case-name">LaunchLedger — Startup Budget Dashboard</div>
+              <p class="case-desc">A deep dive into building a financial tracker for early-stage founders — interactive budget categories, burn-rate visualisation, and a UI that makes numbers feel approachable.</p>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <a class="btn-live" href="case-study-launchledger.html">Read Case Study →</a>
+                <a class="btn-live" href="LaunchLedger.html" style="background:transparent;border:1px solid rgba(255,255,255,0.15);color:var(--muted);">View Live →</a>
+              </div>
             </div>
           </article>
 
@@ -1770,6 +1825,9 @@
       <div id="contact-success" style="display:none;margin-top:14px;padding:14px 18px;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.35);border-radius:8px;color:#4ade80;font-size:.9rem;font-weight:500;">
         Message sent! I'll reply within 24 hours.
       </div>
+      <div id="contact-error" style="display:none;margin-top:14px;padding:14px 18px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.35);border-radius:8px;color:#f87171;font-size:.9rem;font-weight:500;">
+        Something went wrong. Please try again or email me directly.
+      </div>
 
       <p class="contact-direct">
         Prefer email?
@@ -1792,7 +1850,7 @@
         </div>
 
         <div>
-          <div class="footer-col-label">Contact</div>
+          <div class="footer-col-label">Navigation</div>
           <ul class="footer-nav">
             <li><a href="#projects">Projects</a></li>
             <li><a href="#about">About</a></li>
@@ -1803,7 +1861,7 @@
         </div>
 
         <div>
-          <div class="footer-col-label">Social Icons</div>
+          <div class="footer-col-label">Social</div>
           <div class="social-row">
 
             <!-- LinkedIn -->
@@ -1883,13 +1941,26 @@
         });
       });
 
+      /* Close drawer when clicking outside the nav */
+      document.addEventListener('click', (e) => {
+        if (panel?.classList.contains('open') &&
+            !panel.contains(e.target) &&
+            !toggle?.contains(e.target)) {
+          panel.classList.remove('open');
+          toggle?.setAttribute('aria-expanded', 'false');
+          toggle?.setAttribute('aria-label', 'Open navigation');
+        }
+      });
+
       /* ---- Contact form async submit ---- */
       const contactForm = document.getElementById('contact-form');
       contactForm?.addEventListener('submit', async (e) => {
         e.preventDefault();
         const btn = contactForm.querySelector('button[type="submit"]');
         const successMsg = document.getElementById('contact-success');
+        const errorMsg   = document.getElementById('contact-error');
         const originalText = btn.textContent;
+        errorMsg.style.display = 'none';
         btn.textContent = 'Sending…';
         btn.disabled = true;
         try {
@@ -1908,7 +1979,7 @@
         } catch {
           btn.textContent = originalText;
           btn.disabled = false;
-          alert('Something went wrong. Please try again or email me directly.');
+          errorMsg.style.display = 'block';
         }
       });
     })();

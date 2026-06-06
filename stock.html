@@ -509,7 +509,7 @@
     <div class="shell" style="padding-top: 32px;">
 
       <!-- API key notice — remove this block once you add your real key -->
-      <div class="api-notice" id="api-notice">
+      <div class="api-notice" id="api-notice" style="display:none">
         <strong>Developer note:</strong> This page uses the
         <a href="https://www.alphavantage.co/support/#api-key" target="_blank" rel="noopener">Alpha Vantage API</a>.
         Replace <code>YOUR_API_KEY</code> at the top of the <code>&lt;script&gt;</code> block with a free key from
@@ -519,22 +519,22 @@
       <!-- Error banner — shown when fetch fails -->
       <div class="error-msg" id="error-msg" role="alert"></div>
 
-      <!-- Market summary strip (static reference data) -->
+      <!-- Market summary strip (demo reference data) -->
       <div class="market-strip" aria-label="Market summary">
         <div class="market-stat">
           <span class="market-stat-label">S&amp;P 500</span>
-          <span class="market-stat-value up" id="sp500-val">—</span>
-          <span class="market-stat-sub up" id="sp500-chg">Loading…</span>
+          <span class="market-stat-value up" id="sp500-val">5,308.14</span>
+          <span class="market-stat-sub up" id="sp500-chg">▲ +0.51%</span>
         </div>
         <div class="market-stat">
           <span class="market-stat-label">NASDAQ</span>
-          <span class="market-stat-value up" id="nas-val">—</span>
-          <span class="market-stat-sub up" id="nas-chg">Loading…</span>
+          <span class="market-stat-value up" id="nas-val">16,742.39</span>
+          <span class="market-stat-sub up" id="nas-chg">▲ +0.78%</span>
         </div>
         <div class="market-stat">
           <span class="market-stat-label">DOW JONES</span>
-          <span class="market-stat-value up" id="dow-val">—</span>
-          <span class="market-stat-sub up" id="dow-chg">Loading…</span>
+          <span class="market-stat-value down" id="dow-val">39,069.53</span>
+          <span class="market-stat-sub down" id="dow-chg">▼ −0.14%</span>
         </div>
         <div class="market-stat">
           <span class="market-stat-label">Watchlist</span>
@@ -578,6 +578,14 @@
 
     // Default symbols shown in the watchlist cards on page load
     const WATCHLIST = ['AAPL', 'TSLA', 'NVDA', 'MSFT'];
+
+    // Demo data used when no real API key is set — makes the portfolio look functional
+    const DEMO_DATA = [
+      { symbol:'AAPL',  price:'189.30', change:'1.25',  changePct:'0.67%', open:'187.80', high:'190.05', low:'187.60', volume:'54,231,000' },
+      { symbol:'TSLA',  price:'248.42', change:'-3.18', changePct:'-1.26%', open:'251.00', high:'252.35', low:'247.10', volume:'87,654,000' },
+      { symbol:'NVDA',  price:'875.60', change:'12.40', changePct:'1.44%', open:'862.00', high:'879.30', low:'860.50', volume:'41,230,000' },
+      { symbol:'MSFT',  price:'415.20', change:'2.80',  changePct:'0.68%', open:'412.50', high:'416.00', low:'412.00', volume:'18,450,000' },
+    ];
 
     // ============================================================
     //  HELPER: fetch a single stock quote from Alpha Vantage
@@ -715,10 +723,15 @@
       document.getElementById('table-container').innerHTML =
         '<div class="status-msg">Loading…</div>';
 
-      // Warn the user if they haven't set a real API key yet
+      // Demo mode — search within static demo data
       if (API_KEY === 'YOUR_API_KEY') {
-        document.getElementById('table-container').innerHTML =
-          '<div class="status-msg">Add your Alpha Vantage API key to the script to load live data.<br>See the blue notice above for instructions.</div>';
+        const demo = DEMO_DATA.find(d => d.symbol === symbol);
+        if (demo) {
+          renderTable([demo]);
+        } else {
+          document.getElementById('table-container').innerHTML =
+            `<div class="status-msg">Demo: "${symbol}" not in demo set. Try AAPL, TSLA, NVDA, or MSFT.</div>`;
+        }
         return;
       }
 
@@ -745,13 +758,9 @@
         </div>`).join('');
 
       if (API_KEY === 'YOUR_API_KEY') {
-        // No real key — show placeholder cards so the page still looks good
-        document.getElementById('cards-grid').innerHTML = WATCHLIST.map(sym => `
-          <div class="stock-card">
-            <div class="card-symbol">${sym}</div>
-            <div class="card-price" style="color:var(--muted)">—</div>
-            <div class="card-change" style="color:var(--muted)">Add API key</div>
-          </div>`).join('');
+        // No real key — show demo data so the page looks fully functional
+        renderCards(DEMO_DATA);
+        renderTable([DEMO_DATA[0]]);
         return;
       }
 
