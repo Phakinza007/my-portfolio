@@ -827,6 +827,16 @@
       .hero-ctas .btn { width: 100%; }
       /* Contact form send button goes full-width on very small screens */
       .contact-form button { width: 100%; align-self: stretch; }
+      /* Work-foot: keep project button dominant, github stays compact */
+      .work-foot  { flex-wrap: wrap; }
+      .btn-project { min-width: 140px; flex: 1; }
+      .btn-github  { flex-shrink: 0; }
+    }
+
+    @media (max-width: 360px) {
+      .hero h1   { font-size: clamp(1.9rem, 11vw, 2.3rem); }
+      .btn-project, .btn-github { width: 100%; flex: none; }
+      .work-foot { gap: 6px; }
     }
 
     /* ============================================================
@@ -951,6 +961,7 @@
           <li><a href="#projects">Projects</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#experience">Experience</a></li>
+          <li><a href="#case-studies">Case Studies</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
@@ -967,6 +978,7 @@
       <a href="#projects">Projects</a>
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
+      <a href="#case-studies">Case Studies</a>
       <a href="#contact">Contact</a>
       <a class="resume-mobile" href="resume.html">Resume</a>
     </nav>
@@ -1795,6 +1807,22 @@
               <div style="display:flex;gap:8px;flex-wrap:wrap;">
                 <a class="btn-live" href="case-study-launchledger.html">Read Case Study →</a>
                 <a class="btn-live" href="LaunchLedger.html" style="background:transparent;border:1px solid rgba(255,255,255,0.15);color:var(--muted);">View Live →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- InternTrack Case Study -->
+          <article class="case-card reveal">
+            <a class="case-thumb" href="case-study-interntrack.html" aria-label="Read InternTrack case study" style="display:block;overflow:hidden;">
+              <img src="assets/thumbs/interntrack.jpg" alt="InternTrack internship tracker UI" loading="lazy" />
+            </a>
+            <div class="case-body">
+              <span class="case-eyebrow">Tracker · Product UI · Case Study</span>
+              <div class="case-name">InternTrack — Internship Pipeline Tracker</div>
+              <p class="case-desc">How I designed a personal internship management tool — pipeline clarity, interview prep stages, follow-up rhythm, and a clean UI that turns job hunting chaos into a process.</p>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <a class="btn-live" href="case-study-interntrack.html">Read Case Study →</a>
+                <a class="btn-live" href="InternTrack.html" style="background:transparent;border:1px solid rgba(255,255,255,0.15);color:var(--muted);">View Live →</a>
               </div>
             </div>
           </article>
