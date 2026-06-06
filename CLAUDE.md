@@ -1,5 +1,11 @@
 # CLAUDE.md — Phakin Chawanpunya Portfolio
 
+## Skills
+
+- **portfolio-add-card** (`.claude/skills/portfolio-add-card/SKILL.md`) — full workflow for adding a new project card. Trigger: any request to "add [page] to the portfolio", "link this page", "create a card for X", or "new project card".
+
+---
+
 ## Project Overview
 
 Personal frontend portfolio hosted on GitHub Pages.  
@@ -7,7 +13,7 @@ URL: https://phakinza007.github.io/my-portfolio/
 
 **Owner:** Phakin Chawanpunya  
 **Stack:** HTML · CSS · JavaScript (vanilla, no framework)  
-**Hosting:** GitHub Pages (`gh-pages` branch or `docs/` folder)
+**Hosting:** GitHub Pages (`main` branch, auto-deploys)
 
 ---
 
@@ -15,78 +21,96 @@ URL: https://phakinza007.github.io/my-portfolio/
 
 ```
 my-portfolio/
-├── index.html              # Main portfolio page
-├── resume.html             # Resume / CV page
+├── index.html                    # Main portfolio page (16 project cards)
+├── resume.html                   # Resume / CV page
+├── 404.html                      # Custom dark-theme 404 page
+├── sitemap.xml                   # All 29 URLs for Google Search Console
 │
 ├── assets/
-│   ├── thumbs/             # Project thumbnail images (.jpg)
-│   │   ├── launch-ledger.jpg
-│   │   ├── museroom.jpg
-│   │   ├── interntrack.jpg
-│   │   ├── pulseboard.jpg
-│   │   ├── gym-landing.jpg
-│   │   └── noir-coffee.jpg
-│   └── social-preview.png  # OG image for social sharing (1200×630)
+│   ├── thumbs/                   # Legacy .jpg thumbnails (some cards use CSS mini-UI instead)
+│   ├── social-preview.png        # OG image (1200×630)
+│   ├── favicon.svg
+│   ├── resume-phakin-chawanpunya.pdf
+│   ├── portfolio-context.css     # "← Back to Portfolio" floating button (shared)
+│   └── portfolio-pages.css       # Shared styles for resume.html and case study pages
 │
-├── LaunchLedger.html       # Project: Startup budget dashboard
-├── MuseRoom.html           # Project: Digital gallery landing page
-├── InternTrack.html        # Project: Internship tracker UI
-├── PulseBoard.html         # Project: Event operations dashboard
-├── gym-landing.html        # Project: Iron Republic gym landing page
-├── coffee-landing.html     # Project: NOIR Coffee landing page
-│
-├── case-study-pulseboard.html    # Full case study: PulseBoard
-└── case-study-launchledger.html  # Full case study: LaunchLedger
+├── case-study-pulseboard.html
+├── case-study-launchledger.html
+└── case-study-interntrack.html
 ```
 
 ---
 
-## Pages & Sections
+## Current Cards in Selected Work (16 total)
 
-### `index.html`
-| Section | Description |
-|---------|-------------|
-| Nav | Logo + links: Projects, About, Experience, Contact, Resume |
-| Hero | Name, title, CTA buttons (View Projects / Contact Me) |
-| Selected Work | 6 project cards with thumbnail, title, tags, link |
-| About | Bio paragraph + link to resume |
-| Experience | Skills list, timeline, tools used |
-| Case Studies | 2 featured case studies (PulseBoard, LaunchLedger) |
-| Footer | Nav links, email, social icons (LinkedIn, GitHub, Instagram) |
-
----
-
-## Projects
-
-| # | Name | Type | File |
+| # | Name | File | Tags |
 |---|------|------|------|
-| 1 | LaunchLedger | Dashboard · Finance | `LaunchLedger.html` |
-| 2 | MuseRoom | Gallery · Brand | `MuseRoom.html` |
-| 3 | InternTrack | Tracker · Product UI | `InternTrack.html` |
-| 4 | PulseBoard | Dashboard · UI Design | `PulseBoard.html` |
-| 5 | Iron Republic | Fitness · Brand | `gym-landing.html` |
-| 6 | NOIR Coffee | Dark · Coffee | `coffee-landing.html` |
+| 1 | Construction Landing | `construction-landing.html` | Brand, Landing |
+| 2 | Iron Republic | `gym-landing.html` | Fitness, Brand |
+| 3 | NOIR Coffee | `coffee-landing.html` | Dark, Coffee |
+| 4 | Admin Inventory | `AdminInventory.html` | Dashboard, Finance |
+| 5 | Braw & Co | `BrawAndCo.html` | Brand, Identity |
+| 6 | Elevate Commerce | `ElevateCommerce.html` | E-commerce |
+| 7 | Task Manager | `task-manager.html` | Dashboard, SaaS |
+| 8 | Ltdos Agent Market | `stock.html` | Dashboard |
+| 9 | BookEase (Booking) | `appointment-booking.html` | Dashboard, Booking |
+| 10 | Elasticshop Gaming | `elasticshop-gaming.html` | Gaming, E-commerce |
+| 11 | DRIP Coffee Bar | `DRIP.html` | Café, Brand, Experimental |
+| 12 | SORN Restaurant | `sorn-restaurant.html` | Fine Dining, Restaurant |
+| 13 | SolarPeak | `solar-landing.html` | Energy, Landing Page |
+| 14 | Knowledge AI | `knowledge-ai.html` | AI, Dashboard |
+| 15 | Weather Dashboard | `weather-dashboard.html` | Dashboard, Weather |
+| 16 | BookEase Dashboard | `BookEase.html` | Dashboard, Booking, Light UI |
 
 ---
 
-## Tech Stack
+## Card Thumbnail Approach
 
-- **HTML5** — semantic markup, accessible structure
-- **CSS3** — responsive layout, custom properties
-- **JavaScript** — vanilla JS (no framework)
-- **Tailwind CSS** — utility classes (referenced in experience section)
-- **Figma** — design tool for mockups
-- **GitHub Pages** — static hosting
+Cards use **CSS-only mini-UI previews** (inline styles inside the `<a class="work-thumb">`),
+not screenshot images. This means no `assets/thumbs/` files are needed for new cards.
+The `portfolio-add-card` skill handles the full thumbnail creation process.
+
+Tag colour classes:
+- `tag-mint` — AI, SaaS, Developer tools, Green-tech, Weather
+- `tag-amber` — Finance, Energy, Fine Dining, Warm/luxury brands
+- `tag-gray` — Default: Dashboard, Landing Page, Brand, Booking, etc.
+
+---
+
+## Key Standards to Maintain
+
+- **Lighthouse:** 100 / 100 / 100 (Accessibility / Best Practices / SEO) — run after changes
+- **Mobile overflow:** `canScrollX: false` at 375 × 812 px on every page
+- **Accent colour:** `--accent: #5274f8` (slightly lighter than #4f6ef7 for WCAG AA contrast)
+- **Button bg:** `--accent-dark: #3651d4` (white text: 6.4:1 contrast ✅)
+- **Fonts:** Inter via Google Fonts with `display=optional` (prevents CLS)
+- **Overflow guard:** `html, body { overflow-x: hidden; }`
+
+---
+
+## Pages & Sections (index.html)
+
+| Section | id | Description |
+|---------|----|-------------|
+| Nav | — | Logo + links: Projects, About, Experience, Case Studies, Contact, Resume |
+| Hero | `#top` | Name, title, CTA buttons |
+| Selected Work | `#projects` | 16 project cards |
+| About | `#about` | Bio + photo |
+| Experience | `#experience` | Skills, timeline, tools, KMUTT education |
+| Case Studies | `#case-studies` | PulseBoard, LaunchLedger, InternTrack |
+| Contact | `#contact` | Form + email |
+| Footer | — | Nav links, email, social icons |
 
 ---
 
 ## SEO & Meta
 
-- Theme color: `#4f6ef7`
+- Theme color: `#5274f8`
 - OG image: `assets/social-preview.png` (1200×630)
-- Canonical URL set
+- Canonical URL set on all pages
 - `robots: index, follow`
 - Twitter card: `summary_large_image`
+- Sitemap: `sitemap.xml` (submit to Google Search Console manually)
 
 ---
 
@@ -101,25 +125,23 @@ my-portfolio/
 
 ---
 
-## Development Notes
-
-- All pages are **static HTML** — no build step required
-- Edit files directly and push to GitHub; Pages auto-deploys
-- Keep `assets/thumbs/` images consistent (same ratio) for the project grid
-- When adding a new project: add a card in `index.html` + create the project HTML file + add a thumbnail
-
----
-
 ## Common Tasks for Claude
 
 ### Add a new project card
-1. Add thumbnail to `assets/thumbs/<name>.jpg`
-2. Add `<article>` card block in the **Selected Work** section of `index.html`
-3. Create `<name>.html` as the project page
+Use the **portfolio-add-card** skill — it handles the full workflow automatically.
+
+### Run a Lighthouse audit
+Use the chrome-devtools MCP: `lighthouse_audit(device="mobile", mode="navigation")` on `http://localhost:60270/index.html`. Fix any failures before committing.
+
+### Check mobile overflow
+Navigate to the page in preview (port 60270), resize to 375×812, then run:
+```js
+({canScrollX: (function(){document.documentElement.scrollLeft=50;const s=document.documentElement.scrollLeft;document.documentElement.scrollLeft=0;return s>0;})(), bw:document.body.scrollWidth, cw:document.documentElement.clientWidth})
+```
+
+### Add a case study
+1. Create `case-study-<name>.html` (use `portfolio-pages.css`)
+2. Add a card in the `#case-studies` section of `index.html`
 
 ### Update meta / SEO
 Edit the `<head>` block in `index.html` — update `og:description`, `og:image`, `meta-description`
-
-### Add a case study
-1. Create `case-study-<name>.html`
-2. Add a card in the **Case Studies** section of `index.html`
