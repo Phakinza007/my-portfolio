@@ -403,13 +403,21 @@
     .step-connector { flex: 1; height: 2px; background: var(--border); margin: 0 0.4rem; }
     .step-connector.done { background: var(--green); }
 
+    .step1-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 1.5rem; }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 800px) {
-      .app { grid-template-columns: 1fr; }
+      .app { grid-template-columns: minmax(0,1fr); }
       .sidebar { border-right: none; border-bottom: 1px solid var(--border); max-height: 260px; }
-      .slots-grid { grid-template-columns: repeat(3,1fr); }
-      .form-row { grid-template-columns: 1fr; }
+      .slots-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+      .form-row { grid-template-columns: minmax(0,1fr); }
       .topbar-tabs { display: none; }
+    }
+    @media (max-width: 600px) {
+      .step1-grid { grid-template-columns: minmax(0,1fr); }
+    }
+    @media (max-width: 480px) {
+      .slots-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
     }
   </style>
 </head>
@@ -474,7 +482,7 @@
 
     <!-- Step 1 : calendar + slots -->
     <div id="step1">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+      <div class="step1-grid">
 
         <!-- Calendar -->
         <div class="panel">
