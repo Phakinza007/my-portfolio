@@ -52,7 +52,7 @@
       --muted-2:      #6e7681;
       --border:       #21262d;
       --border-2:     #30363d;
-      --accent:       #4f6ef7;
+      --accent:       #5274f8;
       --accent-dark:  #3651d4;
       --accent-light: rgba(79,110,247,0.14);
       --mint:         #d1fae5;
@@ -245,6 +245,7 @@
       align-items: center;
       gap: 10px;
       margin-bottom: 24px;
+      background-color: var(--bg);
       font-size: 0.76rem;
       font-weight: 700;
       letter-spacing: 0.1em;
@@ -307,14 +308,14 @@
     .btn:hover { transform: translateY(-2px); }
 
     .btn-dark {
-      background: #4f6ef7;
+      background: #3651d4;
       color: #fff;
-      box-shadow: 0 4px 18px rgba(79,110,247,.35);
+      box-shadow: 0 4px 18px rgba(54,81,212,.35);
     }
 
     .btn-dark:hover {
-      background: #3651d4;
-      box-shadow: 0 10px 28px rgba(79,110,247,.4);
+      background: #2d47c9;
+      box-shadow: 0 10px 28px rgba(54,81,212,.4);
     }
 
     .btn-ghost {
@@ -341,6 +342,7 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--accent);
+      background-color: var(--bg);
       margin-bottom: 10px;
     }
 
@@ -943,7 +945,7 @@
     .contact-form textarea { resize: vertical; min-height: 120px; }
     .contact-form button {
       align-self: flex-start;
-      background: var(--accent);
+      background: var(--accent-dark);
       color: #fff;
       border: none;
       border-radius: var(--r-sm);
