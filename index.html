@@ -487,6 +487,66 @@
     .btn-github svg { width: 15px; height: 15px; flex-shrink: 0; }
 
     /* ============================================================
+       FILTER BAR
+    ============================================================ */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 36px;
+    }
+
+    .filter-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 36px;
+      padding: 0 16px;
+      border-radius: 99px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: transparent;
+      color: var(--muted);
+      font: 600 0.8rem/1 'Inter', sans-serif;
+      cursor: pointer;
+      transition: background 150ms, color 150ms, border-color 150ms;
+    }
+
+    .filter-btn:hover {
+      background: rgba(255,255,255,0.06);
+      color: var(--fg);
+      border-color: rgba(255,255,255,0.28);
+    }
+
+    .filter-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .filter-btn .filter-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 5px;
+      border-radius: 99px;
+      background: rgba(255,255,255,0.18);
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .filter-btn.active .filter-count { background: rgba(255,255,255,0.25); }
+
+    .work-card {
+      transition: opacity 250ms ease, transform 250ms ease;
+    }
+
+    .work-card[data-hidden] {
+      display: none;
+    }
+
+    /* ============================================================
        ABOUT + EXPERIENCE — 2-COL CARDS
     ============================================================ */
     .two-col {
@@ -1035,10 +1095,19 @@
         <span class="section-label">Portfolio</span>
         <h2 class="section-title" id="projects-heading">Selected Work</h2>
 
+        <div class="filter-bar" role="group" aria-label="Filter projects">
+          <button class="filter-btn active" data-filter="all">All <span class="filter-count">16</span></button>
+          <button class="filter-btn" data-filter="fullstack">Full Stack <span class="filter-count">9</span></button>
+          <button class="filter-btn" data-filter="dashboard">Dashboard <span class="filter-count">7</span></button>
+          <button class="filter-btn" data-filter="landing">Landing Page <span class="filter-count">6</span></button>
+          <button class="filter-btn" data-filter="ecommerce">E-commerce <span class="filter-count">2</span></button>
+          <button class="filter-btn" data-filter="ai">AI <span class="filter-count">1</span></button>
+        </div>
+
         <div class="works-grid">
 
           <!-- BuildNest Construction -->
-          <article class="work-card reveal">
+          <article class="work-card reveal" data-tags="landing">
             <a class="work-thumb" href="construction-landing.html" aria-label="Open BuildNest construction landing page">
               <img src="assets/thumbs/construction-landing.svg" alt="BuildNest construction landing page preview" loading="eager" width="1200" height="750" />
             </a>
@@ -1059,7 +1128,7 @@
           </article>
 
           <!-- Iron Republic -->
-          <article class="work-card reveal">
+          <article class="work-card reveal" data-tags="landing">
             <a class="work-thumb" href="gym-landing.html" aria-label="Open Iron Republic project" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#080808;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
                 <!-- nav -->
@@ -1127,7 +1196,7 @@
           </article>
 
           <!-- NOIR Coffee -->
-          <article class="work-card reveal">
+          <article class="work-card reveal" data-tags="landing">
             <a class="work-thumb" href="coffee-landing.html" aria-label="Open NOIR Coffee project" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#0a0806;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
                 <!-- noise texture hint -->
@@ -1182,7 +1251,7 @@
           </article>
 
           <!-- Admin Inventory Dashboard — CSS mini-UI preview -->
-          <article class="work-card reveal">
+          <article class="work-card reveal" data-tags="fullstack dashboard">
             <a class="work-thumb" href="AdminInventory.html" aria-label="Open Admin Inventory project" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#f8fafc;display:flex;font-family:'Inter',sans-serif;overflow:hidden;">
                 <!-- mini sidebar -->
@@ -1255,7 +1324,7 @@
           </article>
 
           <!-- Braw & Co — CSS mini-UI preview -->
-          <article class="work-card reveal">
+          <article class="work-card reveal" data-tags="landing">
             <a class="work-thumb" href="BrawAndCo.html" aria-label="Open Braw and Co project" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#faf8f4;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;">
                 <!-- nav -->
@@ -1332,7 +1401,7 @@
           </article>
 
           <!-- Elevate Commerce — CSS mini-UI preview -->
-          <article class="work-card reveal">
+          <article class="work-card reveal" data-tags="fullstack ecommerce">
             <a class="work-thumb" href="ElevateCommerce.html" aria-label="Open Elevate Commerce project" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#f8f9ff;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;">
 
@@ -1418,7 +1487,7 @@
           </article>
 
           <!-- Task Manager — CSS mini-UI preview -->
-          <article class="work-card reveal">
+          <article class="work-card reveal" data-tags="fullstack dashboard">
             <a class="work-thumb" href="task-manager.html" aria-label="Open Task Manager project" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#050816;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
                 <!-- glow -->
@@ -1482,7 +1551,7 @@
 
 
           <!-- Ltdos Agent Market — CSS mini-UI preview -->
-          <article class="work-card reveal">
+          <article class="work-card reveal" data-tags="fullstack dashboard">
             <a class="work-thumb" href="stock.html" aria-label="Open Ltdos Agent Market project" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#030d1a;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
                 <!-- glow backdrop -->
@@ -1563,7 +1632,7 @@
           </article>
 
           <!-- BookEase — CSS mini-UI preview -->
-          <article class="work-card reveal">
+          <article class="work-card reveal" data-tags="fullstack dashboard">
             <a class="work-thumb" href="appointment-booking.html" aria-label="Open BookEase project" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#f4f6fb;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;">
                 <!-- header -->
@@ -1629,7 +1698,7 @@
           </article>
 
           <!-- Elasticshop Gaming Top-Up — CSS mini-UI preview -->
-          <article class="work-card reveal">
+          <article class="work-card reveal" data-tags="fullstack ecommerce">
             <a class="work-thumb" href="elasticshop-gaming.html" aria-label="Open Elasticshop Gaming Top-Up project" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#0d0d0d;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
                 <!-- yellow glow -->
@@ -1727,7 +1796,7 @@
           </article>
 
           <!-- DRIP Coffee Bar — CSS mini-UI preview -->
-          <article class="work-card reveal">
+          <article class="work-card reveal" data-tags="landing">
             <a class="work-thumb" href="DRIP.html" aria-label="Open DRIP Coffee Bar project" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#000;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
                 <!-- neon glow blob -->
@@ -1781,7 +1850,7 @@
           </article>
 
           <!-- SORN Restaurant — CSS mini-UI preview -->
-          <article class="work-card reveal">
+          <article class="work-card reveal" data-tags="fullstack landing">
             <a class="work-thumb" href="sorn-restaurant.html" aria-label="Open SORN Restaurant project" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#0c0a08;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
                 <!-- warm gold glow -->
@@ -1848,7 +1917,7 @@
           </article>
 
           <!-- SolarPeak — CSS mini-UI preview -->
-          <article class="work-card reveal">
+          <article class="work-card reveal" data-tags="landing">
             <a class="work-thumb" href="solar-landing.html" aria-label="Open SolarPeak project" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#050d1a;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
                 <!-- sun glow -->
@@ -1900,7 +1969,7 @@
           </article>
 
           <!-- Knowledge AI — CSS mini-UI preview -->
-          <article class="work-card reveal">
+          <article class="work-card reveal" data-tags="fullstack ai dashboard">
             <a class="work-thumb" href="knowledge-ai.html" aria-label="Open Knowledge AI project" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#050816;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
                 <!-- purple glow -->
@@ -1953,7 +2022,7 @@
           </article>
 
           <!-- Weather Dashboard — CSS mini-UI preview -->
-          <article class="work-card reveal">
+          <article class="work-card reveal" data-tags="fullstack dashboard">
             <a class="work-thumb" href="weather-dashboard.html" aria-label="Open Weather Dashboard project" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#0d1117;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
                 <!-- blue glow -->
@@ -2002,7 +2071,7 @@
           </article>
 
           <!-- BookEase Dashboard — CSS mini-UI preview (light theme) -->
-          <article class="work-card reveal">
+          <article class="work-card reveal" data-tags="fullstack dashboard">
             <a class="work-thumb" href="BookEase.html" aria-label="Open BookEase Dashboard project" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#f8fafc;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
                 <!-- purple glow -->
@@ -2359,6 +2428,29 @@
           btn.disabled = false;
           errorMsg.style.display = 'block';
         }
+      });
+
+      /* ---- Filter bar ---- */
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const cards      = document.querySelectorAll('.work-card[data-tags]');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filter = btn.dataset.filter;
+
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          cards.forEach(card => {
+            const tags = card.dataset.tags || '';
+            const match = filter === 'all' || tags.split(' ').includes(filter);
+            if (match) {
+              delete card.dataset.hidden;
+            } else {
+              card.dataset.hidden = '';
+            }
+          });
+        });
       });
     })();
   </script>
