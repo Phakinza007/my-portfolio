@@ -41,7 +41,7 @@ my-portfolio/
 
 ---
 
-## Current Cards in Selected Work (16 total)
+## Current Cards in Selected Work (18 total)
 
 | # | Name | File | Tags |
 |---|------|------|------|
@@ -61,6 +61,8 @@ my-portfolio/
 | 14 | Knowledge AI | `knowledge-ai.html` | AI, Dashboard |
 | 15 | Weather Dashboard | `weather-dashboard.html` | Dashboard, Weather |
 | 16 | BookEase Dashboard | `BookEase.html` | Dashboard, Booking, Light UI |
+| 17 | MuseRoom | `MuseRoom.html` | Gallery, Landing Page, Brand |
+| 18 | LUMI Clinic | `lumi-clinic.html` | Beauty, Landing Page, Brand |
 
 ---
 

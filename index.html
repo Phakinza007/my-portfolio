@@ -25,7 +25,7 @@
   <link rel="manifest" href="site.webmanifest" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=optional" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=optional" rel="stylesheet" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -55,12 +55,12 @@
       --accent:       #5274f8;
       --accent-dark:  #3651d4;
       --accent-light: rgba(79,110,247,0.14);
-      --mint:         #d1fae5;
-      --mint-text:    #065f46;
-      --amber:        #fef3c7;
-      --amber-text:   #92400e;
-      --rose:         #fee2e2;
-      --rose-text:    #991b1b;
+      --mint:         rgba(16,185,129,0.14);
+      --mint-text:    #34d399;
+      --amber:        rgba(245,158,11,0.14);
+      --amber-text:   #fbbf24;
+      --rose:         rgba(239,68,68,0.14);
+      --rose-text:    #f87171;
       --dark:         #010409;
       --dark-2:       #0d1117;
       --max:          1100px;
@@ -79,7 +79,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; overflow-x: hidden; }
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: var(--bg);
       color: var(--ink);
       line-height: 1.65;
@@ -146,7 +146,7 @@
       transition: color 150ms, background 150ms;
     }
 
-    .nav-links a:hover { color: var(--ink); background: rgba(0,0,0,0.05); }
+    .nav-links a:hover { color: var(--ink); background: rgba(255,255,255,0.07); }
 
     .nav-resume {
       display: inline-flex;
@@ -221,7 +221,7 @@
       transition: background 150ms;
     }
 
-    .nav-mobile-panel a:hover { background: rgba(0,0,0,0.05); }
+    .nav-mobile-panel a:hover { background: rgba(255,255,255,0.07); }
 
     .nav-mobile-panel .resume-mobile {
       margin-top: 6px;
@@ -284,6 +284,74 @@
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
+    }
+
+    /* ============================================================
+       HERO — SPLIT LAYOUT
+    ============================================================ */
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-right {
+      position: relative;
+      height: 340px;
+    }
+
+    .hc {
+      position: absolute;
+      background: var(--surface);
+      border: 1px solid var(--border-2);
+      border-radius: var(--r);
+      box-shadow: var(--sh-lg);
+      padding: 18px 20px;
+    }
+
+    .hc-main {
+      width: 224px;
+      top: 16px;
+      right: 0;
+      animation: hc-float1 5s ease-in-out infinite;
+    }
+
+    .hc-tag {
+      width: 200px;
+      bottom: 28px;
+      right: 28px;
+      animation: hc-float2 6.5s ease-in-out infinite 1.2s;
+    }
+
+    .hc-pill {
+      width: 128px;
+      top: 138px;
+      left: 0;
+      padding: 12px 16px;
+      animation: hc-float3 7s ease-in-out infinite 0.6s;
+    }
+
+    @keyframes hc-float1 {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-14px); }
+    }
+    @keyframes hc-float2 {
+      0%, 100% { transform: translateY(0) rotate(0.4deg); }
+      50%       { transform: translateY(-10px) rotate(-0.4deg); }
+    }
+    @keyframes hc-float3 {
+      0%, 100% { transform: translateY(0) rotate(-1deg); }
+      50%       { transform: translateY(-8px) rotate(0.6deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hc { animation: none !important; }
+    }
+
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-right  { display: none; }
     }
 
     /* ============================================================
@@ -506,7 +574,7 @@
       border: 1px solid rgba(255,255,255,0.12);
       background: transparent;
       color: var(--muted);
-      font: 600 0.8rem/1 'Inter', sans-serif;
+      font: 600 0.8rem/1 'Outfit', sans-serif;
       cursor: pointer;
       transition: background 150ms, color 150ms, border-color 150ms;
     }
@@ -991,7 +1059,7 @@
       border: 1px solid rgba(255,255,255,.15);
       border-radius: var(--r-sm);
       color: #fff;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Outfit', sans-serif;
       font-size: .95rem;
       padding: 12px 16px;
       outline: none;
@@ -1010,7 +1078,7 @@
       border: none;
       border-radius: var(--r-sm);
       padding: 13px 28px;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Outfit', sans-serif;
       font-size: .95rem;
       font-weight: 600;
       cursor: pointer;
@@ -1076,13 +1144,79 @@
     ============================================= -->
     <section class="hero" aria-label="Introduction">
       <div class="container">
-        <div class="avail-badge"><span class="avail-dot"></span> Available for projects</div>
-        <div class="hero-eyebrow">Frontend Developer</div>
-        <h1>Phakin<br>Chawanpunya</h1>
-        <p class="hero-desc">I build landing pages and dashboards that look great and load fast — so your brand makes the right first impression.</p>
-        <div class="hero-ctas">
-          <a class="btn btn-dark" href="#contact">Hire Me</a>
-          <a class="btn btn-ghost" href="#projects">See My Work</a>
+        <div class="hero-inner">
+
+          <div class="hero-left">
+            <div class="avail-badge"><span class="avail-dot"></span> Available for projects</div>
+            <div class="hero-eyebrow">Frontend Developer</div>
+            <h1>Phakin<br>Chawanpunya</h1>
+            <p class="hero-desc">I build landing pages and dashboards that look great and load fast — so your brand makes the right first impression.</p>
+            <div class="hero-ctas">
+              <a class="btn btn-dark" href="#contact">Hire Me</a>
+              <a class="btn btn-ghost" href="#projects">See My Work</a>
+            </div>
+          </div>
+
+          <div class="hero-right" aria-hidden="true">
+
+            <!-- Main metrics card -->
+            <div class="hc hc-main">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div style="width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 5px rgba(34,197,94,.5);"></div>
+                  <div style="height:3px;background:rgba(255,255,255,0.22);border-radius:1px;width:52px;"></div>
+                </div>
+                <div style="height:3px;background:rgba(255,255,255,0.1);border-radius:1px;width:20px;"></div>
+              </div>
+              <div style="margin-bottom:14px;">
+                <div style="height:3px;background:rgba(255,255,255,0.15);border-radius:1px;width:48px;margin-bottom:7px;"></div>
+                <div style="height:18px;background:var(--ink);border-radius:3px;width:72px;margin-bottom:6px;opacity:0.9;"></div>
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <div style="height:14px;background:rgba(34,197,94,0.16);border:1px solid rgba(34,197,94,0.32);border-radius:4px;width:44px;"></div>
+                  <div style="height:3px;background:rgba(255,255,255,0.15);border-radius:1px;width:32px;"></div>
+                </div>
+              </div>
+              <svg viewBox="0 0 144 36" style="width:100%;height:36px;display:block;">
+                <defs>
+                  <linearGradient id="hg1" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#5274f8" stop-opacity="0.22"/>
+                    <stop offset="100%" stop-color="#5274f8" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="0,30 24,24 48,27 72,16 96,11 120,7 144,3 144,36 0,36" fill="url(#hg1)"/>
+                <polyline points="0,30 24,24 48,27 72,16 96,11 120,7 144,3" fill="none" stroke="#5274f8" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+                <circle cx="144" cy="3" r="3" fill="#5274f8"/>
+              </svg>
+            </div>
+
+            <!-- Project card -->
+            <div class="hc hc-tag">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:32px;height:32px;border-radius:7px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  <div style="width:14px;height:14px;border-radius:3px;background:var(--accent);"></div>
+                </div>
+                <div>
+                  <div style="height:4px;background:var(--ink);border-radius:1px;width:68px;margin-bottom:5px;opacity:0.85;"></div>
+                  <div style="height:3px;background:rgba(255,255,255,0.18);border-radius:1px;width:48px;"></div>
+                </div>
+              </div>
+              <div style="margin-top:12px;display:flex;gap:5px;">
+                <div style="height:22px;background:var(--accent-light);border-radius:4px;width:42px;"></div>
+                <div style="height:22px;background:rgba(16,185,129,0.13);border-radius:4px;width:36px;"></div>
+                <div style="height:22px;background:rgba(255,255,255,0.06);border-radius:4px;width:30px;"></div>
+              </div>
+            </div>
+
+            <!-- Floating pill -->
+            <div class="hc hc-pill">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <div style="width:6px;height:6px;border-radius:50%;background:#5274f8;flex-shrink:0;"></div>
+                <div style="height:3px;background:rgba(255,255,255,0.45);border-radius:1px;flex:1;"></div>
+              </div>
+            </div>
+
+          </div>
+
         </div>
       </div>
     </section>
@@ -2106,6 +2240,168 @@
                 <a class="btn-project" href="BookEase.html">View Project</a>
                 <a class="btn-github" href="https://github.com/Phakinza007/phakin-bookease" target="_blank" rel="noopener noreferrer" aria-label="View BookEase Dashboard source on GitHub">
                   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- MuseRoom — CSS mini-UI preview -->
+          <article class="work-card reveal">
+            <a class="work-thumb" href="MuseRoom.html" aria-label="Open MuseRoom project"
+               style="display:block;overflow:hidden;">
+              <div style="width:100%;height:100%;background:#0a0a0a;display:flex;
+                flex-direction:column;font-family:'Inter',sans-serif;
+                overflow:hidden;position:relative;">
+                <!-- purple glow -->
+                <div style="position:absolute;top:-15%;left:-10%;width:60%;aspect-ratio:1;
+                  border-radius:50%;background:radial-gradient(circle,
+                  rgba(124,58,237,0.20) 0%,transparent 65%);pointer-events:none;"></div>
+                <!-- gold glow right -->
+                <div style="position:absolute;bottom:-10%;right:-5%;width:45%;aspect-ratio:1;
+                  border-radius:50%;background:radial-gradient(circle,
+                  rgba(201,167,94,0.15) 0%,transparent 65%);pointer-events:none;"></div>
+                <!-- nav bar -->
+                <div style="display:flex;align-items:center;justify-content:space-between;
+                  padding:6% 7% 4%;flex-shrink:0;position:relative;">
+                  <div style="height:4px;background:#c9a75e;border-radius:1px;width:32px;"></div>
+                  <div style="display:flex;gap:8px;">
+                    <div style="height:3px;background:rgba(255,255,255,0.25);border-radius:1px;width:20px;"></div>
+                    <div style="height:3px;background:rgba(255,255,255,0.25);border-radius:1px;width:20px;"></div>
+                    <div style="height:3px;background:rgba(255,255,255,0.25);border-radius:1px;width:20px;"></div>
+                  </div>
+                </div>
+                <!-- hero content -->
+                <div style="flex:1;padding:2% 7% 5%;display:flex;flex-direction:column;
+                  justify-content:center;position:relative;">
+                  <!-- eyebrow -->
+                  <div style="height:3px;background:rgba(201,167,94,0.55);border-radius:1px;
+                    width:28%;margin-bottom:9px;"></div>
+                  <!-- headline lines -->
+                  <div style="height:11px;background:#e8e4dc;border-radius:2px;width:82%;margin-bottom:5px;"></div>
+                  <div style="height:11px;background:#e8e4dc;border-radius:2px;width:60%;margin-bottom:5px;"></div>
+                  <div style="height:11px;background:linear-gradient(90deg,#c9a75e,#a07838);
+                    border-radius:2px;width:44%;margin-bottom:14px;"></div>
+                  <!-- exhibit dots row -->
+                  <div style="display:flex;gap:6px;margin-bottom:12px;">
+                    <div style="width:28px;height:18px;border-radius:3px;
+                      background:linear-gradient(135deg,#7c3aed,#a78bfa);opacity:0.7;"></div>
+                    <div style="width:28px;height:18px;border-radius:3px;
+                      background:linear-gradient(135deg,#5eead4,#0d9488);opacity:0.6;"></div>
+                    <div style="width:28px;height:18px;border-radius:3px;
+                      background:linear-gradient(135deg,#fb7185,#be123c);opacity:0.6;"></div>
+                  </div>
+                  <!-- CTA -->
+                  <div style="display:flex;gap:6px;">
+                    <div style="background:#c9a75e;border-radius:3px;padding:5px 14px;">
+                      <div style="height:3px;background:#fff;border-radius:1px;width:36px;"></div>
+                    </div>
+                    <div style="border:1px solid rgba(201,167,94,0.4);border-radius:3px;padding:5px 12px;">
+                      <div style="height:3px;background:rgba(201,167,94,0.6);border-radius:1px;width:26px;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <div class="work-body">
+              <div class="work-name">MuseRoom</div>
+              <p class="work-problem">Dark gallery landing page exploring immersive art direction, exhibit cards, and a calm visit flow.</p>
+              <div class="work-tags">
+                <span class="tag tag-gray">Gallery</span>
+                <span class="tag tag-gray">Landing Page</span>
+                <span class="tag tag-gray">Brand</span>
+              </div>
+              <div class="work-foot">
+                <a class="btn-project" href="MuseRoom.html">View Project</a>
+                <a class="btn-github"
+                   href="https://github.com/Phakinza007/my-portfolio/blob/main/MuseRoom.html"
+                   target="_blank" rel="noopener noreferrer"
+                   aria-label="View MuseRoom source on GitHub">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- LUMI Clinic — CSS mini-UI preview -->
+          <article class="work-card reveal">
+            <a class="work-thumb" href="lumi-clinic.html" aria-label="Open LUMI Clinic project"
+               style="display:block;overflow:hidden;">
+              <div style="width:100%;height:100%;background:#FAF7F2;display:flex;
+                flex-direction:column;font-family:'Inter',sans-serif;
+                overflow:hidden;position:relative;">
+                <!-- rose glow top-left -->
+                <div style="position:absolute;top:-15%;left:-10%;width:55%;aspect-ratio:1;
+                  border-radius:50%;background:radial-gradient(circle,
+                  rgba(212,165,165,0.28) 0%,transparent 65%);pointer-events:none;"></div>
+                <!-- gold glow bottom-right -->
+                <div style="position:absolute;bottom:-10%;right:-5%;width:45%;aspect-ratio:1;
+                  border-radius:50%;background:radial-gradient(circle,
+                  rgba(201,169,110,0.22) 0%,transparent 65%);pointer-events:none;"></div>
+                <!-- nav bar -->
+                <div style="display:flex;align-items:center;justify-content:space-between;
+                  padding:6% 7% 4%;border-bottom:1px solid rgba(212,165,165,0.3);
+                  flex-shrink:0;position:relative;">
+                  <div style="height:4px;background:#C9A96E;border-radius:1px;width:36px;"></div>
+                  <div style="background:#C9A96E;border-radius:3px;padding:3px 10px;">
+                    <div style="height:2.5px;background:#fff;border-radius:1px;width:24px;"></div>
+                  </div>
+                </div>
+                <!-- hero content -->
+                <div style="flex:1;padding:4% 7% 5%;display:flex;flex-direction:column;
+                  justify-content:center;position:relative;">
+                  <!-- pill badge -->
+                  <div style="display:inline-flex;align-items:center;background:#EDD5D5;
+                    border-radius:20px;padding:3px 10px;width:fit-content;margin-bottom:10px;">
+                    <div style="height:2.5px;background:#A07878;border-radius:1px;width:44px;"></div>
+                  </div>
+                  <!-- headline lines -->
+                  <div style="height:10px;background:#2C2422;border-radius:2px;width:80%;margin-bottom:5px;opacity:0.85;"></div>
+                  <div style="height:10px;background:#2C2422;border-radius:2px;width:58%;margin-bottom:5px;opacity:0.85;"></div>
+                  <div style="height:10px;background:linear-gradient(90deg,#C9A96E,#a07838);
+                    border-radius:2px;width:42%;margin-bottom:14px;"></div>
+                  <!-- service chips -->
+                  <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;">
+                    <div style="background:#F3EDE4;border:1px solid #E8D5B0;border-radius:12px;padding:2px 8px;">
+                      <div style="height:2.5px;background:#A07878;border-radius:1px;width:28px;"></div>
+                    </div>
+                    <div style="background:#F3EDE4;border:1px solid #E8D5B0;border-radius:12px;padding:2px 8px;">
+                      <div style="height:2.5px;background:#A07878;border-radius:1px;width:22px;"></div>
+                    </div>
+                    <div style="background:#F3EDE4;border:1px solid #E8D5B0;border-radius:12px;padding:2px 8px;">
+                      <div style="height:2.5px;background:#A07878;border-radius:1px;width:26px;"></div>
+                    </div>
+                  </div>
+                  <!-- CTA -->
+                  <div style="display:flex;gap:6px;">
+                    <div style="background:#C9A96E;border-radius:3px;padding:5px 14px;">
+                      <div style="height:3px;background:#fff;border-radius:1px;width:36px;"></div>
+                    </div>
+                    <div style="border:1.5px solid #C8A0A0;border-radius:3px;padding:5px 12px;">
+                      <div style="height:3px;background:#A07878;border-radius:1px;width:26px;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <div class="work-body">
+              <div class="work-name">LUMI Clinic</div>
+              <p class="work-problem">Premium Thai beauty clinic landing page with warm cream-rose palette, bilingual copy, and service flow.</p>
+              <div class="work-tags">
+                <span class="tag tag-amber">Beauty</span>
+                <span class="tag tag-gray">Landing Page</span>
+                <span class="tag tag-gray">Brand</span>
+              </div>
+              <div class="work-foot">
+                <a class="btn-project" href="lumi-clinic.html">View Project</a>
+                <a class="btn-github"
+                   href="https://github.com/Phakinza007/my-portfolio/blob/main/lumi-clinic.html"
+                   target="_blank" rel="noopener noreferrer"
+                   aria-label="View LUMI Clinic source on GitHub">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                  </svg>
                 </a>
               </div>
             </div>
