@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BRIGHT Dental Clinic — ยิ้มสวยมั่นใจ | Modern Dental Care</title>
+  <meta name="description" content="คลินิกทันตกรรมทันสมัย ครบวงจร จัดฟัน วีเนียร์ รากฟันเทียม ฟอกสีฟัน โดยทีมทันตแพทย์เฉพาะทาง พร้อมระบบนัดหมายออนไลน์">
+  <link rel="canonical" href="https://phakinza007.github.io/my-portfolio/dental-clinic.html">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="BRIGHT Dental Clinic — Modern Dental Care">
+  <meta property="og:description" content="คลินิกทันตกรรมครบวงจร โดยทีมทันตแพทย์เฉพาะทาง">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Design tokens ─────────────────────────────────────────── */
+    :root {
+      --teal:        #0E8F8B;
+      --teal-dark:   #0A6B68;
+      --teal-deep:   #084E4C;
+      --teal-light:  #D7F0EF;
+      --teal-pale:   #EEF9F8;
+      --mint:        #F4FBFA;
+      --navy:        #12333B;
+      --slate:       #4E6B72;
+      --muted:       #7E979D;
+      --white:       #FFFFFF;
+      --amber:       #F5B841;
+      --line:        #DCEAE9;
+
+      --display: 'Sora', 'Helvetica Neue', Arial, sans-serif;
+      --sans:    'Noto Sans Thai', 'Helvetica Neue', Arial, sans-serif;
+
+      --r-sm: 10px;
+      --r-md: 16px;
+      --r-lg: 24px;
+
+      --shadow-sm: 0 2px 10px rgba(18,51,59,.06);
+      --shadow-md: 0 8px 30px rgba(18,51,59,.10);
+      --shadow-lg: 0 18px 50px rgba(18,51,59,.14);
+
+      --ease: cubic-bezier(.4,0,.2,1);
+      --t: .3s;
+      --container: 1140px;
+    }
+
+    /* ── Reset ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    html, body { overflow-x: hidden; }
+    body { font-family: var(--sans); background: var(--white); color: var(--navy); line-height: 1.7; }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button, input, select, textarea { font-family: inherit; font-size: inherit; }
+
+    .wrap { max-width: var(--container); margin: 0 auto; padding: 0 40px; }
+
+    .label {
+      display: inline-block;
+      font-family: var(--display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: var(--display);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -.5px;
+    }
+    .section-sub { font-size: 15px; color: var(--slate); max-width: 520px; margin-top: 14px; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 30px;
+      border-radius: 12px;
+      font-family: var(--display);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: transform var(--t) var(--ease), box-shadow var(--t) var(--ease), background var(--t) var(--ease);
+      white-space: nowrap;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn-teal { background: var(--teal); color: var(--white); }
+    .btn-teal:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 10px 26px rgba(14,143,139,.35); }
+    .btn-ghost { background: transparent; border: 1.5px solid var(--line); color: var(--teal-dark); }
+    .btn-ghost:hover { background: var(--teal-pale); border-color: var(--teal); transform: translateY(-2px); }
+
+    /* ── Nav ───────────────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 800; font-size: 19px; color: var(--navy); }
+    .logo-mark {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-deep));
+      display: grid; place-items: center;
+      color: #fff; font-size: 18px;
+    }
+    .nav-links { display: flex; gap: 30px; font-size: 14px; font-weight: 500; color: var(--slate); }
+    .nav-links a { transition: color var(--t); }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-cta { display: flex; align-items: center; gap: 14px; }
+    .nav-phone { font-family: var(--display); font-weight: 700; font-size: 14px; color: var(--teal-dark); }
+
+    /* ── Hero ──────────────────────────────────────────────────── */
+    .hero { background: linear-gradient(180deg, var(--mint) 0%, var(--white) 100%); padding: 72px 0 84px; }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 60px; align-items: center; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--teal-light); color: var(--teal-deep);
+      font-size: 12.5px; font-weight: 600;
+      padding: 7px 16px; border-radius: 50px; margin-bottom: 22px;
+    }
+    .hero h1 {
+      font-family: var(--display);
+      font-size: clamp(34px, 5vw, 56px);
+      font-weight: 800; line-height: 1.12; letter-spacing: -1px;
+    }
+    .hero h1 em { font-style: normal; color: var(--teal); }
+    .hero-desc { margin: 22px 0 30px; font-size: 16px; color: var(--slate); max-width: 460px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-stats { display: flex; gap: 40px; margin-top: 44px; flex-wrap: wrap; }
+    .hero-stat .num { font-family: var(--display); font-size: 30px; font-weight: 800; color: var(--teal-dark); }
+    .hero-stat .cap { font-size: 12.5px; color: var(--muted); }
+
+    /* hero visual — CSS smile card */
+    .hero-visual { position: relative; }
+    .hv-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-lg);
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hv-card::before {
+      content: ''; position: absolute; inset: 0 0 auto;
+      height: 6px; background: linear-gradient(90deg, var(--teal), #4FC3B8);
+    }
+    .hv-tooth {
+      width: 120px; height: 120px; margin: 10px auto 22px;
+      background: radial-gradient(circle at 35% 30%, #ffffff, var(--teal-light));
+      border-radius: 46% 46% 50% 50% / 60% 60% 42% 42%;
+      box-shadow: inset 0 -12px 24px rgba(14,143,139,.18), var(--shadow-md);
+      position: relative;
+    }
+    .hv-tooth::before, .hv-tooth::after {
+      content: ''; position: absolute; bottom: -16px;
+      width: 34px; height: 42px;
+      background: inherit;
+      border-radius: 40% 40% 55% 55% / 30% 30% 70% 70%;
+    }
+    .hv-tooth::before { left: 16px; transform: rotate(6deg); }
+    .hv-tooth::after  { right: 16px; transform: rotate(-6deg); }
+    .hv-row { display: flex; justify-content: space-between; align-items: center; padding: 13px 0; border-bottom: 1px dashed var(--line); font-size: 13.5px; }
+    .hv-row:last-child { border-bottom: none; }
+    .hv-row .k { color: var(--slate); }
+    .hv-row .v { font-family: var(--display); font-weight: 700; color: var(--teal-dark); }
+    .hv-chip {
+      position: absolute; background: var(--white);
+      border: 1px solid var(--line); border-radius: 14px;
+      box-shadow: var(--shadow-md);
+      padding: 12px 18px; font-size: 12.5px; font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .hv-chip .dot { width: 9px; height: 9px; border-radius: 50%; background: #35C48D; }
+    .hv-chip-1 { top: 18px; left: -26px; }
+    .hv-chip-2 { bottom: 40px; right: -20px; }
+
+    /* ── Services ──────────────────────────────────────────────── */
+    section { padding: 88px 0; }
+    .sec-head { text-align: center; margin-bottom: 52px; }
+    .sec-head .section-sub { margin-left: auto; margin-right: auto; }
+
+    .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .svc-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--r-md);
+      padding: 30px 26px;
+      transition: transform var(--t) var(--ease), box-shadow var(--t) var(--ease), border-color var(--t);
+    }
+    .svc-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--teal); }
+    .svc-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: var(--teal-pale);
+      display: grid; place-items: center;
+      font-size: 24px; margin-bottom: 18px;
+    }
+    .svc-card h3 { font-family: var(--display); font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .svc-card p { font-size: 13.5px; color: var(--slate); }
+    .svc-price { margin-top: 16px; font-family: var(--display); font-size: 14px; font-weight: 700; color: var(--teal); }
+
+    /* ── Price table ───────────────────────────────────────────── */
+    .prices { background: var(--mint); }
+    .price-table {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .price-row {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 16px;
+      padding: 20px 30px;
+      border-bottom: 1px solid var(--line);
+      transition: background var(--t);
+    }
+    .price-row:last-child { border-bottom: none; }
+    .price-row:hover { background: var(--teal-pale); }
+    .price-name { font-weight: 600; font-size: 15px; }
+    .price-name small { display: block; font-weight: 400; font-size: 12.5px; color: var(--muted); }
+    .price-val { font-family: var(--display); font-weight: 700; color: var(--teal-dark); white-space: nowrap; }
+    .price-note { text-align: center; font-size: 12.5px; color: var(--muted); margin-top: 18px; }
+
+    /* ── Doctors ───────────────────────────────────────────────── */
+    .doc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .doc-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--r-md);
+      overflow: hidden;
+      transition: transform var(--t) var(--ease), box-shadow var(--t) var(--ease);
+    }
+    .doc-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+    .doc-photo {
+      height: 190px;
+      display: grid; place-items: center;
+      font-family: var(--display); font-size: 44px; font-weight: 800; color: var(--white);
+    }
+    .doc-photo.p1 { background: linear-gradient(135deg, #0E8F8B, #0A6B68); }
+    .doc-photo.p2 { background: linear-gradient(135deg, #2AA8A0, #11807B); }
+    .doc-photo.p3 { background: linear-gradient(135deg, #4FC3B8, #1E948C); }
+    .doc-body { padding: 22px 24px 26px; }
+    .doc-body h3 { font-family: var(--display); font-size: 16.5px; font-weight: 700; }
+    .doc-spec { font-size: 13px; color: var(--teal-dark); font-weight: 600; margin: 4px 0 10px; }
+    .doc-body p { font-size: 13px; color: var(--slate); }
+
+    /* ── Reviews ───────────────────────────────────────────────── */
+    .reviews { background: var(--teal-deep); color: var(--white); }
+    .reviews .label { color: var(--amber); }
+    .reviews .section-title { color: var(--white); }
+    .rev-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 50px; }
+    .rev-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: var(--r-md);
+      padding: 28px 26px;
+    }
+    .rev-stars { color: var(--amber); letter-spacing: 3px; margin-bottom: 14px; font-size: 14px; }
+    .rev-card p { font-size: 14px; line-height: 1.8; color: rgba(255,255,255,.88); }
+    .rev-who { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+    .rev-ava {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--teal); display: grid; place-items: center;
+      font-family: var(--display); font-weight: 700; font-size: 15px;
+    }
+    .rev-who .nm { font-weight: 600; font-size: 13.5px; }
+    .rev-who .tt { font-size: 12px; color: rgba(255,255,255,.55); }
+
+    /* ── Booking ───────────────────────────────────────────────── */
+    .booking { background: var(--mint); }
+    .book-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: start; }
+    .book-info h2 { margin-bottom: 14px; }
+    .book-perks { list-style: none; margin-top: 26px; display: grid; gap: 14px; }
+    .book-perks li { display: flex; gap: 12px; font-size: 14.5px; color: var(--slate); }
+    .book-perks .tick {
+      flex: none; width: 24px; height: 24px; border-radius: 50%;
+      background: var(--teal-light); color: var(--teal-deep);
+      display: grid; place-items: center; font-size: 12px; font-weight: 700;
+    }
+    .book-hours { margin-top: 30px; background: var(--white); border: 1px solid var(--line); border-radius: var(--r-md); padding: 22px 26px; }
+    .book-hours h4 { font-family: var(--display); font-size: 14px; font-weight: 700; margin-bottom: 12px; }
+    .bh-row { display: flex; justify-content: space-between; font-size: 13.5px; padding: 6px 0; color: var(--slate); }
+    .bh-row .d { font-weight: 500; color: var(--navy); }
+
+    .book-form {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-md);
+      padding: 38px;
+    }
+    .book-form h3 { font-family: var(--display); font-size: 20px; font-weight: 700; margin-bottom: 24px; }
+    .f-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .f-field { display: flex; flex-direction: column; gap: 7px; }
+    .f-field.full { grid-column: 1 / -1; }
+    .f-field label { font-size: 12.5px; font-weight: 600; color: var(--slate); }
+    .f-field input, .f-field select, .f-field textarea {
+      padding: 12px 14px;
+      border: 1.5px solid var(--line);
+      border-radius: var(--r-sm);
+      font-size: 14px;
+      color: var(--navy);
+      background: var(--white);
+      transition: border-color var(--t), box-shadow var(--t);
+    }
+    .f-field input:focus, .f-field select:focus, .f-field textarea:focus {
+      outline: none; border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(14,143,139,.14);
+    }
+    .book-form .btn { width: 100%; margin-top: 22px; padding: 15px; }
+    .form-ok {
+      display: none;
+      margin-top: 16px; padding: 14px 18px;
+      background: #E7F8F0; color: #14735A;
+      border: 1px solid #BFE9D8; border-radius: var(--r-sm);
+      font-size: 14px; font-weight: 500;
+    }
+    .form-ok.show { display: block; }
+
+    /* ── Contact / map ─────────────────────────────────────────── */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: stretch; }
+    .map-ph {
+      background:
+        linear-gradient(rgba(14,143,139,.06), rgba(14,143,139,.06)),
+        repeating-linear-gradient(0deg, transparent 0 39px, var(--line) 39px 40px),
+        repeating-linear-gradient(90deg, transparent 0 39px, var(--line) 39px 40px),
+        var(--mint);
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+      min-height: 320px;
+      position: relative;
+      display: grid; place-items: center;
+    }
+    .map-pin {
+      background: var(--white); border-radius: 14px; box-shadow: var(--shadow-md);
+      padding: 16px 22px; text-align: center; font-size: 13px;
+    }
+    .map-pin .pin { font-size: 26px; }
+    .map-pin b { font-family: var(--display); display: block; margin-top: 4px; }
+    .contact-list { display: grid; gap: 18px; align-content: center; }
+    .c-item { display: flex; gap: 16px; align-items: flex-start; }
+    .c-icon {
+      flex: none; width: 46px; height: 46px; border-radius: 13px;
+      background: var(--teal-pale); display: grid; place-items: center; font-size: 20px;
+    }
+    .c-item h4 { font-family: var(--display); font-size: 14.5px; font-weight: 700; }
+    .c-item p { font-size: 13.5px; color: var(--slate); }
+
+    /* ── Footer ────────────────────────────────────────────────── */
+    footer { background: var(--navy); color: rgba(255,255,255,.75); padding: 46px 0; }
+    .foot-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .foot-logo { font-family: var(--display); font-weight: 800; font-size: 17px; color: var(--white); }
+    .foot-links { display: flex; gap: 24px; font-size: 13px; }
+    .foot-links a:hover { color: var(--white); }
+    .foot-copy { font-size: 12.5px; }
+
+    /* ── Reveal on scroll ──────────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ── Responsive ────────────────────────────────────────────── */
+    @media (max-width: 960px) {
+      .wrap { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+      .hv-chip-1 { left: 0; }
+      .hv-chip-2 { right: 0; }
+      .svc-grid, .doc-grid, .rev-grid { grid-template-columns: 1fr 1fr; }
+      .book-grid, .contact-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 620px) {
+      section { padding: 64px 0; }
+      .hero { padding: 52px 0 64px; }
+      .nav-phone { display: none; }
+      .svc-grid, .doc-grid, .rev-grid { grid-template-columns: 1fr; }
+      .f-grid { grid-template-columns: 1fr; }
+      .book-form { padding: 26px 22px; }
+      .hero-stats { gap: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Nav ─────────────────────────────────────────────────── -->
+  <nav>
+    <div class="wrap nav-inner">
+      <a class="logo" href="#top" aria-label="BRIGHT Dental Clinic home">
+        <span class="logo-mark" aria-hidden="true">✦</span> BRIGHT<span style="color:var(--teal)">Dental</span>
+      </a>
+      <div class="nav-links">
+        <a href="#services">บริการ</a>
+        <a href="#prices">อัตราค่าบริการ</a>
+        <a href="#doctors">ทันตแพทย์</a>
+        <a href="#reviews">รีวิว</a>
+        <a href="#contact">ติดต่อ</a>
+      </div>
+      <div class="nav-cta">
+        <span class="nav-phone">02-123-4567</span>
+        <a class="btn btn-teal" href="#booking">นัดหมาย</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Hero ────────────────────────────────────────────────── -->
+  <header class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="hero-badge">🦷 มาตรฐานทันตกรรมระดับสากล</span>
+        <h1>ยิ้มสวยมั่นใจ<br>เริ่มต้นที่ <em>BRIGHT</em></h1>
+        <p class="hero-desc">
+          คลินิกทันตกรรมครบวงจร ดูแลโดยทีมทันตแพทย์เฉพาะทาง
+          เครื่องมือทันสมัย ปลอดเชื้อทุกขั้นตอน พร้อมระบบนัดหมายออนไลน์
+          ไม่ต้องรอคิวนาน
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-teal" href="#booking">จองคิวออนไลน์</a>
+          <a class="btn btn-ghost" href="#prices">ดูอัตราค่าบริการ</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><div class="num">12+</div><div class="cap">ปีประสบการณ์</div></div>
+          <div class="hero-stat"><div class="num">8,500+</div><div class="cap">เคสที่ดูแล</div></div>
+          <div class="hero-stat"><div class="num">4.9★</div><div class="cap">คะแนนรีวิวเฉลี่ย</div></div>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hv-card">
+          <div class="hv-tooth"></div>
+          <div class="hv-row"><span class="k">ตรวจสุขภาพช่องปาก</span><span class="v">ฟรี*</span></div>
+          <div class="hv-row"><span class="k">คิววันนี้</span><span class="v">ว่าง 4 ช่วงเวลา</span></div>
+          <div class="hv-row"><span class="k">ทันตแพทย์ประจำวัน</span><span class="v">3 ท่าน</span></div>
+        </div>
+        <div class="hv-chip hv-chip-1"><span class="dot"></span> เปิดให้บริการอยู่</div>
+        <div class="hv-chip hv-chip-2">⭐ 4.9 จาก 1,200+ รีวิว</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+  <!-- ── Services ────────────────────────────────────────────── -->
+  <section id="services">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="label">Our Services</span>
+        <h2 class="section-title">บริการทันตกรรมครบวงจร</h2>
+        <p class="section-sub">ตั้งแต่การดูแลพื้นฐานไปจนถึงทันตกรรมเฉพาะทาง ด้วยเครื่องมือและเทคโนโลยีล่าสุด</p>
+      </div>
+      <div class="svc-grid">
+        <div class="svc-card reveal">
+          <div class="svc-icon">🦷</div>
+          <h3>จัดฟันใส / จัดฟันโลหะ</h3>
+          <p>วางแผนการจัดฟันด้วยระบบสแกน 3D เห็นผลลัพธ์ก่อนเริ่มรักษา ผ่อนชำระ 0% ได้</p>
+          <div class="svc-price">เริ่มต้น 45,000฿</div>
+        </div>
+        <div class="svc-card reveal">
+          <div class="svc-icon">✨</div>
+          <h3>วีเนียร์เซรามิก</h3>
+          <p>ปรับรูปทรงและสีฟันให้เป็นธรรมชาติ ออกแบบเฉพาะบุคคลโดยทันตแพทย์เฉพาะทาง</p>
+          <div class="svc-price">เริ่มต้น 8,900฿ / ซี่</div>
+        </div>
+        <div class="svc-card reveal">
+          <div class="svc-icon">🔩</div>
+          <h3>รากฟันเทียม</h3>
+          <p>ทดแทนฟันที่สูญเสียด้วยรากฟันเทียมมาตรฐานยุโรป รับประกันผลการรักษา</p>
+          <div class="svc-price">เริ่มต้น 39,000฿</div>
+        </div>
+        <div class="svc-card reveal">
+          <div class="svc-icon">💎</div>
+          <h3>ฟอกสีฟัน</h3>
+          <p>ฟอกสีฟันระบบ Cool Light ขาวขึ้นทันทีหลังทำ ไม่เสียวฟัน ใช้เวลาเพียง 1 ชั่วโมง</p>
+          <div class="svc-price">เริ่มต้น 3,900฿</div>
+        </div>
+        <div class="svc-card reveal">
+          <div class="svc-icon">🪥</div>
+          <h3>ขูดหินปูน & เคลือบฟลูออไรด์</h3>
+          <p>ทำความสะอาดลึกถึงร่องเหงือก ป้องกันโรคเหงือกและฟันผุในระยะยาว</p>
+          <div class="svc-price">เริ่มต้น 900฿</div>
+        </div>
+        <div class="svc-card reveal">
+          <div class="svc-icon">🧒</div>
+          <h3>ทันตกรรมเด็ก</h3>
+          <p>ห้องตรวจเป็นมิตรกับเด็ก คุณหมอใจดี ช่วยให้ลูกไม่กลัวหมอฟันตั้งแต่ครั้งแรก</p>
+          <div class="svc-price">เริ่มต้น 600฿</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Prices ──────────────────────────────────────────────── -->
+  <section class="prices" id="prices">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="label">Price List</span>
+        <h2 class="section-title">อัตราค่าบริการ</h2>
+        <p class="section-sub">ราคาชัดเจน ไม่มีค่าใช้จ่ายแอบแฝง แจ้งแผนการรักษาและราคาก่อนเริ่มทุกครั้ง</p>
+      </div>
+      <div class="price-table reveal">
+        <div class="price-row">
+          <div class="price-name">ตรวจสุขภาพช่องปาก + X-Ray<small>สำหรับผู้รับบริการครั้งแรก</small></div>
+          <div class="price-val">ฟรี</div>
+        </div>
+        <div class="price-row">
+          <div class="price-name">ขูดหินปูน + ขัดฟัน<small>รวมเคลือบฟลูออไรด์</small></div>
+          <div class="price-val">900 – 1,500฿</div>
+        </div>
+        <div class="price-row">
+          <div class="price-name">อุดฟันสีเหมือนฟัน<small>วัสดุคอมโพสิตเรซิน</small></div>
+          <div class="price-val">800 – 1,800฿ / ซี่</div>
+        </div>
+        <div class="price-row">
+          <div class="price-name">ฟอกสีฟัน Cool Light<small>พร้อมชุดดูแลต่อเนื่องที่บ้าน</small></div>
+          <div class="price-val">3,900฿</div>
+        </div>
+        <div class="price-row">
+          <div class="price-name">วีเนียร์เซรามิก<small>ออกแบบ Smile Design เฉพาะบุคคล</small></div>
+          <div class="price-val">8,900฿ / ซี่</div>
+        </div>
+        <div class="price-row">
+          <div class="price-name">จัดฟันใส<small>รวมสแกน 3D และรีเทนเนอร์หลังจัด</small></div>
+          <div class="price-val">45,000 – 120,000฿</div>
+        </div>
+        <div class="price-row">
+          <div class="price-name">รากฟันเทียม<small>รวมครอบฟันเซรามิก รับประกัน 5 ปี</small></div>
+          <div class="price-val">39,000 – 65,000฿</div>
+        </div>
+      </div>
+      <p class="price-note">* ราคาอาจแตกต่างตามความซับซ้อนของเคส ทันตแพทย์จะประเมินและแจ้งราคาก่อนเริ่มการรักษา</p>
+    </div>
+  </section>
+
+  <!-- ── Doctors ─────────────────────────────────────────────── -->
+  <section id="doctors">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="label">Our Dentists</span>
+        <h2 class="section-title">ทีมทันตแพทย์เฉพาะทาง</h2>
+        <p class="section-sub">ทุกท่านผ่านการศึกษาเฉพาะทางและมีใบประกอบวิชาชีพทันตกรรม</p>
+      </div>
+      <div class="doc-grid">
+        <div class="doc-card reveal">
+          <div class="doc-photo p1" aria-hidden="true">ทพ.</div>
+          <div class="doc-body">
+            <h3>ทพ. ธนกร วิริยะกุล</h3>
+            <div class="doc-spec">ทันตกรรมจัดฟัน</div>
+            <p>วุฒิบัตรทันตกรรมจัดฟัน มหาวิทยาลัยมหิดล ประสบการณ์จัดฟันมากกว่า 2,000 เคส</p>
+          </div>
+        </div>
+        <div class="doc-card reveal">
+          <div class="doc-photo p2" aria-hidden="true">ทพญ.</div>
+          <div class="doc-body">
+            <h3>ทพญ. พิมพ์ชนก สุวรรณโชติ</h3>
+            <div class="doc-spec">ทันตกรรมประดิษฐ์ & วีเนียร์</div>
+            <p>เชี่ยวชาญด้าน Smile Design และงานเซรามิกความละเอียดสูง จบการศึกษาจากจุฬาฯ</p>
+          </div>
+        </div>
+        <div class="doc-card reveal">
+          <div class="doc-photo p3" aria-hidden="true">ทพ.</div>
+          <div class="doc-body">
+            <h3>ทพ. ศุภวิชญ์ อินทรกำแหง</h3>
+            <div class="doc-spec">ศัลยศาสตร์ช่องปาก & รากฟันเทียม</div>
+            <p>วุฒิบัตรศัลยศาสตร์ช่องปาก ผ่านการอบรมรากฟันเทียมจากประเทศเยอรมนี</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Reviews ─────────────────────────────────────────────── -->
+  <section class="reviews" id="reviews">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="label">Reviews</span>
+        <h2 class="section-title">เสียงจากคนไข้ของเรา</h2>
+      </div>
+      <div class="rev-grid">
+        <div class="rev-card reveal">
+          <div class="rev-stars" aria-label="5 ดาว">★★★★★</div>
+          <p>"จัดฟันใสที่นี่ครบ 18 เดือน ฟันเรียงสวยมาก คุณหมออธิบายละเอียดทุกขั้นตอน ระบบนัดออนไลน์สะดวกสุด ๆ ไม่เคยรอเกิน 10 นาที"</p>
+          <div class="rev-who">
+            <div class="rev-ava" aria-hidden="true">น</div>
+            <div><div class="nm">นภัสสร ว.</div><div class="tt">จัดฟันใส · 18 เดือน</div></div>
+          </div>
+        </div>
+        <div class="rev-card reveal">
+          <div class="rev-stars" aria-label="5 ดาว">★★★★★</div>
+          <p>"พาลูก 5 ขวบมาทำฟันครั้งแรก กลัวมากตอนแรก แต่คุณหมอใจดีจนตอนนี้ลูกถามเองว่าเมื่อไหร่จะได้ไปหาหมอฟันอีก"</p>
+          <div class="rev-who">
+            <div class="rev-ava" aria-hidden="true">ก</div>
+            <div><div class="nm">กมลชนก ส.</div><div class="tt">ทันตกรรมเด็ก</div></div>
+          </div>
+        </div>
+        <div class="rev-card reveal">
+          <div class="rev-stars" aria-label="5 ดาว">★★★★★</div>
+          <p>"ทำรากฟันเทียม 2 ซี่ หมอศุภวิชญ์มือเบามาก แทบไม่เจ็บเลย ราคาตรงตามที่แจ้งตั้งแต่แรก ไม่มีบวกเพิ่มทีหลัง ประทับใจครับ"</p>
+          <div class="rev-who">
+            <div class="rev-ava" aria-hidden="true">ป</div>
+            <div><div class="nm">ปริญญา ท.</div><div class="tt">รากฟันเทียม</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Booking ─────────────────────────────────────────────── -->
+  <section class="booking" id="booking">
+    <div class="wrap book-grid">
+      <div class="book-info reveal">
+        <span class="label">Booking</span>
+        <h2 class="section-title">นัดหมายล่วงหน้า<br>ไม่ต้องรอคิว</h2>
+        <ul class="book-perks">
+          <li><span class="tick">✓</span> ยืนยันนัดหมายภายใน 30 นาทีทางโทรศัพท์หรือ LINE</li>
+          <li><span class="tick">✓</span> ตรวจสุขภาพช่องปากฟรีสำหรับผู้รับบริการครั้งแรก</li>
+          <li><span class="tick">✓</span> เลื่อนหรือยกเลิกนัดได้ล่วงหน้า 24 ชั่วโมง</li>
+        </ul>
+        <div class="book-hours">
+          <h4>เวลาทำการ</h4>
+          <div class="bh-row"><span class="d">จันทร์ – ศุกร์</span><span>10:00 – 20:00</span></div>
+          <div class="bh-row"><span class="d">เสาร์ – อาทิตย์</span><span>09:00 – 18:00</span></div>
+          <div class="bh-row"><span class="d">วันหยุดนักขัตฤกษ์</span><span>10:00 – 16:00</span></div>
+        </div>
+      </div>
+
+      <form class="book-form reveal" id="bookForm" novalidate>
+        <h3>จองคิวออนไลน์</h3>
+        <div class="f-grid">
+          <div class="f-field">
+            <label for="bName">ชื่อ-นามสกุล</label>
+            <input id="bName" name="name" type="text" placeholder="ชื่อของคุณ" required>
+          </div>
+          <div class="f-field">
+            <label for="bPhone">เบอร์โทรศัพท์</label>
+            <input id="bPhone" name="phone" type="tel" placeholder="08x-xxx-xxxx" required>
+          </div>
+          <div class="f-field full">
+            <label for="bService">บริการที่ต้องการ</label>
+            <select id="bService" name="service" required>
+              <option value="">— เลือกบริการ —</option>
+              <option>ตรวจสุขภาพช่องปาก (ฟรี)</option>
+              <option>ขูดหินปูน / ขัดฟัน</option>
+              <option>อุดฟัน</option>
+              <option>ฟอกสีฟัน</option>
+              <option>วีเนียร์</option>
+              <option>จัดฟัน</option>
+              <option>รากฟันเทียม</option>
+              <option>ทันตกรรมเด็ก</option>
+            </select>
+          </div>
+          <div class="f-field">
+            <label for="bDate">วันที่สะดวก</label>
+            <input id="bDate" name="date" type="date" required>
+          </div>
+          <div class="f-field">
+            <label for="bTime">ช่วงเวลา</label>
+            <select id="bTime" name="time" required>
+              <option value="">— เลือกเวลา —</option>
+              <option>10:00 – 12:00</option>
+              <option>12:00 – 14:00</option>
+              <option>14:00 – 17:00</option>
+              <option>17:00 – 20:00</option>
+            </select>
+          </div>
+          <div class="f-field full">
+            <label for="bNote">อาการ / ข้อมูลเพิ่มเติม (ถ้ามี)</label>
+            <textarea id="bNote" name="note" rows="3" placeholder="เช่น ปวดฟันกรามล่างขวา"></textarea>
+          </div>
+        </div>
+        <button class="btn btn-teal" type="submit">ยืนยันการจอง</button>
+        <div class="form-ok" id="formOk" role="status">✓ ส่งคำขอนัดหมายเรียบร้อย ทีมงานจะติดต่อกลับภายใน 30 นาที</div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ── Contact ─────────────────────────────────────────────── -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="label">Find Us</span>
+        <h2 class="section-title">เดินทางสะดวก ใกล้ BTS</h2>
+      </div>
+      <div class="contact-grid reveal">
+        <div class="map-ph" role="img" aria-label="แผนที่ตำแหน่งคลินิก ใกล้ BTS อโศก">
+          <div class="map-pin">
+            <div class="pin">📍</div>
+            <b>BRIGHT Dental Clinic</b>
+            ชั้น 2 อาคารสุขุมวิทซิตี้ · BTS อโศก ทางออก 4
+          </div>
+        </div>
+        <div class="contact-list">
+          <div class="c-item">
+            <div class="c-icon">📍</div>
+            <div><h4>ที่อยู่</h4><p>ชั้น 2 อาคารสุขุมวิทซิตี้ ถ.สุขุมวิท 21 กรุงเทพฯ 10110 (BTS อโศก / MRT สุขุมวิท)</p></div>
+          </div>
+          <div class="c-item">
+            <div class="c-icon">📞</div>
+            <div><h4>โทรศัพท์</h4><p>02-123-4567 · 089-123-4567</p></div>
+          </div>
+          <div class="c-item">
+            <div class="c-icon">💬</div>
+            <div><h4>LINE Official</h4><p>@brightdental — ตอบไวใน 30 นาที ช่วงเวลาทำการ</p></div>
+          </div>
+          <div class="c-item">
+            <div class="c-icon">🅿️</div>
+            <div><h4>ที่จอดรถ</h4><p>จอดฟรี 2 ชั่วโมงที่อาคาร เพียงประทับตราที่คลินิก</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <!-- ── Footer ──────────────────────────────────────────────── -->
+  <footer>
+    <div class="wrap foot-inner">
+      <div class="foot-logo">✦ BRIGHT Dental</div>
+      <div class="foot-links">
+        <a href="#services">บริการ</a>
+        <a href="#prices">ราคา</a>
+        <a href="#doctors">ทันตแพทย์</a>
+        <a href="#booking">นัดหมาย</a>
+      </div>
+      <div class="foot-copy">© 2026 BRIGHT Dental Clinic — Demo project by Phakin Chawanpunya</div>
+    </div>
+  </footer>
+
+  <script>
+    // reveal on scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // booking form (demo — no backend)
+    const form = document.getElementById('bookForm');
+    form.addEventListener('submit', (ev) => {
+      ev.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      document.getElementById('formOk').classList.add('show');
+      form.querySelector('button[type="submit"]').disabled = true;
+    });
+
+    // date input: today as minimum
+    document.getElementById('bDate').min = new Date().toISOString().split('T')[0];
+  </script>
+</body>
+</html>

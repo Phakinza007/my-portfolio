@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VELVÉ Aesthetics — จองคิวความงามออนไลน์ | Smart Booking</title>
+  <meta name="description" content="คลินิกความงามพร้อมระบบจองคิวออนไลน์ 4 ขั้นตอน เลือกบริการ เลือกแพทย์ เลือกเวลา ยืนยันทันที Botox, Filler, Laser โดยแพทย์เฉพาะทาง">
+  <link rel="canonical" href="https://phakinza007.github.io/my-portfolio/aesthetic-booking.html">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="VELVÉ Aesthetics — Smart Booking">
+  <meta property="og:description" content="คลินิกความงามพร้อมระบบจองคิวออนไลน์ 4 ขั้นตอน">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Design tokens ─────────────────────────────────────────── */
+    :root {
+      --violet:      #7A5AF8;
+      --violet-dark: #5F41D9;
+      --violet-deep: #3B2A85;
+      --violet-soft: #EDE9FE;
+      --violet-pale: #F7F5FF;
+      --plum:        #2B2145;
+      --lilac:       #B9A7F9;
+      --ink:         #241E38;
+      --slate:       #5F5A75;
+      --muted:       #928DA6;
+      --white:       #FFFFFF;
+      --line:        #E6E2F2;
+      --blush:       #F9A8D4;
+
+      --display: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+      --sans:    'Noto Sans Thai', 'Helvetica Neue', Arial, sans-serif;
+
+      --r-sm: 12px;
+      --r-md: 18px;
+      --r-lg: 26px;
+
+      --shadow-sm: 0 2px 12px rgba(43,33,69,.07);
+      --shadow-md: 0 10px 34px rgba(43,33,69,.12);
+      --shadow-lg: 0 22px 60px rgba(43,33,69,.18);
+
+      --ease: cubic-bezier(.4,0,.2,1);
+      --t: .3s;
+      --container: 1120px;
+    }
+
+    /* ── Reset ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    html, body { overflow-x: hidden; }
+    body { font-family: var(--sans); background: var(--violet-pale); color: var(--ink); line-height: 1.7; }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button, input, select, textarea { font-family: inherit; font-size: inherit; }
+
+    .wrap { max-width: var(--container); margin: 0 auto; padding: 0 40px; }
+
+    .label {
+      display: inline-block;
+      font-family: var(--display);
+      font-size: 11px; font-weight: 800;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--violet); margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: var(--display);
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800; line-height: 1.18; letter-spacing: -.5px;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px 30px;
+      border-radius: 14px;
+      font-family: var(--display);
+      font-size: 14px; font-weight: 700;
+      cursor: pointer; border: none;
+      transition: transform var(--t) var(--ease), box-shadow var(--t) var(--ease), background var(--t), opacity var(--t);
+      white-space: nowrap;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn-violet { background: var(--violet); color: var(--white); }
+    .btn-violet:hover { background: var(--violet-dark); transform: translateY(-2px); box-shadow: 0 12px 28px rgba(122,90,248,.4); }
+    .btn-soft { background: var(--violet-soft); color: var(--violet-dark); }
+    .btn-soft:hover { background: #E0D8FC; }
+    .btn:disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    /* ── Nav ───────────────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(247,245,255,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .logo { font-family: var(--display); font-weight: 800; font-size: 20px; letter-spacing: 1px; }
+    .logo span { color: var(--violet); }
+    .nav-links { display: flex; gap: 30px; font-size: 14px; font-weight: 500; color: var(--slate); }
+    .nav-links a:hover { color: var(--violet); }
+
+    /* ── Hero ──────────────────────────────────────────────────── */
+    .hero {
+      padding: 76px 0 60px;
+      text-align: center;
+      background:
+        radial-gradient(600px 300px at 20% 0%, rgba(122,90,248,.10), transparent),
+        radial-gradient(600px 300px at 80% 10%, rgba(249,168,212,.12), transparent);
+    }
+    .hero h1 {
+      font-family: var(--display);
+      font-size: clamp(34px, 5.5vw, 58px);
+      font-weight: 800; line-height: 1.1; letter-spacing: -1.5px;
+      max-width: 760px; margin: 0 auto;
+    }
+    .hero h1 .grad {
+      background: linear-gradient(90deg, var(--violet), var(--blush));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero-desc { margin: 20px auto 0; font-size: 16px; color: var(--slate); max-width: 520px; }
+    .hero-trust { display: flex; justify-content: center; gap: 28px; margin-top: 30px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+    .hero-trust span { display: flex; align-items: center; gap: 7px; }
+
+    /* ── Booking wizard ────────────────────────────────────────── */
+    .wizard-sec { padding: 30px 0 90px; }
+    .wizard {
+      max-width: 880px; margin: 0 auto;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+    .wiz-head {
+      padding: 28px 40px;
+      background: var(--plum);
+      color: var(--white);
+      display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+    .wiz-head h2 { font-family: var(--display); font-size: 19px; font-weight: 800; }
+    .wiz-steps { display: flex; gap: 8px; }
+    .wiz-dot {
+      width: 34px; height: 34px; border-radius: 50%;
+      display: grid; place-items: center;
+      font-family: var(--display); font-size: 13px; font-weight: 700;
+      background: rgba(255,255,255,.12); color: rgba(255,255,255,.55);
+      transition: background var(--t), color var(--t);
+    }
+    .wiz-dot.on { background: var(--violet); color: var(--white); }
+    .wiz-dot.done { background: var(--lilac); color: var(--plum); }
+
+    .wiz-body { padding: 38px 40px 42px; }
+    .wiz-panel { display: none; }
+    .wiz-panel.on { display: block; animation: fadeUp .4s var(--ease); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { .wiz-panel.on { animation: none; } }
+
+    .wiz-q { font-family: var(--display); font-size: 21px; font-weight: 800; margin-bottom: 6px; }
+    .wiz-hint { font-size: 13.5px; color: var(--muted); margin-bottom: 24px; }
+
+    /* option cards */
+    .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .opt {
+      display: flex; align-items: center; gap: 14px;
+      padding: 18px 20px;
+      border: 1.5px solid var(--line);
+      border-radius: var(--r-md);
+      cursor: pointer;
+      background: var(--white);
+      transition: border-color var(--t), background var(--t), transform var(--t);
+      text-align: left;
+      width: 100%;
+    }
+    .opt:hover { border-color: var(--lilac); transform: translateY(-2px); }
+    .opt.sel { border-color: var(--violet); background: var(--violet-pale); box-shadow: 0 0 0 3px rgba(122,90,248,.15); }
+    .opt-ico {
+      flex: none; width: 46px; height: 46px; border-radius: 13px;
+      background: var(--violet-soft);
+      display: grid; place-items: center; font-size: 21px;
+    }
+    .opt-name { font-weight: 600; font-size: 14.5px; }
+    .opt-sub { font-size: 12.5px; color: var(--muted); }
+    .opt-price { margin-left: auto; font-family: var(--display); font-weight: 800; font-size: 13.5px; color: var(--violet-dark); white-space: nowrap; }
+
+    /* doctor cards */
+    .doc-ava {
+      flex: none; width: 46px; height: 46px; border-radius: 50%;
+      display: grid; place-items: center;
+      color: var(--white); font-family: var(--display); font-weight: 800; font-size: 15px;
+    }
+    .d1 { background: linear-gradient(135deg, #7A5AF8, #5F41D9); }
+    .d2 { background: linear-gradient(135deg, #F9A8D4, #DB6BAC); }
+    .d3 { background: linear-gradient(135deg, #B9A7F9, #8B72E8); }
+
+    /* date + time slots */
+    .dt-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 26px; }
+    .dt-date label { display: block; font-size: 13px; font-weight: 600; color: var(--slate); margin-bottom: 8px; }
+    .dt-date input {
+      width: 100%; padding: 13px 16px;
+      border: 1.5px solid var(--line); border-radius: var(--r-sm);
+      font-size: 14.5px; color: var(--ink); background: var(--white);
+      transition: border-color var(--t), box-shadow var(--t);
+    }
+    .dt-date input:focus { outline: none; border-color: var(--violet); box-shadow: 0 0 0 3px rgba(122,90,248,.15); }
+    .slot-label { font-size: 13px; font-weight: 600; color: var(--slate); margin-bottom: 8px; }
+    .slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .slot {
+      padding: 12px 8px;
+      border: 1.5px solid var(--line); border-radius: var(--r-sm);
+      background: var(--white);
+      font-family: var(--display); font-size: 13px; font-weight: 700;
+      cursor: pointer; text-align: center;
+      transition: border-color var(--t), background var(--t), color var(--t);
+    }
+    .slot:hover { border-color: var(--lilac); }
+    .slot.sel { background: var(--violet); border-color: var(--violet); color: var(--white); }
+    .slot.off { opacity: .35; cursor: not-allowed; text-decoration: line-through; }
+
+    /* confirm summary */
+    .sum-card { border: 1.5px solid var(--line); border-radius: var(--r-md); overflow: hidden; margin-bottom: 22px; }
+    .sum-row {
+      display: flex; justify-content: space-between; gap: 14px;
+      padding: 15px 22px; font-size: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .sum-row:last-child { border-bottom: none; }
+    .sum-row .k { color: var(--muted); }
+    .sum-row .v { font-weight: 600; text-align: right; }
+    .sum-row.total { background: var(--violet-pale); }
+    .sum-row.total .v { font-family: var(--display); font-weight: 800; color: var(--violet-dark); font-size: 16px; }
+    .conf-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 4px; }
+    .conf-fields .f { display: flex; flex-direction: column; gap: 6px; }
+    .conf-fields label { font-size: 12.5px; font-weight: 600; color: var(--slate); }
+    .conf-fields input {
+      padding: 12px 14px; border: 1.5px solid var(--line); border-radius: var(--r-sm);
+      font-size: 14px; background: var(--white); color: var(--ink);
+      transition: border-color var(--t), box-shadow var(--t);
+    }
+    .conf-fields input:focus { outline: none; border-color: var(--violet); box-shadow: 0 0 0 3px rgba(122,90,248,.15); }
+
+    /* success */
+    .success { text-align: center; padding: 20px 0 10px; }
+    .success .big {
+      width: 84px; height: 84px; margin: 0 auto 22px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--violet), var(--blush));
+      display: grid; place-items: center;
+      font-size: 38px; color: var(--white);
+      box-shadow: 0 14px 40px rgba(122,90,248,.35);
+    }
+    .success h3 { font-family: var(--display); font-size: 24px; font-weight: 800; margin-bottom: 8px; }
+    .success p { font-size: 14.5px; color: var(--slate); max-width: 380px; margin: 0 auto; }
+    .success .code {
+      display: inline-block; margin-top: 18px;
+      font-family: var(--display); font-weight: 800; letter-spacing: 2px;
+      background: var(--violet-pale); color: var(--violet-dark);
+      border: 1.5px dashed var(--lilac); border-radius: var(--r-sm);
+      padding: 10px 24px;
+    }
+
+    .wiz-foot {
+      display: flex; justify-content: space-between; align-items: center; gap: 14px;
+      padding: 22px 40px;
+      border-top: 1px solid var(--line);
+      background: #FBFAFF;
+    }
+    .wiz-note { font-size: 12.5px; color: var(--muted); }
+
+    /* ── Services strip ────────────────────────────────────────── */
+    .strip { padding: 40px 0 90px; }
+    .strip-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .strip-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--r-md);
+      padding: 24px 22px;
+      transition: transform var(--t) var(--ease), box-shadow var(--t);
+    }
+    .strip-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+    .strip-card .em { font-size: 26px; }
+    .strip-card h3 { font-family: var(--display); font-size: 15px; font-weight: 800; margin: 12px 0 4px; }
+    .strip-card p { font-size: 12.5px; color: var(--slate); }
+
+    /* ── Why / trust ───────────────────────────────────────────── */
+    .why { background: var(--plum); color: var(--white); padding: 84px 0; }
+    .why .label { color: var(--lilac); }
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 44px; }
+    .why-item h3 { font-family: var(--display); font-size: 17px; font-weight: 800; margin: 14px 0 8px; }
+    .why-item p { font-size: 13.5px; color: rgba(255,255,255,.65); }
+    .why-num {
+      font-family: var(--display); font-size: 40px; font-weight: 800;
+      background: linear-gradient(90deg, var(--lilac), var(--blush));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      line-height: 1;
+    }
+
+    /* ── Footer ────────────────────────────────────────────────── */
+    footer { background: var(--ink); color: rgba(255,255,255,.7); padding: 44px 0; }
+    .foot-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .foot-logo { font-family: var(--display); font-weight: 800; font-size: 17px; color: var(--white); }
+    .foot-copy { font-size: 12.5px; }
+
+    /* ── Responsive ────────────────────────────────────────────── */
+    @media (max-width: 860px) {
+      .wrap { padding: 0 24px; }
+      .nav-links { display: none; }
+      .wiz-head, .wiz-body, .wiz-foot { padding-left: 24px; padding-right: 24px; }
+      .opt-grid, .dt-grid, .conf-fields { grid-template-columns: 1fr; }
+      .strip-grid { grid-template-columns: 1fr 1fr; }
+      .why-grid { grid-template-columns: 1fr; gap: 30px; }
+      .slots { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .slots { grid-template-columns: 1fr 1fr; }
+      .opt-price { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Nav ─────────────────────────────────────────────────── -->
+  <nav>
+    <div class="wrap nav-inner">
+      <a class="logo" href="#top">VELVÉ<span>.</span></a>
+      <div class="nav-links">
+        <a href="#booking">จองคิว</a>
+        <a href="#services">บริการ</a>
+        <a href="#why">ทำไมต้องเรา</a>
+      </div>
+      <a class="btn btn-violet" href="#booking">เริ่มจองเลย</a>
+    </div>
+  </nav>
+
+  <!-- ── Hero ────────────────────────────────────────────────── -->
+  <header class="hero" id="top">
+    <div class="wrap">
+      <span class="label">Aesthetic Clinic · Smart Booking</span>
+      <h1>จองคิวความงาม<br>ใน <span class="grad">4 ขั้นตอน</span> จบในนาทีเดียว</h1>
+      <p class="hero-desc">เลือกบริการ เลือกแพทย์ เลือกเวลา แล้วรับคิวทันที ไม่ต้องโทร ไม่ต้องรอแอดมินตอบ</p>
+      <div class="hero-trust">
+        <span>✓ แพทย์เฉพาะทางทุกท่าน</span>
+        <span>✓ ยืนยันคิวทันที</span>
+        <span>✓ เลื่อนนัดฟรี 24 ชม. ล่วงหน้า</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+  <!-- ── Wizard ──────────────────────────────────────────────── -->
+  <section class="wizard-sec" id="booking">
+    <div class="wrap">
+      <div class="wizard">
+        <div class="wiz-head">
+          <h2>ระบบจองคิวออนไลน์</h2>
+          <div class="wiz-steps" aria-label="ขั้นตอนการจอง">
+            <div class="wiz-dot on"  data-dot="1">1</div>
+            <div class="wiz-dot" data-dot="2">2</div>
+            <div class="wiz-dot" data-dot="3">3</div>
+            <div class="wiz-dot" data-dot="4">4</div>
+          </div>
+        </div>
+
+        <div class="wiz-body">
+          <!-- Step 1: service -->
+          <div class="wiz-panel on" data-panel="1">
+            <div class="wiz-q">เลือกบริการที่ต้องการ</div>
+            <div class="wiz-hint">ราคาที่แสดงเป็นราคาเริ่มต้น แพทย์จะประเมินอีกครั้งในวันเข้ารับบริการ</div>
+            <div class="opt-grid" id="svcGrid">
+              <button class="opt" type="button" data-name="Botox ลดริ้วรอย" data-price="4,900฿">
+                <span class="opt-ico">💉</span>
+                <span><span class="opt-name">Botox ลดริ้วรอย</span><br><span class="opt-sub">หน้าผาก · หางตา · กราม</span></span>
+                <span class="opt-price">4,900฿</span>
+              </button>
+              <button class="opt" type="button" data-name="Filler ปรับรูปหน้า" data-price="8,900฿">
+                <span class="opt-ico">✨</span>
+                <span><span class="opt-name">Filler ปรับรูปหน้า</span><br><span class="opt-sub">คาง · ร่องแก้ม · ใต้ตา</span></span>
+                <span class="opt-price">8,900฿</span>
+              </button>
+              <button class="opt" type="button" data-name="เลเซอร์ฟื้นฟูผิว" data-price="2,900฿">
+                <span class="opt-ico">🔆</span>
+                <span><span class="opt-name">เลเซอร์ฟื้นฟูผิว</span><br><span class="opt-sub">ฝ้า กระ จุดด่างดำ รูขุมขน</span></span>
+                <span class="opt-price">2,900฿</span>
+              </button>
+              <button class="opt" type="button" data-name="Skin Booster" data-price="6,500฿">
+                <span class="opt-ico">💧</span>
+                <span><span class="opt-name">Skin Booster</span><br><span class="opt-sub">ผิวฉ่ำ เนียนใส ลดผิวแห้ง</span></span>
+                <span class="opt-price">6,500฿</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2: doctor -->
+          <div class="wiz-panel" data-panel="2">
+            <div class="wiz-q">เลือกแพทย์ผู้ดูแล</div>
+            <div class="wiz-hint">แพทย์ทุกท่านมีใบประกอบวิชาชีพเวชกรรมและประสบการณ์เฉพาะทางด้านผิวหนัง</div>
+            <div class="opt-grid" id="docGrid">
+              <button class="opt" type="button" data-name="พญ. อริสรา วงศ์เกษม">
+                <span class="doc-ava d1">อ</span>
+                <span><span class="opt-name">พญ. อริสรา วงศ์เกษม</span><br><span class="opt-sub">ตจวิทยา · 10 ปีประสบการณ์</span></span>
+              </button>
+              <button class="opt" type="button" data-name="นพ. ภูริต ชัยวัฒน์">
+                <span class="doc-ava d2">ภ</span>
+                <span><span class="opt-name">นพ. ภูริต ชัยวัฒน์</span><br><span class="opt-sub">เวชศาสตร์ความงาม · Filler เฉพาะทาง</span></span>
+              </button>
+              <button class="opt" type="button" data-name="พญ. ชลิดา ตั้งตระกูล">
+                <span class="doc-ava d3">ช</span>
+                <span><span class="opt-name">พญ. ชลิดา ตั้งตระกูล</span><br><span class="opt-sub">เลเซอร์ผิวหนัง · 8 ปีประสบการณ์</span></span>
+              </button>
+              <button class="opt" type="button" data-name="แพทย์ท่านใดก็ได้">
+                <span class="doc-ava d1">✓</span>
+                <span><span class="opt-name">แพทย์ท่านใดก็ได้</span><br><span class="opt-sub">รับคิวเร็วที่สุดที่ว่าง</span></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 3: date & time -->
+          <div class="wiz-panel" data-panel="3">
+            <div class="wiz-q">เลือกวันและเวลา</div>
+            <div class="wiz-hint">คลินิกเปิดทุกวัน 11:00 – 20:00 · ช่องที่ขีดฆ่าคือคิวเต็ม</div>
+            <div class="dt-grid">
+              <div class="dt-date">
+                <label for="wDate">วันที่เข้ารับบริการ</label>
+                <input id="wDate" type="date" required>
+              </div>
+              <div>
+                <div class="slot-label">ช่วงเวลา</div>
+                <div class="slots" id="slotGrid">
+                  <button class="slot" type="button">11:00</button>
+                  <button class="slot" type="button">12:30</button>
+                  <button class="slot off" type="button" disabled>14:00</button>
+                  <button class="slot" type="button">15:30</button>
+                  <button class="slot off" type="button" disabled>17:00</button>
+                  <button class="slot" type="button">18:30</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4: confirm -->
+          <div class="wiz-panel" data-panel="4">
+            <div class="wiz-q">ยืนยันการจอง</div>
+            <div class="wiz-hint">ตรวจสอบรายละเอียดและกรอกข้อมูลติดต่อเพื่อรับคิว</div>
+            <div class="sum-card">
+              <div class="sum-row"><span class="k">บริการ</span><span class="v" id="sumSvc">—</span></div>
+              <div class="sum-row"><span class="k">แพทย์</span><span class="v" id="sumDoc">—</span></div>
+              <div class="sum-row"><span class="k">วันและเวลา</span><span class="v" id="sumDt">—</span></div>
+              <div class="sum-row total"><span class="k">ราคาเริ่มต้น</span><span class="v" id="sumPrice">—</span></div>
+            </div>
+            <div class="conf-fields">
+              <div class="f">
+                <label for="wName">ชื่อ-นามสกุล</label>
+                <input id="wName" type="text" placeholder="ชื่อของคุณ" required>
+              </div>
+              <div class="f">
+                <label for="wPhone">เบอร์โทรศัพท์</label>
+                <input id="wPhone" type="tel" placeholder="08x-xxx-xxxx" required>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 5: success -->
+          <div class="wiz-panel" data-panel="5">
+            <div class="success">
+              <div class="big">✓</div>
+              <h3>จองคิวสำเร็จ!</h3>
+              <p id="okMsg">ระบบส่ง SMS ยืนยันไปที่เบอร์ของคุณแล้ว กรุณามาถึงก่อนเวลานัด 15 นาที</p>
+              <div class="code" id="okCode">VLV-2026-0000</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="wiz-foot" id="wizFoot">
+          <button class="btn btn-soft" type="button" id="btnBack" disabled>← ย้อนกลับ</button>
+          <span class="wiz-note" id="wizNote">ขั้นตอนที่ 1 จาก 4</span>
+          <button class="btn btn-violet" type="button" id="btnNext" disabled>ถัดไป →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Services strip ──────────────────────────────────────── -->
+  <section class="strip" id="services">
+    <div class="wrap">
+      <div style="text-align:center; margin-bottom: 40px;">
+        <span class="label">Treatments</span>
+        <h2 class="section-title">บริการของเรา</h2>
+      </div>
+      <div class="strip-grid">
+        <div class="strip-card"><div class="em">💉</div><h3>Botox</h3><p>ลดริ้วรอย ยกกระชับ ปรับรูปหน้าเรียว ด้วยผลิตภัณฑ์ อย. รับรอง</p></div>
+        <div class="strip-card"><div class="em">✨</div><h3>Filler</h3><p>เติมเต็มร่องลึก ปรับคาง จมูก ใต้ตา ด้วยฟิลเลอร์แท้ 100%</p></div>
+        <div class="strip-card"><div class="em">🔆</div><h3>Laser</h3><p>เลเซอร์ฝ้า กระ รอยสิว รูขุมขนกว้าง ด้วยเครื่อง Pico มาตรฐานสหรัฐฯ</p></div>
+        <div class="strip-card"><div class="em">💧</div><h3>Skin Booster</h3><p>ผิวฉ่ำน้ำ เนียนใสแบบธรรมชาติ เห็นผลตั้งแต่ครั้งแรก</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Why ─────────────────────────────────────────────────── -->
+  <section class="why" id="why">
+    <div class="wrap">
+      <span class="label">Why VELVÉ</span>
+      <h2 class="section-title" style="color:#fff">ทำไมลูกค้ากว่า 5,000 คน<br>เลือกเรา</h2>
+      <div class="why-grid">
+        <div class="why-item">
+          <div class="why-num">100%</div>
+          <h3>แพทย์ตัวจริง ของแท้ทุกกล่อง</h3>
+          <p>ฉีดโดยแพทย์เท่านั้น เปิดกล่องผลิตภัณฑ์ให้ดูก่อนทำทุกครั้ง พร้อมสแกน QR ตรวจสอบ</p>
+        </div>
+        <div class="why-item">
+          <div class="why-num">0฿</div>
+          <h3>ปรึกษาฟรี ไม่มีขายคอร์ส</h3>
+          <p>ประเมินใบหน้าและวางแผนโดยแพทย์ ไม่มีพนักงานขายกดดัน ตัดสินใจได้เต็มที่</p>
+        </div>
+        <div class="why-item">
+          <div class="why-num">24/7</div>
+          <h3>ดูแลหลังทำตลอดแนว</h3>
+          <p>มีอาการผิดปกติทักหาทีมแพทย์ได้ทันทีทาง LINE ตลอด 24 ชั่วโมง</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <!-- ── Footer ──────────────────────────────────────────────── -->
+  <footer>
+    <div class="wrap foot-inner">
+      <div class="foot-logo">VELVÉ.</div>
+      <div class="foot-copy">© 2026 VELVÉ Aesthetics — Demo project by Phakin Chawanpunya · 02-555-8899 · @velveclinic</div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Booking wizard state ─────────────────────────────────
+    const state = { step: 1, service: null, price: null, doctor: null, date: null, time: null };
+    const TOTAL = 4;
+
+    const btnNext = document.getElementById('btnNext');
+    const btnBack = document.getElementById('btnBack');
+    const wizNote = document.getElementById('wizNote');
+    const dateInput = document.getElementById('wDate');
+    dateInput.min = new Date().toISOString().split('T')[0];
+
+    function stepValid() {
+      switch (state.step) {
+        case 1: return !!state.service;
+        case 2: return !!state.doctor;
+        case 3: return !!state.date && !!state.time;
+        case 4: return document.getElementById('wName').value.trim() !== '' &&
+                       document.getElementById('wPhone').value.trim() !== '';
+        default: return false;
+      }
+    }
+
+    function render() {
+      document.querySelectorAll('.wiz-panel').forEach(p =>
+        p.classList.toggle('on', +p.dataset.panel === state.step));
+      document.querySelectorAll('.wiz-dot').forEach(d => {
+        const n = +d.dataset.dot;
+        d.classList.toggle('on', n === state.step);
+        d.classList.toggle('done', n < state.step);
+      });
+      btnBack.disabled = state.step === 1 || state.step > TOTAL;
+      btnNext.disabled = !stepValid();
+      btnNext.textContent = state.step === TOTAL ? 'ยืนยันการจอง ✓' : 'ถัดไป →';
+      wizNote.textContent = state.step <= TOTAL ? `ขั้นตอนที่ ${state.step} จาก ${TOTAL}` : '';
+      if (state.step > TOTAL) document.getElementById('wizFoot').style.display = 'none';
+
+      if (state.step === 4) {
+        document.getElementById('sumSvc').textContent = state.service;
+        document.getElementById('sumDoc').textContent = state.doctor;
+        document.getElementById('sumDt').textContent =
+          new Date(state.date).toLocaleDateString('th-TH', { day: 'numeric', month: 'long', year: 'numeric' }) + ' · ' + state.time;
+        document.getElementById('sumPrice').textContent = state.price;
+      }
+    }
+
+    function pick(gridId, key, extraKey) {
+      document.getElementById(gridId).addEventListener('click', (ev) => {
+        const btn = ev.target.closest('.opt');
+        if (!btn) return;
+        btn.parentElement.querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
+        btn.classList.add('sel');
+        state[key] = btn.dataset.name;
+        if (extraKey) state[extraKey] = btn.dataset.price || null;
+        render();
+      });
+    }
+    pick('svcGrid', 'service', 'price');
+    pick('docGrid', 'doctor');
+
+    document.getElementById('slotGrid').addEventListener('click', (ev) => {
+      const s = ev.target.closest('.slot');
+      if (!s || s.disabled) return;
+      document.querySelectorAll('.slot').forEach(x => x.classList.remove('sel'));
+      s.classList.add('sel');
+      state.time = s.textContent;
+      render();
+    });
+    dateInput.addEventListener('change', () => { state.date = dateInput.value; render(); });
+    ['wName', 'wPhone'].forEach(id =>
+      document.getElementById(id).addEventListener('input', render));
+
+    btnNext.addEventListener('click', () => {
+      if (!stepValid()) return;
+      if (state.step === TOTAL) {
+        document.getElementById('okCode').textContent =
+          'VLV-2026-' + String(Math.floor(1000 + Math.random() * 9000));
+        state.step = 5;
+      } else {
+        state.step++;
+      }
+      render();
+    });
+    btnBack.addEventListener('click', () => { if (state.step > 1) { state.step--; render(); } });
+
+    render();
+  </script>
+</body>
+</html>
