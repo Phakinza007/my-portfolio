@@ -27,11 +27,20 @@ Two layers coexist by design:
 --cream: #FAF7F2   --rose: #D4A5A5   --gold: #C9A96E   --dark: #2C2422
 ```
 
-### BRIGHT Dental Clinic (teal medical trust)
+### BRIGHT Dental Clinic (editorial dental studio, reworked 2026-07-02)
 ```
---teal: #0E8F8B   --teal-dark: #0A6B68   --teal-deep: #084E4C
---mint: #F4FBFA   --navy: #12333B   --amber: #F5B841 (accent only)
+--ink: #120F0C (body/dark sections)   --paper: #F7F2E9 (light sections)
+--coral: #FF5B3B (accent, buttons, on-ink text)
+--coral-ink: #A82A0F (coral-family text on --paper — plain --coral fails AA there, 2.8:1)
+--text-hi: #F5EFE3 (on ink)   --text-dark: #1C1811 (on paper)
 ```
+Originally shipped as a teal-on-white "medical SaaS" template (eyebrow labels on every
+section, 6 identical icon+text service cards, gradient-adjacent trust badges, a palette
+guessable from the word "dental" alone). Reworked to a dark/paper alternating-section
+editorial layout: numberless big headline, one real photo, an 8-item numbered menu list
+(numbers legitimate here — it's an actual ordered menu) replacing both the old card grid
+and the redundant price table, asymmetric doctor bios instead of 3 uniform cards, one
+large pull-quote review instead of a 3-card row.
 
 ### SERENE Wellness Retreat (earthy luxury spa)
 ```
