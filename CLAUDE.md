@@ -21,7 +21,7 @@ URL: https://phakinza007.github.io/my-portfolio/
 
 ```
 my-portfolio/
-├── index.html                    # Main portfolio page (16 project cards)
+├── index.html                    # Main portfolio page (21 project cards)
 ├── resume.html                   # Resume / CV page
 ├── 404.html                      # Custom dark-theme 404 page
 ├── sitemap.xml                   # All 29 URLs for Google Search Console
@@ -41,7 +41,7 @@ my-portfolio/
 
 ---
 
-## Current Cards in Selected Work (18 total)
+## Current Cards in Selected Work (21 total)
 
 | # | Name | File | Tags |
 |---|------|------|------|
@@ -63,6 +63,9 @@ my-portfolio/
 | 16 | BookEase Dashboard | `BookEase.html` | Dashboard, Booking, Light UI |
 | 17 | MuseRoom | `MuseRoom.html` | Gallery, Landing Page, Brand |
 | 18 | LUMI Clinic | `lumi-clinic.html` | Beauty, Landing Page, Brand |
+| 19 | BRIGHT Dental Clinic | `dental-clinic.html` | Healthcare, Landing Page, Booking |
+| 20 | SERENE Wellness Retreat | `spa-retreat.html` | Wellness, Landing Page, Brand |
+| 21 | VELVÉ Aesthetics | `aesthetic-booking.html` | Beauty, Booking, Interactive |
 
 ---
 
@@ -96,7 +99,7 @@ Tag colour classes:
 |---------|----|-------------|
 | Nav | — | Logo + links: Projects, About, Experience, Case Studies, Contact, Resume |
 | Hero | `#top` | Name, title, CTA buttons |
-| Selected Work | `#projects` | 16 project cards |
+| Selected Work | `#projects` | 21 project cards |
 | About | `#about` | Bio + photo |
 | Experience | `#experience` | Skills, timeline, tools, KMUTT education |
 | Case Studies | `#case-studies` | PulseBoard, LaunchLedger, InternTrack |
