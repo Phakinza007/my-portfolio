@@ -30,17 +30,17 @@
   white-space: nowrap;
   border-radius: 8px;
   padding: 0 13px;
-  background: oklch(56% 0.19 256);
-  color: oklch(98% 0.012 65);
+  background: #bd93f9;
+  color: #191a21;
   text-decoration: none;
   font-size: 0.84rem;
   font-weight: 800;
   cursor: pointer;
-  box-shadow: 0 12px 24px oklch(56% 0.19 256 / 0.2);
+  box-shadow: 0 12px 24px rgb(189 147 249 / 0.3);
 }
 
 .portfolio-back:focus-visible {
-  outline: 3px solid oklch(56% 0.19 256 / 0.36);
+  outline: 3px solid rgb(189 147 249 / 0.5);
   outline-offset: 3px;
 }
 

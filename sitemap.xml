@@ -47,17 +47,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://phakinza007.github.io/my-portfolio/stock.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://phakinza007.github.io/my-portfolio/task-manager.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://phakinza007.github.io/my-portfolio/appointment-booking.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -129,22 +119,12 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://phakinza007.github.io/my-portfolio/DRIP.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://phakinza007.github.io/my-portfolio/lumi-clinic.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://phakinza007.github.io/my-portfolio/dental-clinic.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://phakinza007.github.io/my-portfolio/spa-retreat.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

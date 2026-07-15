@@ -1,15 +1,16 @@
 :root {
-  --paper: oklch(96% 0.018 62);
-  --paper-soft: oklch(93% 0.026 48);
-  --surface: oklch(98% 0.012 65);
-  --ink: oklch(22% 0.035 40);
-  --muted: oklch(48% 0.035 52);
-  --line: oklch(80% 0.028 56);
-  --cobalt: oklch(56% 0.19 256);
-  --coral: oklch(68% 0.135 35);
-  --mint: oklch(79% 0.09 165);
-  --butter: oklch(91% 0.09 88);
-  --deep: oklch(18% 0.04 42);
+  /* Dracula Theme */
+  --paper: #282a36;
+  --paper-soft: #1e1f29;
+  --surface: #44475a;
+  --ink: #f8f8f2;
+  --muted: #6272a4;
+  --line: #565869;
+  --cobalt: #bd93f9;
+  --coral: #ff79c6;
+  --mint: #50fa7b;
+  --butter: #f1fa8c;
+  --deep: #191a21;
   --max: 1180px;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -30,9 +31,9 @@ body {
   font-family: "Noto Sans Thai", "Bai Jamjuree", Arial, sans-serif;
   line-height: 1.65;
   background:
-    radial-gradient(circle at 12% 8%, oklch(91% 0.09 88 / 0.55), transparent 28rem),
-    radial-gradient(circle at 88% 4%, oklch(79% 0.09 165 / 0.36), transparent 30rem),
-    linear-gradient(180deg, var(--paper) 0%, oklch(94% 0.021 58) 100%);
+    radial-gradient(circle at 12% 8%, rgb(189 147 249 / 0.10), transparent 28rem),
+    radial-gradient(circle at 88% 4%, rgb(255 121 198 / 0.07), transparent 30rem),
+    linear-gradient(180deg, var(--paper) 0%, var(--deep) 100%);
 }
 
 img {
@@ -51,7 +52,7 @@ a {
 
 a:focus-visible,
 button:focus-visible {
-  outline: 3px solid oklch(68% 0.135 35 / 0.6);
+  outline: 3px solid rgb(255 121 198 / 0.6);
   outline-offset: 4px;
 }
 
@@ -64,8 +65,8 @@ button:focus-visible {
   position: sticky;
   top: 0;
   z-index: 50;
-  border-bottom: 1px solid oklch(80% 0.028 56 / 0.8);
-  background: oklch(96% 0.018 62 / 0.92);
+  border-bottom: 1px solid rgb(86 88 105 / 0.8);
+  background: rgb(40 42 54 / 0.92);
   backdrop-filter: blur(18px);
 }
 
@@ -92,7 +93,7 @@ button:focus-visible {
   place-items: center;
   border-radius: 8px;
   background: var(--cobalt);
-  box-shadow: 0 10px 24px oklch(56% 0.19 256 / 0.24);
+  box-shadow: 0 10px 24px rgb(189 147 249 / 0.30);
 }
 
 .brand-mark svg {
@@ -102,20 +103,20 @@ button:focus-visible {
 }
 
 .brand-mark .mark-back {
-  fill: oklch(91% 0.09 88 / 0.28);
-  stroke: oklch(98% 0.012 65 / 0.78);
+  fill: rgb(241 250 140 / 0.28);
+  stroke: rgb(248 248 242 / 0.78);
   stroke-width: 1.7;
 }
 
 .brand-mark .mark-front {
-  fill: oklch(98% 0.012 65 / 0.16);
-  stroke: oklch(98% 0.012 65);
+  fill: rgb(248 248 242 / 0.16);
+  stroke: rgb(248 248 242);
   stroke-width: 2;
 }
 
 .brand-mark .mark-line {
   fill: none;
-  stroke: oklch(98% 0.012 65);
+  stroke: rgb(248 248 242);
   stroke-width: 1.9;
   stroke-linecap: round;
 }
@@ -149,18 +150,18 @@ button:focus-visible {
 
 .nav-links a:hover {
   color: var(--ink);
-  background: oklch(89% 0.046 65);
+  background: var(--surface);
   transform: translateY(-1px);
 }
 
 .nav-links .nav-primary {
-  background: var(--ink);
-  color: var(--surface);
+  background: var(--cobalt);
+  color: var(--deep);
 }
 
 .nav-links .nav-primary:hover {
-  background: var(--cobalt);
-  color: var(--surface);
+  background: var(--coral);
+  color: var(--deep);
 }
 
 .hero {
@@ -249,7 +250,7 @@ p {
   justify-content: center;
   border-radius: 8px;
   padding: 0 18px;
-  border: 1px solid oklch(66% 0.052 48 / 0.62);
+  border: 1px solid rgb(86 88 105 / 0.8);
   background: var(--surface);
   color: var(--ink);
   font-family: "Bai Jamjuree", "Noto Sans Thai", Arial, sans-serif;
@@ -259,19 +260,19 @@ p {
 
 .button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 18px 38px oklch(24% 0.04 42 / 0.14);
+  box-shadow: 0 18px 38px rgb(0 0 0 / 0.4);
 }
 
 .button.primary {
-  border-color: var(--ink);
-  background: var(--ink);
-  color: var(--surface);
+  border-color: var(--cobalt);
+  background: var(--cobalt);
+  color: var(--deep);
 }
 
 .button.cobalt {
   border-color: var(--cobalt);
   background: var(--cobalt);
-  color: var(--surface);
+  color: var(--deep);
 }
 
 .button.ghost {
@@ -284,8 +285,8 @@ p {
 .result-band {
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: oklch(98% 0.012 65 / 0.88);
-  box-shadow: 0 26px 70px oklch(24% 0.04 42 / 0.16);
+  background: rgb(68 71 90 / 0.70);
+  box-shadow: 0 26px 70px rgb(0 0 0 / 0.4);
 }
 
 .proof-panel {
@@ -310,7 +311,7 @@ p {
   justify-content: space-between;
   gap: 18px;
   padding-bottom: 12px;
-  border-bottom: 1px solid oklch(80% 0.028 56 / 0.7);
+  border-bottom: 1px solid rgb(86 88 105 / 0.5);
 }
 
 .proof-item:last-child {
@@ -376,8 +377,8 @@ p {
   align-items: center;
   border-radius: 8px;
   padding: 0 11px;
-  background: oklch(79% 0.09 165 / 0.5);
-  color: oklch(28% 0.06 160);
+  background: rgb(80 250 123 / 0.14);
+  color: #50fa7b;
   font-family: "Bai Jamjuree", "Noto Sans Thai", Arial, sans-serif;
   font-size: 0.84rem;
   font-weight: 700;
@@ -385,8 +386,8 @@ p {
 
 .tag.alt,
 .skill.alt {
-  background: oklch(91% 0.09 88 / 0.72);
-  color: oklch(34% 0.07 66);
+  background: rgb(241 250 140 / 0.14);
+  color: #f1fa8c;
 }
 
 .timeline {
@@ -430,7 +431,7 @@ p {
 
 .project-link:hover {
   transform: translateY(-2px);
-  box-shadow: 0 18px 40px oklch(24% 0.04 42 / 0.14);
+  box-shadow: 0 18px 40px rgb(0 0 0 / 0.4);
 }
 
 .project-link span {
@@ -491,7 +492,7 @@ p {
 }
 
 .study-block.featured {
-  background: var(--ink);
+  background: var(--cobalt);
 }
 
 .study-block.featured h2,
@@ -499,7 +500,7 @@ p {
 .study-block.featured p,
 .study-block.featured li,
 .study-block.featured .eyebrow {
-  color: var(--surface);
+  color: var(--deep);
 }
 
 .study-block.featured .eyebrow::before {
@@ -528,7 +529,7 @@ p {
   place-items: center;
   border-radius: 8px;
   background: var(--cobalt);
-  color: var(--surface);
+  color: var(--deep);
   font-family: "Bai Jamjuree", "Noto Sans Thai", Arial, sans-serif;
   font-weight: 700;
 }
@@ -540,7 +541,7 @@ p {
   align-items: center;
   padding: clamp(24px, 4vw, 44px);
   background:
-    linear-gradient(135deg, oklch(98% 0.012 65 / 0.92), oklch(91% 0.09 88 / 0.28)),
+    linear-gradient(135deg, rgb(68 71 90 / 0.92), rgb(189 147 249 / 0.14)),
     var(--surface);
 }
 
