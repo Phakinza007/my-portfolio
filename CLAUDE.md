@@ -36,7 +36,8 @@ my-portfolio/
 │
 ├── case-study-pulseboard.html
 ├── case-study-launchledger.html
-└── case-study-interntrack.html
+├── case-study-interntrack.html
+└── case-study-habitquest.html
 ```
 
 ---
@@ -99,7 +100,7 @@ Tag colour classes:
 | Selected Work | `#projects` | 18 project cards |
 | About | `#about` | Bio + photo |
 | Experience | `#experience` | Skills, timeline, tools, KMUTT education |
-| Case Studies | `#case-studies` | PulseBoard, LaunchLedger, InternTrack |
+| Case Studies | `#case-studies` | PulseBoard, LaunchLedger, InternTrack, HabitQuest |
 | Contact | `#contact` | Form + email |
 | Footer | — | Nav links, email, social icons |
 
