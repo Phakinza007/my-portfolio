@@ -22,6 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="assets/construction/hero.jpg" fetchpriority="high" />
   <link rel="stylesheet" href="assets/portfolio-context.css?v=back-button-clean" />
   <style>
     :root {
@@ -312,7 +313,8 @@
       border-radius: 0;
       overflow: hidden;
       background:
-        linear-gradient(90deg, rgba(18,70,81,0.90) 0%, rgba(18,70,81,0.76) 44%, rgba(18,70,81,0.18) 74%),
+        linear-gradient(90deg, rgba(18,70,81,0.94) 0%, rgba(18,70,81,0.84) 44%, rgba(18,70,81,0.32) 74%),
+        url("assets/construction/hero.jpg") center 30% / cover no-repeat,
         linear-gradient(135deg, #124651, #0d5a66);
       box-shadow: var(--shadow);
     }
@@ -436,16 +438,6 @@
 
     .btn-secondary:hover {
       background: rgba(255, 255, 255, 0.2);
-    }
-
-    .hero-art {
-      position: absolute;
-      right: clamp(-90px, -6vw, -32px);
-      bottom: 0;
-      z-index: 1;
-      width: min(58vw, 720px);
-      min-width: 470px;
-      opacity: 0.97;
     }
 
     .hero-count {
@@ -656,8 +648,11 @@
     }
 
     .home-icon {
-      width: min(100%, 360px);
+      width: 100%;
+      max-height: 250px;
+      object-fit: cover;
       margin: 28px auto 0;
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .service-list {
@@ -723,15 +718,13 @@
     .work-image {
       position: relative;
       display: grid;
-      place-items: center;
-      padding: 28px;
-      background:
-        radial-gradient(circle at 68% 16%, rgba(13, 129, 63, 0.34), transparent 18rem),
-        linear-gradient(150deg, #124651, #0d2a30);
+      background: linear-gradient(150deg, #124651, #0d2a30);
     }
 
-    .work-image svg {
-      width: min(100%, 650px);
+    .work-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .gallery-controls {
@@ -799,8 +792,10 @@
       padding: clamp(22px, 4vw, 30px);
     }
 
-    .work-side svg {
-      width: min(100%, 210px);
+    .work-side img {
+      width: 100%;
+      height: 158px;
+      object-fit: cover;
       margin-bottom: 18px;
     }
 
@@ -891,6 +886,13 @@
       padding: clamp(22px, 4vw, 32px);
       background: var(--surface);
       box-shadow: var(--soft-shadow);
+    }
+
+    .blog-card img {
+      grid-column: 1 / -1;
+      width: 100%;
+      height: 172px;
+      object-fit: cover;
     }
 
     .blog-date {
@@ -1276,30 +1278,6 @@
             </div>
           </div>
 
-          <svg class="hero-art" viewBox="0 0 760 560" role="img" aria-label="Apartment construction banner illustration">
-            <path d="M80 464l300-160 338 118-292 176z" fill="#e8eced" opacity="0.96" />
-            <path d="M368 110l166 64v286l-166-76z" fill="#c8d0d2" stroke="rgba(255, 255, 255, 0.42)" stroke-width="3" />
-            <path d="M160 190l208-80v274l-208 112z" fill="#f4f6f6" stroke="rgba(255, 255, 255, 0.52)" stroke-width="3" />
-            <path d="M160 190l208-80 166 64-208 96z" fill="#0d813f" />
-            <g fill="rgba(18, 70, 81, 0.42)" stroke="rgba(18, 70, 81, 0.28)" stroke-width="2">
-              <rect x="196" y="230" width="52" height="38" rx="6" />
-              <rect x="282" y="198" width="52" height="38" rx="6" />
-              <rect x="196" y="308" width="52" height="38" rx="6" />
-              <rect x="282" y="276" width="52" height="38" rx="6" />
-              <rect x="196" y="386" width="52" height="38" rx="6" />
-              <rect x="282" y="354" width="52" height="38" rx="6" />
-              <rect x="404" y="210" width="52" height="38" rx="6" />
-              <rect x="486" y="242" width="52" height="38" rx="6" />
-              <rect x="404" y="294" width="52" height="38" rx="6" />
-              <rect x="486" y="326" width="52" height="38" rx="6" />
-            </g>
-            <path d="M556 42v312M438 66h284M556 66l-116 72M556 66l124 76" fill="none" stroke="#0d813f" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M722 66v86l-40 30M454 138v84" fill="none" stroke="#0d813f" stroke-width="4" stroke-linecap="round" />
-            <circle cx="142" cy="486" r="30" fill="#b6c6c9" />
-            <circle cx="618" cy="478" r="36" fill="#b6c6c9" />
-            <path d="M96 500h560" stroke="rgba(255, 255, 255, 0.5)" stroke-width="4" stroke-linecap="round" />
-          </svg>
-
           <div class="hero-count">
             <strong>5 ชั้น</strong>
             <span>ตัวอย่างโครงการอพาร์ทเมนต์สำหรับสื่อสารคุณภาพ, ความปลอดภัย และความคืบหน้า</span>
@@ -1320,7 +1298,7 @@
           <span class="section-label">เกี่ยวกับเรา</span>
           <h2 id="about-heading">One-stop partner <span class="mobile-line">สำหรับเว็บก่อสร้าง</span> <span class="mobile-line">ที่ดูน่าเชื่อถือ</span></h2>
           <p>หน้า redesign นี้ตั้งใจให้ใกล้กับจังหวะของเว็บบริษัทรับก่อสร้างจริง: เปิดด้วย banner ใหญ่, ต่อด้วยข้อความองค์กร, แสดงบริการครบวงจร, โชว์ผลงาน, รีวิวลูกค้า และบทความความรู้ ก่อนปิดด้วย contact CTA</p>
-          <p>ทุกภาพและข้อความในหน้านี้สร้างใหม่เพื่อใช้ใน portfolio ไม่ใช้โลโก้, รูปภาพ, หรือคำโฆษณาเฉพาะจากเว็บต้นทาง</p>
+          <p>ข้อความในหน้านี้เขียนใหม่เพื่อใช้ใน portfolio ภาพถ่ายจาก Unsplash (ฟรีเชิงพาณิชย์) ไม่ใช้โลโก้หรือคำโฆษณาเฉพาะจากเว็บต้นทาง</p>
         </article>
 
         <div class="about-mini">
@@ -1359,13 +1337,7 @@
               <p>ครอบคลุมงานให้คำปรึกษา, ออกแบบ, ศึกษาความเป็นไปได้, บริหารโครงการ, งานก่อสร้าง และบริการหลังส่งมอบ</p>
             </div>
 
-            <svg class="home-icon" viewBox="0 0 380 260" aria-hidden="true">
-              <path d="M52 208h286" stroke="rgba(255, 255, 255, 0.55)" stroke-width="4" stroke-linecap="round" />
-              <path d="M78 202V96l112-64 112 64v106z" fill="rgba(255, 255, 255, 0.14)" stroke="rgba(255, 255, 255, 0.62)" stroke-width="4" stroke-linejoin="round" />
-              <path d="M78 96l112-64 112 64" fill="none" stroke="#0d813f" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M146 202v-62h56v62M222 124h52M106 124h52M222 164h52M106 164h52" fill="none" stroke="rgba(255, 255, 255, 0.72)" stroke-width="8" stroke-linecap="round" />
-              <circle cx="316" cy="204" r="24" fill="#b6c6c9" />
-            </svg>
+            <img class="home-icon" src="assets/construction/drafting.jpg" alt="สถาปนิกกำลังเขียนแบบก่อสร้าง" loading="lazy" width="1200" height="675" />
           </aside>
 
           <div class="service-list">
@@ -1423,33 +1395,14 @@
             <span class="section-label">ผลงานของเรา</span>
             <h2 id="projects-heading">โครงการตัวอย่าง <span class="mobile-line">ที่เล่าเรื่อง</span> <span class="mobile-line">แบบเว็บอสังหาฯ</span></h2>
           </div>
-          <p class="section-copy">แทนการใช้รูปจากเว็บต้นทาง หน้านี้สร้างภาพประกอบเองให้คล้ายฟีล gallery โครงการ: อาคาร, บ้านแนวราบ และระบบคุมงาน</p>
+          <p class="section-copy">gallery โครงการด้วยภาพถ่ายจริง: อาคารสูง, บ้านแนวราบ และระบบคุมงาน จัดวางให้ได้จังหวะแบบเว็บอสังหาฯ</p>
         </div>
 
         <div class="works-grid">
           <article class="work-feature reveal">
             <div class="work-image">
               <div class="gallery-controls" aria-hidden="true"><span>‹</span><span>›</span></div>
-              <svg viewBox="0 0 660 360" role="img" aria-label="Apartment project showcase illustration">
-                <path d="M66 292h540" stroke="rgba(255, 255, 255, 0.42)" stroke-width="4" stroke-linecap="round" />
-                <path d="M118 278V82l164-50 172 62v184z" fill="#edf1f1" />
-                <path d="M454 94l94-36v226l-94-6z" fill="#b8c4c6" />
-                <path d="M118 82l164-50 172 62-162 58z" fill="#0d813f" />
-                <g fill="rgba(18, 70, 81, 0.34)">
-                  <rect x="148" y="118" width="44" height="34" rx="5" />
-                  <rect x="224" y="96" width="44" height="34" rx="5" />
-                  <rect x="300" y="120" width="44" height="34" rx="5" />
-                  <rect x="148" y="190" width="44" height="34" rx="5" />
-                  <rect x="224" y="168" width="44" height="34" rx="5" />
-                  <rect x="300" y="192" width="44" height="34" rx="5" />
-                  <rect x="148" y="262" width="44" height="34" rx="5" />
-                  <rect x="224" y="240" width="44" height="34" rx="5" />
-                  <rect x="300" y="264" width="44" height="34" rx="5" />
-                </g>
-                <path d="M472 142h62M472 184h62M472 226h62" stroke="rgba(18, 70, 81, 0.36)" stroke-width="9" stroke-linecap="round" />
-                <circle cx="556" cy="284" r="24" fill="#b6c6c9" />
-                <circle cx="92" cy="284" r="22" fill="#b6c6c9" />
-              </svg>
+              <img src="assets/construction/tower.jpg" alt="อาคารสูงระหว่างก่อสร้างพร้อมทาวเวอร์เครน" loading="lazy" width="700" height="467" />
             </div>
             <div class="work-body">
               <div class="pill-row">
@@ -1465,25 +1418,14 @@
           <div class="side-stack">
             <article class="work-side reveal">
               <div>
-                <svg viewBox="0 0 240 124" aria-hidden="true">
-                  <path d="M26 104h188" stroke="rgba(18, 70, 81, 0.28)" stroke-width="4" stroke-linecap="round" />
-                  <path d="M42 98V46l58-30 62 30v52z" fill="#f4f6f6" stroke="rgba(18, 70, 81, 0.28)" stroke-width="2" />
-                  <path d="M42 46l58-30 62 30-62 28z" fill="#0d813f" />
-                  <path d="M68 66h24M112 66h24M68 84h24M112 84h24" stroke="rgba(18, 70, 81, 0.54)" stroke-width="6" stroke-linecap="round" />
-                  <circle cx="184" cy="98" r="18" fill="#b6c6c9" />
-                </svg>
+                <img src="assets/construction/house.jpg" alt="บ้านเดี่ยวสไตล์โมเดิร์นพร้อมสระว่ายน้ำ" loading="lazy" width="700" height="525" />
                 <h3>บ้านแนวราบ</h3>
                 <p>สำหรับบริษัทรับสร้างบ้านที่ต้องการหน้าแนะนำ package และจุดเด่น</p>
               </div>
             </article>
             <article class="work-side reveal">
               <div>
-                <svg viewBox="0 0 240 124" aria-hidden="true">
-                  <rect x="34" y="24" width="154" height="76" rx="14" fill="#124651" />
-                  <path d="M58 48h92M58 64h110M58 80h72" stroke="rgba(255, 255, 255, 0.74)" stroke-width="7" stroke-linecap="round" />
-                  <path d="M180 16l34 25-34 25z" fill="#0d813f" />
-                  <circle cx="42" cy="102" r="15" fill="#b6c6c9" />
-                </svg>
+                <img src="assets/construction/planning.jpg" alt="ทีมงานตรวจเอกสารแผนงานโครงการ" loading="lazy" width="700" height="467" />
                 <h3>Project Control</h3>
                 <p>เหมาะกับ landing page ที่ต้องขายความเป็นระบบและรายงานงานก่อสร้าง</p>
               </div>
@@ -1520,6 +1462,7 @@
 
         <div class="blog-grid">
           <article class="blog-card reveal">
+            <img src="assets/construction/rebar.jpg" alt="ช่างผูกเหล็กเส้นบนพื้นคอนกรีตหน้างาน" loading="lazy" width="800" height="530" />
             <div class="blog-date">05<br>Jun</div>
             <div>
               <h3>Precast Concrete ช่วยลดความเสี่ยงหน้างานได้อย่างไร</h3>
@@ -1527,6 +1470,7 @@
             </div>
           </article>
           <article class="blog-card reveal">
+            <img src="assets/construction/house2.jpg" alt="บ้านโมเดิร์นชั้นเดียวที่สร้างเสร็จแล้ว" loading="lazy" width="700" height="467" />
             <div class="blog-date">12<br>Jun</div>
             <div>
               <h3>ก่อนเริ่มโครงการอพาร์ทเมนต์ควรเตรียมข้อมูลอะไร</h3>
