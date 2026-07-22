@@ -1782,41 +1782,46 @@
           <!-- SolarPeak — CSS mini-UI preview -->
           <article class="work-card reveal" data-tags="landing">
             <a class="work-thumb" href="solar-landing.html" aria-label="Open SolarPeak project" style="display:block;overflow:hidden;">
-              <div style="width:100%;height:100%;background:#050d1a;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
-                <!-- sun glow -->
-                <div style="position:absolute;top:-15%;right:-5%;width:55%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(245,166,35,0.22) 0%,transparent 65%);pointer-events:none;"></div>
+              <div style="width:100%;height:100%;background:#f5f1e8;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
                 <!-- nav -->
-                <div style="display:flex;align-items:center;justify-content:space-between;padding:5% 7% 0;flex-shrink:0;">
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:5% 7%;border-bottom:1px solid rgba(27,42,56,0.18);flex-shrink:0;">
                   <div style="display:flex;align-items:center;gap:5px;">
-                    <div style="width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,#f5a623,#f7c355);flex-shrink:0;"></div>
-                    <div style="height:3.5px;background:#f5a623;border-radius:1px;width:36px;"></div>
+                    <div style="width:9px;height:9px;border-radius:50%;border:1.5px solid #c96a10;flex-shrink:0;"></div>
+                    <div style="height:3.5px;background:#1b2a38;border-radius:1px;width:34px;"></div>
                   </div>
-                  <div style="background:linear-gradient(135deg,#f5a623,#f7c355);border-radius:3px;padding:3px 10px;"><div style="height:2.5px;background:#050d1a;border-radius:1px;width:24px;"></div></div>
+                  <div style="background:#1b2a38;padding:3px 10px;"><div style="height:2.5px;background:#f5f1e8;border-radius:1px;width:24px;"></div></div>
                 </div>
-                <!-- hero -->
-                <div style="flex:1;padding:7% 8%;display:flex;flex-direction:column;justify-content:center;">
-                  <div style="height:4px;background:rgba(245,166,35,0.5);border-radius:1px;width:30%;margin-bottom:8px;"></div>
-                  <div style="height:12px;background:#e8eaf0;border-radius:2px;width:88%;margin-bottom:4px;"></div>
-                  <div style="height:12px;background:#e8eaf0;border-radius:2px;width:66%;margin-bottom:4px;"></div>
-                  <div style="height:12px;background:linear-gradient(90deg,#f5a623,#f7c355);border-radius:2px;width:46%;margin-bottom:12px;"></div>
-                  <div style="height:3px;background:rgba(232,234,240,0.3);border-radius:1px;width:78%;margin-bottom:3px;"></div>
-                  <div style="height:3px;background:rgba(232,234,240,0.2);border-radius:1px;width:56%;margin-bottom:12px;"></div>
-                  <div style="display:flex;gap:6px;">
-                    <div style="background:linear-gradient(135deg,#f5a623,#e8941a);border-radius:3px;padding:5px 14px;"><div style="height:3px;background:#fff;border-radius:1px;width:38px;"></div></div>
-                    <div style="border:1px solid rgba(245,166,35,0.4);border-radius:3px;padding:5px 12px;"><div style="height:3px;background:rgba(245,166,35,0.6);border-radius:1px;width:28px;"></div></div>
+                <!-- hero: text left, framed photo right -->
+                <div style="flex:1;display:grid;grid-template-columns:1.1fr 1fr;gap:8%;padding:7% 8%;align-items:center;">
+                  <div>
+                    <div style="height:11px;background:#1b2a38;border-radius:2px;width:92%;margin-bottom:4px;"></div>
+                    <div style="height:11px;background:#c96a10;border-radius:2px;width:64%;margin-bottom:4px;"></div>
+                    <div style="height:11px;background:#1b2a38;border-radius:2px;width:78%;margin-bottom:10px;"></div>
+                    <div style="height:3px;background:rgba(27,42,56,0.25);border-radius:1px;width:85%;margin-bottom:3px;"></div>
+                    <div style="height:3px;background:rgba(27,42,56,0.18);border-radius:1px;width:62%;margin-bottom:10px;"></div>
+                    <div style="display:flex;gap:5px;">
+                      <div style="background:#1b2a38;padding:4.5px 12px;"><div style="height:3px;background:#f5f1e8;border-radius:1px;width:32px;"></div></div>
+                      <div style="border:1px solid rgba(27,42,56,0.3);padding:4.5px 10px;"><div style="height:3px;background:#4c5a66;border-radius:1px;width:24px;"></div></div>
+                    </div>
+                  </div>
+                  <div style="position:relative;">
+                    <img src="assets/solar/hero-array.jpg" alt="" loading="lazy" width="1600" height="1065" style="display:block;width:100%;height:auto;border:1px solid #1b2a38;" />
+                    <div style="position:absolute;top:-4px;left:-4px;width:9px;height:9px;border-top:1px solid #c96a10;border-left:1px solid #c96a10;"></div>
+                    <div style="position:absolute;bottom:-4px;right:-4px;width:9px;height:9px;border-bottom:1px solid #c96a10;border-right:1px solid #c96a10;"></div>
                   </div>
                 </div>
-                <!-- stat strip -->
-                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(245,166,35,0.15);flex-shrink:0;padding:4% 6%;">
-                  <div style="text-align:center;"><div style="height:6px;background:rgba(245,166,35,0.6);border-radius:1px;width:70%;margin:0 auto 3px;"></div><div style="height:2.5px;background:rgba(232,234,240,0.2);border-radius:1px;width:80%;margin:0 auto;"></div></div>
-                  <div style="text-align:center;"><div style="height:6px;background:rgba(245,166,35,0.6);border-radius:1px;width:60%;margin:0 auto 3px;"></div><div style="height:2.5px;background:rgba(232,234,240,0.2);border-radius:1px;width:70%;margin:0 auto;"></div></div>
-                  <div style="text-align:center;"><div style="height:6px;background:rgba(245,166,35,0.6);border-radius:1px;width:75%;margin:0 auto 3px;"></div><div style="height:2.5px;background:rgba(232,234,240,0.2);border-radius:1px;width:65%;margin:0 auto;"></div></div>
+                <!-- spec strip -->
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(27,42,56,0.18);flex-shrink:0;">
+                  <div style="padding:4% 5%;border-right:1px solid rgba(27,42,56,0.1);"><div style="height:6px;background:#1b2a38;border-radius:1px;width:70%;margin-bottom:3px;"></div><div style="height:2.5px;background:rgba(27,42,56,0.25);border-radius:1px;width:85%;"></div></div>
+                  <div style="padding:4% 5%;border-right:1px solid rgba(27,42,56,0.1);"><div style="height:6px;background:#1b2a38;border-radius:1px;width:55%;margin-bottom:3px;"></div><div style="height:2.5px;background:rgba(27,42,56,0.25);border-radius:1px;width:75%;"></div></div>
+                  <div style="padding:4% 5%;border-right:1px solid rgba(27,42,56,0.1);"><div style="height:6px;background:#c96a10;border-radius:1px;width:65%;margin-bottom:3px;"></div><div style="height:2.5px;background:rgba(27,42,56,0.25);border-radius:1px;width:70%;"></div></div>
+                  <div style="padding:4% 5%;"><div style="height:6px;background:#1b2a38;border-radius:1px;width:50%;margin-bottom:3px;"></div><div style="height:2.5px;background:rgba(27,42,56,0.25);border-radius:1px;width:80%;"></div></div>
                 </div>
               </div>
             </a>
             <div class="work-body">
               <div class="work-name">SolarPeak</div>
-              <p class="work-problem">Clean-energy landing page with solar assessment CTA, stats section, and warm sun gradient identity.</p>
+              <p class="work-problem">Solar company landing page styled as an engineering spec sheet — real field photography, comparison datasheet, and blueprint-style figures.</p>
               <div class="work-tags">
                 <span class="tag tag-amber">Energy</span>
                 <span class="tag tag-gray">Landing Page</span>
@@ -1955,66 +1960,64 @@
           <article class="work-card reveal" data-tags="landing">
             <a class="work-thumb" href="lumi-clinic.html" aria-label="Open LUMI Clinic project"
                style="display:block;overflow:hidden;">
-              <div style="width:100%;height:100%;background:#FAF7F2;display:flex;
-                flex-direction:column;font-family:'Inter',sans-serif;
-                overflow:hidden;position:relative;">
-                <!-- rose glow top-left -->
-                <div style="position:absolute;top:-15%;left:-10%;width:55%;aspect-ratio:1;
-                  border-radius:50%;background:radial-gradient(circle,
-                  rgba(212,165,165,0.28) 0%,transparent 65%);pointer-events:none;"></div>
-                <!-- gold glow bottom-right -->
-                <div style="position:absolute;bottom:-10%;right:-5%;width:45%;aspect-ratio:1;
-                  border-radius:50%;background:radial-gradient(circle,
-                  rgba(201,169,110,0.22) 0%,transparent 65%);pointer-events:none;"></div>
-                <!-- nav bar -->
-                <div style="display:flex;align-items:center;justify-content:space-between;
-                  padding:6% 7% 4%;border-bottom:1px solid rgba(212,165,165,0.3);
-                  flex-shrink:0;position:relative;">
-                  <div style="height:4px;background:#C9A96E;border-radius:1px;width:36px;"></div>
-                  <div style="background:#C9A96E;border-radius:3px;padding:3px 10px;">
-                    <div style="height:2.5px;background:#fff;border-radius:1px;width:24px;"></div>
-                  </div>
-                </div>
-                <!-- hero content -->
-                <div style="flex:1;padding:4% 7% 5%;display:flex;flex-direction:column;
-                  justify-content:center;position:relative;">
-                  <!-- pill badge -->
-                  <div style="display:inline-flex;align-items:center;background:#EDD5D5;
-                    border-radius:20px;padding:3px 10px;width:fit-content;margin-bottom:10px;">
-                    <div style="height:2.5px;background:#A07878;border-radius:1px;width:44px;"></div>
-                  </div>
+              <div style="width:100%;height:100%;background:#F6F3EE;display:flex;
+                font-family:'Inter',sans-serif;overflow:hidden;">
+                <!-- left: editorial copy + price rows -->
+                <div style="flex:1.15;padding:8% 6% 8% 8%;display:flex;flex-direction:column;
+                  justify-content:center;">
+                  <!-- serif wordmark -->
+                  <div style="font-family:Georgia,serif;font-size:11px;letter-spacing:2px;
+                    color:#1C1714;margin-bottom:12px;">LUMI</div>
                   <!-- headline lines -->
-                  <div style="height:10px;background:#2C2422;border-radius:2px;width:80%;margin-bottom:5px;opacity:0.85;"></div>
-                  <div style="height:10px;background:#2C2422;border-radius:2px;width:58%;margin-bottom:5px;opacity:0.85;"></div>
-                  <div style="height:10px;background:linear-gradient(90deg,#C9A96E,#a07838);
-                    border-radius:2px;width:42%;margin-bottom:14px;"></div>
-                  <!-- service chips -->
-                  <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;">
-                    <div style="background:#F3EDE4;border:1px solid #E8D5B0;border-radius:12px;padding:2px 8px;">
-                      <div style="height:2.5px;background:#A07878;border-radius:1px;width:28px;"></div>
-                    </div>
-                    <div style="background:#F3EDE4;border:1px solid #E8D5B0;border-radius:12px;padding:2px 8px;">
-                      <div style="height:2.5px;background:#A07878;border-radius:1px;width:22px;"></div>
-                    </div>
-                    <div style="background:#F3EDE4;border:1px solid #E8D5B0;border-radius:12px;padding:2px 8px;">
-                      <div style="height:2.5px;background:#A07878;border-radius:1px;width:26px;"></div>
-                    </div>
+                  <div style="height:9px;background:#1C1714;width:88%;margin-bottom:5px;"></div>
+                  <div style="height:9px;background:#1C1714;width:62%;margin-bottom:14px;"></div>
+                  <!-- price-list rows -->
+                  <div style="border-top:1px solid rgba(28,23,20,.18);padding:7px 0;display:flex;
+                    justify-content:space-between;align-items:center;">
+                    <div style="height:3px;background:#4A4038;width:40%;"></div>
+                    <div style="height:3px;background:#9C4221;width:16%;"></div>
+                  </div>
+                  <div style="border-top:1px solid rgba(28,23,20,.18);padding:7px 0;display:flex;
+                    justify-content:space-between;align-items:center;">
+                    <div style="height:3px;background:#4A4038;width:32%;"></div>
+                    <div style="height:3px;background:#9C4221;width:16%;"></div>
+                  </div>
+                  <div style="border-top:1px solid rgba(28,23,20,.18);border-bottom:1px solid rgba(28,23,20,.18);
+                    padding:7px 0;display:flex;justify-content:space-between;align-items:center;">
+                    <div style="height:3px;background:#4A4038;width:46%;"></div>
+                    <div style="height:3px;background:#9C4221;width:16%;"></div>
                   </div>
                   <!-- CTA -->
-                  <div style="display:flex;gap:6px;">
-                    <div style="background:#C9A96E;border-radius:3px;padding:5px 14px;">
-                      <div style="height:3px;background:#fff;border-radius:1px;width:36px;"></div>
-                    </div>
-                    <div style="border:1.5px solid #C8A0A0;border-radius:3px;padding:5px 12px;">
-                      <div style="height:3px;background:#A07878;border-radius:1px;width:26px;"></div>
-                    </div>
+                  <div style="background:#1C1714;padding:6px 14px;width:fit-content;margin-top:14px;">
+                    <div style="height:3px;background:#F6F3EE;width:34px;"></div>
+                  </div>
+                </div>
+                <!-- right: photo column with B/A divider -->
+                <div style="flex:0.85;position:relative;background:linear-gradient(120deg,#C8A18B 0%,#B08468 55%,#8F6A52 100%);">
+                  <!-- slider line -->
+                  <div style="position:absolute;top:0;bottom:0;left:52%;width:1.5px;background:#F6F3EE;"></div>
+                  <!-- knob -->
+                  <div style="position:absolute;top:46%;left:52%;transform:translate(-50%,-50%);
+                    width:16px;height:16px;border-radius:50%;background:#F6F3EE;"></div>
+                  <!-- before/after tags -->
+                  <div style="position:absolute;top:8%;left:8%;background:rgba(28,23,20,.55);padding:3px 6px;">
+                    <div style="height:2px;background:#F6F3EE;width:16px;"></div>
+                  </div>
+                  <div style="position:absolute;top:8%;right:8%;background:rgba(28,23,20,.55);padding:3px 6px;">
+                    <div style="height:2px;background:#F6F3EE;width:14px;"></div>
+                  </div>
+                  <!-- caption bar -->
+                  <div style="position:absolute;bottom:0;left:0;right:0;background:#1C1714;
+                    padding:7px 10px;display:flex;justify-content:space-between;align-items:center;">
+                    <div style="height:2.5px;background:#F6F3EE;width:34%;"></div>
+                    <div style="height:2.5px;background:#D96C3F;width:20%;"></div>
                   </div>
                 </div>
               </div>
             </a>
             <div class="work-body">
               <div class="work-name">LUMI Clinic</div>
-              <p class="work-problem">Premium Thai beauty clinic landing page with warm cream-rose palette, bilingual copy, and service flow.</p>
+              <p class="work-problem">Editorial Thai beauty clinic page — porcelain-and-ink palette, real photography, price-list layout, and draggable before/after sliders.</p>
               <div class="work-tags">
                 <span class="tag tag-amber">Beauty</span>
                 <span class="tag tag-gray">Landing Page</span>
