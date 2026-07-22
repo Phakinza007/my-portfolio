@@ -21,7 +21,7 @@ URL: https://phakinza007.github.io/my-portfolio/
 
 ```
 my-portfolio/
-├── index.html                    # Main portfolio page (18 project cards)
+├── index.html                    # Main portfolio page (13 project cards)
 ├── resume.html                   # Resume / CV page
 ├── 404.html                      # Custom dark-theme 404 page
 ├── sitemap.xml                   # All 29 URLs for Google Search Console
@@ -42,28 +42,26 @@ my-portfolio/
 
 ---
 
-## Current Cards in Selected Work (18 total)
+## Current Cards in Selected Work (13 total)
 
 | # | Name | File | Tags |
 |---|------|------|------|
 | 1 | Construction Landing | `construction-landing.html` | Brand, Landing |
 | 2 | Iron Republic | `gym-landing.html` | Fitness, Brand |
 | 3 | NOIR Coffee | `coffee-landing.html` | Dark, Coffee |
-| 4 | Admin Inventory | `AdminInventory.html` | Dashboard, Finance |
-| 5 | Braw & Co | `BrawAndCo.html` | Brand, Identity |
-| 6 | Elevate Commerce | `ElevateCommerce.html` | E-commerce |
-| 7 | Task Manager | `task-manager.html` | Dashboard, SaaS |
-| 8 | Elasticshop Gaming | `elasticshop-gaming.html` | Gaming, E-commerce |
-| 9 | SORN Restaurant | `sorn-restaurant.html` | Fine Dining, Restaurant |
-| 10 | SolarPeak | `solar-landing.html` | Energy, Landing Page |
-| 11 | Knowledge AI | `knowledge-ai.html` | AI, Dashboard |
-| 12 | Weather Dashboard | `weather-dashboard.html` | Dashboard, Weather |
-| 13 | BookEase Dashboard | `BookEase.html` | Dashboard, Booking, Light UI |
-| 14 | MuseRoom | `MuseRoom.html` | Gallery, Landing Page, Brand |
-| 15 | LUMI Clinic | `lumi-clinic.html` | Beauty, Landing Page, Brand |
-| 16 | BRIGHT Dental Clinic | `dental-clinic.html` | Healthcare, Landing Page, Booking |
-| 17 | VELVÉ Aesthetics | `aesthetic-booking.html` | Beauty, Booking, Interactive |
-| 18 | HabitQuest | external: `https://habitquest-pi.vercel.app/` | Gamification, Habit Tracker |
+| 4 | Elevate Commerce | `ElevateCommerce.html` | E-commerce |
+| 5 | Elasticshop Gaming | `elasticshop-gaming.html` | Gaming, E-commerce |
+| 6 | SORN Restaurant | `sorn-restaurant.html` | Fine Dining, Restaurant |
+| 7 | SolarPeak | `solar-landing.html` | Energy, Landing Page |
+| 8 | BookEase Dashboard | `BookEase.html` | Dashboard, Booking, Light UI |
+| 9 | MuseRoom | `MuseRoom.html` | Gallery, Landing Page, Brand |
+| 10 | LUMI Clinic | `lumi-clinic.html` | Beauty, Landing Page, Brand |
+| 11 | BRIGHT Dental Clinic | `dental-clinic.html` | Healthcare, Landing Page, Booking |
+| 12 | VELVÉ Aesthetics | `aesthetic-booking.html` | Beauty, Booking, Interactive |
+| 13 | HabitQuest | external: `https://habitquest-pi.vercel.app/` | Gamification, Habit Tracker |
+
+> Culled 2026-07-22 (still in git history): Admin Inventory, Braw & Co, Task Manager,
+> Knowledge AI, Weather Dashboard — weakest/template-looking or redundant with BookEase.
 
 ---
 
@@ -97,7 +95,7 @@ Tag colour classes:
 |---------|----|-------------|
 | Nav | — | Logo + links: Projects, About, Experience, Case Studies, Contact, Resume |
 | Hero | `#top` | Name, title, CTA buttons |
-| Selected Work | `#projects` | 18 project cards |
+| Selected Work | `#projects` | 13 project cards |
 | About | `#about` | Bio + photo |
 | Experience | `#experience` | Skills, timeline, tools, KMUTT education |
 | Case Studies | `#case-studies` | PulseBoard, LaunchLedger, InternTrack, HabitQuest |

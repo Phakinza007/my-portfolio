@@ -47,27 +47,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://phakinza007.github.io/my-portfolio/AdminInventory.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://phakinza007.github.io/my-portfolio/task-manager.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://phakinza007.github.io/my-portfolio/InternTrack.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://phakinza007.github.io/my-portfolio/knowledge-ai.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://phakinza007.github.io/my-portfolio/weather-dashboard.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -100,11 +80,6 @@
   </url>
   <url>
     <loc>https://phakinza007.github.io/my-portfolio/MuseRoom.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://phakinza007.github.io/my-portfolio/BrawAndCo.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
