@@ -93,9 +93,10 @@ Tag colour classes:
 
 | Section | id | Description |
 |---------|----|-------------|
-| Nav | — | Logo + links: Projects, About, Experience, Case Studies, Contact, Resume |
-| Hero | `#top` | Name, title, CTA buttons |
+| Nav | — | Logo + links: Services, Projects, About, Experience, Case Studies, Contact, Resume |
+| Hero | `#top` | Name, service positioning, primary CTA → Fastwork (external) |
 | Tech Stack | — | Dual-row logo marquee (Simple Icons inlined as SVG symbols), opposite scroll directions, pause on hover, reduced-motion static |
+| Services | `#services` | 3 service cards (Landing Page / Dashboard UI / Business Website), each links to Fastwork |
 | Selected Work | `#projects` | 13 project cards |
 | About | `#about` | Bio + photo |
 | Experience | `#experience` | Skills, timeline, tools, KMUTT education |
@@ -120,6 +121,7 @@ Tag colour classes:
 
 | Channel | Value |
 |---------|-------|
+| Fastwork (primary CTA) | https://fastwork.co/byob/0G16E5GFIO?openExternalBrowser=1&source=byob |
 | Email | a0626568471@gmail.com |
 | GitHub | https://github.com/Phakinza007 |
 | LinkedIn | https://linkedin.com/in/phakin-chawanpunya |
