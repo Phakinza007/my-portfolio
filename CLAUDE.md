@@ -96,7 +96,7 @@ Tag colour classes:
 |---------|----|-------------|
 | Nav | — | Logo + links: Projects, About, Experience, Case Studies, Contact, Resume |
 | Hero | `#top` | Name, title, CTA buttons |
-| Selected Work | `#projects` | 21 project cards |
+| Selected Work | `#projects` | 18 project cards |
 | About | `#about` | Bio + photo |
 | Experience | `#experience` | Skills, timeline, tools, KMUTT education |
 | Case Studies | `#case-studies` | PulseBoard, LaunchLedger, InternTrack |
@@ -122,7 +122,7 @@ Tag colour classes:
 |---------|-------|
 | Email | a0626568471@gmail.com |
 | GitHub | https://github.com/Phakinza007 |
-| LinkedIn | https://linkedin.com |
+| LinkedIn | https://linkedin.com/in/phakin-chawanpunya |
 | Instagram | https://www.instagram.com/phakinkinpa/ |
 
 ---
