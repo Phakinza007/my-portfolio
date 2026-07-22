@@ -95,6 +95,7 @@ Tag colour classes:
 |---------|----|-------------|
 | Nav | — | Logo + links: Projects, About, Experience, Case Studies, Contact, Resume |
 | Hero | `#top` | Name, title, CTA buttons |
+| Tech Stack | — | Dual-row logo marquee (Simple Icons inlined as SVG symbols), opposite scroll directions, pause on hover, reduced-motion static |
 | Selected Work | `#projects` | 13 project cards |
 | About | `#about` | Bio + photo |
 | Experience | `#experience` | Skills, timeline, tools, KMUTT education |
