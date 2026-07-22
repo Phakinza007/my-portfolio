@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LUMI Clinic — คลินิกความงาม สุขุมวิท 49 | Botox · Filler · Laser</title>
-  <meta name="description" content="คลินิกความงามย่านทองหล่อ ปรึกษาแพทย์เฉพาะทางฟรีก่อนตัดสินใจ Botox, Filler, Laser, IV Drip — ไม่เชียร์ขาย ไม่ผูกคอร์ส">
+  <title>LUMI Clinic — Aesthetic Clinic, Bangkok | Botox · Filler · Laser</title>
+  <meta name="description" content="An aesthetic clinic in Bangkok that starts with a free consult, not a sales pitch. Botox, Filler, Laser and IV Drip — planned around your face, budget and downtime.">
   <link rel="canonical" href="https://phakinza007.github.io/my-portfolio/lumi-clinic.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Trirong:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Sans+Thai:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Trirong:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     /* ── Tokens ──────────────────────────────────────────────────── */
@@ -26,8 +26,8 @@
       --line:       rgba(28,23,20,.15);
       --line-inv:   rgba(246,243,238,.16);
 
-      --serif: 'Trirong', 'Sarabun', Georgia, serif;
-      --sans:  'Noto Sans Thai', 'Helvetica Neue', Arial, sans-serif;
+      --serif: 'Trirong', Georgia, serif;
+      --sans:  'Inter', 'Helvetica Neue', Arial, sans-serif;
 
       --ease: cubic-bezier(.4,0,.2,1);
       --t: .25s;
@@ -44,7 +44,7 @@
       background: var(--paper);
       color: var(--soft);
       font-size: 15.5px;
-      line-height: 1.8;
+      line-height: 1.75;
       overflow-wrap: break-word;
       overflow-x: hidden;
     }
@@ -188,14 +188,13 @@
       display: grid;
       grid-template-columns: 1.05fr .95fr;
       gap: clamp(40px, 6vw, 88px);
-      align-items: end;
+      align-items: center;
     }
-    .hero-copy { padding-bottom: clamp(32px, 5vw, 72px); }
 
     .hero h1 {
       font-size: clamp(40px, 5.6vw, 72px);
       font-weight: 500;
-      line-height: 1.16;
+      line-height: 1.12;
       letter-spacing: -.5px;
       margin-bottom: 18px;
     }
@@ -235,7 +234,7 @@
 
     .hero-visual img {
       width: 100%;
-      aspect-ratio: 4 / 5;
+      aspect-ratio: 3 / 4;
       object-fit: cover;
     }
     .img-caption {
@@ -324,7 +323,6 @@
     }
     .results-side { display: flex; flex-direction: column; gap: 36px; }
 
-    .ba-figure { }
     .ba-wrap {
       position: relative;
       overflow: hidden;
@@ -345,8 +343,8 @@
       object-fit: cover;
       pointer-events: none;
     }
-    /* "before" = same photo, dulled — an honest mock, labelled below */
-    .ba-before img { filter: saturate(.6) brightness(.92) contrast(.96); }
+    /* "before" = same photo, clearly dulled — an honest mock, disclosed below */
+    .ba-before img { filter: saturate(.5) brightness(.88) contrast(1.02); }
 
     .ba-line {
       position: absolute; top: 0; bottom: 0; left: 50%;
@@ -603,7 +601,6 @@
       .about-grid,
       .booking-grid { grid-template-columns: 1fr; }
       .hero { padding-top: 120px; }
-      .hero-copy { padding-bottom: 0; }
       .hero-visual { order: 2; }
       .treat-note { text-align: left; }
       .quote-pair { grid-template-columns: 1fr; gap: 32px; }
@@ -630,13 +627,13 @@
 <!-- ════ NAV ════════════════════════════════════════════════════ -->
 <nav class="nav" id="mainNav">
   <div class="nav-inner">
-    <a href="#top" class="nav-logo">LUMI<span>คลินิกความงาม · สุขุมวิท 49</span></a>
+    <a href="#top" class="nav-logo">LUMI<span>Aesthetic Clinic · Bangkok</span></a>
 
     <ul class="nav-links">
-      <li><a href="#services">การรักษา</a></li>
-      <li><a href="#results">ผลลัพธ์</a></li>
-      <li><a href="#about">เกี่ยวกับเรา</a></li>
-      <li><a href="#contact" class="link-quiet">จองคำปรึกษา</a></li>
+      <li><a href="#services">Treatments</a></li>
+      <li><a href="#results">Results</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact" class="link-quiet">Book a consult</a></li>
     </ul>
 
     <button class="hamburger" id="burger" aria-label="Toggle menu" aria-expanded="false">
@@ -645,10 +642,10 @@
   </div>
 
   <nav class="mobile-nav" id="mobileNav" aria-hidden="true">
-    <a href="#services">การรักษา</a>
-    <a href="#results">ผลลัพธ์</a>
-    <a href="#about">เกี่ยวกับเรา</a>
-    <a href="#contact">จองคำปรึกษา →</a>
+    <a href="#services">Treatments</a>
+    <a href="#results">Results</a>
+    <a href="#about">About</a>
+    <a href="#contact">Book a consult →</a>
   </nav>
 </nav>
 
@@ -658,35 +655,36 @@
   <div class="wrap">
     <div class="hero-grid">
 
-      <div class="hero-copy fade-up">
-        <h1>ผิวที่ดี<br>ไม่ใช่เรื่องบังเอิญ</h1>
-        <p class="hero-en">Considered beauty — LUMI Clinic, Bangkok</p>
+      <div class="fade-up">
+        <h1>Good skin<br>isn't an accident</h1>
+        <p class="hero-en">The clinic that knows when to say no.</p>
 
         <p class="hero-sub">
-          เราไม่ขายคอร์สก้อนใหญ่ และไม่เชียร์หัตถการที่คุณยังไม่จำเป็นต้องทำ
-          เริ่มจากนั่งคุยกับแพทย์เฉพาะทางก่อน — ฟรี —
-          แล้วค่อยวางแผนที่พอดีกับหน้า งบ และเวลาพักฟื้นของคุณ
+          We don't sell bundled courses, and we won't push a procedure
+          you don't need yet. Start with a free consult with a
+          board-certified doctor — then build a plan that fits your
+          face, your budget and your downtime.
         </p>
 
         <div class="hero-actions">
-          <a href="#contact" class="btn-ink">จองคำปรึกษาฟรี</a>
-          <a href="#services" class="link-quiet">ดูอัตราค่าบริการ ↓</a>
+          <a href="#contact" class="btn-ink">Book a free consult</a>
+          <a href="#services" class="link-quiet">See treatment pricing ↓</a>
         </div>
 
         <p class="hero-facts">
-          <span>แพทย์เฉพาะทางผิวหนัง</span>
-          <span>ผลิตภัณฑ์รับรอง อย. ทุกชิ้น</span>
-          <span>สุขุมวิท 49 — BTS ทองหล่อ</span>
+          <span>Board-certified doctors</span>
+          <span>Every product FDA-registered</span>
+          <span>Sukhumvit, Bangkok</span>
         </p>
       </div>
 
       <figure class="hero-visual fade-up" style="transition-delay:.15s">
         <img
-          src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=1100&auto=format&fit=crop"
-          alt="แพทย์กำลังทำหัตถการดูแลผิวหน้าให้คนไข้ที่ LUMI Clinic"
-          width="1100" height="1375"
+          src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=1000&auto=format&fit=crop"
+          alt="Clean, healthy skin — the standard LUMI treatments aim for"
+          width="1000" height="1333"
           fetchpriority="high">
-        <figcaption class="img-caption">ห้องหัตถการชั้น 2 — LUMI สุขุมวิท 49</figcaption>
+        <figcaption class="img-caption">Skin first, procedures second — the LUMI standard</figcaption>
       </figure>
 
     </div>
@@ -698,45 +696,45 @@
 <section class="treatments" id="services">
   <div class="wrap">
     <div class="treat-head fade-up">
-      <h2>การรักษา</h2>
-      <p class="treat-note">ราคาเริ่มต้นต่อครั้ง — ประเมินจริงหลังปรึกษาแพทย์ ไม่มีค่าใช้จ่ายแอบแฝง</p>
+      <h2>Treatments</h2>
+      <p class="treat-note">Starting prices per session — your actual plan is quoted after the consult, with no hidden costs.</p>
     </div>
 
     <div class="fade-up">
       <div class="treat-row">
-        <span class="treat-num">๐๑</span>
+        <span class="treat-num">01</span>
         <div>
           <h3 class="treat-name">Botox</h3>
-          <p class="treat-desc">คลายกล้ามเนื้อเฉพาะจุดที่ทำให้เกิดริ้วรอย — หน้าผาก ระหว่างคิ้ว หางตา ปรับปริมาณให้หน้ายังขยับได้เป็นธรรมชาติ ไม่แข็งค้าง</p>
+          <p class="treat-desc">Relaxes only the muscles that crease — forehead, frown lines, crow's feet — dosed so your face still moves naturally. No frozen look.</p>
         </div>
-        <div class="treat-price">฿2,500<small>เริ่มต้น / จุด</small></div>
+        <div class="treat-price">฿2,500<small>from / area</small></div>
       </div>
 
       <div class="treat-row">
-        <span class="treat-num">๐๒</span>
+        <span class="treat-num">02</span>
         <div>
           <h3 class="treat-name">Filler</h3>
-          <p class="treat-desc">เติมร่องลึกและปรับโครงหน้าด้วย HA ที่ อย. รับรอง แนวทางของเราคือเติมทีละน้อยแล้วเก็บรายละเอียด — ดีกว่าเติมเกินแล้วต้องมาแก้</p>
+          <p class="treat-desc">FDA-registered hyaluronic acid for deep lines and facial structure. Our approach: add a little, refine later — better than overfilling and dissolving.</p>
         </div>
-        <div class="treat-price">฿8,500<small>เริ่มต้น / ซีซี</small></div>
+        <div class="treat-price">฿8,500<small>from / cc</small></div>
       </div>
 
       <div class="treat-row">
-        <span class="treat-num">๐๓</span>
+        <span class="treat-num">03</span>
         <div>
           <h3 class="treat-name">Laser Skin</h3>
-          <p class="treat-desc">เลเซอร์ปรับสีผิว รอยสิว และรูขุมขน วางแผนเป็นคอร์สตามสภาพผิวจริงของคุณ ไม่ใช่แพ็กเกจเหมาที่ทุกคนได้เหมือนกัน</p>
+          <p class="treat-desc">Tone, acne scarring and pores — planned as a course around your actual skin condition, not a one-size package everyone gets.</p>
         </div>
-        <div class="treat-price">฿3,500<small>เริ่มต้น / ครั้ง</small></div>
+        <div class="treat-price">฿3,500<small>from / session</small></div>
       </div>
 
       <div class="treat-row">
-        <span class="treat-num">๐๔</span>
+        <span class="treat-num">04</span>
         <div>
           <h3 class="treat-name">IV Drip</h3>
-          <p class="treat-desc">วิตามินทางหลอดเลือดสำหรับผิวล้า พักผ่อนน้อย ผสมสูตรตามผลตรวจร่างกายของแต่ละคน ไม่ใช่สูตรเดียวใช้กับทุกคน</p>
+          <p class="treat-desc">Vitamin infusions for tired, under-slept skin — mixed to your bloodwork, not one formula for every customer.</p>
         </div>
-        <div class="treat-price">฿1,800<small>เริ่มต้น / ครั้ง</small></div>
+        <div class="treat-price">฿1,800<small>from / session</small></div>
       </div>
     </div>
   </div>
@@ -747,10 +745,11 @@
 <section class="results" id="results">
   <div class="wrap">
     <div class="fade-up">
-      <h2>ผลลัพธ์ที่ค่อยเป็นค่อยไป</h2>
+      <h2>Results that take their time</h2>
       <p class="results-intro">
-        เราตั้งใจให้ผลลัพธ์ดูเป็นธรรมชาติจนคนรอบตัวบอกแค่ว่า "ช่วงนี้ดูสดใสขึ้น"
-        ลากแถบเปรียบเทียบเพื่อดูระดับความเปลี่ยนแปลงที่เราตั้งเป้า
+        We aim for the kind of change where people around you just say
+        "you look well lately." Drag the handle to compare the level of
+        change we plan for.
       </p>
     </div>
 
@@ -759,7 +758,7 @@
       <figure class="ba-figure fade-up" style="transition-delay:.1s">
         <div class="ba-wrap ba-tall" data-ba>
           <div class="ba-after">
-            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=900&auto=format&fit=crop" alt="ผลลัพธ์การดูแลผิว — โปรแกรม Laser + Botox" width="900" height="1200" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=900&auto=format&fit=crop" alt="Skin tone and texture — laser and botox course, simulated comparison" width="900" height="1200" loading="lazy">
           </div>
           <div class="ba-before">
             <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=900&auto=format&fit=crop" alt="" aria-hidden="true" width="900" height="1200" loading="lazy">
@@ -770,11 +769,11 @@
             <span class="ba-lbl">Before</span>
             <span class="ba-lbl">After</span>
           </div>
-          <input type="range" class="ba-range" min="0" max="100" value="50" aria-label="ลากเพื่อเปรียบเทียบก่อนและหลัง">
+          <input type="range" class="ba-range" min="0" max="100" value="50" aria-label="Drag to compare before and after">
         </div>
         <figcaption class="ba-meta">
           <span class="ba-treatment">Laser + Botox</span>
-          <span class="ba-detail">3 ครั้ง · ระยะเวลา 10 สัปดาห์</span>
+          <span class="ba-detail">3 sessions · over 10 weeks</span>
         </figcaption>
       </figure>
 
@@ -782,10 +781,10 @@
         <figure class="ba-figure fade-up" style="transition-delay:.2s">
           <div class="ba-wrap ba-wide" data-ba>
             <div class="ba-after">
-              <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=800&auto=format&fit=crop" alt="ผลลัพธ์การดูแลผิว — โปรแกรม IV Drip" width="800" height="600" loading="lazy">
+              <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&w=800&auto=format&fit=crop" alt="Skin clarity close-up — brightening course, simulated comparison" width="800" height="533" loading="lazy">
             </div>
             <div class="ba-before">
-              <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=800&auto=format&fit=crop" alt="" aria-hidden="true" width="800" height="600" loading="lazy">
+              <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&w=800&auto=format&fit=crop" alt="" aria-hidden="true" width="800" height="533" loading="lazy">
             </div>
             <div class="ba-line"></div>
             <div class="ba-knob">⇔</div>
@@ -793,18 +792,18 @@
               <span class="ba-lbl">Before</span>
               <span class="ba-lbl">After</span>
             </div>
-            <input type="range" class="ba-range" min="0" max="100" value="50" aria-label="ลากเพื่อเปรียบเทียบก่อนและหลัง">
+            <input type="range" class="ba-range" min="0" max="100" value="50" aria-label="Drag to compare before and after">
           </div>
           <figcaption class="ba-meta">
-            <span class="ba-treatment">IV Drip Brightening</span>
-            <span class="ba-detail">6 ครั้ง · 4 สัปดาห์</span>
+            <span class="ba-treatment">Skin Brightening</span>
+            <span class="ba-detail">6 sessions · 4 weeks</span>
           </figcaption>
         </figure>
 
         <p class="results-note fade-up" style="transition-delay:.3s">
-          ภาพในหน้านี้เป็นการจำลองระดับผลลัพธ์เพื่อการนำเสนอเว็บไซต์
-          ภาพก่อน–หลังของคนไข้จริง (ที่ได้รับความยินยอม) ดูได้ที่คลินิก
-          และผลลัพธ์แตกต่างกันตามแต่ละบุคคล
+          These images are simulated comparisons for presentation only.
+          Real, consented patient before-and-afters are available to view
+          at the clinic — and results vary from person to person.
         </p>
       </div>
 
@@ -821,30 +820,31 @@
       <figure class="about-visual fade-up">
         <img
           src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=900&auto=format&fit=crop"
-          alt="ทรีตเมนต์มาส์กหน้าโดยผู้เชี่ยวชาญที่ LUMI Clinic"
+          alt="Facial treatment in progress at the clinic"
           width="900" height="1200" loading="lazy">
-        <figcaption class="img-caption">ทรีตเมนต์ผิวก่อนเริ่มโปรแกรมเลเซอร์</figcaption>
+        <figcaption class="img-caption">Skin prep before a laser program</figcaption>
       </figure>
 
       <div class="fade-up" style="transition-delay:.12s">
-        <h2>ทำไมคนไข้ถึงกลับมา</h2>
+        <h2>Why patients come back</h2>
         <p class="about-lede">
-          คลินิกความงามเปิดใหม่ทุกเดือน แต่สิ่งที่เราได้ยินบ่อยที่สุดจากคนไข้
-          ที่ย้ายมาจากที่อื่นคือ "อยากได้ที่ที่ไม่ต้องระวังโดนขายของ"
-          เราจึงยึดสามข้อนี้เป็นกติกาของบ้าน
+          A new aesthetic clinic opens every month. The thing we hear most
+          from patients who switched to us: "I wanted somewhere I didn't
+          have to keep my guard up against being sold to." So we run the
+          house on three rules.
         </p>
 
         <div class="about-point">
-          <h3>แพทย์เฉพาะทางทำเองทุกเคส</h3>
-          <p>ตรวจ ประเมิน และทำหัตถการโดยแพทย์คนเดียวกันตั้งแต่ต้นจนจบ ไม่ส่งต่อให้ผู้ช่วยฉีดแทน</p>
+          <h3>A doctor handles your whole case</h3>
+          <p>Assessment and procedure by the same board-certified doctor, start to finish — never handed off to an assistant.</p>
         </div>
         <div class="about-point">
-          <h3>ผลิตภัณฑ์ตรวจสอบได้</h3>
-          <p>เปิดกล่องให้ดูต่อหน้าทุกครั้ง สแกนเช็กเลขล็อตกับฐานข้อมูล อย. ได้ก่อนเริ่มทำ</p>
+          <h3>Products you can verify</h3>
+          <p>Every box is opened in front of you, and you can check the lot number against the regulator's database before we begin.</p>
         </div>
         <div class="about-point">
-          <h3>ปรึกษาฟรี และเราปฏิเสธเป็น</h3>
-          <p>ถ้าประเมินแล้วยังไม่จำเป็นต้องทำ เราบอกตรง ๆ — คนไข้ที่เชื่อใจเราอยู่กับเรานานกว่ายอดขายหนึ่งครั้ง</p>
+          <h3>Free consults — and we know how to say no</h3>
+          <p>If you don't need a procedure yet, we say so. A patient who trusts us is worth more than one sale.</p>
         </div>
       </div>
 
@@ -858,20 +858,20 @@
   <div class="wrap">
     <blockquote class="fade-up">
       <p class="quote-main">
-        "หมอเป็นคนบอกเองว่า 'ยังไม่ต้องทำฟิลเลอร์ตอนนี้ก็ได้'
-        ความรู้สึกว่าเขาไม่ได้อยากได้แค่เงินเรา ทำให้กล้ากลับไปอีก"
+        "The doctor was the one who told me 'you don't need filler yet.'
+        Knowing they weren't just after my money is why I keep going back."
       </p>
-      <footer class="quote-attr"><strong>พิมพ์นิภา ว.</strong> — คนไข้ Botox ต่อเนื่องปีที่ 2</footer>
+      <footer class="quote-attr"><strong>Botox patient</strong> — second year at the clinic</footer>
     </blockquote>
 
     <div class="quote-pair">
       <blockquote class="quote-small fade-up" style="transition-delay:.1s">
-        <p>ทำเลเซอร์มา 4 ครั้ง รอยสิวที่แก้มจางลงชัดจนช่างภาพที่ทำงานทัก ราคาไม่ได้ถูกที่สุดในย่าน แต่ไม่เคยโดนยัดเยียดคอร์สเพิ่มเลย</p>
-        <footer>กิตติพงษ์ ส. — Laser Skin, 4 ครั้ง</footer>
+        <p>Four laser sessions in, the acne scarring on my cheeks has faded enough that a photographer at work commented on it. Not the cheapest in the area — but nobody has ever tried to upsell me a course.</p>
+        <footer>Laser Skin — 4 sessions</footer>
       </blockquote>
       <blockquote class="quote-small fade-up" style="transition-delay:.2s">
-        <p>จองคิวผ่าน LINE ตอบเร็ว มาถึงรอไม่เกินสิบนาที ทำ IV Drip ช่วงงานหนัก ๆ แล้วหน้าไม่โทรมเหมือนเมื่อก่อน</p>
-        <footer>สุทธิดา ม. — IV Drip รายเดือน</footer>
+        <p>Booking is quick, I've never waited more than ten minutes, and a drip during heavy work weeks keeps my skin from looking as worn out as it used to.</p>
+        <footer>IV Drip — monthly patient</footer>
       </blockquote>
     </div>
   </div>
@@ -884,41 +884,41 @@
     <div class="booking-grid">
 
       <div class="fade-up">
-        <h2>เริ่มจากคุยกันก่อน</h2>
+        <h2>Start with a conversation</h2>
         <p class="booking-lede">
-          ฝากชื่อกับเบอร์ไว้ เราติดต่อกลับภายใน 24 ชั่วโมง
-          เพื่อนัดวันเข้ามาปรึกษาแพทย์ — ไม่มีค่าใช้จ่าย ไม่มีข้อผูกมัด
+          Leave your name and number and we'll get back to you within
+          24 hours to set up a consult with a doctor — free, no strings.
         </p>
 
         <ul class="booking-contact">
-          <li><span>LINE OA</span><span>@lumiclinic</span></li>
-          <li><span>ที่อยู่</span><span>สุขุมวิท 49 — BTS ทองหล่อ ทางออก 1</span></li>
-          <li><span>เวลาทำการ</span><span>ทุกวัน 10:00 – 20:00</span></li>
-          <li><span>Instagram</span><span>@lumiclinic.bkk</span></li>
+          <li><span>LINE</span><span>Official Account</span></li>
+          <li><span>Location</span><span>Sukhumvit, Bangkok</span></li>
+          <li><span>Hours</span><span>Daily 10:00 – 20:00</span></li>
+          <li><span>Instagram</span><span>@lumi</span></li>
         </ul>
       </div>
 
       <form class="booking-form fade-up" id="bookingForm" style="transition-delay:.12s" novalidate>
         <div class="form-field">
-          <label class="form-label" for="f-name">ชื่อ-นามสกุล</label>
-          <input id="f-name" class="form-input" type="text" placeholder="สมชาย ใจดี" required>
+          <label class="form-label" for="f-name">Full name</label>
+          <input id="f-name" class="form-input" type="text" placeholder="Your name" required>
         </div>
         <div class="form-field">
-          <label class="form-label" for="f-phone">เบอร์โทรศัพท์</label>
+          <label class="form-label" for="f-phone">Phone</label>
           <input id="f-phone" class="form-input" type="tel" placeholder="08X-XXX-XXXX" required>
         </div>
         <div class="form-field">
-          <label class="form-label" for="f-service">เรื่องที่อยากปรึกษา</label>
+          <label class="form-label" for="f-service">What would you like to discuss?</label>
           <select id="f-service" class="form-select">
-            <option value="" disabled selected>เลือกหัวข้อ</option>
+            <option value="" disabled selected>Choose a topic</option>
             <option>Botox</option>
             <option>Filler</option>
             <option>Laser Skin</option>
             <option>IV Drip</option>
-            <option>ยังไม่แน่ใจ — อยากให้แพทย์ช่วยประเมิน</option>
+            <option>Not sure yet — I'd like a doctor's opinion</option>
           </select>
         </div>
-        <button type="submit" class="form-submit" id="submitBtn">ส่งข้อมูล — เราติดต่อกลับใน 24 ชม.</button>
+        <button type="submit" class="form-submit" id="submitBtn">Send — we reply within 24 hours</button>
       </form>
 
     </div>
@@ -931,11 +931,11 @@
   <div class="wrap footer-inner">
     <span class="footer-logo">LUMI</span>
     <nav class="footer-links" aria-label="Social links">
-      <a href="#">LINE @lumiclinic</a>
+      <a href="#">LINE</a>
       <a href="#">Instagram</a>
       <a href="#">Google Maps</a>
     </nav>
-    <span>© 2026 LUMI Clinic — สุขุมวิท 49, กรุงเทพฯ</span>
+    <span>© 2026 LUMI Clinic — Bangkok. A concept project.</span>
   </div>
 </footer>
 
@@ -1017,7 +1017,7 @@
   document.getElementById('bookingForm').addEventListener('submit', e => {
     e.preventDefault();
     const btn = document.getElementById('submitBtn');
-    btn.textContent = '✓ ได้รับข้อมูลแล้ว — เราจะติดต่อกลับเร็ว ๆ นี้';
+    btn.textContent = '✓ Received — we\'ll be in touch soon';
     btn.disabled = true;
   });
 </script>
