@@ -10,37 +10,35 @@
   <meta property="og:title" content="VELVÉ Aesthetics — Smart Booking">
   <meta property="og:description" content="คลินิกความงามพร้อมระบบจองคิวออนไลน์ 4 ขั้นตอน">
   <meta property="og:type" content="website">
+  <meta name="theme-color" content="#46151F">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chonburi&family=Noto+Sans+Thai:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     /* ── Design tokens ─────────────────────────────────────────── */
     :root {
-      --violet:      #7A5AF8;
-      --violet-dark: #5F41D9;
-      --violet-deep: #3B2A85;
-      --violet-soft: #EDE9FE;
-      --violet-pale: #F7F5FF;
-      --plum:        #2B2145;
-      --lilac:       #B9A7F9;
-      --ink:         #241E38;
-      --slate:       #5F5A75;
-      --muted:       #928DA6;
-      --white:       #FFFFFF;
-      --line:        #E6E2F2;
-      --blush:       #F9A8D4;
+      --wine:       #46151F;   /* primary — deep burgundy velvet */
+      --wine-hover: #5C1E2B;
+      --wine-deep:  #2E0D14;   /* footer / darkest surface */
+      --wine-ink:   #7A2130;   /* wine as TEXT on paper (6:1+) */
+      --rose:       #E8C7BC;   /* soft accent on dark surfaces only */
+      --paper:      #F4EFE6;   /* page background — warm ivory */
+      --card:       #FCFAF5;
+      --ink:        #241A16;   /* body text */
+      --slate:      #5D544C;
+      --muted:      #8A7F74;
+      --line:       #DCD2C0;
 
-      --display: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+      --display: 'Chonburi', 'Noto Sans Thai', serif;
       --sans:    'Noto Sans Thai', 'Helvetica Neue', Arial, sans-serif;
 
-      --r-sm: 12px;
-      --r-md: 18px;
-      --r-lg: 26px;
+      --r-sm: 4px;
+      --r-md: 8px;
+      --r-lg: 14px;
 
-      --shadow-sm: 0 2px 12px rgba(43,33,69,.07);
-      --shadow-md: 0 10px 34px rgba(43,33,69,.12);
-      --shadow-lg: 0 22px 60px rgba(43,33,69,.18);
+      --shadow-md: 0 12px 34px rgba(46,13,20,.10);
 
       --ease: cubic-bezier(.4,0,.2,1);
       --t: .3s;
@@ -51,107 +49,106 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     html, body { overflow-x: hidden; }
-    body { font-family: var(--sans); background: var(--violet-pale); color: var(--ink); line-height: 1.7; }
+    body { font-family: var(--sans); background: var(--paper); color: var(--ink); line-height: 1.7; }
     img { display: block; max-width: 100%; }
     a { text-decoration: none; color: inherit; }
     button, input, select, textarea { font-family: inherit; font-size: inherit; }
 
     .wrap { max-width: var(--container); margin: 0 auto; padding: 0 40px; }
 
-    .label {
-      display: inline-block;
-      font-family: var(--display);
-      font-size: 11px; font-weight: 800;
-      letter-spacing: 3px; text-transform: uppercase;
-      color: var(--violet); margin-bottom: 14px;
-    }
     .section-title {
       font-family: var(--display);
-      font-size: clamp(28px, 4vw, 42px);
-      font-weight: 800; line-height: 1.18; letter-spacing: -.5px;
+      font-size: clamp(26px, 3.6vw, 38px);
+      font-weight: 400; line-height: 1.35;
     }
 
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 14px 30px;
-      border-radius: 14px;
-      font-family: var(--display);
-      font-size: 14px; font-weight: 700;
+      padding: 15px 32px;
+      border-radius: var(--r-sm);
+      font-size: 15px; font-weight: 600;
       cursor: pointer; border: none;
       transition: transform var(--t) var(--ease), box-shadow var(--t) var(--ease), background var(--t), opacity var(--t);
       white-space: nowrap;
     }
     .btn:active { transform: scale(.97); }
-    .btn-violet { background: var(--violet); color: var(--white); }
-    .btn-violet:hover { background: var(--violet-dark); transform: translateY(-2px); box-shadow: 0 12px 28px rgba(122,90,248,.4); }
-    .btn-soft { background: var(--violet-soft); color: var(--violet-dark); }
-    .btn-soft:hover { background: #E0D8FC; }
-    .btn:disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-wine { background: var(--wine); color: var(--paper); }
+    .btn-wine:hover { background: var(--wine-hover); transform: translateY(-2px); box-shadow: 0 12px 26px rgba(46,13,20,.28); }
+    .btn-soft { background: transparent; color: var(--wine-ink); border: 1.5px solid var(--line); }
+    .btn-soft:hover { border-color: var(--wine-ink); }
+    .btn:disabled { opacity: .4; cursor: not-allowed; transform: none; box-shadow: none; }
 
     /* ── Nav ───────────────────────────────────────────────────── */
     nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(247,245,255,.92);
+      background: rgba(244,239,230,.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--line);
     }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
-    .logo { font-family: var(--display); font-weight: 800; font-size: 20px; letter-spacing: 1px; }
-    .logo span { color: var(--violet); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 74px; }
+    .logo { font-family: var(--display); font-size: 21px; letter-spacing: 1px; color: var(--wine); }
     .nav-links { display: flex; gap: 30px; font-size: 14px; font-weight: 500; color: var(--slate); }
-    .nav-links a:hover { color: var(--violet); }
+    .nav-links a:hover { color: var(--wine-ink); }
 
     /* ── Hero ──────────────────────────────────────────────────── */
-    .hero {
-      padding: 76px 0 60px;
-      text-align: center;
-      background:
-        radial-gradient(600px 300px at 20% 0%, rgba(122,90,248,.10), transparent),
-        radial-gradient(600px 300px at 80% 10%, rgba(249,168,212,.12), transparent);
+    .hero { padding: 80px 0 66px; border-bottom: 1px solid var(--line); }
+    .hero-grid {
+      display: grid; grid-template-columns: 1.5fr 1fr; gap: 56px;
+      align-items: end;
     }
     .hero h1 {
       font-family: var(--display);
-      font-size: clamp(34px, 5.5vw, 58px);
-      font-weight: 800; line-height: 1.1; letter-spacing: -1.5px;
-      max-width: 760px; margin: 0 auto;
+      font-size: clamp(30px, 4vw, 46px);
+      font-weight: 400; line-height: 1.35;
+      color: var(--wine-deep);
     }
-    .hero h1 .grad {
-      background: linear-gradient(90deg, var(--violet), var(--blush));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+    .hero h1 em { font-style: normal; color: var(--wine-ink); }
+    .hero-desc { margin-top: 22px; font-size: 16px; color: var(--slate); max-width: 520px; }
+    .hero-actions { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
+
+    .hero-facts {
+      border: 1px solid var(--line);
+      border-radius: var(--r-md);
+      background: var(--card);
+      overflow: hidden;
     }
-    .hero-desc { margin: 20px auto 0; font-size: 16px; color: var(--slate); max-width: 520px; }
-    .hero-trust { display: flex; justify-content: center; gap: 28px; margin-top: 30px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
-    .hero-trust span { display: flex; align-items: center; gap: 7px; }
+    .hero-facts .row {
+      display: flex; justify-content: space-between; gap: 16px;
+      padding: 14px 20px;
+      font-size: 13.5px;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-facts .row:last-child { border-bottom: none; }
+    .hero-facts .k { color: var(--muted); }
+    .hero-facts .v { font-weight: 600; text-align: right; color: var(--ink); }
 
     /* ── Booking wizard ────────────────────────────────────────── */
-    .wizard-sec { padding: 30px 0 90px; }
+    .wizard-sec { padding: 70px 0 90px; }
     .wizard {
       max-width: 880px; margin: 0 auto;
-      background: var(--white);
+      background: var(--card);
       border: 1px solid var(--line);
       border-radius: var(--r-lg);
-      box-shadow: var(--shadow-lg);
+      box-shadow: var(--shadow-md);
       overflow: hidden;
     }
     .wiz-head {
-      padding: 28px 40px;
-      background: var(--plum);
-      color: var(--white);
+      padding: 26px 40px;
+      background: var(--wine);
+      color: var(--paper);
       display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
     }
-    .wiz-head h2 { font-family: var(--display); font-size: 19px; font-weight: 800; }
+    .wiz-head h2 { font-family: var(--display); font-size: 19px; font-weight: 400; }
     .wiz-steps { display: flex; gap: 8px; }
     .wiz-dot {
       width: 34px; height: 34px; border-radius: 50%;
       display: grid; place-items: center;
-      font-family: var(--display); font-size: 13px; font-weight: 700;
-      background: rgba(255,255,255,.12); color: rgba(255,255,255,.55);
+      font-size: 13px; font-weight: 700;
+      background: rgba(244,239,230,.14); color: rgba(244,239,230,.55);
       transition: background var(--t), color var(--t);
     }
-    .wiz-dot.on { background: var(--violet); color: var(--white); }
-    .wiz-dot.done { background: var(--lilac); color: var(--plum); }
+    .wiz-dot.on { background: var(--paper); color: var(--wine); }
+    .wiz-dot.done { background: var(--rose); color: var(--wine-deep); }
 
     .wiz-body { padding: 38px 40px 42px; }
     .wiz-panel { display: none; }
@@ -159,7 +156,7 @@
     @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
     @media (prefers-reduced-motion: reduce) { .wiz-panel.on { animation: none; } }
 
-    .wiz-q { font-family: var(--display); font-size: 21px; font-weight: 800; margin-bottom: 6px; }
+    .wiz-q { font-family: var(--display); font-size: 20px; font-weight: 400; margin-bottom: 6px; color: var(--wine-deep); }
     .wiz-hint { font-size: 13.5px; color: var(--muted); margin-bottom: 24px; }
 
     /* option cards */
@@ -170,31 +167,26 @@
       border: 1.5px solid var(--line);
       border-radius: var(--r-md);
       cursor: pointer;
-      background: var(--white);
+      background: var(--card);
       transition: border-color var(--t), background var(--t), transform var(--t);
       text-align: left;
       width: 100%;
     }
-    .opt:hover { border-color: var(--lilac); transform: translateY(-2px); }
-    .opt.sel { border-color: var(--violet); background: var(--violet-pale); box-shadow: 0 0 0 3px rgba(122,90,248,.15); }
-    .opt-ico {
-      flex: none; width: 46px; height: 46px; border-radius: 13px;
-      background: var(--violet-soft);
-      display: grid; place-items: center; font-size: 21px;
-    }
+    .opt:hover { border-color: var(--wine-ink); transform: translateY(-2px); }
+    .opt.sel { border-color: var(--wine); background: var(--paper); box-shadow: 0 0 0 3px rgba(70,21,31,.13); }
     .opt-name { font-weight: 600; font-size: 14.5px; }
     .opt-sub { font-size: 12.5px; color: var(--muted); }
-    .opt-price { margin-left: auto; font-family: var(--display); font-weight: 800; font-size: 13.5px; color: var(--violet-dark); white-space: nowrap; }
+    .opt-price { margin-left: auto; font-weight: 700; font-size: 13.5px; color: var(--wine-ink); white-space: nowrap; }
 
     /* doctor cards */
     .doc-ava {
       flex: none; width: 46px; height: 46px; border-radius: 50%;
       display: grid; place-items: center;
-      color: var(--white); font-family: var(--display); font-weight: 800; font-size: 15px;
+      color: var(--paper); font-family: var(--display); font-size: 15px;
     }
-    .d1 { background: linear-gradient(135deg, #7A5AF8, #5F41D9); }
-    .d2 { background: linear-gradient(135deg, #F9A8D4, #DB6BAC); }
-    .d3 { background: linear-gradient(135deg, #B9A7F9, #8B72E8); }
+    .d1 { background: var(--wine); }
+    .d2 { background: #77551F; }
+    .d3 { background: #3E4A3D; }
 
     /* date + time slots */
     .dt-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 26px; }
@@ -202,22 +194,22 @@
     .dt-date input {
       width: 100%; padding: 13px 16px;
       border: 1.5px solid var(--line); border-radius: var(--r-sm);
-      font-size: 14.5px; color: var(--ink); background: var(--white);
+      font-size: 14.5px; color: var(--ink); background: var(--card);
       transition: border-color var(--t), box-shadow var(--t);
     }
-    .dt-date input:focus { outline: none; border-color: var(--violet); box-shadow: 0 0 0 3px rgba(122,90,248,.15); }
+    .dt-date input:focus { outline: none; border-color: var(--wine); box-shadow: 0 0 0 3px rgba(70,21,31,.13); }
     .slot-label { font-size: 13px; font-weight: 600; color: var(--slate); margin-bottom: 8px; }
     .slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
     .slot {
       padding: 12px 8px;
       border: 1.5px solid var(--line); border-radius: var(--r-sm);
-      background: var(--white);
-      font-family: var(--display); font-size: 13px; font-weight: 700;
+      background: var(--card);
+      font-size: 13px; font-weight: 700;
       cursor: pointer; text-align: center;
       transition: border-color var(--t), background var(--t), color var(--t);
     }
-    .slot:hover { border-color: var(--lilac); }
-    .slot.sel { background: var(--violet); border-color: var(--violet); color: var(--white); }
+    .slot:hover { border-color: var(--wine-ink); }
+    .slot.sel { background: var(--wine); border-color: var(--wine); color: var(--paper); }
     .slot.off { opacity: .35; cursor: not-allowed; text-decoration: line-through; }
 
     /* confirm summary */
@@ -230,35 +222,35 @@
     .sum-row:last-child { border-bottom: none; }
     .sum-row .k { color: var(--muted); }
     .sum-row .v { font-weight: 600; text-align: right; }
-    .sum-row.total { background: var(--violet-pale); }
-    .sum-row.total .v { font-family: var(--display); font-weight: 800; color: var(--violet-dark); font-size: 16px; }
+    .sum-row.total { background: var(--paper); }
+    .sum-row.total .v { font-weight: 700; color: var(--wine-ink); font-size: 16px; }
     .conf-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 4px; }
     .conf-fields .f { display: flex; flex-direction: column; gap: 6px; }
     .conf-fields label { font-size: 12.5px; font-weight: 600; color: var(--slate); }
     .conf-fields input {
       padding: 12px 14px; border: 1.5px solid var(--line); border-radius: var(--r-sm);
-      font-size: 14px; background: var(--white); color: var(--ink);
+      font-size: 14px; background: var(--card); color: var(--ink);
       transition: border-color var(--t), box-shadow var(--t);
     }
-    .conf-fields input:focus { outline: none; border-color: var(--violet); box-shadow: 0 0 0 3px rgba(122,90,248,.15); }
+    .conf-fields input:focus { outline: none; border-color: var(--wine); box-shadow: 0 0 0 3px rgba(70,21,31,.13); }
 
     /* success */
     .success { text-align: center; padding: 20px 0 10px; }
     .success .big {
       width: 84px; height: 84px; margin: 0 auto 22px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--violet), var(--blush));
+      background: var(--wine);
       display: grid; place-items: center;
-      font-size: 38px; color: var(--white);
-      box-shadow: 0 14px 40px rgba(122,90,248,.35);
+      font-size: 38px; color: var(--paper);
+      box-shadow: 0 14px 36px rgba(46,13,20,.3);
     }
-    .success h3 { font-family: var(--display); font-size: 24px; font-weight: 800; margin-bottom: 8px; }
+    .success h3 { font-family: var(--display); font-size: 24px; font-weight: 400; margin-bottom: 8px; color: var(--wine-deep); }
     .success p { font-size: 14.5px; color: var(--slate); max-width: 380px; margin: 0 auto; }
     .success .code {
       display: inline-block; margin-top: 18px;
-      font-family: var(--display); font-weight: 800; letter-spacing: 2px;
-      background: var(--violet-pale); color: var(--violet-dark);
-      border: 1.5px dashed var(--lilac); border-radius: var(--r-sm);
+      font-weight: 700; letter-spacing: 2px;
+      background: var(--paper); color: var(--wine-ink);
+      border: 1.5px dashed var(--wine-ink); border-radius: var(--r-sm);
       padding: 10px 24px;
     }
 
@@ -266,53 +258,72 @@
       display: flex; justify-content: space-between; align-items: center; gap: 14px;
       padding: 22px 40px;
       border-top: 1px solid var(--line);
-      background: #FBFAFF;
+      background: var(--paper);
     }
     .wiz-note { font-size: 12.5px; color: var(--muted); }
 
-    /* ── Services strip ────────────────────────────────────────── */
-    .strip { padding: 40px 0 90px; }
-    .strip-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-    .strip-card {
-      background: var(--white);
-      border: 1px solid var(--line);
-      border-radius: var(--r-md);
-      padding: 24px 22px;
-      transition: transform var(--t) var(--ease), box-shadow var(--t);
+    /* ── Services — editorial price list ───────────────────────── */
+    .services { padding: 20px 0 90px; }
+    .svc-head {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+      align-items: end; margin-bottom: 36px;
     }
-    .strip-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
-    .strip-card .em { font-size: 26px; }
-    .strip-card h3 { font-family: var(--display); font-size: 15px; font-weight: 800; margin: 12px 0 4px; }
-    .strip-card p { font-size: 12.5px; color: var(--slate); }
+    .svc-head p { font-size: 14.5px; color: var(--slate); max-width: 400px; justify-self: end; text-align: right; }
+    .svc-list { border-top: 1px solid var(--line); }
+    .svc-row {
+      display: grid; grid-template-columns: 220px 1fr auto; gap: 28px;
+      align-items: baseline;
+      padding: 26px 8px;
+      border-bottom: 1px solid var(--line);
+      transition: background var(--t);
+    }
+    .svc-row:hover { background: var(--card); }
+    .svc-row h3 { font-family: var(--display); font-size: 21px; font-weight: 400; color: var(--wine-deep); }
+    .svc-row p { font-size: 13.5px; color: var(--slate); }
+    .svc-row .price { font-weight: 700; font-size: 15px; color: var(--wine-ink); white-space: nowrap; }
+    .svc-row .price small { display: block; font-weight: 400; font-size: 11.5px; color: var(--muted); text-align: right; }
 
-    /* ── Why / trust ───────────────────────────────────────────── */
-    .why { background: var(--plum); color: var(--white); padding: 84px 0; }
-    .why .label { color: var(--lilac); }
-    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 44px; }
-    .why-item h3 { font-family: var(--display); font-size: 17px; font-weight: 800; margin: 14px 0 8px; }
-    .why-item p { font-size: 13.5px; color: rgba(255,255,255,.65); }
-    .why-num {
-      font-family: var(--display); font-size: 40px; font-weight: 800;
-      background: linear-gradient(90deg, var(--lilac), var(--blush));
-      -webkit-background-clip: text; background-clip: text; color: transparent;
-      line-height: 1;
+    /* ── Why — pull-quote band ─────────────────────────────────── */
+    .why { background: var(--wine); color: var(--paper); padding: 90px 0; }
+    .why-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; align-items: center; }
+    .why blockquote {
+      font-family: var(--display);
+      font-size: clamp(22px, 3vw, 32px);
+      line-height: 1.55; font-weight: 400;
     }
+    .why blockquote em { font-style: normal; color: var(--rose); }
+    .why .attrib { margin-top: 22px; font-size: 13.5px; color: rgba(244,239,230,.6); }
+    .why-facts { display: flex; flex-direction: column; gap: 0; border-top: 1px solid rgba(244,239,230,.22); }
+    .why-fact { padding: 20px 4px; border-bottom: 1px solid rgba(244,239,230,.22); }
+    .why-fact h3 { font-size: 15px; font-weight: 600; margin-bottom: 5px; color: var(--rose); }
+    .why-fact p { font-size: 13.5px; color: rgba(244,239,230,.68); }
 
     /* ── Footer ────────────────────────────────────────────────── */
-    footer { background: var(--ink); color: rgba(255,255,255,.7); padding: 44px 0; }
+    footer { background: var(--wine-deep); color: rgba(244,239,230,.68); padding: 44px 0; }
     .foot-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
-    .foot-logo { font-family: var(--display); font-weight: 800; font-size: 17px; color: var(--white); }
+    .foot-logo { font-family: var(--display); font-size: 17px; color: var(--paper); }
     .foot-copy { font-size: 12.5px; }
 
     /* ── Responsive ────────────────────────────────────────────── */
     @media (max-width: 860px) {
       .wrap { padding: 0 24px; }
       .nav-links { display: none; }
+      .hero-grid { grid-template-columns: 1fr; gap: 36px; align-items: start; }
       .wiz-head, .wiz-body, .wiz-foot { padding-left: 24px; padding-right: 24px; }
       .opt-grid, .dt-grid, .conf-fields { grid-template-columns: 1fr; }
-      .strip-grid { grid-template-columns: 1fr 1fr; }
-      .why-grid { grid-template-columns: 1fr; gap: 30px; }
+      .svc-head { grid-template-columns: 1fr; gap: 12px; }
+      .svc-head p { justify-self: start; text-align: left; }
+      .svc-row { grid-template-columns: 1fr auto; gap: 8px 20px; }
+      .svc-row h3 { grid-row: 1; }
+      .svc-row .price { grid-column: 2; grid-row: 1; justify-self: end; }
+      .svc-row p { grid-column: 1 / -1; }
+      .why-grid { grid-template-columns: 1fr; gap: 40px; }
       .slots { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .wiz-note { display: none; }
+      .hero h1 br { display: none; }
+      .hero h1 { font-size: 28px; }
     }
     @media (max-width: 480px) {
       .slots { grid-template-columns: 1fr 1fr; }
@@ -325,27 +336,33 @@
   <!-- ── Nav ─────────────────────────────────────────────────── -->
   <nav>
     <div class="wrap nav-inner">
-      <a class="logo" href="#top">VELVÉ<span>.</span></a>
+      <a class="logo" href="#top">VELVÉ</a>
       <div class="nav-links">
         <a href="#booking">จองคิว</a>
-        <a href="#services">บริการ</a>
-        <a href="#why">ทำไมต้องเรา</a>
+        <a href="#services">บริการและราคา</a>
+        <a href="#why">มาตรฐานของเรา</a>
       </div>
-      <a class="btn btn-violet" href="#booking">เริ่มจองเลย</a>
+      <a class="btn btn-wine" href="#booking">เริ่มจองคิว</a>
     </div>
   </nav>
 
   <!-- ── Hero ────────────────────────────────────────────────── -->
   <header class="hero" id="top">
-    <div class="wrap">
-      <span class="label">Aesthetic Clinic · Smart Booking</span>
-      <h1>จองคิวความงาม<br>ใน <span class="grad">4 ขั้นตอน</span> จบในนาทีเดียว</h1>
-      <p class="hero-desc">เลือกบริการ เลือกแพทย์ เลือกเวลา แล้วรับคิวทันที ไม่ต้องโทร ไม่ต้องรอแอดมินตอบ</p>
-      <div class="hero-trust">
-        <span>✓ แพทย์เฉพาะทางทุกท่าน</span>
-        <span>✓ ยืนยันคิวทันที</span>
-        <span>✓ เลื่อนนัดฟรี 24 ชม. ล่วงหน้า</span>
+    <div class="wrap hero-grid">
+      <div>
+        <h1>คลินิกความงามที่คุณ<br><em>จองคิวเองได้ทั้งหมด</em><br>ไม่ต้องรอแอดมินตอบ</h1>
+        <p class="hero-desc">เลือกบริการ เลือกแพทย์ เลือกเวลา แล้วรับคิวยืนยันทันทีในนาทีเดียว — Botox, Filler และเลเซอร์ โดยแพทย์เฉพาะทางผิวหนังทุกท่าน</p>
+        <div class="hero-actions">
+          <a class="btn btn-wine" href="#booking">เริ่มจองคิว</a>
+          <a class="btn btn-soft" href="#services">ดูบริการและราคา</a>
+        </div>
       </div>
+      <aside class="hero-facts" aria-label="ข้อมูลคลินิก">
+        <div class="row"><span class="k">เวลาทำการ</span><span class="v">เปิดทุกวัน 11:00 – 20:00</span></div>
+        <div class="row"><span class="k">การยืนยันคิว</span><span class="v">ทันที ไม่ต้องรอแอดมิน</span></div>
+        <div class="row"><span class="k">เลื่อนนัด</span><span class="v">ฟรี ล่วงหน้า 24 ชม.</span></div>
+        <div class="row"><span class="k">ติดต่อ</span><span class="v">02-555-8899 · @velveclinic</span></div>
+      </aside>
     </div>
   </header>
 
@@ -371,22 +388,18 @@
             <div class="wiz-hint">ราคาที่แสดงเป็นราคาเริ่มต้น แพทย์จะประเมินอีกครั้งในวันเข้ารับบริการ</div>
             <div class="opt-grid" id="svcGrid">
               <button class="opt" type="button" data-name="Botox ลดริ้วรอย" data-price="4,900฿">
-                <span class="opt-ico">💉</span>
                 <span><span class="opt-name">Botox ลดริ้วรอย</span><br><span class="opt-sub">หน้าผาก · หางตา · กราม</span></span>
                 <span class="opt-price">4,900฿</span>
               </button>
               <button class="opt" type="button" data-name="Filler ปรับรูปหน้า" data-price="8,900฿">
-                <span class="opt-ico">✨</span>
                 <span><span class="opt-name">Filler ปรับรูปหน้า</span><br><span class="opt-sub">คาง · ร่องแก้ม · ใต้ตา</span></span>
                 <span class="opt-price">8,900฿</span>
               </button>
               <button class="opt" type="button" data-name="เลเซอร์ฟื้นฟูผิว" data-price="2,900฿">
-                <span class="opt-ico">🔆</span>
                 <span><span class="opt-name">เลเซอร์ฟื้นฟูผิว</span><br><span class="opt-sub">ฝ้า กระ จุดด่างดำ รูขุมขน</span></span>
                 <span class="opt-price">2,900฿</span>
               </button>
               <button class="opt" type="button" data-name="Skin Booster" data-price="6,500฿">
-                <span class="opt-ico">💧</span>
                 <span><span class="opt-name">Skin Booster</span><br><span class="opt-sub">ผิวฉ่ำ เนียนใส ลดผิวแห้ง</span></span>
                 <span class="opt-price">6,500฿</span>
               </button>
@@ -476,48 +489,62 @@
         <div class="wiz-foot" id="wizFoot">
           <button class="btn btn-soft" type="button" id="btnBack" disabled>← ย้อนกลับ</button>
           <span class="wiz-note" id="wizNote">ขั้นตอนที่ 1 จาก 4</span>
-          <button class="btn btn-violet" type="button" id="btnNext" disabled>ถัดไป →</button>
+          <button class="btn btn-wine" type="button" id="btnNext" disabled>ถัดไป →</button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── Services strip ──────────────────────────────────────── -->
-  <section class="strip" id="services">
+  <!-- ── Services — editorial price list ─────────────────────── -->
+  <section class="services" id="services">
     <div class="wrap">
-      <div style="text-align:center; margin-bottom: 40px;">
-        <span class="label">Treatments</span>
-        <h2 class="section-title">บริการของเรา</h2>
+      <div class="svc-head">
+        <h2 class="section-title">บริการและราคา</h2>
+        <p>ทุกหัตถการทำโดยแพทย์เท่านั้น ราคาเริ่มต้นต่อครั้ง ประเมินจริงอีกครั้งโดยแพทย์ในวันเข้ารับบริการ</p>
       </div>
-      <div class="strip-grid">
-        <div class="strip-card"><div class="em">💉</div><h3>Botox</h3><p>ลดริ้วรอย ยกกระชับ ปรับรูปหน้าเรียว ด้วยผลิตภัณฑ์ อย. รับรอง</p></div>
-        <div class="strip-card"><div class="em">✨</div><h3>Filler</h3><p>เติมเต็มร่องลึก ปรับคาง จมูก ใต้ตา ด้วยฟิลเลอร์แท้ 100%</p></div>
-        <div class="strip-card"><div class="em">🔆</div><h3>Laser</h3><p>เลเซอร์ฝ้า กระ รอยสิว รูขุมขนกว้าง ด้วยเครื่อง Pico มาตรฐานสหรัฐฯ</p></div>
-        <div class="strip-card"><div class="em">💧</div><h3>Skin Booster</h3><p>ผิวฉ่ำน้ำ เนียนใสแบบธรรมชาติ เห็นผลตั้งแต่ครั้งแรก</p></div>
+      <div class="svc-list">
+        <div class="svc-row">
+          <h3>Botox</h3>
+          <p>ลดริ้วรอย ยกกระชับ ปรับรูปหน้าเรียว หน้าผาก หางตา และกราม ด้วยผลิตภัณฑ์ อย. รับรอง เปิดกล่องให้ดูก่อนทำทุกครั้ง</p>
+          <div class="price">4,900฿ <small>เริ่มต้น / จุด</small></div>
+        </div>
+        <div class="svc-row">
+          <h3>Filler</h3>
+          <p>เติมเต็มร่องลึก ปรับคาง จมูก และใต้ตา ด้วยฟิลเลอร์แท้ 100% พร้อมสแกน QR ตรวจสอบผลิตภัณฑ์ได้ทันที</p>
+          <div class="price">8,900฿ <small>เริ่มต้น / ซีซี</small></div>
+        </div>
+        <div class="svc-row">
+          <h3>Laser</h3>
+          <p>เลเซอร์ฝ้า กระ รอยสิว และรูขุมขนกว้าง ด้วยเครื่อง Pico มาตรฐานสหรัฐฯ ดูแลโดยแพทย์เฉพาะทางเลเซอร์ผิวหนัง</p>
+          <div class="price">2,900฿ <small>เริ่มต้น / ครั้ง</small></div>
+        </div>
+        <div class="svc-row">
+          <h3>Skin Booster</h3>
+          <p>ผิวฉ่ำน้ำ เนียนใสแบบธรรมชาติ เห็นผลตั้งแต่ครั้งแรก เหมาะกับผิวแห้ง ขาดน้ำ และผิวหมองคล้ำจากแดด</p>
+          <div class="price">6,500฿ <small>เริ่มต้น / ครั้ง</small></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ── Why ─────────────────────────────────────────────────── -->
+  <!-- ── Why — pull-quote band ───────────────────────────────── -->
   <section class="why" id="why">
-    <div class="wrap">
-      <span class="label">Why VELVÉ</span>
-      <h2 class="section-title" style="color:#fff">ทำไมลูกค้ากว่า 5,000 คน<br>เลือกเรา</h2>
-      <div class="why-grid">
-        <div class="why-item">
-          <div class="why-num">100%</div>
-          <h3>แพทย์ตัวจริง ของแท้ทุกกล่อง</h3>
-          <p>ฉีดโดยแพทย์เท่านั้น เปิดกล่องผลิตภัณฑ์ให้ดูก่อนทำทุกครั้ง พร้อมสแกน QR ตรวจสอบ</p>
+    <div class="wrap why-grid">
+      <div>
+        <blockquote>
+          “เราเปิดกล่องผลิตภัณฑ์ให้ดูก่อนทำทุกครั้ง ฉีดโดยแพทย์เท่านั้น
+          และ<em>ไม่มีพนักงานขายคอร์ส</em>มากดดันการตัดสินใจของคุณ”
+        </blockquote>
+        <p class="attrib">— มาตรฐานเดียวที่ใช้กับลูกค้ากว่า 5,000 คนของ VELVÉ</p>
+      </div>
+      <div class="why-facts">
+        <div class="why-fact">
+          <h3>ปรึกษาฟรีโดยแพทย์</h3>
+          <p>ประเมินใบหน้าและวางแผนการรักษาโดยแพทย์โดยตรง ไม่มีค่าใช้จ่าย ตัดสินใจได้เต็มที่</p>
         </div>
-        <div class="why-item">
-          <div class="why-num">0฿</div>
-          <h3>ปรึกษาฟรี ไม่มีขายคอร์ส</h3>
-          <p>ประเมินใบหน้าและวางแผนโดยแพทย์ ไม่มีพนักงานขายกดดัน ตัดสินใจได้เต็มที่</p>
-        </div>
-        <div class="why-item">
-          <div class="why-num">24/7</div>
-          <h3>ดูแลหลังทำตลอดแนว</h3>
-          <p>มีอาการผิดปกติทักหาทีมแพทย์ได้ทันทีทาง LINE ตลอด 24 ชั่วโมง</p>
+        <div class="why-fact">
+          <h3>ดูแลหลังทำตลอด 24 ชม.</h3>
+          <p>มีอาการผิดปกติทักหาทีมแพทย์ได้ทันทีทาง LINE @velveclinic ทุกวัน ไม่เว้นวันหยุด</p>
         </div>
       </div>
     </div>
@@ -527,7 +554,7 @@
   <!-- ── Footer ──────────────────────────────────────────────── -->
   <footer>
     <div class="wrap foot-inner">
-      <div class="foot-logo">VELVÉ.</div>
+      <div class="foot-logo">VELVÉ</div>
       <div class="foot-copy">© 2026 VELVÉ Aesthetics — Demo project by Phakin Chawanpunya · 02-555-8899 · @velveclinic</div>
     </div>
   </footer>
