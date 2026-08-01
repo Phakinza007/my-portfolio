@@ -3,10 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SolarPeak — a clean-energy solar company landing page practice project with hero, stats, how-it-works, plans, and contact." />
+  <title>SolarPeak | Residential Solar Landing Page | Phakin Portfolio</title>
+  <meta name="description" content="SolarPeak — a dark-navy, high-contrast landing page for a residential solar installer: photographic hero, consistent performance figures, transparent per-kW pricing and a validated quote form. Front-end design and build by Phakin Chawanpunya." />
   <meta name="author" content="Phakin Chawanpunya" />
-  <title>SolarPeak | Clean Energy Landing Page | Phakin Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="canonical" href="https://phakinza007.github.io/my-portfolio/solar-landing.html">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#050d1a">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="SolarPeak — Residential Solar Landing Page">
+  <meta property="og:description" content="Dark-navy solar installer landing page: photographic hero, transparent per-kW pricing and a validated quote form. Design and build by Phakin Chawanpunya.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://phakinza007.github.io/my-portfolio/solar-landing.html">
+  <meta property="og:image" content="https://phakinza007.github.io/my-portfolio/assets/solar/og-cover.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Two SolarPeak technicians in safety harnesses setting a black solar panel onto a residential roof under clear sky">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="Phakin Chawanpunya — Portfolio">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SolarPeak — Residential Solar Landing Page">
+  <meta name="twitter:description" content="Dark-navy solar installer landing page: photographic hero, transparent per-kW pricing and a validated quote form.">
+  <meta name="twitter:image" content="https://phakinza007.github.io/my-portfolio/assets/solar/og-cover.jpg">
+  <meta name="twitter:image:alt" content="Two SolarPeak technicians setting a solar panel onto a residential roof">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=optional" rel="stylesheet" />
   <link rel="stylesheet" href="assets/portfolio-context.css?v=back-button-clean" />
   <style>
     :root {
@@ -24,13 +45,14 @@
       --white:     #f0f4ff;
       --muted:     rgba(240,244,255,0.5);
       --border:    rgba(255,255,255,0.09);
+      --alert:     #ff9270;
       --radius-xl: 28px;
       --radius-lg: 18px;
       --radius-md: 12px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
 
     body {
       font-family: 'Inter', sans-serif;
@@ -39,6 +61,15 @@
       overflow-x: hidden;
       line-height: 1.65;
     }
+    body.menu-open { overflow: hidden; }
+
+    /* Sticky nav is 68–74px tall — keep anchored sections clear of it */
+    section[id], div[id] { scroll-margin-top: 88px; }
+
+    :focus-visible { outline: 2px solid var(--sun); outline-offset: 3px; }
+
+    /* The shared back button ships at 42px — lift it to the 44px touch minimum */
+    .portfolio-back { min-height: 44px; }
 
     /* ── NOISE + GRID BG ── */
     body::before {
@@ -48,6 +79,7 @@
         linear-gradient(rgba(245,166,35,0.025) 1px, transparent 1px),
         linear-gradient(90deg, rgba(245,166,35,0.025) 1px, transparent 1px);
       background-size: 56px 56px;
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent 60%);
       mask-image: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent 60%);
     }
 
@@ -59,10 +91,29 @@
       pointer-events: none; z-index: 0;
     }
 
-    /* ── NAV ── */
-    nav {
+    /* ── SHARED PHOTO GRADE ──
+       Every photograph on the page runs through the same slight de-saturation and
+       lift in contrast so the site-blue skies and hi-vis greens settle against the
+       #050d1a navy instead of fighting it. */
+    .ph { filter: saturate(0.86) contrast(1.06) brightness(0.86); }
+
+    /* Site photography is shot in hard midday sun, so the skies come in far
+       brighter than #050d1a. Every photo gets the same navy top/bottom scrim plus
+       a faint amber wash, which is what makes the strip read as one shoot. */
+    .ph-wrap { position: relative; overflow: hidden; }
+    .ph-wrap::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background:
+        linear-gradient(to bottom, rgba(5,13,26,0.52) 0%, rgba(5,13,26,0.06) 46%, rgba(5,13,26,0.40) 100%),
+        linear-gradient(135deg, rgba(245,166,35,0.10), transparent 62%);
+    }
+
+    /* ── NAV ──
+       Scoped to .nav-bar, not the bare `nav` element: the off-canvas .nav-panel is
+       also a <nav>, and a bare selector leaks flex/border rules straight into it. */
+    .nav-bar {
       position: sticky; top: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
       padding: 1.1rem 4rem;
       background: rgba(5,13,26,0.82);
       backdrop-filter: blur(20px);
@@ -70,41 +121,117 @@
     }
 
     .nav-logo {
-      display: flex; align-items: center; gap: 0.6rem;
+      display: flex; align-items: center; gap: 0.6rem; flex: none;
       font-size: 1.1rem; font-weight: 800; letter-spacing: -0.4px;
     }
 
     .nav-logo .sun-mark {
-      width: 28px; height: 28px;
+      width: 28px; height: 28px; flex: none;
       background: linear-gradient(135deg, var(--sun), var(--sun-warm));
       border-radius: 50%;
       box-shadow: 0 0 18px rgba(245,166,35,0.5);
     }
 
-    .nav-links { display: flex; gap: 2.4rem; list-style: none; }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
     .nav-links a {
+      display: inline-flex; align-items: center; min-height: 44px; padding: 0 2px;
       font-size: 0.83rem; font-weight: 500; letter-spacing: 0.02em;
       color: var(--muted); text-decoration: none; transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--white); }
 
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; flex: none; }
+
     .nav-cta {
+      display: inline-flex; align-items: center; min-height: 44px;
       background: linear-gradient(135deg, var(--sun), #e8941a);
       color: #050d1a;
       font-size: 0.83rem; font-weight: 700; letter-spacing: 0.04em;
-      padding: 0.6rem 1.4rem; border-radius: 99px; text-decoration: none;
+      padding: 0 1.4rem; border-radius: 99px; text-decoration: none;
       box-shadow: 0 4px 18px rgba(245,166,35,0.35);
-      transition: all 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
     .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(245,166,35,0.5); }
+
+    .nav-toggle {
+      display: none; width: 44px; height: 44px; flex: none;
+      align-items: center; justify-content: center;
+      background: transparent; border: 1px solid var(--border);
+      border-radius: 12px; color: var(--white); cursor: pointer; padding: 0;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .nav-toggle:hover { border-color: var(--sun); color: var(--sun); }
+    .nav-toggle .i-close { display: none; }
+    .nav-toggle[aria-expanded="true"] .i-open { display: none; }
+    .nav-toggle[aria-expanded="true"] .i-close { display: block; }
+
+    /* Off-canvas panel sits *below* the sticky bar (z-index 99 vs 100) so the
+       close button stays reachable while the panel is open. */
+    .nav-panel {
+      position: fixed; top: 0; right: 0; bottom: 0;
+      width: min(320px, 84vw);
+      z-index: 99; visibility: hidden;
+      background: var(--bg2);
+      border-left: 1px solid var(--border);
+      padding: 6rem 1.5rem 2rem;
+      display: flex; flex-direction: column;
+      transform: translateX(100%);
+      /* visibility flips instantly on open so the panel can take focus in the same
+         tick, and is held back until the slide-out finishes on close */
+      transition: transform 0.28s ease, visibility 0s linear 0.28s;
+      overflow-y: auto;
+    }
+    .nav-panel.open {
+      transform: translateX(0); visibility: visible;
+      transition: transform 0.28s ease, visibility 0s;
+    }
+    .nav-panel a {
+      display: flex; align-items: center; min-height: 48px;
+      font-size: 0.95rem; font-weight: 500; color: var(--muted);
+      text-decoration: none; border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .nav-panel a:hover, .nav-panel a:focus-visible { color: var(--sun); }
+    .nav-panel .nav-panel-cta {
+      justify-content: center; border-bottom: none; margin-top: 1.5rem;
+      background: linear-gradient(135deg, var(--sun), #e8941a);
+      color: #050d1a; font-weight: 700; border-radius: 99px;
+      box-shadow: 0 4px 18px rgba(245,166,35,0.35);
+    }
+    .nav-panel .nav-panel-cta:hover, .nav-panel .nav-panel-cta:focus-visible { color: #050d1a; }
+
+    .nav-backdrop {
+      position: fixed; inset: 0; z-index: 98;
+      background: rgba(5,13,26,0.65);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.28s ease;
+    }
+    .nav-backdrop.open { opacity: 1; pointer-events: auto; }
 
     /* ── HERO ── */
     .hero {
       min-height: 100vh;
+      min-height: 100svh;
       display: flex; flex-direction: column; justify-content: center;
-      padding: 8rem 4rem 6rem;
+      padding: 6.5rem 4rem 5rem;
       position: relative; z-index: 1;
+      overflow: hidden;
     }
+
+    /* Real installation photography carries the hero. It is a layer, not a
+       decoration: it scales at every width instead of disappearing on mobile. */
+    .hero-photo { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+    .hero-photo img {
+      display: block; width: 100%; height: 100%;
+      object-fit: cover; object-position: 64% 38%;
+    }
+    .hero-photo::after {
+      content: ''; position: absolute; inset: 0;
+      background:
+        linear-gradient(100deg, rgba(5,13,26,0.96) 0%, rgba(5,13,26,0.92) 36%, rgba(5,13,26,0.48) 66%, rgba(5,13,26,0.68) 100%),
+        linear-gradient(to bottom, rgba(5,13,26,0.86) 0%, rgba(5,13,26,0.14) 26%, rgba(5,13,26,0.50) 76%, var(--bg) 100%);
+    }
+    .hero > *:not(.hero-photo) { position: relative; z-index: 1; }
 
     .hero-badge {
       display: inline-flex; align-items: center; gap: 0.5rem;
@@ -123,7 +250,8 @@
 
     .hero-headline {
       font-family: 'DM Serif Display', Georgia, serif;
-      font-size: clamp(3.2rem, 7vw, 7.5rem);
+      font-weight: 400;
+      font-size: clamp(2.6rem, 7vw, 7.5rem);
       line-height: 1.0;
       letter-spacing: -0.02em;
       color: var(--white);
@@ -139,52 +267,49 @@
     .hero-sub {
       font-size: clamp(0.95rem, 1.5vw, 1.1rem);
       font-weight: 300;
-      color: var(--muted);
+      color: rgba(240,244,255,0.72);
       max-width: 520px;
       line-height: 1.85;
-      margin-bottom: 3rem;
+      margin-bottom: 2.5rem;
     }
 
     .hero-actions { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
 
     .btn-sun {
-      display: inline-flex; align-items: center; gap: 0.5rem;
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      min-height: 44px;
       background: linear-gradient(135deg, var(--sun), #e8941a);
       color: #050d1a; font-size: 0.9rem; font-weight: 700;
+      font-family: inherit;
       padding: 1rem 2.2rem; border-radius: 99px;
       text-decoration: none; border: none; cursor: pointer;
       box-shadow: 0 6px 24px rgba(245,166,35,0.4);
-      transition: all 0.22s;
+      transition: transform 0.22s, box-shadow 0.22s;
     }
     .btn-sun:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(245,166,35,0.55); }
 
     .btn-ghost-white {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: transparent; color: var(--white);
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      min-height: 44px;
+      background: rgba(5,13,26,0.4); color: var(--white);
       font-size: 0.9rem; font-weight: 500;
       padding: 0.95rem 1.8rem; border-radius: 99px;
       border: 1px solid var(--border); text-decoration: none;
-      transition: all 0.22s;
+      transition: border-color 0.22s, background 0.22s;
     }
-    .btn-ghost-white:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.05); }
+    .btn-ghost-white:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); }
 
     /* Hero stats */
     .hero-stats {
-      display: flex; gap: 3rem; margin-top: 5rem;
-      padding-top: 3rem; border-top: 1px solid var(--border);
+      display: flex; gap: 3rem; margin-top: 3rem;
+      padding-top: 2.25rem; border-top: 1px solid var(--border);
     }
     .h-stat-num {
-      font-size: 2.4rem; font-weight: 800; letter-spacing: -1.5px;
-      color: var(--white); display: block;
+      font-size: clamp(1.9rem, 4.4vw, 2.4rem); font-weight: 800; letter-spacing: -1.5px;
+      color: var(--white); display: block; line-height: 1.15;
     }
-    .h-stat-num .unit { font-size: 1.4rem; color: var(--sun); }
-    .h-stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
-
-    /* ── SUN SVG ── */
-    .hero-sun-wrap {
-      position: absolute; right: 4rem; top: 50%; transform: translateY(-50%);
-      z-index: 0; pointer-events: none;
-    }
+    .h-stat-num .unit { font-size: 0.6em; color: var(--sun); }
+    .h-stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; line-height: 1.5; }
 
     /* ── SECTION ── */
     section { position: relative; z-index: 1; }
@@ -198,6 +323,7 @@
 
     .sec-title {
       font-family: 'DM Serif Display', Georgia, serif;
+      font-weight: 400;
       font-size: clamp(2rem, 4vw, 3.5rem);
       line-height: 1.1; letter-spacing: -0.02em;
       color: var(--white);
@@ -207,23 +333,22 @@
 
     /* ── STATS BAND ── */
     .stats-band {
-      background: var(--bg2);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      padding: 4rem;
       display: grid; grid-template-columns: repeat(4,1fr);
       gap: 1px; background: var(--border);
+      position: relative; z-index: 1;
     }
     .stat-cell {
-      background: var(--bg2); padding: 2.5rem;
+      background: var(--bg2); padding: 3.5rem 2rem;
       text-align: center;
     }
     .stat-big {
-      font-size: 3rem; font-weight: 800; letter-spacing: -2px;
-      display: block; color: var(--white);
+      font-size: clamp(2rem, 5.4vw, 3rem); font-weight: 800; letter-spacing: -2px;
+      display: block; color: var(--white); line-height: 1.1;
     }
-    .stat-big span { color: var(--sun); }
-    .stat-desc { font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; }
+    .stat-big span { color: var(--sun); font-size: 0.62em; letter-spacing: -0.5px; }
+    .stat-desc { font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; line-height: 1.55; }
 
     /* ── HOW IT WORKS ── */
     .how-section { background: var(--bg); }
@@ -243,9 +368,31 @@
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 1.5rem;
       font-size: 0.85rem; font-weight: 800; color: var(--sun);
+      position: relative; z-index: 1;
     }
     .step-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.6rem; }
     .step-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── ON-SITE PHOTO STRIP ── */
+    .process-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
+      margin-top: 4.5rem;
+    }
+    .process-fig {
+      margin: 0; background: var(--bg2);
+      border: 1px solid var(--border); border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .process-fig .ph-wrap img {
+      display: block; width: 100%; height: auto;
+      aspect-ratio: 4 / 3; object-fit: cover;
+    }
+    .process-cap { padding: 1.3rem 1.4rem 1.5rem; }
+    .p-kicker {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--sun); margin-bottom: 0.4rem;
+    }
+    .p-text { font-size: 0.8rem; color: var(--muted); line-height: 1.7; }
 
     /* ── WHY SOLAR ── */
     .why-section { background: var(--bg2); }
@@ -256,7 +403,25 @@
       border-radius: var(--radius-xl);
       overflow: hidden;
       aspect-ratio: 1 / 1;
-      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .why-visual img {
+      display: block; width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .why-visual::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background:
+        linear-gradient(to bottom, rgba(5,13,26,0.45) 0%, rgba(5,13,26,0.04) 42%, transparent 100%),
+        linear-gradient(135deg, rgba(245,166,35,0.10), transparent 62%);
+    }
+    .why-visual figcaption { z-index: 1; }
+    .why-visual figcaption {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      padding: 2.5rem 1.5rem 1.25rem;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--sun-warm);
+      background: linear-gradient(to top, rgba(5,13,26,0.92), transparent);
     }
     .benefits { display: flex; flex-direction: column; gap: 0; }
     .benefit {
@@ -267,12 +432,11 @@
     .benefit-icon {
       width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
-      font-size: 1rem; font-weight: 800;
     }
-    .bi-sun  { background: var(--sun-pale); color: var(--sun); }
-    .bi-leaf { background: var(--green-dim); color: var(--green); }
-    .bi-bolt { background: rgba(56,189,248,0.1); color: var(--blue); }
-    .bi-shield { background: rgba(167,139,250,0.1); color: #a78bfa; }
+    .bi-sun   { background: var(--sun-pale); color: var(--sun); }
+    .bi-leaf  { background: var(--green-dim); color: var(--green); }
+    .bi-bolt  { background: rgba(56,189,248,0.1); color: var(--blue); }
+    .bi-value { background: rgba(240,244,255,0.08); color: var(--white); }
 
     .benefit-title { font-size: 0.93rem; font-weight: 700; margin-bottom: 0.25rem; }
     .benefit-desc  { font-size: 0.8rem; color: var(--muted); line-height: 1.65; }
@@ -283,7 +447,8 @@
     .plan-card {
       background: var(--card); border: 1px solid var(--border);
       border-radius: var(--radius-xl); padding: 2.5rem;
-      position: relative; overflow: hidden; transition: all 0.25s;
+      position: relative; overflow: hidden; transition: background 0.25s, transform 0.25s;
+      display: flex; flex-direction: column;
     }
     .plan-card:hover { background: var(--card-h); transform: translateY(-4px); }
     .plan-card.featured {
@@ -295,17 +460,17 @@
       letter-spacing: 0.15em; text-transform: uppercase;
       background: var(--sun); color: #050d1a;
       padding: 0.2rem 0.7rem; border-radius: 99px;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.5rem; align-self: flex-start;
     }
     .plan-name { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.3px; margin-bottom: 0.4rem; }
     .plan-tag  { font-size: 0.78rem; color: var(--muted); margin-bottom: 1.8rem; }
     .plan-price-row { margin-bottom: 2rem; }
     .plan-price {
-      font-size: 2.8rem; font-weight: 800; letter-spacing: -2px;
+      font-size: clamp(2.1rem, 5.5vw, 2.8rem); font-weight: 800; letter-spacing: -2px;
       color: var(--white); line-height: 1;
     }
-    .plan-price .curr { font-size: 1.4rem; vertical-align: top; margin-top: 0.4rem; display: inline-block; }
-    .plan-unit { font-size: 0.78rem; color: var(--muted); margin-top: 0.3rem; }
+    .plan-price .curr { font-size: 0.5em; vertical-align: top; margin-top: 0.35em; display: inline-block; letter-spacing: 0; }
+    .plan-unit { font-size: 0.78rem; color: var(--muted); margin-top: 0.4rem; }
     .plan-features { display: flex; flex-direction: column; gap: 0; margin-bottom: 2rem; }
     .plan-feat {
       display: flex; align-items: center; gap: 0.7rem;
@@ -313,12 +478,14 @@
       font-size: 0.82rem; color: var(--muted);
     }
     .plan-feat:last-child { border-bottom: none; }
-    .feat-check { color: var(--green); font-weight: 800; font-size: 0.75rem; }
-    .feat-dash  { color: rgba(255,255,255,0.2); }
+    .feat-check { color: var(--green); font-weight: 800; font-size: 0.75rem; flex: none; }
+    .feat-dash  { color: rgba(255,255,255,0.2); flex: none; }
     .plan-btn {
-      display: block; width: 100%; text-align: center;
+      display: flex; align-items: center; justify-content: center;
+      width: 100%; min-height: 46px; margin-top: auto;
       padding: 0.85rem; border-radius: 99px;
-      font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s;
+      font-size: 0.85rem; font-weight: 700; cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
       text-decoration: none;
     }
     .plan-btn-outline {
@@ -334,22 +501,38 @@
 
     /* ── TESTIMONIALS ── */
     .testi-section { background: var(--bg2); }
-    .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 4rem; }
+    .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 4rem; align-items: start; }
     .testi-card {
       background: var(--card); border: 1px solid var(--border);
       border-radius: var(--radius-lg); padding: 2rem;
-      transition: all 0.22s;
+      transition: background 0.22s;
     }
     .testi-card:hover { background: var(--card-h); }
-    .testi-stars { color: var(--sun); font-size: 0.75rem; letter-spacing: 0.1em; margin-bottom: 0.9rem; }
-    .testi-text { font-size: 0.88rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.2rem; font-style: italic; }
+    .testi-card.lead {
+      background: linear-gradient(135deg, rgba(245,166,35,0.12), rgba(245,166,35,0.03));
+      border-color: rgba(245,166,35,0.28);
+    }
+    .testi-stars { color: var(--sun); font-size: 0.8rem; letter-spacing: 0.14em; margin-bottom: 0.9rem; }
+    .testi-stars .dim { color: rgba(240,244,255,0.22); }
+    .testi-text { font-size: 0.88rem; color: rgba(240,244,255,0.72); line-height: 1.75; margin-bottom: 1.2rem; font-style: italic; }
+    .testi-text b { color: var(--sun-warm); font-weight: 700; font-style: normal; }
     .testi-name { font-size: 0.85rem; font-weight: 700; }
     .testi-role { font-size: 0.75rem; color: var(--muted); }
+    .testi-meta {
+      display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem;
+      margin-top: 0.9rem; padding-top: 0.9rem; border-top: 1px solid var(--border);
+      font-size: 0.72rem; color: var(--muted);
+    }
+    .testi-sys {
+      color: var(--sun); font-weight: 700; letter-spacing: 0.06em;
+      background: var(--sun-pale); border-radius: 99px; padding: 0.15rem 0.6rem;
+    }
 
     /* ── CONTACT ── */
     .contact-section {
       background: var(--bg);
-      display: grid; grid-template-columns: 1fr 1fr; min-height: 70vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      position: relative; z-index: 1;
     }
     .contact-left { padding: 7rem 4rem; }
     .contact-right {
@@ -361,16 +544,33 @@
     .form-group { margin-bottom: 1rem; }
     .form-label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--muted); margin-bottom: 0.4rem; letter-spacing: 0.05em; }
     .form-input, .form-select {
-      width: 100%; padding: 0.8rem 1rem;
+      width: 100%; min-height: 46px; padding: 0.8rem 1rem;
       background: rgba(255,255,255,0.06); border: 1px solid var(--border);
       border-radius: var(--radius-md); color: var(--white); font-size: 0.88rem;
       font-family: inherit; outline: none; transition: border-color 0.2s;
     }
-    .form-input::placeholder { color: var(--muted); }
+    .form-input::placeholder { color: rgba(240,244,255,0.42); }
     .form-input:focus, .form-select:focus { border-color: var(--sun); }
-    .form-select option { background: #0c1830; }
+    .form-input.error, .form-select.error { border-color: var(--alert); }
+    .form-select option { background: #0c1830; color: var(--white); }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
     .form-sub { font-size: 0.8rem; font-weight: 700; color: var(--sun); margin-bottom: 1.5rem; }
+    .field-error {
+      display: none; margin-top: 0.35rem;
+      font-size: 0.74rem; font-weight: 500; color: var(--alert); line-height: 1.5;
+    }
+    .field-error.show { display: block; }
+    .form-note {
+      display: none; margin-top: 1.25rem; padding: 1rem 1.25rem;
+      border-radius: var(--radius-md); font-size: 0.84rem; line-height: 1.65;
+    }
+    .form-note.show { display: block; }
+    .form-ok {
+      background: var(--green-dim); border: 1px solid rgba(34,211,163,0.35); color: var(--green);
+    }
+    .form-bad {
+      background: rgba(255,146,112,0.1); border: 1px solid rgba(255,146,112,0.35); color: var(--alert);
+    }
     .contact-perks { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2.5rem; }
     .c-perk { display: flex; gap: 1rem; align-items: flex-start; }
     .c-perk-num {
@@ -385,34 +585,85 @@
     /* ── FOOTER ── */
     footer {
       background: var(--bg2); border-top: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
       padding: 2rem 4rem;
       position: relative; z-index: 1;
     }
     .footer-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 800; font-size: 0.95rem; }
-    .footer-logo .sm { width: 18px; height: 18px; background: var(--sun); border-radius: 50%; }
+    .footer-logo .sm { width: 18px; height: 18px; background: var(--sun); border-radius: 50%; flex: none; }
     .footer-copy { font-size: 0.72rem; color: var(--muted); }
 
+    /* ── REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .badge-dot { animation: none; }
+      .nav-panel, .nav-backdrop { transition: none; }
+      .btn-sun:hover, .nav-cta:hover, .plan-card:hover { transform: none; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
     /* ── RESPONSIVE ── */
+    @media (min-width: 901px) {
+      .nav-panel, .nav-backdrop { display: none; }
+    }
+
     @media (max-width: 900px) {
-      nav { padding: 1rem 1.5rem; }
+      .nav-bar { padding: 0.85rem 1.5rem; }
       .nav-links { display: none; }
-      .hero { padding: 6rem 1.5rem 4rem; }
-      .hero-sun-wrap { display: none; }
-      .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+      .nav-toggle { display: inline-flex; }
+      .hero { padding: 5rem 1.5rem 4rem; }
+      .hero-photo img { object-position: 62% 34%; }
+      /* Single-column hero: the scrim has to run top-to-bottom, not left-to-right */
+      .hero-photo::after {
+        background:
+          linear-gradient(to bottom, rgba(5,13,26,0.92) 0%, rgba(5,13,26,0.55) 22%, rgba(5,13,26,0.86) 52%, var(--bg) 96%),
+          linear-gradient(to right, rgba(5,13,26,0.6), rgba(5,13,26,0.25));
+      }
+      .hero-stats { gap: 1.5rem; flex-wrap: wrap; margin-top: 3.5rem; padding-top: 2.25rem; }
       .section { padding: 5rem 1.5rem; }
-      .stats-band { grid-template-columns: 1fr 1fr; padding: 0; }
-      .stat-cell { padding: 2rem 1.5rem; }
-      .steps { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+      .stats-band { grid-template-columns: 1fr 1fr; }
+      .stat-cell { padding: 2.25rem 1.25rem; }
+      .steps { grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-top: 3.5rem; }
       .steps::before { display: none; }
-      .why-grid { grid-template-columns: 1fr; }
-      .why-visual { display: none; }
-      .plans-grid { grid-template-columns: 1fr; max-width: 420px; }
-      .testi-grid { grid-template-columns: 1fr; }
+      .step { padding: 0; }
+      .why-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      /* The product photo leads on mobile instead of vanishing */
+      .why-visual { order: -1; aspect-ratio: 4 / 3; }
+      .plans-grid { grid-template-columns: 1fr; max-width: 420px; margin-inline: auto; }
+      .testi-grid { grid-template-columns: 1fr; max-width: 520px; margin-inline: auto; }
       .contact-section { grid-template-columns: 1fr; }
       .contact-left, .contact-right { padding: 4rem 1.5rem; }
-      .form-row { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
       footer { flex-direction: column; gap: 0.8rem; padding: 1.5rem; text-align: center; }
+    }
+
+    @media (max-width: 760px) {
+      .process-grid { grid-template-columns: 1fr; max-width: 460px; margin-inline: auto; gap: 1.25rem; }
+      .process-fig .ph-wrap img { aspect-ratio: 16 / 9; }
+    }
+
+    @media (max-width: 620px) {
+      .nav-bar { padding: 0.85rem 1.15rem; }
+      .nav-cta { display: none; }
+      .hero { padding: 4.5rem 1.15rem 3.5rem; }
+      .section { padding: 4rem 1.15rem; }
+      .contact-left, .contact-right { padding: 3.5rem 1.15rem; }
+      .hero-stats {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem 1rem;
+      }
+      .steps { grid-template-columns: 1fr; gap: 2rem; }
+      .step { display: grid; grid-template-columns: 48px 1fr; gap: 1rem; text-align: left; }
+      .step-num { margin: 0; }
+      .step-title { grid-column: 2; margin-bottom: 0.35rem; }
+      .step-desc { grid-column: 2; }
+      .stat-cell { padding: 1.75rem 0.85rem; }
+      .plan-card { padding: 1.75rem 1.5rem; }
+      .testi-card { padding: 1.6rem 1.4rem; }
+      .why-visual { aspect-ratio: 3 / 2; }
     }
   </style>
 </head>
@@ -425,7 +676,7 @@
 </aside>
 
 <!-- NAV -->
-<nav>
+<nav class="nav-bar">
   <div class="nav-logo">
     <div class="sun-mark"></div>
     SolarPeak
@@ -434,60 +685,44 @@
     <li><a href="#how">How It Works</a></li>
     <li><a href="#why">Benefits</a></li>
     <li><a href="#plans">Plans</a></li>
+    <li><a href="#stories">Stories</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="#contact" class="nav-cta">Get Free Quote</a>
+  <div class="nav-right">
+    <a href="#contact" class="nav-cta">Get Free Quote</a>
+    <button class="nav-toggle" id="navToggle" type="button"
+            aria-expanded="false" aria-controls="navPanel" aria-label="Open menu">
+      <svg class="i-open" width="20" height="14" viewBox="0 0 20 14" aria-hidden="true" focusable="false">
+        <path d="M0 1h20M0 7h20M0 13h20" stroke="currentColor" stroke-width="1.8" fill="none"/>
+      </svg>
+      <svg class="i-close" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+        <path d="M1 1l14 14M15 1L1 15" stroke="currentColor" stroke-width="1.8" fill="none"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<div class="nav-backdrop" id="navBackdrop" hidden></div>
+
+<nav class="nav-panel" id="navPanel" aria-label="Mobile navigation">
+  <a href="#how">How It Works</a>
+  <a href="#why">Benefits</a>
+  <a href="#plans">Plans &amp; Pricing</a>
+  <a href="#stories">Customer Stories</a>
+  <a href="#contact">Contact</a>
+  <a href="#contact" class="nav-panel-cta">Get Free Quote</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-sun-wrap">
-    <svg viewBox="0 0 540 540" width="540" height="540" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="sg" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#f5a623" stop-opacity="0.55"/>
-          <stop offset="50%" stop-color="#f5a623" stop-opacity="0.12"/>
-          <stop offset="100%" stop-color="#f5a623" stop-opacity="0"/>
-        </radialGradient>
-        <radialGradient id="core" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#f7c355"/>
-          <stop offset="100%" stop-color="#f5a623"/>
-        </radialGradient>
-      </defs>
-      <!-- Outer glow -->
-      <circle cx="270" cy="270" r="265" fill="url(#sg)"/>
-      <!-- Rays -->
-      <g stroke="#f5a623" stroke-width="1" opacity="0.25">
-        <line x1="270" y1="0" x2="270" y2="50"/>
-        <line x1="270" y1="490" x2="270" y2="540"/>
-        <line x1="0" y1="270" x2="50" y2="270"/>
-        <line x1="490" y1="270" x2="540" y2="270"/>
-        <line x1="38" y1="38" x2="73" y2="73"/>
-        <line x1="467" y1="467" x2="502" y2="502"/>
-        <line x1="502" y1="38" x2="467" y2="73"/>
-        <line x1="73" y1="467" x2="38" y2="502"/>
-        <line x1="165" y1="10" x2="180" y2="44"/>
-        <line x1="375" y1="10" x2="360" y2="44"/>
-        <line x1="165" y1="530" x2="180" y2="496"/>
-        <line x1="375" y1="530" x2="360" y2="496"/>
-        <line x1="10" y1="165" x2="44" y2="180"/>
-        <line x1="530" y1="165" x2="496" y2="180"/>
-        <line x1="10" y1="375" x2="44" y2="360"/>
-        <line x1="530" y1="375" x2="496" y2="360"/>
-      </g>
-      <!-- Ring -->
-      <circle cx="270" cy="270" r="120" fill="none" stroke="#f5a623" stroke-width="0.8" opacity="0.2"/>
-      <circle cx="270" cy="270" r="80" fill="none" stroke="#f5a623" stroke-width="0.8" opacity="0.15"/>
-      <!-- Core sun -->
-      <circle cx="270" cy="270" r="60" fill="url(#core)" opacity="0.9"/>
-      <circle cx="270" cy="270" r="44" fill="#f7c355" opacity="0.95"/>
-      <!-- Panel grid on sun -->
-      <line x1="252" y1="250" x2="252" y2="290" stroke="#e8941a" stroke-width="1.2" opacity="0.5"/>
-      <line x1="270" y1="250" x2="270" y2="290" stroke="#e8941a" stroke-width="1.2" opacity="0.5"/>
-      <line x1="288" y1="250" x2="288" y2="290" stroke="#e8941a" stroke-width="1.2" opacity="0.5"/>
-      <line x1="235" y1="262" x2="305" y2="262" stroke="#e8941a" stroke-width="1.2" opacity="0.5"/>
-      <line x1="235" y1="278" x2="305" y2="278" stroke="#e8941a" stroke-width="1.2" opacity="0.5"/>
-    </svg>
+  <div class="hero-photo">
+    <img class="ph"
+         src="assets/solar/hero-install-900.jpg"
+         srcset="assets/solar/hero-install-900.jpg 900w, assets/solar/hero-install-1400.jpg 1400w"
+         sizes="100vw"
+         alt="Two SolarPeak technicians in safety harnesses lowering a black solar panel onto a shingled residential roof under a clear sky"
+         width="1400" height="788"
+         fetchpriority="high" decoding="async">
   </div>
 
   <div class="hero-badge">
@@ -500,33 +735,34 @@
   </h1>
 
   <p class="hero-sub">
-    SolarPeak delivers premium residential and commercial solar installations — reducing bills, carbon footprints, and energy dependence since 2019.
+    SolarPeak designs, installs and maintains rooftop solar for homes and businesses across
+    Thailand — cutting bills, carbon and grid dependence since 2019.
   </p>
 
   <div class="hero-actions">
     <a href="#contact" class="btn-sun">
       Get a Free Quote
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
     <a href="#how" class="btn-ghost-white">How It Works</a>
   </div>
 
   <div class="hero-stats">
     <div>
-      <span class="h-stat-num">12<span class="unit">K+</span></span>
+      <span class="h-stat-num">36<span class="unit">K+</span></span>
       <div class="h-stat-label">Panels Installed</div>
     </div>
     <div>
-      <span class="h-stat-num">98<span class="unit">%</span></span>
-      <div class="h-stat-label">Customer Satisfaction</div>
+      <span class="h-stat-num">2,400<span class="unit">+</span></span>
+      <div class="h-stat-label">Homes Powered</div>
     </div>
     <div>
       <span class="h-stat-num">40<span class="unit">%</span></span>
       <div class="h-stat-label">Average Bill Reduction</div>
     </div>
     <div>
-      <span class="h-stat-num">5<span class="unit">yr</span></span>
-      <div class="h-stat-label">Full Warranty</div>
+      <span class="h-stat-num">25<span class="unit">yr</span></span>
+      <div class="h-stat-label">Panel Performance Warranty</div>
     </div>
   </div>
 </section>
@@ -534,145 +770,167 @@
 <!-- STATS BAND -->
 <div class="stats-band">
   <div class="stat-cell">
-    <span class="stat-big">2,400<span>+</span></span>
-    <div class="stat-desc">Homes powered by clean solar</div>
-  </div>
-  <div class="stat-cell">
     <span class="stat-big">18<span>MW</span></span>
-    <div class="stat-desc">Total clean capacity installed</div>
+    <div class="stat-desc">Total capacity installed — 7.5 kW on the average rooftop</div>
   </div>
   <div class="stat-cell">
-    <span class="stat-big">34<span>k</span></span>
-    <div class="stat-desc">Tonnes of CO₂ offset per year</div>
+    <span class="stat-big">12.6<span>k</span></span>
+    <div class="stat-desc">Tonnes of CO₂ offset per year across our fleet</div>
   </div>
   <div class="stat-cell">
-    <span class="stat-big">15<span>yr</span></span>
-    <div class="stat-desc">Panel performance guarantee</div>
+    <span class="stat-big">7–9<span>yr</span></span>
+    <div class="stat-desc">Typical payback period at current MEA / PEA tariffs</div>
+  </div>
+  <div class="stat-cell">
+    <span class="stat-big">98<span>%</span></span>
+    <div class="stat-desc">Of customers would recommend SolarPeak</div>
   </div>
 </div>
 
 <!-- HOW IT WORKS -->
 <section class="section how-section" id="how">
   <div class="sec-eyebrow">How It Works</div>
-  <div class="sec-title">Simple as <em>Sunlight</em></div>
+  <h2 class="sec-title">Simple as <em>Sunlight</em></h2>
   <div class="steps">
     <div class="step">
       <div class="step-num">01</div>
-      <div class="step-title">Free Site Assessment</div>
-      <p class="step-desc">Our engineers visit your property to assess roof orientation, shading, and energy needs — at zero cost to you.</p>
+      <h3 class="step-title">Free Site Assessment</h3>
+      <p class="step-desc">Our engineers visit your property to assess roof orientation, shading and load profile — at zero cost to you.</p>
     </div>
     <div class="step">
       <div class="step-num">02</div>
-      <div class="step-title">Custom System Design</div>
-      <p class="step-desc">We design a system tailored to your usage and roof, with a projected savings report and clear ROI timeline.</p>
+      <h3 class="step-title">Custom System Design</h3>
+      <p class="step-desc">We size the array to your actual usage and roof, with a projected savings report and a clear payback timeline.</p>
     </div>
     <div class="step">
       <div class="step-num">03</div>
-      <div class="step-title">Professional Installation</div>
-      <p class="step-desc">Certified solar technicians install your system in 1–2 days. Fully permitted, grid-connected, and warranty-backed.</p>
+      <h3 class="step-title">Professional Installation</h3>
+      <p class="step-desc">Certified technicians install in 1–2 days. Fully permitted, grid-connected, and backed by a 25-year panel performance warranty.</p>
     </div>
     <div class="step">
       <div class="step-num">04</div>
-      <div class="step-title">Monitor & Save</div>
-      <p class="step-desc">Track your production and savings live via our app. Most customers break even within 5–7 years.</p>
+      <h3 class="step-title">Monitor &amp; Save</h3>
+      <p class="step-desc">Track production and savings live in our app. Most systems break even between year seven and year nine.</p>
     </div>
+  </div>
+
+  <div class="process-grid">
+    <figure class="process-fig">
+      <div class="ph-wrap">
+        <img class="ph" src="assets/solar/install-drill.jpg" width="900" height="675"
+             alt="SolarPeak technician in a high-visibility shirt and safety harness driving a mounting bolt beside a freshly seated roof panel"
+             loading="lazy" decoding="async">
+      </div>
+      <figcaption class="process-cap">
+        <div class="p-kicker">Day 1 · Mounting</div>
+        <p class="p-text">Rails are bolted through to the rafters and flashed watertight before a single panel goes down. Every penetration is sealed and photographed for your file.</p>
+      </figcaption>
+    </figure>
+    <figure class="process-fig">
+      <div class="ph-wrap">
+        <img class="ph" src="assets/solar/install-wiring.jpg" width="900" height="675"
+             alt="Close-up of gloved hands connecting MC4 cables to a rail-mounted microinverter on a shingled roof"
+             loading="lazy" decoding="async">
+      </div>
+      <figcaption class="process-cap">
+        <div class="p-kicker">Day 1 · DC &amp; Inverters</div>
+        <p class="p-text">Microinverters are mounted under the array and every MC4 connector is torqued and tested individually, so one shaded panel never drags the string down.</p>
+      </figcaption>
+    </figure>
+    <figure class="process-fig">
+      <div class="ph-wrap">
+        <img class="ph" src="assets/solar/install-array.jpg" width="900" height="675"
+             alt="Completed residential solar array of twelve panels laid out flush across a tiled pitched roof"
+             loading="lazy" decoding="async">
+      </div>
+      <figcaption class="process-cap">
+        <div class="p-kicker">Day 2 · Commissioning</div>
+        <p class="p-text">The finished array is string-tested, meter-swapped and registered with MEA or PEA. You get login details before we leave the site.</p>
+      </figcaption>
+    </figure>
   </div>
 </section>
 
 <!-- WHY SOLAR -->
 <section class="section why-section" id="why">
   <div class="sec-eyebrow">Why Solar</div>
-  <div class="sec-title">Built for the Long<br><em>Run</em></div>
+  <h2 class="sec-title">Built for the Long<br><em>Run</em></h2>
   <div class="why-grid">
     <div class="benefits">
       <div class="benefit">
-        <div class="benefit-icon bi-sun">☀</div>
+        <div class="benefit-icon bi-sun">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+          </svg>
+        </div>
         <div>
-          <div class="benefit-title">Cut Electricity Bills by Up to 40%</div>
-          <p class="benefit-desc">Generate your own power and dramatically reduce monthly utility costs. Excess energy goes back to the grid — earning you credits.</p>
+          <h3 class="benefit-title">Cut Your Electricity Bill by 40% on Average</h3>
+          <p class="benefit-desc">Generate your own power in the hours you use the most of it. Anything you don't use is exported to MEA or PEA under the residential rooftop scheme, earning feed-in credits against next month's bill.</p>
         </div>
       </div>
       <div class="benefit">
-        <div class="benefit-icon bi-leaf">↺</div>
+        <div class="benefit-icon bi-leaf">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10Z"/>
+            <path d="M2 21c0-3 1.9-5.4 5.1-6C9.5 14.5 12 13 13 12"/>
+          </svg>
+        </div>
         <div>
-          <div class="benefit-title">Zero-Emission Clean Energy</div>
-          <p class="benefit-desc">Each SolarPeak household offsets an average of 14 tonnes of CO₂ per year — equivalent to planting 200 trees annually.</p>
+          <h3 class="benefit-title">Zero-Emission Clean Energy</h3>
+          <p class="benefit-desc">The average SolarPeak rooftop is 7.5 kW and offsets about 5.2 tonnes of CO₂ a year — roughly what 250 newly planted trees absorb annually.</p>
         </div>
       </div>
       <div class="benefit">
-        <div class="benefit-icon bi-bolt">↯</div>
+        <div class="benefit-icon bi-bolt">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z"/>
+          </svg>
+        </div>
         <div>
-          <div class="benefit-title">Energy Independence</div>
-          <p class="benefit-desc">With optional battery storage, keep your home powered during grid outages and protect against rising energy prices.</p>
+          <h3 class="benefit-title">Energy Independence</h3>
+          <p class="benefit-desc">With optional battery storage, keep the essentials running through an outage and insulate yourself from the Ft tariff adjustments that move your bill every four months.</p>
         </div>
       </div>
       <div class="benefit">
-        <div class="benefit-icon bi-shield">✦</div>
+        <div class="benefit-icon bi-value">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M22 7l-8.5 8.5-5-5L2 17"/>
+            <path d="M16 7h6v6"/>
+          </svg>
+        </div>
         <div>
-          <div class="benefit-title">Increase Property Value</div>
-          <p class="benefit-desc">Homes with solar sell faster and for up to 4% more than comparable non-solar properties, according to industry studies.</p>
+          <h3 class="benefit-title">Increase Property Value</h3>
+          <p class="benefit-desc">A paid-off array is a fixed running cost a buyer inherits. Homes with solar consistently sell faster, and for up to 4% more, than comparable properties without it.</p>
         </div>
       </div>
     </div>
-    <div class="why-visual">
-      <svg viewBox="0 0 400 400" width="400" xmlns="http://www.w3.org/2000/svg">
-        <rect width="400" height="400" fill="#0c1830"/>
-        <!-- House silhouette -->
-        <polygon points="200,60 320,160 320,340 80,340 80,160" fill="#0a1525"/>
-        <polygon points="200,60 320,160 80,160" fill="#081020"/>
-        <!-- Door -->
-        <rect x="170" y="270" width="60" height="70" rx="4" fill="#0f1d35"/>
-        <!-- Windows -->
-        <rect x="100" y="200" width="55" height="45" rx="3" fill="#0f1d35"/>
-        <rect x="245" y="200" width="55" height="45" rx="3" fill="#0f1d35"/>
-        <!-- Solar panels on roof -->
-        <g opacity="0.85">
-          <rect x="120" y="125" width="35" height="22" rx="2" fill="#1a3a6e"/>
-          <rect x="162" y="110" width="35" height="22" rx="2" fill="#1a3a6e"/>
-          <rect x="204" y="125" width="35" height="22" rx="2" fill="#1a3a6e"/>
-          <rect x="246" y="140" width="35" height="22" rx="2" fill="#1a3a6e"/>
-          <!-- Panel lines -->
-          <line x1="137" y1="125" x2="137" y2="147" stroke="#f5a623" stroke-width="0.8" opacity="0.6"/>
-          <line x1="179" y1="110" x2="179" y2="132" stroke="#f5a623" stroke-width="0.8" opacity="0.6"/>
-          <line x1="221" y1="125" x2="221" y2="147" stroke="#f5a623" stroke-width="0.8" opacity="0.6"/>
-          <line x1="263" y1="140" x2="263" y2="162" stroke="#f5a623" stroke-width="0.8" opacity="0.6"/>
-          <line x1="120" y1="136" x2="155" y2="136" stroke="#f5a623" stroke-width="0.8" opacity="0.4"/>
-          <line x1="162" y1="121" x2="197" y2="121" stroke="#f5a623" stroke-width="0.8" opacity="0.4"/>
-          <line x1="204" y1="136" x2="239" y2="136" stroke="#f5a623" stroke-width="0.8" opacity="0.4"/>
-          <line x1="246" y1="151" x2="281" y2="151" stroke="#f5a623" stroke-width="0.8" opacity="0.4"/>
-        </g>
-        <!-- Sun top right -->
-        <circle cx="340" cy="60" r="28" fill="#f5a623" opacity="0.25"/>
-        <circle cx="340" cy="60" r="18" fill="#f7c355" opacity="0.7"/>
-        <!-- Glow under panels -->
-        <ellipse cx="200" cy="350" rx="90" ry="10" fill="#f5a623" opacity="0.06"/>
-        <!-- Energy line -->
-        <path d="M200 140 Q200 220 200 250" stroke="#f5a623" stroke-width="1.5" fill="none" stroke-dasharray="4,4" opacity="0.4"/>
-        <circle cx="200" cy="255" r="5" fill="#f5a623" opacity="0.5"/>
-        <!-- Label -->
-        <text x="200" y="385" text-anchor="middle" font-family="'Inter',sans-serif" font-size="9" letter-spacing="4" fill="#f5a623" opacity="0.4" font-weight="700">SOLARPEAK SYSTEM</text>
-      </svg>
-    </div>
+    <figure class="why-visual">
+      <img class="ph" src="assets/solar/why-panels.jpg" width="900" height="900"
+           alt="Close-up of monocrystalline solar panels mounted flush on a roof, sunlight raking across the cell grid"
+           loading="lazy" decoding="async">
+      <figcaption>Tier-1 monocrystalline · 500 W per panel</figcaption>
+    </figure>
   </div>
 </section>
 
 <!-- PLANS -->
 <section class="section plans-section" id="plans">
   <div class="sec-eyebrow">Pricing Plans</div>
-  <div class="sec-title">Find Your<br><em>Perfect Fit</em></div>
+  <h2 class="sec-title">Find Your<br><em>Perfect Fit</em></h2>
   <div class="plans-grid">
     <div class="plan-card">
       <div class="plan-badge">Starter</div>
-      <div class="plan-name">Essential</div>
+      <h3 class="plan-name">Essential</h3>
       <div class="plan-tag">Great for small households</div>
       <div class="plan-price-row">
-        <div class="plan-price"><span class="curr">$</span>8,900</div>
-        <div class="plan-unit">installed · after rebates</div>
+        <div class="plan-price"><span class="curr">฿</span>169,000</div>
+        <div class="plan-unit">installed · incl. permits &amp; grid connection</div>
       </div>
       <div class="plan-features">
         <div class="plan-feat"><span class="feat-check">✓</span> 4 kW Solar System</div>
-        <div class="plan-feat"><span class="feat-check">✓</span> 12 Premium Panels</div>
-        <div class="plan-feat"><span class="feat-check">✓</span> 5-Year Workmanship Warranty</div>
+        <div class="plan-feat"><span class="feat-check">✓</span> 8 Panels · 500 W each</div>
+        <div class="plan-feat"><span class="feat-check">✓</span> 25-Yr Panel + 10-Yr Workmanship</div>
         <div class="plan-feat"><span class="feat-check">✓</span> Smart Monitoring App</div>
         <div class="plan-feat"><span class="feat-dash">—</span> Battery Storage</div>
         <div class="plan-feat"><span class="feat-dash">—</span> EV Charger Add-on</div>
@@ -681,16 +939,16 @@
     </div>
     <div class="plan-card featured">
       <div class="plan-badge">Most Popular</div>
-      <div class="plan-name">Power Home</div>
+      <h3 class="plan-name">Power Home</h3>
       <div class="plan-tag">Best for average households</div>
       <div class="plan-price-row">
-        <div class="plan-price"><span class="curr">$</span>14,500</div>
-        <div class="plan-unit">installed · after rebates</div>
+        <div class="plan-price"><span class="curr">฿</span>395,000</div>
+        <div class="plan-unit">installed · incl. permits &amp; grid connection</div>
       </div>
       <div class="plan-features">
         <div class="plan-feat"><span class="feat-check">✓</span> 8 kW Solar System</div>
-        <div class="plan-feat"><span class="feat-check">✓</span> 24 Premium Panels</div>
-        <div class="plan-feat"><span class="feat-check">✓</span> 10-Year Full Warranty</div>
+        <div class="plan-feat"><span class="feat-check">✓</span> 16 Panels · 500 W each</div>
+        <div class="plan-feat"><span class="feat-check">✓</span> 25-Yr Panel + 10-Yr Workmanship</div>
         <div class="plan-feat"><span class="feat-check">✓</span> Smart Monitoring App</div>
         <div class="plan-feat"><span class="feat-check">✓</span> 10 kWh Battery Storage</div>
         <div class="plan-feat"><span class="feat-dash">—</span> EV Charger Add-on</div>
@@ -699,16 +957,16 @@
     </div>
     <div class="plan-card">
       <div class="plan-badge">Premium</div>
-      <div class="plan-name">Full Independence</div>
-      <div class="plan-tag">For large homes & businesses</div>
+      <h3 class="plan-name">Full Independence</h3>
+      <div class="plan-tag">For large homes &amp; businesses</div>
       <div class="plan-price-row">
-        <div class="plan-price"><span class="curr">$</span>22,000</div>
-        <div class="plan-unit">installed · after rebates</div>
+        <div class="plan-price"><span class="curr">฿</span>690,000</div>
+        <div class="plan-unit">installed · incl. permits &amp; grid connection</div>
       </div>
       <div class="plan-features">
         <div class="plan-feat"><span class="feat-check">✓</span> 15 kW Solar System</div>
-        <div class="plan-feat"><span class="feat-check">✓</span> 40 Premium Panels</div>
-        <div class="plan-feat"><span class="feat-check">✓</span> 15-Year Full Warranty</div>
+        <div class="plan-feat"><span class="feat-check">✓</span> 30 Panels · 500 W each</div>
+        <div class="plan-feat"><span class="feat-check">✓</span> 25-Yr Panel + 10-Yr Workmanship</div>
         <div class="plan-feat"><span class="feat-check">✓</span> Smart Monitoring App</div>
         <div class="plan-feat"><span class="feat-check">✓</span> 20 kWh Battery Storage</div>
         <div class="plan-feat"><span class="feat-check">✓</span> EV Charger Included</div>
@@ -719,27 +977,36 @@
 </section>
 
 <!-- TESTIMONIALS -->
-<section class="section testi-section">
+<section class="section testi-section" id="stories">
   <div class="sec-eyebrow">Customer Stories</div>
-  <div class="sec-title">Real People,<br><em>Real Savings</em></div>
+  <h2 class="sec-title">Real People,<br><em>Real Savings</em></h2>
   <div class="testi-grid">
-    <div class="testi-card">
-      <div class="testi-stars">★ ★ ★ ★ ★</div>
-      <p class="testi-text">"Our electricity bill dropped from $280 to $42 in the first month. The installation team was professional and finished in a single day."</p>
-      <div class="testi-name">Sarah M.</div>
-      <div class="testi-role">Homeowner · Power Home Plan</div>
+    <div class="testi-card lead">
+      <div class="testi-stars" role="img" aria-label="Rated 5 out of 5">
+        <span aria-hidden="true">★★★★★</span>
+      </div>
+      <p class="testi-text">"Our bill was ฿9,400 a month before solar. The first full month after switch-on it came in at <b>฿5,600</b> — almost exactly the 40% the assessment projected, which is the part I did not expect. Two-day install, and they swept the driveway before they left."</p>
+      <h3 class="testi-name">Nattapong S.</h3>
+      <div class="testi-role">Homeowner, Bang Na · Power Home</div>
+      <div class="testi-meta"><span class="testi-sys">8 kW</span> installed Mar 2025</div>
     </div>
     <div class="testi-card">
-      <div class="testi-stars">★ ★ ★ ★ ★</div>
-      <p class="testi-text">"SolarPeak handled everything — permits, installation, grid connection. Six months later, our restaurant runs almost entirely on solar."</p>
-      <div class="testi-name">David K.</div>
-      <div class="testi-role">Restaurant Owner · Full Independence</div>
+      <div class="testi-stars" role="img" aria-label="Rated 4 out of 5">
+        <span aria-hidden="true">★★★★<span class="dim">★</span></span>
+      </div>
+      <p class="testi-text">"They handled the PEA paperwork end to end, which is the reason we went with them. Grid approval still took six weeks longer than quoted and that was frustrating. Since it went live, though, not one fault — the kitchen runs on solar right through to closing."</p>
+      <h3 class="testi-name">Kanokwan P.</h3>
+      <div class="testi-role">Restaurant Owner, Chiang Mai · Full Independence</div>
+      <div class="testi-meta"><span class="testi-sys">15 kW</span> installed Nov 2024</div>
     </div>
     <div class="testi-card">
-      <div class="testi-stars">★ ★ ★ ★ ★</div>
-      <p class="testi-text">"The ROI calculator was spot-on. We broke even in 5 years and now the system just generates income through feed-in credits every month."</p>
-      <div class="testi-name">Linda T.</div>
-      <div class="testi-role">Homeowner · Essential Plan</div>
+      <div class="testi-stars" role="img" aria-label="Rated 5 out of 5">
+        <span aria-hidden="true">★★★★★</span>
+      </div>
+      <p class="testi-text">"Broke even in year seven, right on the projection they gave me in 2019. It just quietly pays for itself now."</p>
+      <h3 class="testi-name">Somchai R.</h3>
+      <div class="testi-role">Homeowner, Nonthaburi · Essential</div>
+      <div class="testi-meta"><span class="testi-sys">4 kW</span> installed Feb 2019</div>
     </div>
   </div>
 </section>
@@ -748,85 +1015,104 @@
 <div class="contact-section" id="contact">
   <div class="contact-left">
     <div class="sec-eyebrow">Get a Quote</div>
-    <div class="sec-title" style="margin-bottom:2rem;">Start Your<br><em>Solar Journey</em></div>
+    <h2 class="sec-title" style="margin-bottom:2rem;">Start Your<br><em>Solar Journey</em></h2>
     <div class="form-sub">Free assessment — no obligation</div>
-    <form onsubmit="submitForm(event)">
+    <form id="quoteForm" novalidate>
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">First Name</label>
-          <input type="text" class="form-input" placeholder="John" required />
+          <label class="form-label" for="sp-first">First Name</label>
+          <input type="text" id="sp-first" name="first_name" class="form-input"
+                 placeholder="Nattapong" autocomplete="given-name" minlength="2" required />
+          <span class="field-error" id="err-first">Please enter your first name.</span>
         </div>
         <div class="form-group">
-          <label class="form-label">Last Name</label>
-          <input type="text" class="form-input" placeholder="Smith" required />
+          <label class="form-label" for="sp-last">Last Name</label>
+          <input type="text" id="sp-last" name="last_name" class="form-input"
+                 placeholder="Sirikul" autocomplete="family-name" minlength="2" required />
+          <span class="field-error" id="err-last">Please enter your last name.</span>
         </div>
       </div>
       <div class="form-group">
-        <label class="form-label">Email Address</label>
-        <input type="email" class="form-input" placeholder="john@example.com" required />
+        <label class="form-label" for="sp-email">Email Address</label>
+        <input type="email" id="sp-email" name="email" class="form-input"
+               placeholder="you@example.com" autocomplete="email" required />
+        <span class="field-error" id="err-email">Please enter a valid email address.</span>
       </div>
       <div class="form-group">
-        <label class="form-label">Phone Number</label>
-        <input type="tel" class="form-input" placeholder="+1 (555) 000-0000" />
+        <label class="form-label" for="sp-phone">Phone Number</label>
+        <input type="tel" id="sp-phone" name="phone" class="form-input"
+               placeholder="081-234-5678" autocomplete="tel" inputmode="tel"
+               pattern="[+]?[0-9\s\(\)\.\-]{7,24}"
+               title="Digits, spaces and + ( ) - . only — e.g. 081-234-5678 or +66 2 123 4567"
+               required />
+        <span class="field-error" id="err-phone">Please enter a phone number our surveyor can reach you on.</span>
       </div>
       <div class="form-group">
-        <label class="form-label">Property Type</label>
-        <select class="form-select">
-          <option value="" disabled selected>Select type...</option>
-          <option>Residential Home</option>
-          <option>Apartment / Condo</option>
-          <option>Commercial Building</option>
-          <option>Industrial</option>
+        <label class="form-label" for="sp-property">Property Type</label>
+        <select id="sp-property" name="property_type" class="form-select" required>
+          <option value="">Select type...</option>
+          <option value="house">Residential Home</option>
+          <option value="condo">Apartment / Condo</option>
+          <option value="commercial">Commercial Building</option>
+          <option value="industrial">Industrial</option>
         </select>
+        <span class="field-error" id="err-property">Please tell us what kind of property this is.</span>
       </div>
       <div class="form-group">
-        <label class="form-label">Monthly Power Bill (approx.)</label>
-        <select class="form-select">
-          <option value="" disabled selected>Select range...</option>
-          <option>Under $100</option>
-          <option>$100 – $200</option>
-          <option>$200 – $400</option>
-          <option>$400+</option>
+        <label class="form-label" for="sp-bill">Monthly Power Bill (approx.)</label>
+        <select id="sp-bill" name="monthly_bill" class="form-select" required>
+          <option value="">Select range...</option>
+          <option value="lt2000">Under ฿2,000</option>
+          <option value="2000-5000">฿2,000 – ฿5,000</option>
+          <option value="5000-10000">฿5,000 – ฿10,000</option>
+          <option value="gt10000">฿10,000+</option>
         </select>
+        <span class="field-error" id="err-bill">We size the array from your bill — please pick a range.</span>
       </div>
-      <button type="submit" class="btn-sun" style="margin-top:1rem;width:100%;justify-content:center;">
+      <button type="submit" id="quoteSubmit" class="btn-sun" style="margin-top:1rem;width:100%;">
         Request Free Assessment
       </button>
+      <p class="form-note form-bad" id="formError" role="alert" tabindex="-1">
+        Please complete the highlighted fields above before sending.
+      </p>
+      <p class="form-note form-ok" id="formOk" role="status" tabindex="-1">
+        Thank you! We'll contact you within 24 hours to schedule your free site assessment.
+      </p>
     </form>
-    <p id="form-thanks" style="display:none;margin-top:1rem;color:#22d3a3;font-size:0.88rem;font-weight:600;">
-      Thank you! We'll contact you within 24 hours to schedule your free site assessment.
+    <p style="margin-top:1.25rem;font-size:0.72rem;color:rgba(240,244,255,0.38);">
+      Portfolio demo — this form validates in the browser and does not send anywhere.
     </p>
   </div>
   <div class="contact-right">
     <div class="sec-eyebrow" style="margin-bottom:1rem;">Why Choose Us</div>
-    <div class="sec-title" style="font-size:2rem;margin-bottom:2rem;">Every Step<br><em>Covered</em></div>
+    <h2 class="sec-title" style="font-size:2rem;margin-bottom:2rem;">Every Step<br><em>Covered</em></h2>
     <div class="contact-perks">
       <div class="c-perk">
         <div class="c-perk-num">01</div>
         <div>
-          <div class="c-perk-title">Free Site Assessment</div>
-          <p class="c-perk-desc">Our certified engineers visit at no cost to design your custom system.</p>
+          <h3 class="c-perk-title">Free Site Assessment</h3>
+          <p class="c-perk-desc">Our certified engineers survey the roof at no cost and size the system to your real load profile.</p>
         </div>
       </div>
       <div class="c-perk">
         <div class="c-perk-num">02</div>
         <div>
-          <div class="c-perk-title">Full Permit Handling</div>
-          <p class="c-perk-desc">We manage all council permits and grid connection paperwork end-to-end.</p>
+          <h3 class="c-perk-title">Full Permit Handling</h3>
+          <p class="c-perk-desc">We file the rooftop solar permit and the MEA or PEA grid-connection paperwork end to end.</p>
         </div>
       </div>
       <div class="c-perk">
         <div class="c-perk-num">03</div>
         <div>
-          <div class="c-perk-title">Flexible Financing</div>
-          <p class="c-perk-desc">Zero-deposit plans available. Pay from your savings, not your pocket.</p>
+          <h3 class="c-perk-title">Flexible Financing</h3>
+          <p class="c-perk-desc">Zero-deposit plans available. Pay from your monthly savings, not your pocket.</p>
         </div>
       </div>
       <div class="c-perk">
         <div class="c-perk-num">04</div>
         <div>
-          <div class="c-perk-title">Ongoing Support</div>
-          <p class="c-perk-desc">24/7 monitoring, annual servicing, and a dedicated account manager for life.</p>
+          <h3 class="c-perk-title">Ongoing Support</h3>
+          <p class="c-perk-desc">24/7 monitoring, annual servicing, and a 25-year panel performance warranty on every system.</p>
         </div>
       </div>
     </div>
@@ -836,26 +1122,160 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo"><div class="sm"></div> SolarPeak</div>
-  <div class="footer-copy">© 2024 SolarPeak · Clean Energy Solutions · All Rights Reserved</div>
+  <div class="footer-copy">© <span id="year">2026</span> SolarPeak · Clean Energy Solutions · All Rights Reserved</div>
 </footer>
 
 <script>
-  // Nav scroll
-  const nav = document.querySelector('nav');
-  window.addEventListener('scroll', () => nav.style.background = window.scrollY > 40 ? 'rgba(5,13,26,0.96)' : 'rgba(5,13,26,0.82)');
+  /* ── Footer year ─────────────────────────────────────────── */
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Smooth links
+  /* ── Nav background on scroll ────────────────────────────── */
+  const nav = document.querySelector('.nav-bar');
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 40 ? 'rgba(5,13,26,0.96)' : 'rgba(5,13,26,0.82)';
+  }, { passive: true });
+
+  /* ── Mobile menu ─────────────────────────────────────────── */
+  const navToggle   = document.getElementById('navToggle');
+  const navPanel    = document.getElementById('navPanel');
+  const navBackdrop = document.getElementById('navBackdrop');
+
+  function setMenu(open) {
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    navPanel.classList.toggle('open', open);
+    navBackdrop.classList.toggle('open', open);
+    navBackdrop.hidden = !open;
+    document.body.classList.toggle('menu-open', open);
+  }
+
+  navToggle.addEventListener('click', () => {
+    const open = navToggle.getAttribute('aria-expanded') !== 'true';
+    setMenu(open);
+    if (open) navPanel.querySelector('a').focus();
+  });
+
+  navBackdrop.addEventListener('click', () => {
+    setMenu(false);
+    navToggle.focus();
+  });
+
+  navPanel.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navToggle.getAttribute('aria-expanded') === 'true') {
+      setMenu(false);
+      navToggle.focus();
+    }
+  });
+
+  // Leaving mobile widths must never strand the page in the scroll-locked state
+  const wide = window.matchMedia('(min-width: 901px)');
+  wide.addEventListener('change', (e) => { if (e.matches) setMenu(false); });
+
+  /* ── Smooth in-page links ────────────────────────────────── */
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
-    const t = document.querySelector(a.getAttribute('href'));
-    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    const href = a.getAttribute('href');
+    if (!href || href === '#') return;
+    const target = document.querySelector(href);
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth' });
   }));
 
-  // Form
-  function submitForm(e) {
-    e.preventDefault();
-    document.getElementById('form-thanks').style.display = 'block';
-    e.target.style.display = 'none';
+  /* ── Quote form ──────────────────────────────────────────
+     Static demo: there is no backend. Validation is real, the send is simulated. */
+  const form       = document.getElementById('quoteForm');
+  const submitBtn  = document.getElementById('quoteSubmit');
+  const okBox      = document.getElementById('formOk');
+  const errBox     = document.getElementById('formError');
+  const phoneInput = document.getElementById('sp-phone');
+
+  const fields = [
+    { id: 'sp-first',    errId: 'err-first'    },
+    { id: 'sp-last',     errId: 'err-last'     },
+    { id: 'sp-email',    errId: 'err-email'    },
+    { id: 'sp-phone',    errId: 'err-phone'    },
+    { id: 'sp-property', errId: 'err-property' },
+    { id: 'sp-bill',     errId: 'err-bill'     }
+  ];
+
+  // Messages that depend on *how* the field is wrong, not just that it is.
+  const messages = {
+    'sp-first': el => el.validity.valueMissing
+      ? 'Please enter your first name.'
+      : 'That looks too short — please enter your full first name.',
+    'sp-last': el => el.validity.valueMissing
+      ? 'Please enter your last name.'
+      : 'That looks too short — please enter your full last name.',
+    'sp-email': el => el.validity.valueMissing
+      ? 'Please enter an email address so we can send the quote.'
+      : 'That email does not look right — check for a missing @ or domain.',
+    // Order matters: a malformed number also trips the digit-count check below.
+    'sp-phone': el => el.validity.valueMissing
+      ? 'Please enter a phone number our surveyor can reach you on.'
+      : el.validity.patternMismatch
+        ? 'Use digits, spaces and + ( ) - . — e.g. 081-234-5678 or +66 2 123 4567.'
+        : 'That number looks too short or too long — please check it and try again.'
+  };
+
+  // The pattern cannot count digits across separators, so fold that rule into the
+  // element's own validity — checkValidity() then covers every case.
+  function syncPhoneValidity() {
+    const digits = phoneInput.value.replace(/\D/g, '');
+    const wrongLength = phoneInput.value.trim() !== '' && (digits.length < 9 || digits.length > 15);
+    phoneInput.setCustomValidity(wrongLength ? 'Phone numbers need 9 to 15 digits.' : '');
   }
+  phoneInput.addEventListener('input', syncPhoneValidity);
+
+  function showFieldState(el, errEl) {
+    const ok = el.checkValidity();
+    if (!ok && messages[el.id]) errEl.textContent = messages[el.id](el);
+    el.classList.toggle('error', !ok);
+    el.setAttribute('aria-invalid', String(!ok));
+    errEl.classList.toggle('show', !ok);
+    return ok;
+  }
+
+  fields.forEach(({ id, errId }) => {
+    const el = document.getElementById(id);
+    const errEl = document.getElementById(errId);
+    el.setAttribute('aria-describedby', errId);
+    // Only re-validate a field once the user has already been told it is wrong,
+    // so nobody gets an error while they are still typing the first character.
+    el.addEventListener('blur', () => showFieldState(el, errEl));
+    el.addEventListener('input', () => { if (el.classList.contains('error')) showFieldState(el, errEl); });
+    el.addEventListener('change', () => { if (el.classList.contains('error')) showFieldState(el, errEl); });
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    syncPhoneValidity();
+
+    let valid = true;
+    let firstBad = null;
+    fields.forEach(({ id, errId }) => {
+      const el = document.getElementById(id);
+      const ok = showFieldState(el, document.getElementById(errId));
+      if (!ok) { valid = false; if (!firstBad) firstBad = el; }
+    });
+
+    if (!valid) {
+      okBox.classList.remove('show');
+      errBox.classList.add('show');
+      errBox.focus();
+      firstBad.focus();
+      return;
+    }
+
+    errBox.classList.remove('show');
+    okBox.classList.add('show');
+    submitBtn.disabled = true;
+    submitBtn.textContent = '✓ Request received';
+    form.querySelectorAll('input, select').forEach(el => { el.disabled = true; });
+    okBox.focus();
+  });
 </script>
 </body>
 </html>
