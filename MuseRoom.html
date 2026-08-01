@@ -3,30 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="MuseRoom is a frontend landing page practice project for a digital gallery, focused on visual direction, exhibit cards, and visit flow." />
+  <meta name="description" content="MuseRoom is a small gallery for light-based art. Three rooms, three guided sessions a day, and a free open floor at dusk. See what's on and reserve a time slot." />
   <meta name="author" content="Phakin Chawanpunya" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0a0a0a" />
   <link rel="canonical" href="https://phakinza007.github.io/my-portfolio/MuseRoom.html" />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Phakin Chawanpunya Portfolio" />
-  <meta property="og:title" content="MuseRoom | Gallery Landing Page | Phakin Portfolio" />
-  <meta property="og:description" content="MuseRoom is a frontend landing page practice project for a digital gallery, focused on visual direction, exhibit cards, and visit flow." />
+  <meta property="og:site_name" content="MuseRoom" />
+  <meta property="og:title" content="MuseRoom — A Gallery for Light-Based Art" />
+  <meta property="og:description" content="Three rooms of light-based work. Guided sessions morning, afternoon and dusk — reserve a slot, or walk in when the floor opens free at 18:00." />
   <meta property="og:url" content="https://phakinza007.github.io/my-portfolio/MuseRoom.html" />
-  <meta property="og:image" content="https://phakinza007.github.io/my-portfolio/assets/social-preview.png" />
+  <meta property="og:image" content="https://phakinza007.github.io/my-portfolio/assets/museroom/og-cover.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="MuseRoom | Gallery Landing Page | Phakin Portfolio" />
-  <meta name="twitter:description" content="MuseRoom is a frontend landing page practice project for a digital gallery, focused on visual direction, exhibit cards, and visit flow." />
-  <meta name="twitter:image" content="https://phakinza007.github.io/my-portfolio/assets/social-preview.png" />
-  <title>MuseRoom | Digital Gallery</title>
+  <meta name="twitter:title" content="MuseRoom — A Gallery for Light-Based Art" />
+  <meta name="twitter:description" content="Three rooms of light-based work. Guided sessions morning, afternoon and dusk — reserve a slot, or walk in when the floor opens free at 18:00." />
+  <meta name="twitter:image" content="https://phakinza007.github.io/my-portfolio/assets/museroom/og-cover.jpg" />
+  <title>MuseRoom | A Gallery for Light-Based Art</title>
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;1,400;1,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;1,400;1,700&display=optional" rel="stylesheet" />
+
+  <link rel="preload" as="image" href="assets/museroom/hero-1600.jpg"
+        imagesrcset="assets/museroom/hero-900.jpg 900w, assets/museroom/hero-1600.jpg 1600w"
+        imagesizes="100vw" />
+
+  <link rel="stylesheet" href="assets/portfolio-context.css" />
 
   <style>
     /* ────────────────────────────────────────────
        DESIGN TOKENS
+       Accents are sampled from the room photography
+       (see assets/museroom/) rather than a framework
+       default palette.
     ──────────────────────────────────────────── */
     :root {
       --bg:        #0a0a0a;
@@ -34,32 +45,31 @@
       --card:      #161616;
       --card-2:    #1c1c1c;
       --border:    rgba(255,255,255,0.07);
-      --border-2:  rgba(255,255,255,0.13);
+      --border-2:  rgba(255,255,255,0.18);
       --ink:       #ffffff;
-      --ink-2:     rgba(255,255,255,0.72);
-      --muted:     rgba(255,255,255,0.38);
-      --accent:    #c9a75e;
-      --accent-2:  rgba(201,167,94,0.12);
+      --ink-2:     rgba(255,255,255,0.76);
+      --muted:     rgba(255,255,255,0.55);   /* 7.0:1 on --bg — AA */
+      --accent:    #9db4dd;                  /* projected daylight, hero photograph — 9.4:1 */
       --ease:      cubic-bezier(0.16,1,0.3,1);
       --max:       1160px;
       --r:         10px;
       --r-lg:      18px;
 
-      /* Exhibit palette */
-      --vi-dark:  #0d0422;
-      --vi-mid:   #3b0f8c;
-      --vi-light: #7c3aed;
-      --vi-glow:  rgba(167,139,250,0.45);
+      /* Room accents, sampled from each room's photograph */
+      --r1:        #e0503f;                  /* Soft Signal — lightbox red, 5.1:1 */
+      --r1-tint:   rgba(224,80,63,0.14);
+      --r1-line:   rgba(224,80,63,0.32);
+      --r1-wash:   rgba(224,80,63,0.30);
 
-      --ro-dark:  #1a0419;
-      --ro-mid:   #881337;
-      --ro-light: #e11d48;
-      --ro-glow:  rgba(251,113,133,0.4);
+      --r2:        #c9d6d9;                  /* Afterimage Notes — filament silver, 12.9:1 */
+      --r2-tint:   rgba(201,214,217,0.12);
+      --r2-line:   rgba(201,214,217,0.28);
+      --r2-wash:   rgba(201,214,217,0.20);
 
-      --te-dark:  #021210;
-      --te-mid:   #0f4944;
-      --te-light: #0d9488;
-      --te-glow:  rgba(94,234,212,0.35);
+      --r3:        #d6bb4e;                  /* Room Tone — sodium light, 10.4:1 */
+      --r3-tint:   rgba(214,187,78,0.13);
+      --r3-line:   rgba(214,187,78,0.30);
+      --r3-wash:   rgba(214,187,78,0.26);
     }
 
     /* ────────────────────────────────────────────
@@ -77,11 +87,21 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    body.nav-open { overflow: hidden; }
+
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
     button { font: inherit; cursor: pointer; border: none; background: none; }
 
     .container { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+
+    section[id], main[id] { scroll-margin-top: 78px; }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+    }
 
     /* ────────────────────────────────────────────
        NAV
@@ -95,7 +115,7 @@
     }
 
     .nav-inner {
-      height: 70px;
+      min-height: 70px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -117,12 +137,13 @@
     .nav-mark {
       width: 34px; height: 34px;
       border-radius: 8px;
-      background: linear-gradient(135deg, var(--vi-mid), var(--vi-light));
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border-2);
       display: flex; align-items: center; justify-content: center;
       font-family: 'Inter', sans-serif;
       font-size: 0.7rem;
       font-weight: 700;
-      color: rgba(255,255,255,0.9);
+      color: var(--accent);
       letter-spacing: 0.08em;
       flex-shrink: 0;
     }
@@ -137,7 +158,7 @@
     .nav-links a {
       display: inline-flex;
       align-items: center;
-      height: 36px;
+      min-height: 44px;
       padding: 0 14px;
       border-radius: 6px;
       font-size: 0.855rem;
@@ -151,7 +172,7 @@
     .nav-ticket {
       display: inline-flex;
       align-items: center;
-      height: 38px;
+      min-height: 44px;
       padding: 0 20px;
       border-radius: 6px;
       border: 1.5px solid var(--border-2);
@@ -162,7 +183,7 @@
       transition: background 140ms, border-color 140ms;
     }
 
-    .nav-ticket:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.25); }
+    .nav-ticket:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.3); }
 
     /* mobile hamburger */
     .nav-toggle {
@@ -171,7 +192,7 @@
       align-items: center;
       justify-content: center;
       gap: 5px;
-      width: 40px; height: 40px;
+      width: 44px; height: 44px;
       border-radius: 6px;
       border: 1.5px solid var(--border-2);
       flex-shrink: 0;
@@ -192,9 +213,10 @@
     .nav-mobile {
       display: none;
       flex-direction: column;
-      position: absolute; top: 70px; left: 0; right: 0;
+      position: absolute; top: 100%; left: 0; right: 0;
       background: rgba(10,10,10,0.97);
       backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
       padding: 12px 20px 20px;
       gap: 2px;
@@ -202,145 +224,77 @@
     }
 
     .nav-mobile.open { display: flex; }
-    .nav-mobile a { padding: 11px 12px; border-radius: 6px; color: var(--ink-2); font-size: 0.93rem; font-weight: 500; transition: background 140ms; }
-    .nav-mobile a:hover { background: rgba(255,255,255,0.05); }
+
+    .nav-mobile a {
+      display: flex;
+      align-items: center;
+      min-height: 46px;
+      padding: 0 12px;
+      border-radius: 6px;
+      color: var(--ink-2);
+      font-size: 0.93rem;
+      font-weight: 500;
+      transition: background 140ms, color 140ms;
+    }
+
+    .nav-mobile a:hover { background: rgba(255,255,255,0.05); color: var(--ink); }
 
     /* ────────────────────────────────────────────
-       HERO
+       HERO — real installation photograph
     ──────────────────────────────────────────── */
     .hero {
-      min-height: 100vh;
+      min-height: 100vh;        /* fallback */
+      min-height: 100svh;       /* keeps the scroll cue clear of mobile toolbars */
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: clamp(80px, 14vw, 140px) 0 clamp(80px, 12vw, 120px);
+      padding: clamp(80px, 14vw, 140px) 0 clamp(96px, 12vw, 120px);
       position: relative;
       overflow: hidden;
       background: var(--bg);
     }
 
-    /* Atmospheric gradient blobs */
-    .hero::before {
+    .hero-media {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 62% 50%;
+    }
+
+    /* Scrim: keeps the type on near-black while the room stays readable */
+    .hero-media::after {
       content: '';
       position: absolute;
       inset: 0;
-      pointer-events: none;
       background:
-        radial-gradient(ellipse 65% 55% at 72% 32%, rgba(124,58,237,0.18) 0%, transparent 62%),
-        radial-gradient(ellipse 50% 45% at 14% 68%, rgba(225,29,72,0.1) 0%, transparent 58%),
-        radial-gradient(ellipse 42% 38% at 88% 76%, rgba(13,148,136,0.1) 0%, transparent 52%);
+        linear-gradient(96deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.86) 30%, rgba(10,10,10,0.5) 58%, rgba(10,10,10,0.34) 100%),
+        linear-gradient(to bottom, rgba(10,10,10,0.7) 0%, rgba(10,10,10,0.1) 28%, rgba(10,10,10,0.5) 78%, rgba(10,10,10,0.94) 100%);
     }
 
-    /* Subtle grid overlay */
+    /* Faint measuring grid, carried over from the original identity */
     .hero::after {
       content: '';
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background:
-        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
-      background-size: 56px 56px;
-      mask-image: linear-gradient(to bottom, rgba(255,255,255,0.6) 0%, transparent 80%);
-    }
-
-    /* Abstract art blob shapes — pure CSS decoration */
-    .hero-blob {
-      position: absolute;
-      top: 50%;
-      right: 6%;
-      transform: translateY(-52%);
-      width: clamp(260px, 38vw, 480px);
-      aspect-ratio: 1;
-      pointer-events: none;
       z-index: 0;
+      background:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(to bottom, rgba(255,255,255,0.55) 0%, transparent 70%);
+      -webkit-mask-image: linear-gradient(to bottom, rgba(255,255,255,0.55) 0%, transparent 70%);
     }
 
-    .blob-ring {
-      position: absolute;
-      border-radius: 50%;
-      border: 1px solid;
-    }
+    .hero > .container { position: relative; z-index: 1; }
 
-    .blob-ring-1 {
-      inset: 0;
-      border-color: rgba(167,139,250,0.14);
-    }
-
-    .blob-ring-2 {
-      inset: 10%;
-      border-color: rgba(167,139,250,0.1);
-      animation: blob-spin 22s linear infinite;
-    }
-
-    .blob-ring-3 {
-      inset: 22%;
-      border-color: rgba(167,139,250,0.08);
-      animation: blob-spin 36s linear infinite reverse;
-    }
-
-    .blob-glow {
-      position: absolute;
-      inset: 18%;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(124,58,237,0.22) 0%, rgba(167,139,250,0.08) 40%, transparent 70%);
-      animation: blob-pulse 8s ease-in-out infinite;
-    }
-
-    .blob-dot {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(167,139,250,0.55);
-    }
-
-    .blob-dot-1 {
-      width: 6px; height: 6px;
-      top: 15%; left: 50%;
-      transform: translateX(-50%);
-      box-shadow: 0 0 14px rgba(167,139,250,0.5);
-    }
-
-    .blob-dot-2 {
-      width: 4px; height: 4px;
-      bottom: 20%; right: 22%;
-      background: rgba(94,234,212,0.6);
-      box-shadow: 0 0 10px rgba(94,234,212,0.4);
-    }
-
-    .blob-dot-3 {
-      width: 5px; height: 5px;
-      top: 38%; left: 12%;
-      background: rgba(251,113,133,0.55);
-      box-shadow: 0 0 12px rgba(251,113,133,0.4);
-    }
-
-    .blob-bar {
-      position: absolute;
-      border-radius: 2px;
-    }
-
-    .blob-bar-1 {
-      left: 12%; right: 12%;
-      top: 48%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(167,139,250,0.3), transparent);
-    }
-
-    .blob-bar-2 {
-      left: 20%; right: 20%;
-      top: 55%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(167,139,250,0.18), transparent);
-    }
-
-    @keyframes blob-spin  { from { transform: rotate(0deg);   } to { transform: rotate(360deg);   } }
-    @keyframes blob-pulse { 0%,100% { opacity:0.7; transform:scale(1); } 50% { opacity:1; transform:scale(1.08); } }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 58%;
-    }
+    .hero-content { max-width: 660px; }
 
     .hero-eyebrow {
       display: inline-flex;
@@ -364,26 +318,28 @@
 
     .hero h1 {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(3.4rem, 7.5vw, 6.2rem);
+      font-size: clamp(3.1rem, 7.5vw, 6.2rem);
       font-weight: 800;
       line-height: 1.02;
       letter-spacing: -0.01em;
       color: var(--ink);
       margin-bottom: 26px;
       max-width: 13ch;
+      text-shadow: 0 2px 40px rgba(0,0,0,0.55);
     }
 
     .hero h1 em {
       font-style: italic;
-      color: rgba(255,255,255,0.75);
+      color: rgba(255,255,255,0.78);
     }
 
     .hero-desc {
       font-size: clamp(0.98rem, 1.6vw, 1.08rem);
       color: var(--ink-2);
-      max-width: 48ch;
+      max-width: 52ch;
       line-height: 1.82;
       margin-bottom: 42px;
+      text-shadow: 0 1px 18px rgba(0,0,0,0.6);
     }
 
     .hero-ctas {
@@ -397,7 +353,7 @@
       align-items: center;
       justify-content: center;
       gap: 7px;
-      height: 52px;
+      min-height: 52px;
       padding: 0 32px;
       border-radius: 6px;
       font-size: 0.84rem;
@@ -412,16 +368,16 @@
     .btn:hover { transform: translateY(-2px); }
 
     .btn-outline {
-      border: 1.5px solid rgba(255,255,255,0.3);
+      border: 1.5px solid rgba(255,255,255,0.38);
       color: #fff;
-      background: transparent;
+      background: rgba(10,10,10,0.35);
     }
 
-    .btn-outline:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.55); }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.6); }
 
     .btn-fill {
       border: 1.5px solid rgba(255,255,255,0.85);
-      background: rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.92);
       color: #0a0a0a;
     }
 
@@ -430,9 +386,10 @@
     /* Scroll cue */
     .hero-scroll {
       position: absolute;
-      bottom: 36px;
+      bottom: 30px;
       left: 50%;
       transform: translateX(-50%);
+      z-index: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -441,18 +398,22 @@
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: rgba(255,255,255,0.72);
+      text-shadow: 0 1px 12px rgba(0,0,0,0.8);
       animation: scroll-bounce 2.4s ease-in-out infinite;
     }
 
     .hero-scroll::after {
       content: '';
       display: block;
-      width: 1px; height: 36px;
-      background: linear-gradient(to bottom, var(--muted), transparent);
+      width: 1px; height: 34px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.72), transparent);
     }
 
-    @keyframes scroll-bounce { 0%,100% { opacity:0.5; transform:translateX(-50%) translateY(0); } 50% { opacity:1; transform:translateX(-50%) translateY(5px); } }
+    @keyframes scroll-bounce {
+      0%,100% { opacity: 0.6; transform: translateX(-50%) translateY(0); }
+      50%     { opacity: 1;   transform: translateX(-50%) translateY(5px); }
+    }
 
     /* ────────────────────────────────────────────
        SECTION SHELL
@@ -500,7 +461,7 @@
     }
 
     /* ────────────────────────────────────────────
-       EXHIBIT CARDS
+       ROOM CARDS
     ──────────────────────────────────────────── */
     .exhibits-grid {
       display: grid;
@@ -521,76 +482,65 @@
     .exhibit-card:hover {
       transform: translateY(-6px);
       box-shadow: 0 28px 64px rgba(0,0,0,0.5);
-      border-color: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.14);
     }
 
-    /* Tall visual area */
+    /* Per-room accent, sampled from that room's photograph */
+    .room-1 { --room: var(--r1); --room-tint: var(--r1-tint); --room-line: var(--r1-line); --room-wash: var(--r1-wash); }
+    .room-2 { --room: var(--r2); --room-tint: var(--r2-tint); --room-line: var(--r2-line); --room-wash: var(--r2-wash); }
+    .room-3 { --room: var(--r3); --room-tint: var(--r3-tint); --room-line: var(--r3-line); --room-wash: var(--r3-wash); }
+
+    /* Installation view — 4:3 lands at exactly 280px tall in the 3-up grid
+       and stays proportional at every other breakpoint. */
     .exhibit-visual {
-      aspect-ratio: 3 / 4;
-      max-height: 280px;
       position: relative;
+      aspect-ratio: 4 / 3;
       overflow: hidden;
       flex-shrink: 0;
+      background: var(--card-2);
     }
 
-    /* — Exhibit 1: Soft Signal — violet */
-    .ev-1 {
-      background:
-        radial-gradient(ellipse 70% 60% at 75% 28%, var(--vi-glow) 0%, transparent 55%),
-        radial-gradient(ellipse 50% 45% at 15% 80%, rgba(109,40,217,0.28) 0%, transparent 48%),
-        linear-gradient(160deg, var(--vi-dark) 0%, var(--vi-mid) 55%, var(--vi-light) 100%);
+    .exhibit-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 620ms var(--ease);
     }
 
-    /* — Exhibit 2: Afterimage Notes — rose */
-    .ev-2 {
-      background:
-        radial-gradient(ellipse 60% 55% at 50% 22%, var(--ro-glow) 0%, transparent 52%),
-        radial-gradient(ellipse 45% 40% at 10% 78%, rgba(136,19,55,0.3) 0%, transparent 45%),
-        linear-gradient(160deg, var(--ro-dark) 0%, var(--ro-mid) 52%, var(--ro-light) 100%);
-    }
+    .exhibit-card:hover .exhibit-visual img { transform: scale(1.045); }
 
-    /* — Exhibit 3: Room Tone — teal */
-    .ev-3 {
-      background:
-        radial-gradient(ellipse 65% 55% at 62% 30%, var(--te-glow) 0%, transparent 54%),
-        radial-gradient(ellipse 45% 40% at 12% 72%, rgba(13,148,136,0.25) 0%, transparent 45%),
-        linear-gradient(160deg, var(--te-dark) 0%, var(--te-mid) 52%, var(--te-light) 100%);
-    }
-
-    /* Abstract art shapes inside each card visual */
-    .exhibit-visual::before,
-    .exhibit-visual::after { content: ''; position: absolute; border-radius: 50%; }
-
-    .ev-1::before { width: 38%; aspect-ratio:1; top:14%; right:12%; border:1px solid rgba(167,139,250,.22); }
-    .ev-1::after  { width: 24%; aspect-ratio:1; bottom:20%; left:16%; border:1px solid rgba(167,139,250,.15); }
-
-    .ev-2::before { width: 42%; aspect-ratio:1; top:10%; left:22%; border:1px solid rgba(251,113,133,.24); }
-    .ev-2::after  { width: 20%; aspect-ratio:1; bottom:18%; right:18%; border:1px solid rgba(251,113,133,.18); }
-
-    .ev-3::before { width: 35%; aspect-ratio:1; top:16%; right:16%; border:1px solid rgba(94,234,212,.22); }
-    .ev-3::after  { width: 22%; aspect-ratio:1; bottom:16%; left:12%; border:1px solid rgba(94,234,212,.16); }
-
-    .exhibit-visual-bar {
+    /* Gradients survive only as hover accents + a legibility scrim */
+    .exhibit-wash {
       position: absolute;
-      left: 12%; right: 12%;
-      top: 52%;
-      height: 1px;
-      border-radius: 99px;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      mix-blend-mode: screen;
+      background: radial-gradient(ellipse 85% 70% at 68% 24%, var(--room-wash) 0%, transparent 68%);
+      transition: opacity 340ms var(--ease);
     }
 
-    .ev-1 .exhibit-visual-bar { background: linear-gradient(90deg, transparent, rgba(167,139,250,.3), transparent); }
-    .ev-2 .exhibit-visual-bar { background: linear-gradient(90deg, transparent, rgba(251,113,133,.3), transparent); }
-    .ev-3 .exhibit-visual-bar { background: linear-gradient(90deg, transparent, rgba(94,234,212,.3), transparent); }
+    .exhibit-card:hover .exhibit-wash { opacity: 1; }
+
+    .exhibit-visual::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(to top, rgba(6,6,6,0.78) 0%, rgba(6,6,6,0.16) 34%, transparent 58%);
+    }
 
     .exhibit-year {
       position: absolute;
-      bottom: 16px;
+      z-index: 1;
+      bottom: 14px;
       right: 16px;
       font-size: 0.66rem;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
+      color: rgba(255,255,255,0.9);
+      text-shadow: 0 1px 6px rgba(0,0,0,0.9);
     }
 
     /* Card body */
@@ -598,7 +548,6 @@
       padding: 26px 24px 28px;
       display: flex;
       flex-direction: column;
-      gap: 0;
       flex: 1;
     }
 
@@ -607,7 +556,7 @@
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: var(--room, var(--muted));
       margin-bottom: 10px;
     }
 
@@ -639,26 +588,23 @@
     .tag {
       display: inline-flex;
       align-items: center;
-      height: 26px;
-      padding: 0 11px;
+      min-height: 26px;
+      padding: 2px 11px;
       border-radius: 99px;
       font-size: 0.7rem;
       font-weight: 600;
       letter-spacing: 0.04em;
-      white-space: nowrap;
       border: 1px solid;
     }
 
-    .tag-v { background: rgba(124,58,237,0.15); color: #a78bfa; border-color: rgba(124,58,237,0.25); }
-    .tag-r { background: rgba(225,29,72,0.15);  color: #fb7185; border-color: rgba(225,29,72,0.25);  }
-    .tag-t { background: rgba(13,148,136,0.15); color: #5eead4; border-color: rgba(13,148,136,0.25); }
-    .tag-n { background: rgba(255,255,255,0.07); color: var(--muted); border-color: var(--border); }
+    .tag-room { background: var(--room-tint); color: var(--room); border-color: var(--room-line); }
+    .tag-n    { background: rgba(255,255,255,0.07); color: var(--muted); border-color: var(--border); }
 
     .btn-enter {
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      height: 42px;
+      min-height: 44px;
       padding: 0 18px;
       border-radius: 7px;
       border: 1.5px solid var(--border-2);
@@ -672,12 +618,12 @@
 
     .btn-enter:hover {
       background: rgba(255,255,255,0.07);
-      border-color: rgba(255,255,255,0.25);
+      border-color: rgba(255,255,255,0.3);
       gap: 12px;
     }
 
     /* ────────────────────────────────────────────
-       VISIT / TICKETING SECTION
+       VISIT / TICKETING
     ──────────────────────────────────────────── */
     .visit-section { background: var(--bg); }
 
@@ -715,6 +661,7 @@
       width: 20px; height: 1.5px;
       background: var(--accent);
       border-radius: 99px;
+      flex-shrink: 0;
     }
 
     /* Schedule slots */
@@ -728,9 +675,9 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--r);
-      padding: 20px 22px;
+      padding: 18px 20px;
       display: grid;
-      grid-template-columns: 88px 1fr auto;
+      grid-template-columns: 88px minmax(0, 1fr) auto;
       gap: 16px;
       align-items: center;
       transition: border-color 160ms, background 160ms;
@@ -751,35 +698,36 @@
       letter-spacing: -0.01em;
     }
 
-    .slot-info {}
-
     .slot-name {
       font-size: 0.92rem;
       font-weight: 600;
       color: var(--ink);
-      margin-bottom: 4px;
+      line-height: 1.45;
+      margin-bottom: 6px;
     }
 
     .slot-meta {
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
       gap: 8px;
     }
 
     .slot-seats {
       display: inline-flex;
       align-items: center;
-      height: 22px;
-      padding: 0 10px;
+      min-height: 22px;
+      padding: 1px 10px;
       border-radius: 99px;
       font-size: 0.68rem;
       font-weight: 700;
       letter-spacing: 0.04em;
+      white-space: nowrap;
     }
 
-    .seats-low   { background: rgba(239,68,68,0.15);  color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
-    .seats-mid   { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.2); }
-    .seats-open  { background: rgba(34,197,94,0.12);  color: #4ade80; border: 1px solid rgba(34,197,94,0.18); }
+    .seats-low   { background: rgba(239,68,68,0.15);  color: #f87171; border: 1px solid rgba(239,68,68,0.22); }
+    .seats-mid   { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.22); }
+    .seats-open  { background: rgba(34,197,94,0.12);  color: #4ade80; border: 1px solid rgba(34,197,94,0.2);  }
 
     .slot-type {
       font-size: 0.74rem;
@@ -790,7 +738,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      height: 36px;
+      min-height: 44px;
       padding: 0 18px;
       border-radius: 6px;
       border: 1.5px solid var(--border-2);
@@ -804,8 +752,18 @@
 
     .btn-reserve:hover {
       background: rgba(255,255,255,0.08);
-      border-color: rgba(255,255,255,0.25);
+      border-color: rgba(255,255,255,0.3);
       transform: translateY(-1px);
+    }
+
+    .btn-reserve.is-reserved,
+    .btn-reserve.is-reserved:hover {
+      background: rgba(34,197,94,0.12);
+      border-color: rgba(34,197,94,0.4);
+      color: #6ee79a;
+      transform: none;
+      cursor: default;
+      opacity: 1;
     }
 
     /* ────────────────────────────────────────────
@@ -821,7 +779,7 @@
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: 24px;
+      gap: 32px;
       flex-wrap: wrap;
     }
 
@@ -836,34 +794,20 @@
     .footer-credit {
       font-size: 0.82rem;
       color: var(--muted);
-      line-height: 1.65;
-      max-width: 40ch;
+      line-height: 1.7;
+      max-width: 42ch;
     }
 
     .footer-credit strong { color: var(--ink-2); font-weight: 600; }
 
-    .footer-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      height: 38px;
-      padding: 0 18px;
-      border-radius: 6px;
-      border: 1.5px solid var(--border-2);
+    .footer-hours {
       font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--ink-2);
-      flex-shrink: 0;
-      align-self: flex-start;
-      transition: background 140ms, border-color 140ms;
-      margin-top: 4px;
+      color: var(--muted);
+      line-height: 1.9;
+      list-style: none;
     }
 
-    .footer-back:hover {
-      background: rgba(255,255,255,0.06);
-      border-color: rgba(255,255,255,0.22);
-      color: var(--ink);
-    }
+    .footer-hours b { color: var(--ink-2); font-weight: 600; }
 
     .footer-copy {
       margin-top: 32px;
@@ -892,17 +836,34 @@
        FOCUS
     ──────────────────────────────────────────── */
     a:focus-visible, button:focus-visible {
-      outline: 3px solid rgba(167,139,250,0.5);
+      outline: 3px solid rgba(157,180,221,0.65);
       outline-offset: 3px;
       border-radius: 4px;
+    }
+
+    /* ────────────────────────────────────────────
+       REDUCED MOTION
+    ──────────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .hero-scroll { animation: none; opacity: 0.85; }
+      .btn:hover,
+      .btn-reserve:hover,
+      .exhibit-card:hover { transform: none; }
+      .exhibit-card:hover .exhibit-visual img { transform: none; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
     }
 
     /* ────────────────────────────────────────────
        RESPONSIVE
     ──────────────────────────────────────────── */
     @media (max-width: 1024px) {
-      .hero-content { max-width: 72%; }
-      .hero-blob { width: clamp(200px, 30vw, 360px); right: 2%; }
+      .hero-content { max-width: 100%; }
       .section-header { grid-template-columns: 1fr; gap: 16px; }
       .visit-layout { grid-template-columns: 1fr; gap: 40px; }
     }
@@ -911,23 +872,31 @@
       .nav-links  { display: none; }
       .nav-ticket { display: none; }
       .nav-toggle { display: flex; }
-      .hero-content { max-width: 100%; }
-      .hero-blob { display: none; }
+      .hero-media img { object-position: 66% 46%; }
+      .hero-media::after {
+        background:
+          linear-gradient(to bottom, rgba(10,10,10,0.86) 0%, rgba(10,10,10,0.5) 26%, rgba(10,10,10,0.72) 62%, rgba(10,10,10,0.96) 100%);
+      }
       .exhibits-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
-      .slot { grid-template-columns: 70px 1fr auto; gap: 12px; }
+      .slot { grid-template-columns: 70px minmax(0, 1fr) auto; gap: 12px; }
     }
 
     @media (max-width: 520px) {
-      .hero h1 { font-size: clamp(2.8rem, 14vw, 3.8rem); }
-      .hero-ctas { flex-direction: column; }
+      .hero h1 { font-size: clamp(2.6rem, 13vw, 3.8rem); }
+      .hero-ctas { flex-direction: column; align-items: stretch; }
       .hero-ctas .btn { width: 100%; }
-      .slot { grid-template-columns: 1fr; gap: 8px; }
-      .btn-reserve { align-self: flex-start; }
+      .slot { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+      .btn-reserve { justify-self: start; }
       .footer-inner { flex-direction: column; }
+      .footer-copy { flex-direction: column; gap: 6px; }
     }
   </style>
 </head>
 <body>
+
+  <aside class="portfolio-context" aria-label="Portfolio navigation">
+    <a class="portfolio-back" href="index.html">&larr; Back to Portfolio</a>
+  </aside>
 
   <!-- ════════════════════════════════════════
        NAV
@@ -943,24 +912,23 @@
       <nav aria-label="Main navigation">
         <ul class="nav-links">
           <li><a href="#exhibitions">Rooms</a></li>
-          <li><a href="#exhibitions">Shows</a></li>
           <li><a href="#visit">Visit</a></li>
           <li><a href="index.html">Portfolio</a></li>
         </ul>
       </nav>
 
-      <a class="nav-ticket" href="#visit">Get tickets</a>
+      <a class="nav-ticket" href="#visit">Book a slot</a>
 
-      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-label="Open navigation">
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-mobile" aria-label="Open navigation">
         <span></span><span></span><span></span>
       </button>
     </div>
 
     <nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
       <a href="#exhibitions">Rooms</a>
-      <a href="#exhibitions">Shows</a>
       <a href="#visit">Visit</a>
-      <a href="index.html">← Back to portfolio</a>
+      <a href="#visit">Book a slot</a>
+      <a href="index.html">&larr; Back to portfolio</a>
     </nav>
   </header>
 
@@ -970,37 +938,35 @@
          HERO
     ════════════════════════════════════════ -->
     <section class="hero" aria-label="Gallery introduction">
+
+      <div class="hero-media">
+        <img
+          src="assets/museroom/hero-1600.jpg"
+          srcset="assets/museroom/hero-900.jpg 900w, assets/museroom/hero-1600.jpg 1600w"
+          sizes="100vw"
+          alt="Visitors sitting on low benches in a darkened gallery, facing a wall-sized projection of pale blue cloud."
+          width="1600" height="900"
+          loading="eager" fetchpriority="high" decoding="async">
+      </div>
+
       <div class="container">
-
-        <!-- Abstract CSS blob -->
-        <div class="hero-blob" aria-hidden="true">
-          <div class="blob-ring blob-ring-1"></div>
-          <div class="blob-ring blob-ring-2"></div>
-          <div class="blob-ring blob-ring-3"></div>
-          <div class="blob-glow"></div>
-          <div class="blob-dot blob-dot-1"></div>
-          <div class="blob-dot blob-dot-2"></div>
-          <div class="blob-dot blob-dot-3"></div>
-          <div class="blob-bar blob-bar-1"></div>
-          <div class="blob-bar blob-bar-2"></div>
-        </div>
-
         <div class="hero-content">
 
-          <div class="hero-eyebrow reveal">Digital Gallery &nbsp;·&nbsp; 2026</div>
+          <div class="hero-eyebrow reveal">Now open &nbsp;·&nbsp; Autumn programme 2026</div>
 
           <h1 class="reveal">
             Step into<br>a room<br><em>made of</em><br>color.
           </h1>
 
           <p class="hero-desc reveal">
-            MuseRoom is a landing page concept for a small digital gallery —
-            exploring art direction, immersive exhibit cards, and a clear, calm visit flow.
+            MuseRoom is a small gallery for light-based work — three rooms on one floor,
+            each built around a single material: projection, filament, and the sodium glow
+            of the corridor that links them. Sessions run morning, afternoon and dusk.
           </p>
 
           <div class="hero-ctas reveal">
-            <a class="btn btn-fill" href="#exhibitions">Explore shows</a>
-            <a class="btn btn-outline" href="#visit">Plan a visit</a>
+            <a class="btn btn-fill" href="#exhibitions">See what's on</a>
+            <a class="btn btn-outline" href="#visit">Plan your visit</a>
           </div>
 
         </div>
@@ -1010,7 +976,7 @@
     </section>
 
     <!-- ════════════════════════════════════════
-         EXHIBITIONS
+         ROOMS
     ════════════════════════════════════════ -->
     <section class="section" id="exhibitions" aria-labelledby="exhibits-heading">
       <div class="container">
@@ -1023,78 +989,91 @@
             </h2>
           </div>
           <p class="section-sub reveal">
-            Three small exhibits built entirely in CSS — each exploring a different
-            dimension of color, light, and quiet digital signal.
+            The floor reads as one walk: you enter through the red light of Room 01,
+            cross the dark of Room 02, and leave along the corridor that is itself
+            the third work. Allow forty minutes for all three.
           </p>
         </div>
 
         <div class="exhibits-grid">
 
-          <!-- Card 1: Soft Signal -->
-          <article class="exhibit-card reveal">
-            <div class="exhibit-visual ev-1" aria-hidden="true">
-              <div class="exhibit-visual-bar"></div>
+          <!-- Room 01: Soft Signal -->
+          <article class="exhibit-card room-1 reveal">
+            <div class="exhibit-visual">
+              <img src="assets/museroom/room-01-soft-signal.jpg" width="900" height="675"
+                   alt="Soft Signal: a wide backlit panel of red and cyan light glowing against the bare stone of a vaulted room."
+                   loading="lazy" decoding="async">
+              <div class="exhibit-wash" aria-hidden="true"></div>
               <span class="exhibit-year">2026</span>
             </div>
             <div class="exhibit-body">
               <div class="exhibit-number">Room 01</div>
-              <div class="exhibit-name">Soft Signal</div>
+              <h3 class="exhibit-name">Soft Signal</h3>
               <p class="exhibit-desc">
-                A color study about ambient screens, quiet alerts, and the gentle
-                quality of light that digital surfaces cast in the dark.
+                A single backlit panel, held at the brightness of a screen left on
+                overnight. The vault is otherwise unlit, so the colour lands on the
+                stone before it lands on you.
               </p>
               <div class="exhibit-tags">
-                <span class="tag tag-v">generative color</span>
-                <span class="tag tag-n">ambient</span>
+                <span class="tag tag-room">Light panel</span>
+                <span class="tag tag-n">Continuous</span>
               </div>
-              <a class="btn-enter" href="#visit" aria-label="Enter Soft Signal room">
-                Enter room →
+              <a class="btn-enter" href="#visit" aria-label="See session times for Soft Signal">
+                Session times →
               </a>
             </div>
           </article>
 
-          <!-- Card 2: Afterimage Notes -->
-          <article class="exhibit-card reveal">
-            <div class="exhibit-visual ev-2" aria-hidden="true">
-              <div class="exhibit-visual-bar"></div>
+          <!-- Room 02: Afterimage Notes -->
+          <article class="exhibit-card room-2 reveal">
+            <div class="exhibit-visual">
+              <img src="assets/museroom/room-02-afterimage.jpg" width="900" height="675"
+                   alt="Afterimage Notes: loops of fine white filament suspended in a blacked-out room, drawn out like a line held in the eye."
+                   loading="lazy" decoding="async">
+              <div class="exhibit-wash" aria-hidden="true"></div>
               <span class="exhibit-year">2026</span>
             </div>
             <div class="exhibit-body">
               <div class="exhibit-number">Room 02</div>
-              <div class="exhibit-name">Afterimage Notes</div>
+              <h3 class="exhibit-name">Afterimage Notes</h3>
               <p class="exhibit-desc">
-                Layered posters and motion stills arranged for a fast first impression —
-                designed to leave a mark even after you've looked away.
+                Twelve metres of lit filament hung in a blacked-out room. Stand still
+                for a minute, then close your eyes — the drawing stays with you longer
+                than it stays on the wire.
               </p>
               <div class="exhibit-tags">
-                <span class="tag tag-r">poster motion</span>
-                <span class="tag tag-n">visual</span>
+                <span class="tag tag-room">Suspended filament</span>
+                <span class="tag tag-n">Timed entry</span>
               </div>
-              <a class="btn-enter" href="#visit" aria-label="Enter Afterimage Notes room">
-                Enter room →
+              <a class="btn-enter" href="#visit" aria-label="See session times for Afterimage Notes">
+                Session times →
               </a>
             </div>
           </article>
 
-          <!-- Card 3: Room Tone -->
-          <article class="exhibit-card reveal">
-            <div class="exhibit-visual ev-3" aria-hidden="true">
-              <div class="exhibit-visual-bar"></div>
+          <!-- Room 03: Room Tone -->
+          <article class="exhibit-card room-3 reveal">
+            <div class="exhibit-visual">
+              <img src="assets/museroom/room-03-room-tone.jpg" width="900" height="675"
+                   alt="Room Tone: a long concrete service corridor, damp and unpainted, ending in a flat wall of sodium-yellow light."
+                   loading="lazy" decoding="async">
+              <div class="exhibit-wash" aria-hidden="true"></div>
               <span class="exhibit-year">2026</span>
             </div>
             <div class="exhibit-body">
               <div class="exhibit-number">Room 03</div>
-              <div class="exhibit-name">Room Tone</div>
+              <h3 class="exhibit-name">Room Tone</h3>
               <p class="exhibit-desc">
-                A compact exhibit system with cards, scheduled time slots, and a
-                clear visitor rhythm — the architecture of attention itself.
+                The building's old service corridor, left exactly as found and lit
+                from the far end in sodium. Nothing has been installed here. The
+                walk out is the work.
               </p>
               <div class="exhibit-tags">
-                <span class="tag tag-t">gallery rhythm</span>
-                <span class="tag tag-n">responsive</span>
+                <span class="tag tag-room">Site condition</span>
+                <span class="tag tag-n">Step-free</span>
               </div>
-              <a class="btn-enter" href="#visit" aria-label="Enter Room Tone">
-                Enter room →
+              <a class="btn-enter" href="#visit" aria-label="See session times for Room Tone">
+                Session times →
               </a>
             </div>
           </article>
@@ -1113,67 +1092,75 @@
 
           <!-- Left: intro -->
           <div class="visit-intro">
-            <span class="section-label reveal">Ticketing</span>
+            <span class="section-label reveal">Tickets</span>
             <h2 class="section-title reveal" id="visit-heading">
               Plan<br><em>your visit.</em>
             </h2>
             <p class="reveal">
-              Choose a show, pick a time slot, and reserve a seat.
-              The gallery runs three guided sessions a day — arrive early,
-              stay as long as the room lets you.
+              Pick a session and reserve a seat — entry is free, but Rooms 01 and 02
+              are timed, so the floor never holds more than twenty people at once.
+              At 18:00 the timing stops and all three rooms stay open until close.
             </p>
-            <div class="visit-date reveal">Today — Saturday, 17 May 2026</div>
+            <p class="visit-date reveal" id="visit-today">
+              <time id="visit-today-time">Today</time>
+            </p>
           </div>
 
           <!-- Right: schedule -->
-          <div class="schedule" aria-label="Today's gallery schedule">
+          <div class="schedule">
+            <h3 class="sr-only" id="schedule-heading">Today's sessions</h3>
+            <p class="sr-only" id="reserve-status" role="status" aria-live="polite"></p>
 
             <div class="slot reveal">
               <div class="slot-time">10:30</div>
               <div class="slot-info">
-                <div class="slot-name">Soft Signal — guided walkthrough</div>
+                <h3 class="slot-name">Soft Signal — guided walkthrough</h3>
                 <div class="slot-meta">
                   <span class="slot-seats seats-mid">12 seats left</span>
                   <span class="slot-type">60 min · Room 01</span>
                 </div>
               </div>
-              <button class="btn-reserve" aria-label="Reserve seat for Soft Signal walkthrough">Reserve</button>
+              <button class="btn-reserve" type="button" data-label="Reserve"
+                      aria-label="Reserve a seat for the 10:30 Soft Signal guided walkthrough">Reserve</button>
             </div>
 
             <div class="slot reveal">
               <div class="slot-time">13:00</div>
               <div class="slot-info">
-                <div class="slot-name">Afterimage Notes — artist talk</div>
+                <h3 class="slot-name">Afterimage Notes — artist talk</h3>
                 <div class="slot-meta">
                   <span class="slot-seats seats-low">4 seats left</span>
                   <span class="slot-type">45 min · Room 02</span>
                 </div>
               </div>
-              <button class="btn-reserve" aria-label="Reserve seat for Afterimage Notes talk">Reserve</button>
+              <button class="btn-reserve" type="button" data-label="Reserve"
+                      aria-label="Reserve a seat for the 13:00 Afterimage Notes artist talk">Reserve</button>
             </div>
 
             <div class="slot reveal">
               <div class="slot-time">15:30</div>
               <div class="slot-info">
-                <div class="slot-name">Room Tone — open study session</div>
+                <h3 class="slot-name">Room Tone — open study session</h3>
                 <div class="slot-meta">
                   <span class="slot-seats seats-mid">8 seats left</span>
                   <span class="slot-type">90 min · Room 03</span>
                 </div>
               </div>
-              <button class="btn-reserve" aria-label="Reserve seat for Room Tone open study">Reserve</button>
+              <button class="btn-reserve" type="button" data-label="Reserve"
+                      aria-label="Reserve a seat for the 15:30 Room Tone open study session">Reserve</button>
             </div>
 
             <div class="slot reveal">
               <div class="slot-time">18:00</div>
               <div class="slot-info">
-                <div class="slot-name">Evening light — all three rooms</div>
+                <h3 class="slot-name">Evening light — all three rooms</h3>
                 <div class="slot-meta">
                   <span class="slot-seats seats-open">Open floor</span>
-                  <span class="slot-type">Free · Rooms 01–03</span>
+                  <span class="slot-type">No booking · Rooms 01–03</span>
                 </div>
               </div>
-              <button class="btn-reserve" aria-label="Reserve for Evening light session">Reserve</button>
+              <button class="btn-reserve" type="button" data-label="Remind me"
+                      aria-label="Remind me about the 18:00 evening open floor">Remind me</button>
             </div>
 
           </div>
@@ -1194,18 +1181,21 @@
         <div>
           <div class="footer-brand">MuseRoom</div>
           <p class="footer-credit">
-            MuseRoom is a frontend concept project by
-            <strong>Phakin Chawanpunya</strong> —
-            exploring gallery art direction, immersive layout design,
-            and clean visitor-flow UX in pure HTML &amp; CSS.
+            A gallery for light-based work, on the second floor of the old print works.
+            Entry is free. Rooms 01 and 02 run on timed sessions;
+            <strong>Room 03 is step-free and open all day.</strong>
           </p>
         </div>
-        <a class="footer-back" href="index.html">← Back to portfolio</a>
+        <ul class="footer-hours">
+          <li><b>Tue – Fri</b> &nbsp; 10:00 – 20:00</li>
+          <li><b>Sat – Sun</b> &nbsp; 10:00 – 22:00</li>
+          <li><b>Monday</b> &nbsp; Closed</li>
+        </ul>
       </div>
 
       <div class="footer-copy">
-        <span>© 2026 MuseRoom — Digital Gallery Concept</span>
-        <span>Built by Phakin Chawanpunya · Frontend Portfolio</span>
+        <span>© 2026 MuseRoom</span>
+        <span>Concept and build by Phakin Chawanpunya — portfolio piece.</span>
       </div>
 
     </div>
@@ -1213,49 +1203,93 @@
 
   <script>
     (() => {
-      /* Scroll reveal */
+      'use strict';
+
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* ── Scroll reveal ─────────────────────────────────────── */
       const els = document.querySelectorAll('.reveal');
-      if ('IntersectionObserver' in window) {
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        els.forEach(el => el.classList.add('visible'));
+      } else {
         const obs = new IntersectionObserver(entries => {
           entries.forEach(e => {
             if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
           });
         }, { threshold: 0.07, rootMargin: '0px 0px -32px 0px' });
         els.forEach(el => obs.observe(el));
-      } else { els.forEach(el => el.classList.add('visible')); }
+      }
 
-      /* Mobile nav */
+      /* ── Mobile nav ────────────────────────────────────────── */
       const toggle = document.getElementById('nav-toggle');
       const mobile = document.getElementById('nav-mobile');
 
-      toggle?.addEventListener('click', () => {
-        const open = mobile.classList.toggle('open');
+      const setNav = open => {
+        if (!toggle || !mobile) return;
+        mobile.classList.toggle('open', open);
         toggle.setAttribute('aria-expanded', String(open));
         toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+        document.body.classList.toggle('nav-open', open);
+      };
+
+      toggle?.addEventListener('click', () => {
+        setNav(!mobile.classList.contains('open'));
       });
 
       mobile?.querySelectorAll('a').forEach(a => {
-        a.addEventListener('click', () => {
-          mobile.classList.remove('open');
-          toggle?.setAttribute('aria-expanded', 'false');
-          toggle?.setAttribute('aria-label', 'Open navigation');
-        });
+        a.addEventListener('click', () => setNav(false));
       });
 
-      /* Reserve buttons — visual feedback only */
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && mobile?.classList.contains('open')) {
+          setNav(false);
+          toggle?.focus();
+        }
+      });
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && mobile?.classList.contains('open')) setNav(false);
+      });
+
+      /* ── Today's date, rendered in local time ──────────────── */
+      const toISODate = d =>
+        `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+
+      const timeEl = document.getElementById('visit-today-time');
+      if (timeEl) {
+        const now = new Date();
+        let label;
+        try {
+          label = now.toLocaleDateString('en-GB', {
+            weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+          });
+        } catch (err) {
+          label = now.toDateString();
+        }
+        timeEl.setAttribute('datetime', toISODate(now));
+        timeEl.textContent = `Today — ${label}`;
+      }
+
+      /* ── Reserve buttons (demo booking, no backend) ────────── */
+      const status = document.getElementById('reserve-status');
+
       document.querySelectorAll('.btn-reserve').forEach(btn => {
+        const label = btn.dataset.label || btn.textContent.trim();
+        const done  = label === 'Remind me' ? 'Reminder set ✓' : 'Reserved ✓';
+
         btn.addEventListener('click', () => {
-          const original = btn.textContent;
-          btn.textContent = 'Reserved ✓';
-          btn.style.background = 'rgba(34,197,94,0.12)';
-          btn.style.borderColor = 'rgba(34,197,94,0.3)';
-          btn.style.color = '#4ade80';
-          setTimeout(() => {
-            btn.textContent = original;
-            btn.style.background = '';
-            btn.style.borderColor = '';
-            btn.style.color = '';
-          }, 2200);
+          if (btn.disabled) return;
+
+          btn.textContent = done;
+          btn.classList.add('is-reserved');
+          btn.disabled = true;
+
+          const slot = btn.closest('.slot');
+          const name = slot?.querySelector('.slot-name')?.textContent.trim() || 'this session';
+          const time = slot?.querySelector('.slot-time')?.textContent.trim() || '';
+
+          btn.setAttribute('aria-label', `${done.replace(' ✓', '')} — ${time} ${name}`.trim());
+          if (status) status.textContent = `${done.replace(' ✓', '')}: ${time} ${name}.`;
         });
       });
     })();

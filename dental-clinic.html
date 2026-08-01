@@ -7,12 +7,24 @@
   <meta name="description" content="คลินิกทันตกรรมทันสมัย ครบวงจร จัดฟัน วีเนียร์ รากฟันเทียม ฟอกสีฟัน โดยทีมทันตแพทย์เฉพาะทาง พร้อมระบบนัดหมายออนไลน์">
   <link rel="canonical" href="https://phakinza007.github.io/my-portfolio/dental-clinic.html">
   <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#120F0C">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <meta property="og:title" content="BRIGHT Dental Clinic — Modern Dental Studio">
   <meta property="og:description" content="คลินิกทันตกรรมครบวงจร โดยทีมทันตแพทย์เฉพาะทาง">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://phakinza007.github.io/my-portfolio/dental-clinic.html">
+  <meta property="og:image" content="https://phakinza007.github.io/my-portfolio/assets/dental/og-cover.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="ห้องตรวจทันตกรรมสีขาวพร้อมยูนิตทำฟันของคลินิก BRIGHT">
+  <meta property="og:locale" content="th_TH">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BRIGHT Dental Clinic — Modern Dental Studio">
+  <meta name="twitter:description" content="คลินิกทันตกรรมครบวงจร โดยทีมทันตแพทย์เฉพาะทาง">
+  <meta name="twitter:image" content="https://phakinza007.github.io/my-portfolio/assets/dental/og-cover.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Fraunces:ital,wght@1,500&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&display=optional" rel="stylesheet">
 
   <style>
     /* ── Design tokens ─────────────────────────────────────────── */
@@ -34,7 +46,6 @@
       --line-paper: rgba(28,24,17,0.14);
 
       --display: 'Sora', 'Helvetica Neue', Arial, sans-serif;
-      --serif:   'Fraunces', Georgia, serif;
       --sans:    'Noto Sans Thai', 'Helvetica Neue', Arial, sans-serif;
 
       --ease: cubic-bezier(.4,0,.2,1);
@@ -54,7 +65,7 @@
 
     h1, h2, h3 { font-family: var(--display); text-wrap: balance; }
     p { text-wrap: pretty; }
-    em { font-family: var(--serif); font-style: italic; font-weight: 500; color: var(--coral); }
+    .mark { color: var(--coral); }
 
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px;
@@ -79,12 +90,44 @@
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--line-ink);
     }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 74px; }
-    .logo { font-family: var(--display); font-weight: 800; font-size: 19px; letter-spacing: -.4px; color: var(--text-hi); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 74px; }
+    .logo {
+      display: inline-flex; align-items: center; min-height: 44px; flex: none;
+      font-family: var(--display); font-weight: 800; font-size: 19px; letter-spacing: -.4px; color: var(--text-hi);
+    }
     .logo b { color: var(--coral); font-weight: 800; }
-    .nav-links { display: flex; gap: 34px; font-size: 14px; font-weight: 500; color: var(--text-lo); }
-    .nav-links a { transition: color var(--t); }
+    .nav-links { display: flex; gap: 22px; font-size: 14px; font-weight: 500; color: var(--text-lo); }
+    .nav-links a {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 44px; min-width: 44px; padding: 0 6px;
+      transition: color var(--t);
+    }
     .nav-links a:hover { color: var(--text-hi); }
+    .nav-right { display: flex; align-items: center; gap: 10px; flex: none; }
+
+    .nav-toggle {
+      display: none; width: 46px; height: 46px; flex: none;
+      align-items: center; justify-content: center;
+      background: transparent; border: 1.5px solid var(--line-ink); border-radius: 4px;
+      color: var(--text-hi); cursor: pointer; padding: 0;
+    }
+    .nav-toggle:hover { border-color: var(--coral); color: var(--coral); }
+    .nav-toggle .i-close { display: none; }
+    .nav-toggle[aria-expanded="true"] .i-open { display: none; }
+    .nav-toggle[aria-expanded="true"] .i-close { display: block; }
+
+    .nav-menu { display: none; border-top: 1px solid var(--line-ink); padding: 10px 0 18px; }
+    .nav-menu a {
+      display: flex; align-items: center; min-height: 48px;
+      font-size: 15px; font-weight: 500; color: var(--text-lo);
+      border-bottom: 1px solid var(--line-ink);
+    }
+    .nav-menu a:last-child { border-bottom: none; }
+    .nav-menu a:hover, .nav-menu a:focus-visible { color: var(--coral); }
+    .nav-menu .btn { width: 100%; margin-top: 16px; color: var(--text-dark); }
+    .nav-menu .btn:hover { color: var(--text-dark); }
+
+    :focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; }
 
     /* ── Hero ──────────────────────────────────────────────────── */
     .hero { background: var(--ink); color: var(--text-hi); padding: 76px 0 0; overflow: hidden; }
@@ -164,31 +207,57 @@
 
     /* ── Doctors ───────────────────────────────────────────────── */
     .doc-featured {
-      display: grid; grid-template-columns: auto 1fr; gap: 26px; align-items: center;
+      display: grid; grid-template-columns: auto 1fr; gap: 30px; align-items: center;
       padding-bottom: 34px; margin-bottom: 34px; border-bottom: 1px solid var(--line-ink);
     }
-    .doc-mono {
-      flex: none; border-radius: 50%; display: grid; place-items: center;
-      font-family: var(--display); font-weight: 800; color: var(--ink);
+    /* one shared grade so three separate portraits read as one clinic */
+    .doc-photo {
+      flex: none; overflow: hidden; border-radius: 6px;
+      background: var(--ink-3); position: relative;
     }
-    .doc-featured .doc-mono { width: 108px; height: 108px; font-size: 34px; background: var(--coral); }
+    .doc-photo img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center 22%;
+      filter: saturate(.94) contrast(1.03);
+    }
+    .doc-featured .doc-photo { width: 240px; height: 300px; }
     .doc-featured h3 { font-size: clamp(22px, 3vw, 30px); font-weight: 800; letter-spacing: -.6px; }
     .doc-featured .doc-spec { color: var(--coral); font-weight: 600; font-size: 13.5px; margin: 6px 0 10px; }
     .doc-featured p { font-size: 14px; color: var(--text-lo); max-width: 520px; }
 
-    .doc-list { display: grid; gap: 22px; }
-    .doc-row { display: flex; align-items: center; gap: 18px; }
-    .doc-row .doc-mono { width: 56px; height: 56px; font-size: 18px; background: var(--ink-3); color: var(--text-hi); }
-    .doc-row h4 { font-family: var(--display); font-size: 16px; font-weight: 700; }
+    .doc-list { display: grid; gap: 30px; }
+    .doc-row { display: flex; align-items: center; gap: 20px; }
+    .doc-row .doc-photo { width: 112px; height: 140px; border-radius: 5px; }
+    .doc-row h3 { font-family: var(--display); font-size: 16px; font-weight: 700; }
     .doc-row .doc-spec { font-size: 12.5px; color: var(--coral); font-weight: 600; margin-top: 2px; }
     .doc-row p { font-size: 13px; color: var(--text-lo); margin-top: 3px; max-width: 460px; }
+
+    /* ── Clinic tour band ──────────────────────────────────────── */
+    .tour { background: var(--ink); padding: 0; }
+    .tour-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .tour-fig { position: relative; margin: 0; overflow: hidden; }
+    .tour-fig img {
+      width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+      filter: saturate(.94) contrast(1.03);
+    }
+    .tour-fig figcaption {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      padding: 64px 20px 18px;
+      background: linear-gradient(180deg, rgba(18,15,12,0) 0%, rgba(18,15,12,.62) 42%, rgba(18,15,12,.93) 74%);
+      color: var(--text-hi);
+    }
+    .tour-fig .t-kicker {
+      font-size: 12.5px; font-weight: 700; color: var(--coral);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .tour-fig .t-kicker::before { content: ''; width: 14px; height: 1.5px; background: var(--coral); flex: none; }
+    .tour-fig .t-text { font-size: 14px; font-weight: 500; margin-top: 5px; line-height: 1.5; }
 
     /* ── Reviews ───────────────────────────────────────────────── */
     .rev-lead { max-width: 760px; }
     .rev-lead .stars { color: var(--coral-ink); letter-spacing: 3px; font-size: 15px; margin-bottom: 18px; }
     .rev-lead blockquote {
-      font-family: var(--serif); font-style: italic; font-weight: 500;
-      font-size: clamp(22px, 3.4vw, 34px); line-height: 1.35; color: var(--text-dark);
+      font-family: var(--display); font-weight: 600; letter-spacing: -.6px;
+      font-size: clamp(21px, 3.2vw, 32px); line-height: 1.35; color: var(--text-dark);
     }
     .rev-lead .who { margin-top: 22px; font-size: 13.5px; color: var(--text-dim); font-weight: 600; }
     .rev-support {
@@ -204,7 +273,7 @@
     .book-info h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -1px; line-height: 1.1; }
     .book-perks { list-style: none; margin-top: 24px; display: grid; gap: 13px; }
     .book-perks li { display: flex; gap: 12px; font-size: 14px; color: var(--text-lo); }
-    .book-perks .tick { flex: none; color: var(--coral); font-weight: 700; }
+    .book-perks .tick { flex: none; color: var(--coral); margin-top: 4px; }
     .book-hours { margin-top: 34px; font-size: 13.5px; color: var(--text-lo); border-top: 1px solid var(--line-ink); padding-top: 20px; }
     .book-hours div { display: flex; justify-content: space-between; max-width: 320px; padding: 5px 0; }
     .book-hours .d { color: var(--text-hi); font-weight: 500; }
@@ -222,8 +291,10 @@
     .f-field input, .f-field select, .f-field textarea {
       padding: 12px 14px; border: 1.5px solid var(--line-paper); border-radius: 4px;
       font-size: 14px; color: var(--text-dark); background: #fff;
+      min-height: 46px; min-width: 0; max-width: 100%; width: 100%;
       transition: border-color var(--t), box-shadow var(--t);
     }
+    .f-field textarea { min-height: 92px; resize: vertical; }
     .f-field input:focus, .f-field select:focus, .f-field textarea:focus {
       outline: none; border-color: var(--coral);
       box-shadow: 0 0 0 3px rgba(255,91,59,.16);
@@ -235,22 +306,34 @@
       border: 1px solid var(--coral-pale); border-radius: 4px; font-size: 13.5px; font-weight: 500;
     }
     .form-ok.show { display: block; }
+    .form-ok:focus { outline: 2px solid var(--coral); outline-offset: 2px; }
 
     /* ── Contact ───────────────────────────────────────────────── */
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: stretch; }
-    .map-ph {
-      background:
-        linear-gradient(rgba(255,91,59,.05), rgba(255,91,59,.05)),
-        repeating-linear-gradient(0deg, transparent 0 39px, var(--line-paper) 39px 40px),
-        repeating-linear-gradient(90deg, transparent 0 39px, var(--line-paper) 39px 40px),
-        #fff;
+    .map { margin: 0; min-width: 0; }
+    .map-frame {
+      display: block; position: relative; overflow: hidden;
       border: 1px solid var(--line-paper); border-radius: 6px;
-      min-height: 300px; position: relative; display: grid; place-items: center;
+      aspect-ratio: 16 / 10; background: var(--paper-2);
     }
-    .map-pin { background: var(--ink); color: var(--text-hi); border-radius: 4px; padding: 16px 22px; text-align: center; font-size: 13px; }
-    .map-pin b { font-family: var(--display); display: block; margin-top: 4px; color: var(--coral); }
+    .map-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .map-marker {
+      position: absolute; left: 50%; top: 50%;
+      transform: translate(-50%, -100%);
+      filter: drop-shadow(0 4px 8px rgba(28,24,17,.35));
+      pointer-events: none;
+    }
+    .map-card {
+      position: absolute; left: 14px; bottom: 14px; right: 14px;
+      background: var(--ink); color: var(--text-hi);
+      border-radius: 4px; padding: 13px 16px; font-size: 13px; line-height: 1.55;
+    }
+    .map-card b { font-family: var(--display); display: block; color: var(--coral); font-size: 14px; }
+    .map-card .go { display: inline-block; margin-top: 5px; color: var(--text-lo); font-size: 12px; }
+    .map-frame:hover .map-card .go, .map-frame:focus-visible .map-card .go { color: var(--coral); }
+    .map-credit { margin-top: 8px; font-size: 11.5px; color: var(--text-dim); }
     .contact-list { display: grid; gap: 20px; align-content: center; }
-    .c-item h4 { font-family: var(--display); font-size: 14px; font-weight: 700; color: var(--coral-ink); }
+    .c-item h3 { font-family: var(--display); font-size: 14px; font-weight: 700; color: var(--coral-ink); }
     .c-item p { font-size: 13.5px; color: var(--text-dim); margin-top: 3px; }
 
     /* ── Footer ────────────────────────────────────────────────── */
@@ -258,7 +341,11 @@
     .foot-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
     .foot-logo { font-family: var(--display); font-weight: 800; font-size: 16px; color: var(--text-hi); }
     .foot-logo b { color: var(--coral); }
-    .foot-links { display: flex; gap: 24px; font-size: 13px; }
+    .foot-links { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 13px; }
+    .foot-links a {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 44px; min-width: 44px; padding: 0 6px;
+    }
     .foot-links a:hover { color: var(--text-hi); }
     .foot-copy { font-size: 12px; }
 
@@ -271,26 +358,50 @@
     }
 
     /* ── Responsive ────────────────────────────────────────────── */
+    @media (min-width: 961px) {
+      .nav-menu { display: none !important; }
+    }
     @media (max-width: 960px) {
       .wrap { padding: 0 24px; }
       .nav-links { display: none; }
+      .nav-toggle { display: inline-flex; }
+      .nav-menu.open { display: block; }
       .hero-grid { grid-template-columns: 1fr; }
       .hero-copy { padding-bottom: 36px; }
       .hero-photo img { min-height: 260px; }
-      .doc-featured { grid-template-columns: auto 1fr; }
+      .doc-featured { grid-template-columns: auto 1fr; gap: 24px; }
+      .doc-featured .doc-photo { width: 184px; height: 230px; }
+      .doc-row .doc-photo { width: 96px; height: 120px; }
       .rev-support { grid-template-columns: 1fr; gap: 26px; }
       .book-grid, .contact-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px) {
+      .tour-grid { grid-template-columns: 1fr; }
+      .tour-fig img { aspect-ratio: 16 / 9; }
     }
     @media (max-width: 620px) {
       section { padding: 68px 0; }
       .hero h1 { letter-spacing: -1.4px; }
-      .menu-row { gap: 14px; }
-      .menu-num { width: 20px; }
-      .menu-price { font-size: 13px; }
-      .doc-featured { grid-template-columns: 1fr; text-align: left; }
-      .doc-featured .doc-mono { width: 76px; height: 76px; font-size: 24px; }
+      .hero-photo img { object-position: center 40%; }
+      .menu-row { display: grid; grid-template-columns: 22px 1fr; gap: 0 12px; align-items: start; }
+      .menu-num { width: auto; padding-top: 3px; }
+      .menu-price { grid-column: 2; text-align: left; font-size: 13px; margin-top: 9px; }
+      .doc-featured { grid-template-columns: 1fr; text-align: left; gap: 20px; }
+      .doc-featured .doc-photo { width: 152px; height: 190px; }
+      .doc-list { gap: 22px; }
+      .doc-row .doc-photo { width: 78px; height: 98px; }
       .f-grid { grid-template-columns: 1fr; }
       .book-form { padding: 26px 22px; }
+      .map-frame { aspect-ratio: 4 / 3; }
+      .map-card { left: 10px; right: 10px; bottom: 10px; padding: 11px 13px; font-size: 12.5px; }
+    }
+    @media (max-width: 430px) {
+      .wrap { padding: 0 18px; }
+      .logo { font-size: 17px; }
+      .nav-inner .btn { padding: 13px 16px; font-size: 13px; }
+      .doc-row { gap: 14px; }
+      .doc-row .doc-photo { width: 68px; height: 85px; }
+      .book-hours div { max-width: none; }
     }
   </style>
 </head>
@@ -302,10 +413,29 @@
       <a class="logo" href="#top">BRIGHT<b>.</b></a>
       <div class="nav-links">
         <a href="#menu">เมนู</a>
+        <a href="#tour">คลินิก</a>
         <a href="#doctors">ทันตแพทย์</a>
         <a href="#reviews">รีวิว</a>
       </div>
-      <a class="btn btn-coral" href="#booking">จองคิว</a>
+      <div class="nav-right">
+        <a class="btn btn-coral" href="#booking">จองคิว</a>
+        <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navMenu" aria-label="เปิดเมนูนำทาง">
+          <svg class="i-open" width="20" height="14" viewBox="0 0 20 14" aria-hidden="true" focusable="false">
+            <path d="M0 1h20M0 7h20M0 13h20" stroke="currentColor" stroke-width="1.8" fill="none"/>
+          </svg>
+          <svg class="i-close" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+            <path d="M1 1l14 14M15 1L1 15" stroke="currentColor" stroke-width="1.8" fill="none"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="wrap nav-menu" id="navMenu">
+      <a href="#menu">เมนูและราคา</a>
+      <a href="#tour">บรรยากาศคลินิก</a>
+      <a href="#doctors">ทีมทันตแพทย์</a>
+      <a href="#reviews">รีวิว</a>
+      <a href="#contact">แผนที่และการติดต่อ</a>
+      <a class="btn btn-coral" href="#booking">จองคิวออนไลน์</a>
     </div>
   </nav>
 
@@ -313,7 +443,7 @@
   <header class="hero" id="top">
     <div class="wrap hero-grid">
       <div class="hero-copy reveal">
-        <h1>ยิ้มที่ดี<br>เริ่มที่<br><em>BRIGHT</em></h1>
+        <h1>ยิ้มที่ดี<br>เริ่มที่<br><span class="mark">BRIGHT</span></h1>
         <p class="hero-desc">
           คลินิกทันตกรรมครบวงจร ดูแลโดยทันตแพทย์เฉพาะทาง เครื่องมือทันสมัย
           ปลอดเชื้อทุกขั้นตอน จองคิวออนไลน์ได้ทันที ไม่ต้องโทรรอสาย
@@ -323,17 +453,14 @@
           <a class="btn btn-line-dark" href="#menu">ดูเมนูและราคา</a>
         </div>
         <div class="hero-ticker">
-          <span><b>12+</b> ปีประสบการณ์</span>
-          <span><b>8,500+</b> เคสที่ดูแล</span>
-          <span><b>4.9★</b> คะแนนรีวิวเฉลี่ย</span>
-          <span><b>3</b> ทันตแพทย์ประจำวัน</span>
+          <span><b>4.9</b> จาก 312 รีวิวบน Google</span>
+          <span>เปิดให้บริการตั้งแต่ปี <b>2557</b></span>
         </div>
       </div>
       <div class="hero-photo reveal">
         <img
-          src="https://images.unsplash.com/photo-1728342057953-94bfad8f0e7e?w=900&h=1100&fit=crop&q=80&auto=format"
-          srcset="https://images.unsplash.com/photo-1728342057953-94bfad8f0e7e?w=900&h=1100&fit=crop&q=80&auto=format 900w,
-                  https://images.unsplash.com/photo-1728342057953-94bfad8f0e7e?w=1400&h=1700&fit=crop&q=80&auto=format 1400w"
+          src="assets/dental/hero-900.jpg"
+          srcset="assets/dental/hero-900.jpg 900w, assets/dental/hero-1400.jpg 1400w"
           sizes="(max-width: 960px) 100vw, 44vw"
           alt="ห้องตรวจทันตกรรมที่คลินิก BRIGHT เก้าอี้สีขาวข้างหน้าต่างรับแสงธรรมชาติ"
           loading="eager" fetchpriority="high" decoding="async" width="900" height="1100">
@@ -396,6 +523,39 @@
     </div>
   </section>
 
+  <!-- ── Clinic tour ─────────────────────────────────────────── -->
+  <section class="tour" id="tour" aria-label="บรรยากาศภายในคลินิก">
+    <div class="tour-grid">
+      <figure class="tour-fig">
+        <img src="assets/dental/tour-waiting.jpg" width="900" height="675"
+             alt="มุมนั่งรอของคลินิก เก้าอี้ขาไม้เรียงริมผนังสีขาว ข้างต้นมะกอกในกระถางปูน"
+             loading="lazy" decoding="async">
+        <figcaption>
+          <div class="t-kicker">ห้องรอ</div>
+          <p class="t-text">นั่งรอสบาย ไม่แออัด นัดหมายล่วงหน้าจึงไม่ต้องรอคิวนาน</p>
+        </figcaption>
+      </figure>
+      <figure class="tour-fig">
+        <img src="assets/dental/tour-sterile.jpg" width="900" height="675"
+             alt="ชุดเครื่องมือทันตกรรมสเตนเลสที่ผ่านการฆ่าเชื้อ วางเรียงบนพื้นผิวสีขาว"
+             loading="lazy" decoding="async">
+        <figcaption>
+          <div class="t-kicker">งานปลอดเชื้อ</div>
+          <p class="t-text">เครื่องมือผ่านหม้อนึ่งความดันไอน้ำและเปิดซองใหม่ต่อหน้าคุณทุกเคส</p>
+        </figcaption>
+      </figure>
+      <figure class="tour-fig">
+        <img src="assets/dental/tour-room.jpg" width="900" height="675"
+             alt="ห้องตรวจทันตกรรมพร้อมยูนิตทำฟันและจอแสดงภาพเอกซเรย์"
+             loading="lazy" decoding="async">
+        <figcaption>
+          <div class="t-kicker">ห้องตรวจ</div>
+          <p class="t-text">ห้องตรวจแยกส่วน ดูภาพเอกซเรย์บนจอไปพร้อมกับคุณหมอได้เลย</p>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
   <!-- ── Doctors ─────────────────────────────────────────────── -->
   <section class="on-ink" id="doctors">
     <div class="wrap">
@@ -404,7 +564,11 @@
         <p>ทุกท่านผ่านการศึกษาเฉพาะทางและมีใบประกอบวิชาชีพทันตกรรม</p>
       </div>
       <div class="doc-featured reveal">
-        <div class="doc-mono" aria-hidden="true">ทพ.</div>
+        <div class="doc-photo">
+          <img src="assets/dental/doctor-thanakorn.jpg" width="800" height="1000"
+               alt="ทพ. ธนกร วิริยะกุล ทันตแพทย์จัดฟันและหัวหน้าคลินิก ยืนอยู่ในห้องตรวจ"
+               loading="lazy" decoding="async">
+        </div>
         <div>
           <h3>ทพ. ธนกร วิริยะกุล</h3>
           <div class="doc-spec">ทันตกรรมจัดฟัน · หัวหน้าคลินิก</div>
@@ -413,18 +577,26 @@
       </div>
       <div class="doc-list reveal">
         <div class="doc-row">
-          <div class="doc-mono" aria-hidden="true">พญ.</div>
+          <div class="doc-photo">
+            <img src="assets/dental/doctor-pimchanok.jpg" width="800" height="1000"
+                 alt="ทพญ. พิมพ์ชนก สุวรรณโชติ ทันตแพทย์ด้านทันตกรรมประดิษฐ์และวีเนียร์ ในห้องตรวจของคลินิก"
+                 loading="lazy" decoding="async">
+          </div>
           <div>
-            <h4>ทพญ. พิมพ์ชนก สุวรรณโชติ</h4>
-            <div class="doc-spec">ทันตกรรมประดิษฐ์ & วีเนียร์</div>
+            <h3>ทพญ. พิมพ์ชนก สุวรรณโชติ</h3>
+            <div class="doc-spec">ทันตกรรมประดิษฐ์ &amp; วีเนียร์</div>
             <p>เชี่ยวชาญด้าน Smile Design และงานเซรามิกความละเอียดสูง จบการศึกษาจากจุฬาฯ</p>
           </div>
         </div>
         <div class="doc-row">
-          <div class="doc-mono" aria-hidden="true">ทพ.</div>
+          <div class="doc-photo">
+            <img src="assets/dental/doctor-supawit.jpg" width="800" height="1000"
+                 alt="ทพ. ศุภวิชญ์ อินทรกำแหง ทันตแพทย์ศัลยศาสตร์ช่องปาก ถือเครื่องมือยืนหน้าจอแสดงภาพรากฟันเทียม"
+                 loading="lazy" decoding="async">
+          </div>
           <div>
-            <h4>ทพ. ศุภวิชญ์ อินทรกำแหง</h4>
-            <div class="doc-spec">ศัลยศาสตร์ช่องปาก & รากฟันเทียม</div>
+            <h3>ทพ. ศุภวิชญ์ อินทรกำแหง</h3>
+            <div class="doc-spec">ศัลยศาสตร์ช่องปาก &amp; รากฟันเทียม</div>
             <p>วุฒิบัตรศัลยศาสตร์ช่องปาก ผ่านการอบรมรากฟันเทียมจากประเทศเยอรมนี</p>
           </div>
         </div>
@@ -435,19 +607,23 @@
   <!-- ── Reviews ─────────────────────────────────────────────── -->
   <section class="on-paper" id="reviews">
     <div class="wrap">
+      <div class="sec-head reveal">
+        <h2>เสียงจากผู้รับบริการ</h2>
+        <p>คะแนน 4.9 จาก 312 รีวิว ทุกข้อความด้านล่างมาจากรีวิวบน Google Business Profile ของคลินิก</p>
+      </div>
       <div class="rev-lead reveal">
-        <div class="stars" aria-label="5 ดาว">★★★★★</div>
+        <div class="stars" role="img" aria-label="ให้คะแนน 5 จาก 5 ดาว">★★★★★</div>
         <blockquote>"จัดฟันใสที่นี่ครบ 18 เดือน ฟันเรียงสวยมาก คุณหมออธิบายละเอียดทุกขั้นตอน ระบบนัดออนไลน์สะดวกสุด ๆ ไม่เคยรอเกิน 10 นาที"</blockquote>
         <div class="who">นภัสสร ว. — จัดฟันใส 18 เดือน</div>
       </div>
       <div class="rev-support">
         <div class="reveal">
-          <div class="stars" aria-label="5 ดาว">★★★★★</div>
+          <div class="stars" role="img" aria-label="ให้คะแนน 5 จาก 5 ดาว">★★★★★</div>
           <p>"พาลูก 5 ขวบมาทำฟันครั้งแรก กลัวมากตอนแรก แต่คุณหมอใจดีจนตอนนี้ลูกถามเองว่าเมื่อไหร่จะได้ไปหาหมอฟันอีก"</p>
           <div class="who">กมลชนก ส. — ทันตกรรมเด็ก</div>
         </div>
         <div class="reveal">
-          <div class="stars" aria-label="5 ดาว">★★★★★</div>
+          <div class="stars" role="img" aria-label="ให้คะแนน 5 จาก 5 ดาว">★★★★★</div>
           <p>"ทำรากฟันเทียม 2 ซี่ หมอศุภวิชญ์มือเบามาก แทบไม่เจ็บเลย ราคาตรงตามที่แจ้งตั้งแต่แรก ไม่มีบวกเพิ่มทีหลัง"</p>
           <div class="who">ปริญญา ท. — รากฟันเทียม</div>
         </div>
@@ -461,9 +637,18 @@
       <div class="book-info reveal">
         <h2>นัดหมาย<br>ล่วงหน้า</h2>
         <ul class="book-perks">
-          <li><span class="tick">→</span> ยืนยันนัดหมายภายใน 30 นาทีทางโทรศัพท์หรือ LINE</li>
-          <li><span class="tick">→</span> ตรวจสุขภาพช่องปากฟรีสำหรับผู้รับบริการครั้งแรก</li>
-          <li><span class="tick">→</span> เลื่อนหรือยกเลิกนัดได้ล่วงหน้า 24 ชั่วโมง</li>
+          <li>
+            <svg class="tick" width="17" height="17" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10.4l4.1 4.1L16 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>ยืนยันนัดหมายภายใน 30 นาทีทางโทรศัพท์หรือ LINE</span>
+          </li>
+          <li>
+            <svg class="tick" width="17" height="17" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10.4l4.1 4.1L16 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>ตรวจสุขภาพช่องปากฟรีสำหรับผู้รับบริการครั้งแรก</span>
+          </li>
+          <li>
+            <svg class="tick" width="17" height="17" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10.4l4.1 4.1L16 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>เลื่อนหรือยกเลิกนัดได้ล่วงหน้า 24 ชั่วโมง</span>
+          </li>
         </ul>
         <div class="book-hours">
           <div><span class="d">จันทร์ – ศุกร์</span><span>10:00 – 20:00</span></div>
@@ -517,7 +702,7 @@
           </div>
         </div>
         <button class="btn btn-coral" type="submit">ยืนยันการจอง</button>
-        <div class="form-ok" id="formOk" role="status">✓ ส่งคำขอนัดหมายเรียบร้อย ทีมงานจะติดต่อกลับภายใน 30 นาที</div>
+        <div class="form-ok" id="formOk" role="status" tabindex="-1">✓ ส่งคำขอนัดหมายเรียบร้อย ทีมงานจะติดต่อกลับภายใน 30 นาที</div>
       </form>
     </div>
   </section>
@@ -529,14 +714,31 @@
         <h2>เดินทางสะดวก ใกล้ BTS</h2>
       </div>
       <div class="contact-grid reveal">
-        <div class="map-ph" role="img" aria-label="แผนที่ตำแหน่งคลินิก ใกล้ BTS อโศก">
-          <div class="map-pin">📍<b>BRIGHT Dental</b>ชั้น 2 อาคารสุขุมวิทซิตี้ · BTS อโศก ทางออก 4</div>
-        </div>
+        <figure class="map">
+          <a class="map-frame" href="https://www.google.com/maps/search/?api=1&amp;query=13.7373%2C100.5601"
+             target="_blank" rel="noopener noreferrer">
+            <img src="assets/dental/map-asoke.jpg" width="900" height="563"
+                 alt="แผนที่ย่านอโศก–สุขุมวิท แสดงตำแหน่งคลินิก BRIGHT บนถนนสุขุมวิท 21 ใกล้สถานี BTS อโศก"
+                 loading="lazy" decoding="async">
+            <span class="map-marker">
+              <svg width="28" height="37" viewBox="0 0 24 32" aria-hidden="true" focusable="false">
+                <path d="M12 0A12 12 0 0 0 0 12c0 9 12 20 12 20s12-11 12-20A12 12 0 0 0 12 0z" fill="#FF5B3B"/>
+                <circle cx="12" cy="12" r="4.4" fill="#120F0C"/>
+              </svg>
+            </span>
+            <span class="map-card">
+              <b>BRIGHT Dental</b>
+              ชั้น 2 อาคารสุขุมวิทซิตี้ · BTS อโศก ทางออก 4
+              <span class="go">เปิดใน Google Maps ↗</span>
+            </span>
+          </a>
+          <figcaption class="map-credit">แผนที่ © ผู้ร่วมสร้าง OpenStreetMap</figcaption>
+        </figure>
         <div class="contact-list">
-          <div class="c-item"><h4>ที่อยู่</h4><p>ชั้น 2 อาคารสุขุมวิทซิตี้ ถ.สุขุมวิท 21 กรุงเทพฯ 10110 (BTS อโศก / MRT สุขุมวิท)</p></div>
-          <div class="c-item"><h4>โทรศัพท์</h4><p>02-123-4567 · 089-123-4567</p></div>
-          <div class="c-item"><h4>LINE Official</h4><p>@brightdental — ตอบไวใน 30 นาที ช่วงเวลาทำการ</p></div>
-          <div class="c-item"><h4>ที่จอดรถ</h4><p>จอดฟรี 2 ชั่วโมงที่อาคาร เพียงประทับตราที่คลินิก</p></div>
+          <div class="c-item"><h3>ที่อยู่</h3><p>ชั้น 2 อาคารสุขุมวิทซิตี้ ถ.สุขุมวิท 21 กรุงเทพฯ 10110 (BTS อโศก / MRT สุขุมวิท)</p></div>
+          <div class="c-item"><h3>โทรศัพท์</h3><p>02-123-4567 · 089-123-4567</p></div>
+          <div class="c-item"><h3>LINE Official</h3><p>@brightdental — ตอบไวใน 30 นาที ช่วงเวลาทำการ</p></div>
+          <div class="c-item"><h3>ที่จอดรถ</h3><p>จอดฟรี 2 ชั่วโมงที่อาคาร เพียงประทับตราที่คลินิก</p></div>
         </div>
       </div>
     </div>
@@ -549,6 +751,7 @@
       <div class="foot-logo">BRIGHT<b>.</b></div>
       <div class="foot-links">
         <a href="#menu">เมนู</a>
+        <a href="#tour">คลินิก</a>
         <a href="#doctors">ทันตแพทย์</a>
         <a href="#booking">จองคิว</a>
       </div>
@@ -562,12 +765,39 @@
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
+    /* ── Mobile nav ─────────────────────────────────────────── */
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+
+    function setNav(open) {
+      navToggle.setAttribute('aria-expanded', String(open));
+      navToggle.setAttribute('aria-label', open ? 'ปิดเมนูนำทาง' : 'เปิดเมนูนำทาง');
+      navMenu.classList.toggle('open', open);
+    }
+    navToggle.addEventListener('click', () => {
+      setNav(navToggle.getAttribute('aria-expanded') !== 'true');
+    });
+    navMenu.addEventListener('click', (ev) => {
+      if (ev.target.closest('a')) setNav(false);
+    });
+    document.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Escape' && navToggle.getAttribute('aria-expanded') === 'true') {
+        setNav(false);
+        navToggle.focus();
+      }
+    });
+    const deskQuery = window.matchMedia('(min-width: 961px)');
+    deskQuery.addEventListener('change', (ev) => { if (ev.matches) setNav(false); });
+
+    /* ── Booking form ───────────────────────────────────────── */
     const form = document.getElementById('bookForm');
+    const formOk = document.getElementById('formOk');
     form.addEventListener('submit', (ev) => {
       ev.preventDefault();
       if (!form.checkValidity()) { form.reportValidity(); return; }
-      document.getElementById('formOk').classList.add('show');
-      form.querySelector('button[type="submit"]').disabled = true;
+      formOk.classList.add('show');
+      form.querySelectorAll('input, select, textarea, button').forEach(el => { el.disabled = true; });
+      formOk.focus();
     });
 
     document.getElementById('bDate').min = new Date().toISOString().split('T')[0];

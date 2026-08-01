@@ -6,7 +6,7 @@
   <meta name="description" content="NOIR Coffee is a cinematic coffee landing page practice project focused on premium mood, high contrast, and scroll presentation." />
   <meta name="author" content="Phakin Chawanpunya" />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#2f5df5" />
+  <meta name="theme-color" content="#0A0806" />
   <link rel="canonical" href="https://phakinza007.github.io/my-portfolio/coffee-landing.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Phakin Chawanpunya Portfolio" />
@@ -26,7 +26,8 @@
   <meta name="twitter:image" content="https://phakinza007.github.io/my-portfolio/assets/screenshots/noir-coffee.png?v=hero-clear" />
   <meta name="twitter:image:alt" content="NOIR Coffee cinematic landing page screenshot." />
   <title>NOIR Coffee | Cinematic Landing Page | Phakin Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,600&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,600&family=Josefin+Sans:wght@300;400&display=optional" rel="stylesheet">
 <link rel="stylesheet" href="assets/portfolio-context.css?v=back-button-clean">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -40,8 +41,10 @@
     --gold-light: #E8C97A;
     --gold-pale: #F5E9C8;
     --white: #FAF8F4;
-    --white-dim: rgba(250,248,244,0.65);
-    --white-muted: rgba(250,248,244,0.35);
+    /* Body-copy alphas are set for WCAG AA over --black-2 (#111009):
+       dim ≈ 11.0:1, muted ≈ 6.5:1. Do not lower them. */
+    --white-dim: rgba(250,248,244,0.78);
+    --white-muted: rgba(250,248,244,0.58);
     --border: rgba(201,168,76,0.2);
     --font-serif: 'Cormorant Garamond', Georgia, serif;
     --font-sans: 'Josefin Sans', 'Helvetica Neue', sans-serif;
@@ -49,32 +52,54 @@
 
   html { scroll-behavior: smooth; }
 
+  html, body { overflow-x: hidden; }
+
   body {
     font-family: var(--font-sans);
     background: var(--black);
     color: var(--white);
-    overflow-x: hidden;
-    cursor: none;
   }
 
-  /* CUSTOM CURSOR */
-  .cursor {
-    width: 8px; height: 8px;
-    background: var(--gold);
-    border-radius: 50%;
-    position: fixed; top: 0; left: 0;
-    pointer-events: none; z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s;
+  img { max-width: 100%; }
+
+  :focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
   }
-  .cursor-ring {
-    width: 36px; height: 36px;
-    border: 1px solid rgba(201,168,76,0.4);
-    border-radius: 50%;
-    position: fixed; top: 0; left: 0;
-    pointer-events: none; z-index: 9998;
-    transform: translate(-50%, -50%);
-    transition: all 0.15s ease;
+
+  /* CUSTOM CURSOR
+     Only exists on devices with a real pointer. On touch the dot and ring would
+     otherwise park permanently in the top-left corner, and hiding the system
+     cursor would leave no pointer at all if the script never runs. */
+  .cursor, .cursor-ring { display: none; }
+
+  @media (hover: hover) and (pointer: fine) {
+    body { cursor: none; }
+    .cursor {
+      display: block;
+      width: 8px; height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9999;
+      opacity: 0;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s, opacity 0.2s;
+    }
+    .cursor-ring {
+      display: block;
+      width: 36px; height: 36px;
+      border: 1px solid rgba(201,168,76,0.4);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9998;
+      opacity: 0;
+      transform: translate(-50%, -50%);
+      transition: all 0.15s ease;
+    }
+    /* Revealed by the first mousemove, so nothing sits in the corner at load. */
+    body.cursor-live .cursor,
+    body.cursor-live .cursor-ring { opacity: 1; }
   }
 
   /* NOISE TEXTURE OVERLAY */
@@ -100,6 +125,8 @@
     padding: 18px 60px;
   }
   .logo {
+    display: inline-flex; align-items: center;
+    min-height: 44px;
     font-family: var(--font-serif);
     font-size: 1.5rem; font-weight: 300;
     letter-spacing: 0.25em;
@@ -119,19 +146,73 @@
   }
   .nav-center a:hover { color: var(--gold); }
   .nav-cta {
-    font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+    display: inline-flex; align-items: center;
+    min-height: 44px;
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
     color: var(--gold); border: 1px solid var(--border);
-    padding: 10px 24px; text-decoration: none;
+    padding: 0 24px; text-decoration: none;
     transition: all 0.3s; font-weight: 300;
   }
   .nav-cta:hover { background: var(--gold); color: var(--black); }
 
+  /* MOBILE NAV */
+  .nav-toggle {
+    display: none;
+    width: 44px; height: 44px;
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 6px;
+    background: none; border: 1px solid var(--border);
+    cursor: pointer; padding: 0;
+  }
+  .nav-toggle span {
+    display: block; width: 20px; height: 1px;
+    background: var(--gold);
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-panel {
+    display: none;
+    position: fixed; inset: 0;
+    z-index: 480;
+    background: var(--black);
+    padding: 96px 32px 40px;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .mobile-panel.open { display: flex; }
+  body.menu-open { overflow: hidden; }
+  .mobile-panel a {
+    display: flex; align-items: center;
+    min-height: 56px;
+    font-family: var(--font-serif);
+    font-size: 1.6rem; font-weight: 300;
+    color: var(--white); text-decoration: none;
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+    transition: color 0.2s, padding-left 0.2s;
+  }
+  .mobile-panel a:hover,
+  .mobile-panel a:focus-visible { color: var(--gold); }
+  .mobile-panel a.mobile-cta {
+    justify-content: center;
+    margin-top: 2rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: var(--font-sans);
+    font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase;
+  }
+
   /* HERO */
   .hero {
-    min-height: 100vh;
+    min-height: 100vh;      /* fallback */
+    min-height: 100svh;     /* iOS: excludes the collapsing toolbar */
     display: flex; flex-direction: column;
     justify-content: flex-end;
-    padding: 0 60px 80px;
+    /* Top padding reserves the fixed nav's height. Without it, a short viewport
+       (320x568, or any phone in landscape) pushes the eyebrow under the navbar. */
+    padding: 120px 60px 80px;
     position: relative;
     overflow: hidden;
   }
@@ -142,6 +223,8 @@
       radial-gradient(ellipse at 20% 70%, rgba(201,168,76,0.05) 0%, transparent 50%),
       linear-gradient(180deg, var(--black) 0%, var(--black-2) 100%);
   }
+  /* The line-art column and the headline share the hero. Their widths are tied
+     together at every breakpoint so the cup can never cross into the text. */
   .hero-line-art {
     position: absolute; right: 0; top: 0; bottom: 0;
     width: 55%; display: flex; align-items: center; justify-content: center;
@@ -150,9 +233,25 @@
     position: absolute;
     border: 1px solid var(--border);
     border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
     animation: slowRotate 30s linear infinite;
   }
-  @keyframes slowRotate { to { transform: rotate(360deg); } }
+  .decor-lg { width: 420px; height: 420px; right: 80px; }
+  .decor-sm {
+    width: 280px; height: 280px; right: 160px;
+    animation-duration: 20s; animation-direction: reverse;
+  }
+  .hero-cup {
+    position: absolute; right: 40px; top: 50%;
+    transform: translateY(-50%);
+    width: 480px; height: 580px;
+    opacity: 0.9;
+  }
+  @keyframes slowRotate {
+    from { transform: translateY(-50%) rotate(0deg); }
+    to   { transform: translateY(-50%) rotate(360deg); }
+  }
   .hero-content { position: relative; z-index: 2; max-width: 580px; }
   .hero-eyebrow {
     display: flex; align-items: center; gap: 16px;
@@ -160,7 +259,7 @@
   }
   .hero-eyebrow-line { width: 40px; height: 1px; background: var(--gold); }
   .hero-eyebrow span {
-    font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+    font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
     color: var(--gold); font-weight: 300;
   }
   .hero-headline {
@@ -174,24 +273,28 @@
     font-style: italic; color: var(--gold-light);
   }
   .hero-sub {
-    font-size: 0.8rem; font-weight: 200; letter-spacing: 0.08em;
+    font-size: 0.85rem; font-weight: 300; letter-spacing: 0.08em;
     line-height: 1.9; color: var(--white-dim);
     max-width: 380px; margin-bottom: 3rem;
   }
-  .hero-btns { display: flex; align-items: center; gap: 2rem; }
+  .hero-btns { display: flex; align-items: center; flex-wrap: wrap; gap: 1.25rem 2rem; }
   .btn-gold {
     background: var(--gold); color: var(--black);
-    border: none; padding: 16px 40px;
-    font-family: var(--font-sans); font-size: 0.68rem;
+    border: none; padding: 0 40px;
+    font-family: var(--font-sans); font-size: 0.7rem;
     letter-spacing: 0.2em; text-transform: uppercase;
     font-weight: 400; cursor: pointer; transition: all 0.3s;
-    text-decoration: none; display: inline-block;
+    text-decoration: none;
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 48px;
   }
   .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
   .btn-ghost {
-    font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
     color: var(--white-dim); text-decoration: none; font-weight: 300;
-    border-bottom: 1px solid var(--border); padding-bottom: 4px;
+    display: inline-flex; align-items: center;
+    min-height: 44px;
+    border-bottom: 1px solid var(--border);
     transition: all 0.3s;
   }
   .btn-ghost:hover { color: var(--gold); border-color: var(--gold); }
@@ -201,7 +304,7 @@
     z-index: 2;
   }
   .hero-scroll span {
-    font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+    font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
     color: var(--white-muted); writing-mode: vertical-rl;
   }
   .scroll-line {
@@ -213,7 +316,7 @@
   /* SECTION BASE */
   .section { padding: 120px 60px; }
   .section-num {
-    font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+    font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
     color: var(--gold); font-weight: 300; margin-bottom: 0.5rem;
   }
   .section-title {
@@ -236,8 +339,8 @@
     border-bottom: 1px solid var(--border); padding-bottom: 3rem;
   }
   .menu-header-right {
-    font-size: 0.75rem; letter-spacing: 0.1em;
-    color: var(--white-muted); max-width: 280px; line-height: 1.8; font-weight: 200;
+    font-size: 0.82rem; letter-spacing: 0.1em;
+    color: var(--white-muted); max-width: 280px; line-height: 1.8; font-weight: 300;
   }
   .menu-list { display: flex; flex-direction: column; }
   .menu-item {
@@ -245,8 +348,9 @@
     align-items: center; gap: 2rem;
     padding: 2.5rem 0;
     border-bottom: 1px solid rgba(201,168,76,0.1);
-    transition: all 0.3s; cursor: pointer;
+    transition: all 0.3s;
   }
+  .menu-item > * { min-width: 0; }
   .menu-item:hover { padding-left: 20px; border-bottom-color: var(--gold); }
   .menu-item:hover .menu-item-num { color: var(--gold); }
   .menu-item-num {
@@ -254,25 +358,25 @@
     color: var(--white-muted); font-weight: 300; letter-spacing: 0.1em;
     transition: color 0.3s;
   }
-  .menu-item-info { }
   .menu-item-name {
     font-family: var(--font-serif); font-size: 1.8rem; font-weight: 300;
     color: var(--white); margin-bottom: 0.4rem;
+    overflow-wrap: anywhere;
   }
   .menu-item-desc {
-    font-size: 0.72rem; letter-spacing: 0.08em;
-    color: var(--white-muted); font-weight: 200;
+    font-size: 0.8rem; letter-spacing: 0.08em; line-height: 1.6;
+    color: var(--white-muted); font-weight: 300;
   }
   .menu-item-tag {
-    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
     color: var(--gold); border: 1px solid var(--border);
-    padding: 4px 12px; font-weight: 300;
+    padding: 4px 12px; font-weight: 300; white-space: nowrap;
   }
   .menu-item-price {
     font-family: var(--font-serif); font-size: 1.4rem; font-weight: 300;
-    color: var(--gold-light); text-align: right;
+    color: var(--gold-light); text-align: right; white-space: nowrap;
   }
-  .menu-item-price span { font-size: 0.75rem; color: var(--white-muted); }
+  .menu-item-price span { font-size: 0.8rem; color: var(--white-muted); }
 
   /* ABOUT */
   .about-section {
@@ -284,13 +388,30 @@
     position: relative; overflow: hidden;
     min-height: 500px;
   }
-  .about-visual svg { width: 100%; height: 100%; position: absolute; inset: 0; }
+  .about-visual img {
+    width: 100%; height: 100%;
+    position: absolute; inset: 0;
+    object-fit: cover;
+    /* Same grade as the gallery, so the photography reads as one shoot. */
+    filter: brightness(0.68) contrast(1.06) saturate(0.7) sepia(0.16);
+  }
+  /* Keeps the page's line-art vocabulary on top of the photograph. */
+  .about-visual::before {
+    content: ''; position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(150deg, rgba(10,8,6,0.55) 0%, rgba(10,8,6,0.2) 45%, rgba(10,8,6,0.7) 100%);
+    pointer-events: none;
+  }
+  .about-visual::after {
+    content: ''; position: absolute; inset: 32px; z-index: 2;
+    border: 1px solid var(--border);
+    pointer-events: none;
+  }
   .about-text {
     background: var(--black-3); padding: 100px 80px;
     display: flex; flex-direction: column; justify-content: center;
   }
   .about-body {
-    font-size: 0.82rem; font-weight: 200; letter-spacing: 0.06em;
+    font-size: 0.88rem; font-weight: 300; letter-spacing: 0.06em;
     line-height: 2; color: var(--white-dim); margin-bottom: 3rem;
   }
   .perks { display: flex; flex-direction: column; gap: 0; }
@@ -303,13 +424,16 @@
     font-family: var(--font-serif); font-size: 1.8rem; font-weight: 300;
     color: var(--gold); opacity: 0.4; min-width: 40px;
   }
-  .perk-text { }
-  .perk-text strong { display: block; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); font-weight: 300; margin-bottom: 4px; }
-  .perk-text span { font-size: 0.72rem; color: var(--white-muted); font-weight: 200; letter-spacing: 0.05em; }
+  .perk-text strong { display: block; font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); font-weight: 300; margin-bottom: 6px; }
+  .perk-text span { font-size: 0.8rem; line-height: 1.6; color: var(--white-muted); font-weight: 300; letter-spacing: 0.05em; }
 
   /* GALLERY */
   .gallery-section { background: var(--black); padding: 120px 60px; }
-  .gallery-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; }
+  .gallery-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; margin-bottom: 4rem; }
+  .gallery-intro {
+    font-size: 0.8rem; color: var(--white-muted); max-width: 240px;
+    line-height: 1.8; font-weight: 300; letter-spacing: 0.06em;
+  }
   .gallery-grid {
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr;
@@ -321,28 +445,53 @@
     background: var(--charcoal);
   }
   .g-item.tall { grid-row: span 2; }
-  .g-item svg { width: 100%; height: 100%; transition: transform 0.6s ease; }
-  .g-item:hover svg { transform: scale(1.05); }
+  .g-item img {
+    display: block;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    /* One grade across all five so they read as a single café, not stock. */
+    filter: brightness(0.66) contrast(1.08) saturate(0.68) sepia(0.18);
+    transition: transform 0.6s ease, filter 0.6s ease;
+  }
+  .g-item:hover img {
+    transform: scale(1.05);
+    filter: brightness(0.82) contrast(1.04) saturate(0.85) sepia(0.1);
+  }
+  /* Scrim so the label keeps its contrast over any part of a photo. */
+  .g-item::after {
+    content: ''; position: absolute; inset: auto 0 0 0; height: 45%;
+    background: linear-gradient(to top, rgba(10,8,6,0.92), rgba(10,8,6,0));
+    pointer-events: none;
+  }
   .g-item-label {
-    position: absolute; bottom: 16px; left: 16px;
-    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--white-muted); font-weight: 300;
+    position: absolute; bottom: 16px; left: 16px; z-index: 2;
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--white); font-weight: 300;
+    text-shadow: 0 1px 8px rgba(10,8,6,0.9);
   }
 
   /* CONTACT */
   .contact-section { background: var(--black-2); }
   .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
   .contact-details { display: flex; flex-direction: column; gap: 2.5rem; margin-top: 2rem; }
-  .c-row { }
   .c-label {
-    font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+    font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
     color: var(--gold); margin-bottom: 8px; font-weight: 300;
   }
   .c-val {
     font-family: var(--font-serif); font-size: 1.1rem; font-weight: 300;
     color: var(--white); line-height: 1.6;
   }
-  .c-sub { font-size: 0.72rem; color: var(--white-muted); letter-spacing: 0.06em; font-weight: 200; }
+  .c-sub { font-size: 0.8rem; color: var(--white-muted); letter-spacing: 0.06em; font-weight: 300; }
+  .c-val a {
+    /* inline-flex + min-height so the tel/mailto links clear 44px on touch. */
+    display: inline-flex; align-items: center;
+    min-height: 44px;
+    color: inherit; text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    transition: color 0.25s, border-color 0.25s;
+  }
+  .c-val a:hover { color: var(--gold-light); border-color: var(--gold); }
   .social-panel { border: 1px solid var(--border); padding: 3rem; }
   .social-title {
     font-family: var(--font-serif); font-size: 1.5rem; font-weight: 300;
@@ -361,14 +510,111 @@
   .s-link-handle { font-family: var(--font-serif); font-size: 1rem; font-weight: 300; }
   .s-arrow { font-size: 0.7rem; color: var(--white-muted); }
   .reserve-btn {
-    display: block; width: 100%; margin-top: 2rem;
+    display: flex; align-items: center; justify-content: center;
+    width: 100%; margin-top: 2rem; min-height: 52px;
     background: transparent; border: 1px solid var(--gold);
-    color: var(--gold); padding: 18px;
-    font-family: var(--font-sans); font-size: 0.68rem;
+    color: var(--gold); padding: 14px 18px; text-decoration: none;
+    font-family: var(--font-sans); font-size: 0.7rem;
     letter-spacing: 0.25em; text-transform: uppercase;
     cursor: pointer; transition: all 0.3s; font-weight: 300;
+    text-align: center;
   }
   .reserve-btn:hover { background: var(--gold); color: var(--black); }
+
+  /* RESERVATION */
+  .reserve-block {
+    margin-top: 6rem;
+    border-top: 1px solid var(--border);
+    padding-top: 4rem;
+  }
+  .reserve-head { max-width: 560px; margin-bottom: 3rem; }
+  .reserve-sub {
+    font-size: 0.85rem; font-weight: 300; letter-spacing: 0.06em;
+    line-height: 1.9; color: var(--white-dim); margin-top: 1.25rem;
+  }
+  .res-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    max-width: 760px;
+  }
+  .form-group { display: flex; flex-direction: column; min-width: 0; }
+  .form-group label {
+    font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); font-weight: 300; margin-bottom: 0.6rem;
+  }
+  .form-group input,
+  .form-group select {
+    width: 100%; min-width: 0; min-height: 48px;
+    background: rgba(250,248,244,0.04);
+    border: 1px solid var(--border);
+    padding: 0.85rem 1rem;
+    color: var(--white);
+    font-family: var(--font-sans); font-size: 0.9rem; font-weight: 300;
+    letter-spacing: 0.04em;
+    outline: none;
+    border-radius: 0;
+    /* Keeps the native date picker and its calendar glyph on the dark palette. */
+    color-scheme: dark;
+    -webkit-appearance: none; appearance: none;
+    transition: border-color 0.25s, background 0.25s;
+  }
+  .form-group select {
+    /* appearance:none strips the native arrow — draw the caret back in. */
+    background-image: linear-gradient(45deg, transparent 50%, var(--gold) 50%),
+                      linear-gradient(135deg, var(--gold) 50%, transparent 50%);
+    background-position: calc(100% - 18px) calc(50% + 1px), calc(100% - 12px) calc(50% + 1px);
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 2.5rem;
+  }
+  .form-group select option { background: var(--black-2); color: var(--white); }
+  .form-group input::placeholder { color: rgba(250,248,244,0.4); }
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.07);
+  }
+  .form-group input.error,
+  .form-group select.error { border-color: #e07a7a; }
+  .field-error {
+    font-size: 0.75rem; letter-spacing: 0.04em; line-height: 1.5;
+    color: #eb9a9a; margin-top: 0.5rem; display: none;
+  }
+  .field-error.show { display: block; }
+  .res-submit { grid-column: 1 / -1; }
+  .res-submit button {
+    width: 100%; max-width: 320px; min-height: 52px;
+    background: var(--gold); color: var(--black);
+    border: none; padding: 14px 24px;
+    font-family: var(--font-sans); font-size: 0.7rem;
+    letter-spacing: 0.25em; text-transform: uppercase; font-weight: 400;
+    cursor: pointer; transition: background 0.25s, transform 0.15s;
+  }
+  .res-submit button:hover:not(:disabled) { background: var(--gold-light); }
+  .res-submit button:disabled { opacity: 0.6; cursor: default; }
+  .res-success, .res-notice, .res-error {
+    display: none; grid-column: 1 / -1;
+    padding: 1.1rem 1.4rem;
+    font-size: 0.85rem; font-weight: 300; letter-spacing: 0.04em; line-height: 1.7;
+  }
+  .res-success.show, .res-notice.show, .res-error.show { display: block; }
+  .res-success {
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold-light);
+  }
+  .res-notice {
+    background: rgba(250,248,244,0.05);
+    border: 1px solid var(--border);
+    color: var(--white-dim);
+  }
+  .res-notice a { color: var(--gold-light); white-space: nowrap; }
+  .res-error {
+    background: rgba(224,122,122,0.08);
+    border: 1px solid rgba(224,122,122,0.4);
+    color: #eb9a9a;
+  }
 
   /* FOOTER */
   footer {
@@ -381,8 +627,8 @@
     letter-spacing: 0.2em; color: var(--white-muted);
   }
   .footer-copy {
-    font-size: 0.65rem; letter-spacing: 0.15em;
-    color: var(--white-muted); font-weight: 200;
+    font-size: 0.72rem; letter-spacing: 0.12em; line-height: 1.7;
+    color: var(--white-muted); font-weight: 300;
   }
   .footer-gold { color: var(--gold); }
 
@@ -401,25 +647,97 @@
   .hero-btns { animation-delay: 0.8s; }
 
   /* RESPONSIVE */
-  @media (max-width: 768px) {
-    nav { padding: 20px 24px; }
-    nav.scrolled { padding: 14px 24px; }
-    .nav-center { display: none; }
-    .hero { padding: 0 24px 60px; }
-    .hero-headline { font-size: 3.5rem; }
-    .hero-scroll { display: none; }
-    .section { padding: 80px 24px; }
-    .menu-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-    .menu-item { grid-template-columns: 40px 1fr auto; }
-    .menu-item-tag { display: none; }
-    .about-section { grid-template-columns: 1fr; }
-    .about-visual { min-height: 300px; }
-    .about-text { padding: 60px 24px; }
-    .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
-    .g-item.tall { grid-row: span 1; }
+
+  /* 901–1320px: the headline column and the cup column are both narrowed so
+     they still clear each other. Below this band the art is dropped entirely.
+     The handoff sits at 1320 rather than 1200 so the full-size cup only returns
+     once there is real room for it — at 1200 the clearance was down to ~20px. */
+  @media (max-width: 1320px) {
+    .hero-content { max-width: 48%; }
+    .hero-line-art { width: 48%; }
+    .hero-cup { width: 340px; height: 410px; right: 16px; }
+    .decor-lg { width: 300px; height: 300px; right: 56px; }
+    .decor-sm { width: 200px; height: 200px; right: 106px; }
+    .contact-inner { gap: 3rem; }
+  }
+
+  @media (max-width: 1024px) {
+    .section { padding: 100px 40px; }
+    .gallery-section { padding: 100px 40px; }
+    nav, nav.scrolled { padding-left: 40px; padding-right: 40px; }
+    .hero { padding: 116px 40px 80px; }
+    .hero-scroll { right: 40px; }
+    .about-text { padding: 80px 48px; }
+    footer { padding-left: 40px; padding-right: 40px; }
+  }
+
+  /* 900px is where the nav collapses and the cup is retired — one breakpoint
+     for both, so there is never a state with a hidden menu and no hamburger. */
+  @media (max-width: 900px) {
+    .nav-center, .nav-cta { display: none; }
+    .nav-toggle { display: flex; }
+    .hero-line-art { display: none; }
+    .hero-content { max-width: 580px; }
     .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .social-panel { padding: 2rem; }
+  }
+
+  @media (max-width: 768px) {
+    nav, nav.scrolled { padding-left: 24px; padding-right: 24px; }
+    nav { padding-top: 20px; padding-bottom: 20px; }
+    nav.scrolled { padding-top: 14px; padding-bottom: 14px; }
+    .hero { padding: 100px 24px 60px; }
+    .hero-headline { font-size: clamp(2.75rem, 12vw, 3.5rem); }
+    .hero-scroll { display: none; }
+    .section, .gallery-section { padding: 80px 24px; }
+    .menu-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .menu-header-right { max-width: none; }
+    .menu-item {
+      grid-template-columns: 40px minmax(0, 1fr) auto;
+      gap: 1rem; padding: 2rem 0;
+    }
+    .menu-item:hover { padding-left: 0; }
+    .menu-item-tag { display: none; }
+    .menu-item-name { font-size: 1.35rem; }
+    .menu-item-price { font-size: 1.15rem; }
+    .about-section { grid-template-columns: 1fr; min-height: 0; }
+    .about-visual { min-height: 300px; }
+    .about-visual::after { inset: 20px; }
+    .about-text { padding: 60px 24px; }
     .gallery-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-    footer { flex-direction: column; gap: 1rem; padding: 1.5rem 24px; }
+    .gallery-intro { max-width: none; }
+    /* Fixed rows are dropped for per-tile aspect-ratio, so every row lines up
+       no matter what the source images measure. */
+    .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: none; }
+    .g-item { aspect-ratio: 1 / 1; }
+    .g-item.tall { grid-row: auto; grid-column: 1 / -1; aspect-ratio: 16 / 10; }
+    .reserve-block { margin-top: 4rem; padding-top: 3rem; }
+    footer { flex-direction: column; align-items: flex-start; gap: 1rem; padding: 1.5rem 24px; }
+  }
+
+  @media (max-width: 560px) {
+    .res-form { grid-template-columns: minmax(0, 1fr); }
+    .res-submit button { max-width: none; }
+  }
+
+  @media (max-width: 520px) {
+    .gallery-grid { grid-template-columns: minmax(0, 1fr); }
+    .g-item { aspect-ratio: 4 / 3; }
+    .g-item.tall { aspect-ratio: 3 / 4; }
+    .mobile-panel { padding: 88px 24px 32px; }
+    .social-panel { padding: 1.75rem 1.25rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    /* The entrance animation starts at opacity:0 — without this it never lands. */
+    .hero-content > * { opacity: 1; }
   }
 </style>
 </head>
@@ -433,25 +751,38 @@
 
 <!-- NAV -->
 <nav id="navbar">
-  <a href="#" class="logo">NOIR<span>.</span></a>
+  <a href="#home" class="logo">NOIR<span>.</span></a>
   <div class="nav-center">
     <a href="#menu">Menu</a>
     <a href="#about">About</a>
     <a href="#gallery">Gallery</a>
     <a href="#contact">Contact</a>
   </div>
-  <a href="#contact" class="nav-cta">Reserve a Table</a>
+  <a href="#reserve" class="nav-cta">Reserve a Table</a>
+  <button type="button" class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-panel" id="mobileMenu">
+  <a href="#menu">Menu</a>
+  <a href="#about">About</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#contact">Contact</a>
+  <a href="#reserve" class="mobile-cta">Reserve a Table</a>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-bg"></div>
 
-  <!-- Decorative circles -->
-  <div class="hero-line-art">
-    <div class="hero-circle-decor" style="width:420px;height:420px;right:80px;top:50%;transform:translateY(-50%)"></div>
-    <div class="hero-circle-decor" style="width:280px;height:280px;right:160px;top:50%;transform:translateY(-50%);animation-duration:20s;animation-direction:reverse"></div>
-    <svg viewBox="0 0 480 580" style="position:absolute;right:40px;top:50%;transform:translateY(-50%);width:480px;height:580px;opacity:0.9" xmlns="http://www.w3.org/2000/svg">
+  <!-- Line-art cup: the page's signature motif, kept as drawing rather than photo.
+       Sizing lives in CSS so the breakpoints can keep it clear of the headline. -->
+  <div class="hero-line-art" aria-hidden="true">
+    <div class="hero-circle-decor decor-lg"></div>
+    <div class="hero-circle-decor decor-sm"></div>
+    <svg class="hero-cup" viewBox="0 0 480 580" xmlns="http://www.w3.org/2000/svg">
       <!-- Large cup elegant illustration -->
       <defs>
         <linearGradient id="cupGrad" x1="0" y1="0" x2="1" y2="1">
@@ -530,7 +861,7 @@
     </p>
     <div class="hero-btns">
       <a href="#menu" class="btn-gold">View Menu</a>
-      <a href="#contact" class="btn-ghost">Reserve a Table →</a>
+      <a href="#reserve" class="btn-ghost">Reserve a Table →</a>
     </div>
   </div>
 
@@ -594,46 +925,9 @@
 <!-- ABOUT -->
 <div class="about-section" id="about">
   <div class="about-visual">
-    <svg viewBox="0 0 600 700" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-      <rect width="600" height="700" fill="#1C1A16"/>
-      <!-- Abstract coffee beans pattern -->
-      <ellipse cx="120" cy="150" rx="55" ry="35" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.3" transform="rotate(-30 120 150)"/>
-      <ellipse cx="120" cy="150" rx="55" ry="35" fill="#2A2720" transform="rotate(-30 120 150)"/>
-      <line x1="80" y1="135" x2="160" y2="165" stroke="#C9A84C" stroke-width="0.8" opacity="0.4" transform="rotate(-30 120 150)"/>
-
-      <ellipse cx="380" cy="280" rx="65" ry="40" fill="#322E24" transform="rotate(20 380 280)"/>
-      <ellipse cx="380" cy="280" rx="65" ry="40" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.25" transform="rotate(20 380 280)"/>
-      <line x1="330" y1="270" x2="430" y2="290" stroke="#C9A84C" stroke-width="0.8" opacity="0.35" transform="rotate(20 380 280)"/>
-
-      <ellipse cx="200" cy="480" rx="50" ry="30" fill="#2A2720" transform="rotate(-15 200 480)"/>
-      <ellipse cx="200" cy="480" rx="50" ry="30" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.2" transform="rotate(-15 200 480)"/>
-      <line x1="162" y1="472" x2="238" y2="488" stroke="#C9A84C" stroke-width="0.8" opacity="0.3" transform="rotate(-15 200 480)"/>
-
-      <ellipse cx="480" cy="560" rx="45" ry="28" fill="#1C1A16" transform="rotate(35 480 560)"/>
-      <ellipse cx="480" cy="560" rx="45" ry="28" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.2" transform="rotate(35 480 560)"/>
-
-      <!-- Gold circle large decoration -->
-      <circle cx="300" cy="350" r="160" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.15"/>
-      <circle cx="300" cy="350" r="100" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.1"/>
-
-      <!-- Central elegant coffee illustration -->
-      <ellipse cx="300" cy="360" rx="70" ry="12" fill="#2A2720"/>
-      <path d="M240 260 Q234 355 270 370 Q300 382 330 370 Q366 355 360 260 Z" fill="#1C1A16"/>
-      <ellipse cx="300" cy="262" rx="58" ry="15" fill="#2A2720"/>
-      <ellipse cx="300" cy="262" rx="48" ry="11" fill="#3D1F0F"/>
-      <!-- latte art mini -->
-      <ellipse cx="300" cy="262" rx="28" ry="7" fill="#6B3A1F" opacity="0.8"/>
-      <path d="M282 262 Q291 257 300 260 Q309 257 318 262 Q309 266 300 264 Q291 266 282 262Z" fill="#C9A84C" opacity="0.5"/>
-
-      <!-- Label text -->
-      <text x="300" y="640" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="10" letter-spacing="10" fill="#C9A84C" opacity="0.35" font-weight="300">NOIR COFFEE · 2021</text>
-
-      <!-- Small scatter dots -->
-      <circle cx="60" cy="600" r="2" fill="#C9A84C" opacity="0.25"/>
-      <circle cx="540" cy="100" r="3" fill="#C9A84C" opacity="0.2"/>
-      <circle cx="500" cy="420" r="1.5" fill="#C9A84C" opacity="0.3"/>
-      <circle cx="80" cy="320" r="2" fill="#C9A84C" opacity="0.15"/>
-    </svg>
+    <img src="assets/coffee/about-craft.jpg"
+         alt="Freshly ground coffee, whole beans and a portafilter laid out on a dark wooden bench beside a finished cappuccino."
+         loading="lazy" decoding="async" width="1100" height="733" />
   </div>
   <div class="about-text">
     <div class="section-num">02 — About Us</div>
@@ -673,80 +967,49 @@
   <div class="gallery-header">
     <div>
       <div class="section-num">03 — Gallery</div>
-      <h2 class="section-title">Shop<em>Atmosphere</em></h2>
+      <h2 class="section-title">Shop<br><em>Atmosphere</em></h2>
     </div>
-    <p style="font-size:0.72rem;color:var(--white-muted);max-width:220px;line-height:1.8;font-weight:200;letter-spacing:0.06em;">Designed to create memorable experiences in every corner of the space.</p>
+    <p class="gallery-intro">Designed to create memorable experiences in every corner of the space.</p>
   </div>
   <div class="gallery-grid">
-    <div class="g-item tall">
-      <svg viewBox="0 0 400 524" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-        <rect width="400" height="524" fill="#2A2720"/>
-        <rect width="400" height="524" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.2"/>
-        <circle cx="200" cy="200" r="130" fill="#322E24"/>
-        <circle cx="200" cy="200" r="80" fill="#1C1A16"/>
-        <circle cx="200" cy="200" r="40" fill="#2A2720"/>
-        <circle cx="200" cy="200" r="15" fill="#C9A84C" opacity="0.4"/>
-        <circle cx="200" cy="390" r="35" fill="#C9A84C" opacity="0.06"/>
-        <text x="200" y="490" text-anchor="middle" font-family="'Josefin Sans',sans-serif" font-size="9" letter-spacing="6" fill="#C9A84C" opacity="0.4">INTERIOR</text>
-      </svg>
-      <div class="g-item-label">Interior View</div>
-    </div>
-    <div class="g-item">
-      <svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-        <rect width="260" height="260" fill="#322E24"/>
-        <ellipse cx="130" cy="160" rx="80" ry="12" fill="#1C1A16" opacity="0.5"/>
-        <path d="M85 80 Q80 150 100 165 Q130 178 160 165 Q180 150 175 80 Z" fill="#2A2720"/>
-        <ellipse cx="130" cy="82" rx="43" ry="11" fill="#4A2E1A"/>
-        <ellipse cx="130" cy="82" rx="30" ry="7" fill="#C9A84C" opacity="0.35"/>
-        <path d="M175 100 Q200 100 200 120 Q200 145 175 145" stroke="#2A2720" stroke-width="12" fill="none" stroke-linecap="round"/>
-        <text x="130" y="220" text-anchor="middle" font-family="'Josefin Sans',sans-serif" font-size="8" letter-spacing="5" fill="#C9A84C" opacity="0.4">COFFEE</text>
-      </svg>
-      <div class="g-item-label">Signature Cup</div>
-    </div>
-    <div class="g-item">
-      <svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-        <rect width="260" height="260" fill="#1C1A16"/>
-        <circle cx="130" cy="120" r="70" fill="#2A2720"/>
-        <circle cx="130" cy="120" r="50" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.4"/>
-        <path d="M100 105 Q115 90 130 98 Q145 90 160 105 Q145 118 130 112 Q115 118 100 105Z" fill="#C9A84C" opacity="0.5"/>
-        <line x1="130" y1="90" x2="130" y2="135" stroke="#C9A84C" stroke-width="0.8" opacity="0.4"/>
-        <text x="130" y="220" text-anchor="middle" font-family="'Josefin Sans',sans-serif" font-size="8" letter-spacing="5" fill="#C9A84C" opacity="0.4">LATTE ART</text>
-      </svg>
-      <div class="g-item-label">Latte Art</div>
-    </div>
-    <div class="g-item">
-      <svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-        <rect width="260" height="260" fill="#2A2720"/>
-        <rect x="40" y="60" width="180" height="140" rx="4" fill="#1C1A16"/>
-        <rect x="40" y="60" width="180" height="140" rx="4" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.3"/>
-        <rect x="55" y="80" width="80" height="6" rx="3" fill="#C9A84C" opacity="0.4"/>
-        <rect x="55" y="95" width="120" height="4" rx="2" fill="#C9A84C" opacity="0.2"/>
-        <rect x="55" y="107" width="100" height="4" rx="2" fill="#C9A84C" opacity="0.15"/>
-        <circle cx="190" cy="100" r="20" fill="#2A2720"/>
-        <circle cx="190" cy="100" r="12" fill="#C9A84C" opacity="0.3"/>
-        <text x="130" y="230" text-anchor="middle" font-family="'Josefin Sans',sans-serif" font-size="8" letter-spacing="5" fill="#C9A84C" opacity="0.4">WORKSPACE</text>
-      </svg>
-      <div class="g-item-label">Work Space</div>
-    </div>
-    <div class="g-item">
-      <svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-        <rect width="260" height="260" fill="#322E24"/>
-        <rect x="30" y="100" width="80" height="110" rx="4" fill="#2A2720"/>
-        <rect x="120" y="80" width="80" height="130" rx="4" fill="#1C1A16"/>
-        <rect x="50" y="60" width="60" height="50" rx="4" fill="#2A2720" opacity="0.7"/>
-        <rect x="30" y="100" width="80" height="110" rx="4" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.2"/>
-        <rect x="120" y="80" width="80" height="130" rx="4" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.2"/>
-        <text x="130" y="240" text-anchor="middle" font-family="'Josefin Sans',sans-serif" font-size="8" letter-spacing="5" fill="#C9A84C" opacity="0.4">AMBIENCE</text>
-      </svg>
-      <div class="g-item-label">Ambience</div>
-    </div>
+    <figure class="g-item tall">
+      <img src="assets/coffee/gallery-cups.jpg"
+           alt="Two cappuccinos with rosetta latte art on a round wooden table, framed by dark tropical leaves."
+           loading="lazy" decoding="async" width="800" height="1200" />
+      <figcaption class="g-item-label">Signature Cup</figcaption>
+    </figure>
+    <figure class="g-item">
+      <img src="assets/coffee/gallery-interior.jpg"
+           alt="The café floor at dusk: long wooden tables, black chairs and low pendant lamps over the espresso counter."
+           loading="lazy" decoding="async" width="800" height="533" />
+      <figcaption class="g-item-label">Interior View</figcaption>
+    </figure>
+    <figure class="g-item">
+      <img src="assets/coffee/gallery-brew.jpg"
+           alt="A barista pouring from a gooseneck kettle into a pour-over brewer, steam rising off the bed of coffee."
+           loading="lazy" decoding="async" width="800" height="533" />
+      <figcaption class="g-item-label">Slow Brew</figcaption>
+    </figure>
+    <figure class="g-item">
+      <img src="assets/coffee/gallery-workspace.jpg"
+           alt="Guests working side by side at a long wooden communal table, notebooks open and coffee cups within reach."
+           loading="lazy" decoding="async" width="800" height="533" />
+      <figcaption class="g-item-label">Work Space</figcaption>
+    </figure>
+    <figure class="g-item">
+      <img src="assets/coffee/gallery-ambience.jpg"
+           alt="The café seen from the street after dark, warm lamplight behind glass lettering reading RELAX."
+           loading="lazy" decoding="async" width="800" height="533" />
+      <figcaption class="g-item-label">Ambience</figcaption>
+    </figure>
   </div>
 </section>
+
 
 <!-- CONTACT -->
 <section class="section contact-section" id="contact">
   <div class="section-num">04 — Find Us</div>
-  <h2 class="section-title" style="margin-bottom:4rem;">Contact<em>Us</em></h2>
+  <h2 class="section-title" style="margin-bottom:4rem;">Contact<br><em>Us</em></h2>
   <div class="contact-inner">
     <div>
       <div class="contact-details">
@@ -763,11 +1026,11 @@
         </div>
         <div class="c-row">
           <div class="c-label">Phone</div>
-          <div class="c-val">062-XXX-XXXX</div>
+          <div class="c-val"><a href="tel:+66827419630">082-741-9630</a></div>
         </div>
         <div class="c-row">
           <div class="c-label">Email</div>
-          <div class="c-val" style="font-size:0.95rem;">hello@noircoffee.co.th</div>
+          <div class="c-val" style="font-size:0.95rem;"><a href="mailto:hello@noircoffee.co.th">hello@noircoffee.co.th</a></div>
         </div>
       </div>
     </div>
@@ -804,56 +1067,334 @@
             <span class="s-arrow">↗</span>
           </div>
         </div>
-        <button class="reserve-btn">Reserve a Table</button>
+        <a href="#reserve" class="reserve-btn">Reserve a Table</a>
       </div>
     </div>
+  </div>
+
+  <!-- RESERVATION -->
+  <div class="reserve-block" id="reserve">
+    <div class="reserve-head">
+      <div class="section-num">05 — Reservations</div>
+      <h2 class="section-title">Book a<br><em>Table</em></h2>
+      <p class="reserve-sub">
+        We hold tables from opening until an hour before close. Same-day requests are welcome —
+        for parties of seven or more, please call us so we can set the room properly.
+      </p>
+    </div>
+
+    <form class="res-form" id="resForm" novalidate>
+      <div class="form-group">
+        <label for="res-name">Name</label>
+        <input type="text" id="res-name" name="name" placeholder="Your name" autocomplete="name" minlength="2" required />
+        <span class="field-error" id="err-name">Please enter your name.</span>
+      </div>
+      <div class="form-group">
+        <label for="res-phone">Phone</label>
+        <input type="tel" id="res-phone" name="phone" placeholder="082-741-9630" autocomplete="tel" inputmode="tel"
+               pattern="[+]?[0-9\s\(\)\.\-]{7,24}"
+               title="Digits, spaces and + ( ) - . only — e.g. 082-741-9630 or +66 2 123 4567"
+               required />
+        <span class="field-error" id="err-phone">Please enter a phone number we can reach you on.</span>
+      </div>
+      <div class="form-group">
+        <label for="res-date">Date</label>
+        <input type="date" id="res-date" name="date" required />
+        <span class="field-error" id="err-date">Please choose a date.</span>
+      </div>
+      <div class="form-group">
+        <label for="res-time">Time</label>
+        <select id="res-time" name="time" required>
+          <option value="">Select a time</option>
+          <option value="08:00">08:00</option>
+          <option value="10:00">10:00</option>
+          <option value="12:00">12:00</option>
+          <option value="14:00">14:00</option>
+          <option value="16:00">16:00</option>
+          <option value="18:00">18:00</option>
+          <option value="20:00">20:00</option>
+        </select>
+        <span class="field-error" id="err-time">Please choose a time.</span>
+      </div>
+      <div class="form-group">
+        <label for="res-guests">Party Size</label>
+        <select id="res-guests" name="guests" required>
+          <option value="">Select party size</option>
+          <option value="1">1 guest</option>
+          <option value="2">2 guests</option>
+          <option value="3">3 guests</option>
+          <option value="4">4 guests</option>
+          <option value="5">5 guests</option>
+          <option value="6">6 guests</option>
+          <option value="7+">7 or more (call us)</option>
+        </select>
+        <span class="field-error" id="err-guests">Please choose a party size.</span>
+      </div>
+      <div class="res-submit">
+        <button type="submit" id="resSubmit">Request a Table</button>
+      </div>
+      <div class="res-error" id="resError" role="alert" tabindex="-1">
+        Please complete the highlighted fields before sending your request.
+      </div>
+      <div class="res-notice" id="resNotice" role="status" tabindex="-1">
+        Groups of seven or more are arranged by phone so we can put the right table together.
+        Please call <a href="tel:+66827419630">082-741-9630</a> and we will take it from there.
+      </div>
+      <div class="res-success" id="resSuccess" role="status" tabindex="-1">
+        Thank you — your request has been received. We will confirm by phone within the hour.
+      </div>
+    </form>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">NOIR<span class="footer-gold">.</span></div>
-  <div class="footer-copy">© 2024 NOIR Coffee · <span class="footer-gold">Specialty Coffee Bangkok</span> · All Rights Reserved</div>
+  <div class="footer-copy">© <span id="year">2026</span> NOIR Coffee · <span class="footer-gold">Specialty Coffee Bangkok</span> · All Rights Reserved</div>
 </footer>
 
 <script>
-  // Cursor
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
-  });
-  function animateRing() {
-    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-    requestAnimationFrame(animateRing);
-  }
-  animateRing();
-  document.querySelectorAll('a,button,.menu-item,.s-link').forEach(el => {
-    el.addEventListener('mouseenter', () => { ring.style.transform = 'translate(-50%,-50%) scale(1.8)'; ring.style.borderColor = 'rgba(201,168,76,0.6)'; });
-    el.addEventListener('mouseleave', () => { ring.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.borderColor = 'rgba(201,168,76,0.4)'; });
-  });
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  // Nav scroll
+  // ── CUSTOM CURSOR ──
+  // Pointer-gated: on a touch device there is nothing to replace, and painting a
+  // gold dot at 0,0 with no way to move it is worse than the system default.
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0, live = false, rafId = null;
+
+    const placeRing = () => { ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; };
+
+    function animateRing() {
+      rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+      placeRing();
+      rafId = requestAnimationFrame(animateRing);
+    }
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+      if (!live) {
+        // Only reveal once we know where the pointer actually is.
+        live = true;
+        document.body.classList.add('cursor-live');
+      }
+      // Under reduced motion the ring snaps instead of easing, so no permanent loop.
+      if (reduceMotion.matches) { rx = mx; ry = my; placeRing(); }
+    });
+
+    // Start/stop the trailing loop with the motion preference, live.
+    function syncRingLoop() {
+      if (reduceMotion.matches) {
+        if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+      } else if (rafId === null) {
+        rafId = requestAnimationFrame(animateRing);
+      }
+    }
+    syncRingLoop();
+    reduceMotion.addEventListener('change', syncRingLoop);
+
+    document.querySelectorAll('a, button, input, select, .s-link').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        ring.style.transform = 'translate(-50%,-50%) scale(1.8)';
+        ring.style.borderColor = 'rgba(201,168,76,0.6)';
+      });
+      el.addEventListener('mouseleave', () => {
+        ring.style.transform = 'translate(-50%,-50%) scale(1)';
+        ring.style.borderColor = 'rgba(201,168,76,0.4)';
+      });
+    });
+  }
+
+  // ── NAV SCROLL ──
   const nav = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 50);
   });
 
-  // Smooth links
+  // ── MOBILE MENU ──
+  const navToggle = document.getElementById('navToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  function setMenu(open, returnFocus = true) {
+    mobileMenu.classList.toggle('open', open);
+    document.body.classList.toggle('menu-open', open);
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if (open) mobileMenu.querySelector('a').focus();
+    else if (returnFocus) navToggle.focus();
+  }
+
+  navToggle.addEventListener('click', () => setMenu(!mobileMenu.classList.contains('open')));
+
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    // Let the in-page anchor keep focus — don't yank it back to the toggle.
+    link.addEventListener('click', () => setMenu(false, false));
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) setMenu(false);
+  });
+
+  // Resizing past the breakpoint hides the panel; make sure state follows.
+  window.matchMedia('(min-width: 901px)').addEventListener('change', e => {
+    if (e.matches && mobileMenu.classList.contains('open')) setMenu(false, false);
+  });
+
+  // ── SMOOTH LINKS ──
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
+      const h = a.getAttribute('href');
+      // A bare "#" is not a valid selector — querySelector('#') throws.
+      if (!h || h === '#') return;
+      const t = document.querySelector(h);
+      if (!t) return;
       e.preventDefault();
-      const t = document.querySelector(a.getAttribute('href'));
-      if (t) t.scrollIntoView({ behavior: 'smooth' });
+      t.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth' });
     });
   });
 
-  // Menu hover
-  document.querySelectorAll('.menu-item').forEach(item => {
-    item.addEventListener('mouseenter', () => item.style.transition = 'all 0.3s ease');
+  // ── FOOTER YEAR ──
+  document.getElementById('year').textContent = String(new Date().getFullYear());
+
+  // ── RESERVATION FORM ──
+  // Static demo: there is no backend. The validation is real, the send is simulated.
+  const form = document.getElementById('resForm');
+  const submitBtn = document.getElementById('resSubmit');
+  const successBox = document.getElementById('resSuccess');
+  const noticeBox = document.getElementById('resNotice');
+  const errorBox = document.getElementById('resError');
+  const guestsInput = document.getElementById('res-guests');
+  const phoneInput = document.getElementById('res-phone');
+  const dateInput = document.getElementById('res-date');
+
+  // toISOString() converts to UTC first, which in UTC+7 reports yesterday for any
+  // wall-clock time before 07:00 — format from the local parts instead.
+  function toISODate(d) {
+    return d.getFullYear() + '-' +
+      String(d.getMonth() + 1).padStart(2, '0') + '-' +
+      String(d.getDate()).padStart(2, '0');
+  }
+  dateInput.min = toISODate(new Date());
+
+  const fields = [
+    { id: 'res-name',   errId: 'err-name'   },
+    { id: 'res-phone',  errId: 'err-phone'  },
+    { id: 'res-date',   errId: 'err-date'   },
+    { id: 'res-time',   errId: 'err-time'   },
+    { id: 'res-guests', errId: 'err-guests' }
+  ];
+
+  // Messages that depend on how the field is wrong, not merely that it is.
+  const messages = {
+    'res-name': el => el.validity.valueMissing
+      ? 'Please enter your name.'
+      : 'Please enter at least two characters.',
+    'res-phone': el => el.validity.valueMissing
+      ? 'Please enter a phone number we can reach you on.'
+      : el.validity.patternMismatch
+        ? 'Use digits, spaces and + ( ) - . — e.g. 082-741-9630.'
+        : 'That number looks too short or too long — please check it.',
+    'res-date': el => el.validity.valueMissing
+      ? 'Please choose a date.'
+      : 'Please choose today or a later date.'
+  };
+
+  // The pattern cannot count digits across separators, so that rule is folded
+  // into the element's own validity and checkValidity() then covers everything.
+  function syncPhoneValidity() {
+    const digits = phoneInput.value.replace(/\D/g, '');
+    const wrongLength = phoneInput.value.trim() !== '' && (digits.length < 9 || digits.length > 15);
+    phoneInput.setCustomValidity(wrongLength ? 'Phone numbers need 9 to 15 digits.' : '');
+  }
+  phoneInput.addEventListener('input', syncPhoneValidity);
+
+  function showFieldState(el, errEl) {
+    const ok = el.checkValidity();
+    if (!ok && messages[el.id]) errEl.textContent = messages[el.id](el);
+    el.classList.toggle('error', !ok);
+    errEl.classList.toggle('show', !ok);
+    return ok;
+  }
+
+  function validateForm() {
+    let valid = true;
+    fields.forEach(({ id, errId }) => {
+      if (!showFieldState(document.getElementById(id), document.getElementById(errId))) valid = false;
+    });
+    return valid;
+  }
+
+  function clearFieldStates() {
+    fields.forEach(({ id, errId }) => {
+      document.getElementById(id).classList.remove('error');
+      document.getElementById(errId).classList.remove('show');
+    });
+  }
+
+  function showMessage(box) {
+    [successBox, noticeBox, errorBox].forEach(el => el.classList.toggle('show', el === box));
+    if (box) box.focus();
+  }
+
+  // Set while the form is being reset, so moving focus to the confirmation
+  // doesn't blur a just-emptied field and paint a fresh "required" error.
+  let suppressBlurValidation = false;
+
+  fields.forEach(({ id, errId }) => {
+    const el = document.getElementById(id);
+    const errEl = document.getElementById(errId);
+    el.addEventListener('blur', () => {
+      if (!suppressBlurValidation) showFieldState(el, errEl);
+    });
+    el.addEventListener('input', () => {
+      if (el.classList.contains('error') && el.checkValidity()) {
+        el.classList.remove('error');
+        errEl.classList.remove('show');
+      }
+    });
+  });
+
+  // Editing after a rejected submit clears the summary; the confirmation stays.
+  form.addEventListener('input', () => {
+    errorBox.classList.remove('show');
+    noticeBox.classList.remove('show');
+  });
+  guestsInput.addEventListener('change', () => noticeBox.classList.remove('show'));
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      showMessage(errorBox);
+      const firstInvalid = fields
+        .map(f => document.getElementById(f.id))
+        .find(el => !el.checkValidity());
+      if (firstInvalid) firstInvalid.focus();
+      return;
+    }
+
+    // Large parties are booked by phone — don't fake a confirmation for them.
+    if (guestsInput.value === '7+') {
+      showMessage(noticeBox);
+      return;
+    }
+
+    submitBtn.textContent = 'Sending…';
+    submitBtn.disabled = true;
+
+    window.setTimeout(() => {
+      suppressBlurValidation = true;
+      form.reset();
+      clearFieldStates();
+      syncPhoneValidity();
+      submitBtn.textContent = 'Request a Table';
+      submitBtn.disabled = false;
+      submitBtn.style.display = 'none';
+      showMessage(successBox);
+      suppressBlurValidation = false;
+    }, 700);
   });
 </script>
 </body>
