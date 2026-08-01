@@ -10,11 +10,22 @@
   <meta property="og:title" content="VELVÉ Aesthetics — Smart Booking">
   <meta property="og:description" content="คลินิกความงามพร้อมระบบจองคิวออนไลน์ 4 ขั้นตอน">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://phakinza007.github.io/my-portfolio/aesthetic-booking.html">
+  <meta property="og:locale" content="th_TH">
+  <meta property="og:image" content="https://phakinza007.github.io/my-portfolio/assets/velve/og-cover.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="แพทย์กำลังทำหัตถการความงามบริเวณใบหน้าที่ VELVÉ Aesthetics">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="VELVÉ Aesthetics — Smart Booking">
+  <meta name="twitter:description" content="คลินิกความงามพร้อมระบบจองคิวออนไลน์ 4 ขั้นตอน ยืนยันคิวทันที">
+  <meta name="twitter:image" content="https://phakinza007.github.io/my-portfolio/assets/velve/og-cover.jpg">
   <meta name="theme-color" content="#46151F">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chonburi&family=Noto+Sans+Thai:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chonburi&family=Noto+Sans+Thai:wght@300;400;500;600&display=optional" rel="stylesheet">
+  <link rel="stylesheet" href="assets/portfolio-context.css?v=back-button-clean">
 
   <style>
     /* ── Design tokens ─────────────────────────────────────────── */
@@ -28,7 +39,7 @@
       --card:       #FCFAF5;
       --ink:        #241A16;   /* body text */
       --slate:      #5D544C;
-      --muted:      #8A7F74;
+      --muted:      #6E6459;   /* 5.1:1 on --card — was #8A7F74 (3.75:1, failed AA) */
       --line:       #DCD2C0;
 
       --display: 'Chonburi', 'Noto Sans Thai', serif;
@@ -86,9 +97,17 @@
       border-bottom: 1px solid var(--line);
     }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 74px; }
-    .logo { font-family: var(--display); font-size: 21px; letter-spacing: 1px; color: var(--wine); }
+    .logo {
+      font-family: var(--display); font-size: 21px; letter-spacing: 1px; color: var(--wine);
+      display: inline-flex; align-items: center; min-height: 44px;   /* touch target */
+    }
     .nav-links { display: flex; gap: 30px; font-size: 14px; font-weight: 500; color: var(--slate); }
+    .nav-links a { display: inline-flex; align-items: center; min-height: 44px; }
     .nav-links a:hover { color: var(--wine-ink); }
+
+    /* the shared portfolio-context.css ships a 40–42px pill; every other page
+       overrides it locally rather than editing the file all 13 pages share */
+    .portfolio-back { min-height: 44px; display: inline-flex; align-items: center; }
 
     /* ── Hero ──────────────────────────────────────────────────── */
     .hero { padding: 80px 0 66px; border-bottom: 1px solid var(--line); }
@@ -103,9 +122,13 @@
       color: var(--wine-deep);
     }
     .hero h1 em { font-style: normal; color: var(--wine-ink); }
+    /* was <br>, which had to be display:none'd on mobile and glued the words
+       together; block spans keep the phrasing at every width */
+    .hero h1 .l { display: block; }
     .hero-desc { margin-top: 22px; font-size: 16px; color: var(--slate); max-width: 520px; }
     .hero-actions { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
 
+    .hero-side { display: flex; flex-direction: column; gap: 18px; }
     .hero-facts {
       border: 1px solid var(--line);
       border-radius: var(--r-md);
@@ -139,12 +162,12 @@
       display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
     }
     .wiz-head h2 { font-family: var(--display); font-size: 19px; font-weight: 400; }
-    .wiz-steps { display: flex; gap: 8px; }
+    .wiz-steps { display: flex; gap: 8px; list-style: none; }
     .wiz-dot {
       width: 34px; height: 34px; border-radius: 50%;
       display: grid; place-items: center;
       font-size: 13px; font-weight: 700;
-      background: rgba(244,239,230,.14); color: rgba(244,239,230,.55);
+      background: rgba(244,239,230,.16); color: rgba(244,239,230,.82);
       transition: background var(--t), color var(--t);
     }
     .wiz-dot.on { background: var(--paper); color: var(--wine); }
@@ -156,7 +179,13 @@
     @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
     @media (prefers-reduced-motion: reduce) { .wiz-panel.on { animation: none; } }
 
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+    }
     .wiz-q { font-family: var(--display); font-size: 20px; font-weight: 400; margin-bottom: 6px; color: var(--wine-deep); }
+    .wiz-q:focus { outline: none; }
+    .wiz-q:focus-visible { outline: 2px solid var(--wine-ink); outline-offset: 4px; }
     .wiz-hint { font-size: 13.5px; color: var(--muted); margin-bottom: 24px; }
 
     /* option cards */
@@ -184,9 +213,12 @@
       display: grid; place-items: center;
       color: var(--paper); font-family: var(--display); font-size: 15px;
     }
+    /* avatar tints stay inside the wine family — the previous olive/army
+       greens were undeclared one-off hexes that fought the palette */
     .d1 { background: var(--wine); }
-    .d2 { background: #77551F; }
-    .d3 { background: #3E4A3D; }
+    .d2 { background: var(--wine-ink); }
+    .d3 { background: #9C4A54; }
+    .d4 { background: transparent; color: var(--wine-ink); border: 1.5px dashed var(--line); }
 
     /* date + time slots */
     .dt-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 26px; }
@@ -263,27 +295,6 @@
     }
     .wiz-note { font-size: 12.5px; color: var(--muted); }
 
-    /* ── Services — editorial price list ───────────────────────── */
-    .services { padding: 20px 0 90px; }
-    .svc-head {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
-      align-items: end; margin-bottom: 36px;
-    }
-    .svc-head p { font-size: 14.5px; color: var(--slate); max-width: 400px; justify-self: end; text-align: right; }
-    .svc-list { border-top: 1px solid var(--line); }
-    .svc-row {
-      display: grid; grid-template-columns: 220px 1fr auto; gap: 28px;
-      align-items: baseline;
-      padding: 26px 8px;
-      border-bottom: 1px solid var(--line);
-      transition: background var(--t);
-    }
-    .svc-row:hover { background: var(--card); }
-    .svc-row h3 { font-family: var(--display); font-size: 21px; font-weight: 400; color: var(--wine-deep); }
-    .svc-row p { font-size: 13.5px; color: var(--slate); }
-    .svc-row .price { font-weight: 700; font-size: 15px; color: var(--wine-ink); white-space: nowrap; }
-    .svc-row .price small { display: block; font-weight: 400; font-size: 11.5px; color: var(--muted); text-align: right; }
-
     /* ── Why — pull-quote band ─────────────────────────────────── */
     .why { background: var(--wine); color: var(--paper); padding: 90px 0; }
     .why-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; align-items: center; }
@@ -305,26 +316,99 @@
     .foot-logo { font-family: var(--display); font-size: 17px; color: var(--paper); }
     .foot-copy { font-size: 12.5px; }
 
+    /* ── Photography ───────────────────────────────────────────── */
+    /* one grade across every photo so stock shots read as one clinic */
+    .ph {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: saturate(.88) contrast(1.02) brightness(1.02);
+    }
+    .ph-wrap {
+      position: relative; overflow: hidden;
+      border-radius: var(--r-md);
+      background: var(--card);
+    }
+    /* faint wine wash ties the warm-neutral photography to the palette */
+    .ph-wrap::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(180deg, rgba(46,13,20,.06), rgba(70,21,31,.16));
+    }
+    .hero-media { aspect-ratio: 3 / 2; }
+    .why-media { aspect-ratio: 3 / 2; margin-top: 34px; }
+    .why-media::after { background: linear-gradient(180deg, rgba(46,13,20,.12), rgba(46,13,20,.34)); }
+
+    /* ── Mobile nav ────────────────────────────────────────────── */
+    .nav-toggle {
+      display: none;
+      width: 46px; height: 46px;
+      align-items: center; justify-content: center;
+      background: transparent; border: 1.5px solid var(--line);
+      border-radius: var(--r-sm); cursor: pointer; color: var(--wine);
+    }
+    .nav-toggle span {
+      display: block; width: 18px; height: 1.5px; background: currentColor;
+      position: relative;
+    }
+    .nav-toggle span::before, .nav-toggle span::after {
+      content: ''; position: absolute; left: 0; width: 18px; height: 1.5px; background: currentColor;
+      transition: transform var(--t) var(--ease), opacity var(--t);
+    }
+    .nav-toggle span::before { top: -6px; }
+    .nav-toggle span::after  { top:  6px; }
+    .nav-toggle[aria-expanded="true"] span { background: transparent; }
+    .nav-toggle[aria-expanded="true"] span::before { transform: translateY(6px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span::after  { transform: translateY(-6px) rotate(-45deg); }
+
+    .nav-panel {
+      position: fixed; inset: 74px 0 auto 0;
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+      box-shadow: var(--shadow-md);
+      padding: 10px 0 18px;
+      z-index: 99;
+      opacity: 0; visibility: hidden; transform: translateY(-8px);
+      transition: opacity var(--t) var(--ease), transform var(--t) var(--ease), visibility 0s linear var(--t);
+    }
+    .nav-panel.open {
+      opacity: 1; transform: none;
+      visibility: visible; transition-delay: 0s;   /* visible immediately so .focus() lands */
+    }
+    .nav-panel a {
+      display: flex; align-items: center; min-height: 52px;
+      padding: 0 24px; font-size: 15px; font-weight: 500; color: var(--ink);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-panel a:last-child { border-bottom: none; }
+    body.nav-open { overflow: hidden; }
+
+    /* ── Focus visibility ──────────────────────────────────────── */
+    a:focus-visible, button:focus-visible, input:focus-visible, .opt:focus-visible, .slot:focus-visible {
+      outline: 2px solid var(--wine-ink);
+      outline-offset: 3px;
+    }
+    .why a:focus-visible, footer a:focus-visible { outline-color: var(--rose); }
+
+    /* ── Inline form errors ────────────────────────────────────── */
+    .field-err {
+      font-size: 12px; font-weight: 500; color: #A32B33; min-height: 0;
+    }
+    .conf-fields input[aria-invalid="true"] { border-color: #A32B33; }
+    .success-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 26px; }
+
     /* ── Responsive ────────────────────────────────────────────── */
     @media (max-width: 860px) {
+      .nav-toggle { display: inline-flex; }
       .wrap { padding: 0 24px; }
       .nav-links { display: none; }
       .hero-grid { grid-template-columns: 1fr; gap: 36px; align-items: start; }
       .wiz-head, .wiz-body, .wiz-foot { padding-left: 24px; padding-right: 24px; }
       .opt-grid, .dt-grid, .conf-fields { grid-template-columns: 1fr; }
-      .svc-head { grid-template-columns: 1fr; gap: 12px; }
-      .svc-head p { justify-self: start; text-align: left; }
-      .svc-row { grid-template-columns: 1fr auto; gap: 8px 20px; }
-      .svc-row h3 { grid-row: 1; }
-      .svc-row .price { grid-column: 2; grid-row: 1; justify-self: end; }
-      .svc-row p { grid-column: 1 / -1; }
       .why-grid { grid-template-columns: 1fr; gap: 40px; }
       .slots { grid-template-columns: repeat(3, 1fr); }
     }
     @media (max-width: 560px) {
       .wiz-note { display: none; }
-      .hero h1 br { display: none; }
       .hero h1 { font-size: 28px; }
+      .nav-cta { padding: 12px 16px; font-size: 14px; }
       /* stack the wizard footer: primary action full width on top, back below */
       .wiz-foot { flex-direction: column; align-items: stretch; gap: 10px; padding: 18px 20px; }
       .wiz-foot .btn { width: 100%; padding: 14px 18px; min-height: 48px; }
@@ -332,7 +416,11 @@
     }
     @media (max-width: 480px) {
       .slots { grid-template-columns: 1fr 1fr; }
-      .opt-price { display: none; }
+      /* price must stay visible — the standalone price list this used to fall
+         back to has been removed, so this is now the only place prices appear */
+      .opt { flex-wrap: wrap; }
+      .opt > span:not(.doc-ava) { min-width: 0; }
+      .opt-price { margin-left: 60px; }
       .sum-row { flex-direction: column; align-items: flex-start; gap: 2px; padding: 13px 16px; }
       .sum-row .v { text-align: left; }
     }
@@ -346,10 +434,19 @@
       <a class="logo" href="#top">VELVÉ</a>
       <div class="nav-links">
         <a href="#booking">จองคิว</a>
-        <a href="#services">บริการและราคา</a>
-        <a href="#why">มาตรฐานของเรา</a>
+        <a href="#why">ทำไมต้องจองเอง</a>
+        <a href="index.html">ผลงานอื่น</a>
       </div>
-      <a class="btn btn-wine" href="#booking">เริ่มจองคิว</a>
+      <a class="btn btn-wine nav-cta" href="#booking">เริ่มจองคิว</a>
+      <button class="nav-toggle" type="button" id="navToggle"
+              aria-expanded="false" aria-controls="navPanel" aria-label="เปิดเมนู">
+        <span></span>
+      </button>
+    </div>
+    <div class="nav-panel" id="navPanel">
+      <a href="#booking">จองคิว</a>
+      <a href="#why">ทำไมต้องจองเอง</a>
+      <a href="index.html">ผลงานอื่น</a>
     </div>
   </nav>
 
@@ -357,19 +454,29 @@
   <header class="hero" id="top">
     <div class="wrap hero-grid">
       <div>
-        <h1>คลินิกความงามที่คุณ<br><em>จองคิวเองได้ทั้งหมด</em><br>ไม่ต้องรอแอดมินตอบ</h1>
+        <h1><span class="l">คลินิกความงามที่คุณ</span><span class="l"><em>จองคิวเองได้ทั้งหมด</em></span><span class="l">ไม่ต้องรอแอดมินตอบ</span></h1>
         <p class="hero-desc">เลือกบริการ เลือกแพทย์ เลือกเวลา แล้วรับคิวยืนยันทันทีในนาทีเดียว — Botox, Filler และเลเซอร์ โดยแพทย์เฉพาะทางผิวหนังทุกท่าน</p>
         <div class="hero-actions">
           <a class="btn btn-wine" href="#booking">เริ่มจองคิว</a>
-          <a class="btn btn-soft" href="#services">ดูบริการและราคา</a>
+          <a class="btn btn-soft" href="#why">ทำไมต้องจองเอง</a>
         </div>
       </div>
-      <aside class="hero-facts" aria-label="ข้อมูลคลินิก">
-        <div class="row"><span class="k">เวลาทำการ</span><span class="v">เปิดทุกวัน 11:00 – 20:00</span></div>
-        <div class="row"><span class="k">การยืนยันคิว</span><span class="v">ทันที ไม่ต้องรอแอดมิน</span></div>
-        <div class="row"><span class="k">เลื่อนนัด</span><span class="v">ฟรี ล่วงหน้า 24 ชม.</span></div>
-        <div class="row"><span class="k">ติดต่อ</span><span class="v">02-555-8899 · @velveclinic</span></div>
-      </aside>
+      <div class="hero-side">
+        <div class="ph-wrap hero-media">
+          <img class="ph"
+               src="assets/velve/hero-treatment-900.jpg"
+               srcset="assets/velve/hero-treatment-900.jpg 900w, assets/velve/hero-treatment-1400.jpg 1400w"
+               sizes="(max-width: 860px) 100vw, 40vw"
+               width="1400" height="933" fetchpriority="high" decoding="async"
+               alt="แพทย์กำลังทำหัตถการความงามบริเวณคิ้วให้ผู้รับบริการในห้องตรวจของคลินิก">
+        </div>
+        <aside class="hero-facts" aria-label="ข้อมูลคลินิก">
+          <div class="row"><span class="k">เวลาทำการ</span><span class="v">เปิดทุกวัน 11:00 – 20:00</span></div>
+          <div class="row"><span class="k">การยืนยันคิว</span><span class="v">ทันที ไม่ต้องรอแอดมิน</span></div>
+          <div class="row"><span class="k">เลื่อนนัด</span><span class="v">ฟรี ล่วงหน้า 24 ชม.</span></div>
+          <div class="row"><span class="k">ติดต่อ</span><span class="v">02-555-8899 · @velveclinic</span></div>
+        </aside>
+      </div>
     </div>
   </header>
 
@@ -380,33 +487,33 @@
       <div class="wizard">
         <div class="wiz-head">
           <h2>ระบบจองคิวออนไลน์</h2>
-          <div class="wiz-steps" aria-label="ขั้นตอนการจอง">
-            <div class="wiz-dot on"  data-dot="1">1</div>
-            <div class="wiz-dot" data-dot="2">2</div>
-            <div class="wiz-dot" data-dot="3">3</div>
-            <div class="wiz-dot" data-dot="4">4</div>
-          </div>
+          <ol class="wiz-steps" aria-label="ขั้นตอนการจอง">
+            <li class="wiz-dot on" data-dot="1" aria-current="step"><span class="sr-only">ขั้นตอนที่ </span>1</li>
+            <li class="wiz-dot" data-dot="2"><span class="sr-only">ขั้นตอนที่ </span>2</li>
+            <li class="wiz-dot" data-dot="3"><span class="sr-only">ขั้นตอนที่ </span>3</li>
+            <li class="wiz-dot" data-dot="4"><span class="sr-only">ขั้นตอนที่ </span>4</li>
+          </ol>
         </div>
 
         <div class="wiz-body">
           <!-- Step 1: service -->
           <div class="wiz-panel on" data-panel="1">
-            <div class="wiz-q">เลือกบริการที่ต้องการ</div>
+            <h3 class="wiz-q" tabindex="-1">เลือกบริการที่ต้องการ</h3>
             <div class="wiz-hint">ราคาที่แสดงเป็นราคาเริ่มต้น แพทย์จะประเมินอีกครั้งในวันเข้ารับบริการ</div>
-            <div class="opt-grid" id="svcGrid">
-              <button class="opt" type="button" data-name="Botox ลดริ้วรอย" data-price="4,900฿">
+            <div class="opt-grid" id="svcGrid" role="radiogroup" aria-label="เลือกบริการ">
+              <button class="opt" type="button" role="radio" aria-checked="false" data-name="Botox ลดริ้วรอย" data-price="4,900฿">
                 <span><span class="opt-name">Botox ลดริ้วรอย</span><br><span class="opt-sub">หน้าผาก · หางตา · กราม</span></span>
                 <span class="opt-price">4,900฿</span>
               </button>
-              <button class="opt" type="button" data-name="Filler ปรับรูปหน้า" data-price="8,900฿">
+              <button class="opt" type="button" role="radio" aria-checked="false" data-name="Filler ปรับรูปหน้า" data-price="8,900฿">
                 <span><span class="opt-name">Filler ปรับรูปหน้า</span><br><span class="opt-sub">คาง · ร่องแก้ม · ใต้ตา</span></span>
                 <span class="opt-price">8,900฿</span>
               </button>
-              <button class="opt" type="button" data-name="เลเซอร์ฟื้นฟูผิว" data-price="2,900฿">
+              <button class="opt" type="button" role="radio" aria-checked="false" data-name="เลเซอร์ฟื้นฟูผิว" data-price="2,900฿">
                 <span><span class="opt-name">เลเซอร์ฟื้นฟูผิว</span><br><span class="opt-sub">ฝ้า กระ จุดด่างดำ รูขุมขน</span></span>
                 <span class="opt-price">2,900฿</span>
               </button>
-              <button class="opt" type="button" data-name="Skin Booster" data-price="6,500฿">
+              <button class="opt" type="button" role="radio" aria-checked="false" data-name="Skin Booster" data-price="6,500฿">
                 <span><span class="opt-name">Skin Booster</span><br><span class="opt-sub">ผิวฉ่ำ เนียนใส ลดผิวแห้ง</span></span>
                 <span class="opt-price">6,500฿</span>
               </button>
@@ -415,23 +522,23 @@
 
           <!-- Step 2: doctor -->
           <div class="wiz-panel" data-panel="2">
-            <div class="wiz-q">เลือกแพทย์ผู้ดูแล</div>
+            <h3 class="wiz-q" tabindex="-1">เลือกแพทย์ผู้ดูแล</h3>
             <div class="wiz-hint">แพทย์ทุกท่านมีใบประกอบวิชาชีพเวชกรรมและประสบการณ์เฉพาะทางด้านผิวหนัง</div>
-            <div class="opt-grid" id="docGrid">
-              <button class="opt" type="button" data-name="พญ. อริสรา วงศ์เกษม">
-                <span class="doc-ava d1">อ</span>
+            <div class="opt-grid" id="docGrid" role="radiogroup" aria-label="เลือกแพทย์">
+              <button class="opt" type="button" role="radio" aria-checked="false" data-name="พญ. อริสรา วงศ์เกษม">
+                <span class="doc-ava d1" aria-hidden="true">อ</span>
                 <span><span class="opt-name">พญ. อริสรา วงศ์เกษม</span><br><span class="opt-sub">ตจวิทยา · 10 ปีประสบการณ์</span></span>
               </button>
-              <button class="opt" type="button" data-name="นพ. ภูริต ชัยวัฒน์">
-                <span class="doc-ava d2">ภ</span>
+              <button class="opt" type="button" role="radio" aria-checked="false" data-name="นพ. ภูริต ชัยวัฒน์">
+                <span class="doc-ava d2" aria-hidden="true">ภ</span>
                 <span><span class="opt-name">นพ. ภูริต ชัยวัฒน์</span><br><span class="opt-sub">เวชศาสตร์ความงาม · Filler เฉพาะทาง</span></span>
               </button>
-              <button class="opt" type="button" data-name="พญ. ชลิดา ตั้งตระกูล">
-                <span class="doc-ava d3">ช</span>
+              <button class="opt" type="button" role="radio" aria-checked="false" data-name="พญ. ชลิดา ตั้งตระกูล">
+                <span class="doc-ava d3" aria-hidden="true">ช</span>
                 <span><span class="opt-name">พญ. ชลิดา ตั้งตระกูล</span><br><span class="opt-sub">เลเซอร์ผิวหนัง · 8 ปีประสบการณ์</span></span>
               </button>
-              <button class="opt" type="button" data-name="แพทย์ท่านใดก็ได้">
-                <span class="doc-ava d1">✓</span>
+              <button class="opt" type="button" role="radio" aria-checked="false" data-name="แพทย์ท่านใดก็ได้">
+                <span class="doc-ava d4" aria-hidden="true">?</span>
                 <span><span class="opt-name">แพทย์ท่านใดก็ได้</span><br><span class="opt-sub">รับคิวเร็วที่สุดที่ว่าง</span></span>
               </button>
             </div>
@@ -439,7 +546,7 @@
 
           <!-- Step 3: date & time -->
           <div class="wiz-panel" data-panel="3">
-            <div class="wiz-q">เลือกวันและเวลา</div>
+            <h3 class="wiz-q" tabindex="-1">เลือกวันและเวลา</h3>
             <div class="wiz-hint">คลินิกเปิดทุกวัน 11:00 – 20:00 · ช่องที่ขีดฆ่าคือคิวเต็ม</div>
             <div class="dt-grid">
               <div class="dt-date">
@@ -448,13 +555,13 @@
               </div>
               <div>
                 <div class="slot-label">ช่วงเวลา</div>
-                <div class="slots" id="slotGrid">
-                  <button class="slot" type="button">11:00</button>
-                  <button class="slot" type="button">12:30</button>
-                  <button class="slot" type="button">14:00</button>
-                  <button class="slot" type="button">15:30</button>
-                  <button class="slot" type="button">17:00</button>
-                  <button class="slot" type="button">18:30</button>
+                <div class="slots" id="slotGrid" role="group" aria-label="ช่วงเวลาที่ว่าง">
+                  <button class="slot" type="button" aria-pressed="false">11:00</button>
+                  <button class="slot" type="button" aria-pressed="false">12:30</button>
+                  <button class="slot" type="button" aria-pressed="false">14:00</button>
+                  <button class="slot" type="button" aria-pressed="false">15:30</button>
+                  <button class="slot" type="button" aria-pressed="false">17:00</button>
+                  <button class="slot" type="button" aria-pressed="false">18:30</button>
                 </div>
               </div>
             </div>
@@ -462,7 +569,7 @@
 
           <!-- Step 4: confirm -->
           <div class="wiz-panel" data-panel="4">
-            <div class="wiz-q">ยืนยันการจอง</div>
+            <h3 class="wiz-q" tabindex="-1">ยืนยันการจอง</h3>
             <div class="wiz-hint">ตรวจสอบรายละเอียดและกรอกข้อมูลติดต่อเพื่อรับคิว</div>
             <div class="sum-card">
               <div class="sum-row"><span class="k">บริการ</span><span class="v" id="sumSvc">—</span></div>
@@ -473,22 +580,30 @@
             <div class="conf-fields">
               <div class="f">
                 <label for="wName">ชื่อ-นามสกุล</label>
-                <input id="wName" type="text" placeholder="ชื่อของคุณ" required>
+                <input id="wName" type="text" placeholder="ชื่อของคุณ" autocomplete="name"
+                       minlength="2" aria-describedby="errName" required>
+                <p class="field-err" id="errName" role="status"></p>
               </div>
               <div class="f">
                 <label for="wPhone">เบอร์โทรศัพท์</label>
-                <input id="wPhone" type="tel" placeholder="08x-xxx-xxxx" required>
+                <input id="wPhone" type="tel" placeholder="08x-xxx-xxxx" autocomplete="tel"
+                       inputmode="tel" aria-describedby="errPhone" required>
+                <p class="field-err" id="errPhone" role="status"></p>
               </div>
             </div>
           </div>
 
           <!-- Step 5: success -->
           <div class="wiz-panel" data-panel="5">
-            <div class="success">
-              <div class="big">✓</div>
+            <div class="success" id="okPanel" role="status" tabindex="-1">
+              <div class="big" aria-hidden="true">✓</div>
               <h3>จองคิวสำเร็จ!</h3>
               <p id="okMsg">ระบบส่ง SMS ยืนยันไปที่เบอร์ของคุณแล้ว กรุณามาถึงก่อนเวลานัด 15 นาที</p>
               <div class="code" id="okCode">VLV-2026-0000</div>
+              <div class="success-actions">
+                <button class="btn btn-soft" type="button" id="btnAgain">จองอีกครั้ง</button>
+                <a class="btn btn-wine" href="index.html">กลับหน้าผลงาน</a>
+              </div>
             </div>
           </div>
         </div>
@@ -502,67 +617,49 @@
     </div>
   </section>
 
-  <!-- ── Services — editorial price list ─────────────────────── -->
-  <section class="services" id="services">
-    <div class="wrap">
-      <div class="svc-head">
-        <h2 class="section-title">บริการและราคา</h2>
-        <p>ทุกหัตถการทำโดยแพทย์เท่านั้น ราคาเริ่มต้นต่อครั้ง ประเมินจริงอีกครั้งโดยแพทย์ในวันเข้ารับบริการ</p>
-      </div>
-      <div class="svc-list">
-        <div class="svc-row">
-          <h3>Botox</h3>
-          <p>ลดริ้วรอย ยกกระชับ ปรับรูปหน้าเรียว หน้าผาก หางตา และกราม ด้วยผลิตภัณฑ์ อย. รับรอง เปิดกล่องให้ดูก่อนทำทุกครั้ง</p>
-          <div class="price">4,900฿ <small>เริ่มต้น / จุด</small></div>
-        </div>
-        <div class="svc-row">
-          <h3>Filler</h3>
-          <p>เติมเต็มร่องลึก ปรับคาง จมูก และใต้ตา ด้วยฟิลเลอร์แท้ 100% พร้อมสแกน QR ตรวจสอบผลิตภัณฑ์ได้ทันที</p>
-          <div class="price">8,900฿ <small>เริ่มต้น / ซีซี</small></div>
-        </div>
-        <div class="svc-row">
-          <h3>Laser</h3>
-          <p>เลเซอร์ฝ้า กระ รอยสิว และรูขุมขนกว้าง ด้วยเครื่อง Pico มาตรฐานสหรัฐฯ ดูแลโดยแพทย์เฉพาะทางเลเซอร์ผิวหนัง</p>
-          <div class="price">2,900฿ <small>เริ่มต้น / ครั้ง</small></div>
-        </div>
-        <div class="svc-row">
-          <h3>Skin Booster</h3>
-          <p>ผิวฉ่ำน้ำ เนียนใสแบบธรรมชาติ เห็นผลตั้งแต่ครั้งแรก เหมาะกับผิวแห้ง ขาดน้ำ และผิวหมองคล้ำจากแดด</p>
-          <div class="price">6,500฿ <small>เริ่มต้น / ครั้ง</small></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ── Why — pull-quote band ───────────────────────────────── -->
   <section class="why" id="why">
     <div class="wrap why-grid">
       <div>
+        <h2 class="sr-only">ทำไมต้องจองเอง</h2>
         <blockquote>
-          “เราเปิดกล่องผลิตภัณฑ์ให้ดูก่อนทำทุกครั้ง ฉีดโดยแพทย์เท่านั้น
-          และ<em>ไม่มีพนักงานขายคอร์ส</em>มากดดันการตัดสินใจของคุณ”
+          “คิวของคุณควรจบใน 1 นาที ไม่ใช่รอแอดมินตอบข้ามวัน —
+          เลือกเอง <em>ยืนยันเอง</em> เห็นคิวว่างจริงตั้งแต่วินาทีแรก”
         </blockquote>
-        <p class="attrib">— มาตรฐานเดียวที่ใช้กับลูกค้ากว่า 5,000 คนของ VELVÉ</p>
+        <p class="attrib">— หลักการเดียวที่ VELVÉ ใช้ออกแบบระบบจองคิวทั้งหมด</p>
+        <div class="ph-wrap why-media">
+          <img class="ph" src="assets/velve/care-ritual.jpg"
+               width="1000" height="667" loading="lazy" decoding="async"
+               alt="ขั้นตอนการดูแลผิวหน้าโดยเจ้าหน้าที่ของคลินิก">
+        </div>
       </div>
       <div class="why-facts">
         <div class="why-fact">
-          <h3>ปรึกษาฟรีโดยแพทย์</h3>
-          <p>ประเมินใบหน้าและวางแผนการรักษาโดยแพทย์โดยตรง ไม่มีค่าใช้จ่าย ตัดสินใจได้เต็มที่</p>
+          <h3>เห็นคิวว่างจริง ไม่ต้องถาม</h3>
+          <p>ตารางเวลาบนหน้าจอคือคิวที่ว่างจริงของวันนั้น ช่องที่ขีดฆ่าคือเต็มแล้ว ไม่ต้องทักไปถามให้เสียเวลา</p>
         </div>
         <div class="why-fact">
-          <h3>ดูแลหลังทำตลอด 24 ชม.</h3>
-          <p>มีอาการผิดปกติทักหาทีมแพทย์ได้ทันทีทาง LINE @velveclinic ทุกวัน ไม่เว้นวันหยุด</p>
+          <h3>ยืนยันทันที ไม่รอแอดมิน</h3>
+          <p>กดยืนยันแล้วได้รหัสคิวและ SMS ทันที จองตอนตีสองก็ได้คิว ไม่ต้องรอเวลาทำการ</p>
+        </div>
+        <div class="why-fact">
+          <h3>เลื่อนเองได้ ไม่ต้องโทร</h3>
+          <p>เปลี่ยนใจก่อนถึงคิว 24 ชั่วโมง กดเลื่อนจากลิงก์ใน SMS ได้เอง ฟรี ไม่มีเงื่อนไข</p>
         </div>
       </div>
     </div>
   </section>
   </main>
 
+  <aside class="portfolio-context" aria-label="Portfolio navigation">
+    <a class="portfolio-back" href="index.html">&larr; Back to Portfolio</a>
+  </aside>
+
   <!-- ── Footer ──────────────────────────────────────────────── -->
   <footer>
     <div class="wrap foot-inner">
       <div class="foot-logo">VELVÉ</div>
-      <div class="foot-copy">© 2026 VELVÉ Aesthetics — Demo project by Phakin Chawanpunya · 02-555-8899 · @velveclinic</div>
+      <div class="foot-copy">© <span id="year">2026</span> VELVÉ Aesthetics — Demo project by Phakin Chawanpunya · 02-555-8899 · @velveclinic</div>
     </div>
   </footer>
 
@@ -576,7 +673,15 @@
     const wizNote = document.getElementById('wizNote');
     const dateInput = document.getElementById('wDate');
     const slotGrid = document.getElementById('slotGrid');
-    dateInput.min = new Date().toISOString().split('T')[0];
+
+    // Local-time YYYY-MM-DD. toISOString() is UTC, so in UTC+7 it returns
+    // *yesterday* before 07:00 local and the min date would be wrong.
+    function toISODate(d) {
+      const p = n => String(n).padStart(2, '0');
+      return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+    }
+    dateInput.min = toISODate(new Date());
+    document.getElementById('year').textContent = new Date().getFullYear();
 
     // ── Slot availability ────────────────────────────────────
     // Demo data: which slots are full is derived from the date itself
@@ -609,7 +714,40 @@
         const off = taken.has(i);
         s.disabled = off;
         s.classList.toggle('off', off);
-        if (off) s.classList.remove('sel');
+        s.setAttribute('aria-label', s.textContent + (off ? ' — คิวเต็ม' : ' น.'));
+        if (off) { s.classList.remove('sel'); s.setAttribute('aria-pressed', 'false'); }
+      });
+    }
+
+    // ── Contact validation ───────────────────────────────────
+    // Thai mobile/landline: 9–10 digits starting with 0, separators allowed.
+    const nameInput  = document.getElementById('wName');
+    const phoneInput = document.getElementById('wPhone');
+
+    function nameError(v) {
+      const t = v.trim();
+      if (!t) return 'กรุณากรอกชื่อ-นามสกุล';
+      if (t.length < 2) return 'ชื่อสั้นเกินไป กรุณากรอกให้ครบ';
+      return '';
+    }
+    function phoneError(v) {
+      const t = v.trim();
+      if (!t) return 'กรุณากรอกเบอร์โทรศัพท์';
+      if (/[^\d\s().+-]/.test(t)) return 'เบอร์โทรใช้ได้เฉพาะตัวเลขและ - ( ) เท่านั้น';
+      const digits = t.replace(/\D/g, '');
+      if (digits[0] !== '0') return 'เบอร์โทรในไทยขึ้นต้นด้วย 0';
+      if (digits.length < 9 || digits.length > 10) return 'เบอร์โทรต้องมี 9–10 หลัก เช่น 081-234-5678';
+      return '';
+    }
+
+    function showFieldErrors() {
+      const pairs = [[nameInput, nameError(nameInput.value), 'errName'],
+                     [phoneInput, phoneError(phoneInput.value), 'errPhone']];
+      pairs.forEach(([el, msg, errId]) => {
+        // only surface an error once the field has been touched
+        const show = el.dataset.touched === '1' ? msg : '';
+        document.getElementById(errId).textContent = show;
+        el.setAttribute('aria-invalid', show ? 'true' : 'false');
       });
     }
 
@@ -618,19 +756,24 @@
         case 1: return !!state.service;
         case 2: return !!state.doctor;
         case 3: return !!state.date && !!state.time;
-        case 4: return document.getElementById('wName').value.trim() !== '' &&
-                       document.getElementById('wPhone').value.trim() !== '';
+        case 4: return !nameError(nameInput.value) && !phoneError(phoneInput.value);
         default: return false;
       }
     }
 
     function render() {
-      document.querySelectorAll('.wiz-panel').forEach(p =>
-        p.classList.toggle('on', +p.dataset.panel === state.step));
+      document.querySelectorAll('.wiz-panel').forEach(p => {
+        const on = +p.dataset.panel === state.step;
+        p.classList.toggle('on', on);
+        // inactive panels must leave the a11y tree, not just the layout
+        p.toggleAttribute('hidden', !on);
+      });
       document.querySelectorAll('.wiz-dot').forEach(d => {
         const n = +d.dataset.dot;
         d.classList.toggle('on', n === state.step);
         d.classList.toggle('done', n < state.step);
+        if (n === state.step) d.setAttribute('aria-current', 'step');
+        else d.removeAttribute('aria-current');
       });
       btnBack.disabled = state.step === 1 || state.step > TOTAL;
       btnNext.disabled = !stepValid();
@@ -644,15 +787,28 @@
         document.getElementById('sumDt').textContent =
           new Date(state.date).toLocaleDateString('th-TH', { day: 'numeric', month: 'long', year: 'numeric' }) + ' · ' + state.time;
         document.getElementById('sumPrice').textContent = state.price;
+        showFieldErrors();
       }
+    }
+
+    // Move focus to the new step's question so screen-reader and keyboard
+    // users are told where they landed instead of being silently moved.
+    function focusStep() {
+      const panel = document.querySelector(`.wiz-panel[data-panel="${state.step}"]`);
+      const target = panel && (panel.querySelector('.wiz-q') || panel.querySelector('#okPanel'));
+      if (target) target.focus({ preventScroll: true });
     }
 
     function pick(gridId, key, extraKey) {
       document.getElementById(gridId).addEventListener('click', (ev) => {
         const btn = ev.target.closest('.opt');
         if (!btn) return;
-        btn.parentElement.querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
+        btn.parentElement.querySelectorAll('.opt').forEach(o => {
+          o.classList.remove('sel');
+          o.setAttribute('aria-checked', 'false');
+        });
         btn.classList.add('sel');
+        btn.setAttribute('aria-checked', 'true');
         state[key] = btn.dataset.name;
         if (extraKey) state[extraKey] = btn.dataset.price || null;
         render();
@@ -664,8 +820,12 @@
     slotGrid.addEventListener('click', (ev) => {
       const s = ev.target.closest('.slot');
       if (!s || s.disabled) return;
-      slotGrid.querySelectorAll('.slot').forEach(x => x.classList.remove('sel'));
+      slotGrid.querySelectorAll('.slot').forEach(x => {
+        x.classList.remove('sel');
+        x.setAttribute('aria-pressed', 'false');
+      });
       s.classList.add('sel');
+      s.setAttribute('aria-pressed', 'true');
       state.time = s.textContent;
       render();
     });
@@ -673,25 +833,87 @@
       state.date = dateInput.value;
       // เปลี่ยนวัน = ล้างเวลาที่เลือกไว้ ไม่ให้เวลาเก่าหลุดไปถึงหน้ายืนยัน
       state.time = null;
-      slotGrid.querySelectorAll('.slot').forEach(x => x.classList.remove('sel'));
+      slotGrid.querySelectorAll('.slot').forEach(x => {
+        x.classList.remove('sel');
+        x.setAttribute('aria-pressed', 'false');
+      });
       renderSlots();
       render();
     });
-    ['wName', 'wPhone'].forEach(id =>
-      document.getElementById(id).addEventListener('input', render));
+    [nameInput, phoneInput].forEach(el => {
+      el.addEventListener('input', () => { showFieldErrors(); render(); });
+      el.addEventListener('blur', () => { el.dataset.touched = '1'; showFieldErrors(); });
+    });
 
     btnNext.addEventListener('click', () => {
-      if (!stepValid()) return;
       if (state.step === TOTAL) {
+        // surface any pending contact errors instead of failing silently
+        [nameInput, phoneInput].forEach(el => { el.dataset.touched = '1'; });
+        showFieldErrors();
+        if (!stepValid()) {
+          (nameError(nameInput.value) ? nameInput : phoneInput).focus();
+          return;
+        }
         document.getElementById('okCode').textContent =
-          'VLV-2026-' + String(Math.floor(1000 + Math.random() * 9000));
+          'VLV-' + new Date().getFullYear() + '-' + String(Math.floor(1000 + Math.random() * 9000));
         state.step = 5;
       } else {
+        if (!stepValid()) return;
         state.step++;
       }
       render();
+      focusStep();
     });
-    btnBack.addEventListener('click', () => { if (state.step > 1) { state.step--; render(); } });
+    btnBack.addEventListener('click', () => {
+      if (state.step > 1) { state.step--; render(); focusStep(); }
+    });
+
+    // ── Book again — full reset back to step 1 ───────────────
+    document.getElementById('btnAgain').addEventListener('click', () => {
+      Object.assign(state, { step: 1, service: null, price: null, doctor: null, date: null, time: null });
+      document.querySelectorAll('.opt').forEach(o => {
+        o.classList.remove('sel');
+        o.setAttribute('aria-checked', 'false');
+      });
+      slotGrid.querySelectorAll('.slot').forEach(s => {
+        s.classList.remove('sel');
+        s.setAttribute('aria-pressed', 'false');
+      });
+      dateInput.value = '';
+      [nameInput, phoneInput].forEach(el => { el.value = ''; delete el.dataset.touched; });
+      showFieldErrors();
+      document.getElementById('wizFoot').style.display = '';
+      renderSlots();
+      render();
+      focusStep();
+    });
+
+    // ── Mobile nav ───────────────────────────────────────────
+    const navToggle = document.getElementById('navToggle');
+    const navPanel  = document.getElementById('navPanel');
+
+    function setNav(open) {
+      navToggle.setAttribute('aria-expanded', String(open));
+      navToggle.setAttribute('aria-label', open ? 'ปิดเมนู' : 'เปิดเมนู');
+      navPanel.classList.toggle('open', open);
+      document.body.classList.toggle('nav-open', open);
+    }
+    navToggle.addEventListener('click', () => {
+      const open = navToggle.getAttribute('aria-expanded') === 'true';
+      setNav(!open);
+      if (!open) navPanel.querySelector('a').focus();
+    });
+    navPanel.addEventListener('click', ev => { if (ev.target.closest('a')) setNav(false); });
+    document.addEventListener('keydown', ev => {
+      if (ev.key === 'Escape' && navToggle.getAttribute('aria-expanded') === 'true') {
+        setNav(false);
+        navToggle.focus();
+      }
+    });
+    // crossing back to desktop must not strand overflow:hidden on <body>
+    window.matchMedia('(min-width: 861px)').addEventListener('change', e => {
+      if (e.matches) setNav(false);
+    });
 
     renderSlots();
     render();
