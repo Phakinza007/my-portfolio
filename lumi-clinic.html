@@ -539,6 +539,13 @@
     }
     .form-input::placeholder { color: rgba(185,176,164,.55); }
     .form-input:focus, .form-select:focus { border-bottom-color: var(--clay); }
+    .form-input:focus-visible,
+    .form-select:focus-visible,
+    .form-submit:focus-visible {
+      outline: 2px solid var(--clay);
+      outline-offset: 3px;
+    }
+    .form-hint { font-size: 12px; color: var(--mist); }
     .form-select {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23B9B0A4' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
@@ -567,6 +574,15 @@
       color: var(--paper);
       cursor: default;
     }
+
+    .form-ok {
+      display: none;
+      border-left: 2px solid var(--clay);
+      padding-left: 14px;
+      font-size: 14px;
+      color: var(--paper);
+    }
+    .form-ok.show { display: block; }
 
     /* ════ FOOTER ════════════════════════════════════════════════ */
     .footer {
@@ -898,18 +914,23 @@
         </ul>
       </div>
 
-      <form class="booking-form fade-up" id="bookingForm" style="transition-delay:.12s" novalidate>
+      <form class="booking-form fade-up" id="bookingForm" style="transition-delay:.12s">
         <div class="form-field">
           <label class="form-label" for="f-name">Full name</label>
-          <input id="f-name" class="form-input" type="text" placeholder="Your name" required>
+          <input id="f-name" class="form-input" type="text" placeholder="Your name"
+                 autocomplete="name" required>
         </div>
         <div class="form-field">
           <label class="form-label" for="f-phone">Phone</label>
-          <input id="f-phone" class="form-input" type="tel" placeholder="08X-XXX-XXXX" required>
+          <input id="f-phone" class="form-input" type="tel" placeholder="08X-XXX-XXXX"
+                 inputmode="tel" autocomplete="tel" aria-describedby="phone-hint"
+                 pattern="0[0-9]{1,2}[\s\-]?[0-9]{3}[\s\-]?[0-9]{4}"
+                 title="Thai phone number, e.g. 081-234-5678 or 02-123-4567" required>
+          <p class="form-hint" id="phone-hint">Thai number, e.g. 081-234-5678 or 02-123-4567</p>
         </div>
         <div class="form-field">
           <label class="form-label" for="f-service">What would you like to discuss?</label>
-          <select id="f-service" class="form-select">
+          <select id="f-service" class="form-select" required>
             <option value="" disabled selected>Choose a topic</option>
             <option>Botox</option>
             <option>Filler</option>
@@ -919,6 +940,7 @@
           </select>
         </div>
         <button type="submit" class="form-submit" id="submitBtn">Send — we reply within 24 hours</button>
+        <p class="form-ok" id="formOk" role="status" tabindex="-1">We'll call you back within 24 hours during clinic hours.</p>
       </form>
 
     </div>
@@ -1014,11 +1036,25 @@
   });
 
   /* ── Booking form ────────────────────────────────────────── */
-  document.getElementById('bookingForm').addEventListener('submit', e => {
+  const bookingForm = document.getElementById('bookingForm');
+
+  bookingForm.addEventListener('submit', e => {
     e.preventDefault();
+
+    /* Whitespace-only entries must not pass `required` */
+    ['f-name', 'f-phone'].forEach(id => {
+      const field = document.getElementById(id);
+      field.value = field.value.trim();
+    });
+
+    if (!bookingForm.checkValidity()) { bookingForm.reportValidity(); return; }
+
     const btn = document.getElementById('submitBtn');
+    const ok  = document.getElementById('formOk');
     btn.textContent = '✓ Received — we\'ll be in touch soon';
     btn.disabled = true;
+    ok.classList.add('show');
+    ok.focus();
   });
 </script>
 

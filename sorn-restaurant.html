@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SORN — Modern Thai Fine Dining</title>
+  <title>RATRI — Modern Thai Fine Dining</title>
+  <meta name="description" content="RATRI — a fictional modern Thai fine-dining restaurant in Bangkok, created as a concept design study. Tasting menu, seasonal produce, reservations." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -89,6 +90,8 @@
       gap: 5px;
       cursor: pointer;
       padding: 4px;
+      background: none;
+      border: none;
     }
     .nav-hamburger span {
       display: block;
@@ -96,8 +99,12 @@
       height: 2px;
       background: var(--cream);
       border-radius: 2px;
-      transition: transform 0.3s;
+      transition: transform 0.3s, opacity 0.3s;
     }
+    .nav-hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    body.menu-open { overflow: hidden; }
     .mobile-menu {
       display: none;
       position: fixed;
@@ -573,18 +580,50 @@
     }
     .res-submit button:hover { background: var(--gold-light); }
     .res-submit button:active { transform: scale(0.99); }
-    .res-success {
+    .res-success,
+    .res-notice,
+    .res-error {
       display: none;
+      grid-column: 1 / -1;
       margin-top: 1.5rem;
       padding: 1rem 1.5rem;
-      background: rgba(201,168,76,0.12);
-      border: 1px solid rgba(201,168,76,0.35);
       border-radius: 2px;
-      color: var(--gold);
       font-size: 0.9rem;
       letter-spacing: 0.04em;
+      text-align: left;
     }
-    .res-success.show { display: block; }
+    .res-success {
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.35);
+      color: var(--gold);
+    }
+    .res-notice {
+      background: rgba(250,247,242,0.06);
+      border: 1px solid rgba(201,168,76,0.25);
+      color: rgba(250,247,242,0.8);
+      line-height: 1.7;
+    }
+    .res-notice a {
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(201,168,76,0.4);
+      white-space: nowrap;
+    }
+    .res-notice a:hover { color: var(--gold-light); }
+    .res-error {
+      background: rgba(224,85,85,0.1);
+      border: 1px solid rgba(224,85,85,0.35);
+      color: #e07070;
+    }
+    .res-success.show,
+    .res-notice.show,
+    .res-error.show { display: block; }
+    .res-success:focus-visible,
+    .res-notice:focus-visible,
+    .res-error:focus-visible {
+      outline: 1px solid var(--gold);
+      outline-offset: 3px;
+    }
 
     /* ── FOOTER ── */
     footer {
@@ -625,6 +664,13 @@
       margin-bottom: 0.3rem;
     }
     .footer-hours-row span:first-child { color: var(--cream); opacity: 0.7; }
+    .footer-disclaimer {
+      font-size: 0.75rem;
+      line-height: 1.7;
+      color: rgba(250,247,242,0.35);
+      max-width: 62ch;
+      margin-bottom: 1.5rem;
+    }
     .footer-bottom {
       display: flex;
       align-items: center;
@@ -703,15 +749,15 @@
 
   <!-- NAVBAR -->
   <nav class="nav" id="nav">
-    <a href="#" class="nav-logo">SORN</a>
+    <a href="#" class="nav-logo">RATRI</a>
     <ul class="nav-links">
       <li><a href="#dishes">Menu</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#reserve" class="nav-reserve">Reserve</a></li>
     </ul>
-    <div class="nav-hamburger" id="hamburger" aria-label="Open menu">
+    <button type="button" class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
       <span></span><span></span><span></span>
-    </div>
+    </button>
   </nav>
 
   <!-- MOBILE MENU -->
@@ -818,7 +864,7 @@
         <img
           class="about-img"
           src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200"
-          alt="SORN dining room interior"
+          alt="RATRI dining room interior"
           loading="lazy"
         />
         <div class="about-img-accent"></div>
@@ -831,10 +877,10 @@
           "Thai cuisine carries centuries of wisdom — our role is simply to let it speak."
         </p>
         <p class="about-body">
-          SORN was born from a belief that the richness of Thai culinary heritage deserves a space
-          of quiet reverence. Named after the Thai word for "to teach", every dish here is a lesson
-          in provenance — sourced from small family farms in Chiang Rai, coastal villages in Trang,
-          and heritage paddy fields in Suphanburi.
+          RATRI was born from a belief that the richness of Thai culinary heritage deserves a space
+          of quiet reverence. Named after the Thai word for "night" — the hours when a Thai kitchen
+          comes fully alive — every dish here is a lesson in provenance: sourced from small family
+          farms in Chiang Rai, coastal villages in Trang, and heritage paddy fields in Suphanburi.
         </p>
         <p class="about-body">
           Our tasting menu changes with the seasons, guided by the rhythms of Thai agricultural
@@ -851,8 +897,8 @@
             <span>Partnered Farms</span>
           </div>
           <div class="about-stat">
-            <strong>2★</strong>
-            <span>Michelin Stars</span>
+            <strong>24</strong>
+            <span>Seats Each Evening</span>
           </div>
         </div>
       </div>
@@ -882,7 +928,7 @@
           from grandmothers, and mapping the forgotten spice routes of the kingdom.
         </p>
         <p class="chef-bio" style="margin-top:1rem;">
-          At SORN, he synthesises this living archive into menus that feel both
+          At RATRI, he synthesises this living archive into menus that feel both
           deeply familiar and startlingly new. His philosophy: <em style="color:var(--green);font-family:'Playfair Display',serif;">
           honour the original, then let it breathe.</em>
         </p>
@@ -899,25 +945,33 @@
     <p class="res-sub fade-up delay-2">
       We seat guests Tuesday through Sunday. Reservations are recommended at least 48 hours in advance.
     </p>
-    <form class="res-form fade-up delay-3" id="resForm" action="https://formspree.io/f/PLACEHOLDER" method="POST" novalidate>
+    <form class="res-form fade-up delay-3" id="resForm" novalidate>
       <div class="form-group">
         <label for="res-name">Full Name</label>
-        <input type="text" id="res-name" name="name" placeholder="Your name" />
+        <input type="text" id="res-name" name="name" placeholder="Your name" autocomplete="name" minlength="2" required />
         <span class="field-error" id="err-name">Please enter your full name.</span>
       </div>
       <div class="form-group">
         <label for="res-email">Email Address</label>
-        <input type="email" id="res-email" name="email" placeholder="your@email.com" />
+        <input type="email" id="res-email" name="email" placeholder="your@email.com" autocomplete="email" required />
         <span class="field-error" id="err-email">Please enter a valid email.</span>
       </div>
       <div class="form-group">
+        <label for="res-phone">Phone Number</label>
+        <input type="tel" id="res-phone" name="phone" placeholder="081-234-5678" autocomplete="tel" inputmode="tel"
+               pattern="[+]?[0-9\s\(\)\.\-]{7,24}"
+               title="Digits, spaces and + ( ) - . only — e.g. 081-234-5678 or +66 2 123 4567"
+               required />
+        <span class="field-error" id="err-phone">Please enter a phone number we can reach you on.</span>
+      </div>
+      <div class="form-group">
         <label for="res-date">Date</label>
-        <input type="date" id="res-date" name="date" />
+        <input type="date" id="res-date" name="date" required />
         <span class="field-error" id="err-date">Please select a date.</span>
       </div>
       <div class="form-group">
         <label for="res-time">Preferred Time</label>
-        <select id="res-time" name="time">
+        <select id="res-time" name="time" required>
           <option value="">Select a time</option>
           <option value="18:00">6:00 PM</option>
           <option value="18:30">6:30 PM</option>
@@ -928,9 +982,9 @@
         </select>
         <span class="field-error" id="err-time">Please select a time.</span>
       </div>
-      <div class="form-group field-full">
+      <div class="form-group">
         <label for="res-guests">Number of Guests</label>
-        <select id="res-guests" name="guests">
+        <select id="res-guests" name="guests" required>
           <option value="">Select guests</option>
           <option value="1">1 Guest</option>
           <option value="2">2 Guests</option>
@@ -945,7 +999,15 @@
       <div class="res-submit">
         <button type="submit">Confirm Reservation</button>
       </div>
-      <div class="res-success" id="resSuccess" role="alert">
+      <div class="res-error" id="resError" role="alert" tabindex="-1">
+        Please complete the highlighted fields above before confirming.
+      </div>
+      <div class="res-notice" id="resNotice" role="status" tabindex="-1">
+        Parties of seven or more are arranged personally by our reservations team so we can plan the
+        table and the menu with you. Please call <a href="tel:+6625550100">+66 2 555 0100</a> — we seat
+        Tuesday to Sunday, from 4:00 PM.
+      </div>
+      <div class="res-success" id="resSuccess" role="status" tabindex="-1">
         Thank you — your reservation request has been received. We will confirm within 24 hours.
       </div>
     </form>
@@ -955,16 +1017,16 @@
   <footer>
     <div class="footer-top">
       <div class="footer-brand">
-        <a href="#" class="nav-logo">SORN</a>
-        <p>A sanctuary of Thai flavour in the heart of Bangkok. Two stars, one purpose — to honour the cuisine of the kingdom.</p>
+        <a href="#" class="nav-logo">RATRI</a>
+        <p>A sanctuary of Thai flavour in the heart of Bangkok. One tasting menu, one purpose — to honour the cuisine of the kingdom.</p>
       </div>
       <div class="footer-col">
         <h4>Find Us</h4>
         <address>
-          56/6 Sukhumvit Soi 26<br />
-          Khlong Toei, Bangkok 10110<br />
+          Charoen Krung Road<br />
+          Bang Rak, Bangkok 10500<br />
           Thailand<br /><br />
-          <a href="tel:+6621234567" class="footer-phone">+66 2 123 4567</a>
+          <a href="tel:+6625550100" class="footer-phone">+66 2 555 0100</a>
         </address>
       </div>
       <div class="footer-col">
@@ -975,8 +1037,12 @@
         <div class="footer-hours-row"><span>Monday</span><span>Closed</span></div>
       </div>
     </div>
+    <p class="footer-disclaimer">
+      RATRI is a fictional restaurant created as a concept design study. It is not a real business,
+      and every name, address, menu and price on this page is invented.
+    </p>
     <div class="footer-bottom">
-      <p>© 2026 SORN Restaurant. All rights reserved.</p>
+      <p>© 2026 RATRI Bangkok. Concept design study.</p>
       <div class="social-icons">
         <a href="#" aria-label="Instagram">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
@@ -1008,10 +1074,24 @@
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     const mobileClose = document.getElementById('mobileClose');
-    hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
-    mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+
+    function setMenu(open, returnFocus = true) {
+      mobileMenu.classList.toggle('open', open);
+      document.body.classList.toggle('menu-open', open);
+      hamburger.setAttribute('aria-expanded', String(open));
+      hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      if (open) mobileClose.focus();
+      else if (returnFocus) hamburger.focus();
+    }
+
+    hamburger.addEventListener('click', () => setMenu(!mobileMenu.classList.contains('open')));
+    mobileClose.addEventListener('click', () => setMenu(false));
     document.querySelectorAll('.mobile-link').forEach(link => {
-      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+      // Let the in-page anchor take focus itself — don't pull it back to the hamburger.
+      link.addEventListener('click', () => setMenu(false, false));
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('open')) setMenu(false);
     });
 
     // ── SCROLL ANIMATIONS ──
@@ -1027,77 +1107,144 @@
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
     // ── SET MIN DATE FOR RESERVATION ──
+    // Local-time formatter: toISOString() converts to UTC first, so in UTC+7 it
+    // reports the previous day for any wall-clock time before 07:00.
+    function toISODate(d) {
+      return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    }
+
     const dateInput = document.getElementById('res-date');
-    const today = new Date();
-    const minDate = new Date(today.getTime() + 48 * 60 * 60 * 1000);
-    dateInput.min = minDate.toISOString().split('T')[0];
+    const minDate = new Date();
+    minDate.setDate(minDate.getDate() + 2); // 48 hours' notice, as stated above the form
+    dateInput.min = toISODate(minDate);
 
     // ── FORM VALIDATION ──
+    // Static demo: there is no backend. Validation is real, the send is simulated.
     const form = document.getElementById('resForm');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const successBox = document.getElementById('resSuccess');
+    const noticeBox = document.getElementById('resNotice');
+    const errorBox = document.getElementById('resError');
+    const guestsInput = document.getElementById('res-guests');
+    const phoneInput = document.getElementById('res-phone');
+
     const fields = [
-      { id: 'res-name',   errId: 'err-name',   validate: v => v.trim().length > 1 },
-      { id: 'res-email',  errId: 'err-email',  validate: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
-      { id: 'res-date',   errId: 'err-date',   validate: v => v !== '' },
-      { id: 'res-time',   errId: 'err-time',   validate: v => v !== '' },
-      { id: 'res-guests', errId: 'err-guests', validate: v => v !== '' },
+      { id: 'res-name',   errId: 'err-name'   },
+      { id: 'res-email',  errId: 'err-email'  },
+      { id: 'res-phone',  errId: 'err-phone'  },
+      { id: 'res-date',   errId: 'err-date'   },
+      { id: 'res-time',   errId: 'err-time'   },
+      { id: 'res-guests', errId: 'err-guests' },
     ];
+
+    // Messages that depend on *how* the field is wrong, not just that it is.
+    const messages = {
+      // Order matters: a malformed number also trips the digit-count check.
+      'res-phone': el => el.validity.valueMissing
+        ? 'Please enter a phone number we can reach you on.'
+        : el.validity.patternMismatch
+          ? 'Use digits, spaces and + ( ) - . — e.g. 081-234-5678 or +66 2 123 4567.'
+          : 'That number looks too short or too long — please check it and try again.',
+      'res-date': el => el.validity.valueMissing
+        ? 'Please select a date.'
+        : 'We need at least 48 hours’ notice — please choose a later date.',
+    };
+
+    // The pattern can't count digits across separators, so fold that check into
+    // the element's own validity — checkValidity() then covers every rule.
+    function syncPhoneValidity() {
+      const digits = phoneInput.value.replace(/\D/g, '');
+      const wrongLength = phoneInput.value.trim() !== '' && (digits.length < 9 || digits.length > 15);
+      phoneInput.setCustomValidity(wrongLength ? 'Phone numbers need 9 to 15 digits.' : '');
+    }
+    phoneInput.addEventListener('input', syncPhoneValidity);
+
+    function showFieldState(el, errEl) {
+      const ok = el.checkValidity();
+      if (!ok && messages[el.id]) errEl.textContent = messages[el.id](el);
+      el.classList.toggle('error', !ok);
+      errEl.classList.toggle('show', !ok);
+      return ok;
+    }
 
     function validateForm() {
       let valid = true;
-      fields.forEach(({ id, errId, validate }) => {
-        const el = document.getElementById(id);
-        const errEl = document.getElementById(errId);
-        const ok = validate(el.value);
-        el.classList.toggle('error', !ok);
-        errEl.classList.toggle('show', !ok);
+      fields.forEach(({ id, errId }) => {
+        const ok = showFieldState(document.getElementById(id), document.getElementById(errId));
         if (!ok) valid = false;
       });
       return valid;
     }
 
-    fields.forEach(({ id, errId, validate }) => {
+    function clearFieldStates() {
+      fields.forEach(({ id, errId }) => {
+        document.getElementById(id).classList.remove('error');
+        document.getElementById(errId).classList.remove('show');
+      });
+    }
+
+    function showMessage(box) {
+      [successBox, noticeBox, errorBox].forEach(el => el.classList.toggle('show', el === box));
+      if (box) box.focus();
+    }
+
+    // Set while the form is being reset, so moving focus to the confirmation
+    // doesn't blur a just-emptied field and paint a fresh "required" error.
+    let suppressBlurValidation = false;
+
+    fields.forEach(({ id, errId }) => {
       const el = document.getElementById(id);
       const errEl = document.getElementById(errId);
       el.addEventListener('blur', () => {
-        const ok = validate(el.value);
-        el.classList.toggle('error', !ok);
-        errEl.classList.toggle('show', !ok);
+        if (!suppressBlurValidation) showFieldState(el, errEl);
       });
       el.addEventListener('input', () => {
-        if (el.classList.contains('error') && validate(el.value)) {
+        if (el.classList.contains('error') && el.checkValidity()) {
           el.classList.remove('error');
           errEl.classList.remove('show');
         }
       });
     });
 
-    form.addEventListener('submit', async (e) => {
+    // Editing after a rejected submit clears the summary; the confirmation stays put.
+    form.addEventListener('input', () => {
+      errorBox.classList.remove('show');
+      noticeBox.classList.remove('show');
+    });
+    guestsInput.addEventListener('change', () => noticeBox.classList.remove('show'));
+
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
-      if (!validateForm()) return;
 
-      const btn = form.querySelector('button[type="submit"]');
-      const success = document.getElementById('resSuccess');
-      btn.textContent = 'Sending…';
-      btn.disabled = true;
-
-      try {
-        const res = await fetch(form.action, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { Accept: 'application/json' },
-        });
-        if (res.ok) {
-          form.reset();
-          success.classList.add('show');
-          btn.style.display = 'none';
-        } else {
-          throw new Error();
-        }
-      } catch {
-        btn.textContent = 'Confirm Reservation';
-        btn.disabled = false;
-        alert('Something went wrong. Please try again or call us directly.');
+      if (!validateForm()) {
+        showMessage(errorBox);
+        const firstInvalid = fields
+          .map(f => document.getElementById(f.id))
+          .find(el => !el.checkValidity());
+        if (firstInvalid) firstInvalid.focus();
+        return;
       }
+
+      // Large parties are booked by the reservations team — don't fake a confirmation.
+      if (guestsInput.value === '7+') {
+        showMessage(noticeBox);
+        return;
+      }
+
+      submitBtn.textContent = 'Sending…';
+      submitBtn.disabled = true;
+
+      window.setTimeout(() => {
+        suppressBlurValidation = true;
+        form.reset();
+        clearFieldStates();
+        syncPhoneValidity();
+        submitBtn.textContent = 'Confirm Reservation';
+        submitBtn.disabled = false;
+        submitBtn.style.display = 'none';
+        showMessage(successBox);
+        suppressBlurValidation = false;
+      }, 900);
     });
   </script>
 </body>

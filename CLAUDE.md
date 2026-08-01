@@ -51,7 +51,7 @@ my-portfolio/
 | 3 | NOIR Coffee | `coffee-landing.html` | Dark, Coffee |
 | 4 | Elevate Commerce | `ElevateCommerce.html` | E-commerce |
 | 5 | Elasticshop Gaming | `elasticshop-gaming.html` | Gaming, E-commerce |
-| 6 | SORN Restaurant | `sorn-restaurant.html` | Fine Dining, Restaurant |
+| 6 | RATRI Restaurant | `sorn-restaurant.html` | Fine Dining, Restaurant |
 | 7 | SolarPeak | `solar-landing.html` | Energy, Landing Page |
 | 8 | BookEase Dashboard | `BookEase.html` | Dashboard, Booking, Light UI |
 | 9 | MuseRoom | `MuseRoom.html` | Gallery, Landing Page, Brand |

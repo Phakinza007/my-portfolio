@@ -256,6 +256,7 @@
 
     .wiz-foot {
       display: flex; justify-content: space-between; align-items: center; gap: 14px;
+      flex-wrap: wrap;
       padding: 22px 40px;
       border-top: 1px solid var(--line);
       background: var(--paper);
@@ -324,10 +325,16 @@
       .wiz-note { display: none; }
       .hero h1 br { display: none; }
       .hero h1 { font-size: 28px; }
+      /* stack the wizard footer: primary action full width on top, back below */
+      .wiz-foot { flex-direction: column; align-items: stretch; gap: 10px; padding: 18px 20px; }
+      .wiz-foot .btn { width: 100%; padding: 14px 18px; min-height: 48px; }
+      #btnNext { order: -1; }
     }
     @media (max-width: 480px) {
       .slots { grid-template-columns: 1fr 1fr; }
       .opt-price { display: none; }
+      .sum-row { flex-direction: column; align-items: flex-start; gap: 2px; padding: 13px 16px; }
+      .sum-row .v { text-align: left; }
     }
   </style>
 </head>
@@ -444,9 +451,9 @@
                 <div class="slots" id="slotGrid">
                   <button class="slot" type="button">11:00</button>
                   <button class="slot" type="button">12:30</button>
-                  <button class="slot off" type="button" disabled>14:00</button>
+                  <button class="slot" type="button">14:00</button>
                   <button class="slot" type="button">15:30</button>
-                  <button class="slot off" type="button" disabled>17:00</button>
+                  <button class="slot" type="button">17:00</button>
                   <button class="slot" type="button">18:30</button>
                 </div>
               </div>
@@ -568,7 +575,43 @@
     const btnBack = document.getElementById('btnBack');
     const wizNote = document.getElementById('wizNote');
     const dateInput = document.getElementById('wDate');
+    const slotGrid = document.getElementById('slotGrid');
     dateInput.min = new Date().toISOString().split('T')[0];
+
+    // ── Slot availability ────────────────────────────────────
+    // Demo data: which slots are full is derived from the date itself
+    // (FNV-1a hash), so every date has its own — but always stable —
+    // availability. Same date re-selected => identical result.
+    function hashDate(str) {
+      let h = 2166136261;
+      for (let i = 0; i < str.length; i++) {
+        h ^= str.charCodeAt(i);
+        h = Math.imul(h, 16777619);
+      }
+      return h >>> 0;
+    }
+
+    function fullSlots(dateStr) {
+      const slots = slotGrid.querySelectorAll('.slot');
+      const taken = new Set();
+      if (!dateStr) return taken;
+      const h = hashDate(dateStr);
+      const howMany = 1 + (h % 3);           // 1–3 คิวเต็มต่อวัน
+      for (let i = 0; i < howMany; i++) {
+        taken.add(((h >>> (i * 6)) + i * 5) % slots.length);
+      }
+      return taken;
+    }
+
+    function renderSlots() {
+      const taken = fullSlots(state.date);
+      slotGrid.querySelectorAll('.slot').forEach((s, i) => {
+        const off = taken.has(i);
+        s.disabled = off;
+        s.classList.toggle('off', off);
+        if (off) s.classList.remove('sel');
+      });
+    }
 
     function stepValid() {
       switch (state.step) {
@@ -618,15 +661,22 @@
     pick('svcGrid', 'service', 'price');
     pick('docGrid', 'doctor');
 
-    document.getElementById('slotGrid').addEventListener('click', (ev) => {
+    slotGrid.addEventListener('click', (ev) => {
       const s = ev.target.closest('.slot');
       if (!s || s.disabled) return;
-      document.querySelectorAll('.slot').forEach(x => x.classList.remove('sel'));
+      slotGrid.querySelectorAll('.slot').forEach(x => x.classList.remove('sel'));
       s.classList.add('sel');
       state.time = s.textContent;
       render();
     });
-    dateInput.addEventListener('change', () => { state.date = dateInput.value; render(); });
+    dateInput.addEventListener('change', () => {
+      state.date = dateInput.value;
+      // เปลี่ยนวัน = ล้างเวลาที่เลือกไว้ ไม่ให้เวลาเก่าหลุดไปถึงหน้ายืนยัน
+      state.time = null;
+      slotGrid.querySelectorAll('.slot').forEach(x => x.classList.remove('sel'));
+      renderSlots();
+      render();
+    });
     ['wName', 'wPhone'].forEach(id =>
       document.getElementById(id).addEventListener('input', render));
 
@@ -643,6 +693,7 @@
     });
     btnBack.addEventListener('click', () => { if (state.step > 1) { state.step--; render(); } });
 
+    renderSlots();
     render();
   </script>
 </body>

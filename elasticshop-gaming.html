@@ -44,8 +44,21 @@
       overflow-x: hidden;
     }
     a { color: inherit; text-decoration: none; }
-    button { font: inherit; cursor: pointer; border: none; background: none; }
+    button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
     .thai { font-family: 'Noto Sans Thai', 'Prompt', sans-serif; }
+
+    /* global keyboard focus treatment — yellow ring + thin dark keyline
+       so it stays visible on both the dark chrome and the light screens */
+    :focus-visible {
+      outline: 3px solid var(--yellow);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 1px var(--black);
+    }
+    .tn-search:focus-within {
+      outline: 3px solid var(--yellow);
+      outline-offset: 2px;
+    }
+    .tn-search input:focus-visible { outline: none; box-shadow: none; }
 
     /* ============================================================
        APP SHELL  —  sidebar + viewport
@@ -207,7 +220,8 @@
     }
     .tn-search input::placeholder { color: #888; }
     .tn-search svg { width: 16px; height: 16px; color: #fff; flex-shrink: 0; }
-    .tn-history { font-size: 0.9rem; font-weight: 500; }
+    .tn-history { font-size: 0.9rem; font-weight: 500; font-family: inherit; }
+    .tn-history:hover { color: var(--yellow); }
     .topnav-light .tn-history { color: #4a4a4a; }
     .topnav-dark  .tn-history { color: #d0d0d0; }
     .tn-history.active { color: var(--yellow); position: relative; }
@@ -268,8 +282,12 @@
     .deal-price s { color: rgba(255,255,255,0.4); font-size: 0.85rem; margin-right: 5px; }
     .deal-price b { color: var(--yellow); font-size: 1.25rem; }
     .hero-dots { display: flex; gap: 6px; justify-content: center; }
-    .hero-dots i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.25); transition: all 0.2s; }
-    .hero-dots i.active { background: var(--yellow); width: 18px; border-radius: 4px; }
+    .hero-dots button {
+      width: 7px; height: 7px; padding: 0; border-radius: 50%;
+      background: rgba(255,255,255,0.25); transition: all 0.2s;
+    }
+    .hero-dots button:hover { background: rgba(255,255,255,0.5); }
+    .hero-dots button.active { background: var(--yellow); width: 18px; border-radius: 4px; }
     .hero-badge {
       display: inline-block;
       background: var(--yellow); color: #111;
@@ -294,59 +312,6 @@
       transition: background 0.18s, transform 0.18s var(--ease);
     }
     .hero-cta:hover { background: var(--yellow-d); transform: translateY(-2px); }
-
-    .skeleton-bar {
-      height: 46px; border-radius: var(--r-pill);
-      background: #e6e6e6; margin: 1.75rem 0;
-    }
-
-    .game-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem;
-    }
-    .game-card {
-      background: #fff; border-radius: var(--r);
-      overflow: hidden; border: 1px solid var(--border);
-      position: relative;
-      transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
-    }
-    .game-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,0.12); }
-    .game-thumb { aspect-ratio: 1; background: #e0e0e0; position: relative; }
-    .game-thumb.g1 { background: linear-gradient(150deg, #2b1055, #7597de); }
-    .game-thumb.g2 { background: linear-gradient(150deg, #134e5e, #71b280); }
-    .game-thumb.g3 { background: linear-gradient(150deg, #870000, #190a05); }
-    .game-thumb.g4 { background: linear-gradient(150deg, #1f1c2c, #928dab); }
-    .gc-badge {
-      position: absolute; top: 0.7rem; left: 0.7rem;
-      font-size: 0.66rem; font-weight: 800; letter-spacing: 0.04em;
-      padding: 0.22rem 0.6rem; border-radius: var(--r-sm);
-    }
-    .gc-badge.hot { background: var(--yellow); color: #111; }
-    .gc-badge.bonus { background: var(--green); color: #fff; }
-    .game-foot { padding: 0.85rem 0.9rem 1rem; }
-    .game-foot .gline { height: 9px; border-radius: 4px; background: #ececec; }
-    .game-foot .gline.short { width: 60%; margin-top: 7px; height: 7px; }
-
-    .home-section-title {
-      text-align: center; font-size: 1.7rem; font-weight: 700;
-      color: var(--black); margin: 2.5rem 0 1.5rem;
-    }
-    .promo-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
-      padding-bottom: 2.5rem;
-    }
-    .promo-card {
-      background: #fff; border-radius: var(--r); overflow: hidden;
-      border: 1px solid var(--border);
-      transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
-    }
-    .promo-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,0.12); }
-    .promo-thumb { aspect-ratio: 16/9; }
-    .promo-thumb.p1 { background: linear-gradient(135deg, #f0442f33, #ffd40033), #e3e3e3; }
-    .promo-thumb.p2 { background: linear-gradient(135deg, #10b98133, #ffd40033), #e3e3e3; }
-    .promo-thumb.p3 { background: linear-gradient(135deg, #6d28d933, #f0442f33), #e3e3e3; }
-    .promo-foot { padding: 1rem; }
-    .promo-foot .pline { height: 10px; border-radius: 4px; background: #ececec; }
-    .promo-foot .pline.short { width: 50%; margin-top: 8px; height: 8px; }
 
     .home-footer {
       background: var(--black); color: #fff;
@@ -447,6 +412,18 @@
     .badge-pending { background: #fef6cf; color: #92750a; }
     .badge-error   { background: #fee2e2; color: #b91c1c; }
     .badge-cancel  { background: #eef0f2; color: #64748b; }
+
+    /* empty state (history filters + home category filter) */
+    .empty-state {
+      display: none;
+      background: #fff; border: 1px dashed #d3d7dc; border-radius: var(--r);
+      padding: 2.25rem 1.5rem; text-align: center;
+    }
+    .empty-state.show { display: block; }
+    .empty-state svg { width: 30px; height: 30px; color: var(--muted); margin-bottom: 0.6rem; }
+    .empty-state b { display: block; font-size: 0.98rem; font-weight: 700; color: var(--black); }
+    .empty-state span { display: block; font-size: 0.85rem; color: var(--muted); margin-top: 0.3rem; }
+    .txn-card.hide, .cat-section.hide, .tile.hide { display: none; }
 
     /* ============================================================
        SCREEN 4 — TRANSACTION STATUS
@@ -554,6 +531,20 @@
     }
     .sp-refresh:hover { background: var(--surface); }
     .sp-refresh svg { width: 16px; height: 16px; }
+    .sp-refresh[disabled] { color: var(--muted); cursor: progress; }
+    .sp-refresh.loading svg { animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) {
+      .sp-refresh.loading svg { animation: none; }
+      .screen { animation: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* pending card once the status resolves to success */
+    .status-pending.done { border-top-color: var(--green); box-shadow: 0 12px 40px rgba(16,185,129,0.12); }
+    .status-pending.done .sp-icon { background: var(--green-l); }
+    .sp-badge.done { background: var(--green-l); color: var(--green-t); }
+    .sp-badge.done .pdot { background: var(--green); }
 
     /* ============================================================
        SCREEN 2 — TOP UP FLOW
@@ -589,13 +580,14 @@
     .field-input {
       width: 100%; background: var(--surface); border: 1px solid var(--border);
       border-radius: var(--r); padding: 0.85rem 1rem; font-family: inherit; font-size: 0.95rem;
-      color: var(--ink); outline: none; transition: border 0.18s;
+      color: var(--ink); transition: border 0.18s;
     }
     .field-input:focus { border-color: var(--red); background: #fff; }
     .field-help { font-size: 0.78rem; color: var(--muted); margin-top: 0.4rem; }
 
     .pkg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.85rem; }
     .pkg {
+      display: block; width: 100%; font-family: inherit;
       border: 2px solid var(--border); border-radius: var(--r);
       padding: 1rem; text-align: center; cursor: pointer;
       position: relative; transition: all 0.18s var(--ease); background: #fff;
@@ -608,9 +600,9 @@
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
       background-repeat: no-repeat; background-position: center;
     }
-    .pkg-icon { width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, var(--yellow), #ffaa00); margin: 0 auto 0.6rem; }
-    .pkg-amt { font-size: 1rem; font-weight: 700; color: var(--black); }
-    .pkg-price { font-size: 0.95rem; font-weight: 700; color: var(--red); margin-top: 0.2rem; }
+    .pkg-icon { display: block; width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, var(--yellow), #ffaa00); margin: 0 auto 0.6rem; }
+    .pkg-amt { display: block; font-size: 1rem; font-weight: 700; color: var(--black); }
+    .pkg-price { display: block; font-size: 0.95rem; font-weight: 700; color: var(--red); margin-top: 0.2rem; }
     .pkg-tag { position: absolute; top: -9px; left: 50%; transform: translateX(-50%); background: var(--yellow); color: #111; font-size: 0.66rem; font-weight: 800; padding: 0.12rem 0.55rem; border-radius: var(--r-pill); }
 
     /* order summary */
@@ -624,12 +616,21 @@
     .sum-total .k { font-size: 1rem; font-weight: 700; color: var(--black); }
     .sum-total .v { font-size: 1.6rem; font-weight: 800; color: var(--red); }
     .sum-btn {
-      width: 100%; background: var(--red); color: #fff;
-      font-size: 1.02rem; font-weight: 700;
+      display: block; width: 100%; background: var(--red); color: #fff;
+      font-size: 1.02rem; font-weight: 700; font-family: inherit;
       padding: 0.95rem; border-radius: var(--r); text-align: center;
       transition: background 0.18s, transform 0.18s var(--ease);
     }
     .sum-btn:hover { background: var(--red-d); transform: translateY(-1px); }
+    .sum-btn[disabled] {
+      background: #d9d9d9; color: #7a7a7a; cursor: not-allowed;
+    }
+    .sum-btn[disabled]:hover { background: #d9d9d9; transform: none; }
+    .sum-hint {
+      display: none; align-items: center; gap: 0.4rem;
+      margin-top: 0.7rem; font-size: 0.82rem; font-weight: 600; color: var(--red-d);
+    }
+    .sum-hint.show { display: flex; }
     .sum-secure { display: flex; align-items: center; justify-content: center; gap: 0.4rem; font-size: 0.78rem; color: var(--muted); margin-top: 0.85rem; }
     .sum-secure svg { width: 13px; height: 13px; }
 
@@ -659,11 +660,12 @@
       font-size: 1.05rem; font-weight: 700; color: var(--black);
     }
     .cat-title .bar { width: 4px; height: 18px; background: var(--red); border-radius: 2px; }
-    .cat-more { font-size: 0.82rem; font-weight: 600; color: var(--muted); transition: color 0.18s; }
+    .cat-more { font-family: inherit; font-size: 0.82rem; font-weight: 600; color: var(--muted); transition: color 0.18s; }
     .cat-more:hover { color: var(--red); }
 
     .tile-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.9rem; }
     .tile {
+      display: block; width: 100%; padding: 0; text-align: left; font-family: inherit;
       background: #fff; border: 1px solid var(--border); border-radius: 12px;
       overflow: hidden; cursor: pointer;
       transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), border-color 0.2s var(--ease);
@@ -689,12 +691,12 @@
       padding: 0.15rem 0.45rem; border-radius: var(--r-sm);
     }
     .tile-badge.new { background: var(--red); color: #fff; }
-    .tile-cap { padding: 0.5rem 0.6rem 0.65rem; }
+    .tile-cap { display: block; padding: 0.5rem 0.6rem 0.65rem; }
     .tile-name {
-      font-size: 0.76rem; font-weight: 600; color: var(--black);
+      display: block; font-size: 0.76rem; font-weight: 600; color: var(--black);
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .tile-price { font-size: 0.78rem; font-weight: 800; color: var(--red); margin-top: 0.1rem; }
+    .tile-price { display: block; font-size: 0.78rem; font-weight: 800; color: var(--red); margin-top: 0.1rem; }
     .tile-price span { font-size: 0.66rem; color: var(--muted); font-weight: 500; margin-right: 2px; }
 
     /* tile art — dark base + brand-tinted glow (red / yellow only) */
@@ -767,7 +769,6 @@
     }
 
     @media (max-width: 1024px) {
-      .game-grid { grid-template-columns: repeat(2, 1fr); }
       .tile-grid { grid-template-columns: repeat(4, 1fr); }
       .hero { padding: 2.25rem 2rem; }
       .hero h1 { font-size: 2.4rem; }
@@ -784,7 +785,6 @@
       .viewport { padding: 1rem; }
       .tn-links { display: none; }
       .tn-search { flex-basis: 180px; }
-      .promo-grid { grid-template-columns: repeat(2, 1fr); }
       .pkg-grid { grid-template-columns: repeat(2, 1fr); }
       .pc-stats { gap: 1.5rem; }
       .hist-body, .topup-body { padding: 1.5rem; }
@@ -808,9 +808,7 @@
       .hero { padding: 1.75rem 1.4rem; }
       .hero h1 { font-size: 1.8rem; }
       .hero p { font-size: 0.9rem; }
-      .game-grid { grid-template-columns: 1fr 1fr; gap: 0.85rem; }
       .tile-grid { grid-template-columns: repeat(3, 1fr); gap: 0.7rem; }
-      .promo-grid { grid-template-columns: 1fr; }
       .feat-card { flex-direction: column; }
       .feat-art { flex: none; min-height: 150px; }
       .feat-body { padding: 1.1rem 1.2rem; }
@@ -857,7 +855,6 @@
     @media (max-width: 420px) {
       .side-brand-text span { display: none; }
       .side-link { padding: 0.45rem 0.65rem; }
-      .game-grid { grid-template-columns: 1fr; }
       .tile-grid { grid-template-columns: repeat(2, 1fr); }
       .pkg-grid { grid-template-columns: 1fr; }
       .trust-bar { grid-template-columns: 1fr; }
@@ -889,28 +886,28 @@
 
       <div class="side-menu" id="sideMenu">
         <div class="side-label">Screens</div>
-        <nav class="side-nav">
-        <button class="side-link active" data-screen="home">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <div class="side-nav" role="tablist" aria-orientation="vertical" aria-label="Prototype screens">
+        <button class="side-link active" role="tab" id="tab-home" data-screen="home" aria-controls="screen-home" aria-selected="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
           Home
-          <span class="num">1</span>
+          <span class="num" aria-hidden="true">1</span>
         </button>
-        <button class="side-link" data-screen="topup">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg>
+        <button class="side-link" role="tab" id="tab-topup" data-screen="topup" aria-controls="screen-topup" aria-selected="false" tabindex="-1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg>
           Top Up Flow
-          <span class="num">2</span>
+          <span class="num" aria-hidden="true">2</span>
         </button>
-        <button class="side-link" data-screen="history">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <button class="side-link" role="tab" id="tab-history" data-screen="history" aria-controls="screen-history" aria-selected="false" tabindex="-1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           History
-          <span class="num">3</span>
+          <span class="num" aria-hidden="true">3</span>
         </button>
-        <button class="side-link" data-screen="status">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <button class="side-link" role="tab" id="tab-status" data-screen="status" aria-controls="screen-status" aria-selected="false" tabindex="-1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
           Transaction Status
-          <span class="num">4</span>
+          <span class="num" aria-hidden="true">4</span>
         </button>
-        </nav>
+        </div>
 
         <div class="side-foot">
           <div class="side-note">Elasticshop Gaming Top-Up — a dark/yellow design system concept. Use the tabs to browse each screen.</div>
@@ -923,24 +920,24 @@
       <div class="frame">
 
         <!-- ===== SCREEN 1 · HOME ===== -->
-        <section class="screen active" id="screen-home">
+        <section class="screen active" id="screen-home" role="tabpanel" aria-labelledby="tab-home" tabindex="0">
           <nav class="topnav topnav-dark">
             <div class="tn-left">
               <span class="tn-logo yellow">Elasticshop</span>
               <div class="tn-links">
-                <a class="active">Home</a>
-                <a>Top Up</a>
-                <a>Promotions</a>
-                <a>How to Buy</a>
+                <a class="active" href="#screen-home" data-screen="home" aria-current="page">Home</a>
+                <a href="#screen-topup" data-screen="topup">Top Up</a>
+                <a href="#deals" data-screen="home" data-scroll="deals">Promotions</a>
+                <a href="#howto" data-screen="home" data-scroll="howto">How to Buy</a>
               </div>
             </div>
             <div class="tn-right">
               <div class="tn-search">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                <input type="text" placeholder="Search games..." />
+                <input type="text" id="gameSearch" placeholder="Search games..." aria-label="Search games" />
               </div>
-              <span class="tn-history">History</span>
-              <button class="tn-login">Login</button>
+              <button class="tn-history" data-screen="history">History</button>
+              <button class="tn-login" data-screen="history">Login</button>
             </div>
           </nav>
 
@@ -950,35 +947,45 @@
                 <span class="hero-badge">FLASH SALE</span>
                 <h1>Level Up <span class="y">Faster.</span><br>Top Up Smarter.</h1>
                 <p>Get instant delivery on Free Fire Diamonds and ROV Coupons. Safe, secure, and officially trusted by pro gamers.</p>
-                <a class="hero-cta thai">เติมเลย (Top Up Now)</a>
+                <a class="hero-cta thai" href="#screen-topup" data-screen="topup">เติมเลย (Top Up Now)</a>
               </div>
               <div class="hero-visual">
-                <div class="deal-card">
-                  <span class="deal-off">-50%</span>
-                  <div class="deal-art"><span class="deal-mono">DEAL</span></div>
+                <div class="deal-card" id="dealCard" aria-live="polite">
+                  <span class="deal-off" id="dealOff">-50%</span>
+                  <div class="deal-art"><span class="deal-mono" id="dealMono">DEAL</span></div>
                   <div class="deal-info">
-                    <div class="deal-name thai">ดีลวันนี้</div>
-                    <div class="deal-price"><s>฿199</s><b>฿99</b></div>
+                    <div class="deal-name thai" id="dealName">ดีลวันนี้</div>
+                    <div class="deal-price"><s id="dealWas">฿198</s><b id="dealNow">฿99</b></div>
                   </div>
                 </div>
-                <div class="hero-dots"><i class="active"></i><i></i><i></i></div>
+                <div class="hero-dots" id="heroDots">
+                  <button class="active" type="button" data-deal="0" aria-label="Deal 1 of 3"></button>
+                  <button type="button" data-deal="1" aria-label="Deal 2 of 3"></button>
+                  <button type="button" data-deal="2" aria-label="Deal 3 of 3"></button>
+                </div>
               </div>
             </div>
 
             <!-- category chips -->
-            <div class="cat-chips">
-              <button class="cat-chip active">ทั้งหมด</button>
-              <button class="cat-chip">เกมมือถือ</button>
-              <button class="cat-chip">เกม PC</button>
-              <button class="cat-chip">บัตรเงินสด</button>
-              <button class="cat-chip">แอปพลิเคชัน</button>
+            <div class="cat-chips" role="group" aria-label="Category filter">
+              <button class="cat-chip active" data-cat="all" aria-pressed="true">ทั้งหมด</button>
+              <button class="cat-chip" data-cat="mobile" aria-pressed="false">เกมมือถือ</button>
+              <button class="cat-chip" data-cat="pc" aria-pressed="false">เกม PC</button>
+              <button class="cat-chip" data-cat="giftcard" aria-pressed="false">บัตรเงินสด</button>
+              <button class="cat-chip" data-cat="app" aria-pressed="false">แอปพลิเคชัน</button>
+            </div>
+
+            <div class="empty-state" id="catEmpty">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+              <b class="thai">ยังไม่มีสินค้าในหมวดนี้</b>
+              <span>No items match this category yet — try another filter.</span>
             </div>
 
             <!-- popular games -->
-            <div class="cat-section">
+            <div class="cat-section" id="deals" data-cat="all">
               <div class="cat-head">
                 <div class="cat-title"><span class="bar"></span>เกมยอดนิยม</div>
-                <a class="cat-more">ดูทั้งหมด ›</a>
+                <button class="cat-more" data-cat="all">ดูทั้งหมด ›</button>
               </div>
 
               <!-- featured deal -->
@@ -993,55 +1000,55 @@
                   <div class="feat-desc thai">เติมแพ็กเกจที่ร่วมรายการ รับไอเทมโบนัสฟรีทุกออเดอร์ เฉพาะสัปดาห์นี้เท่านั้น</div>
                   <div class="feat-row">
                     <div class="feat-price"><s>฿299</s><b>฿149</b></div>
-                    <a class="feat-btn thai">เติมเลย</a>
+                    <a class="feat-btn thai" href="#screen-topup" data-screen="topup">เติมเลย</a>
                   </div>
                 </div>
               </div>
 
               <div class="tile-grid">
-                <div class="tile"><div class="tile-art a1"><span class="tile-badge">HOT</span><span class="tile-mono">G1</span></div><div class="tile-cap"><div class="tile-name">Battle Royale</div><div class="tile-price"><span>เริ่ม</span>฿35</div></div></div>
-                <div class="tile"><div class="tile-art a2"><span class="tile-badge">HOT</span><span class="tile-mono">G2</span></div><div class="tile-cap"><div class="tile-name">Arena Legends</div><div class="tile-price"><span>เริ่ม</span>฿6</div></div></div>
-                <div class="tile"><div class="tile-art a3"><span class="tile-mono">G3</span></div><div class="tile-cap"><div class="tile-name">Open World RPG</div><div class="tile-price"><span>เริ่ม</span>฿120</div></div></div>
-                <div class="tile"><div class="tile-art a4"><span class="tile-badge new">NEW</span><span class="tile-mono">G4</span></div><div class="tile-cap"><div class="tile-name">Tactical FPS</div><div class="tile-price"><span>เริ่ม</span>฿25</div></div></div>
-                <div class="tile"><div class="tile-art a5"><span class="tile-mono">G5</span></div><div class="tile-cap"><div class="tile-name">Auto Chess</div><div class="tile-price"><span>เริ่ม</span>฿15</div></div></div>
-                <div class="tile"><div class="tile-art a6"><span class="tile-mono">G6</span></div><div class="tile-cap"><div class="tile-name">Racing Rivals</div><div class="tile-price"><span>เริ่ม</span>฿49</div></div></div>
+                <button type="button" class="tile" data-screen="topup" aria-label="Top up Battle Royale"><span class="tile-art a1"><span class="tile-badge">HOT</span><span class="tile-mono">G1</span></span><span class="tile-cap"><span class="tile-name">Battle Royale</span><span class="tile-price"><span>เริ่ม</span>฿35</span></span></button>
+                <button type="button" class="tile" data-screen="topup" aria-label="Top up Arena Legends"><span class="tile-art a2"><span class="tile-badge">HOT</span><span class="tile-mono">G2</span></span><span class="tile-cap"><span class="tile-name">Arena Legends</span><span class="tile-price"><span>เริ่ม</span>฿6</span></span></button>
+                <button type="button" class="tile" data-screen="topup" aria-label="Top up Open World RPG"><span class="tile-art a3"><span class="tile-mono">G3</span></span><span class="tile-cap"><span class="tile-name">Open World RPG</span><span class="tile-price"><span>เริ่ม</span>฿120</span></span></button>
+                <button type="button" class="tile" data-screen="topup" aria-label="Top up Tactical FPS"><span class="tile-art a4"><span class="tile-badge new">NEW</span><span class="tile-mono">G4</span></span><span class="tile-cap"><span class="tile-name">Tactical FPS</span><span class="tile-price"><span>เริ่ม</span>฿25</span></span></button>
+                <button type="button" class="tile" data-screen="topup" aria-label="Top up Auto Chess"><span class="tile-art a5"><span class="tile-mono">G5</span></span><span class="tile-cap"><span class="tile-name">Auto Chess</span><span class="tile-price"><span>เริ่ม</span>฿15</span></span></button>
+                <button type="button" class="tile" data-screen="topup" aria-label="Top up Racing Rivals"><span class="tile-art a6"><span class="tile-mono">G6</span></span><span class="tile-cap"><span class="tile-name">Racing Rivals</span><span class="tile-price"><span>เริ่ม</span>฿49</span></span></button>
               </div>
             </div>
 
             <!-- mobile games -->
-            <div class="cat-section">
+            <div class="cat-section" data-cat="all mobile">
               <div class="cat-head">
                 <div class="cat-title"><span class="bar"></span>เกมมือถือ</div>
-                <a class="cat-more">ดูทั้งหมด ›</a>
+                <button class="cat-more" data-cat="mobile">ดูทั้งหมด ›</button>
               </div>
               <div class="tile-grid">
-                <div class="tile"><div class="tile-art a3"><span class="tile-mono">M1</span></div><div class="tile-cap"><div class="tile-name">Puzzle Quest</div><div class="tile-price"><span>เริ่ม</span>฿9</div></div></div>
-                <div class="tile"><div class="tile-art a4"><span class="tile-badge">HOT</span><span class="tile-mono">M2</span></div><div class="tile-cap"><div class="tile-name">Idle Heroes</div><div class="tile-price"><span>เริ่ม</span>฿19</div></div></div>
-                <div class="tile"><div class="tile-art a1"><span class="tile-mono">M3</span></div><div class="tile-cap"><div class="tile-name">Card Masters</div><div class="tile-price"><span>เริ่ม</span>฿29</div></div></div>
-                <div class="tile"><div class="tile-art a6"><span class="tile-mono">M4</span></div><div class="tile-cap"><div class="tile-name">Farm Story</div><div class="tile-price"><span>เริ่ม</span>฿12</div></div></div>
-                <div class="tile"><div class="tile-art a2"><span class="tile-badge new">NEW</span><span class="tile-mono">M5</span></div><div class="tile-cap"><div class="tile-name">Sky Shooter</div><div class="tile-price"><span>เริ่ม</span>฿39</div></div></div>
-                <div class="tile"><div class="tile-art a5"><span class="tile-mono">M6</span></div><div class="tile-cap"><div class="tile-name">Dungeon Run</div><div class="tile-price"><span>เริ่ม</span>฿22</div></div></div>
+                <button type="button" class="tile" data-screen="topup" aria-label="Top up Puzzle Quest"><span class="tile-art a3"><span class="tile-mono">M1</span></span><span class="tile-cap"><span class="tile-name">Puzzle Quest</span><span class="tile-price"><span>เริ่ม</span>฿9</span></span></button>
+                <button type="button" class="tile" data-screen="topup" aria-label="Top up Idle Heroes"><span class="tile-art a4"><span class="tile-badge">HOT</span><span class="tile-mono">M2</span></span><span class="tile-cap"><span class="tile-name">Idle Heroes</span><span class="tile-price"><span>เริ่ม</span>฿19</span></span></button>
+                <button type="button" class="tile" data-screen="topup" aria-label="Top up Card Masters"><span class="tile-art a1"><span class="tile-mono">M3</span></span><span class="tile-cap"><span class="tile-name">Card Masters</span><span class="tile-price"><span>เริ่ม</span>฿29</span></span></button>
+                <button type="button" class="tile" data-screen="topup" aria-label="Top up Farm Story"><span class="tile-art a6"><span class="tile-mono">M4</span></span><span class="tile-cap"><span class="tile-name">Farm Story</span><span class="tile-price"><span>เริ่ม</span>฿12</span></span></button>
+                <button type="button" class="tile" data-screen="topup" aria-label="Top up Sky Shooter"><span class="tile-art a2"><span class="tile-badge new">NEW</span><span class="tile-mono">M5</span></span><span class="tile-cap"><span class="tile-name">Sky Shooter</span><span class="tile-price"><span>เริ่ม</span>฿39</span></span></button>
+                <button type="button" class="tile" data-screen="topup" aria-label="Top up Dungeon Run"><span class="tile-art a5"><span class="tile-mono">M6</span></span><span class="tile-cap"><span class="tile-name">Dungeon Run</span><span class="tile-price"><span>เริ่ม</span>฿22</span></span></button>
               </div>
             </div>
 
             <!-- gift cards -->
-            <div class="cat-section">
+            <div class="cat-section" data-cat="all giftcard">
               <div class="cat-head">
                 <div class="cat-title"><span class="bar"></span>บัตรเงินสด</div>
-                <a class="cat-more">ดูทั้งหมด ›</a>
+                <button class="cat-more" data-cat="giftcard">ดูทั้งหมด ›</button>
               </div>
               <div class="tile-grid">
-                <div class="tile"><div class="tile-art a4"><span class="tile-mono">C1</span></div><div class="tile-cap"><div class="tile-name">Cash Card 100</div><div class="tile-price">฿100</div></div></div>
-                <div class="tile"><div class="tile-art a2"><span class="tile-mono">C2</span></div><div class="tile-cap"><div class="tile-name">Cash Card 300</div><div class="tile-price">฿300</div></div></div>
-                <div class="tile"><div class="tile-art a6"><span class="tile-badge">-5%</span><span class="tile-mono">C3</span></div><div class="tile-cap"><div class="tile-name">Cash Card 500</div><div class="tile-price">฿475</div></div></div>
-                <div class="tile"><div class="tile-art a1"><span class="tile-mono">C4</span></div><div class="tile-cap"><div class="tile-name">Store Wallet</div><div class="tile-price"><span>เริ่ม</span>฿50</div></div></div>
-                <div class="tile"><div class="tile-art a3"><span class="tile-mono">C5</span></div><div class="tile-cap"><div class="tile-name">Game Pass</div><div class="tile-price"><span>เริ่ม</span>฿199</div></div></div>
-                <div class="tile"><div class="tile-art a5"><span class="tile-badge new">NEW</span><span class="tile-mono">C6</span></div><div class="tile-cap"><div class="tile-name">Premium Coin</div><div class="tile-price"><span>เริ่ม</span>฿89</div></div></div>
+                <button type="button" class="tile" data-screen="topup" aria-label="Top up Cash Card 100"><span class="tile-art a4"><span class="tile-mono">C1</span></span><span class="tile-cap"><span class="tile-name">Cash Card 100</span><span class="tile-price">฿100</span></span></button>
+                <button type="button" class="tile" data-screen="topup" aria-label="Top up Cash Card 300"><span class="tile-art a2"><span class="tile-mono">C2</span></span><span class="tile-cap"><span class="tile-name">Cash Card 300</span><span class="tile-price">฿300</span></span></button>
+                <button type="button" class="tile" data-screen="topup" aria-label="Top up Cash Card 500"><span class="tile-art a6"><span class="tile-badge">-5%</span><span class="tile-mono">C3</span></span><span class="tile-cap"><span class="tile-name">Cash Card 500</span><span class="tile-price">฿475</span></span></button>
+                <button type="button" class="tile" data-screen="topup" aria-label="Top up Store Wallet"><span class="tile-art a1"><span class="tile-mono">C4</span></span><span class="tile-cap"><span class="tile-name">Store Wallet</span><span class="tile-price"><span>เริ่ม</span>฿50</span></span></button>
+                <button type="button" class="tile" data-screen="topup" aria-label="Top up Game Pass"><span class="tile-art a3"><span class="tile-mono">C5</span></span><span class="tile-cap"><span class="tile-name">Game Pass</span><span class="tile-price"><span>เริ่ม</span>฿199</span></span></button>
+                <button type="button" class="tile" data-screen="topup" aria-label="Top up Premium Coin"><span class="tile-art a5"><span class="tile-badge new">NEW</span><span class="tile-mono">C6</span></span><span class="tile-cap"><span class="tile-name">Premium Coin</span><span class="tile-price"><span>เริ่ม</span>฿89</span></span></button>
               </div>
             </div>
 
             <!-- trust bar -->
-            <div class="trust-bar">
+            <div class="trust-bar" id="howto">
               <div class="trust-item">
                 <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg></div>
                 <div><b class="thai">เติมอัตโนมัติ</b><span class="thai">เข้าทันที 1–3 นาที</span></div>
@@ -1065,31 +1072,31 @@
             <div class="hf-top">
               <span class="hf-logo">Elasticshop</span>
               <div class="hf-links">
-                <a>Terms of Service</a>
-                <a>Privacy Policy</a>
-                <a>Contact Us</a>
-                <a>FAQ</a>
+                <a href="index.html">Terms of Service</a>
+                <a href="index.html">Privacy Policy</a>
+                <a href="index.html#contact">Contact Us</a>
+                <a href="index.html#contact">FAQ</a>
               </div>
             </div>
-            <div class="hf-copy">© 2024 Elasticshop - The Reliable Pro-Gamer. All Rights Reserved.</div>
+            <div class="hf-copy">© <span id="year">2026</span> Elasticshop - The Reliable Pro-Gamer. All Rights Reserved.</div>
           </footer>
         </section>
 
         <!-- ===== SCREEN 2 · TOP UP FLOW ===== -->
-        <section class="screen" id="screen-topup">
+        <section class="screen" id="screen-topup" role="tabpanel" aria-labelledby="tab-topup" tabindex="0" hidden>
           <nav class="topnav topnav-dark">
             <div class="tn-left">
               <span class="tn-logo yellow">Elasticshop</span>
               <div class="tn-links">
-                <a>Home</a>
-                <a class="active">Top Up</a>
-                <a>Promotions</a>
-                <a>How to Buy</a>
+                <a href="#screen-home" data-screen="home">Home</a>
+                <a class="active" href="#screen-topup" data-screen="topup" aria-current="page">Top Up</a>
+                <a href="#deals" data-screen="home" data-scroll="deals">Promotions</a>
+                <a href="#howto" data-screen="home" data-scroll="howto">How to Buy</a>
               </div>
             </div>
             <div class="tn-right">
-              <span class="tn-history">History</span>
-              <button class="tn-login">Login</button>
+              <button class="tn-history" data-screen="history">History</button>
+              <button class="tn-login" data-screen="history">Login</button>
             </div>
           </nav>
 
@@ -1097,9 +1104,9 @@
             <div class="steps">
               <div class="step done"><div class="step-node">✓</div><span class="step-text">Player Info</span></div>
               <div class="step-line done"></div>
-              <div class="step active"><div class="step-node">2</div><span class="step-text">Package</span></div>
-              <div class="step-line"></div>
-              <div class="step"><div class="step-node">3</div><span class="step-text">Payment</span></div>
+              <div class="step active" id="stepPackage"><div class="step-node">2</div><span class="step-text">Package</span></div>
+              <div class="step-line" id="stepLine2"></div>
+              <div class="step" id="stepPayment"><div class="step-node">3</div><span class="step-text">Payment</span></div>
             </div>
 
             <div class="topup-grid">
@@ -1107,40 +1114,46 @@
                 <div class="panel">
                   <div class="panel-title"><span class="pn">1</span> Player Information</div>
                   <div class="field">
-                    <label class="field-label">Player UID</label>
-                    <input class="field-input" type="text" value="1234567890" />
-                    <div class="field-help thai">หา UID ได้ที่มุมขวาบนของหน้าโปรไฟล์ในเกม</div>
+                    <label class="field-label" for="playerUid">Player UID</label>
+                    <input class="field-input" id="playerUid" name="playerUid" type="text" value="1234567890" aria-describedby="uidHelp" />
+                    <div class="field-help thai" id="uidHelp">หา UID ได้ที่มุมขวาบนของหน้าโปรไฟล์ในเกม</div>
                   </div>
                   <div class="field" style="margin-bottom:0;">
-                    <label class="field-label">Server</label>
-                    <input class="field-input" type="text" value="Thailand (TH)" />
+                    <label class="field-label" for="playerServer">Server</label>
+                    <input class="field-input" id="playerServer" name="playerServer" type="text" value="Thailand (TH)" />
                   </div>
                 </div>
 
                 <div class="panel" style="margin-bottom:0;">
                   <div class="panel-title"><span class="pn">2</span> Select Package</div>
-                  <div class="pkg-grid">
-                    <div class="pkg"><div class="pkg-icon"></div><div class="pkg-amt">100 Shells</div><div class="pkg-price">฿ 99</div></div>
-                    <div class="pkg sel"><span class="pkg-tag">-15%</span><div class="pkg-icon"></div><div class="pkg-amt">500 Shells</div><div class="pkg-price">฿ 500</div></div>
-                    <div class="pkg"><div class="pkg-icon"></div><div class="pkg-amt">1000 Shells</div><div class="pkg-price">฿ 990</div></div>
-                    <div class="pkg"><div class="pkg-icon"></div><div class="pkg-amt">2000 Shells</div><div class="pkg-price">฿ 1,950</div></div>
-                    <div class="pkg"><span class="pkg-tag">HOT</span><div class="pkg-icon"></div><div class="pkg-amt">5000 Shells</div><div class="pkg-price">฿ 4,800</div></div>
-                    <div class="pkg"><div class="pkg-icon"></div><div class="pkg-amt">10000 Shells</div><div class="pkg-price">฿ 9,500</div></div>
+                  <div class="pkg-grid" role="radiogroup" aria-label="Select package">
+                    <button type="button" class="pkg" role="radio" aria-checked="false" tabindex="-1" data-pkg="p1"><span class="pkg-icon"></span><span class="pkg-amt">100 Shells</span><span class="pkg-price">฿ 99</span></button>
+                    <button type="button" class="pkg sel" role="radio" aria-checked="true" tabindex="0" data-pkg="p2"><span class="pkg-tag">-12%</span><span class="pkg-icon"></span><span class="pkg-amt">500 Shells</span><span class="pkg-price">฿ 484</span></button>
+                    <button type="button" class="pkg" role="radio" aria-checked="false" tabindex="-1" data-pkg="p3"><span class="pkg-icon"></span><span class="pkg-amt">1,000 Shells</span><span class="pkg-price">฿ 935</span></button>
+                    <button type="button" class="pkg" role="radio" aria-checked="false" tabindex="-1" data-pkg="p4"><span class="pkg-icon"></span><span class="pkg-amt">2,000 Shells</span><span class="pkg-price">฿ 1,804</span></button>
+                    <button type="button" class="pkg" role="radio" aria-checked="false" tabindex="-1" data-pkg="p5"><span class="pkg-tag">HOT</span><span class="pkg-icon"></span><span class="pkg-amt">5,000 Shells</span><span class="pkg-price">฿ 4,400</span></button>
+                    <button type="button" class="pkg" role="radio" aria-checked="false" tabindex="-1" data-pkg="p6"><span class="pkg-icon"></span><span class="pkg-amt">10,000 Shells</span><span class="pkg-price">฿ 8,250</span></button>
                   </div>
                 </div>
               </div>
 
               <div class="summary">
-                <h3>Order Summary</h3>
-                <div class="sum-row"><span class="k">Game</span><span class="v">RoV: Arena of Valor</span></div>
-                <div class="sum-row"><span class="k">Player UID</span><span class="v">1234567890</span></div>
-                <div class="sum-row"><span class="k">Package</span><span class="v">500 Shells</span></div>
-                <div class="sum-divider"></div>
-                <div class="sum-row"><span class="k">Subtotal</span><span class="v">฿ 588</span></div>
-                <div class="sum-row"><span class="k">Discount (-15%)</span><span class="v" style="color:var(--green-t)">- ฿ 88</span></div>
-                <div class="sum-divider"></div>
-                <div class="sum-total"><span class="k">Total</span><span class="v">฿ 500</span></div>
-                <a class="sum-btn">Confirm &amp; Pay</a>
+                <h3 id="summaryHeading">Order Summary</h3>
+                <div aria-live="polite" aria-labelledby="summaryHeading">
+                  <div class="sum-row"><span class="k">Game</span><span class="v">RoV: Arena of Valor</span></div>
+                  <div class="sum-row"><span class="k">Player UID</span><span class="v" id="sumUid">1234567890</span></div>
+                  <div class="sum-row"><span class="k">Package</span><span class="v" id="sumPackage">500 Shells</span></div>
+                  <div class="sum-divider"></div>
+                  <div class="sum-row"><span class="k">Subtotal</span><span class="v" id="sumSubtotal">฿ 550</span></div>
+                  <div class="sum-row"><span class="k" id="sumDiscountLabel">Discount (-12%)</span><span class="v" id="sumDiscount" style="color:var(--green-t)">- ฿ 66</span></div>
+                  <div class="sum-divider"></div>
+                  <div class="sum-total"><span class="k">Total</span><span class="v" id="sumTotal">฿ 484</span></div>
+                </div>
+                <button type="button" class="sum-btn" id="confirmBtn">Confirm &amp; Pay</button>
+                <p class="sum-hint" id="sumHint" role="status">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+                  <span id="sumHintText"></span>
+                </p>
                 <div class="sum-secure">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                   Secured by 256-bit encryption
@@ -1151,20 +1164,20 @@
         </section>
 
         <!-- ===== SCREEN 3 · HISTORY ===== -->
-        <section class="screen" id="screen-history">
+        <section class="screen" id="screen-history" role="tabpanel" aria-labelledby="tab-history" tabindex="0" hidden>
           <nav class="topnav topnav-dark">
             <div class="tn-left">
               <span class="tn-logo yellow">Elasticshop</span>
               <div class="tn-links">
-                <a>Home</a>
-                <a>Top Up</a>
-                <a>Promotions</a>
-                <a>How to Buy</a>
+                <a href="#screen-home" data-screen="home">Home</a>
+                <a href="#screen-topup" data-screen="topup">Top Up</a>
+                <a href="#deals" data-screen="home" data-scroll="deals">Promotions</a>
+                <a href="#howto" data-screen="home" data-scroll="howto">How to Buy</a>
               </div>
             </div>
             <div class="tn-right">
-              <span class="tn-history active">History</span>
-              <button class="tn-login">Login</button>
+              <button class="tn-history active" data-screen="history" aria-current="page">History</button>
+              <button class="tn-login" data-screen="history">Login</button>
             </div>
           </nav>
 
@@ -1193,16 +1206,16 @@
               </div>
             </div>
 
-            <div class="filter-row">
-              <button class="filter-pill active">All</button>
-              <button class="filter-pill"><span class="fdot s"></span>Success</button>
-              <button class="filter-pill"><span class="fdot p"></span>Pending</button>
-              <button class="filter-pill"><span class="fdot f"></span>Failed</button>
-              <button class="filter-pill"><span class="fdot c"></span>Cancelled</button>
+            <div class="filter-row" role="group" aria-label="Filter transactions by status">
+              <button class="filter-pill active" data-filter="all" aria-pressed="true">All</button>
+              <button class="filter-pill" data-filter="success" aria-pressed="false"><span class="fdot s"></span>Success</button>
+              <button class="filter-pill" data-filter="pending" aria-pressed="false"><span class="fdot p"></span>Pending</button>
+              <button class="filter-pill" data-filter="failed" aria-pressed="false"><span class="fdot f"></span>Failed</button>
+              <button class="filter-pill" data-filter="cancelled" aria-pressed="false"><span class="fdot c"></span>Cancelled</button>
             </div>
 
-            <div class="txn-list">
-              <div class="txn-card">
+            <div class="txn-list" id="txnList">
+              <div class="txn-card" data-status="success" data-game="Genshin Impact" data-pub="HoYoverse" data-uid="809234123" data-pkg="6480 Genesis Crystals" data-amt="3200" data-ref="TRX-6480023109" data-date="24 Oct 2023, 14:30">
                 <div class="txn-icon genshin"></div>
                 <div>
                   <div class="txn-game">Genshin Impact</div>
@@ -1227,7 +1240,7 @@
                 <button class="txn-detail">Detail</button>
               </div>
 
-              <div class="txn-card">
+              <div class="txn-card" id="txnValorant" data-status="pending" data-game="Valorant" data-pub="Riot Games" data-uid="Ploy#TH1" data-pkg="1050 VP" data-amt="300" data-ref="TRX-CHK992" data-date="25 Oct 2023, 09:15">
                 <div class="txn-icon valorant"></div>
                 <div>
                   <div class="txn-game">Valorant</div>
@@ -1242,7 +1255,7 @@
                 </div>
                 <div>
                   <div class="txn-amt">฿ 300</div>
-                  <div class="txn-status">
+                  <div class="txn-status" id="txnValorantStatus">
                     <span class="badge badge-pending">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                       Pending
@@ -1252,7 +1265,7 @@
                 <button class="txn-detail">Detail</button>
               </div>
 
-              <div class="txn-card">
+              <div class="txn-card" data-status="cancelled" data-game="Free Fire" data-pub="Garena Thailand" data-uid="552108934" data-pkg="1080 Diamonds" data-amt="250" data-ref="TRX-5521089" data-date="20 Oct 2023, 18:42">
                 <div class="txn-icon" style="background:linear-gradient(135deg,#f9a825,#f57f17)"></div>
                 <div>
                   <div class="txn-game">Free Fire</div>
@@ -1276,12 +1289,18 @@
                 </div>
                 <button class="txn-detail">Detail</button>
               </div>
+
+              <div class="empty-state" id="txnEmpty">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M9 15h6"/></svg>
+                <b>No transactions in this status</b>
+                <span>Pick a different filter to see your other orders.</span>
+              </div>
             </div>
           </div>
         </section>
 
         <!-- ===== SCREEN 4 · TRANSACTION STATUS ===== -->
-        <section class="screen" id="screen-status">
+        <section class="screen" id="screen-status" role="tabpanel" aria-labelledby="tab-status" tabindex="0" hidden>
           <div class="status-body">
             <!-- success -->
             <div class="status-success">
@@ -1297,13 +1316,13 @@
                 <div class="ssd-left">
                   <div class="ssd-icon"></div>
                   <div>
-                    <div class="ssd-game">RoV: Arena of Valor</div>
-                    <div class="ssd-pub">Garena Thailand</div>
+                    <div class="ssd-game" id="ssGame">RoV: Arena of Valor</div>
+                    <div class="ssd-pub" id="ssPub">Garena Thailand</div>
                   </div>
                 </div>
                 <div>
                   <div class="ssd-ref-label thai">หมายเลขอ้างอิง (REF. NUMBER)</div>
-                  <div class="ssd-ref">TRX-9876543210</div>
+                  <div class="ssd-ref" id="ssRef">TRX-9876543210</div>
                 </div>
               </div>
 
@@ -1313,49 +1332,49 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M15 8h2M15 12h2"/></svg>
                     PLAYER UID
                   </div>
-                  <div class="ss-box-val">1234567890</div>
+                  <div class="ss-box-val" id="ssUid">1234567890</div>
                 </div>
                 <div class="ss-box">
                   <div class="ss-box-label thai">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3 8 9l4 13 4-13-3-6M2 9h20"/></svg>
                     แพ็กเกจ (PACKAGE)
                   </div>
-                  <div class="ss-box-val">500 Shells</div>
+                  <div class="ss-box-val" id="ssPackage">500 Shells</div>
                 </div>
               </div>
 
               <div class="ss-total">
                 <div>
                   <div class="ss-total-label thai">วันที่ทำรายการ</div>
-                  <div class="ss-total-date">12 Oct 2024, 14:30:00</div>
+                  <div class="ss-total-date" id="ssDate">12 Oct 2024, 14:30:00</div>
                 </div>
                 <div style="text-align:right">
                   <div class="ss-total-label thai">ยอดรวม</div>
-                  <div class="ss-total-amt">฿ 500.00</div>
+                  <div class="ss-total-amt" id="ssAmount">฿ 484.00</div>
                 </div>
               </div>
 
               <div class="ss-actions">
-                <a class="ss-btn ghost thai">⌂ กลับหน้าแรก</a>
-                <a class="ss-btn solid thai">ดูประวัติ</a>
+                <a class="ss-btn ghost thai" href="#screen-home" data-screen="home">⌂ กลับหน้าแรก</a>
+                <a class="ss-btn solid thai" href="#screen-history" data-screen="history">ดูประวัติ</a>
               </div>
             </div>
 
             <!-- pending -->
-            <div class="status-pending">
+            <div class="status-pending" id="pendingCard">
               <div class="sp-icon">
                 <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#92750a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h12M6 22h12M6 2v4a6 6 0 0 0 6 6 6 6 0 0 0 6-6V2M6 22v-4a6 6 0 0 1 6-6 6 6 0 0 1 6 6v4"/></svg>
               </div>
-              <span class="sp-badge"><span class="pdot"></span>Pending</span>
-              <div class="sp-title thai">กำลังตรวจสอบรายการ</div>
-              <div class="sp-sub thai">ระบบกำลังยืนยันการชำระเงินของคุณ โปรดรอสักครู่...</div>
+              <span class="sp-badge" id="spBadge"><span class="pdot"></span>Pending</span>
+              <div class="sp-title thai" id="spTitle">กำลังตรวจสอบรายการ</div>
+              <div class="sp-sub thai" id="spSub" role="status">ระบบกำลังยืนยันการชำระเงินของคุณ โปรดรอสักครู่...</div>
               <div class="sp-meta">
                 <div class="sp-row"><span class="k">Ref:</span><span class="v">TRX-CHK992</span></div>
                 <div class="sp-row"><span class="k">Game:</span><span class="v">Valorant</span></div>
               </div>
-              <button class="sp-refresh thai">
+              <button class="sp-refresh thai" id="spRefresh">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-                รีเฟรชสถานะ
+                <span id="spRefreshText">รีเฟรชสถานะ</span>
               </button>
             </div>
           </div>
@@ -1367,8 +1386,43 @@
 
   <script>
     (function () {
-      var links   = document.querySelectorAll('.side-link');
-      var screens = document.querySelectorAll('.screen');
+      'use strict';
+
+      var $  = function (sel, ctx) { return (ctx || document).querySelector(sel); };
+      var $$ = function (sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); };
+
+      /* ============================================================
+         PRICING DATA — single source of truth for the top-up flow.
+         list = regular price (฿1.10 per shell), pct = tier discount.
+         discount = list * pct / 100, total = list - discount.
+      ============================================================ */
+      var PACKAGES = [
+        { id: 'p1', label: '100 Shells',    list: 110,   pct: 10, tag: null   },
+        { id: 'p2', label: '500 Shells',    list: 550,   pct: 12, tag: '-12%' },
+        { id: 'p3', label: '1,000 Shells',  list: 1100,  pct: 15, tag: null   },
+        { id: 'p4', label: '2,000 Shells',  list: 2200,  pct: 18, tag: null   },
+        { id: 'p5', label: '5,000 Shells',  list: 5500,  pct: 20, tag: 'HOT'  },
+        { id: 'p6', label: '10,000 Shells', list: 11000, pct: 25, tag: null   }
+      ];
+
+      function priceOf(pkg) {
+        var discount = Math.round(pkg.list * pkg.pct / 100);
+        return { list: pkg.list, discount: discount, total: pkg.list - discount };
+      }
+      function baht(n) { return '฿ ' + n.toLocaleString('en-US'); }
+      function baht2(n) {
+        return '฿ ' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+      function pkgById(id) {
+        for (var i = 0; i < PACKAGES.length; i++) { if (PACKAGES[i].id === id) return PACKAGES[i]; }
+        return null;
+      }
+
+      /* ============================================================
+         SCREEN SWITCHING (tablist)
+      ============================================================ */
+      var tabs    = $$('.side-link');
+      var screens = $$('.screen');
       var sidebar = document.getElementById('sidebar');
       var toggle  = document.getElementById('menuToggle');
 
@@ -1377,47 +1431,386 @@
         toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       }
 
-      // hamburger toggles the menu
+      function showScreen(id, scrollToId) {
+        tabs.forEach(function (t) {
+          var on = t.getAttribute('data-screen') === id;
+          t.classList.toggle('active', on);
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+          t.tabIndex = on ? 0 : -1;
+        });
+        screens.forEach(function (s) {
+          var on = s.id === 'screen-' + id;
+          s.classList.toggle('active', on);
+          if (on) { s.removeAttribute('hidden'); } else { s.setAttribute('hidden', ''); }
+        });
+        setMenu(false);
+
+        var target = scrollToId ? document.getElementById(scrollToId) : null;
+        if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        else { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+      }
+
       toggle.addEventListener('click', function (e) {
         e.stopPropagation();
         setMenu(!sidebar.classList.contains('menu-open'));
       });
 
-      // click outside closes the menu
       document.addEventListener('click', function (e) {
         if (!sidebar.contains(e.target)) setMenu(false);
       });
 
-      links.forEach(function (link) {
-        link.addEventListener('click', function () {
-          var id = link.getAttribute('data-screen');
-
-          links.forEach(function (l) { l.classList.remove('active'); });
-          link.classList.add('active');
-
-          screens.forEach(function (s) { s.classList.remove('active'); });
-          document.getElementById('screen-' + id).classList.add('active');
-
-          setMenu(false);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+      tabs.forEach(function (tab, i) {
+        tab.addEventListener('click', function () {
+          showScreen(tab.getAttribute('data-screen'));
+        });
+        // roving arrow-key navigation between tabs
+        tab.addEventListener('keydown', function (e) {
+          var next = -1;
+          if (e.key === 'ArrowDown' || e.key === 'ArrowRight') next = (i + 1) % tabs.length;
+          if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft')  next = (i - 1 + tabs.length) % tabs.length;
+          if (e.key === 'Home') next = 0;
+          if (e.key === 'End')  next = tabs.length - 1;
+          if (next < 0) return;
+          e.preventDefault();
+          tabs[next].focus();
+          showScreen(tabs[next].getAttribute('data-screen'));
         });
       });
 
-      // simple package selection interactivity in the top-up flow
-      document.querySelectorAll('#screen-topup .pkg').forEach(function (pkg) {
-        pkg.addEventListener('click', function () {
-          document.querySelectorAll('#screen-topup .pkg').forEach(function (p) { p.classList.remove('sel'); });
-          pkg.classList.add('sel');
+      // any element carrying data-screen (in-screen nav links, CTAs, buttons)
+      // routes to that screen; data-scroll optionally targets a section
+      document.addEventListener('click', function (e) {
+        var el = e.target.closest ? e.target.closest('[data-screen]') : null;
+        if (!el || el.classList.contains('side-link')) return;
+        e.preventDefault();
+        showScreen(el.getAttribute('data-screen'), el.getAttribute('data-scroll'));
+      });
+
+      /* ============================================================
+         SCREEN 1 — HERO DEAL CAROUSEL
+      ============================================================ */
+      var DEALS = [
+        { off: '-50%', mono: 'DEAL', name: 'ดีลวันนี้',      was: '฿198',   now: '฿99'  },
+        { off: '-30%', mono: '2X',   name: 'โบนัสสองเท่า',    was: '฿500',   now: '฿350' },
+        { off: '-25%', mono: 'VIP',  name: 'แพ็กสมาชิก',     was: '฿1,200', now: '฿900' }
+      ];
+      var dots = $$('#heroDots button');
+
+      function showDeal(i) {
+        var d = DEALS[i];
+        if (!d) return;
+        $('#dealOff').textContent  = d.off;
+        $('#dealMono').textContent = d.mono;
+        $('#dealName').textContent = d.name;
+        $('#dealWas').textContent  = d.was;
+        $('#dealNow').textContent  = d.now;
+        dots.forEach(function (dot, n) { dot.classList.toggle('active', n === i); });
+      }
+      dots.forEach(function (dot) {
+        dot.addEventListener('click', function () { showDeal(Number(dot.getAttribute('data-deal'))); });
+      });
+      showDeal(0);
+
+      /* ============================================================
+         SCREEN 1 — CATEGORY + SEARCH FILTER
+      ============================================================ */
+      var chips       = $$('.cat-chip');
+      var catSections = $$('.cat-section');
+      var catEmpty    = document.getElementById('catEmpty');
+      var searchInput = document.getElementById('gameSearch');
+      var activeCat   = 'all';
+      var query       = '';
+
+      function applyHomeFilter() {
+        var anyVisible = false;
+        catSections.forEach(function (sec) {
+          var cats    = (sec.getAttribute('data-cat') || '').split(/\s+/);
+          var inCat   = cats.indexOf(activeCat) > -1;
+          var shown   = 0;
+          $$('.tile', sec).forEach(function (tile) {
+            var name  = ($('.tile-name', tile).textContent || '').toLowerCase();
+            var match = inCat && (!query || name.indexOf(query) > -1);
+            tile.classList.toggle('hide', !match);
+            if (match) shown++;
+          });
+          var feat = $('.feat-card', sec);
+          if (feat) feat.style.display = (inCat && !query) ? '' : 'none';
+
+          var visible = inCat && shown > 0;
+          sec.classList.toggle('hide', !visible);
+          if (visible) anyVisible = true;
+        });
+        catEmpty.classList.toggle('show', !anyVisible);
+      }
+
+      function setCategory(cat) {
+        activeCat = cat;
+        chips.forEach(function (c) {
+          var on = c.getAttribute('data-cat') === cat;
+          c.classList.toggle('active', on);
+          c.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        applyHomeFilter();
+      }
+
+      chips.forEach(function (chip) {
+        chip.addEventListener('click', function () { setCategory(chip.getAttribute('data-cat')); });
+      });
+
+      // "ดูทั้งหมด" jumps the grid to that category
+      $$('.cat-more').forEach(function (more) {
+        more.addEventListener('click', function () {
+          setCategory(more.getAttribute('data-cat'));
+          var sec = more.closest('.cat-section');
+          if (sec && !sec.classList.contains('hide')) {
+            sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
         });
       });
 
-      // category chip toggle on the home screen
-      document.querySelectorAll('.cat-chip').forEach(function (chip) {
-        chip.addEventListener('click', function () {
-          document.querySelectorAll('.cat-chip').forEach(function (c) { c.classList.remove('active'); });
-          chip.classList.add('active');
+      if (searchInput) {
+        searchInput.addEventListener('input', function () {
+          query = searchInput.value.trim().toLowerCase();
+          applyHomeFilter();
+        });
+      }
+
+      /* ============================================================
+         SCREEN 2 — PACKAGE SELECTION + ORDER SUMMARY
+      ============================================================ */
+      var pkgButtons  = $$('#screen-topup .pkg');
+      var uidInput    = document.getElementById('playerUid');
+      var confirmBtn  = document.getElementById('confirmBtn');
+      var sumHint     = document.getElementById('sumHint');
+      var sumHintText = document.getElementById('sumHintText');
+      var selectedId  = 'p2';
+
+      // paint the tiles from the data so prices can never drift from the summary
+      pkgButtons.forEach(function (btn) {
+        var pkg = pkgById(btn.getAttribute('data-pkg'));
+        if (!pkg) return;
+        var money = priceOf(pkg);
+        btn.innerHTML =
+          (pkg.tag ? '<span class="pkg-tag">' + pkg.tag + '</span>' : '') +
+          '<span class="pkg-icon"></span>' +
+          '<span class="pkg-amt">' + pkg.label + '</span>' +
+          '<span class="pkg-price">' + baht(money.total) + '</span>';
+      });
+
+      function resetSteps() {
+        var pay = document.getElementById('stepPayment');
+        var pkg = document.getElementById('stepPackage');
+        document.getElementById('stepLine2').classList.remove('done');
+        pay.classList.remove('done');
+        $('.step-node', pay).textContent = '3';
+        pkg.classList.remove('done');
+        pkg.classList.add('active');
+        $('.step-node', pkg).textContent = '2';
+      }
+
+      function validate() {
+        var msg = '';
+        if (!pkgById(selectedId))     msg = 'Choose a package to continue.';
+        else if (!uidInput.value.trim()) msg = 'Enter your Player UID to continue.';
+        confirmBtn.disabled = msg !== '';
+        sumHintText.textContent = msg;
+        sumHint.classList.toggle('show', msg !== '');
+        return msg === '';
+      }
+
+      function updateSummary() {
+        var uid = uidInput.value.trim();
+        var pkg = pkgById(selectedId);
+        document.getElementById('sumUid').textContent = uid || '—';
+
+        if (!pkg) {
+          document.getElementById('sumPackage').textContent       = 'Not selected';
+          document.getElementById('sumSubtotal').textContent      = baht(0);
+          document.getElementById('sumDiscountLabel').textContent = 'Discount';
+          document.getElementById('sumDiscount').textContent      = '- ' + baht(0);
+          document.getElementById('sumTotal').textContent         = baht(0);
+        } else {
+          var money = priceOf(pkg);
+          document.getElementById('sumPackage').textContent       = pkg.label;
+          document.getElementById('sumSubtotal').textContent      = baht(money.list);
+          document.getElementById('sumDiscountLabel').textContent = 'Discount (-' + pkg.pct + '%)';
+          document.getElementById('sumDiscount').textContent      = '- ' + baht(money.discount);
+          document.getElementById('sumTotal').textContent         = baht(money.total);
+        }
+        validate();
+      }
+
+      function selectPackage(id) {
+        selectedId = id;
+        pkgButtons.forEach(function (b) {
+          var on = b.getAttribute('data-pkg') === id;
+          b.classList.toggle('sel', on);
+          b.setAttribute('aria-checked', on ? 'true' : 'false');
+          b.tabIndex = on ? 0 : -1;
+        });
+        resetSteps();
+        updateSummary();
+      }
+
+      pkgButtons.forEach(function (btn, i) {
+        btn.addEventListener('click', function () { selectPackage(btn.getAttribute('data-pkg')); });
+        btn.addEventListener('keydown', function (e) {
+          var next = -1;
+          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % pkgButtons.length;
+          if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   next = (i - 1 + pkgButtons.length) % pkgButtons.length;
+          if (next < 0) return;
+          e.preventDefault();
+          pkgButtons[next].focus();
+          selectPackage(pkgButtons[next].getAttribute('data-pkg'));
         });
       });
+
+      uidInput.addEventListener('input', updateSummary);
+
+      /* ---------- Confirm & Pay ---------- */
+      var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      function pad(n) { return (n < 10 ? '0' : '') + n; }
+      function stampNow() {
+        var d = new Date();
+        return d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear() +
+               ', ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+      }
+      function newRef() {
+        return 'TRX-' + String(Math.floor(Math.random() * 9000000000) + 1000000000);
+      }
+
+      function fillStatusCard(data) {
+        document.getElementById('ssGame').textContent    = data.game;
+        document.getElementById('ssPub').textContent     = data.pub;
+        document.getElementById('ssRef').textContent     = data.ref;
+        document.getElementById('ssUid').textContent     = data.uid;
+        document.getElementById('ssPackage').textContent = data.pkg;
+        document.getElementById('ssAmount').textContent  = baht2(data.amount);
+        document.getElementById('ssDate').textContent    = data.date;
+      }
+
+      confirmBtn.addEventListener('click', function () {
+        if (!validate()) {
+          if (!uidInput.value.trim()) uidInput.focus();
+          return;
+        }
+        var pkg   = pkgById(selectedId);
+        var money = priceOf(pkg);
+
+        // step 3 (Payment) is now complete
+        var pkgStep = document.getElementById('stepPackage');
+        pkgStep.classList.remove('active');
+        pkgStep.classList.add('done');
+        $('.step-node', pkgStep).textContent = '✓';
+        document.getElementById('stepLine2').classList.add('done');
+        var payStep = document.getElementById('stepPayment');
+        payStep.classList.add('done');
+        $('.step-node', payStep).textContent = '✓';
+
+        fillStatusCard({
+          game: 'RoV: Arena of Valor',
+          pub: 'Garena Thailand',
+          ref: newRef(),
+          uid: uidInput.value.trim(),
+          pkg: pkg.label,
+          amount: money.total,
+          date: stampNow()
+        });
+        showScreen('status');
+      });
+
+      /* ============================================================
+         SCREEN 3 — HISTORY FILTERS
+      ============================================================ */
+      var pills    = $$('.filter-pill');
+      var txnCards = $$('.txn-card');
+      var txnEmpty = document.getElementById('txnEmpty');
+      var activeFilter = 'all';
+
+      function applyTxnFilter() {
+        var shown = 0;
+        txnCards.forEach(function (card) {
+          var match = activeFilter === 'all' || card.getAttribute('data-status') === activeFilter;
+          card.classList.toggle('hide', !match);
+          if (match) shown++;
+        });
+        txnEmpty.classList.toggle('show', shown === 0);
+      }
+
+      pills.forEach(function (pill) {
+        pill.addEventListener('click', function () {
+          activeFilter = pill.getAttribute('data-filter');
+          pills.forEach(function (p) {
+            var on = p === pill;
+            p.classList.toggle('active', on);
+            p.setAttribute('aria-pressed', on ? 'true' : 'false');
+          });
+          applyTxnFilter();
+        });
+      });
+
+      // "Detail" opens that order on the transaction status screen
+      $$('.txn-detail').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var card = btn.closest('.txn-card');
+          fillStatusCard({
+            game: card.getAttribute('data-game'),
+            pub: card.getAttribute('data-pub'),
+            ref: card.getAttribute('data-ref'),
+            uid: card.getAttribute('data-uid'),
+            pkg: card.getAttribute('data-pkg'),
+            amount: Number(card.getAttribute('data-amt')),
+            date: card.getAttribute('data-date')
+          });
+          showScreen('status');
+        });
+      });
+
+      /* ============================================================
+         SCREEN 4 — PENDING → SUCCESS REFRESH
+      ============================================================ */
+      var refreshBtn  = document.getElementById('spRefresh');
+      var refreshText = document.getElementById('spRefreshText');
+
+      refreshBtn.addEventListener('click', function () {
+        // once resolved the button becomes a link to the history screen
+        if (refreshBtn.getAttribute('data-screen')) return;
+
+        refreshBtn.classList.add('loading');
+        refreshBtn.disabled = true;
+        refreshText.textContent = 'กำลังตรวจสอบ...';
+
+        window.setTimeout(function () {
+          refreshBtn.classList.remove('loading');
+          refreshBtn.disabled = false;
+
+          document.getElementById('pendingCard').classList.add('done');
+          var badge = document.getElementById('spBadge');
+          badge.classList.add('done');
+          badge.innerHTML = '<span class="pdot"></span>Success';
+          document.getElementById('spTitle').textContent = 'ยืนยันการชำระเงินแล้ว';
+          document.getElementById('spSub').textContent   = 'เติม 1050 VP เข้าบัญชี Valorant เรียบร้อยแล้ว';
+          refreshText.textContent = 'ดูประวัติการเติม';
+          refreshBtn.setAttribute('data-screen', 'history');
+
+          // keep the history row in sync
+          var row = document.getElementById('txnValorant');
+          row.setAttribute('data-status', 'success');
+          document.getElementById('txnValorantStatus').innerHTML =
+            '<span class="badge badge-success">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' +
+            'Success</span>';
+          applyTxnFilter();
+        }, 900);
+      });
+
+      /* ============================================================
+         INIT
+      ============================================================ */
+      document.getElementById('year').textContent = new Date().getFullYear();
+      selectPackage(selectedId);
+      applyHomeFilter();
+      applyTxnFilter();
     })();
   </script>
 

@@ -156,7 +156,7 @@
     .cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:.82rem;font-weight:500;cursor:pointer;position:relative;transition:background 140ms}
     .cal-day:hover{background:var(--accent-bg);color:var(--accent)}
     .cal-day.today{background:var(--accent);color:#fff;font-weight:700}
-    .cal-day.has-appt::after{content:'';position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--accent-bg)}
+    .cal-day.has-appt::after{content:'';position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--accent)}
     .cal-day.today.has-appt::after{background:rgba(255,255,255,.6)}
     .cal-day.selected{background:var(--accent-bg);color:var(--accent);outline:2px solid var(--accent)}
     .cal-day.empty{cursor:default}
@@ -346,7 +346,7 @@
       <button class="nav-item" data-view="appointments">
         <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         Appointments
-        <span class="nav-badge" id="apptBadge">5</span>
+        <span class="nav-badge" id="apptBadge" style="display:none"></span>
       </button>
       <button class="nav-item" data-view="clients">
         <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
@@ -573,7 +573,7 @@
         </div>
         <div class="dash-grid">
           <div class="panel">
-            <div class="panel-head"><div><div class="panel-title">Bookings Over Time</div><div class="panel-sub" id="chartSub">Jan – Jul 2025</div></div></div>
+            <div class="panel-head"><div><div class="panel-title">Bookings Over Time</div><div class="panel-sub" id="chartSub">Last 7 months</div></div></div>
             <div class="chart-area"><div class="chart-bars" id="chartBars"></div></div>
           </div>
           <div class="panel">
@@ -634,32 +634,54 @@
   const COLORS = ['#7c3aed','#3b82f6','#22c55e','#f59e0b','#ec4899','#14b8a6','#6366f1'];
   let nextApptId = 100;
 
+  /* ─── DATES ───
+     The demo is time-relative: every fixture date is an offset from the day the
+     page is opened, so it reads correctly on any date. All formatting is done in
+     LOCAL time — never toISOString(), which shifts to UTC and can be a day off. */
+  const MONTHS       = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const MONTHS_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  const TODAY = new Date(); TODAY.setHours(0,0,0,0);
+
+  function addDays(base, n) { return new Date(base.getFullYear(), base.getMonth(), base.getDate() + n); }
+  function toISODate(d) {
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  }
+  function dayOffset(n)  { return toISODate(addDays(TODAY, n)); }
+  function shortDate(n)  { const d = addDays(TODAY, n); return `${MONTHS_SHORT[d.getMonth()]} ${d.getDate()}`; }
+
+  const TODAY_ISO = toISODate(TODAY);
+
+  // Monday-start week containing TODAY (the calendar grid is Mon-first too).
+  const WEEK_START_ISO = dayOffset(-((TODAY.getDay() + 6) % 7));
+  const WEEK_END_ISO   = dayOffset(6 - ((TODAY.getDay() + 6) % 7));
+
   let appointments = [
-    { id:1,  client:'Sophie M.',    service:'Haircut & Style',  staff:'Emma Johnson',  date:'2025-05-28', time:'9:00 AM',  status:'Confirmed',  dur:'60 min',  price:65  },
-    { id:2,  client:'Jake R.',      service:'Massage Therapy',  staff:'Marcus Lee',    date:'2025-05-28', time:'10:00 AM', status:'Confirmed',  dur:'60 min',  price:85  },
-    { id:3,  client:'Chloe T.',     service:'Facial Treatment', staff:'Sofia Rivera',  date:'2025-05-28', time:'11:30 AM', status:'Pending',    dur:'75 min',  price:90  },
-    { id:4,  client:'Anya P.',      service:'Full Color',       staff:'Emma Johnson',  date:'2025-05-28', time:'1:00 PM',  status:'Confirmed',  dur:'120 min', price:120 },
-    { id:5,  client:'Marcus L.',    service:'Brow Shaping',     staff:'Sofia Rivera',  date:'2025-05-28', time:'3:00 PM',  status:'Confirmed',  dur:'30 min',  price:35  },
-    { id:6,  client:'Lily K.',      service:'Manicure',         staff:'Jake Chen',     date:'2025-05-29', time:'10:00 AM', status:'Confirmed',  dur:'45 min',  price:40  },
-    { id:7,  client:'Tom B.',       service:'Haircut & Style',  staff:'Marcus Lee',    date:'2025-05-29', time:'2:00 PM',  status:'Pending',    dur:'60 min',  price:65  },
-    { id:8,  client:'Emily W.',     service:'Facial Treatment', staff:'Sofia Rivera',  date:'2025-05-30', time:'11:00 AM', status:'Confirmed',  dur:'75 min',  price:90  },
-    { id:9,  client:'Ryan C.',      service:'Massage Therapy',  staff:'Marcus Lee',    date:'2025-05-27', time:'9:30 AM',  status:'Completed',  dur:'60 min',  price:85  },
-    { id:10, client:'Nina S.',      service:'Manicure',         staff:'Jake Chen',     date:'2025-05-26', time:'3:30 PM',  status:'Completed',  dur:'45 min',  price:40  },
-    { id:11, client:'David K.',     service:'Brow Shaping',     staff:'Sofia Rivera',  date:'2025-05-25', time:'2:00 PM',  status:'Cancelled',  dur:'30 min',  price:35  },
-    { id:12, client:'Aria M.',      service:'Full Color',       staff:'Emma Johnson',  date:'2025-05-31', time:'10:00 AM', status:'Confirmed',  dur:'120 min', price:120 },
+    { id:1,  client:'Sophie M.',    service:'Haircut & Style',  staff:'Emma Johnson',  date:dayOffset(0),  time:'9:00 AM',  status:'Confirmed',  dur:'60 min',  price:65  },
+    { id:2,  client:'Jake R.',      service:'Massage Therapy',  staff:'Marcus Lee',    date:dayOffset(0),  time:'10:00 AM', status:'Confirmed',  dur:'60 min',  price:85  },
+    { id:3,  client:'Chloe T.',     service:'Facial Treatment', staff:'Sofia Rivera',  date:dayOffset(0),  time:'11:30 AM', status:'Pending',    dur:'75 min',  price:90  },
+    { id:4,  client:'Anya P.',      service:'Full Color',       staff:'Emma Johnson',  date:dayOffset(0),  time:'1:00 PM',  status:'Confirmed',  dur:'120 min', price:120 },
+    { id:5,  client:'Marcus L.',    service:'Brow Shaping',     staff:'Sofia Rivera',  date:dayOffset(0),  time:'3:00 PM',  status:'Confirmed',  dur:'30 min',  price:35  },
+    { id:6,  client:'Lily K.',      service:'Manicure',         staff:'Jake Chen',     date:dayOffset(1),  time:'10:00 AM', status:'Confirmed',  dur:'45 min',  price:40  },
+    { id:7,  client:'Tom B.',       service:'Haircut & Style',  staff:'Marcus Lee',    date:dayOffset(1),  time:'2:00 PM',  status:'Pending',    dur:'60 min',  price:65  },
+    { id:8,  client:'Emily W.',     service:'Facial Treatment', staff:'Sofia Rivera',  date:dayOffset(2),  time:'11:00 AM', status:'Confirmed',  dur:'75 min',  price:90  },
+    { id:9,  client:'Ryan C.',      service:'Massage Therapy',  staff:'Marcus Lee',    date:dayOffset(-1), time:'9:30 AM',  status:'Completed',  dur:'60 min',  price:85  },
+    { id:10, client:'Nina S.',      service:'Manicure',         staff:'Jake Chen',     date:dayOffset(-2), time:'3:30 PM',  status:'Completed',  dur:'45 min',  price:40  },
+    { id:11, client:'David K.',     service:'Brow Shaping',     staff:'Sofia Rivera',  date:dayOffset(-3), time:'2:00 PM',  status:'Cancelled',  dur:'30 min',  price:35  },
+    { id:12, client:'Aria M.',      service:'Full Color',       staff:'Emma Johnson',  date:dayOffset(3),  time:'10:00 AM', status:'Confirmed',  dur:'120 min', price:120 },
   ];
 
   const clients = [
-    { id:1, name:'Sophie M.',   email:'sophie@mail.com',  phone:'555-0101', visits:14, last:'May 28', tier:'VIP',     spent:'$910',  avatar:'#7c3aed' },
-    { id:2, name:'Jake R.',     email:'jake@mail.com',    phone:'555-0102', visits:8,  last:'May 28', tier:'Regular', spent:'$680',  avatar:'#3b82f6' },
-    { id:3, name:'Chloe T.',    email:'chloe@mail.com',   phone:'555-0103', visits:5,  last:'May 20', tier:'Regular', spent:'$450',  avatar:'#22c55e' },
-    { id:4, name:'Anya P.',     email:'anya@mail.com',    phone:'555-0104', visits:22, last:'May 28', tier:'VIP',     spent:'$2,640',avatar:'#f59e0b' },
-    { id:5, name:'Marcus L.',   email:'marcus@mail.com',  phone:'555-0105', visits:3,  last:'May 28', tier:'New',     spent:'$105',  avatar:'#ec4899' },
-    { id:6, name:'Lily K.',     email:'lily@mail.com',    phone:'555-0106', visits:11, last:'Apr 30', tier:'Regular', spent:'$440',  avatar:'#14b8a6' },
-    { id:7, name:'Tom B.',      email:'tom@mail.com',     phone:'555-0107', visits:2,  last:'Apr 20', tier:'New',     spent:'$130',  avatar:'#6366f1' },
-    { id:8, name:'Emily W.',    email:'emily@mail.com',   phone:'555-0108', visits:17, last:'May 15', tier:'VIP',     spent:'$1,530',avatar:'#7c3aed' },
-    { id:9, name:'Ryan C.',     email:'ryan@mail.com',    phone:'555-0109', visits:6,  last:'May 27', tier:'Regular', spent:'$510',  avatar:'#3b82f6' },
-    { id:10,name:'Nina S.',     email:'nina@mail.com',    phone:'555-0110', visits:9,  last:'May 26', tier:'Regular', spent:'$360',  avatar:'#ec4899' },
+    { id:1, name:'Sophie M.',   email:'sophie@mail.com',  phone:'555-0101', visits:14, last:shortDate(0),   tier:'VIP',     spent:'$910',  avatar:'#7c3aed' },
+    { id:2, name:'Jake R.',     email:'jake@mail.com',    phone:'555-0102', visits:8,  last:shortDate(0),   tier:'Regular', spent:'$680',  avatar:'#3b82f6' },
+    { id:3, name:'Chloe T.',    email:'chloe@mail.com',   phone:'555-0103', visits:5,  last:shortDate(-8),  tier:'Regular', spent:'$450',  avatar:'#22c55e' },
+    { id:4, name:'Anya P.',     email:'anya@mail.com',    phone:'555-0104', visits:22, last:shortDate(0),   tier:'VIP',     spent:'$2,640',avatar:'#f59e0b' },
+    { id:5, name:'Marcus L.',   email:'marcus@mail.com',  phone:'555-0105', visits:3,  last:shortDate(0),   tier:'New',     spent:'$105',  avatar:'#ec4899' },
+    { id:6, name:'Lily K.',     email:'lily@mail.com',    phone:'555-0106', visits:11, last:shortDate(-28), tier:'Regular', spent:'$440',  avatar:'#14b8a6' },
+    { id:7, name:'Tom B.',      email:'tom@mail.com',     phone:'555-0107', visits:2,  last:shortDate(-38), tier:'New',     spent:'$130',  avatar:'#6366f1' },
+    { id:8, name:'Emily W.',    email:'emily@mail.com',   phone:'555-0108', visits:17, last:shortDate(-13), tier:'VIP',     spent:'$1,530',avatar:'#7c3aed' },
+    { id:9, name:'Ryan C.',     email:'ryan@mail.com',    phone:'555-0109', visits:6,  last:shortDate(-1),  tier:'Regular', spent:'$510',  avatar:'#3b82f6' },
+    { id:10,name:'Nina S.',     email:'nina@mail.com',    phone:'555-0110', visits:9,  last:shortDate(-2),  tier:'Regular', spent:'$360',  avatar:'#ec4899' },
   ];
 
   const services = [
@@ -671,10 +693,22 @@
     { emoji:'👁️', name:'Brow Shaping',      dur:'30 min', price:'$35',  desc:'Wax, thread, and tint',           bookings:18 },
   ];
 
+  // n calendar months ending with the current one, oldest first.
+  function monthsBack(n) {
+    const out = [];
+    for (let i = n-1; i >= 0; i--) out.push(new Date(TODAY.getFullYear(), TODAY.getMonth() - i, 1));
+    return out;
+  }
+  const m7 = monthsBack(7), m3 = monthsBack(3), thisMonth = m3[2];
+  const mLabel = d => MONTHS_SHORT[d.getMonth()];
+
   const chartData = {
-    '7m':{ labels:['Nov','Dec','Jan','Feb','Mar','Apr','May'], values:[88,102,91,115,128,110,145] },
-    '3m':{ labels:['Mar','Apr','May'], values:[128,110,145] },
-    '1m':{ labels:['W1','W2','W3','W4'], values:[32,38,40,35] },
+    '7m':{ labels:m7.map(mLabel), values:[88,102,91,115,128,110,145],
+           sub:`${mLabel(m7[0])} ${m7[0].getFullYear()} – ${mLabel(m7[6])} ${m7[6].getFullYear()}` },
+    '3m':{ labels:m3.map(mLabel), values:[128,110,145],
+           sub:`${mLabel(m3[0])} – ${mLabel(m3[2])} ${m3[2].getFullYear()}` },
+    '1m':{ labels:['W1','W2','W3','W4'], values:[32,38,40,35],
+           sub:`${MONTHS[thisMonth.getMonth()]} ${thisMonth.getFullYear()} (weekly)` },
   };
 
   /* ─── UTIL ─── */
@@ -702,7 +736,7 @@
     document.getElementById('searchInput').value = '';
     searchQ = '';
     closeSidebar();
-    if (id === 'analytics') renderChart('7m');
+    if (id === 'analytics') renderChart(chartPeriod);
   }
   window.switchView = switchView;
 
@@ -727,10 +761,11 @@
   /* ─── DASHBOARD ─── */
   function renderDashboard() {
     document.getElementById('dashDate').textContent = 'Overview · ' +
-      new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
-    const today = '2025-05-28';
-    const todayAppts = appointments.filter(a => a.date === today && a.status !== 'Cancelled');
+      TODAY.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+    const todayAppts = appointments.filter(a => a.date === TODAY_ISO && a.status !== 'Cancelled');
     document.getElementById('dash-today').textContent = todayAppts.length;
+    document.getElementById('dash-week').textContent =
+      appointments.filter(a => a.date >= WEEK_START_ISO && a.date <= WEEK_END_ISO && a.status !== 'Cancelled').length;
     document.getElementById('dash-clients').textContent = clients.length;
     const rev = todayAppts.filter(a=>a.status==='Confirmed'||a.status==='Completed').reduce((s,a)=>s+a.price,0);
     document.getElementById('dash-rev').textContent = '$' + rev;
@@ -792,9 +827,21 @@
       });
     }
 
-    document.getElementById('apptTblCount').textContent = `Showing ${start+1}–${Math.min(start+apptRowsPerPage,total)} of ${total}`;
+    document.getElementById('apptTblCount').textContent = total
+      ? `Showing ${start+1}–${Math.min(start+apptRowsPerPage,total)} of ${total}`
+      : 'Showing 0 of 0';
     renderApptPagination(pages);
     renderCalendar();
+    updatePendingBadge();
+  }
+
+  // Pending count drives the sidebar badge. Recomputed on load and after every
+  // state change (booking, confirm, cancel) — hidden entirely when zero.
+  function updatePendingBadge() {
+    const n = appointments.filter(a => a.status === 'Pending').length;
+    const badge = document.getElementById('apptBadge');
+    badge.textContent = n;
+    badge.style.display = n ? 'flex' : 'none';
   }
 
   function renderApptPagination(pages) {
@@ -839,12 +886,11 @@
   });
 
   /* ─── CALENDAR ─── */
-  let calYear = 2025, calMonth = 4; // 0-indexed → May
+  let calYear = TODAY.getFullYear(), calMonth = TODAY.getMonth(); // opens on the current month
   let selectedDay = null;
 
   function renderCalendar() {
-    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    document.getElementById('calMonth').textContent = `${months[calMonth]} ${calYear}`;
+    document.getElementById('calMonth').textContent = `${MONTHS[calMonth]} ${calYear}`;
     const grid = document.getElementById('calGrid');
     grid.innerHTML = '';
     ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].forEach(d => {
@@ -853,9 +899,9 @@
     const firstDay = new Date(calYear, calMonth, 1).getDay();
     const offset   = (firstDay === 0 ? 6 : firstDay - 1);
     const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
-    const today = new Date(); const isCurrentMonth = today.getMonth()===calMonth && today.getFullYear()===calYear;
+    const isCurrentMonth = TODAY.getMonth()===calMonth && TODAY.getFullYear()===calYear;
 
-    const dateStr = d => `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const dateStr = d => toISODate(new Date(calYear, calMonth, d));
     const apptDates = new Set(appointments.map(a=>a.date));
 
     for (let i=0; i<offset; i++) { const el=document.createElement('div'); el.className='cal-day empty'; grid.appendChild(el); }
@@ -863,7 +909,7 @@
       const el = document.createElement('div');
       const ds = dateStr(d);
       let cls = 'cal-day';
-      if (isCurrentMonth && d===today.getDate()) cls += ' today';
+      if (isCurrentMonth && d===TODAY.getDate()) cls += ' today';
       if (apptDates.has(ds)) cls += ' has-appt';
       if (selectedDay === ds) cls += ' selected';
       el.className = cls;
@@ -937,7 +983,9 @@
       tbody.appendChild(tr);
     });
 
-    document.getElementById('clientTblCount').textContent = `Showing ${start+1}–${Math.min(start+clientRowsPerPage,total)} of ${total}`;
+    document.getElementById('clientTblCount').textContent = total
+      ? `Showing ${start+1}–${Math.min(start+clientRowsPerPage,total)} of ${total}`
+      : 'Showing 0 of 0';
     const pg = document.getElementById('clientPagination');
     pg.innerHTML = '';
     const mk = (label, page, disabled, active) => {
@@ -976,7 +1024,13 @@
   }
 
   /* ─── ANALYTICS ─── */
+  // Single source of truth: the chart and the active pill both read chartPeriod.
+  let chartPeriod = '7m';
+
   function renderChart(period) {
+    chartPeriod = period;
+    document.querySelectorAll('#analyticsFilters .filter')
+      .forEach(b => b.classList.toggle('on', b.dataset.period === period));
     const data = chartData[period];
     const max  = Math.max(...data.values);
     const el   = document.getElementById('chartBars');
@@ -989,14 +1043,13 @@
         <div class="chart-label">${label}</div>`;
       el.appendChild(wrap);
     });
-    const subs={'7m':'Nov 2024 – May 2025','3m':'Mar – May 2025','1m':'May 2025 (weekly)'};
-    document.getElementById('chartSub').textContent=subs[period];
+    document.getElementById('chartSub').textContent=data.sub;
 
-    // top services
+    // top services — sort a copy, the shared `services` array feeds renderServices
     const tl=document.getElementById('topServicesList');
     tl.innerHTML='';
     const maxB=Math.max(...services.map(s=>s.bookings));
-    services.sort((a,b)=>b.bookings-a.bookings).forEach((s,i)=>{
+    services.slice().sort((a,b)=>b.bookings-a.bookings).forEach((s,i)=>{
       const div=document.createElement('div'); div.style.cssText='display:flex;flex-direction:column;gap:5px';
       div.innerHTML=`<div style="display:flex;justify-content:space-between;font-size:.8rem">
         <span style="font-weight:500;color:var(--ink-2)">${s.emoji} ${s.name}</span>
@@ -1010,16 +1063,14 @@
 
   document.getElementById('analyticsFilters').addEventListener('click', e => {
     const p=e.target.dataset.period; if(!p) return;
-    document.querySelectorAll('#analyticsFilters .filter').forEach(b=>b.classList.remove('on'));
-    e.target.classList.add('on'); renderChart(p);
+    renderChart(p);
   });
 
   /* ─── BOOK MODAL ─── */
   function openBookModal() {
     ['b-client','b-email','b-notes'].forEach(id=>document.getElementById(id).value='');
     ['b-time','b-service'].forEach(id=>document.getElementById(id).value='');
-    const today=new Date().toISOString().slice(0,10);
-    document.getElementById('b-date').value=today;
+    document.getElementById('b-date').value=TODAY_ISO;
     document.getElementById('bookModal').classList.add('show');
     document.getElementById('b-client').focus();
   }
@@ -1044,7 +1095,8 @@
     const price   = parseFloat((svc.match(/\$(\d+)/)||[,'0'])[1]);
     appointments.push({ id:nextApptId++, client, service:svcName, staff, date, time, status:'Confirmed', dur, price });
     closeBookModal(); renderAppointments(); renderDashboard();
-    document.getElementById('apptBadge').textContent = appointments.filter(a=>a.status==='Pending').length || '';
+    const shownDay = selectedDay || TODAY_ISO;
+    if (date === shownDay) showDayAppointments(shownDay);
     toast(`Appointment for ${client} booked!`, 'success');
   });
 
@@ -1074,8 +1126,9 @@
   renderAppointments();
   renderClients();
   renderServices();
+  renderChart(chartPeriod);
   renderCalendar();
-  showDayAppointments('2025-05-28');
+  showDayAppointments(TODAY_ISO);
 })();
 </script>
 </body>

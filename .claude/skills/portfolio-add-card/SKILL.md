@@ -265,7 +265,7 @@ project and what the card thumbnail represents.
 |---------|-----------|
 | LaunchLedger | `tag-mint` Finance, `tag-gray` Dashboard |
 | DRIP Coffee | `tag-mint` Café, `tag-gray` Brand |
-| SORN Restaurant | `tag-amber` Fine Dining, `tag-gray` Restaurant |
+| RATRI Restaurant | `tag-amber` Fine Dining, `tag-gray` Restaurant |
 | SolarPeak | `tag-amber` Energy, `tag-gray` Landing Page |
 | Knowledge AI | `tag-mint` AI, `tag-gray` Dashboard |
 | BookEase | `tag-gray` × 3 (Light UI, Dashboard, Booking) |
