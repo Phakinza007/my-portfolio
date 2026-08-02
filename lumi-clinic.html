@@ -323,92 +323,47 @@
     }
     .results-side { display: flex; flex-direction: column; gap: 36px; }
 
-    .ba-wrap {
-      position: relative;
-      overflow: hidden;
-      cursor: col-resize;
-      user-select: none;
-      -webkit-user-select: none;
-      touch-action: none;
-      background: var(--ink-2);
+    /* A course timeline, not a before/after photo — the previous slider
+       reused one source photo, dulled, as its own "before". Nothing to
+       fake or dispute here, and it fits an "honest, no-hype" clinic
+       better than a comparison widget ever did. */
+    .course-panel {
+      display: flex; flex-direction: column;
+      border: 1px solid var(--line-inv);
     }
-    .ba-tall  { aspect-ratio: 3 / 4; }
-    .ba-wide  { aspect-ratio: 4 / 3; }
+    .course-row {
+      display: grid; grid-template-columns: 92px 1fr;
+      gap: 20px;
+      padding: 28px 26px;
+      border-bottom: 1px solid var(--line-inv);
+    }
+    .course-row:last-child { border-bottom: none; }
+    .course-week {
+      font-family: var(--serif); font-style: italic;
+      font-size: 15px; color: var(--clay);
+    }
+    .course-row h3 {
+      font-size: 16px; color: var(--paper);
+      margin-bottom: 6px; font-weight: 600;
+    }
+    .course-row p { font-size: 13.5px; line-height: 1.65; }
 
-    .ba-after, .ba-before { position: absolute; inset: 0; }
-    .ba-after  { z-index: 1; }
-    .ba-before { z-index: 2; clip-path: inset(0 50% 0 0); }
-    .ba-after img, .ba-before img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      pointer-events: none;
+    .course-stats {
+      display: flex; flex-direction: column;
+      border: 1px solid var(--line-inv);
     }
-    /* "before" = same photo, clearly dulled — an honest mock, disclosed below */
-    .ba-before img { filter: saturate(.5) brightness(.88) contrast(1.02); }
-
-    .ba-line {
-      position: absolute; top: 0; bottom: 0; left: 50%;
-      width: 1px;
-      background: var(--paper);
-      z-index: 3;
-      pointer-events: none;
+    .stat-row {
+      display: flex; align-items: baseline; gap: 14px;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--line-inv);
     }
-    .ba-knob {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 40px; height: 40px;
-      background: var(--paper);
-      color: var(--ink);
-      border-radius: 50%;
-      z-index: 4;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px;
-      pointer-events: none;
-    }
-    .ba-labels {
-      position: absolute;
-      top: 14px; left: 14px; right: 14px;
-      z-index: 4;
-      display: flex;
-      justify-content: space-between;
-      pointer-events: none;
-    }
-    .ba-lbl {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--paper);
-      background: rgba(28,23,20,.55);
-      padding: 4px 10px;
-    }
-    .ba-range {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      opacity: 0;
-      cursor: col-resize;
-      z-index: 5;
-      margin: 0;
-      -webkit-appearance: none;
-    }
-    .ba-range::-webkit-slider-thumb { -webkit-appearance: none; width: 44px; height: 100%; }
-    .ba-range::-moz-range-thumb { border: none; width: 44px; height: 100%; opacity: 0; }
-
-    .ba-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 16px;
-      padding-top: 14px;
-      border-top: 1px solid var(--line-inv);
-      margin-top: 14px;
-    }
-    .ba-treatment {
+    .stat-row:last-child { border-bottom: none; }
+    .stat-num {
       font-family: var(--serif);
-      font-size: 17px;
-      color: var(--paper);
+      font-size: 26px; color: var(--paper);
+      flex: none; min-width: 58px;
     }
-    .ba-detail { font-size: 12.5px; color: var(--mist); }
+    .stat-label { font-size: 13px; color: var(--mist); }
 
     .results-note {
       font-size: 12.5px;
@@ -696,9 +651,9 @@
 
       <figure class="hero-visual fade-up" style="transition-delay:.15s">
         <img
-          src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=1000&auto=format&fit=crop"
-          alt="Clean, healthy skin — the standard LUMI treatments aim for"
-          width="1000" height="1333"
+          src="assets/lumi/hero-dropper.jpg"
+          alt="A dropper of skincare serum held above an amber bottle, warm afternoon light"
+          width="650" height="700"
           fetchpriority="high">
         <figcaption class="img-caption">Skin first, procedures second — the LUMI standard</figcaption>
       </figure>
@@ -764,62 +719,48 @@
       <h2>Results that take their time</h2>
       <p class="results-intro">
         We aim for the kind of change where people around you just say
-        "you look well lately." Drag the handle to compare the level of
-        change we plan for.
+        "you look well lately." Here's what an actual course looks like,
+        start to finish.
       </p>
     </div>
 
     <div class="results-grid">
 
-      <figure class="ba-figure fade-up" style="transition-delay:.1s">
-        <div class="ba-wrap ba-tall" data-ba>
-          <div class="ba-after">
-            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=900&auto=format&fit=crop" alt="Skin tone and texture — laser and botox course, simulated comparison" width="900" height="1200" loading="lazy">
+      <div class="course-panel fade-up" style="transition-delay:.1s">
+        <div class="course-row">
+          <span class="course-week">Week 0</span>
+          <div>
+            <h3>Consult &amp; baseline</h3>
+            <p>The doctor maps your skin, agrees a realistic target with you, and books the course around it — not a single big procedure sold on day one.</p>
           </div>
-          <div class="ba-before">
-            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=900&auto=format&fit=crop" alt="" aria-hidden="true" width="900" height="1200" loading="lazy">
-          </div>
-          <div class="ba-line"></div>
-          <div class="ba-knob">⇔</div>
-          <div class="ba-labels">
-            <span class="ba-lbl">Before</span>
-            <span class="ba-lbl">After</span>
-          </div>
-          <input type="range" class="ba-range" min="0" max="100" value="50" aria-label="Drag to compare before and after">
         </div>
-        <figcaption class="ba-meta">
-          <span class="ba-treatment">Laser + Botox</span>
-          <span class="ba-detail">3 sessions · over 10 weeks</span>
-        </figcaption>
-      </figure>
+        <div class="course-row">
+          <span class="course-week">Week 4</span>
+          <div>
+            <h3>First visible shift</h3>
+            <p>Tone evens out and texture softens between sessions. Most patients say colleagues notice before they mention it themselves.</p>
+          </div>
+        </div>
+        <div class="course-row">
+          <span class="course-week">Week 10</span>
+          <div>
+            <h3>Course complete, plan reviewed</h3>
+            <p>We reassess together and decide what — if anything — comes next. No pressure to book another course.</p>
+          </div>
+        </div>
+      </div>
 
       <div class="results-side">
-        <figure class="ba-figure fade-up" style="transition-delay:.2s">
-          <div class="ba-wrap ba-wide" data-ba>
-            <div class="ba-after">
-              <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&w=800&auto=format&fit=crop" alt="Skin clarity close-up — brightening course, simulated comparison" width="800" height="533" loading="lazy">
-            </div>
-            <div class="ba-before">
-              <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&w=800&auto=format&fit=crop" alt="" aria-hidden="true" width="800" height="533" loading="lazy">
-            </div>
-            <div class="ba-line"></div>
-            <div class="ba-knob">⇔</div>
-            <div class="ba-labels">
-              <span class="ba-lbl">Before</span>
-              <span class="ba-lbl">After</span>
-            </div>
-            <input type="range" class="ba-range" min="0" max="100" value="50" aria-label="Drag to compare before and after">
-          </div>
-          <figcaption class="ba-meta">
-            <span class="ba-treatment">Skin Brightening</span>
-            <span class="ba-detail">6 sessions · 4 weeks</span>
-          </figcaption>
-        </figure>
+        <div class="course-stats fade-up" style="transition-delay:.2s">
+          <div class="stat-row"><span class="stat-num">3</span><span class="stat-label">sessions in a typical course</span></div>
+          <div class="stat-row"><span class="stat-num">8–10</span><span class="stat-label">weeks to the full result</span></div>
+          <div class="stat-row"><span class="stat-num">0</span><span class="stat-label">downtime days for most treatments</span></div>
+        </div>
 
         <p class="results-note fade-up" style="transition-delay:.3s">
-          These images are simulated comparisons for presentation only.
-          Real, consented patient before-and-afters are available to view
-          at the clinic — and results vary from person to person.
+          We don't publish before/after photos — skin tone, lighting and
+          angle make them easy to fake and hard to verify. Real, consented
+          patient results are shown in person at the consult.
         </p>
       </div>
 
@@ -835,10 +776,10 @@
 
       <figure class="about-visual fade-up">
         <img
-          src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=900&auto=format&fit=crop"
-          alt="Facial treatment in progress at the clinic"
-          width="900" height="1200" loading="lazy">
-        <figcaption class="img-caption">Skin prep before a laser program</figcaption>
+          src="assets/lumi/about-dropper.jpg"
+          alt="A dropper of skincare serum held above an amber bottle, wide framing with warm afternoon light"
+          width="800" height="880" loading="lazy">
+        <figcaption class="img-caption">Every product is opened and dosed in front of you</figcaption>
       </figure>
 
       <div class="fade-up" style="transition-delay:.12s">
@@ -999,41 +940,6 @@
   }, { threshold: 0.10 });
 
   document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
-
-  /* ── Before / After sliders ──────────────────────────────── */
-  document.querySelectorAll('[data-ba]').forEach(wrap => {
-    const range  = wrap.querySelector('.ba-range');
-    const before = wrap.querySelector('.ba-before');
-    const line   = wrap.querySelector('.ba-line');
-    const knob   = wrap.querySelector('.ba-knob');
-
-    function set(v) {
-      before.style.clipPath = `inset(0 ${100 - v}% 0 0)`;
-      line.style.left = v + '%';
-      knob.style.left = v + '%';
-    }
-
-    range.addEventListener('input', () => set(range.value));
-
-    let active = false;
-    function getX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
-    function move(e) {
-      if (!active) return;
-      const r   = wrap.getBoundingClientRect();
-      const pct = Math.min(100, Math.max(0, ((getX(e) - r.left) / r.width) * 100));
-      range.value = pct;
-      set(pct);
-    }
-
-    wrap.addEventListener('mousedown',  () => { active = true; });
-    wrap.addEventListener('touchstart', () => { active = true; }, { passive: true });
-    document.addEventListener('mouseup',  () => { active = false; });
-    document.addEventListener('touchend', () => { active = false; });
-    wrap.addEventListener('mousemove', move);
-    wrap.addEventListener('touchmove', move, { passive: true });
-
-    set(50);
-  });
 
   /* ── Booking form ────────────────────────────────────────── */
   const bookingForm = document.getElementById('bookingForm');
