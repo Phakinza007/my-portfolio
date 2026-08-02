@@ -210,23 +210,23 @@
       display: grid; grid-template-columns: auto 1fr; gap: 30px; align-items: center;
       padding-bottom: 34px; margin-bottom: 34px; border-bottom: 1px solid var(--line-ink);
     }
-    /* one shared grade so three separate portraits read as one clinic */
-    .doc-photo {
-      flex: none; overflow: hidden; border-radius: 6px;
-      background: var(--ink-3); position: relative;
+    /* typographic avatars, not photos — a stock stranger's face standing in
+       for a named dentist is worse than no photo at all */
+    .doc-avatar {
+      flex: none; border-radius: 50%;
+      display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--coral), var(--coral-deep));
+      color: var(--paper);
+      font-family: var(--display); font-weight: 800;
     }
-    .doc-photo img {
-      width: 100%; height: 100%; object-fit: cover; object-position: center 22%;
-      filter: saturate(.94) contrast(1.03);
-    }
-    .doc-featured .doc-photo { width: 240px; height: 300px; }
+    .doc-featured .doc-avatar { width: 200px; height: 200px; font-size: 72px; }
     .doc-featured h3 { font-size: clamp(22px, 3vw, 30px); font-weight: 800; letter-spacing: -.6px; }
     .doc-featured .doc-spec { color: var(--coral); font-weight: 600; font-size: 13.5px; margin: 6px 0 10px; }
     .doc-featured p { font-size: 14px; color: var(--text-lo); max-width: 520px; }
 
     .doc-list { display: grid; gap: 30px; }
     .doc-row { display: flex; align-items: center; gap: 20px; }
-    .doc-row .doc-photo { width: 112px; height: 140px; border-radius: 5px; }
+    .doc-row .doc-avatar { width: 104px; height: 104px; font-size: 34px; }
     .doc-row h3 { font-family: var(--display); font-size: 16px; font-weight: 700; }
     .doc-row .doc-spec { font-size: 12.5px; color: var(--coral); font-weight: 600; margin-top: 2px; }
     .doc-row p { font-size: 13px; color: var(--text-lo); margin-top: 3px; max-width: 460px; }
@@ -370,8 +370,8 @@
       .hero-copy { padding-bottom: 36px; }
       .hero-photo img { min-height: 260px; }
       .doc-featured { grid-template-columns: auto 1fr; gap: 24px; }
-      .doc-featured .doc-photo { width: 184px; height: 230px; }
-      .doc-row .doc-photo { width: 96px; height: 120px; }
+      .doc-featured .doc-avatar { width: 160px; height: 160px; font-size: 56px; }
+      .doc-row .doc-avatar { width: 88px; height: 88px; font-size: 30px; }
       .rev-support { grid-template-columns: 1fr; gap: 26px; }
       .book-grid, .contact-grid { grid-template-columns: 1fr; }
     }
@@ -387,9 +387,9 @@
       .menu-num { width: auto; padding-top: 3px; }
       .menu-price { grid-column: 2; text-align: left; font-size: 13px; margin-top: 9px; }
       .doc-featured { grid-template-columns: 1fr; text-align: left; gap: 20px; }
-      .doc-featured .doc-photo { width: 152px; height: 190px; }
+      .doc-featured .doc-avatar { width: 128px; height: 128px; font-size: 46px; }
       .doc-list { gap: 22px; }
-      .doc-row .doc-photo { width: 78px; height: 98px; }
+      .doc-row .doc-avatar { width: 72px; height: 72px; font-size: 26px; }
       .f-grid { grid-template-columns: 1fr; }
       .book-form { padding: 26px 22px; }
       .map-frame { aspect-ratio: 4 / 3; }
@@ -400,7 +400,7 @@
       .logo { font-size: 17px; }
       .nav-inner .btn { padding: 13px 16px; font-size: 13px; }
       .doc-row { gap: 14px; }
-      .doc-row .doc-photo { width: 68px; height: 85px; }
+      .doc-row .doc-avatar { width: 60px; height: 60px; font-size: 22px; }
       .book-hours div { max-width: none; }
     }
   </style>
@@ -564,11 +564,7 @@
         <p>ทุกท่านผ่านการศึกษาเฉพาะทางและมีใบประกอบวิชาชีพทันตกรรม</p>
       </div>
       <div class="doc-featured reveal">
-        <div class="doc-photo">
-          <img src="assets/dental/doctor-thanakorn.jpg" width="800" height="1000"
-               alt="ทพ. ธนกร วิริยะกุล ทันตแพทย์จัดฟันและหัวหน้าคลินิก ยืนอยู่ในห้องตรวจ"
-               loading="lazy" decoding="async">
-        </div>
+        <div class="doc-avatar" aria-hidden="true">ธ</div>
         <div>
           <h3>ทพ. ธนกร วิริยะกุล</h3>
           <div class="doc-spec">ทันตกรรมจัดฟัน · หัวหน้าคลินิก</div>
@@ -577,11 +573,7 @@
       </div>
       <div class="doc-list reveal">
         <div class="doc-row">
-          <div class="doc-photo">
-            <img src="assets/dental/doctor-pimchanok.jpg" width="800" height="1000"
-                 alt="ทพญ. พิมพ์ชนก สุวรรณโชติ ทันตแพทย์ด้านทันตกรรมประดิษฐ์และวีเนียร์ ในห้องตรวจของคลินิก"
-                 loading="lazy" decoding="async">
-          </div>
+          <div class="doc-avatar" aria-hidden="true">พ</div>
           <div>
             <h3>ทพญ. พิมพ์ชนก สุวรรณโชติ</h3>
             <div class="doc-spec">ทันตกรรมประดิษฐ์ &amp; วีเนียร์</div>
@@ -589,11 +581,7 @@
           </div>
         </div>
         <div class="doc-row">
-          <div class="doc-photo">
-            <img src="assets/dental/doctor-supawit.jpg" width="800" height="1000"
-                 alt="ทพ. ศุภวิชญ์ อินทรกำแหง ทันตแพทย์ศัลยศาสตร์ช่องปาก ถือเครื่องมือยืนหน้าจอแสดงภาพรากฟันเทียม"
-                 loading="lazy" decoding="async">
-          </div>
+          <div class="doc-avatar" aria-hidden="true">ศ</div>
           <div>
             <h3>ทพ. ศุภวิชญ์ อินทรกำแหง</h3>
             <div class="doc-spec">ศัลยศาสตร์ช่องปาก &amp; รากฟันเทียม</div>
