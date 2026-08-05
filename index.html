@@ -119,12 +119,20 @@
     }
 
     .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       font-weight: 700;
       font-size: 0.97rem;
       color: var(--ink);
       letter-spacing: -0.01em;
       flex-shrink: 0;
       white-space: nowrap;
+    }
+
+    .nav-logo-mark {
+      flex-shrink: 0;
+      border-radius: 7px;
     }
 
     .nav-links {
@@ -1287,7 +1295,10 @@
   ============================================= -->
   <header class="navbar">
     <div class="container nav-inner">
-      <a class="nav-brand" href="#top">Phakin Chawanpunya</a>
+      <a class="nav-brand" href="#top">
+        <img src="assets/favicon.svg" alt="" width="28" height="28" class="nav-logo-mark" />
+        Phakin Chawanpunya
+      </a>
 
       <nav aria-label="Main navigation">
         <ul class="nav-links">
