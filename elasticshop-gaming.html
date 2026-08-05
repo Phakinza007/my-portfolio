@@ -1140,7 +1140,7 @@
               <div class="summary">
                 <h3 id="summaryHeading">Order Summary</h3>
                 <div aria-live="polite" aria-labelledby="summaryHeading">
-                  <div class="sum-row"><span class="k">Game</span><span class="v">RoV: Arena of Valor</span></div>
+                  <div class="sum-row"><span class="k">Game</span><span class="v" id="sumGame">RoV: Arena of Valor</span></div>
                   <div class="sum-row"><span class="k">Player UID</span><span class="v" id="sumUid">1234567890</span></div>
                   <div class="sum-row"><span class="k">Package</span><span class="v" id="sumPackage">500 Shells</span></div>
                   <div class="sum-divider"></div>
@@ -1541,12 +1541,35 @@
         });
       });
 
+      /* ============================================================
+         SELECTED GAME — carried from whichever Home tile was clicked
+         into the Top Up flow. Falls back to the first catalog game
+         (matches the real catalog, unlike the old hardcoded default)
+         when the Top Up screen is reached any other way (nav link,
+         featured-deal CTA).
+      ============================================================ */
+      var selectedGame = { game: 'Battle Royale', pub: 'Elasticshop Games' };
+
+      function paintSelectedGame() {
+        var el = document.getElementById('sumGame');
+        if (el) el.textContent = selectedGame.game;
+      }
+
       // any element carrying data-screen (in-screen nav links, CTAs, buttons)
       // routes to that screen; data-scroll optionally targets a section
       document.addEventListener('click', function (e) {
         var el = e.target.closest ? e.target.closest('[data-screen]') : null;
-        if (!el || el.classList.contains('side-link')) return;
+        if (!el || el.classList.contains('side-link') || el.classList.contains('tn-login')) return;
         e.preventDefault();
+
+        if (el.classList.contains('tile')) {
+          var nameEl = $('.tile-name', el);
+          if (nameEl) {
+            selectedGame = { game: nameEl.textContent.trim(), pub: 'Elasticshop Games' };
+            paintSelectedGame();
+          }
+        }
+
         showScreen(el.getAttribute('data-screen'), el.getAttribute('data-scroll'));
       });
 
@@ -1875,6 +1898,7 @@
       selectPackage(selectedId);
       applyHomeFilter();
       applyTxnFilter();
+      paintSelectedGame();
     })();
   </script>
 
