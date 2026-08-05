@@ -93,10 +93,11 @@ Tag colour classes:
 
 | Section | id | Description |
 |---------|----|-------------|
-| Nav | — | Logo + links: Services, Projects, About, Experience, Case Studies, Contact, Resume |
-| Hero | `#top` | Name, service positioning, primary CTA → Fastwork (external) |
+| Nav | — | Logo + links: Services, Reviews, Projects, About, Experience, Case Studies, Contact, Resume |
+| Hero | `#top` | Name, full-time service positioning, primary CTA → Fastwork (external), secondary CTA → Services/pricing |
 | Tech Stack | — | Dual-row logo marquee (Simple Icons inlined as SVG symbols), opposite scroll directions, pause on hover, reduced-motion static |
-| Services | `#services` | 3 service cards (Landing Page / Dashboard UI / Business Website), each links to Fastwork |
+| Services | `#services` | 3 priced packages (Landing Page ฿3,900 / Dashboard UI ฿7,900 / Business Website ฿9,900), Thai copy, each links to Fastwork + `#contact` |
+| Testimonials | `#testimonials` | 3 real 5-star Fastwork buyer reviews, Thai, links back to the Fastwork profile — no schema.org Review markup (see `docs/superpowers/specs/2026-08-05-service-pivot-design.md`) |
 | Selected Work | `#projects` | 13 project cards |
 | About | `#about` | Bio + photo |
 | Experience | `#experience` | Skills, timeline, tools, KMUTT education |
