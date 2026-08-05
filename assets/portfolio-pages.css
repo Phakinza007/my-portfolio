@@ -16,6 +16,8 @@
   --mint-text: #34d399;
   --amber: rgba(245, 158, 11, 0.14);
   --amber-text: #fbbf24;
+  --rose: rgba(239, 68, 68, 0.14);
+  --rose-text: #f87171;
   --max: 1180px;
   --r: 14px;
   --r-sm: 8px;
@@ -404,6 +406,12 @@ p {
   color: var(--amber-text);
 }
 
+.tag-accent { background: var(--accent-light); color: var(--accent); }
+.tag-mint   { background: var(--mint); color: var(--mint-text); }
+.tag-amber  { background: var(--amber); color: var(--amber-text); }
+.tag-rose   { background: var(--rose); color: var(--rose-text); }
+.tag-gray   { background: #21262d; color: #8b949e; }
+
 .timeline {
   display: grid;
   gap: 1px;
@@ -569,6 +577,96 @@ p {
   flex-wrap: wrap;
   gap: 10px;
   justify-content: flex-end;
+}
+
+/* ============================================================
+   SHOWCASE PAGES — browser-chrome hero + icon-led content blocks
+============================================================ */
+.browser-frame {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface);
+  box-shadow: 0 24px 60px rgba(1, 4, 9, 0.45);
+}
+
+.browser-frame-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-2);
+}
+
+.browser-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.browser-dot-red { background: #e0605c; }
+.browser-dot-amber { background: #e0b95c; }
+.browser-dot-green { background: #5cc27a; }
+
+.browser-url {
+  min-width: 0;
+  margin-left: 10px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.browser-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.showcase-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 14px;
+  border-radius: 50%;
+  background: var(--accent-light);
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.highlight-list {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 0;
+  padding: 0;
+}
+
+.highlight-list li {
+  position: relative;
+  padding-left: 20px;
+  color: var(--ink-2);
+}
+
+.highlight-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
 }
 
 .footer-band {
