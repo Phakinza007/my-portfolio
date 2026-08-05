@@ -42,6 +42,45 @@
     "knowsAbout": ["Frontend development", "Dashboard UI", "Landing page design", "HTML", "CSS"]
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "Web Development",
+    "provider": {
+      "@type": "Person",
+      "name": "Phakin Chawanpunya",
+      "url": "https://phakinza007.github.io/my-portfolio/"
+    },
+    "areaServed": "TH",
+    "availableLanguage": ["th", "en"],
+    "url": "https://phakinza007.github.io/my-portfolio/#services",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "บริการและราคา",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": { "@type": "Service", "name": "Landing Page / Sale Page" },
+          "priceCurrency": "THB",
+          "price": "3900"
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": { "@type": "Service", "name": "Dashboard UI" },
+          "priceCurrency": "THB",
+          "price": "7900"
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": { "@type": "Service", "name": "Business Website" },
+          "priceCurrency": "THB",
+          "price": "9900"
+        }
+      ]
+    }
+  }
+  </script>
 
   <style>
     /* ============================================================
@@ -283,6 +322,15 @@
       color: var(--ink);
       max-width: 13ch;
       margin-bottom: 22px;
+    }
+
+    .hero-role {
+      display: block;
+      font-size: clamp(1rem, 1.8vw, 1.25rem);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--muted-2);
+      margin-top: 10px;
     }
 
     .hero-desc {
@@ -1350,7 +1398,7 @@
           <div class="hero-left">
             <div class="avail-badge"><span class="avail-dot"></span> Taking new projects on Fastwork</div>
             <div class="hero-eyebrow">Full-Time Web Development</div>
-            <h1>Phakin<br>Chawanpunya</h1>
+            <h1>Phakin<br>Chawanpunya<span class="hero-role">Freelance Web Developer — รับทำเว็บไซต์</span></h1>
             <p class="hero-desc">I run a focused web development practice — landing pages, dashboards, and business websites for founders and small businesses, with transparent pricing and fast turnaround. Now taking on new projects full-time.</p>
             <div class="hero-ctas">
               <a class="btn btn-dark" href="https://fastwork.co/byob/0G16E5GFIO?openExternalBrowser=1&amp;source=byob" target="_blank" rel="noopener noreferrer">Hire Me on Fastwork</a>
