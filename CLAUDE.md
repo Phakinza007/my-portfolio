@@ -111,10 +111,12 @@ Tag colour classes:
 
 - Theme color: `#5274f8`
 - OG image: `assets/social-preview.png` (1200×630)
-- Canonical URL set on all pages
+- Canonical URL set on all pages — must be `https://phakinza007.github.io/my-portfolio/...`
+  (see `docs/superpowers/plans/2026-08-05-technical-seo-fix.md` — ph-akin.dev does not resolve)
 - `robots: index, follow`
 - Twitter card: `summary_large_image`
-- Sitemap: `sitemap.xml` (submit to Google Search Console manually)
+- Sitemap: `sitemap.xml`, referenced from `robots.txt`
+- `robots.txt` at the repo root allows all crawlers and points at the sitemap
 
 ---
 

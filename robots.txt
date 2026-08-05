@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://phakinza007.github.io/my-portfolio/sitemap.xml
