@@ -1392,6 +1392,74 @@
       var $$ = function (sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); };
 
       /* ============================================================
+         ORDERS + PROFILE — localStorage-backed, demo-only persistence.
+         Every read tolerates missing/corrupt data and returns a safe
+         empty value instead of throwing. Every write is wrapped in
+         try/catch (private browsing / full quota must never block
+         the checkout flow).
+      ============================================================ */
+      var ORDERS_KEY  = 'esg_orders';
+      var PROFILE_KEY = 'esg_profile';
+
+      var Orders = {
+        all: function () {
+          try {
+            var raw = window.localStorage.getItem(ORDERS_KEY);
+            var list = raw ? JSON.parse(raw) : [];
+            return Array.isArray(list) ? list : [];
+          } catch (e) {
+            return [];
+          }
+        },
+        add: function (order) {
+          var list = Orders.all();
+          list.unshift(order);
+          try {
+            window.localStorage.setItem(ORDERS_KEY, JSON.stringify(list));
+            return true;
+          } catch (e) {
+            return false;
+          }
+        },
+        updateStatus: function (ref, status) {
+          var list = Orders.all();
+          for (var i = 0; i < list.length; i++) {
+            if (list[i].ref === ref) { list[i].status = status; break; }
+          }
+          try {
+            window.localStorage.setItem(ORDERS_KEY, JSON.stringify(list));
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+      };
+
+      var Profile = {
+        get: function () {
+          try {
+            var raw = window.localStorage.getItem(PROFILE_KEY);
+            var obj = raw ? JSON.parse(raw) : null;
+            return (obj && typeof obj.name === 'string' && obj.name) ? obj : null;
+          } catch (e) {
+            return null;
+          }
+        },
+        set: function (name) {
+          try {
+            window.localStorage.setItem(PROFILE_KEY, JSON.stringify({ name: name }));
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+      };
+
+      // Expose to global scope for console access and inter-task communication
+      window.Orders = Orders;
+      window.Profile = Profile;
+
+      /* ============================================================
          PRICING DATA — single source of truth for the top-up flow.
          list = regular price (฿1.10 per shell), pct = tier discount.
          discount = list * pct / 100, total = list - discount.
