@@ -10,6 +10,11 @@ Phakin is moving from freelancing as a side activity to taking on web developmen
 - No new contact channels (LINE OA, Facebook Page) — the existing contact form (Formspree) and `mailto:` link already satisfy "direct contact alongside Fastwork."
 - No fabricated social proof — testimonials come from Phakin's real Fastwork buyer reviews (screenshotted from `fastwork.co/user/u106pl4r`), pricing comes from his real Fastwork package listings. Nothing here is invented copy.
 
+**Addendum (found during plan review):** two more real problems surfaced before implementation started, both now folded into this spec/plan rather than spawning a separate cycle, since they're small and bounded:
+
+1. **About section undersells the stack.** `#about` currently says "I work in HTML and CSS," while the hero's tech marquee shows React/Node.js/Express/PostgreSQL and the Selected Work filter has a "Full Stack" tag with 5 projects. A Thai SME owner reading About alone would reasonably conclude "static pages only." Fix: reword to state the frontend + Node.js backend capability directly (Task 7 in the implementation plan).
+2. **Full-page language toggle is a separate, larger project.** The site's Hero/About/Experience/Projects/Case Studies serve a dual audience — Thai SME clients from Fastwork (who bounce off an all-English hero) and English-reading recruiters/clients (LinkedIn/GitHub). A real fix is a site-wide TH/EN toggle, not just translating Hero+Services. That's materially bigger than this spec (new toggle mechanism, translating ~13 project cards, About, Experience, Case Studies, Contact, Footer) and is deliberately **out of scope here** — sequenced as its own follow-up brainstorming/spec/plan cycle after this pivot ships.
+
 ## Goals
 
 1. Hero and site framing sound like an established, full-time web development practice — not a student portfolio.

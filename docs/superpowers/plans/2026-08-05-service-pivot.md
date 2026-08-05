@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Rewrite `index.html`'s Hero and Services sections and add a new Testimonials section so the site reads as an active, full-time web development business (real prices, real reviews) instead of a portfolio, per `docs/superpowers/specs/2026-08-05-service-pivot-design.md`.
+**Goal:** Rewrite `index.html`'s Hero and Services sections, add a new Testimonials section, and fix the About section's stale "HTML and CSS only" self-description so the site reads as an active, full-time, full-stack-capable web development business (real prices, real reviews) instead of a portfolio, per `docs/superpowers/specs/2026-08-05-service-pivot-design.md`.
 
 **Architecture:** Single-file static site — no build step, no JS framework. All changes are direct edits to `index.html` (inline `<style>` block starting at line 41, HTML body). The existing `.card` / `.works-grid` component pattern (already used by Services and About) is reused and extended with new CSS classes for price/duration/bullet-list/testimonial display. The existing `.reveal` scroll-fade animation (driven by a single `document.querySelectorAll('.reveal')` call in the inline `<script>` at the bottom of `<body>`) applies automatically to any new element carrying the `reveal` class — no JS changes needed anywhere in this plan.
 
@@ -12,7 +12,8 @@
 
 - Accent color: `--accent: #5274f8` (defined in `index.html:55`) — reuse via `var(--accent)`, never hardcode a new color.
 - No new pages, no new nav-anchor scheme beyond one addition (`#testimonials`) — everything stays in `index.html`.
-- Services/Pricing/Testimonials copy is Thai. Hero, About, Experience, Selected Work, Case Studies, Contact stay English — do not translate them.
+- Services/Pricing/Testimonials copy is Thai. Hero, About, Experience, Selected Work, Case Studies, Contact stay English — do not translate them. (About gets one English wording correction in Task 7, not a translation.)
+- Full-page TH/EN toggle is explicitly out of scope for this plan — sequenced as a separate follow-up project (see spec Addendum).
 - No LINE/Facebook links, no schema.org `Review`/`AggregateRating` JSON-LD — per spec Non-goals.
 - All pricing/testimonial content must match exactly what's in the spec (real Fastwork listing data) — no invented numbers or quotes.
 - Every task must end with `html, body { overflow-x: hidden; }` still holding — the project's mobile-overflow bar (`CLAUDE.md`) must not regress.
@@ -701,7 +702,63 @@ EOF
 
 ---
 
-### Task 6: Full-page verification
+### Task 6: About section — fix the "HTML and CSS only" undersell
+
+**Files:**
+- Modify: `index.html:2252-2256` (About paragraph 1 — see exact text below; line numbers shift slightly after Tasks 1-4's insertions, so use the "Find" text as the authoritative anchor, not the line numbers)
+
+**Interfaces:** None — pure text content, no new classes or IDs. Independent of Tasks 1-5; can be done in any order relative to them, but is sequenced last among content edits so it can be verified alongside everything else in Task 7.
+
+**Why:** The hero's tech-stack marquee shows React, Node.js, Express, and PostgreSQL, and the Selected Work filter bar has a "Full Stack" tag with 5 projects — but `#about` says "I work in HTML and CSS," directly contradicting both. A visitor who reads About before scrolling further reasonably concludes the offering is static pages only, undermining the Dashboard UI and full-stack-leaning parts of the new pricing section (Task 2).
+
+- [ ] **Step 1: Reword the About paragraph**
+
+Find (exact current text inside `#about`'s first `<p class="card-text">`):
+```html
+            <p class="card-text">
+              I'm Phakin Chawanpunya — a frontend developer who helps startups and small teams
+              get online with clean, fast, and professional-looking pages. I work in HTML and CSS,
+              turning ideas and designs into responsive, accessible pages that represent your brand well.
+            </p>
+```
+
+Replace with:
+```html
+            <p class="card-text">
+              I'm Phakin Chawanpunya — a frontend developer with React and Node.js backend
+              experience, helping startups and small teams get online with clean, fast,
+              professional-looking sites — from static landing pages to full-stack apps with a
+              working backend when the project calls for it.
+            </p>
+```
+
+The second `<p class="card-text">` right after it ("I work best with founders...") is unchanged — leave it exactly as is.
+
+- [ ] **Step 2: Verify in browser**
+
+Reload the local preview, scroll to `#about`. Confirm the paragraph reads the new copy and no longer contains the phrase "I work in HTML and CSS." Confirm it doesn't overflow the `.card` at 375px width (it's plain text in an existing card, so this is a quick visual check, not expected to regress).
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add index.html
+git commit -m "$(cat <<'EOF'
+Fix About section undercutting the full-stack pricing tiers
+
+"I work in HTML and CSS" contradicted the hero's React/Node.js/
+Express/PostgreSQL stack chips and the Selected Work "Full Stack"
+filter (5 projects) — a visitor reading About alone would reasonably
+conclude the offering is static pages only, which undersells the
+Dashboard UI package.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+EOF
+)"
+```
+
+---
+
+### Task 7: Full-page verification
 
 **Files:** None modified — this task only runs checks. If it finds a regression, fix it in `index.html` and commit the fix before considering this task done.
 
@@ -723,10 +780,10 @@ Run `lighthouse_audit(device="mobile", mode="navigation")` on the local URL, per
 
 - [ ] **Step 3: Full click-through**
 
-In the browser, click every link touched by this plan in order: hero "Hire Me on Fastwork," hero "See Pricing," each Services card's two buttons, the Testimonials "ดูรีวิวทั้งหมดบน Fastwork →" link, nav "Reviews" (desktop and mobile), footer "Reviews." Confirm each lands where expected (Fastwork profile/listing in a new tab, or the correct in-page anchor).
+In the browser, click every link touched by this plan in order: hero "Hire Me on Fastwork," hero "See Pricing," each Services card's two buttons, the Testimonials "ดูรีวิวทั้งหมดบน Fastwork →" link, nav "Reviews" (desktop and mobile), footer "Reviews." Confirm each lands where expected (Fastwork profile/listing in a new tab, or the correct in-page anchor). Also scroll to `#about` and confirm the reworded paragraph (Task 6) reads correctly and no longer says "I work in HTML and CSS."
 
 - [ ] **Step 4: If all checks pass, no commit needed for this task** (it's verification-only). If any check failed and required a fix, stage and commit that fix with a message describing what regressed and why, following the same `Co-Authored-By` convention as the other tasks in this plan.
 
 - [ ] **Step 5: Flag the new Thai copy for Phakin's own read-through**
 
-The agent executing this plan should not treat Thai copy correctness as self-verified — per the spec's Verification section, tone/correctness of the new Thai text (Services pricing cards, Testimonials, meta description) needs a native-speaker pass by Phakin before this is considered fully done. End this task by listing the exact strings added in Tasks 1–3 (meta description, hero, 3 pricing cards, 3 testimonial quotes) back to Phakin for a quick read, rather than silently marking the plan complete.
+The agent executing this plan should not treat Thai copy correctness as self-verified — per the spec's Verification section, tone/correctness of the new Thai text (Services pricing cards, Testimonials, meta description) needs a native-speaker pass by Phakin before this is considered fully done. End this task by listing the exact strings added in Tasks 1–3 (meta description, hero, 3 pricing cards, 3 testimonial quotes) and the reworded English About paragraph (Task 6) back to Phakin for a quick read, rather than silently marking the plan complete.
