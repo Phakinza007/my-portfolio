@@ -9,7 +9,7 @@
 ## Project Overview
 
 Personal frontend portfolio hosted on GitHub Pages.  
-URL: https://ph-akin.dev/
+URL: https://phakinza007.github.io/my-portfolio/
 
 **Owner:** Phakin Chawanpunya  
 **Stack:** HTML · CSS · JavaScript (vanilla, no framework)  
@@ -137,10 +137,12 @@ Click/scroll heatmaps + session recording via **Microsoft Clarity**, loaded from
 
 - Project ID lives at the top of `assets/analytics.js` (`CLARITY_PROJECT_ID` const)
 - Every `.html` page must have `<script src="assets/analytics.js" defer></script>` right
-  before `</head>` — **use the relative path**, not `/assets/analytics.js`. The site currently
-  has no `CNAME` file, so it's actually served at `https://phakinza007.github.io/my-portfolio/`
-  (a subpath), not at the `https://ph-akin.dev/` root this doc otherwise assumes. An
-  absolute `/assets/...` path breaks under that subpath.
+  before `</head>` — **use the relative path**, not `/assets/analytics.js`. The site has no
+  `CNAME` file (deliberately — see Task 1 of
+  `docs/superpowers/plans/2026-08-05-technical-seo-fix.md`) and is served at
+  `https://phakinza007.github.io/my-portfolio/` (a subpath). An absolute `/assets/...` path
+  breaks under that subpath — this applies to every relative reference on every page, not
+  just `analytics.js`.
 - Click tracking is delegated (one listener, no per-button markup needed) — classifies
   clicks by `href`/class in `assets/analytics.js`. Custom events fired: `cta_fastwork`,
   `fastwork_profile`, `contact_email`, `resume_download`, `showcase_open`,

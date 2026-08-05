@@ -3,180 +3,180 @@
 
   <!-- Core pages -->
   <url>
-    <loc>https://ph-akin.dev/</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/resume.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/resume.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- Case studies -->
   <url>
-    <loc>https://ph-akin.dev/case-study-pulseboard.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/case-study-pulseboard.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/case-study-launchledger.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/case-study-launchledger.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/case-study-interntrack.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/case-study-interntrack.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/case-study-habitquest.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/case-study-habitquest.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Dashboard / SaaS projects -->
   <url>
-    <loc>https://ph-akin.dev/PulseBoard.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/PulseBoard.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/LaunchLedger.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/LaunchLedger.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/InternTrack.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/InternTrack.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/elasticshop-gaming.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/elasticshop-gaming.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/BookEase.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/BookEase.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Landing pages / Brand -->
   <url>
-    <loc>https://ph-akin.dev/construction-landing.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/construction-landing.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/gym-landing.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/gym-landing.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/coffee-landing.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/coffee-landing.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/MuseRoom.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/MuseRoom.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/ElevateCommerce.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/ElevateCommerce.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/solar-landing.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/solar-landing.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/sorn-restaurant.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/sorn-restaurant.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/lumi-clinic.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/lumi-clinic.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/dental-clinic.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/dental-clinic.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/aesthetic-booking.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/aesthetic-booking.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Project showcase pages -->
   <url>
-    <loc>https://ph-akin.dev/showcase-buildnest.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/showcase-buildnest.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-iron-republic.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/showcase-iron-republic.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-noir-coffee.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/showcase-noir-coffee.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-elevate-commerce.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/showcase-elevate-commerce.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-elasticshop-gaming.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/showcase-elasticshop-gaming.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-ratri-restaurant.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/showcase-ratri-restaurant.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-solarpeak.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/showcase-solarpeak.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-bookease.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/showcase-bookease.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-museroom.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/showcase-museroom.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-lumi-clinic.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/showcase-lumi-clinic.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-dental-clinic.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/showcase-dental-clinic.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-velve-aesthetics.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/showcase-velve-aesthetics.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-habitquest.html</loc>
+    <loc>https://phakinza007.github.io/my-portfolio/showcase-habitquest.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
