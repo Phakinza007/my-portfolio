@@ -12,6 +12,7 @@
   --accent: #5274f8;
   --accent-dark: #3651d4;
   --accent-light: rgba(79, 110, 247, 0.14);
+  --accent-text: #7b93fa;
   --mint: rgba(16, 185, 129, 0.14);
   --mint-text: #34d399;
   --amber: rgba(245, 158, 11, 0.14);
@@ -190,7 +191,7 @@ button:focus-visible {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  color: var(--accent);
+  color: var(--accent-text);
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 1.6px;
