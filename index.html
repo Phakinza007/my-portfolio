@@ -688,6 +688,77 @@
 
     .card-link:hover { gap: 9px; }
 
+    .card-price {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      margin-bottom: 2px;
+    }
+
+    .card-duration {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .card-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-bottom: 14px;
+    }
+
+    .card-list li {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .card-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .card-note {
+      font-size: 0.85rem;
+      color: var(--muted-2);
+      line-height: 1.6;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+
+    .card-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .card-cta-row .card-link { margin-top: 0; }
+
+    .card-cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--muted);
+      transition: color 150ms;
+    }
+
+    .card-cta-secondary:hover { color: var(--ink); }
+
     /* About photo */
     .about-photo {
       width: 80px;
@@ -1361,30 +1432,59 @@
     ============================================= -->
     <section class="section" id="services" aria-labelledby="services-heading">
       <div class="container">
-        <span class="section-label">Services</span>
-        <h2 class="section-title" id="services-heading">What I Can Build for You</h2>
+        <span class="section-label">บริการ</span>
+        <h2 class="section-title" id="services-heading">บริการและราคา</h2>
 
         <div class="works-grid">
 
           <div class="card reveal">
-            <h3 class="card-title">Landing Page</h3>
-            <p class="card-text">A one-page site that sells — hero, offer, social proof, and a clear call to action. Built for speed, SEO, and mobile from day one.</p>
-            <p class="card-text">Good for: product launches, restaurants, clinics, gyms, local brands.</p>
-            <a class="card-link" href="https://fastwork.co/byob/0G16E5GFIO?openExternalBrowser=1&amp;source=byob" target="_blank" rel="noopener noreferrer">Start on Fastwork →</a>
+            <h3 class="card-title">Landing Page / Sale Page</h3>
+            <div class="card-price">เริ่มต้น ฿3,900</div>
+            <div class="card-duration">ระยะเวลา 5-7 วัน</div>
+            <ul class="card-list">
+              <li>พัฒนาใหม่ทั้งหมด ไม่ใช้เทมเพลตสำเร็จรูป</li>
+              <li>1 หน้า ไม่เกิน 6 section ลงข้อมูลและรูปภาพให้ครบ</li>
+              <li>รองรับการแสดงผลบนมือถือและคอมพิวเตอร์ทุกหน้าจอ</li>
+              <li>แก้ไขงานได้ 2 รอบ ฟรีบริการแก้ไขปัญหา 3 เดือน</li>
+            </ul>
+            <div class="card-cta-row">
+              <a class="card-link" href="https://fastwork.co/byob/0G16E5GFIO?openExternalBrowser=1&amp;source=byob" target="_blank" rel="noopener noreferrer">เริ่มงานบน Fastwork →</a>
+              <a class="card-cta-secondary" href="#contact">ติดต่อสอบถาม</a>
+            </div>
           </div>
 
           <div class="card reveal">
             <h3 class="card-title">Dashboard UI</h3>
-            <p class="card-text">Admin panels and data dashboards with KPI cards, tables, filters, and charts — numbers your team can actually read and act on.</p>
-            <p class="card-text">Good for: booking systems, inventory, analytics, internal tools.</p>
-            <a class="card-link" href="https://fastwork.co/byob/0G16E5GFIO?openExternalBrowser=1&amp;source=byob" target="_blank" rel="noopener noreferrer">Start on Fastwork →</a>
+            <div class="card-price">เริ่มต้น ฿7,900</div>
+            <div class="card-duration">ระยะเวลา 7-10 วัน</div>
+            <ul class="card-list">
+              <li>ออกแบบหน้าจอระบบสูงสุด 5 หน้าจอ</li>
+              <li>พร้อมชุดสี ฟอนต์ และองค์ประกอบหลักของดีไซน์ ใช้ต่อได้ทั้งระบบ</li>
+              <li>ส่งไฟล์ออกแบบฉบับเต็ม ทีมพัฒนานำไปทำต่อได้ทันที</li>
+              <li>แก้ไขได้ 2 รอบหลังส่งแบบ</li>
+            </ul>
+            <div class="card-note">ต้องการพัฒนาเป็นระบบใช้งานจริง เริ่มต้น ฿15,900 — สอบถามเพิ่มเติมได้</div>
+            <div class="card-cta-row">
+              <a class="card-link" href="https://fastwork.co/byob/0G16E5GFIO?openExternalBrowser=1&amp;source=byob" target="_blank" rel="noopener noreferrer">เริ่มงานบน Fastwork →</a>
+              <a class="card-cta-secondary" href="#contact">ติดต่อสอบถาม</a>
+            </div>
           </div>
 
           <div class="card reveal">
             <h3 class="card-title">Business Website</h3>
-            <p class="card-text">A multi-page company site — services, about, portfolio, and contact — that makes your business look established and easy to reach.</p>
-            <p class="card-text">Good for: companies, agencies, personal brands, portfolios.</p>
-            <a class="card-link" href="https://fastwork.co/byob/0G16E5GFIO?openExternalBrowser=1&amp;source=byob" target="_blank" rel="noopener noreferrer">Start on Fastwork →</a>
+            <div class="card-price">เริ่มต้น ฿9,900</div>
+            <div class="card-duration">ระยะเวลา 10-14 วัน</div>
+            <ul class="card-list">
+              <li>พัฒนาใหม่ 100% 3-5 หน้า (หน้าแรก บริการ เกี่ยวกับเรา ผลงาน ติดต่อ)</li>
+              <li>วางโครงสร้างรองรับ SEO พื้นฐาน</li>
+              <li>ฟอร์มติดต่อหรือปุ่ม LINE OA สำหรับรับลูกค้าของคุณ</li>
+              <li>แก้ไขงานได้ 2 รอบ ฟรีบริการแก้ไขปัญหา 3 เดือน</li>
+            </ul>
+            <div class="card-note">ต้องการเพิ่มเติม เช่น ระบบหลังบ้าน ระบบจองคิว ระบบสมาชิก หรือเชื่อมต่อ LINE แจ้งเตือน/แชทบอท สอบถามได้</div>
+            <div class="card-cta-row">
+              <a class="card-link" href="https://fastwork.co/byob/0G16E5GFIO?openExternalBrowser=1&amp;source=byob" target="_blank" rel="noopener noreferrer">เริ่มงานบน Fastwork →</a>
+              <a class="card-cta-secondary" href="#contact">ติดต่อสอบถาม</a>
+            </div>
           </div>
 
         </div>
