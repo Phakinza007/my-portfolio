@@ -605,6 +605,11 @@
     .pkg-price { display: block; font-size: 0.95rem; font-weight: 700; color: var(--red); margin-top: 0.2rem; }
     .pkg-tag { position: absolute; top: -9px; left: 50%; transform: translateX(-50%); background: var(--yellow); color: #111; font-size: 0.66rem; font-weight: 800; padding: 0.12rem 0.55rem; border-radius: var(--r-pill); }
 
+    .back-link { font-size: 0.85rem; font-weight: 600; color: var(--muted); background: none; border: none; cursor: pointer; padding: 0; }
+    .back-link:hover { color: var(--red); }
+
+    .txn-icon.generic { background: linear-gradient(135deg, var(--red), var(--yellow)); }
+
     /* order summary */
     .summary { background: #fff; border-radius: var(--r); border: 1px solid var(--border); padding: 1.6rem; position: sticky; top: 1rem; }
     .summary h3 { font-size: 1.05rem; font-weight: 700; color: var(--black); margin-bottom: 1.1rem; }
@@ -1134,6 +1139,43 @@
                     <button type="button" class="pkg" role="radio" aria-checked="false" tabindex="-1" data-pkg="p5"><span class="pkg-tag">HOT</span><span class="pkg-icon"></span><span class="pkg-amt">5,000 Shells</span><span class="pkg-price">฿ 4,400</span></button>
                     <button type="button" class="pkg" role="radio" aria-checked="false" tabindex="-1" data-pkg="p6"><span class="pkg-icon"></span><span class="pkg-amt">10,000 Shells</span><span class="pkg-price">฿ 8,250</span></button>
                   </div>
+                </div>
+
+                <div class="panel" id="paymentPanel" hidden>
+                  <div class="panel-title"><span class="pn">3</span> Payment Method</div>
+                  <div class="pkg-grid" id="methodGrid" role="radiogroup" aria-label="Select payment method">
+                    <button type="button" class="pkg" role="radio" aria-checked="false" tabindex="0" data-method="card"><span class="pkg-icon"></span><span class="pkg-amt">Card</span></button>
+                    <button type="button" class="pkg" role="radio" aria-checked="false" tabindex="-1" data-method="promptpay"><span class="pkg-icon"></span><span class="pkg-amt">PromptPay</span></button>
+                    <button type="button" class="pkg" role="radio" aria-checked="false" tabindex="-1" data-method="truemoney"><span class="pkg-icon"></span><span class="pkg-amt">TrueMoney</span></button>
+                  </div>
+
+                  <div id="cardFields" hidden style="margin-top:1.1rem;">
+                    <div class="field">
+                      <label class="field-label" for="cardNumber">Card Number</label>
+                      <input class="field-input" id="cardNumber" name="cardNumber" type="text" inputmode="numeric" placeholder="4242 4242 4242 4242" maxlength="19" />
+                    </div>
+                    <div class="field" style="display:flex; gap:0.85rem;">
+                      <div style="flex:1;">
+                        <label class="field-label" for="cardExpiry">Expiry (MM/YY)</label>
+                        <input class="field-input" id="cardExpiry" name="cardExpiry" type="text" placeholder="12/28" maxlength="5" />
+                      </div>
+                      <div style="flex:1;">
+                        <label class="field-label" for="cardCvc">CVC</label>
+                        <input class="field-input" id="cardCvc" name="cardCvc" type="text" inputmode="numeric" placeholder="123" maxlength="4" />
+                      </div>
+                    </div>
+                    <div class="field-help">Demo only — no card data is stored or sent anywhere.</div>
+                  </div>
+
+                  <div id="promptpayInfo" hidden style="margin-top:1.1rem;">
+                    <div class="field-help">You'll see a QR code to scan after confirming — this demo simulates a short pending state, just like a real PromptPay confirmation.</div>
+                  </div>
+
+                  <div id="truemoneyInfo" hidden style="margin-top:1.1rem;">
+                    <div class="field-help">You'll confirm in your TrueMoney Wallet app — this demo simulates a short pending state.</div>
+                  </div>
+
+                  <button type="button" class="back-link" id="backToPackage" style="margin-top:1rem;">← Back to Package</button>
                 </div>
               </div>
 
@@ -1665,7 +1707,7 @@
       /* ============================================================
          SCREEN 2 — PACKAGE SELECTION + ORDER SUMMARY
       ============================================================ */
-      var pkgButtons  = $$('#screen-topup .pkg');
+      var pkgButtons  = $$('#screen-topup .pkg-grid:not(#methodGrid) .pkg');
       var uidInput    = document.getElementById('playerUid');
       var confirmBtn  = document.getElementById('confirmBtn');
       var sumHint     = document.getElementById('sumHint');
@@ -1699,6 +1741,7 @@
         var msg = '';
         if (!pkgById(selectedId))     msg = 'Choose a package to continue.';
         else if (!uidInput.value.trim()) msg = 'Enter your Player UID to continue.';
+        else if (checkoutMode === 'payment') msg = validatePayment();
         confirmBtn.disabled = msg !== '';
         sumHintText.textContent = msg;
         sumHint.classList.toggle('show', msg !== '');
@@ -1725,6 +1768,106 @@
           document.getElementById('sumTotal').textContent         = baht(money.total);
         }
         validate();
+      }
+
+      /* ============================================================
+         SCREEN 2 — PACKAGE / PAYMENT MODE TOGGLE
+      ============================================================ */
+      var checkoutMode   = 'package';   // 'package' | 'payment'
+      var selectedMethod = null;        // null | 'card' | 'promptpay' | 'truemoney'
+
+      var packagePanel  = pkgButtons.length ? pkgButtons[0].closest('.panel') : null;
+      var paymentPanel  = document.getElementById('paymentPanel');
+      var methodButtons = $$('#methodGrid .pkg');
+      var cardFields     = document.getElementById('cardFields');
+      var promptpayInfo  = document.getElementById('promptpayInfo');
+      var truemoneyInfo  = document.getElementById('truemoneyInfo');
+      var backToPackage  = document.getElementById('backToPackage');
+
+      function enterPaymentMode() {
+        checkoutMode = 'payment';
+        if (packagePanel) packagePanel.hidden = true;
+        paymentPanel.hidden = false;
+
+        var pkgStep = document.getElementById('stepPackage');
+        pkgStep.classList.remove('active');
+        pkgStep.classList.add('done');
+        $('.step-node', pkgStep).textContent = '✓';
+        document.getElementById('stepLine2').classList.add('done');
+        document.getElementById('stepPayment').classList.add('active');
+
+        confirmBtn.textContent = 'Confirm & Pay';
+        validate();
+      }
+
+      function enterPackageMode() {
+        checkoutMode = 'package';
+        paymentPanel.hidden = true;
+        if (packagePanel) packagePanel.hidden = false;
+
+        selectedMethod = null;
+        methodButtons.forEach(function (b) {
+          b.classList.remove('sel');
+          b.setAttribute('aria-checked', 'false');
+          b.tabIndex = -1;
+        });
+        if (methodButtons.length) methodButtons[0].tabIndex = 0;
+        cardFields.hidden = true;
+        promptpayInfo.hidden = true;
+        truemoneyInfo.hidden = true;
+        document.getElementById('cardNumber').value = '';
+        document.getElementById('cardExpiry').value = '';
+        document.getElementById('cardCvc').value = '';
+
+        resetSteps();
+        confirmBtn.textContent = 'Continue to Payment →';
+        validate();
+      }
+
+      function selectMethod(method) {
+        selectedMethod = method;
+        methodButtons.forEach(function (b) {
+          var on = b.getAttribute('data-method') === method;
+          b.classList.toggle('sel', on);
+          b.setAttribute('aria-checked', on ? 'true' : 'false');
+          b.tabIndex = on ? 0 : -1;
+        });
+        cardFields.hidden    = method !== 'card';
+        promptpayInfo.hidden = method !== 'promptpay';
+        truemoneyInfo.hidden = method !== 'truemoney';
+        validate();
+      }
+
+      methodButtons.forEach(function (btn, i) {
+        btn.addEventListener('click', function () { selectMethod(btn.getAttribute('data-method')); });
+        btn.addEventListener('keydown', function (e) {
+          var next = -1;
+          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % methodButtons.length;
+          if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   next = (i - 1 + methodButtons.length) % methodButtons.length;
+          if (next < 0) return;
+          e.preventDefault();
+          methodButtons[next].focus();
+          selectMethod(methodButtons[next].getAttribute('data-method'));
+        });
+      });
+
+      backToPackage.addEventListener('click', enterPackageMode);
+
+      document.getElementById('cardNumber').addEventListener('input', validate);
+      document.getElementById('cardExpiry').addEventListener('input', validate);
+      document.getElementById('cardCvc').addEventListener('input', validate);
+
+      function validatePayment() {
+        if (!selectedMethod) return 'Choose a payment method to continue.';
+        if (selectedMethod === 'card') {
+          var num = document.getElementById('cardNumber').value.replace(/\s+/g, '');
+          var exp = document.getElementById('cardExpiry').value.trim();
+          var cvc = document.getElementById('cardCvc').value.trim();
+          if (!/^\d{13,19}$/.test(num)) return 'Enter a valid card number.';
+          if (!/^\d{2}\/\d{2}$/.test(exp)) return 'Enter expiry as MM/YY.';
+          if (!/^\d{3,4}$/.test(cvc)) return 'Enter a valid CVC.';
+        }
+        return '';
       }
 
       function selectPackage(id) {
