@@ -6,3 +6,5 @@ desktop.ini
 *.tmp
 *.bak
 
+.claude/worktrees/
+
