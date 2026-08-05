@@ -4,9 +4,9 @@ Frontend / landing page portfolio focused on static HTML, responsive CSS, visual
 
 ## Contact
 
-- Portfolio: <https://phakinza007.github.io/my-portfolio/>
-- Web resume: <https://phakinza007.github.io/my-portfolio/resume.html>
-- PDF resume: <https://phakinza007.github.io/my-portfolio/assets/resume-phakin-chawanpunya.pdf>
+- Portfolio: <https://ph-akin.dev/>
+- Web resume: <https://ph-akin.dev/resume.html>
+- PDF resume: <https://ph-akin.dev/assets/resume-phakin-chawanpunya.pdf>
 - GitHub: <https://github.com/Phakinza007>
 - Instagram: <https://www.instagram.com/phakinkinpa/>
 - Email: <a0626568471@gmail.com>

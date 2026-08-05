@@ -9,7 +9,7 @@
 ## Project Overview
 
 Personal frontend portfolio hosted on GitHub Pages.  
-URL: https://phakinza007.github.io/my-portfolio/
+URL: https://ph-akin.dev/
 
 **Owner:** Phakin Chawanpunya  
 **Stack:** HTML · CSS · JavaScript (vanilla, no framework)  
@@ -24,7 +24,7 @@ my-portfolio/
 ├── index.html                    # Main portfolio page (13 project cards)
 ├── resume.html                   # Resume / CV page
 ├── 404.html                      # Custom dark-theme 404 page
-├── sitemap.xml                   # All 29 URLs for Google Search Console
+├── sitemap.xml                   # All 21 URLs for Google Search Console
 │
 ├── assets/
 │   ├── thumbs/                   # Legacy .jpg thumbnails (some cards use CSS mini-UI instead)
