@@ -716,6 +716,7 @@
       line-height: 1.6;
       padding-left: 20px;
       position: relative;
+      overflow-wrap: anywhere;
     }
 
     .card-list li::before {
@@ -731,11 +732,12 @@
 
     .card-note {
       font-size: 0.85rem;
-      color: var(--muted-2);
+      color: var(--muted);
       line-height: 1.6;
       margin-top: 10px;
       padding-top: 10px;
       border-top: 1px solid var(--border);
+      overflow-wrap: anywhere;
     }
 
     .card-cta-row {
@@ -801,7 +803,7 @@
       font-weight: 700;
       letter-spacing: 0.04em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: #8ba4ff;
       background: var(--accent-light);
       padding: 3px 8px;
       border-radius: 999px;
@@ -1485,7 +1487,7 @@
     <!-- =============================================
          SERVICES
     ============================================= -->
-    <section class="section" id="services" aria-labelledby="services-heading">
+    <section class="section" id="services" lang="th" aria-labelledby="services-heading">
       <div class="container">
         <span class="section-label">บริการ</span>
         <h2 class="section-title" id="services-heading">บริการและราคา</h2>
@@ -1496,7 +1498,7 @@
             <h3 class="card-title">Landing Page / Sale Page</h3>
             <div class="card-price">เริ่มต้น ฿3,900</div>
             <div class="card-duration">ระยะเวลา 5-7 วัน</div>
-            <ul class="card-list">
+            <ul class="card-list" role="list">
               <li>พัฒนาใหม่ทั้งหมด ไม่ใช้เทมเพลตสำเร็จรูป</li>
               <li>1 หน้า ไม่เกิน 6 section ลงข้อมูลและรูปภาพให้ครบ</li>
               <li>รองรับการแสดงผลบนมือถือและคอมพิวเตอร์ทุกหน้าจอ</li>
@@ -1512,7 +1514,7 @@
             <h3 class="card-title">Dashboard UI</h3>
             <div class="card-price">เริ่มต้น ฿7,900</div>
             <div class="card-duration">ระยะเวลา 7-10 วัน</div>
-            <ul class="card-list">
+            <ul class="card-list" role="list">
               <li>ออกแบบหน้าจอระบบสูงสุด 5 หน้าจอ</li>
               <li>พร้อมชุดสี ฟอนต์ และองค์ประกอบหลักของดีไซน์ ใช้ต่อได้ทั้งระบบ</li>
               <li>ส่งไฟล์ออกแบบฉบับเต็ม ทีมพัฒนานำไปทำต่อได้ทันที</li>
@@ -1529,7 +1531,7 @@
             <h3 class="card-title">Business Website</h3>
             <div class="card-price">เริ่มต้น ฿9,900</div>
             <div class="card-duration">ระยะเวลา 10-14 วัน</div>
-            <ul class="card-list">
+            <ul class="card-list" role="list">
               <li>พัฒนาใหม่ 100% 3-5 หน้า (หน้าแรก บริการ เกี่ยวกับเรา ผลงาน ติดต่อ)</li>
               <li>วางโครงสร้างรองรับ SEO พื้นฐาน</li>
               <li>ฟอร์มติดต่อหรือปุ่ม LINE OA สำหรับรับลูกค้าของคุณ</li>
@@ -1549,7 +1551,7 @@
     <!-- =============================================
          TESTIMONIALS
     ============================================= -->
-    <section class="section" id="testimonials" aria-labelledby="testimonials-heading">
+    <section class="section" id="testimonials" lang="th" aria-labelledby="testimonials-heading">
       <div class="container">
         <span class="section-label">รีวิว</span>
         <h2 class="section-title" id="testimonials-heading">ลูกค้าพูดถึงเราอย่างไร</h2>
