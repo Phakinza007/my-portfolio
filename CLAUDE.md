@@ -130,6 +130,29 @@ Tag colour classes:
 
 ---
 
+## Analytics
+
+Click/scroll heatmaps + session recording via **Microsoft Clarity**, loaded from
+`assets/analytics.js` (shared across all pages, same pattern as `portfolio-context.css`).
+
+- Project ID lives at the top of `assets/analytics.js` (`CLARITY_PROJECT_ID` const)
+- Every `.html` page must have `<script src="assets/analytics.js" defer></script>` right
+  before `</head>` — **use the relative path**, not `/assets/analytics.js`. The site currently
+  has no `CNAME` file, so it's actually served at `https://phakinza007.github.io/my-portfolio/`
+  (a subpath), not at the `https://ph-akin.dev/` root this doc otherwise assumes. An
+  absolute `/assets/...` path breaks under that subpath.
+- Click tracking is delegated (one listener, no per-button markup needed) — classifies
+  clicks by `href`/class in `assets/analytics.js`. Custom events fired: `cta_fastwork`,
+  `fastwork_profile`, `contact_email`, `resume_download`, `showcase_open`,
+  `case_study_open`, `project_open`, `project_filter`, `contact_submit`
+- `cta_fastwork` / `contact_email` / `resume_download` also call `clarity('upgrade', 'high_intent')`
+  so those sessions aren't dropped by sampling
+- Debug: open any page with `?cl_debug` in the URL to `console.log` every tracked event
+- Any element can opt into a custom event name via `data-track="event_name"`
+- New pages: just add the shared `<script>` tag — no other wiring needed
+
+---
+
 ## Common Tasks for Claude
 
 ### Add a new project card

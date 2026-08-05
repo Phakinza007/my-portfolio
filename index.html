@@ -1285,6 +1285,7 @@
       .stack-group.dup { display: none; }
     }
   </style>
+  <script src="assets/analytics.js" defer></script>
 </head>
 <body>
 
@@ -1337,7 +1338,7 @@
     <!-- =============================================
          HERO
     ============================================= -->
-    <section class="hero" aria-label="Introduction">
+    <section class="hero" id="hero" aria-label="Introduction">
       <div class="container">
         <div class="hero-inner">
 
@@ -2632,7 +2633,7 @@
 
       <a class="btn-live" href="https://fastwork.co/byob/0G16E5GFIO?openExternalBrowser=1&amp;source=byob" target="_blank" rel="noopener noreferrer" style="margin-bottom:26px;">Hire Me on Fastwork →</a>
 
-      <form class="contact-form" id="contact-form" action="https://formspree.io/f/xpwzedgy" method="POST">
+      <form class="contact-form" id="contact-form" action="https://formspree.io/f/xpwzedgy" method="POST" data-clarity-mask="true">
         <input type="hidden" name="_subject" value="New message from portfolio" />
         <input type="text"  name="name"    placeholder="Your name"         required />
         <input type="email" name="email"   placeholder="Your email"        required />
@@ -2795,6 +2796,7 @@
             contactForm.reset();
             successMsg.style.display = 'block';
             btn.style.display = 'none';
+            window.__track?.('contact_submit');
           } else {
             throw new Error();
           }

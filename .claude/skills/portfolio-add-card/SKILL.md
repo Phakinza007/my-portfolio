@@ -20,6 +20,12 @@ responsive and overflow-free.
 
 ---
 
+## 0 · Verify analytics is wired up
+
+Every page needs `<script src="assets/analytics.js" defer></script>` right
+before `</head>` (relative path — see `CLAUDE.md` → Analytics for why not
+absolute). Grep the target file; add the tag if it's missing.
+
 ## 1 · Inspect the target page
 
 Use the running preview server (port 60270, server ID in `.claude/launch.json`)
