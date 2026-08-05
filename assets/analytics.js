@@ -1,11 +1,11 @@
 /* ============================================================
    analytics.js — Microsoft Clarity loader + click tracking
    Shared across every page (see CLAUDE.md → Analytics).
-   Add `<script src="/assets/analytics.js" defer></script>`
-   before </head> on any new page.
+   Add `<script src="assets/analytics.js" defer></script>`
+   before </head> on any new page (relative path, not absolute).
 ============================================================ */
 (() => {
-  const CLARITY_PROJECT_ID = '__CLARITY_PROJECT_ID__';
+  const CLARITY_PROJECT_ID = 'xxos49tnj8';
   const DEBUG = /[?&]cl_debug\b/.test(location.search);
 
   /* ---- Clarity loader (official async snippet) ---- */
