@@ -106,7 +106,7 @@ When the homepage design changes, refresh:
 Live site:
 
 ```text
-https://ph-akin.dev/
+https://phakinza007.github.io/my-portfolio/
 ```
 
 Deployment:
