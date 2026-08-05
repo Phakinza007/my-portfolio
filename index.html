@@ -759,6 +759,59 @@
 
     .card-cta-secondary:hover { color: var(--ink); }
 
+    /* ============================================================
+       TESTIMONIALS
+    ============================================================ */
+    .testimonial-stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 14px;
+    }
+
+    .testimonial-stars svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--amber-text);
+    }
+
+    .testimonial-quote {
+      font-size: 0.98rem;
+      color: var(--ink-2);
+      line-height: 1.75;
+      margin-bottom: 18px;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .testimonial-author strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .testimonial-source {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+
+    .testimonials-footer {
+      margin-top: 32px;
+      text-align: center;
+    }
+
     /* About photo */
     .about-photo {
       width: 80px;
@@ -1487,6 +1540,72 @@
             </div>
           </div>
 
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         TESTIMONIALS
+    ============================================= -->
+    <section class="section" id="testimonials" aria-labelledby="testimonials-heading">
+      <div class="container">
+        <span class="section-label">รีวิว</span>
+        <h2 class="section-title" id="testimonials-heading">ลูกค้าพูดถึงเราอย่างไร</h2>
+
+        <div class="works-grid">
+
+          <div class="card reveal">
+            <div class="testimonial-stars" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 19.771l-7.416 3.642 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 19.771l-7.416 3.642 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 19.771l-7.416 3.642 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 19.771l-7.416 3.642 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 19.771l-7.416 3.642 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+            </div>
+            <p class="sr-only">ให้คะแนน 5 จาก 5 ดาว</p>
+            <p class="testimonial-quote">"ผลงานดีมากค่ะ"</p>
+            <div class="testimonial-author">
+              <strong>ppxyb58z</strong>
+              <span class="testimonial-source">Fastwork</span>
+            </div>
+          </div>
+
+          <div class="card reveal">
+            <div class="testimonial-stars" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 19.771l-7.416 3.642 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 19.771l-7.416 3.642 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 19.771l-7.416 3.642 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 19.771l-7.416 3.642 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 19.771l-7.416 3.642 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+            </div>
+            <p class="sr-only">ให้คะแนน 5 จาก 5 ดาว</p>
+            <p class="testimonial-quote">"เริ่ดมากแปปเดียวเสร็จ งานตามบรีฟ"</p>
+            <div class="testimonial-author">
+              <strong>Pornsawan PT.</strong>
+              <span class="testimonial-source">Fastwork</span>
+            </div>
+          </div>
+
+          <div class="card reveal">
+            <div class="testimonial-stars" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 19.771l-7.416 3.642 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 19.771l-7.416 3.642 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 19.771l-7.416 3.642 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 19.771l-7.416 3.642 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 19.771l-7.416 3.642 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+            </div>
+            <p class="sr-only">ให้คะแนน 5 จาก 5 ดาว</p>
+            <p class="testimonial-quote">"มีความตั้งใจ งานไว แนะนำเลยค้า"</p>
+            <div class="testimonial-author">
+              <strong>namfon.upwt</strong>
+              <span class="testimonial-source">Fastwork</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="testimonials-footer">
+          <a class="card-link" href="https://fastwork.co/user/u106pl4r" target="_blank" rel="noopener noreferrer">ดูรีวิวทั้งหมดบน Fastwork →</a>
         </div>
       </div>
     </section>
