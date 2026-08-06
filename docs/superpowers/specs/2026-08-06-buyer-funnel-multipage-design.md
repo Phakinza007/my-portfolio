@@ -43,8 +43,10 @@ as such.
   a large build with an ongoing maintenance cost, out of proportion to the rest of this work.
 - **No fabricated trust signals.** No invented project counts, years of experience, or client
   names.
-- **No dark theme.** Bigzweb is dark-purple; this site's light theme with `--accent: #5274f8`
-  already passes WCAG AA and is a taste question, not a conversion one.
+- **No restyling.** Bigzweb is dark with a purple accent; this site is already dark
+  (GitHub-dark derived — `--bg: #0d1117`, `--surface: #161b22`, `--ink: #e6edf3`, stylesheet
+  versioned `?v=ghdark-2`) with a blue accent that passes WCAG AA. The palette is a taste
+  question, not a conversion one, and it stays as is.
 - **No standalone `/contact` page.** `#contact` on the homepage already works and a separate page
   would duplicate it.
 - **No framework or build step.** The site stays plain HTML/CSS/JS.
