@@ -1229,7 +1229,7 @@
             <div class="profile-card">
               <div class="pc-avatar"></div>
               <div class="pc-info">
-                <div class="pc-name">Ploy_Gamer99</div>
+                <div class="pc-name" id="pcName">Ploy_Gamer99</div>
                 <div class="pc-uid">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M15 8h2M15 12h2M7 16h10"/></svg>
                   User ID: 104958302
@@ -2149,6 +2149,33 @@
       });
 
       /* ============================================================
+         LOGIN — local nickname only. There's no backend, so there's
+         no password to check one against; this personalizes the
+         nav and History profile card and nothing more.
+      ============================================================ */
+      var loginButtons = $$('.tn-login');
+      var pcNameEl      = document.getElementById('pcName');
+
+      function paintProfile() {
+        var profile = Profile.get();
+        var label = profile ? profile.name : 'Login';
+        loginButtons.forEach(function (btn) { btn.textContent = label; });
+        if (pcNameEl) pcNameEl.textContent = profile ? profile.name : 'Ploy_Gamer99';
+      }
+
+      loginButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var current = Profile.get();
+          var name = window.prompt('What should we call you?', current ? current.name : '');
+          if (name === null) return;          // cancelled
+          name = name.trim();
+          if (!name) return;                  // empty submit — ignore
+          Profile.set(name);
+          paintProfile();
+        });
+      });
+
+      /* ============================================================
          INIT
       ============================================================ */
       document.getElementById('year').textContent = new Date().getFullYear();
@@ -2156,6 +2183,7 @@
       applyHomeFilter();
       applyTxnFilter();
       paintSelectedGame();
+      paintProfile();
     })();
   </script>
 
