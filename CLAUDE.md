@@ -226,7 +226,9 @@ plus the site search.
 
 ## Site search
 
-`assets/site-search.js` + `site-search.css` + `search-index.json`, live on all 19 selling pages.
+`assets/site-search.js` + `site-search.css` + `search-index.json`, live on **61 pages** —
+everything except the 13 demo pages (they are simulated client sites and must not carry
+portfolio chrome) and `404.html`.
 
 - **`search-index.json` is hand-maintained.** A new page that is not added to *both* the `th`
   and `en` arrays is simply unfindable, and nothing fails to tell you.
