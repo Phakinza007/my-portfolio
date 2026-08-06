@@ -76,7 +76,7 @@
       display: inline-block;
       background: rgba(79,110,247,0.12);
       border: 1px solid rgba(79,110,247,0.35);
-      color: var(--accent);
+      color: var(--accent-text);
       font-size: 0.7rem;
       font-weight: 700;
       letter-spacing: 0.1em;
@@ -137,7 +137,7 @@
     .btn:hover { transform: translateY(-2px); }
     .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary { background: var(--accent-dark); color: #fff; }
     .btn-primary:hover { background: var(--accent-dark); }
 
     .btn-ghost {
@@ -191,7 +191,7 @@
   <script src="assets/analytics.js" defer></script>
 </head>
 <body>
-  <div class="inner">
+  <main class="inner">
     <span class="badge">404 Error</span>
     <div class="code" aria-hidden="true">404</div>
     <h1>Page not found</h1>
@@ -205,12 +205,14 @@
     <div class="divider"></div>
     <p class="shortcut-label">Jump to a section</p>
     <div class="chips">
-      <a class="chip" href="index.html#projects">Selected Work</a>
+      <a class="chip" href="work.html">Selected Work</a>
       <a class="chip" href="index.html#case-studies">Case Studies</a>
-      <a class="chip" href="index.html#about">About</a>
-      <a class="chip" href="index.html#contact">Contact</a>
+      <a class="chip" href="services.html">Services</a>
+        <a class="chip" href="about.html">About</a>
+        <a class="chip" href="faq.html">FAQ</a>
+      <a class="chip" href="/#contact">Contact</a>
       <a class="chip" href="https://github.com/Phakinza007/my-portfolio" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
     </div>
-  </div>
+  </main>
 </body>
 </html>

@@ -247,6 +247,9 @@ plus the site search.
   third-party cookies (`third-party-cookies` and `inspector-issues` audits both fire on this,
   confirmed via a real `npx lighthouse` run on 2026-08-06). This is analytics-vs-score, a
   deliberate trade — don't chase it. Any other Best Practices deduction is a real regression.
+  Second accepted exception: **`404.html` caps at SEO 66** — the `is-crawlable` audit fails
+  on its `robots: noindex`, which is correct for a 404 page. Lighthouse has no way to know
+  it is one. Accessibility on that page must still be 100.
 - **Mobile overflow:** `canScrollX: false` at 375 × 812 px on every page
 - **Accent colour:** `--accent: #5274f8` (slightly lighter than #4f6ef7 for WCAG AA contrast)
 - **Button bg:** `--accent-dark: #3651d4` (white text: 6.4:1 contrast ✅)
