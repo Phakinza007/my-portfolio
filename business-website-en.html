@@ -27,6 +27,8 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="stylesheet" href="assets/portfolio-pages.css?v=ghdark-2" />
+  <link rel="stylesheet" href="assets/site-search.css" />
+  <script src="assets/site-search.js" defer></script>
   <script src="assets/analytics.js" defer></script>
 </head>
 <body>
@@ -44,11 +46,22 @@
         <span>Business Website Service</span>
       </a>
       <ul class="nav-links">
-        <li><a href="index-en.html#projects">All Work</a></li>
-        <li><a href="index-en.html#services">Other Services</a></li>
+        <li><a href="work-en.html">Work</a></li>
+        <li><a href="services-en.html">Services</a></li>
+        <li><a href="faq-en.html">FAQ</a></li>
         <li><a class="nav-primary" href="https://fastwork.co/byob/0G16E5GFIO?openExternalBrowser=1&amp;source=byob" target="_blank" rel="noopener noreferrer">Start on Fastwork</a></li>
         <li><a href="business-website.html">TH</a></li>
       </ul>
+      <div class="site-search">
+        <div class="site-search-field">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
+          <input type="search" autocomplete="off" role="combobox" aria-expanded="false"
+                 aria-autocomplete="list" aria-label="Search this site"
+                 placeholder="Search work, services, pricing…" />
+        </div>
+        <div class="site-search-panel" role="listbox" aria-label="Search results" hidden></div>
+        <p class="site-search-status" role="status" aria-live="polite"></p>
+      </div>
     </nav>
   </header>
 
@@ -135,23 +148,23 @@
         <div class="project-strip">
           <a class="project-link" href="showcase-elevate-commerce-en.html">
             <strong>Elevate Commerce</strong>
-            <span>E-commerce startup needed product pages that guide visitors from browsing to checkout.</span>
+            <span>สตาร์ทอัพอีคอมเมิร์ซที่ต้องการหน้าสินค้าพาผู้เข้าชมตั้งแต่เลือกดูจนถึงชำระเงิน</span>
           </a>
           <a class="project-link" href="showcase-elasticshop-gaming-en.html">
             <strong>Elasticshop Gaming Top-Up</strong>
-            <span>Dark yellow design system for an automated game top-up platform — 4 screen flows with gaming-focused UI patterns.</span>
+            <span>ดีไซน์ระบบโทนดำ-เหลืองสำหรับแพลตฟอร์มเติมเงินเกมอัตโนมัติ — ครบ 4 หน้าจอ ดีไซน์แบบเกมเมอร์</span>
           </a>
           <a class="project-link" href="showcase-ratri-restaurant-en.html">
             <strong>RATRI Restaurant</strong>
-            <span>Elegant dark landing page for a modern Thai fine-dining concept, built around a validated reservation flow.</span>
+            <span>แลนดิ้งเพจโทนมืดสไตล์หรู สำหรับร้านอาหารไทยไฟน์ไดนิ่งสมัยใหม่ พร้อมระบบจองโต๊ะที่ใช้งานได้จริง</span>
           </a>
           <a class="project-link" href="showcase-velve-aesthetics-en.html">
             <strong>VELVÉ Aesthetics</strong>
-            <span>Aesthetic clinic with a working 4-step booking wizard — pick a service, doctor, and time slot, then confirm.</span>
+            <span>คลินิกเสริมความงามพร้อมระบบจองคิว 4 ขั้นตอนที่ใช้งานได้จริง — เลือกบริการ แพทย์ ช่วงเวลา แล้วยืนยัน — เขียนด้วย vanilla JS ล้วน</span>
           </a>
           <a class="project-link" href="showcase-habitquest-en.html">
             <strong>HabitQuest</strong>
-            <span>Turn daily habits into an RPG adventure — complete quests, defeat monsters, and level up your hero, one real-life habit at a time.</span>
+            <span>เปลี่ยนนิสัยประจำวันให้กลายเป็นการผจญภัยแบบ RPG — ทำเควส ปราบมอนสเตอร์ และเลเวลอัพฮีโร่ ทีละนิสัยจากชีวิตจริง</span>
           </a>
         </div>
       </div>

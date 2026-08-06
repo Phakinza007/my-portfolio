@@ -27,6 +27,8 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="stylesheet" href="assets/portfolio-pages.css?v=ghdark-2" />
+  <link rel="stylesheet" href="assets/site-search.css" />
+  <script src="assets/site-search.js" defer></script>
   <script src="assets/analytics.js" defer></script>
 </head>
 <body>
@@ -44,11 +46,22 @@
         <span>Landing Page Service</span>
       </a>
       <ul class="nav-links">
-        <li><a href="index-en.html#projects">All Work</a></li>
-        <li><a href="index-en.html#services">Other Services</a></li>
+        <li><a href="work-en.html">Work</a></li>
+        <li><a href="services-en.html">Services</a></li>
+        <li><a href="faq-en.html">FAQ</a></li>
         <li><a class="nav-primary" href="https://fastwork.co/byob/0G16E5GFIO?openExternalBrowser=1&amp;source=byob" target="_blank" rel="noopener noreferrer">Start on Fastwork</a></li>
         <li><a href="landing-page.html">TH</a></li>
       </ul>
+      <div class="site-search">
+        <div class="site-search-field">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
+          <input type="search" autocomplete="off" role="combobox" aria-expanded="false"
+                 aria-autocomplete="list" aria-label="Search this site"
+                 placeholder="Search work, services, pricing…" />
+        </div>
+        <div class="site-search-panel" role="listbox" aria-label="Search results" hidden></div>
+        <p class="site-search-status" role="status" aria-live="polite"></p>
+      </div>
     </nav>
   </header>
 
@@ -135,39 +148,39 @@
         <div class="project-strip">
           <a class="project-link" href="showcase-buildnest-en.html">
             <strong>BuildNest Construction</strong>
-            <span>Thai-first construction landing page inspired by one-stop service structure, with custom SVG architecture and project proof sections.</span>
+            <span>แลนดิ้งเพจบริษัทก่อสร้าง ออกแบบเป็นภาษาไทยตั้งแต่ต้น โครงสร้างบริการครบวงจร พร้อมภาพประกอบ SVG งานสถาปัตย์และผลงานที่ผ่านมา</span>
           </a>
           <a class="project-link" href="showcase-iron-republic-en.html">
             <strong>Iron Republic</strong>
-            <span>Gym brand needed a homepage that drives sign-ups and communicates energy.</span>
+            <span>แบรนด์ยิมที่ต้องการหน้าเว็บกระตุ้นให้คนสมัครสมาชิก พร้อมสื่อถึงพลังและความเข้มข้น</span>
           </a>
           <a class="project-link" href="showcase-noir-coffee-en.html">
             <strong>NOIR Coffee</strong>
-            <span>Specialty café wanted a premium landing page to attract walk-ins and build brand loyalty.</span>
+            <span>ร้านกาแฟพิเศษที่ต้องการแลนดิ้งเพจหรูหรา ดึงดูดลูกค้าเดินเข้าร้านและสร้างความผูกพันกับแบรนด์</span>
           </a>
           <a class="project-link" href="showcase-ratri-restaurant-en.html">
             <strong>RATRI Restaurant</strong>
-            <span>Elegant dark landing page for a modern Thai fine-dining concept, built around a validated reservation flow.</span>
+            <span>แลนดิ้งเพจโทนมืดสไตล์หรู สำหรับร้านอาหารไทยไฟน์ไดนิ่งสมัยใหม่ พร้อมระบบจองโต๊ะที่ใช้งานได้จริง</span>
           </a>
           <a class="project-link" href="showcase-solarpeak-en.html">
             <strong>SolarPeak</strong>
-            <span>Solar company landing page styled as an engineering spec sheet, with real field photography and a comparison datasheet.</span>
+            <span>แลนดิ้งเพจบริษัทโซลาร์เซลล์ ดีไซน์แบบเอกสารสเปกวิศวกรรม พร้อมภาพถ่ายหน้างานจริง ตารางเปรียบเทียบ และภาพประกอบสไตล์พิมพ์เขียว</span>
           </a>
           <a class="project-link" href="showcase-museroom-en.html">
             <strong>MuseRoom</strong>
-            <span>Dark gallery landing page exploring immersive art direction, exhibit cards, and a calm visit flow.</span>
+            <span>แลนดิ้งเพจแกลเลอรีโทนมืด เน้นบรรยากาศดื่มด่ำ การ์ดจัดแสดงผลงาน และประสบการณ์เยี่ยมชมที่ผ่อนคลาย</span>
           </a>
           <a class="project-link" href="showcase-lumi-clinic-en.html">
             <strong>LUMI Clinic</strong>
-            <span>Editorial beauty clinic page — porcelain-and-ink palette, real photography, and a clear price-list layout.</span>
+            <span>หน้าเว็บคลินิกความงามสไตล์เอดิทอเรียล โทนสีขาวหมึกดำ ภาพถ่ายจริง ตารางราคาชัดเจน และไทม์ไลน์คอร์สที่จริงใจ แทนภาพก่อน-หลังปลอมๆ</span>
           </a>
           <a class="project-link" href="showcase-dental-clinic-en.html">
             <strong>BRIGHT Dental Clinic</strong>
-            <span>Dental clinic landing page with transparent price table, dentist profiles, and an online booking form.</span>
+            <span>แลนดิ้งเพจคลินิกทันตกรรม โทนเขียวมิ้นท์สะอาดตา พร้อมตารางราคาโปร่งใส โปรไฟล์ทันตแพทย์ และฟอร์มจองคิวออนไลน์</span>
           </a>
           <a class="project-link" href="showcase-velve-aesthetics-en.html">
             <strong>VELVÉ Aesthetics</strong>
-            <span>Aesthetic clinic with a working 4-step booking wizard — pick a service, doctor, and time slot, then confirm.</span>
+            <span>คลินิกเสริมความงามพร้อมระบบจองคิว 4 ขั้นตอนที่ใช้งานได้จริง — เลือกบริการ แพทย์ ช่วงเวลา แล้วยืนยัน — เขียนด้วย vanilla JS ล้วน</span>
           </a>
         </div>
       </div>
