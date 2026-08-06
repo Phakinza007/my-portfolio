@@ -31,7 +31,7 @@
 
 Real content used: price ฿3,900, duration 5-7 days, and the 4 included-feature bullets, all copied verbatim from `index.html:1571-1579` (`Landing Page / Sale Page` card). Related projects: the 9 projects already tagged `data-tags="landing"` in `index.html`'s Selected Work grid — BuildNest Construction, Iron Republic, NOIR Coffee, RATRI Restaurant, SolarPeak, MuseRoom, LUMI Clinic, BRIGHT Dental Clinic, VELVÉ Aesthetics — using each project's real one-line description already printed on its card.
 
-- [ ] **Step 1: Create `landing-page.html`**
+- [x] **Step 1: Create `landing-page.html`**
 
 ```html
 <!DOCTYPE html>
@@ -220,7 +220,7 @@ Real content used: price ฿3,900, duration 5-7 days, and the 4 included-feature
 </html>
 ```
 
-- [ ] **Step 2: Run this checklist against the file you just wrote**
+- [x] **Step 2: Run this checklist against the file you just wrote**
 
 - `<html lang="th">` — yes.
 - `canonical` points at `landing-page.html` (itself, not `-en`) — yes.
@@ -228,7 +228,7 @@ Real content used: price ฿3,900, duration 5-7 days, and the 4 included-feature
 - `<script src="assets/analytics.js" defer></script>` present before `</head>` — yes.
 - Every `href` inside `<body>` points at a Thai URL or an external link (Fastwork, `mailto:`) — the only exception is the `EN` switcher link (`landing-page-en.html`), which does not exist yet (created in Step 3) — that's expected, it will resolve once Step 3 lands.
 
-- [ ] **Step 3: Create `landing-page-en.html`**
+- [x] **Step 3: Create `landing-page-en.html`**
 
 ```html
 <!DOCTYPE html>
@@ -417,15 +417,15 @@ Real content used: price ฿3,900, duration 5-7 days, and the 4 included-feature
 </html>
 ```
 
-- [ ] **Step 4: Run the same checklist against `landing-page-en.html`**
+- [x] **Step 4: Run the same checklist against `landing-page-en.html`**
 
 Same six checks as Step 2, adjusted for English: `<html lang="en">`, `canonical` → `landing-page-en.html`, `og:locale` → `en_US`, every in-body link points at an `-en` URL or an external link, except the `TH` switcher which correctly points at `landing-page.html`.
 
-- [ ] **Step 5: Verify locally**
+- [x] **Step 5: Verify locally**
 
 Serve the site and open both pages. Confirm: the `.study-meta` 4-box grid renders correctly (collapses to 2 columns on tablet, per the existing responsive rule already in `portfolio-pages.css`); all 9 `.project-link` cards in `.project-strip` collapse to 1 column at 375px (existing rule, no new CSS); every project link opens its real showcase page; the `TH`/`EN` switcher round-trips correctly; the Fastwork and email CTAs match every other CTA on the site exactly.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add landing-page.html landing-page-en.html
@@ -446,7 +446,7 @@ git commit -m "feat: add Landing Page service category landing page"
 
 Real content: price ฿7,900, duration 7-10 days, the 4 included-feature bullets, and the ฿15,900 full-system note, all copied verbatim from `index.html:1587-1596` (`Dashboard UI` card). Related project: **BookEase Dashboard** — the only project tagged `dashboard` in the Selected Work grid. One strong, honestly-framed example rather than padding the page with unrelated projects.
 
-- [ ] **Step 1: Create `dashboard-ui.html`**
+- [x] **Step 1: Create `dashboard-ui.html`**
 
 Follow the exact same document structure as `landing-page.html` (Task 1, Step 1) — same `<head>` boilerplate shape, same nav/footer chrome — with these values substituted:
 
@@ -485,9 +485,9 @@ Follow the exact same document structure as `landing-page.html` (Task 1, Step 1)
   Note: `.project-strip`'s grid (`repeat(3, minmax(0,1fr))`) handles a single item fine — it simply occupies the first column, no empty-state styling needed.
 - Footer text: `Dashboard UI service — Phakin Chawanpunya`
 
-- [ ] **Step 2: Run the Task 1 Step 2 checklist against `dashboard-ui.html`**
+- [x] **Step 2: Run the Task 1 Step 2 checklist against `dashboard-ui.html`**
 
-- [ ] **Step 3: Create `dashboard-ui-en.html`**
+- [x] **Step 3: Create `dashboard-ui-en.html`**
 
 Same substitution pattern as Step 1, English chrome, Thai pricing/feature content (per Global Constraints):
 
@@ -520,13 +520,13 @@ Same substitution pattern as Step 1, English chrome, Thai pricing/feature conten
   ```
 - Footer text: `Dashboard UI service — Phakin Chawanpunya`
 
-- [ ] **Step 4: Run the Task 1 Step 4 checklist against `dashboard-ui-en.html`**
+- [x] **Step 4: Run the Task 1 Step 4 checklist against `dashboard-ui-en.html`**
 
-- [ ] **Step 5: Verify locally**
+- [x] **Step 5: Verify locally**
 
 Same checks as Task 1 Step 5. Specifically confirm the single-item `.project-strip` doesn't look broken (no stretched card, no empty-state message needed — `.project-strip`'s CSS grid handles a partial row natively).
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add dashboard-ui.html dashboard-ui-en.html
@@ -547,7 +547,7 @@ git commit -m "feat: add Dashboard UI service category landing page"
 
 Real content: price ฿9,900, duration 10-14 days, the 4 included-feature bullets, and the add-on-systems note, all copied verbatim from `index.html:1604-1613` (`Business Website` card). Related projects: the 5 projects with real interactive/multi-screen functionality — Elevate Commerce, Elasticshop Gaming Top-Up, RATRI Restaurant, VELVÉ Aesthetics, HabitQuest — matching this package's "3-5 pages + can add booking/member/backend systems" positioning. (RATRI Restaurant legitimately belongs on both this page and the Landing Page page — it's both a landing page *and* ships a real reservation system, matching the real, dual nature of that project rather than an indexing mistake.)
 
-- [ ] **Step 1: Create `business-website.html`**
+- [x] **Step 1: Create `business-website.html`**
 
 Same document structure as Task 1, with:
 
@@ -596,9 +596,9 @@ Same document structure as Task 1, with:
   ```
 - Footer text: `Business Website service — Phakin Chawanpunya`
 
-- [ ] **Step 2: Run the Task 1 Step 2 checklist against `business-website.html`**
+- [x] **Step 2: Run the Task 1 Step 2 checklist against `business-website.html`**
 
-- [ ] **Step 3: Create `business-website-en.html`**
+- [x] **Step 3: Create `business-website-en.html`**
 
 - `meta description`/`og`/`twitter`: `Full 3-5 page business websites from ฿9,900, built with basic SEO in place, plus a contact form or LINE OA button. See real client work.`
 - `canonical`/`og:url`: `https://ph-akin.dev/business-website-en.html`; `hreflang th` → `business-website.html`
@@ -645,13 +645,13 @@ Same document structure as Task 1, with:
   ```
 - Footer text: `Business Website service — Phakin Chawanpunya`
 
-- [ ] **Step 4: Run the Task 1 Step 4 checklist against `business-website-en.html`**
+- [x] **Step 4: Run the Task 1 Step 4 checklist against `business-website-en.html`**
 
-- [ ] **Step 5: Verify locally**
+- [x] **Step 5: Verify locally**
 
 Same checks as Tasks 1-2. Confirm all 5 `.project-strip` cards render, including RATRI Restaurant (whose showcase page it links to is unchanged — this page just adds a second inbound link to it).
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add business-website.html business-website-en.html
@@ -671,7 +671,7 @@ git commit -m "feat: add Business Website service category landing page"
 - Consumes: the 6 pages created in Tasks 1-3.
 - Produces: nothing consumed elsewhere — this is the final integration task.
 
-- [ ] **Step 1: Add sitemap entries**
+- [x] **Step 1: Add sitemap entries**
 
 Find this exact block in `sitemap.xml`:
 ```xml
@@ -718,7 +718,7 @@ Replace with:
     <loc>https://ph-akin.dev/showcase-buildnest-en.html</loc>
 ```
 
-- [ ] **Step 2: Link the Landing Page card to `landing-page.html` in `index.html`**
+- [x] **Step 2: Link the Landing Page card to `landing-page.html` in `index.html`**
 
 Find this exact block (unique — the `<ul>` content between the h3 and the cta-row differs on every service card, so this whole span is unique even though the h3 and cta-row lines individually repeat across cards):
 ```html
@@ -754,7 +754,7 @@ Replace with (adds one new link at the end of the cta-row):
             </div>
 ```
 
-- [ ] **Step 3: Link the Dashboard UI card to `dashboard-ui.html` in `index.html`**
+- [x] **Step 3: Link the Dashboard UI card to `dashboard-ui.html` in `index.html`**
 
 Find this exact block:
 ```html
@@ -792,7 +792,7 @@ Replace with:
             </div>
 ```
 
-- [ ] **Step 4: Link the Business Website card to `business-website.html` in `index.html`**
+- [x] **Step 4: Link the Business Website card to `business-website.html` in `index.html`**
 
 Find this exact block:
 ```html
@@ -830,14 +830,14 @@ Replace with:
             </div>
 ```
 
-- [ ] **Step 5: Mirror Steps 2-4 into `index-en.html`**
+- [x] **Step 5: Mirror Steps 2-4 into `index-en.html`**
 
 Same three edits, same anchor blocks (the `<h3>`-through-`card-cta-row` text is byte-identical between `index.html` and `index-en.html`, since `#services` is untranslated Thai on both files per Global Constraints — use the exact same three `old_string`/`new_string` pairs from Steps 2-4 above, applied to `index-en.html` instead), except the new link's own visible text is in English and its `href` points at the `-en` category page:
 - Landing Page card → `<a class="card-cta-secondary" href="landing-page-en.html">See real work →</a>`
 - Dashboard UI card → `<a class="card-cta-secondary" href="dashboard-ui-en.html">See real work →</a>`
 - Business Website card → `<a class="card-cta-secondary" href="business-website-en.html">See real work →</a>`
 
-- [ ] **Step 6: Verify locally — full site**
+- [x] **Step 6: Verify locally — full site**
 
 - Serve locally, open all 6 new pages directly, and via the new links from the Services section on `index.html`/`index-en.html`.
 - Click every `.project-strip` link on all 6 pages — confirm each lands on the correct real showcase page.
@@ -846,7 +846,7 @@ Same three edits, same anchor blocks (the `<h3>`-through-`card-cta-row` text is 
 - Mobile-overflow check at 375×812 on all 6 pages, particularly the `.study-meta` 4-box grid and `.project-strip` grid.
 - Confirm `grep -c '<loc>' sitemap.xml` increased by exactly 6 from its pre-plan count.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add sitemap.xml index.html index-en.html

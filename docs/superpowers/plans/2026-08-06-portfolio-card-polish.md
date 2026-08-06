@@ -29,7 +29,7 @@
 - Consumes: existing `.work-card`, `.work-thumb` classes (no HTML changes — this is CSS-only, using `::after` on `.work-thumb`, which is already `position: relative; overflow: clip;`).
 - Produces: nothing consumed by later tasks.
 
-- [ ] **Step 1: Add the overlay rule to `index.html`**
+- [x] **Step 1: Add the overlay rule to `index.html`**
 
 Find this exact line (the last rule in the thumbnail-hover block):
 ```css
@@ -58,15 +58,15 @@ Replace it with:
     .work-card:focus-within .work-thumb::after { opacity: 1; }
 ```
 
-- [ ] **Step 2: Add the same rule to `index-en.html`**
+- [x] **Step 2: Add the same rule to `index-en.html`**
 
 Find the same anchor line in `index-en.html` and apply the identical CSS, except the `content` text reads `'View Preview →'` instead of `'ดูตัวอย่าง →'`.
 
-- [ ] **Step 3: Verify locally**
+- [x] **Step 3: Verify locally**
 
 Serve the site (`python3 -m http.server 8123` from the repo root) and open `index.html` in a browser. Hover any of the 13 project cards — a dark scrim with centered white "ดูตัวอย่าง →" text should fade in over the thumbnail (both the `<img>`-based cards like BuildNest and the CSS-mockup cards like Iron Republic, since the overlay is on `.work-thumb` itself, not the image). Tab to a card with the keyboard — the same overlay should appear on focus (`:focus-within`). Confirm the overlay never appears in the resting/unfocused state (this is what keeps it invisible to Lighthouse's contrast audit, which only evaluates the DOM's default render state).
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add index.html index-en.html
@@ -87,7 +87,7 @@ git commit -m "feat: add hover-reveal preview overlay on project thumbnails"
 
 This reuses the **real** tag values already printed on the 13 project cards (verified via `grep` across the Selected Work section) — not a fabricated tech-stack list. The site is single-stack (HTML/CSS/vanilla JS everywhere), so a literal "technologies used" cloud would just repeat "HTML CSS JS" 13 times; the actual project **tags** (Construction, Fitness, Coffee, Dashboard, Beauty, …) are the genuinely interesting, truthful summary of the work's breadth.
 
-- [ ] **Step 1: Add the tag-cloud CSS to `index.html`**
+- [x] **Step 1: Add the tag-cloud CSS to `index.html`**
 
 Find this exact block:
 ```css
@@ -114,7 +114,7 @@ Insert immediately after it:
     }
 ```
 
-- [ ] **Step 2: Add the HTML to `index.html`**
+- [x] **Step 2: Add the HTML to `index.html`**
 
 Find this exact block (the empty-state paragraph, then the two closing tags that end `.works-grid` and the `<div class="container">` wrapper, right before the section closes):
 ```html
@@ -164,18 +164,18 @@ Replace it with (the new block goes **between** the two `</div>` closes — afte
 
 Note: the tag-cloud `<div>` sits **inside** `.container` but **outside** `.works-grid` — it's a sibling of `.works-grid`, not a child, so it must NOT pick up grid-item sizing. The trailing `</div>` (closes `.container`) and `</section>` at the end of the replacement are the same two closing tags from the "Find" block, unchanged — only the new `.work-tagcloud` block and an extra blank line are inserted between `.works-grid`'s closing `</div>` and `.container`'s closing `</div>`.
 
-- [ ] **Step 3: Mirror into `index-en.html`**
+- [x] **Step 3: Mirror into `index-en.html`**
 
 Same CSS (identical, no translation needed — it's layout, not copy). Same HTML structure, but:
 - `aria-label="Styles and categories I've worked on"`
 - Label span text: `Styles and categories I've worked on`
 - Tag text stays in English as already used on the EN cards (e.g. "Fine Dining", "Light UI" are already English on both files — confirm each tag's EN wording matches what's printed on the EN cards by spot-checking 2-3 cards in `index-en.html` before typing the list, since a couple of TH-only labels like "Thai" may read differently in English context).
 
-- [ ] **Step 4: Verify locally**
+- [x] **Step 4: Verify locally**
 
 Reload `index.html`/`index-en.html`, scroll to the bottom of Selected Work (after the last card, before the About section). Confirm the tag cloud renders as a wrapped, comma-less row of pills matching the existing card-tag visual style, with adequate spacing from the grid above and the About section below. Check at 375×812 (per `CLAUDE.md`'s mobile-overflow recipe) that the wrapped pills never force horizontal scroll.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add index.html index-en.html
@@ -196,7 +196,7 @@ git commit -m "feat: add styles/categories tag cloud below Selected Work"
 
 bigzweb's version cycles placeholder text in a nav search bar that feeds their AI chat — this site has no nav search bar or AI backend, so the closest genuine equivalent is the contact form's existing "what type of project" field: guide the visitor with rotating real examples instead of one static hint.
 
-- [ ] **Step 1: Give the input a stable `id` in `index.html`**
+- [x] **Step 1: Give the input a stable `id` in `index.html`**
 
 Find:
 ```html
@@ -207,7 +207,7 @@ Replace with:
         <input type="text"  name="subject" id="project-type-input" placeholder="ประเภทโปรเจกต์ (Landing page, Dashboard ฯลฯ)" />
 ```
 
-- [ ] **Step 2: Add the typewriter effect to the inline `<script>` IIFE in `index.html`**
+- [x] **Step 2: Add the typewriter effect to the inline `<script>` IIFE in `index.html`**
 
 Find this exact block (the end of the mobile-nav handling, right before the contact-form submit handler):
 ```js
@@ -268,7 +268,7 @@ Insert immediately before it:
 
 ```
 
-- [ ] **Step 3: Mirror into `index-en.html`**
+- [x] **Step 3: Mirror into `index-en.html`**
 
 Same `id="project-type-input"` addition on the equivalent `subject` input. Same JS block, with the `examples` array translated:
 ```js
@@ -281,11 +281,11 @@ Same `id="project-type-input"` addition on the equivalent `subject` input. Same 
         ];
 ```
 
-- [ ] **Step 4: Verify locally**
+- [x] **Step 4: Verify locally**
 
 Reload the page, scroll to the Contact section, and watch the "ประเภทโปรเจกต์" field without clicking it — the placeholder should type out one example, pause, delete, and move to the next, looping through all 5. Click into the field — the animation must stop immediately and the placeholder must revert to the original static text (so it never fights actual typing). Click away while the field is still empty — the animation should resume. Type something and click away — the animation must stay stopped (checked via `!typeInput.value`). Test with the OS "reduce motion" setting on (or `prefers-reduced-motion: reduce` forced in DevTools) — the field should just show the static placeholder with no animation at all.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add index.html index-en.html
@@ -306,7 +306,7 @@ git commit -m "feat: rotate example project types in contact form placeholder"
 
 **Which 5 projects are featured, and why:** BuildNest Construction, Elevate Commerce, RATRI Restaurant, BookEase Dashboard, VELVÉ Aesthetics — chosen to span the widest range of categories in one glance (construction, e-commerce, fine dining, dashboard/booking, and the most interactive booking-flow project), rather than just the first 5 cards in DOM order. This is an editorial pick — reassigning `data-featured` to different cards later is a one-line change per card, not a structural change.
 
-- [ ] **Step 1: Add the carousel CSS to `index.html`**
+- [x] **Step 1: Add the carousel CSS to `index.html`**
 
 Find this exact block:
 ```css
@@ -383,7 +383,7 @@ Insert immediately before it:
 
 ```
 
-- [ ] **Step 2: Add the carousel HTML to `index.html`**
+- [x] **Step 2: Add the carousel HTML to `index.html`**
 
 Find:
 ```html
@@ -408,7 +408,7 @@ Insert immediately after it (before the existing `<div class="filter-bar" ...>`)
         </div>
 ```
 
-- [ ] **Step 3: Mark the 5 featured cards in `index.html`**
+- [x] **Step 3: Mark the 5 featured cards in `index.html`**
 
 Each of these five `old_string` blocks is unique in the file (matched via each card's unique `showcase-*.html` href) — find and replace each independently:
 
@@ -464,7 +464,7 @@ Each of these five `old_string` blocks is unique in the file (matched via each c
 
 If any `aria-label` text above doesn't match exactly what's in the file (wording may have drifted), re-anchor on the `href` value alone plus enough surrounding lines to be unique — every `showcase-*.html` href in this section is unique by construction.
 
-- [ ] **Step 4: Add the carousel JS to `index.html`**
+- [x] **Step 4: Add the carousel JS to `index.html`**
 
 Find this exact block (the start of the reveal-animation IIFE body):
 ```js
@@ -508,7 +508,7 @@ Insert immediately after `(() => {` and before the reveal comment:
 
 ```
 
-- [ ] **Step 5: Mirror everything into `index-en.html`**
+- [x] **Step 5: Mirror everything into `index-en.html`**
 
 Same CSS verbatim. Same HTML structure, English copy:
 - Heading: `Featured Work`
@@ -518,11 +518,11 @@ Same 5 `data-featured="1"` marks, but anchored on the `-en` hrefs and English `a
 
 Same JS block verbatim (no translated strings inside it — the IDs and logic are language-independent).
 
-- [ ] **Step 6: Verify locally**
+- [x] **Step 6: Verify locally**
 
 Reload `index.html`. Confirm a horizontal strip of 5 cards appears above the filter bar, each showing the same thumbnail/name/tags/buttons as its counterpart in the full grid below. Click the right-arrow button — the strip should smooth-scroll by one card width; the left arrow should become enabled. Scroll to the end — the right arrow should disable. Click a card's "ดูผลงาน" link — it must navigate to the correct showcase page (proving the clone kept its real `href`). Resize to 375×812 and drag/swipe the strip — it should scroll horizontally within its own box only; use the mobile-overflow snippet from `CLAUDE.md` to confirm `document.documentElement`/`body` report `canScrollX: false` (only `#featuredTrack` itself scrolls). Repeat on `index-en.html`.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add index.html index-en.html
