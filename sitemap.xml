@@ -144,6 +144,38 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Service category landing pages -->
+  <url>
+    <loc>https://ph-akin.dev/landing-page-en.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ph-akin.dev/landing-page.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ph-akin.dev/dashboard-ui-en.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ph-akin.dev/dashboard-ui.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ph-akin.dev/business-website-en.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ph-akin.dev/business-website.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
   <!-- Project showcase pages -->
   <url>
     <loc>https://ph-akin.dev/showcase-buildnest-en.html</loc>
