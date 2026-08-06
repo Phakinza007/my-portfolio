@@ -231,7 +231,7 @@ Required every row: `navbar:1`, `links:8` — the grep matches only those four e
 
 The homepage nav already works and is already responsive. The problem is that its CSS lives inside `index.html`'s inline `<style>`, so the other 17 pages cannot use it. This task moves it without changing a pixel.
 
-- [ ] **Step 1: Capture the current rendering as the baseline**
+- [x] **Step 1: Capture the current rendering as the baseline**
 
 Run Recipe A, then in the browser:
 
@@ -248,7 +248,7 @@ JSON.stringify({
 ```
 Write the result down. Step 6 must reproduce it exactly.
 
-- [ ] **Step 2: Find every nav rule in `index.html`**
+- [x] **Step 2: Find every nav rule in `index.html`**
 
 ```bash
 grep -n '^\s*\.\(navbar\|nav-inner\|nav-brand\|nav-logo-mark\|nav-links\|nav-resume\|nav-toggle\|nav-mobile-panel\)' index.html
@@ -256,7 +256,7 @@ grep -n 'nav-links\|nav-toggle\|nav-resume\|nav-mobile-panel\|navbar' index.html
 ```
 The rules are contiguous near the top of the `<style>` block, plus entries inside the `1180px` and `768px` media queries.
 
-- [ ] **Step 3: Move those rules verbatim into `assets/site-nav.css`**
+- [x] **Step 3: Move those rules verbatim into `assets/site-nav.css`**
 
 Cut — do not copy — every rule found in Step 2 and paste it into the new file, preserving order and the media-query nesting.
 
@@ -289,7 +289,7 @@ Add a header comment:
 
 Do not reformat, rename or "tidy" any declaration while moving it. A pure move is reviewable in a way that a move-plus-edit is not.
 
-- [ ] **Step 4: Link the new stylesheet from both homepages**
+- [x] **Step 4: Link the new stylesheet from both homepages**
 
 Immediately before the existing `site-search.css` link:
 
@@ -297,7 +297,7 @@ Immediately before the existing `site-search.css` link:
   <link rel="stylesheet" href="assets/site-nav.css" />
 ```
 
-- [ ] **Step 5: Confirm no nav rules were left behind or duplicated**
+- [x] **Step 5: Confirm no nav rules were left behind or duplicated**
 
 ```bash
 for f in index.html index-en.html; do
@@ -307,15 +307,15 @@ done
 printf "site-nav.css rules: %s\n" "$(grep -cE '^\.' assets/site-nav.css)"
 ```
 
-- [ ] **Step 6: Re-run Step 1 and compare**
+- [x] **Step 6: Re-run Step 1 and compare**
 
 Every value must match the baseline. If `navH` changed, a rule was dropped.
 
-- [ ] **Step 7: Run Recipe C for `index` and `index-en`, and Recipe B for `index.html`**
+- [x] **Step 7: Run Recipe C for `index` and `index-en`, and Recipe B for `index.html`**
 
 Expected: unchanged from before this task — `vw: 375`, `scrollX: false`, a11y 100, SEO 100.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add assets/site-nav.css index.html index-en.html
@@ -342,7 +342,7 @@ gap, justification, brand font size and link count all identical."
 
 This is the deeper archive: the same 13 cards plus the 4 case studies and the tag cloud, all on one page.
 
-- [ ] **Step 1: Copy the whole `#projects` section out of `index.html`**
+- [x] **Step 1: Copy the whole `#projects` section out of `index.html`**
 
 ```bash
 python3 - <<'PY'
@@ -356,7 +356,7 @@ PY
 ```
 Repeat against `index-en.html` into `/tmp/projects-en.html`.
 
-- [ ] **Step 2: Build the page shell**
+- [x] **Step 2: Build the page shell**
 
 Use the head block and `<header class="navbar">` — no, **not yet**: the global nav lands in Task 7. For now give both files the same `.page-shell nav` the industry pages use, so the file is valid and shippable on its own:
 
@@ -384,7 +384,7 @@ Use the head block and `<header class="navbar">` — no, **not yet**: the global
   </header>
 ```
 
-- [ ] **Step 3: Head block**
+- [x] **Step 3: Head block**
 
 ```html
   <title>ผลงานทั้งหมด — เว็บไซต์ที่เคยทำ | Phakin Chawanpunya</title>
@@ -397,7 +397,7 @@ Use the head block and `<header class="navbar">` — no, **not yet**: the global
 ```
 `work-en.html` mirrors this with `lang="en"`, `og:locale` `en_US`, a self canonical at `work-en.html`, the same three `hreflang` links, and English title/description.
 
-- [ ] **Step 4: Body**
+- [x] **Step 4: Body**
 
 ```html
   <main>
@@ -450,13 +450,13 @@ Use the head block and `<header class="navbar">` — no, **not yet**: the global
 
 Take each case-study `<span>` blurb from the matching card in `index.html`'s `#case-studies` — same rule the industry pages follow, and the same one that was violated and fixed in plan 1's `3171266`.
 
-- [ ] **Step 5: Copy the filter JavaScript**
+- [x] **Step 5: Copy the filter JavaScript**
 
 The cards need their filter. Copy the `/* ---- Filter bar: one axis, industry ---- */` block from `index.html`'s inline script into a `<script>` before `</body>` on both files. It is self-contained — it queries `.filter-btn`, `.work-card[data-industry]`, `#works-empty`, `#filter-status` and the chip ids, all of which come across with the markup.
 
 Do **not** copy the featured-carousel code. There is no carousel on this page, and its clone-stripping logic would have nothing to strip.
 
-- [ ] **Step 6: Verify**
+- [x] **Step 6: Verify**
 
 Run Recipe D (the `work` rows), Recipe C for `work` and `work-en`, Recipe B for `work.html`, and:
 
@@ -473,7 +473,7 @@ Required: `cards:13 filters:9 carousel:0 deadlinks:0`.
 
 Then in the browser, confirm the filter works on the new page: every button's count equals the number of visible cards, and `ทั้งหมด` shows 13.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add work.html work-en.html
@@ -500,7 +500,7 @@ clone-stripping would have nothing to strip."
 
 Since the homepage pricing section was removed, this is now the only page that puts all three packages side by side. It is the hub: three packages on top, seven industries below.
 
-- [ ] **Step 1: Head block**
+- [x] **Step 1: Head block**
 
 ```html
   <title>บริการและราคา — รับทำเว็บไซต์ เริ่มต้น ฿3,900 | Phakin Chawanpunya</title>
@@ -511,7 +511,7 @@ Since the homepage pricing section was removed, this is now the only page that p
   <link rel="alternate" hreflang="x-default" href="https://ph-akin.dev/services.html" />
 ```
 
-- [ ] **Step 2: Hero + package comparison**
+- [x] **Step 2: Hero + package comparison**
 
 Three `.study-block`s in a `.page-shell.study-grid`, one per package. Each carries: package name as `<h2>`, the price as a `.study-meta`-style figure, the timeline and revisions, the feature bullets **copied verbatim** from that package's `#services` card in `index.html`, and a `.button` to its category page.
 
@@ -524,7 +524,7 @@ for p in landing-page dashboard-ui business-website; do
 done
 ```
 
-- [ ] **Step 3: Industry entry points**
+- [x] **Step 3: Industry entry points**
 
 A `.project-strip` of seven `.project-link`s — one per `web-*.html` — using each page's own `<h1>` subject as the `<strong>` and its `{{BEST_FOR}}` line as the `<span>`:
 
@@ -538,15 +538,15 @@ A `.project-strip` of seven `.project-link`s — one per `web-*.html` — using 
 <a class="project-link" href="web-solar.html"><strong>โซลาร์ / พลังงาน</strong><span>ผู้ติดตั้งโซลาร์ที่อยากคัดลูกค้าก่อนออกไปดูหน้างาน</span></a>
 ```
 
-- [ ] **Step 4: Link out to process and FAQ, then the closing CTA**
+- [x] **Step 4: Link out to process and FAQ, then the closing CTA**
 
 A short `.study-block` pointing at `process.html` ("อยากรู้ว่าทำงานยังไง") and `faq.html` ("คำถามที่พบบ่อย"), then the standard `.result-band`.
 
-- [ ] **Step 5: English twin**
+- [x] **Step 5: English twin**
 
 Per the site's bilingual rule, **package names, prices and feature bullets stay in Thai** on `services-en.html` — exactly as `#services` on `index-en.html` already does. Wrap those runs in `lang="th"`; leave the surrounding chrome in English with no section-level `lang`. Putting `lang="th"` on a section with an English heading is the bug that had to be fixed in plan 1's `766ecd7`.
 
-- [ ] **Step 6: Verify**
+- [x] **Step 6: Verify**
 
 Recipe D (`services` rows), Recipe C, Recipe B, plus:
 
@@ -557,7 +557,7 @@ grep -oE '฿[0-9,]+' services.html | sort -u
 ```
 Required: no `DEAD`, and exactly `฿3,900 ฿7,900 ฿9,900`.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add services.html services-en.html
@@ -583,7 +583,7 @@ only, not on a section whose heading is English."
 - Consumes: the `#about` and `#experience` content in `index.html`.
 - Produces: `about.html` / `about-en.html`.
 
-- [ ] **Step 1: Extract the source content**
+- [x] **Step 1: Extract the source content**
 
 ```bash
 python3 - <<'PY'
@@ -595,7 +595,7 @@ print('captured', e-s, 'chars; contains #experience:', 'id="experience"' in h[s:
 PY
 ```
 
-- [ ] **Step 2: Head block**
+- [x] **Step 2: Head block**
 
 ```html
   <title>เกี่ยวกับผม — Phakin Chawanpunya นักพัฒนาเว็บฟรีแลนซ์</title>
@@ -606,19 +606,19 @@ PY
   <link rel="alternate" hreflang="x-default" href="https://ph-akin.dev/about.html" />
 ```
 
-- [ ] **Step 3: Body**
+- [x] **Step 3: Body**
 
 Hero (`.hero.case-hero` with eyebrow `เกี่ยวกับผม`, `<h1>Phakin Chawanpunya</h1>`, the bio as `.hero-copy`), then the experience content translated from `index.html`'s card layout into `.study-grid` / `.study-block`s, then a `.project-strip` linking to `resume.html` and `work.html`, then a `.result-band`.
 
 **Do not restate the stack as something the demos were built with.** The bio may say what Phakin works with; it may not claim the 12 local demos use React or Node. Only HabitQuest genuinely uses React and Vite.
 
-- [ ] **Step 4: Keep `index.html`'s `#about` in place**
+- [x] **Step 4: Keep `index.html`'s `#about` in place**
 
 The homepage keeps its condensed About; this page is the fuller version. Add a link from the homepage section to `about.html` in Task 7, not here — `main` auto-deploys and the page must exist first.
 
-- [ ] **Step 5: Verify** — Recipe D (`about` rows), Recipe C, Recipe B.
+- [x] **Step 5: Verify** — Recipe D (`about` rows), Recipe C, Recipe B.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add about.html about-en.html
@@ -643,7 +643,7 @@ React and Vite."
 **Interfaces:**
 - Produces: `faq.html` / `faq-en.html` with valid `FAQPage` JSON-LD.
 
-- [ ] **Step 1: Head block plus `FAQPage` structured data**
+- [x] **Step 1: Head block plus `FAQPage` structured data**
 
 ```html
   <title>คำถามที่พบบ่อย — รับทำเว็บไซต์ | Phakin Chawanpunya</title>
@@ -669,7 +669,7 @@ The JSON-LD must contain **exactly** the questions and answers rendered on the p
   </script>
 ```
 
-- [ ] **Step 2: Write the questions**
+- [x] **Step 2: Write the questions**
 
 Ten `.study-block`s with `<h3>` questions in a `.study-grid`, covering: ราคา · ระยะเวลา · จำนวนรอบแก้ · โดเมนและโฮสต์ · แก้เนื้อหาเองได้ไหม · รองรับมือถือไหม · SEO และการรับประกันอันดับ · การชำระเงินผ่าน Fastwork · หลังส่งมอบดูแลต่อไหม · ถ้าไม่พอใจงานทำยังไง
 
@@ -678,7 +678,7 @@ Two of these must stay honest and are the reason the page is worth having:
 - **SEO** — say plainly that rankings are not guaranteed by anyone, and describe what is actually done (structure, headings, descriptions written around real search terms).
 - **หลังส่งมอบ** — state the real terms from the packages (`ฟรีแก้บั๊ก 3 เดือน`), not open-ended support.
 
-- [ ] **Step 3: Validate the structured data matches the page**
+- [x] **Step 3: Validate the structured data matches the page**
 
 ```bash
 python3 - <<'PY'
@@ -697,9 +697,9 @@ PY
 ```
 Both lists must be empty.
 
-- [ ] **Step 4: Verify** — Recipe D (`faq` rows), Recipe C, Recipe B.
+- [x] **Step 4: Verify** — Recipe D (`faq` rows), Recipe C, Recipe B.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add faq.html faq-en.html
@@ -725,7 +725,7 @@ dodges them is not worth indexing."
 **Interfaces:**
 - Produces: `process.html` / `process-en.html`. Linked from `services.html` and `faq.html`, and from the footer in Task 7 — **not** from the nav.
 
-- [ ] **Step 1: Head block**
+- [x] **Step 1: Head block**
 
 ```html
   <title>ขั้นตอนการทำงาน — สั่งงานถึงส่งมอบ | Phakin Chawanpunya</title>
@@ -736,7 +736,7 @@ dodges them is not worth indexing."
   <link rel="alternate" hreflang="x-default" href="https://ph-akin.dev/process.html" />
 ```
 
-- [ ] **Step 2: Five steps as `.study-block`s**
+- [x] **Step 2: Five steps as `.study-block`s**
 
 | # | ขั้น | เนื้อหา |
 |---|---|---|
@@ -748,9 +748,9 @@ dodges them is not worth indexing."
 
 Step 3's warning is the point of the page. Every freelance project slips there and saying so up front sets a real expectation instead of an argument later.
 
-- [ ] **Step 3: Verify** — Recipe D (`process` rows), Recipe C, Recipe B.
+- [x] **Step 3: Verify** — Recipe D (`process` rows), Recipe C, Recipe B.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add process.html process-en.html
@@ -775,7 +775,7 @@ an argument."
 **Interfaces:**
 - Consumes: `assets/site-nav.css` (Task 1) and all five page pairs (Tasks 2-6). **Do not start until every one of those files is committed** — `main` auto-deploys and a nav pointing at a missing page ships a 404.
 
-- [ ] **Step 1: Confirm every nav destination exists**
+- [x] **Step 1: Confirm every nav destination exists**
 
 ```bash
 for f in work services about faq process; do
@@ -784,13 +784,13 @@ done
 ```
 Stop if anything is missing.
 
-- [ ] **Step 2: Replace the nav on the two homepages**
+- [x] **Step 2: Replace the nav on the two homepages**
 
 Swap the anchor links for page links using the markup in "The global nav" above. `href="#projects"` becomes `work.html`, `#services` becomes `services.html`, `#about` becomes `about.html`, and `#testimonials` / `#experience` / `#case-studies` leave the bar entirely — they are still reachable by scrolling and from the footer.
 
 Set `aria-current="page"` on `หน้าแรก`.
 
-- [ ] **Step 3: Add the nav to the 10 new pages**
+- [x] **Step 3: Add the nav to the 10 new pages**
 
 Replace the interim `.page-shell nav` from Tasks 2-6 with the global nav, setting `aria-current="page"` on that page's own entry. Add the three head tags (`site-nav.css`, `site-search.css`, `site-search.js`) to each.
 
@@ -808,11 +808,11 @@ print('.nav-inner has its own width:', 'min(var(--max)' in n)
 "
 ```
 
-- [ ] **Step 4: Add the nav to the 7 industry pages**
+- [x] **Step 4: Add the nav to the 7 industry pages**
 
 Same, replacing their three-link `.page-shell nav`. Their `EN` link goes to `index-en.html`, since they have no `-en` twin.
 
-- [ ] **Step 5: Point `ติดต่อ` correctly**
+- [x] **Step 5: Point `ติดต่อ` correctly**
 
 On `index.html` / `index-en.html` it is `#contact`. On all 17 other pages it must be `/#contact`, or it will scroll to nothing.
 
@@ -821,19 +821,19 @@ grep -c 'href="#contact"' index.html index-en.html
 grep -c 'href="/#contact"' work.html services.html about.html faq.html process.html web-clinic.html
 ```
 
-- [ ] **Step 6: Run Recipe E**
+- [x] **Step 6: Run Recipe E**
 
 Every row must show `navbar:1 links:8 search:2 current:2`.
 
-- [ ] **Step 7: Verify the search works on a page that never had it**
+- [x] **Step 7: Verify the search works on a page that never had it**
 
 Load `services.html`, type `คลินิก`, and confirm the dropdown lists the clinic service page and the three clinic projects. The index is fetched relative to the page, so a path bug shows up here.
 
-- [ ] **Step 8: Run Recipe C across all 19 pages, and Recipe B on four samples**
+- [x] **Step 8: Run Recipe C across all 19 pages, and Recipe B on four samples**
 
 `index`, `work`, `services`, `web-clinic`.
 
-- [ ] **Step 9: Commit**
+- [x] **Step 9: Commit**
 
 ```bash
 git add index.html index-en.html work*.html services*.html about*.html faq*.html process*.html web-*.html
@@ -863,14 +863,14 @@ tell where they are."
 
 Spec decision **D7**: these buttons open the site search rather than filtering the portfolio. An audit of all 12 local demos found `<script>` count 2 on every one — the page's own inline script plus `analytics.js` — and zero external libraries. A truthful technology filter would offer HTML/CSS/JavaScript, each matching all 13 projects and changing nothing when clicked.
 
-- [ ] **Step 1: Fix the section heading**
+- [x] **Step 1: Fix the section heading**
 
 ```bash
 grep -n 'เทคโนโลยีที่เราใช้ในผลงาน\|stack-sec' index.html index-en.html
 ```
 The heading must describe a skill set, not the demos' stacks: **`เทคโนโลยีที่ผมทำงานด้วย`** with the sub-line `คลิกเพื่อค้นหาในเว็บ`.
 
-- [ ] **Step 2: Add the static button row beneath the marquee**
+- [x] **Step 2: Add the static button row beneath the marquee**
 
 The marquee keeps scrolling and stays decorative — clicking a moving target is hostile and tabbing through a scrolling strip is worse. Add real buttons below it:
 
@@ -897,7 +897,7 @@ for q in ['HTML','CSS','JavaScript','React','Vite','Figma']:
 "
 ```
 
-- [ ] **Step 3: Wire the buttons to the navbar search**
+- [x] **Step 3: Wire the buttons to the navbar search**
 
 ```js
       /* ---- Technology tags open the site search ---- */
@@ -923,7 +923,7 @@ Below 768px the navbar field is hidden, so the fallback selector picks the copy 
 ```
 Insert that before `input.focus()`.
 
-- [ ] **Step 4: Style the buttons**
+- [x] **Step 4: Style the buttons**
 
 ```css
     .tech-tags{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-top:1.4rem;}
@@ -933,11 +933,11 @@ Insert that before `input.focus()`.
     @media (prefers-reduced-motion:reduce){.tech-tag{transition:none;}}
 ```
 
-- [ ] **Step 5: Verify in the browser**
+- [x] **Step 5: Verify in the browser**
 
 Click `React`; the search must open showing HabitQuest. Tab to a tag and press Enter; same result. Repeat at 375px with the panel closed — the panel must open and the field receive focus.
 
-- [ ] **Step 6: Confirm no unsupportable claim remains**
+- [x] **Step 6: Confirm no unsupportable claim remains**
 
 ```bash
 grep -rn 'เทคโนโลยีที่เราใช้ในผลงาน' *.html || echo "clean"
@@ -945,7 +945,7 @@ grep -rniE '(สร้างด้วย|พัฒนาด้วย|built with)
 ```
 Both must fall through to `clean`. HabitQuest's React claim is true and stays.
 
-- [ ] **Step 7: Run Recipe C and Recipe B on both homepages, then commit**
+- [x] **Step 7: Run Recipe C and Recipe B on both homepages, then commit**
 
 ```bash
 git add index.html index-en.html
@@ -974,7 +974,7 @@ supportable."
 **Files:**
 - Modify: `sitemap.xml` (66 → 76), `CLAUDE.md`
 
-- [ ] **Step 1: Add the ten new URLs**
+- [x] **Step 1: Add the ten new URLs**
 
 Following the existing entry shape exactly — `<loc>`, `<changefreq>monthly</changefreq>`, `<priority>` — add under a new `<!-- Funnel pages -->` comment at priority `0.9` (above the category pages' `0.85`; these are the nav destinations):
 
@@ -986,7 +986,7 @@ https://ph-akin.dev/faq.html           https://ph-akin.dev/faq-en.html
 https://ph-akin.dev/process.html       https://ph-akin.dev/process-en.html
 ```
 
-- [ ] **Step 2: Validate**
+- [x] **Step 2: Validate**
 
 ```bash
 python3 -c "
@@ -1000,7 +1000,7 @@ print('missing:', [u for u in l if not os.path.exists(u.replace('https://ph-akin
 ```
 Required: `total: 76`, no duplicates, nothing missing.
 
-- [ ] **Step 3: Update `CLAUDE.md`**
+- [x] **Step 3: Update `CLAUDE.md`**
 
 - Add the five pairs and `assets/site-nav.css` to the Project Structure tree.
 - Replace the "Pages & Sections (index.html)" table's Nav row with the global nav's five links plus search, EN and ติดต่อ, and note that `#pricing` and the contact form no longer exist.
@@ -1008,7 +1008,7 @@ Required: `total: 76`, no duplicates, nothing missing.
 - Add a **Site search** section: `assets/search-index.json` is hand-maintained — **every new page must be added to both the `th` and `en` arrays or it will be unfindable** — matching is substring, and hidden keywords are what make `หมอฟัน` find the dental clinic.
 - Update the "Add an industry landing page" recipe: step 1 becomes copy `web-clinic.html`, and a new final step says add the page to `assets/search-index.json`.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add sitemap.xml CLAUDE.md
@@ -1029,9 +1029,9 @@ unfindable, with nothing failing to signal it."
 
 **Files:** none modified — this task runs checks and fixes what they surface.
 
-- [ ] **Step 1: Run Recipe A**
+- [x] **Step 1: Run Recipe A**
 
-- [ ] **Step 2: Lighthouse across all 12 new and changed pages**
+- [x] **Step 2: Lighthouse across all 12 new and changed pages**
 
 ```bash
 for p in index index-en work work-en services services-en about about-en faq faq-en process process-en; do
@@ -1050,9 +1050,9 @@ done
 ```
 Lighthouse is slow — run this in two batches of six rather than letting a 2-minute timeout kill it midway.
 
-- [ ] **Step 3: Overflow across all 19 selling pages** — Recipe C.
+- [x] **Step 3: Overflow across all 19 selling pages** — Recipe C.
 
-- [ ] **Step 4: Site-wide dead-link sweep**
+- [x] **Step 4: Site-wide dead-link sweep**
 
 ```bash
 for f in *.html; do
@@ -1062,9 +1062,9 @@ for f in *.html; do
 done; echo "sweep complete"
 ```
 
-- [ ] **Step 5: Recipe D and Recipe E**
+- [x] **Step 5: Recipe D and Recipe E**
 
-- [ ] **Step 6: Every page in the sitemap is in the search index and vice versa**
+- [x] **Step 6: Every page in the sitemap is in the search index and vice versa**
 
 ```bash
 python3 - <<'PY'
@@ -1078,11 +1078,11 @@ PY
 ```
 New funnel pages appearing here means Task 9 Step 3's warning was ignored — add them to both arrays.
 
-- [ ] **Step 7: Keyboard path through the search on a non-homepage**
+- [x] **Step 7: Keyboard path through the search on a non-homepage**
 
 On `services.html`: focus the field, type, `↓`, `Enter` navigates; `Esc` closes and returns focus.
 
-- [ ] **Step 8: Fix anything the checks surfaced, re-run only the failing check, then stop the server**
+- [x] **Step 8: Fix anything the checks surfaced, re-run only the failing check, then stop the server**
 
 Do not call this task done while any check fails. If one cannot be made to pass, stop and report it rather than marking it complete.
 
@@ -1099,3 +1099,60 @@ Do not call this task done while any check fails. If one cannot be made to pass,
 **Ordering constraints, both stated in the tasks that depend on them:** Task 7 must not run before Tasks 2-6 are committed, and Task 8's tags must be verified against the search index before shipping.
 
 **Parallelisation note.** Tasks 2-6 create five disjoint file pairs and can run as five concurrent agents. Tasks 1, 7, 8 all touch `index.html` / `index-en.html` and must serialise. Only one browser session exists, so per-task Lighthouse and overflow checks should consolidate into Task 10 exactly as they did in plan 1.
+
+---
+
+## Completion note — 2026-08-06
+
+Shipped across `aac9fee`..`8b4ac4b`. Executed as: one page pair built and fully
+verified first, then four agents in parallel on the remaining pairs, then the nav
+rollout, then docs and verification.
+
+**Executed differently from what is written above:**
+
+1. **Task 1 grew into a full stylesheet extraction.** It planned to move only the
+   navbar into `assets/site-nav.css`. Building `work.html` showed that was not
+   enough — the page needs 71 rules that live in `index.html`'s inline `<style>`,
+   and it cannot borrow them from `portfolio-pages.css` because the two sheets
+   define `.hero`, `.section`, `.nav-links` and all five `.tag*` differently. The
+   whole 1,343-line block moved to `assets/home-shell.css` instead.
+2. **The nav is not one stylesheet.** Extracting the navbar so both families could
+   share it was attempted and reverted: both define `.nav-links` at equal
+   specificity, and the extraction left `.navbar`, `.nav-toggle` and
+   `.nav-mobile-panel` behind because they sit after comment blocks. The 12
+   home-shell pages carry the full navbar; the 13 portfolio-pages selling pages
+   keep theirs and gain the same links and search.
+3. **Task 8's clickable technology row was dropped.** Its own rule — a technology
+   with no truthful matches gets no button — killed it: 2 of 19 names return
+   results, both from HabitQuest. The section got an honest heading instead.
+4. **The 3 category pages were added to scope.** Not in the original 19;
+   `services.html` links straight at them, so leaving them on the old nav made a
+   dead end mid-funnel. 25 selling pages now share the nav.
+
+**Defects this plan contained, found by executing it:**
+
+- `.nav-lang` appeared in the interface contract and the markup and exists in
+  neither. The EN link is an `<li>` inside `.nav-links`.
+- `.container` has zero rules in `portfolio-pages.css`, so 17 of 19 pages could
+  not have satisfied the `container nav-inner` markup.
+- `site-search.css` used `flex: 0 1 260px`, written for a row. The industry nav
+  goes `flex-direction: column` at mobile, where that sized the height — the
+  sticky bar became 378px, 27% of a 375×812 viewport.
+- The two stylesheets name the same border colours `--border`/`--border-2` and
+  `--line`/`--line-2`.
+- `.card-link` used `--accent`: 4.5:1 on the page background, 4.29:1 inside a
+  card. `index.html` passed only because its single instance sits in the
+  testimonials footer.
+
+**Worth remembering more than any of the above:** `work.html` was committed with
+all 13 cards at `opacity: 0` and a dead hamburger, because only the filter block
+was copied from `index.html` and not the reveal observer or the nav handler. It
+passed Lighthouse a11y 100, SEO 100, the overflow recipe and the dead-link sweep.
+Opacity-0 elements stay in the accessibility tree and still report layout boxes.
+Three of the four parallel agents flagged it independently while working on their
+own pages. Nothing in the automated checks would have caught it — only opening
+the page.
+
+**Final verification:** all 25 selling pages at Lighthouse a11y 100 / SEO 100 /
+CLS 0, no overflow at 375×812, no dead links site-wide, no page loading both
+stylesheet families, sitemap 76 URLs, search index 33 entries per language.

@@ -151,12 +151,38 @@ Tag colour classes:
 
 ---
 
+## What is public and what is not
+
+`_config.yml` controls this. Without it Jekyll renders and serves **every**
+`.md` file that does not start with `_` — which for a long time meant
+`CLAUDE.md`, `README.md`, `DESIGN.md`, `PRODUCT.md` and all 13 plans and specs
+were readable by anyone at `ph-akin.dev/<path>`, with `robots.txt` saying
+`Allow: /`. That included the line stating the 13 project pages are simulated
+client work, the pricing strategy, and the competitor analysis.
+
+**Do not replace `_config.yml` with `.nojekyll`.** It looks like the same fix
+and does the opposite: it switches Jekyll off and serves the repo as-is, which
+would newly expose `_docs/` and `assets/_archive/` — `RESUME.md` and the
+Fastwork reply templates. Those are 404 today *because* Jekyll skips
+underscore-prefixed paths. Jekyll is the guard, not the problem.
+
+Adding a new internal document? Put it under `docs/` (already excluded) or a
+`_`-prefixed folder. If it must live at the repo root — as `CLAUDE.md` does,
+because Claude Code only reads it there — add it to `_config.yml`'s `exclude`
+list and verify with `curl -o /dev/null -w '%{http_code}' https://ph-akin.dev/<file>`,
+which must return 404.
+
+Setting `exclude` **replaces** Jekyll's default list rather than extending it,
+which is why the defaults are restated in the file.
+
+---
+
 ## Two stylesheet families — never mix them
 
 | Family | Stylesheet | Pages | Section wrapper | Headings |
 |---|---|---|---|---|
 | Home shell | `assets/home-shell.css` | `index`, `index-en`, `work`, `services`, `about`, `faq`, `process` (+ `-en`) | `<div class="container">` | `.section-label` + `.section-title` |
-| Portfolio pages | `assets/portfolio-pages.css` | resume, case studies, showcases, category pages, the 7 `web-*.html` | `<div class="page-shell">` | `.eyebrow` + `<h2>` |
+| Portfolio pages | `assets/portfolio-pages.css` | resume, case studies, showcases, the 3 category pages, the 7 `web-*.html` | `<div class="page-shell">` | `.eyebrow` + `<h2>` |
 
 **A page must load exactly one of them.** They define `.hero`, `.section`, `.nav-links` and
 all five `.tag*` classes differently — nine colliding selectors. Loading both breaks the page.
@@ -185,8 +211,8 @@ mobile drawer likewise needs its own toggle handler. Both live inline at the end
 plus the site search.
 
 - The 12 home-shell pages carry the full `.navbar` with hamburger and mobile panel.
-- The 7 industry pages keep `portfolio-pages.css`'s `.page-shell nav` and get the same links
-  and search. Two navs, one set of destinations — unifying the CSS was tried and reverted
+- The 7 industry pages and the 3 category pages (6 files) keep `portfolio-pages.css`'s
+  `.page-shell nav` and get the same links and search — 25 selling pages in total. Two navs, one set of destinations — unifying the CSS was tried and reverted
   because of the `.nav-links` collision above.
 - `aria-current="page"` marks the active entry.
 - The CTA button is `#contact` on the homepages and `/#contact` everywhere else.
@@ -366,10 +392,6 @@ Same bilingual-pair rule as case studies, built entirely from components already
 Per "Bilingual structure" above, `index-en.html`'s `#services` pricing/feature copy stays
 in Thai (never translated) — so the `.highlight-list` on the `-en` category page also
 stays in Thai; only the surrounding hero/chrome copy is in English.
-
-> **Known drift:** the three category pages' `.project-strip` descriptions have fallen out
-> of sync with `index.html`'s `.work-problem` text. The 7 industry pages were normalised to
-> the `index.html` wording on 2026-08-06; these three still need the same pass.
 
 ### Add an industry landing page
 Seven exist: `web-clinic`, `web-booking`, `web-restaurant`, `web-shop`, `web-gym`,
