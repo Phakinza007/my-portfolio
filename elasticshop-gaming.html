@@ -431,7 +431,7 @@
     .status-body {
       background: linear-gradient(160deg, #eafaf1 0%, #f3f3f3 55%);
       padding: 3rem 2.5rem; min-height: 640px;
-      display: grid; grid-template-columns: 1.6fr 1fr; gap: 1.75rem;
+      display: grid; grid-template-columns: minmax(0, 760px); justify-content: center; gap: 1.75rem;
       align-items: start;
     }
 
@@ -942,7 +942,7 @@
                 <input type="text" id="gameSearch" placeholder="Search games..." aria-label="Search games" />
               </div>
               <button class="tn-history" data-screen="history">History</button>
-              <button class="tn-login" data-screen="history">Login</button>
+              <button class="tn-login">Login</button>
             </div>
           </nav>
 
@@ -1101,7 +1101,7 @@
             </div>
             <div class="tn-right">
               <button class="tn-history" data-screen="history">History</button>
-              <button class="tn-login" data-screen="history">Login</button>
+              <button class="tn-login">Login</button>
             </div>
           </nav>
 
@@ -1152,16 +1152,16 @@
                   <div id="cardFields" hidden style="margin-top:1.1rem;">
                     <div class="field">
                       <label class="field-label" for="cardNumber">Card Number</label>
-                      <input class="field-input" id="cardNumber" name="cardNumber" type="text" inputmode="numeric" placeholder="4242 4242 4242 4242" maxlength="19" />
+                      <input class="field-input" id="cardNumber" name="cardNumber" type="text" inputmode="numeric" placeholder="4242 4242 4242 4242" maxlength="19" autocomplete="off" />
                     </div>
                     <div class="field" style="display:flex; gap:0.85rem;">
                       <div style="flex:1;">
                         <label class="field-label" for="cardExpiry">Expiry (MM/YY)</label>
-                        <input class="field-input" id="cardExpiry" name="cardExpiry" type="text" placeholder="12/28" maxlength="5" />
+                        <input class="field-input" id="cardExpiry" name="cardExpiry" type="text" placeholder="12/28" maxlength="5" autocomplete="off" />
                       </div>
                       <div style="flex:1;">
                         <label class="field-label" for="cardCvc">CVC</label>
-                        <input class="field-input" id="cardCvc" name="cardCvc" type="text" inputmode="numeric" placeholder="123" maxlength="4" />
+                        <input class="field-input" id="cardCvc" name="cardCvc" type="text" inputmode="numeric" placeholder="123" maxlength="4" autocomplete="off" />
                       </div>
                     </div>
                     <div class="field-help">Demo only — no card data is stored or sent anywhere.</div>
@@ -1191,7 +1191,7 @@
                   <div class="sum-divider"></div>
                   <div class="sum-total"><span class="k">Total</span><span class="v" id="sumTotal">฿ 484</span></div>
                 </div>
-                <button type="button" class="sum-btn" id="confirmBtn">Confirm &amp; Pay</button>
+                <button type="button" class="sum-btn" id="confirmBtn">Continue to Payment →</button>
                 <p class="sum-hint" id="sumHint" role="status">
                   <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
                   <span id="sumHintText"></span>
@@ -1219,7 +1219,7 @@
             </div>
             <div class="tn-right">
               <button class="tn-history active" data-screen="history" aria-current="page">History</button>
-              <button class="tn-login" data-screen="history">Login</button>
+              <button class="tn-login">Login</button>
             </div>
           </nav>
 
@@ -1864,7 +1864,7 @@
           var exp = document.getElementById('cardExpiry').value.trim();
           var cvc = document.getElementById('cardCvc').value.trim();
           if (!/^\d{13,19}$/.test(num)) return 'Enter a valid card number.';
-          if (!/^\d{2}\/\d{2}$/.test(exp)) return 'Enter expiry as MM/YY.';
+          if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(exp)) return 'Enter expiry as MM/YY.';
           if (!/^\d{3,4}$/.test(cvc)) return 'Enter a valid CVC.';
         }
         return '';
@@ -1948,10 +1948,6 @@
         };
         var saved = Orders.add(order);
         renderOrderCard(order);
-
-        var payStep = document.getElementById('stepPayment');
-        payStep.classList.add('done');
-        $('.step-node', payStep).textContent = '✓';
 
         fillStatusCard(order);
         if (status === 'success') {
