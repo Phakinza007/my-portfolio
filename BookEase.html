@@ -4,6 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BookEase — Appointment Booking Dashboard</title>
+  <meta name="description" content="BookEase — an appointment booking dashboard UI concept with scheduling, client management, a service catalog, and analytics views, built as a frontend interaction design study." />
+  <link rel="canonical" href="https://ph-akin.dev/BookEase.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="BookEase — Appointment Booking Dashboard" />
+  <meta property="og:description" content="BookEase — an appointment booking dashboard UI concept with scheduling, client management, a service catalog, and analytics views, built as a frontend interaction design study." />
+  <meta property="og:url" content="https://ph-akin.dev/BookEase.html" />
+  <meta property="og:image" content="https://ph-akin.dev/assets/screenshots/showcase-bookease.jpg" />
+  <meta property="og:image:alt" content="BookEase Dashboard live page screenshot." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -406,7 +414,7 @@
       <!-- ══ DASHBOARD ══ -->
       <div class="view active" id="view-dashboard">
         <div class="page-header">
-          <div><div class="page-title">Dashboard</div><div class="page-sub" id="dashDate">Today's overview</div></div>
+          <div><h1 class="page-title">Dashboard</h1><div class="page-sub" id="dashDate">Today's overview</div></div>
           <button class="btn btn-outline" onclick="toast('Report exported','success')">
             <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Export
@@ -459,7 +467,7 @@
       <!-- ══ APPOINTMENTS ══ -->
       <div class="view" id="view-appointments">
         <div class="page-header">
-          <div><div class="page-title">Appointments</div><div class="page-sub" id="apptSub">All upcoming bookings</div></div>
+          <div><h2 class="page-title">Appointments</h2><div class="page-sub" id="apptSub">All upcoming bookings</div></div>
           <button class="btn btn-primary" id="apptBookBtn">
             <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             New Booking
@@ -512,7 +520,7 @@
       <!-- ══ CLIENTS ══ -->
       <div class="view" id="view-clients">
         <div class="page-header">
-          <div><div class="page-title">Clients</div><div class="page-sub" id="clientSub">All registered clients</div></div>
+          <div><h2 class="page-title">Clients</h2><div class="page-sub" id="clientSub">All registered clients</div></div>
           <button class="btn btn-primary" onclick="toast('Add client form coming soon','')">
             <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             Add Client
@@ -544,7 +552,7 @@
       <!-- ══ SERVICES ══ -->
       <div class="view" id="view-services">
         <div class="page-header">
-          <div><div class="page-title">Services</div><div class="page-sub">Manage your service menu</div></div>
+          <div><h2 class="page-title">Services</h2><div class="page-sub">Manage your service menu</div></div>
           <button class="btn btn-primary" onclick="toast('Add service form coming soon','')">
             <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             Add Service
@@ -559,7 +567,7 @@
       <!-- ══ ANALYTICS ══ -->
       <div class="view" id="view-analytics">
         <div class="page-header">
-          <div><div class="page-title">Analytics</div><div class="page-sub">Performance overview</div></div>
+          <div><h2 class="page-title">Analytics</h2><div class="page-sub">Performance overview</div></div>
           <div class="filters" id="analyticsFilters">
             <button class="filter on" data-period="7m">7 Months</button>
             <button class="filter" data-period="3m">3 Months</button>
@@ -587,7 +595,7 @@
       <!-- ══ SETTINGS ══ -->
       <div class="view" id="view-settings">
         <div class="page-header">
-          <div><div class="page-title">Settings</div><div class="page-sub">Configure your BookEase workspace</div></div>
+          <div><h2 class="page-title">Settings</h2><div class="page-sub">Configure your BookEase workspace</div></div>
           <button class="btn btn-primary" id="saveSettingsBtn">Save Changes</button>
         </div>
         <div class="settings-grid">
