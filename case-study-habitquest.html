@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Full case study for HabitQuest, a shipped pixel RPG habit tracker built with React and Vite — habits deal damage to a daily monster, no account required, works offline." />
+  <meta name="description" content="Case study ฉบับเต็มของ HabitQuest แอปสร้างนิสัยแนว RPG พิกเซลที่เปิดใช้งานจริง สร้างด้วย React และ Vite — นิสัยที่ทำสำเร็จสร้างความเสียหายให้มอนสเตอร์ประจำวัน ไม่ต้องสมัครสมาชิก เล่นออฟไลน์ได้" />
   <meta name="theme-color" content="#5274f8" />
   <link rel="canonical" href="https://ph-akin.dev/case-study-habitquest.html" />
-  <link rel="alternate" hreflang="en" href="https://ph-akin.dev/case-study-habitquest.html" />
-  <link rel="alternate" hreflang="th" href="https://ph-akin.dev/case-study-habitquest-th.html" />
+  <link rel="alternate" hreflang="th" href="https://ph-akin.dev/case-study-habitquest.html" />
+  <link rel="alternate" hreflang="en" href="https://ph-akin.dev/case-study-habitquest-en.html" />
   <link rel="alternate" hreflang="x-default" href="https://ph-akin.dev/case-study-habitquest.html" />
-  <meta property="og:locale" content="en_US" />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="HabitQuest Case Study | Phakin Portfolio" />
-  <meta property="og:description" content="Problem, goal, design decisions, and result for HabitQuest — a shipped pixel RPG habit tracker deployed on Vercel." />
+  <meta property="og:description" content="โจทย์ เป้าหมาย การตัดสินใจด้านดีไซน์ และผลลัพธ์ของ HabitQuest — แอปสร้างนิสัยแนว RPG พิกเซลที่เปิดใช้งานจริงบน Vercel" />
   <meta property="og:url" content="https://ph-akin.dev/case-study-habitquest.html" />
   <meta property="og:image" content="https://ph-akin.dev/assets/screenshots/habitquest.png" />
   <meta property="og:image:alt" content="HabitQuest pixel RPG habit tracker landing screen with a warrior hero facing the Lazy Slime monster." />
+  <meta property="og:locale" content="th_TH" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="HabitQuest Case Study | Phakin Portfolio" />
-  <meta name="twitter:description" content="A shipped pixel RPG habit tracker: how the battle loop, offline-first start, and cozy pixel art keep daily habits alive." />
+  <meta name="twitter:description" content="แอปสร้างนิสัยแนว RPG พิกเซลที่เปิดใช้งานจริง: ทำไมระบบต่อสู้ การเริ่มแบบออฟไลน์ก่อน และภาพพิกเซลอาร์ตน่ารักถึงทำให้นิสัยประจำวันมีชีวิตอยู่ต่อ" />
   <meta name="twitter:image" content="https://ph-akin.dev/assets/screenshots/habitquest.png" />
   <title>HabitQuest Case Study | Phakin Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,8 +31,8 @@
 </head>
 <body>
   <header class="topbar">
-    <nav class="page-shell nav" aria-label="Case study navigation">
-      <a class="brand" href="/" aria-label="HabitQuest Case Study — back to portfolio">
+    <nav class="page-shell nav" aria-label="เมนู case study">
+      <a class="brand" href="/" aria-label="HabitQuest Case Study — กลับไปหน้าพอร์ตโฟลิโอ">
         <span class="brand-mark" aria-hidden="true">
           <svg viewBox="0 0 34 34" focusable="false">
             <rect class="mark-back" x="8" y="7" width="16" height="13" rx="3" />
@@ -44,12 +44,12 @@
         <span>HabitQuest Case Study</span>
       </a>
       <ul class="nav-links">
-        <li><a href="/">Portfolio</a></li>
-        <li><a href="#decisions">Decisions</a></li>
-        <li><a href="#result">Result</a></li>
-        <li><a href="https://habitquest-pi.vercel.app/" target="_blank" rel="noopener noreferrer">Live app</a></li>
-        <li><a class="nav-primary" href="resume.html">Resume</a></li>
-        <li><a href="case-study-habitquest-th.html">TH</a></li>
+        <li><a href="/">พอร์ตโฟลิโอ</a></li>
+        <li><a href="#decisions">การตัดสินใจ</a></li>
+        <li><a href="#result">ผลลัพธ์</a></li>
+        <li><a href="https://habitquest-pi.vercel.app/" target="_blank" rel="noopener noreferrer">เล่นแอปจริง</a></li>
+        <li><a class="nav-primary" href="resume.html">เรซูเม่</a></li>
+        <li><a href="case-study-habitquest-en.html">EN</a></li>
       </ul>
     </nav>
   </header>
@@ -58,15 +58,15 @@
     <section class="hero case-hero">
       <div class="page-shell hero-grid">
         <div>
-          <span class="eyebrow">full case study · shipped product</span>
-          <h1>HabitQuest makes showing up every day feel like a game worth playing.</h1>
+          <span class="eyebrow">case study ฉบับเต็ม · ผลงานที่เปิดใช้งานจริง</span>
+          <h1>HabitQuest ทำให้การมาทำสิ่งเดิมทุกวันรู้สึกเหมือนเกมที่น่าเล่น</h1>
           <p class="hero-copy">
-            A cozy pixel RPG habit tracker, live on Vercel. Every real-life habit you complete
-            deals damage to the monster of the day — consistency becomes combat.
+            แอปสร้างนิสัยแนว RPG พิกเซลสุดน่ารัก เปิดใช้งานจริงบน Vercel ทุกนิสัยจากชีวิตจริงที่คุณทำสำเร็จ
+            จะสร้างความเสียหายให้มอนสเตอร์ประจำวัน — ความสม่ำเสมอกลายเป็นการต่อสู้
           </p>
           <div class="hero-actions">
-            <a class="button primary" href="https://habitquest-pi.vercel.app/" target="_blank" rel="noopener noreferrer">Play the live app</a>
-            <a class="button ghost" href="index.html#case-studies">Back to case studies</a>
+            <a class="button primary" href="https://habitquest-pi.vercel.app/" target="_blank" rel="noopener noreferrer">เล่นแอปจริง</a>
+            <a class="button ghost" href="/#case-studies">กลับไป Case Studies</a>
           </div>
         </div>
 
@@ -76,22 +76,22 @@
       </div>
 
       <div class="page-shell">
-        <div class="study-meta" aria-label="HabitQuest case study facts">
+        <div class="study-meta" aria-label="ข้อมูลสรุป HabitQuest case study">
           <div>
-            <strong>Project type</strong>
-            <span>Shipped web app — pixel RPG habit tracker</span>
+            <strong>ประเภทโปรเจกต์</strong>
+            <span>เว็บแอปที่เปิดใช้งานจริง — แอปสร้างนิสัยแนว RPG พิกเซล</span>
           </div>
           <div>
-            <strong>Audience</strong>
-            <span>People who abandon ordinary habit apps</span>
+            <strong>กลุ่มเป้าหมาย</strong>
+            <span>คนที่เลิกใช้แอปสร้างนิสัยแบบทั่วไปกลางคัน</span>
           </div>
           <div>
-            <strong>Focus</strong>
-            <span>Motivation loop, zero-friction start, game feel</span>
+            <strong>โฟกัส</strong>
+            <span>วงจรแรงจูงใจ เริ่มใช้งานได้ทันทีไม่มีขั้นตอนยุ่งยาก ความรู้สึกแบบเกม</span>
           </div>
           <div>
-            <strong>Build</strong>
-            <span>React + Vite · deployed on Vercel · offline-first</span>
+            <strong>เทคโนโลยี</strong>
+            <span>React + Vite · deploy บน Vercel · ออฟไลน์ก่อนเป็นหลัก</span>
           </div>
         </div>
       </div>
@@ -100,22 +100,22 @@
     <section class="section" id="problem">
       <div class="page-shell study-grid">
         <article class="study-block featured">
-          <span class="eyebrow">problem</span>
-          <h2>Habit apps die because checking a box gives nothing back.</h2>
+          <span class="eyebrow">โจทย์</span>
+          <h2>แอปสร้างนิสัยตายเพราะติ๊กช่องแล้วไม่ได้อะไรกลับมา</h2>
           <p>
-            Most habit trackers are checklists with a calendar. The feedback loop is flat:
-            complete a habit, see a tick, feel nothing. When a streak breaks, there is no
-            reason to come back — so most people quietly stop opening the app.
+            แอปสร้างนิสัยส่วนใหญ่เป็นแค่เช็กลิสต์กับปฏิทิน วงจรฟีดแบ็กแบนราบ —
+            ทำนิสัยสำเร็จ เห็นเครื่องหมายถูก ไม่รู้สึกอะไร พอสตรีคขาด ก็ไม่มีเหตุผลให้กลับมาใช้
+            คนส่วนใหญ่เลยค่อยๆ เลิกเปิดแอปไปเงียบๆ
           </p>
         </article>
 
         <article class="study-block">
-          <span class="eyebrow">goal</span>
-          <h2>Make the act of being consistent the fun part.</h2>
+          <span class="eyebrow">เป้าหมาย</span>
+          <h2>ทำให้การรักษาความสม่ำเสมอเป็นส่วนที่สนุก</h2>
           <p>
-            HabitQuest reframes habits as an RPG loop: your habits are quests, your consistency
-            is damage, and each day has a monster to beat. The product goal is simple — give
-            daily discipline an immediate, visible payoff.
+            HabitQuest ปรับกรอบนิสัยให้เป็นวงจร RPG — นิสัยของคุณคือเควส ความสม่ำเสมอของคุณคือ
+            ความเสียหาย และแต่ละวันมีมอนสเตอร์ให้ปราบ เป้าหมายของผลิตภัณฑ์เรียบง่าย —
+            ให้วินัยประจำวันมีผลตอบแทนที่เห็นได้ทันที
           </p>
         </article>
       </div>
@@ -125,11 +125,11 @@
       <div class="page-shell">
         <div class="section-heading">
           <div>
-            <span class="eyebrow">design decisions</span>
-            <h2>Three choices that turn a checklist into a game.</h2>
+            <span class="eyebrow">การตัดสินใจด้านดีไซน์</span>
+            <h2>3 ทางเลือกที่เปลี่ยนเช็กลิสต์ให้เป็นเกม</h2>
           </div>
           <p>
-            Each decision trades abstract progress for something you can see, hit, and defeat.
+            แต่ละการตัดสินใจแลกความคืบหน้าที่เป็นนามธรรม ให้กลายเป็นสิ่งที่มองเห็น โจมตี และเอาชนะได้
           </p>
         </div>
 
@@ -137,11 +137,10 @@
           <li class="study-block decision">
             <span class="decision-number">01</span>
             <div>
-              <h3>Habits deal damage</h3>
+              <h3>นิสัยสร้างความเสียหาย</h3>
               <p>
-                Every completed habit earns XP and strikes the monster of the day, with a visible
-                HP bar. Progress is not a percentage in a settings page — it is a slime losing
-                health because you drank water and went to the gym.
+                ทุกนิสัยที่ทำสำเร็จได้ XP และโจมตีมอนสเตอร์ประจำวัน พร้อม HP bar ที่มองเห็นได้
+                ความคืบหน้าไม่ใช่เปอร์เซ็นต์ในหน้าตั้งค่า — แต่คือสไลม์ที่เลือดลดลงเพราะคุณดื่มน้ำและไปยิม
               </p>
             </div>
           </li>
@@ -149,11 +148,11 @@
           <li class="study-block decision">
             <span class="decision-number">02</span>
             <div>
-              <h3>Zero-friction start, account optional</h3>
+              <h3>เริ่มเล่นได้ทันที ไม่บังคับสมัครสมาชิก</h3>
               <p>
-                The game works offline and requires no sign-up: you pick a class and you are
-                playing within seconds. Sign-in exists for players who want it, but the first
-                session never hits a registration wall — the biggest drop-off point in habit apps.
+                เกมเล่นออฟไลน์ได้และไม่ต้องสมัครสมาชิก — เลือกคลาสแล้วเล่นได้ภายในไม่กี่วินาที
+                มีระบบล็อกอินไว้สำหรับผู้เล่นที่ต้องการ แต่เซสชันแรกไม่มีกำแพงการลงทะเบียนขวางเลย
+                ซึ่งเป็นจุดที่คนเลิกใช้แอปสร้างนิสัยมากที่สุด
               </p>
             </div>
           </li>
@@ -161,11 +160,11 @@
           <li class="study-block decision">
             <span class="decision-number">03</span>
             <div>
-              <h3>Cozy pixel art instead of pressure mechanics</h3>
+              <h3>ภาพพิกเซลอาร์ตน่ารัก แทนกลไกกดดัน</h3>
               <p>
-                Warm palette, hand-placed pixel sprites, and character classes (a Warrior gets
-                +25% damage per habit) give the game identity. There are no guilt notifications
-                or loss-aversion tricks — the tone is an adventure, not a report card.
+                โทนสีอบอุ่น สไปรต์พิกเซลที่วางมือ และคลาสตัวละคร (นักรบได้โบนัสความเสียหาย +25%
+                ต่อนิสัย) ให้ตัวตนกับเกม ไม่มีการแจ้งเตือนทำให้รู้สึกผิดหรือกลเม็ดหลอกล่อ
+                — โทนเรื่องเป็นการผจญภัย ไม่ใช่ใบรายงานผล
               </p>
             </div>
           </li>
@@ -176,12 +175,12 @@
     <section class="section" id="practice">
       <div class="page-shell study-grid">
         <article class="study-block">
-          <span class="eyebrow">what i practiced</span>
-          <h2>A real product loop, built and shipped end to end.</h2>
+          <span class="eyebrow">สิ่งที่ผมฝึกฝน</span>
+          <h2>วงจรผลิตภัณฑ์จริง สร้างและเปิดใช้งานครบวงจร</h2>
           <p>
-            HabitQuest is a working React + Vite app deployed on Vercel: component state for the
-            battle loop, local persistence so progress survives offline, and a game economy
-            (XP, damage, levels, streaks) that has to stay balanced and readable at the same time.
+            HabitQuest เป็นแอป React + Vite ที่ใช้งานได้จริง deploy บน Vercel — มี component state
+            สำหรับวงจรการต่อสู้ เก็บข้อมูลไว้ในเครื่องเพื่อให้ความคืบหน้าอยู่รอดแม้ออฟไลน์
+            และระบบเศรษฐกิจในเกม (XP, ความเสียหาย, เลเวล, สตรีค) ที่ต้องสมดุลและอ่านง่ายไปพร้อมกัน
           </p>
           <div class="tag-list" aria-label="Practiced skills">
             <span class="tag">React + Vite</span>
@@ -192,12 +191,12 @@
         </article>
 
         <article class="study-block">
-          <span class="eyebrow">why this matters</span>
-          <h2>Shipping beats mocking.</h2>
+          <span class="eyebrow">ทำไมเรื่องนี้ถึงสำคัญ</span>
+          <h2>การเปิดใช้งานจริงชนะการทำ mockup</h2>
           <p>
-            Anyone can style a habit tracker concept. Keeping a real one alive — where state
-            persists, the loop stays fun after day one, and a stranger can open the URL and
-            play — is a different kind of frontend work, and it is the kind I want to do more of.
+            ใครก็ตกแต่งคอนเซปต์แอปสร้างนิสัยได้ แต่การรักษาแอปจริงให้มีชีวิตอยู่ — ที่ state
+            คงอยู่ วงจรยังสนุกหลังวันแรก และคนแปลกหน้าเปิดลิงก์แล้วเล่นได้เลย
+            — เป็นงาน frontend อีกแบบหนึ่ง และเป็นแบบที่ผมอยากทำเพิ่มขึ้น
           </p>
         </article>
       </div>
@@ -207,18 +206,18 @@
       <div class="page-shell">
         <div class="result-band">
           <div>
-            <span class="eyebrow">result</span>
-            <h2>A live, free-to-play product anyone can try right now.</h2>
+            <span class="eyebrow">ผลลัพธ์</span>
+            <h2>ผลิตภัณฑ์ที่เปิดใช้งานจริง เล่นฟรี ใครก็ลองได้เดี๋ยวนี้</h2>
             <p>
-              HabitQuest is deployed and playable: no install, no account, works offline.
-              A reviewer can open the link, fight the Lazy Slime, and judge the product
-              by using it — not by reading about it.
+              HabitQuest deploy แล้วและเล่นได้จริง — ไม่ต้องติดตั้ง ไม่ต้องสมัครสมาชิก เล่นออฟไลน์ได้
+              ผู้รีวิวเปิดลิงก์ ต่อสู้กับ Lazy Slime และตัดสินผลิตภัณฑ์ได้ด้วยการใช้งานจริง
+              — ไม่ใช่แค่อ่านเกี่ยวกับมัน
             </p>
           </div>
           <div class="result-actions">
-            <a class="button primary" href="https://habitquest-pi.vercel.app/" target="_blank" rel="noopener noreferrer">Play the live app</a>
-            <a class="button" href="/">Back to portfolio</a>
-            <a class="button ghost" href="resume.html">Resume</a>
+            <a class="button primary" href="https://habitquest-pi.vercel.app/" target="_blank" rel="noopener noreferrer">เล่นแอปจริง</a>
+            <a class="button" href="/">กลับไปพอร์ตโฟลิโอ</a>
+            <a class="button ghost" href="resume.html">เรซูเม่</a>
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@
 
 A static HTML portfolio gallery that collects seven featured front-end projects into one cover page. The root `index.html` works as the portfolio entry point, with separate links for viewing each live page and opening its source file.
 
-Live site: <https://ph-akin.dev/>
+Live site: <https://ph-akin.dev/> (ไทย) · <https://ph-akin.dev/index-en.html> (English)
 
 ![Portfolio cover](assets/screenshots/cover.png)
 ![Social preview](assets/social-preview.png)
@@ -23,14 +23,14 @@ Live site: <https://ph-akin.dev/>
 
 The portfolio includes a public resume page and downloadable PDF:
 
-- Resume page: <https://ph-akin.dev/resume.html>
+- Resume page: <https://ph-akin.dev/resume-en.html>
 - Resume PDF: [`assets/resume-phakin-chawanpunya.pdf`](assets/resume-phakin-chawanpunya.pdf)
 
 Three full case study pages explain the thinking behind the strongest reviewer examples:
 
-- InternTrack: <https://ph-akin.dev/case-study-interntrack.html>
-- LaunchLedger: <https://ph-akin.dev/case-study-launchledger.html>
-- PulseBoard: <https://ph-akin.dev/case-study-pulseboard.html>
+- InternTrack: <https://ph-akin.dev/case-study-interntrack-en.html>
+- LaunchLedger: <https://ph-akin.dev/case-study-launchledger-en.html>
+- PulseBoard: <https://ph-akin.dev/case-study-pulseboard-en.html>
 
 The homepage also includes compact DevLaunch Academy project notes, an About / Skills band, project status badges, and a stronger contact CTA so reviewers can understand the portfolio without copying links or searching through files.
 
@@ -75,7 +75,7 @@ Phakin Chawanpunya
 - GitHub: <https://github.com/Phakinza007>
 - Instagram: <https://www.instagram.com/phakinkinpa/>
 - Email: <a0626568471@gmail.com>
-- Resume page: <https://ph-akin.dev/resume.html>
+- Resume page: <https://ph-akin.dev/resume-en.html>
 - Resume PDF: [`assets/resume-phakin-chawanpunya.pdf`](assets/resume-phakin-chawanpunya.pdf)
 - Resume notes: [`RESUME.md`](RESUME.md)
 

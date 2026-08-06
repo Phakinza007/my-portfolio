@@ -3,8 +3,9 @@ name: portfolio-add-card
 description: >
   Add a new project card to Phakin's portfolio (my-portfolio). Handles the full
   loop: inspect the target HTML page for its visual identity, build a matching
-  CSS mini-UI thumbnail, write the card HTML, insert it into index.html, update
-  sitemap.xml, and verify no mobile overflow at 375 px.
+  CSS mini-UI thumbnail, write the card HTML, insert it into BOTH index.html
+  (Thai) and index-en.html (English), update sitemap.xml, and verify no mobile
+  overflow at 375 px.
 
   Use this skill whenever the user says anything like "add [page] to the
   portfolio", "link this page", "create a card for X", "new project card", or
@@ -14,9 +15,15 @@ description: >
 
 # portfolio-add-card
 
-Add a new project page as a card in the Selected Work grid of `index.html`.
+Add a new project page as a card in the Selected Work grid.
 The card must match the visual identity of the target page and keep the grid
 responsive and overflow-free.
+
+> **⚠ The site is bilingual — the card goes in TWO files.**
+> `index.html` is **Thai** (the default, served at `ph-akin.dev/`) and
+> `index-en.html` is **English**. Insert the card in both, with the
+> `work-problem` blurb written in the matching language, or the two versions
+> drift apart. See CLAUDE.md → "Bilingual structure" for the full rules.
 
 ---
 
@@ -231,12 +238,22 @@ Add the new URL **before** the closing `</urlset>` tag:
 </url>
 ```
 
+The 13 project demo pages are **not** translated, so a plain demo page needs
+only this one entry. But if the card also gets a showcase page, that showcase
+page has a Thai **and** an English version — add both:
+
+```xml
+<url><loc>https://ph-akin.dev/showcase-{slug}.html</loc>    …</url>  <!-- ไทย -->
+<url><loc>https://ph-akin.dev/showcase-{slug}-en.html</loc> …</url>  <!-- English -->
+```
+
 ---
 
 ## 6 · Mobile overflow check
 
-After inserting the card, navigate to `index.html` in the preview, resize to
-375 × 812 px, and run:
+After inserting the card, check **both** `index.html` and `index-en.html` in
+the preview (Thai text wraps differently from English, so a card can overflow
+in one language and not the other), resize to 375 × 812 px, and run:
 
 ```js
 (function(){
@@ -260,8 +277,10 @@ large `gap` that pushes past the viewport.
 
 ## 7 · Commit
 
-Stage `index.html` and `sitemap.xml`, commit with a message that names the new
-project and what the card thumbnail represents.
+Stage `index.html`, `index-en.html`, and `sitemap.xml`, commit with a message
+that names the new project and what the card thumbnail represents. If the
+English card is missing from the commit, the two language versions have
+drifted — go back and add it.
 
 ---
 

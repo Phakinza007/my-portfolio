@@ -22,24 +22,58 @@ URL: https://ph-akin.dev/
 
 ```
 my-portfolio/
-├── index.html                    # Main portfolio page (13 project cards)
-├── resume.html                   # Resume / CV page
+├── index.html                    # หน้าแรก — THAI (default, served at ph-akin.dev/)
+├── index-en.html                 # หน้าแรก — English
+├── resume.html / resume-en.html  # Resume / CV (th / en)
 ├── 404.html                      # Custom dark-theme 404 page
-├── sitemap.xml                   # All 21 URLs for Google Search Console
+├── sitemap.xml                   # All URLs (both languages) for Google Search Console
+├── robots.txt                    # Allows all crawlers, points at sitemap
+├── CNAME                         # ph-akin.dev custom domain
 │
 ├── assets/
 │   ├── thumbs/                   # Legacy .jpg thumbnails (some cards use CSS mini-UI instead)
+│   ├── screenshots/              # showcase-*.jpg hero screenshots
 │   ├── social-preview.png        # OG image (1200×630)
 │   ├── favicon.svg
+│   ├── analytics.js              # Microsoft Clarity loader + click tracking (shared)
 │   ├── resume-phakin-chawanpunya.pdf
 │   ├── portfolio-context.css     # "← Back to Portfolio" floating button (shared)
-│   └── portfolio-pages.css       # Shared styles for resume.html and case study pages
+│   └── portfolio-pages.css       # Shared styles for resume / case study / showcase pages
 │
-├── case-study-pulseboard.html
-├── case-study-launchledger.html
-├── case-study-interntrack.html
-└── case-study-habitquest.html
+├── case-study-*.html             # 4 case studies — THAI
+├── case-study-*-en.html          # 4 case studies — English
+├── showcase-*.html               # 13 project showcase pages — THAI
+└── showcase-*-en.html            # 13 project showcase pages — English
 ```
+
+---
+
+## Bilingual structure (TH default / EN alternate)
+
+**Thai is the site default.** `ph-akin.dev/` serves Thai. English lives on `-en` siblings.
+
+| Language | URL pattern | `<html lang>` |
+|----------|-------------|---------------|
+| ไทย (default) | `/` · `/{slug}.html` | `th` |
+| English | `/index-en.html` · `/{slug}-en.html` | `en` |
+
+19 pairs (38 files): `index`, `resume`, 4 × `case-study-*`, 13 × `showcase-*`.
+
+**Rules any change must preserve:**
+
+- Every pair carries the same 3 `hreflang` links in both files:
+  `th` → Thai URL, `en` → `-en` URL, `x-default` → **Thai URL** (Thai is the default).
+- `canonical` on each file points at **itself**, never at its counterpart.
+- **Internal links stay in-language.** A Thai page links to Thai pages (`{slug}.html`);
+  an `-en` page links to `-en` pages. The only cross-language link is the nav
+  switcher (`TH` / `EN`).
+- `href="/"` means the **Thai** homepage. English pages must use `index-en.html`.
+- `og:locale`: `th_TH` on Thai, `en_US` on English.
+- The **13 project demo pages** (`construction-landing.html`, `gym-landing.html`, …)
+  are simulated client work — **not translated, no `-en` twin**. Both languages link
+  to the same demo file. Same for GitHub / Fastwork / Vercel links.
+
+See `docs/superpowers/specs/2026-08-06-th-en-language-toggle-design.md`.
 
 ---
 
