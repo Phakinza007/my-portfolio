@@ -90,7 +90,57 @@ No new CSS file. Every component used already exists in `assets/portfolio-pages.
 
 ## Shared Industry Page Template
 
-Tasks 3–9 each build one page from this exact skeleton. It is defined once here so the tasks carry content rather than repeated boilerplate. `{{PLACEHOLDER}}` values are given in full in each task.
+> **CORRECTED 2026-08-06 after Task 3.** The hand-written skeleton originally in this section had
+> drifted from the real markup in five ways: it used `.container` instead of `.page-shell`, invented
+> a `.meta-box` class, reversed the `<strong>`/`<span>` order inside `.study-meta`, omitted the
+> `.result-band` inner `<div>`, and left out the page footer entirely. Task 3 caught all five —
+> which is exactly why it runs alone before the fan-out.
+>
+> **The canonical skeleton is now `web-clinic.html` itself.** Copy that file and swap the content.
+> The structure below documents what that file does; where the two ever disagree, the file wins.
+
+Tasks 4–9 each build one page from this structure. `{{PLACEHOLDER}}` values are given in full in
+each task.
+
+### Structure that must be preserved
+
+```
+<header class="topbar">
+  <nav class="page-shell nav" aria-label="เมนู{{NAV_LABEL}}">
+    <a class="brand">  brand-mark svg + <span>{{H1_SHORT}}</span>
+    <ul class="nav-links">  ผลงานทั้งหมด · บริการอื่นๆ · Fastwork (.nav-primary)
+                            ← no EN link; these pages have no English twin
+<main>
+  <section class="hero case-hero">
+    <div class="page-shell">                        eyebrow · h1 · .hero-copy · .hero-actions
+    <div class="page-shell" style="margin-top:32px;">
+      <div class="study-meta">  4 × bare <div> each holding <strong>label</strong><span>value</span>
+                                ← strong FIRST, span SECOND. No .meta-box class exists.
+  <section class="section" id="overview">
+    <div class="page-shell study-grid">             ← combined class, not nested
+      <article class="study-block featured">  showcase-icon &#10024; · eyebrow · h2 · ul.highlight-list
+      <article class="study-block">           showcase-icon &#127919; · eyebrow · h2 · p
+  <section class="section" id="related">
+    <div class="page-shell">
+      <div class="section-heading"><div>  eyebrow · h2
+      <div class="project-strip">  a.project-link × N, each <strong>name</strong><span>desc</span>
+  <section class="section" id="faq">
+    <div class="page-shell">
+      <div class="section-heading"><div>  eyebrow · h2
+      <div class="study-grid">  article.study-block × 4, each h3 question + p answer
+                                ← no showcase-icon, no eyebrow on FAQ blocks
+  <section class="section" id="cta">
+    <div class="page-shell">
+      <div class="result-band">
+        <div>  eyebrow · h2 · p
+        <div class="result-actions">  Fastwork .button.primary + mailto .button
+<footer class="footer-band">
+  <div class="page-shell footer-inner">  <span>{{H1_SHORT}} — Phakin Chawanpunya</span><span>Phakin Chawanpunya</span>
+```
+
+Heading order is `h1` → `h2` × 4 → `h3` × 4 → `h2`, which has no skipped levels.
+
+### Head block
 
 ```html
 <!DOCTYPE html>
@@ -122,90 +172,14 @@ Tasks 3–9 each build one page from this exact skeleton. It is defined once her
   <link rel="stylesheet" href="assets/portfolio-pages.css?v=ghdark-2" />
   <script src="assets/analytics.js" defer></script>
 </head>
-<body>
-  <nav class="page-shell nav" aria-label="เมนู{{NAV_LABEL}}">
-    <a class="brand" href="/" aria-label="{{H1_SHORT}} — กลับไปหน้าพอร์ตโฟลิโอ">
-      <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 34 34" focusable="false">
-          <rect class="mark-back" x="8" y="7" width="16" height="13" rx="3" />
-          <rect class="mark-front" x="12" y="12" width="16" height="15" rx="3" />
-          <path class="mark-line" d="M16 18h7M16 23h4" />
-          <circle class="mark-dot" cx="24" cy="17" r="2.1" />
-        </svg>
-      </span>
-      <span>Phakin Chawanpunya</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="/#projects">ผลงานทั้งหมด</a></li>
-      <li><a href="/#services">บริการ</a></li>
-      <li><a class="nav-primary" href="/#contact">ติดต่อ</a></li>
-    </ul>
-  </nav>
-
-  <main>
-    <section class="hero case-hero">
-      <span class="eyebrow">รับทำเว็บไซต์</span>
-      <h1>{{H1}}</h1>
-      <p class="hero-copy">{{HERO_COPY}}</p>
-      <div class="hero-actions">
-        <a class="button primary" href="https://fastwork.co/byob/0G16E5GFIO?openExternalBrowser=1&amp;source=byob" target="_blank" rel="noopener noreferrer">เริ่มคุยงานบน Fastwork</a>
-        <a class="button" href="/#contact">ปรึกษาก่อนตัดสินใจ</a>
-      </div>
-      <div class="study-meta" aria-label="ข้อมูลบริการ{{NAV_LABEL}}">
-        <div class="meta-box"><span>ราคาเริ่มต้น</span><strong>{{PRICE}}</strong></div>
-        <div class="meta-box"><span>ระยะเวลา</span><strong>{{TIMELINE}}</strong></div>
-        <div class="meta-box"><span>แก้ไขได้</span><strong>{{REVISIONS}}</strong></div>
-        <div class="meta-box"><span>เหมาะกับ</span><strong>{{BEST_FOR}}</strong></div>
-      </div>
-    </section>
-
-    <section class="section" id="overview">
-      <div class="study-grid">
-        <article class="study-block featured">
-          <span class="eyebrow">ฟีเจอร์ที่ธุรกิจนี้ต้องใช้</span>
-          <h2>{{FEATURES_H2}}</h2>
-          <ul class="highlight-list">
-            {{FEATURE_ITEMS}}
-          </ul>
-        </article>
-        <article class="study-block">
-          <span class="eyebrow">เหมาะกับใคร</span>
-          <h2>{{WHO_H2}}</h2>
-          <p>{{WHO_COPY}}</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="related">
-      <span class="eyebrow">ผลงานจริง</span>
-      <h2>{{RELATED_H2}}</h2>
-      <div class="project-strip">
-        {{PROJECT_LINKS}}
-      </div>
-    </section>
-
-    <section class="section" id="faq">
-      <span class="eyebrow">คำถามที่พบบ่อย</span>
-      <h2>คำถามก่อนเริ่มงาน</h2>
-      <div class="study-grid">
-        {{FAQ_BLOCKS}}
-      </div>
-    </section>
-
-    <section class="section" id="cta">
-      <div class="result-band">
-        <span class="eyebrow">พร้อมเริ่มหรือยัง?</span>
-        <h2>{{CTA_H2}}</h2>
-        <div class="hero-actions">
-          <a class="button primary" href="https://fastwork.co/byob/0G16E5GFIO?openExternalBrowser=1&amp;source=byob" target="_blank" rel="noopener noreferrer">เริ่มคุยงานบน Fastwork</a>
-          <a class="button" href="mailto:a0626568471@gmail.com">อีเมลหาผม</a>
-        </div>
-      </div>
-    </section>
-  </main>
-</body>
-</html>
 ```
+
+### Body
+
+Do not hand-write it. **Copy `web-clinic.html` and replace the content**, keeping every
+structural detail listed above. That file is the verified reference implementation:
+Lighthouse accessibility 100 / SEO 100, no overflow at 375×812, every class resolving in
+`assets/portfolio-pages.css`.
 
 **`{{FEATURE_ITEMS}}`** is a list of `<li>` elements.
 **`{{FAQ_BLOCKS}}`** is a list of `<article class="study-block"><h3>Q</h3><p>A</p></article>`.
