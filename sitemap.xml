@@ -176,6 +176,43 @@
     <priority>0.85</priority>
   </url>
 
+  <!-- Industry landing pages (Thai only — no -en twin, see CLAUDE.md) -->
+  <url>
+    <loc>https://ph-akin.dev/web-clinic.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ph-akin.dev/web-booking.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ph-akin.dev/web-restaurant.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ph-akin.dev/web-shop.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ph-akin.dev/web-gym.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ph-akin.dev/web-construction.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ph-akin.dev/web-solar.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
   <!-- Project showcase pages -->
   <url>
     <loc>https://ph-akin.dev/showcase-buildnest-en.html</loc>
