@@ -30,7 +30,17 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://ph-akin.dev/case-study-pulseboard-th.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://ph-akin.dev/case-study-launchledger.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ph-akin.dev/case-study-launchledger-th.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -40,7 +50,17 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://ph-akin.dev/case-study-interntrack-th.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://ph-akin.dev/case-study-habitquest.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ph-akin.dev/case-study-habitquest-th.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
