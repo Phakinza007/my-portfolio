@@ -1,0 +1,36 @@
+# GitHub Pages / Jekyll configuration
+#
+# This file exists for one reason: to stop Jekyll publishing the repo's
+# internal documents to ph-akin.dev.
+#
+# Without it, every .md file that does not start with "_" is rendered and
+# served. That meant CLAUDE.md, every plan and every spec were readable by
+# anyone — including the line stating the 13 project pages are simulated
+# client work, the pricing strategy, and the competitor analysis. robots.txt
+# says "Allow: /", so search engines were invited to index all of it.
+#
+# Do NOT replace this with a .nojekyll file. That switches Jekyll off
+# entirely and serves the repo as-is, which would also expose _docs/ and
+# assets/_archive/ — those are currently 404 only because Jekyll skips
+# underscore-prefixed paths.
+#
+# Excluding rather than moving keeps CLAUDE.md at the repo root, where
+# Claude Code requires it.
+
+exclude:
+  # Agent and project documentation
+  - CLAUDE.md
+  - README.md
+  - DESIGN.md
+  - PRODUCT.md
+  - docs/
+  - .claude/
+
+  # Design-tool export, not part of the site
+  - stitch_elasticshop_gaming_top_up_design_system/
+
+  # Jekyll's own defaults, restated because setting `exclude` replaces them
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/
