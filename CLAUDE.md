@@ -115,7 +115,11 @@ Tag colour classes:
 
 ## Key Standards to Maintain
 
-- **Lighthouse:** 100 / 100 / 100 (Accessibility / Best Practices / SEO) — run after changes
+- **Lighthouse:** 100 / 100 / 100 (Accessibility / Best Practices / SEO) — run after changes.
+  Accepted exception: **Best Practices caps at 77** sitewide because Microsoft Clarity sets
+  third-party cookies (`third-party-cookies` and `inspector-issues` audits both fire on this,
+  confirmed via a real `npx lighthouse` run on 2026-08-06). This is analytics-vs-score, a
+  deliberate trade — don't chase it. Any other Best Practices deduction is a real regression.
 - **Mobile overflow:** `canScrollX: false` at 375 × 812 px on every page
 - **Accent colour:** `--accent: #5274f8` (slightly lighter than #4f6ef7 for WCAG AA contrast)
 - **Button bg:** `--accent-dark: #3651d4` (white text: 6.4:1 contrast ✅)
@@ -198,17 +202,41 @@ Click/scroll heatmaps + session recording via **Microsoft Clarity**, loaded from
 Use the **portfolio-add-card** skill — it handles the full workflow automatically.
 
 ### Run a Lighthouse audit
-Use the chrome-devtools MCP: `lighthouse_audit(device="mobile", mode="navigation")` on `http://localhost:60270/index.html`. Fix any failures before committing.
+Real Lighthouse via the CLI — no MCP tool needed (`node`/`npx` are available; confirmed
+2026-08-06). Serve the site locally, then run per page/viewport:
+```bash
+python3 -m http.server 8123 &
+npx -y lighthouse http://localhost:8123/index.html \
+  --quiet --chrome-flags="--headless" \
+  --output=json --output-path=/tmp/lh-<page>-mobile.json
+# add --preset=desktop for the desktop pass
+```
+Pull scores from the JSON: `python3 -c "import json; d=json.load(open('/tmp/lh-<page>-mobile.json')); print({k:round(v['score']*100) for k,v in d['categories'].items() if v.get('score') is not None})"`.
+Fix any Accessibility/SEO/Performance regression before committing. See the accepted
+Best Practices exception above — don't chase that one.
 
 ### Check mobile overflow
-Navigate to the page in preview (port 60270), resize to 375×812, then run:
+If a real browser preview is available, navigate to the page, resize to 375×812, then run:
 ```js
 ({canScrollX: (function(){document.documentElement.scrollLeft=50;const s=document.documentElement.scrollLeft;document.documentElement.scrollLeft=0;return s>0;})(), bw:document.body.scrollWidth, cw:document.documentElement.clientWidth})
 ```
+If viewport resize isn't available in your environment, embed the page in a 375×812
+`<iframe>` on a blank page instead — its own CSS media queries evaluate against the
+iframe's viewport, giving the same real breakpoint behavior — then run the same
+snippet against `iframe.contentDocument`/`contentWindow`.
 
 ### Add a case study
-1. Create `case-study-<name>.html` (use `portfolio-pages.css`)
-2. Add a card in the `#case-studies` section of `index.html`
+Case studies ship in bilingual pairs, same as every other page on the site (see
+"Bilingual structure" above). Producing only the Thai file makes an unpaired,
+uncrawlable page — do all of these:
+1. Create `case-study-<name>.html` (Thai, `<html lang="th">`) using `portfolio-pages.css`
+2. Create `case-study-<name>-en.html` (English sibling, `<html lang="en">`)
+3. Add the `hreflang` trio to **both**: `th` → Thai URL, `en` → `-en` URL,
+   `x-default` → Thai URL (Thai is the site default); `canonical` self-referential on each
+4. Set `og:locale` per language (`th_TH` / `en_US`)
+5. Add `<script src="assets/analytics.js" defer></script>` before `</head>` on both
+6. Add a card in `#case-studies` on **both** `index.html` and `index-en.html`
+7. Add both URLs to `sitemap.xml`
 
 ### Update meta / SEO
 Edit the `<head>` block in `index.html` — update `og:description`, `og:image`, `meta-description`
