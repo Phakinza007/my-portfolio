@@ -1446,6 +1446,24 @@
       .stack-group { flex-wrap: wrap; justify-content: center; }
       .stack-group.dup { display: none; }
     }
+    .active-filter{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin:0 0 1.1rem;font-size:.92rem;color:var(--muted);}
+    .active-filter[hidden]{display:none;}
+    .active-filter strong{color:var(--ink);}
+    .active-filter-clear{border:1px solid var(--border);background:transparent;color:var(--ink);border-radius:999px;padding:.28rem .8rem;font:inherit;font-size:.85rem;cursor:pointer;}
+    .active-filter-clear:hover{border-color:var(--accent);color:var(--accent-text);}
+    .active-filter-clear:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+    .pricing-sub{margin:0 0 1.6rem;color:var(--muted);max-width:60ch;}
+    .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+    .price-col{display:flex;flex-direction:column;padding:1.4rem;border:1px solid var(--border);border-radius:var(--r);background:var(--surface);box-shadow:var(--sh-sm);}
+    .price-col.is-mid{border-color:var(--accent);}
+    .price-col h3{margin:0 0 .3rem;font-size:1.05rem;color:var(--ink);}
+    .price-amt{font-size:1.9rem;font-weight:800;letter-spacing:-.02em;margin:.2rem 0 .1rem;color:var(--ink);}
+    .price-meta{font-size:.86rem;color:var(--muted);margin:0 0 1rem;}
+    .price-col ul{list-style:none;margin:0 0 1.2rem;padding:0;display:flex;flex-direction:column;gap:.5rem;font-size:.9rem;line-height:1.5;color:var(--ink-2);}
+    .price-col ul li{padding-left:1.3rem;position:relative;}
+    .price-col ul li::before{content:"";position:absolute;left:0;top:.5em;width:.5rem;height:.5rem;border-radius:50%;background:var(--accent-text);}
+    .price-col .btn-project{margin-top:auto;text-align:center;}
+    @media (max-width:900px){.pricing-grid{grid-template-columns:1fr;}}
   </style>
   <script src="assets/analytics.js" defer></script>
 </head>
@@ -1728,6 +1746,56 @@
     </section>
 
     <!-- =============================================
+         PRICING
+    ============================================= -->
+    <section class="section" id="pricing" lang="th" aria-labelledby="pricing-heading">
+      <div class="container">
+        <span class="section-label">ราคา</span>
+        <h2 class="section-title" id="pricing-heading">ราคาแพ็กเกจ</h2>
+        <p class="pricing-sub">ราคาเริ่มต้นจริงจาก Fastwork ไม่มีค่าใช้จ่ายแอบแฝง งานที่ซับซ้อนกว่านี้ประเมินให้ก่อนเริ่มเสมอ</p>
+        <div class="pricing-grid">
+
+          <div class="price-col">
+            <h3>Landing Page</h3>
+            <div class="price-amt">฿3,900</div>
+            <p class="price-meta">5-7 วัน · แก้ไข 2 รอบ + ฟรีแก้บั๊ก 3 เดือน</p>
+            <ul>
+              <li>เว็บหน้าเดียวจบ พัฒนาใหม่ทั้งหมด ไม่ใช้เทมเพลต</li>
+              <li>รองรับมือถือเต็มรูปแบบ</li>
+              <li>ฟอร์มติดต่อหรือปุ่มไลน์</li>
+            </ul>
+            <a class="btn-project" href="landing-page.html">ดูรายละเอียด</a>
+          </div>
+
+          <div class="price-col is-mid">
+            <h3>Dashboard UI</h3>
+            <div class="price-amt">฿7,900</div>
+            <p class="price-meta">7-10 วัน · แก้ไข 2 รอบหลังส่งแบบ</p>
+            <ul>
+              <li>ออกแบบหน้าจอระบบสูงสุด 5 หน้าจอ</li>
+              <li>ส่งไฟล์ออกแบบฉบับเต็ม ทีมพัฒนาทำต่อได้ทันที</li>
+              <li>เหมาะกับระบบจอง ระบบหลังบ้าน แดชบอร์ด</li>
+            </ul>
+            <a class="btn-project" href="dashboard-ui.html">ดูรายละเอียด</a>
+          </div>
+
+          <div class="price-col">
+            <h3>Business Website</h3>
+            <div class="price-amt">฿9,900</div>
+            <p class="price-meta">10-14 วัน · แก้ไข 2 รอบ + ฟรีแก้บั๊ก 3 เดือน</p>
+            <ul>
+              <li>เว็บ 3-5 หน้า พร้อมโครงสร้างรองรับ SEO พื้นฐาน</li>
+              <li>ฟอร์มติดต่อหรือปุ่ม LINE OA</li>
+              <li>เหมาะกับเว็บบริษัทและร้านค้าออนไลน์</li>
+            </ul>
+            <a class="btn-project" href="business-website.html">ดูรายละเอียด</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
          TESTIMONIALS
     ============================================= -->
     <section class="section" id="testimonials" lang="th" aria-labelledby="testimonials-heading">
@@ -1817,19 +1885,26 @@
         </div>
 
         <div class="filter-bar" role="group" aria-label="กรองผลงาน">
-          <button class="filter-btn active" data-filter="all" aria-pressed="true">ทั้งหมด <span class="filter-count">13</span></button>
-          <button class="filter-btn" data-filter="fullstack" aria-pressed="false">Full Stack <span class="filter-count">5</span></button>
-          <button class="filter-btn" data-filter="landing" aria-pressed="false">Landing Page <span class="filter-count">9</span></button>
-          <button class="filter-btn" data-filter="app" aria-pressed="false">Interactive App <span class="filter-count">2</span></button>
-          <button class="filter-btn" data-filter="ecommerce" aria-pressed="false">E-commerce <span class="filter-count">2</span></button>
-          <button class="filter-btn" data-filter="dashboard" aria-pressed="false">Dashboard <span class="filter-count">1</span></button>
+          <button class="filter-btn active" data-filter="all" data-label="ทั้งหมด" aria-pressed="true">ทั้งหมด <span class="filter-count">13</span></button>
+          <button class="filter-btn" data-filter="clinic" data-label="คลินิก / ความงาม" aria-pressed="false">คลินิก / ความงาม <span class="filter-count">3</span></button>
+          <button class="filter-btn" data-filter="booking" data-label="จองคิว / นัดหมาย" aria-pressed="false">จองคิว / นัดหมาย <span class="filter-count">2</span></button>
+          <button class="filter-btn" data-filter="restaurant" data-label="ร้านอาหาร / คาเฟ่" aria-pressed="false">ร้านอาหาร / คาเฟ่ <span class="filter-count">2</span></button>
+          <button class="filter-btn" data-filter="shop" data-label="ขายของออนไลน์" aria-pressed="false">ขายของออนไลน์ <span class="filter-count">2</span></button>
+          <button class="filter-btn" data-filter="gym" data-label="ฟิตเนส / ยิม" aria-pressed="false">ฟิตเนส / ยิม <span class="filter-count">1</span></button>
+          <button class="filter-btn" data-filter="construction" data-label="ก่อสร้าง" aria-pressed="false">ก่อสร้าง <span class="filter-count">1</span></button>
+          <button class="filter-btn" data-filter="solar" data-label="โซลาร์ / พลังงาน" aria-pressed="false">โซลาร์ / พลังงาน <span class="filter-count">1</span></button>
+          <button class="filter-btn" data-filter="other" data-label="อื่นๆ" aria-pressed="false">อื่นๆ <span class="filter-count">2</span></button>
         </div>
+        <p class="active-filter" id="active-filter-chip" hidden>
+          กำลังกรอง: <strong id="active-filter-label"></strong>
+          <button type="button" id="active-filter-clear" class="active-filter-clear">ล้างตัวกรอง</button>
+        </p>
         <p class="sr-only" role="status" aria-live="polite" id="filter-status"></p>
 
         <div class="works-grid">
 
           <!-- BuildNest Construction -->
-          <article class="work-card reveal" data-tags="landing" data-featured="1">
+          <article class="work-card reveal" data-industry="construction" data-featured="1">
             <a class="work-thumb" href="showcase-buildnest.html" aria-label="เปิดหน้าผลงาน BuildNest">
               <img src="assets/thumbs/construction-landing.svg" alt="BuildNest construction landing page preview" loading="eager" width="1200" height="750" />
             </a>
@@ -1837,8 +1912,9 @@
               <div class="work-name">BuildNest Construction</div>
               <p class="work-problem">แลนดิ้งเพจบริษัทก่อสร้าง ออกแบบเป็นภาษาไทยตั้งแต่ต้น โครงสร้างบริการครบวงจร พร้อมภาพประกอบ SVG งานสถาปัตย์และผลงานที่ผ่านมา</p>
               <div class="work-tags">
-                <span class="tag tag-mint">Construction</span>
-                <span class="tag tag-amber">Landing</span>
+                <span class="tag tag-gray">ก่อสร้าง</span>
+                <span class="tag tag-gray">รับเหมา</span>
+                <span class="tag tag-amber">ขอใบเสนอราคา</span>
               </div>
               <div class="work-foot">
                 <a class="btn-project" href="showcase-buildnest.html">ดูผลงาน</a>
@@ -1850,7 +1926,7 @@
           </article>
 
           <!-- Iron Republic -->
-          <article class="work-card reveal" data-tags="landing">
+          <article class="work-card reveal" data-industry="gym">
             <a class="work-thumb" href="showcase-iron-republic.html" aria-label="เปิดหน้าผลงาน Iron Republic" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#080808;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
                 <!-- nav -->
@@ -1905,8 +1981,9 @@
               <div class="work-name">Iron Republic</div>
               <p class="work-problem">แบรนด์ยิมที่ต้องการหน้าเว็บกระตุ้นให้คนสมัครสมาชิก พร้อมสื่อถึงพลังและความเข้มข้น</p>
               <div class="work-tags">
-                <span class="tag tag-amber">Fitness</span>
-                <span class="tag tag-gray">Brand</span>
+                <span class="tag tag-amber">ฟิตเนส</span>
+                <span class="tag tag-gray">ยิม</span>
+                <span class="tag tag-gray">แพ็กเกจสมาชิก</span>
               </div>
               <div class="work-foot">
                 <a class="btn-project" href="showcase-iron-republic.html">ดูผลงาน</a>
@@ -1918,7 +1995,7 @@
           </article>
 
           <!-- NOIR Coffee -->
-          <article class="work-card reveal" data-tags="landing">
+          <article class="work-card reveal" data-industry="restaurant">
             <a class="work-thumb" href="showcase-noir-coffee.html" aria-label="เปิดหน้าผลงาน NOIR Coffee" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#0a0806;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
                 <!-- noise texture hint -->
@@ -1960,8 +2037,9 @@
               <div class="work-name">NOIR Coffee</div>
               <p class="work-problem">ร้านกาแฟพิเศษที่ต้องการแลนดิ้งเพจหรูหรา ดึงดูดลูกค้าเดินเข้าร้านและสร้างความผูกพันกับแบรนด์</p>
               <div class="work-tags">
-                <span class="tag tag-rose">Dark</span>
-                <span class="tag tag-gray">Coffee</span>
+                <span class="tag tag-gray">คาเฟ่</span>
+                <span class="tag tag-gray">ร้านกาแฟ</span>
+                <span class="tag tag-rose">ธีมมืด</span>
               </div>
               <div class="work-foot">
                 <a class="btn-project" href="showcase-noir-coffee.html">ดูผลงาน</a>
@@ -1973,7 +2051,7 @@
           </article>
 
           <!-- Elevate Commerce — CSS mini-UI preview -->
-          <article class="work-card reveal" data-tags="fullstack ecommerce" data-featured="1">
+          <article class="work-card reveal" data-industry="shop" data-featured="1">
             <a class="work-thumb" href="showcase-elevate-commerce.html" aria-label="เปิดหน้าผลงาน Elevate Commerce" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#f8f9ff;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;">
 
@@ -2045,9 +2123,9 @@
               <div class="work-name">Elevate Commerce</div>
               <p class="work-problem">สตาร์ทอัพอีคอมเมิร์ซที่ต้องการหน้าสินค้าพาผู้เข้าชมตั้งแต่เลือกดูจนถึงชำระเงิน</p>
               <div class="work-tags">
-                <span class="tag tag-accent">E-commerce</span>
-                <span class="tag tag-mint">UI Design</span>
-                <span class="tag tag-mint">Full Stack</span>
+                <span class="tag tag-accent">ขายของออนไลน์</span>
+                <span class="tag tag-gray">ตะกร้าสินค้า</span>
+                <span class="tag tag-gray">ชำระเงิน</span>
               </div>
               <div class="work-foot">
                 <a class="btn-project" href="showcase-elevate-commerce.html">ดูผลงาน</a>
@@ -2060,7 +2138,7 @@
 
 
           <!-- Elasticshop Gaming Top-Up — CSS mini-UI preview -->
-          <article class="work-card reveal" data-tags="fullstack ecommerce">
+          <article class="work-card reveal" data-industry="shop">
             <a class="work-thumb" href="showcase-elasticshop-gaming.html" aria-label="เปิดหน้าผลงาน Elasticshop Gaming Top-Up" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#0d0d0d;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
                 <!-- yellow glow -->
@@ -2143,10 +2221,9 @@
               <div class="work-name">Elasticshop Gaming Top-Up</div>
               <p class="work-problem">ดีไซน์ระบบโทนดำ-เหลืองสำหรับแพลตฟอร์มเติมเงินเกมอัตโนมัติ — ครบ 4 หน้าจอ ดีไซน์แบบเกมเมอร์</p>
               <div class="work-tags">
-                <span class="tag tag-gray">Design System</span>
-                <span class="tag tag-amber">Gaming UI</span>
-                <span class="tag tag-accent">Figma</span>
-                <span class="tag tag-mint">Full Stack</span>
+                <span class="tag tag-accent">ขายของออนไลน์</span>
+                <span class="tag tag-amber">เติมเกม</span>
+                <span class="tag tag-gray">ร้านเกม</span>
               </div>
               <div class="work-foot">
                 <a class="btn-project" href="showcase-elasticshop-gaming.html">ดูผลงาน</a>
@@ -2158,7 +2235,7 @@
           </article>
 
           <!-- RATRI Restaurant — CSS mini-UI preview -->
-          <article class="work-card reveal" data-tags="fullstack landing" data-featured="1">
+          <article class="work-card reveal" data-industry="restaurant" data-featured="1">
             <a class="work-thumb" href="showcase-ratri-restaurant.html" aria-label="เปิดหน้าผลงาน RATRI Restaurant" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#0c0a08;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
                 <!-- warm gold glow -->
@@ -2210,10 +2287,9 @@
               <div class="work-name">RATRI Restaurant</div>
               <p class="work-problem">แลนดิ้งเพจโทนมืดสไตล์หรู สำหรับร้านอาหารไทยไฟน์ไดนิ่งสมัยใหม่ พร้อมระบบจองโต๊ะที่ใช้งานได้จริง</p>
               <div class="work-tags">
-                <span class="tag tag-amber">Fine Dining</span>
-                <span class="tag tag-gray">Restaurant</span>
-                <span class="tag tag-gray">Thai</span>
-                <span class="tag tag-mint">Full Stack</span>
+                <span class="tag tag-gray">ร้านอาหาร</span>
+                <span class="tag tag-amber">ไฟน์ไดนิ่ง</span>
+                <span class="tag tag-gray">จองโต๊ะ</span>
               </div>
               <div class="work-foot">
                 <a class="btn-project" href="showcase-ratri-restaurant.html">ดูผลงาน</a>
@@ -2225,7 +2301,7 @@
           </article>
 
           <!-- SolarPeak — CSS mini-UI preview -->
-          <article class="work-card reveal" data-tags="landing">
+          <article class="work-card reveal" data-industry="solar">
             <a class="work-thumb" href="showcase-solarpeak.html" aria-label="เปิดหน้าผลงาน SolarPeak" style="display:block;overflow:hidden;">
               <div aria-hidden="true" style="width:100%;height:100%;background:#050d1a;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
                 <!-- blueprint grid -->
@@ -2288,9 +2364,9 @@
               <div class="work-name">SolarPeak</div>
               <p class="work-problem">แลนดิ้งเพจบริษัทโซลาร์เซลล์ ดีไซน์แบบเอกสารสเปกวิศวกรรม พร้อมภาพถ่ายหน้างานจริง ตารางเปรียบเทียบ และภาพประกอบสไตล์พิมพ์เขียว</p>
               <div class="work-tags">
-                <span class="tag tag-amber">Energy</span>
-                <span class="tag tag-gray">Landing Page</span>
-                <span class="tag tag-gray">Brand</span>
+                <span class="tag tag-amber">โซลาร์เซลล์</span>
+                <span class="tag tag-gray">ติดตั้งโซลาร์</span>
+                <span class="tag tag-gray">ประหยัดค่าไฟ</span>
               </div>
               <div class="work-foot">
                 <a class="btn-project" href="showcase-solarpeak.html">ดูผลงาน</a>
@@ -2302,7 +2378,7 @@
           </article>
 
           <!-- BookEase Dashboard — CSS mini-UI preview (light theme) -->
-          <article class="work-card reveal" data-tags="fullstack dashboard" data-featured="1">
+          <article class="work-card reveal" data-industry="booking" data-featured="1">
             <a class="work-thumb" href="showcase-bookease.html" aria-label="เปิดหน้าผลงาน BookEase Dashboard" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#f8fafc;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
                 <!-- purple glow -->
@@ -2328,10 +2404,9 @@
               <div class="work-name">BookEase Dashboard</div>
               <p class="work-problem">แดชบอร์ดจองคิวนัดหมาย พร้อมตรวจสอบฟอร์ม เลือกช่วงเวลา และขั้นตอนยืนยันการจอง</p>
               <div class="work-tags">
-                <span class="tag tag-gray">Dashboard</span>
-                <span class="tag tag-gray">Booking</span>
-                <span class="tag tag-gray">Light UI</span>
-                <span class="tag tag-mint">Full Stack</span>
+                <span class="tag tag-gray">ระบบจองคิว</span>
+                <span class="tag tag-gray">นัดหมายออนไลน์</span>
+                <span class="tag tag-gray">แดชบอร์ด</span>
               </div>
               <div class="work-foot">
                 <a class="btn-project" href="showcase-bookease.html">ดูผลงาน</a>
@@ -2343,7 +2418,7 @@
           </article>
 
           <!-- MuseRoom — CSS mini-UI preview -->
-          <article class="work-card reveal" data-tags="landing">
+          <article class="work-card reveal" data-industry="other">
             <a class="work-thumb" href="showcase-museroom.html" aria-label="เปิดหน้าผลงาน MuseRoom"
                style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#0a0a0a;display:flex;
@@ -2403,9 +2478,9 @@
               <div class="work-name">MuseRoom</div>
               <p class="work-problem">แลนดิ้งเพจแกลเลอรีโทนมืด เน้นบรรยากาศดื่มด่ำ การ์ดจัดแสดงผลงาน และประสบการณ์เยี่ยมชมที่ผ่อนคลาย</p>
               <div class="work-tags">
-                <span class="tag tag-gray">Gallery</span>
-                <span class="tag tag-gray">Landing Page</span>
-                <span class="tag tag-gray">Brand</span>
+                <span class="tag tag-gray">แกลเลอรี</span>
+                <span class="tag tag-gray">งานศิลปะ</span>
+                <span class="tag tag-gray">นิทรรศการ</span>
               </div>
               <div class="work-foot">
                 <a class="btn-project" href="showcase-museroom.html">ดูผลงาน</a>
@@ -2422,7 +2497,7 @@
           </article>
 
           <!-- LUMI Clinic — CSS mini-UI preview -->
-          <article class="work-card reveal" data-tags="landing">
+          <article class="work-card reveal" data-industry="clinic">
             <a class="work-thumb" href="showcase-lumi-clinic.html" aria-label="เปิดหน้าผลงาน LUMI Clinic"
                style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#F6F3EE;display:flex;
@@ -2484,9 +2559,9 @@
               <div class="work-name">LUMI Clinic</div>
               <p class="work-problem">หน้าเว็บคลินิกความงามสไตล์เอดิทอเรียล โทนสีขาวหมึกดำ ภาพถ่ายจริง ตารางราคาชัดเจน และไทม์ไลน์คอร์สที่จริงใจ แทนภาพก่อน-หลังปลอมๆ</p>
               <div class="work-tags">
-                <span class="tag tag-amber">Beauty</span>
-                <span class="tag tag-gray">Landing Page</span>
-                <span class="tag tag-gray">Brand</span>
+                <span class="tag tag-amber">คลินิกความงาม</span>
+                <span class="tag tag-gray">จองคิวออนไลน์</span>
+                <span class="tag tag-gray">ดูแลผิว</span>
               </div>
               <div class="work-foot">
                 <a class="btn-project" href="showcase-lumi-clinic.html">ดูผลงาน</a>
@@ -2503,7 +2578,7 @@
           </article>
 
           <!-- BRIGHT Dental Clinic — CSS mini-UI preview -->
-          <article class="work-card reveal" data-tags="landing">
+          <article class="work-card reveal" data-industry="clinic">
             <a class="work-thumb" href="showcase-dental-clinic.html" aria-label="เปิดหน้าผลงาน BRIGHT Dental Clinic"
                style="display:block;overflow:hidden;position:relative;">
               <img
@@ -2527,9 +2602,9 @@
               <div class="work-name">BRIGHT Dental Clinic</div>
               <p class="work-problem">แลนดิ้งเพจคลินิกทันตกรรม โทนเขียวมิ้นท์สะอาดตา พร้อมตารางราคาโปร่งใส โปรไฟล์ทันตแพทย์ และฟอร์มจองคิวออนไลน์</p>
               <div class="work-tags">
-                <span class="tag tag-mint">Healthcare</span>
-                <span class="tag tag-gray">Landing Page</span>
-                <span class="tag tag-gray">Booking</span>
+                <span class="tag tag-mint">คลินิกทันตกรรม</span>
+                <span class="tag tag-gray">จัดฟัน</span>
+                <span class="tag tag-gray">รากเทียม</span>
               </div>
               <div class="work-foot">
                 <a class="btn-project" href="showcase-dental-clinic.html">ดูผลงาน</a>
@@ -2546,7 +2621,7 @@
           </article>
 
           <!-- VELVÉ Aesthetics — CSS mini-UI preview -->
-          <article class="work-card reveal" data-tags="landing app" data-featured="1">
+          <article class="work-card reveal" data-industry="clinic booking" data-featured="1">
             <a class="work-thumb" href="showcase-velve-aesthetics.html" aria-label="เปิดหน้าผลงาน VELVÉ Aesthetics"
                style="display:block;overflow:hidden;position:relative;">
               <img
@@ -2567,9 +2642,9 @@
               <div class="work-name">VELVÉ Aesthetics</div>
               <p class="work-problem">คลินิกเสริมความงามพร้อมระบบจองคิว 4 ขั้นตอนที่ใช้งานได้จริง — เลือกบริการ แพทย์ ช่วงเวลา แล้วยืนยัน — เขียนด้วย vanilla JS ล้วน</p>
               <div class="work-tags">
-                <span class="tag tag-amber">Beauty</span>
-                <span class="tag tag-gray">Booking</span>
-                <span class="tag tag-gray">Interactive</span>
+                <span class="tag tag-amber">คลินิกความงาม</span>
+                <span class="tag tag-gray">จองคิวออนไลน์</span>
+                <span class="tag tag-gray">ฉีดฟิลเลอร์</span>
               </div>
               <div class="work-foot">
                 <a class="btn-project" href="showcase-velve-aesthetics.html">ดูผลงาน</a>
@@ -2586,7 +2661,7 @@
           </article>
 
           <!-- HabitQuest — CSS mini-UI preview -->
-          <article class="work-card reveal" data-tags="fullstack app">
+          <article class="work-card reveal" data-industry="other">
             <a class="work-thumb" href="showcase-habitquest.html" aria-label="เปิดหน้าผลงาน HabitQuest" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#f8f3ea;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
                 <!-- warm glow -->
@@ -2636,8 +2711,8 @@
               <div class="work-name">HabitQuest</div>
               <p class="work-problem">เปลี่ยนนิสัยประจำวันให้กลายเป็นการผจญภัยแบบ RPG — ทำเควส ปราบมอนสเตอร์ และเลเวลอัพฮีโร่ ทีละนิสัยจากชีวิตจริง</p>
               <div class="work-tags">
-                <span class="tag tag-amber">Gamification</span>
-                <span class="tag tag-gray">Habit Tracker</span>
+                <span class="tag tag-amber">แอปสร้างนิสัย</span>
+                <span class="tag tag-gray">เกมมิฟิเคชัน</span>
               </div>
               <div class="work-foot">
                 <a class="btn-project" href="showcase-habitquest.html">ดูผลงาน</a>
@@ -2942,7 +3017,7 @@
           const clone = card.cloneNode(true);
           clone.classList.remove('reveal');
           clone.removeAttribute('data-featured');
-          clone.removeAttribute('data-tags');
+          clone.removeAttribute('data-industry');
           featuredTrack.appendChild(clone);
         });
 
@@ -3101,14 +3176,17 @@
         }
       });
 
-      /* ---- Filter bar ---- */
-      const filterBtns  = document.querySelectorAll('.filter-btn');
-      const cards       = document.querySelectorAll('.work-card[data-tags]');
-      const emptyState  = document.getElementById('works-empty');
+      /* ---- Filter bar: one axis, industry ---- */
+      const filterBtns   = document.querySelectorAll('.filter-btn');
+      const cards        = document.querySelectorAll('.work-card[data-industry]');
+      const emptyState   = document.getElementById('works-empty');
       const filterStatus = document.getElementById('filter-status');
+      const chip         = document.getElementById('active-filter-chip');
+      const chipLabel    = document.getElementById('active-filter-label');
+      const chipClear    = document.getElementById('active-filter-clear');
 
-      const tagsOf = card => (card.dataset.tags || '').trim().split(/\s+/).filter(Boolean);
-      const matches = (card, filter) => filter === 'all' || tagsOf(card).includes(filter);
+      const industriesOf = card => (card.dataset.industry || '').trim().split(/\s+/).filter(Boolean);
+      const matches = (card, filter) => filter === 'all' || industriesOf(card).includes(filter);
 
       /* Counts are derived from the DOM so they can never drift out of date. */
       filterBtns.forEach(btn => {
@@ -3119,34 +3197,49 @@
         countEl.textContent = String(n);
       });
 
-      filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const filter = btn.dataset.filter;
-          let visible = 0;
+      function applyFilter(filter, label) {
+        let visible = 0;
 
-          filterBtns.forEach(b => {
-            const on = b === btn;
-            b.classList.toggle('active', on);
-            b.setAttribute('aria-pressed', on ? 'true' : 'false');
-          });
+        filterBtns.forEach(b => {
+          const on = b.dataset.filter === filter;
+          b.classList.toggle('active', on);
+          b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
 
-          cards.forEach(card => {
-            if (matches(card, filter)) {
-              delete card.dataset.hidden;
-              visible++;
-            } else {
-              card.dataset.hidden = '';
-            }
-          });
-
-          if (emptyState) emptyState.hidden = visible > 0;
-          if (filterStatus) {
-            filterStatus.textContent = visible === 0
-              ? 'ยังไม่มีผลงานในหมวดนี้'
-              : 'แสดง ' + visible + ' ผลงาน';
+        cards.forEach(card => {
+          if (matches(card, filter)) {
+            delete card.dataset.hidden;
+            visible++;
+          } else {
+            card.dataset.hidden = '';
           }
         });
+
+        if (chip) {
+          const show = filter !== 'all';
+          chip.hidden = !show;
+          if (show && chipLabel) chipLabel.textContent = label;
+        }
+
+        if (emptyState) emptyState.hidden = visible > 0;
+        if (filterStatus) {
+          filterStatus.textContent = visible === 0
+            ? 'ยังไม่มีผลงานในหมวดนี้'
+            : 'แสดง ' + visible + ' ผลงาน';
+        }
+      }
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => applyFilter(btn.dataset.filter, btn.dataset.label || ''));
       });
+
+      if (chipClear) {
+        chipClear.addEventListener('click', () => {
+          applyFilter('all', '');
+          const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
+          if (allBtn) allBtn.focus();
+        });
+      }
     })();
   </script>
 
