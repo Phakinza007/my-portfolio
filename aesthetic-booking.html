@@ -295,6 +295,76 @@
     }
     .wiz-note { font-size: 12.5px; color: var(--muted); }
 
+    /* ── Services — editorial price list ───────────────────────── */
+    .services { padding: 100px 0; }
+    .svc-head {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+      align-items: end; margin-bottom: 36px;
+    }
+    .svc-head p { font-size: 14.5px; color: var(--slate); max-width: 400px; justify-self: end; text-align: right; }
+    .svc-list { border-top: 1px solid var(--line); }
+    .svc-row {
+      display: grid; grid-template-columns: 220px 1fr auto; gap: 28px;
+      align-items: baseline;
+      padding: 26px 8px;
+      border-bottom: 1px solid var(--line);
+      transition: background var(--t);
+    }
+    .svc-row:hover { background: var(--card); }
+    .svc-row h3 { font-family: var(--display); font-size: 21px; font-weight: 400; color: var(--wine-deep); }
+    .svc-row p { font-size: 13.5px; color: var(--slate); }
+    .svc-row .price { font-weight: 700; font-size: 15px; color: var(--wine-ink); white-space: nowrap; }
+    .svc-row .price small { display: block; font-weight: 400; font-size: 11.5px; color: var(--muted); text-align: right; }
+    .svc-note { font-size: 12.5px; color: var(--muted); margin-top: 20px; }
+
+    /* ── Team — doctor bios ─────────────────────────────────────── */
+    .team { background: var(--card); padding: 90px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .team-head { max-width: 560px; margin-bottom: 44px; }
+    .team-head p { font-size: 14.5px; color: var(--slate); }
+    .team-ava {
+      flex: none; border-radius: 50%; display: grid; place-items: center;
+      color: var(--paper); font-family: var(--display);
+    }
+    .team-lead {
+      display: flex; gap: 22px; align-items: flex-start;
+      padding-bottom: 32px; margin-bottom: 32px; border-bottom: 1px solid var(--line);
+    }
+    .team-lead .team-ava { width: 64px; height: 64px; font-size: 21px; }
+    .team-lead h3 { font-family: var(--display); font-size: 20px; font-weight: 400; color: var(--wine-deep); margin-bottom: 4px; }
+    .team-lead p { font-size: 14px; color: var(--slate); line-height: 1.65; }
+    .team-spec { display: block; font-size: 13px; font-weight: 600; color: var(--wine-ink); margin-bottom: 10px; }
+    .team-list { display: flex; flex-direction: column; gap: 26px; }
+    .team-row { display: flex; gap: 20px; align-items: flex-start; }
+    .team-row .team-ava { width: 50px; height: 50px; font-size: 16px; }
+    .team-row h3 { font-family: var(--display); font-size: 17px; font-weight: 400; color: var(--wine-deep); margin-bottom: 3px; }
+    .team-row p { font-size: 13.5px; color: var(--slate); line-height: 1.6; }
+    .team-note { font-size: 12.5px; color: var(--muted); margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--line); }
+
+    /* ── Rooms — clinic ambience gallery ───────────────────────── */
+    .rooms { background: var(--wine-deep); padding: 90px 0; }
+    .rooms-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .rooms-fig { margin: 0; }
+    .rooms-media { aspect-ratio: 4 / 3; }
+    .rooms-media::after { background: linear-gradient(180deg, rgba(46,13,20,.1), rgba(46,13,20,.3)); }
+    .room-kicker { display: block; font-size: 13px; font-weight: 600; color: var(--rose); margin: 16px 4px 4px; }
+    .room-text { font-size: 13px; color: rgba(244,239,230,.68); margin: 0 4px; line-height: 1.55; }
+
+    /* ── Reviews ────────────────────────────────────────────────── */
+    .reviews { padding: 90px 0; }
+    .rev-head { max-width: 560px; margin-bottom: 44px; }
+    .rev-head p { font-size: 14.5px; color: var(--slate); }
+    .stars { color: var(--wine-ink); font-size: 15px; letter-spacing: 2px; }
+    .rev-lead { padding-bottom: 36px; margin-bottom: 36px; border-bottom: 1px solid var(--line); }
+    .rev-lead .stars { display: block; margin-bottom: 12px; }
+    .rev-lead blockquote {
+      font-family: var(--display); font-size: clamp(20px, 2.4vw, 26px);
+      font-weight: 400; color: var(--wine-deep); line-height: 1.5; margin: 0 0 14px;
+    }
+    .rev-who { font-size: 12.5px; color: var(--muted); font-weight: 600; }
+    .rev-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .rev-card .stars { display: block; margin-bottom: 10px; }
+    .rev-card blockquote { font-size: 14px; color: var(--slate); line-height: 1.65; margin: 0 0 10px; }
+
     /* ── Why — pull-quote band ─────────────────────────────────── */
     .why { background: var(--wine); color: var(--paper); padding: 90px 0; }
     .why-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; align-items: center; }
@@ -310,10 +380,46 @@
     .why-fact h3 { font-size: 15px; font-weight: 600; margin-bottom: 5px; color: var(--rose); }
     .why-fact p { font-size: 13.5px; color: rgba(244,239,230,.68); }
 
+    /* ── Contact — location ─────────────────────────────────────── */
+    .contact { padding: 90px 0; }
+    .contact-head { max-width: 560px; margin-bottom: 44px; }
+    .contact-head p { font-size: 14.5px; color: var(--slate); }
+    .loc-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: start; }
+    .loc-map { margin: 0; }
+    .map-frame {
+      display: block; position: relative; border-radius: var(--r-md);
+      overflow: hidden; background: var(--card);
+    }
+    .map-frame img { width: 100%; display: block; }
+    .map-pin { position: absolute; top: 44%; left: 50%; transform: translate(-50%, -100%); }
+    .map-card {
+      position: absolute; left: 16px; right: 16px; bottom: 16px;
+      background: var(--card); border-radius: var(--r-sm); padding: 14px 16px;
+      font-size: 13px; color: var(--ink); line-height: 1.5; box-shadow: var(--shadow-md);
+    }
+    .map-card b { display: block; font-family: var(--display); font-size: 15px; font-weight: 400; color: var(--wine-deep); margin-bottom: 2px; }
+    .map-card .go { display: block; margin-top: 6px; font-size: 12px; font-weight: 600; color: var(--wine-ink); }
+    .map-credit { font-size: 11px; color: var(--muted); margin-top: 8px; }
+    .loc-list { display: flex; flex-direction: column; gap: 22px; }
+    .loc-item h3 { font-family: var(--display); font-size: 15px; font-weight: 400; color: var(--wine-deep); margin-bottom: 4px; }
+    .loc-item p { font-size: 13.5px; color: var(--slate); line-height: 1.6; }
+
     /* ── Footer ────────────────────────────────────────────────── */
     footer { background: var(--wine-deep); color: rgba(244,239,230,.68); padding: 44px 0; }
-    .foot-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .foot-inner { display: flex; flex-direction: column; gap: 26px; }
+    .foot-top { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
     .foot-logo { font-family: var(--display); font-size: 17px; color: var(--paper); }
+    .foot-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .foot-links a {
+      display: inline-flex; align-items: center; min-height: 44px;
+      color: rgba(244,239,230,.68); font-size: 13.5px; transition: color var(--t);
+    }
+    .foot-links a:hover { color: var(--rose); }
+    .foot-bottom {
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 16px 20px;
+      flex-wrap: wrap; padding-top: 22px; border-top: 1px solid rgba(244,239,230,.18);
+    }
+    .foot-meta { font-size: 12.5px; line-height: 1.7; max-width: 420px; }
     .foot-copy { font-size: 12.5px; }
 
     /* ── Photography ───────────────────────────────────────────── */
@@ -402,6 +508,15 @@
       .hero-grid { grid-template-columns: 1fr; gap: 36px; align-items: start; }
       .wiz-head, .wiz-body, .wiz-foot { padding-left: 24px; padding-right: 24px; }
       .opt-grid, .dt-grid, .conf-fields { grid-template-columns: 1fr; }
+      .svc-head { grid-template-columns: 1fr; gap: 12px; }
+      .svc-head p { justify-self: start; text-align: left; }
+      .svc-row { grid-template-columns: 1fr auto; gap: 8px 20px; }
+      .svc-row h3 { grid-row: 1; }
+      .svc-row .price { grid-column: 2; grid-row: 1; justify-self: end; }
+      .svc-row p { grid-column: 1 / -1; }
+      .rooms-grid { grid-template-columns: 1fr; gap: 32px; }
+      .rev-pair { grid-template-columns: 1fr; gap: 28px; }
+      .loc-grid { grid-template-columns: 1fr; gap: 32px; }
       .why-grid { grid-template-columns: 1fr; gap: 40px; }
       .slots { grid-template-columns: repeat(3, 1fr); }
     }
@@ -416,8 +531,8 @@
     }
     @media (max-width: 480px) {
       .slots { grid-template-columns: 1fr 1fr; }
-      /* price must stay visible — the standalone price list this used to fall
-         back to has been removed, so this is now the only place prices appear */
+      /* price must stay visible — this is one of two places prices appear
+         (the other is #services below); keep both in sync if either changes */
       .opt { flex-wrap: wrap; }
       .opt > span:not(.doc-ava) { min-width: 0; }
       .opt-price { margin-left: 60px; }
@@ -434,9 +549,10 @@
     <div class="wrap nav-inner">
       <a class="logo" href="#top">VELVÉ</a>
       <div class="nav-links">
-        <a href="#booking">จองคิว</a>
-        <a href="#why">ทำไมต้องจองเอง</a>
-        <a href="/">ผลงานอื่น</a>
+        <a href="#services">บริการ</a>
+        <a href="#team">ทีมแพทย์</a>
+        <a href="#reviews">รีวิว</a>
+        <a href="#contact">ติดต่อ</a>
       </div>
       <a class="btn btn-wine nav-cta" href="#booking">เริ่มจองคิว</a>
       <button class="nav-toggle" type="button" id="navToggle"
@@ -445,8 +561,13 @@
       </button>
     </div>
     <div class="nav-panel" id="navPanel">
-      <a href="#booking">จองคิว</a>
+      <a href="#services">บริการ</a>
+      <a href="#team">ทีมแพทย์</a>
+      <a href="#rooms">บรรยากาศคลินิก</a>
+      <a href="#reviews">รีวิว</a>
       <a href="#why">ทำไมต้องจองเอง</a>
+      <a href="#contact">ติดต่อ</a>
+      <a href="#booking">จองคิว</a>
       <a href="/">ผลงานอื่น</a>
     </div>
   </nav>
@@ -501,6 +622,7 @@
           <div class="wiz-panel on" data-panel="1">
             <h3 class="wiz-q" tabindex="-1">เลือกบริการที่ต้องการ</h3>
             <div class="wiz-hint">ราคาที่แสดงเป็นราคาเริ่มต้น แพทย์จะประเมินอีกครั้งในวันเข้ารับบริการ</div>
+            <!-- PRICE SOURCE — these 4 values are mirrored in #services below. Change both. -->
             <div class="opt-grid" id="svcGrid" role="radiogroup" aria-label="เลือกบริการ">
               <button class="opt" type="button" role="radio" aria-checked="false" data-name="Botox ลดริ้วรอย" data-price="4,900฿">
                 <span><span class="opt-name">Botox ลดริ้วรอย</span><br><span class="opt-sub">หน้าผาก · หางตา · กราม</span></span>
@@ -618,6 +740,146 @@
     </div>
   </section>
 
+  <!-- ── Services — PRICE SOURCE: these 4 prices are mirrored in #svcGrid
+       above (the booking wizard's step 1). If you change one, change both. ── -->
+  <section class="services" id="services">
+    <div class="wrap">
+      <div class="svc-head">
+        <h2 class="sr-only">บริการและราคา</h2>
+        <p>บริการทั้งหมดเปิดให้จองผ่านระบบคิวออนไลน์ด้านบน — แต่ละรายการมีระยะเวลาทำหัตถการและระยะห่างที่แนะนำสำหรับการทำซ้ำระบุไว้ให้ตัดสินใจล่วงหน้า</p>
+      </div>
+      <div class="svc-list">
+        <div class="svc-row">
+          <h3>Botox ลดริ้วรอย</h3>
+          <p>ใช้เวลา 15–20 นาที ไม่มีวันพักฟื้น เห็นผลชัดใน 3–7 วัน อยู่ได้ราว 4–6 เดือน</p>
+          <span class="price">4,900฿<small>ต่อโซน</small></span>
+        </div>
+        <div class="svc-row">
+          <h3>Filler ปรับรูปหน้า</h3>
+          <p>ใช้เวลา 30–45 นาที อาจบวมช้ำ 2–3 วันแรก ใช้ HA filler ที่สลายได้ อยู่ได้ 12–18 เดือน</p>
+          <span class="price">8,900฿<small>ต่อ 1 ซีซี</small></span>
+        </div>
+        <div class="svc-row">
+          <h3>เลเซอร์ฟื้นฟูผิว</h3>
+          <p>ใช้เวลา 30 นาที ผิวแดงเล็กน้อย 2–4 ชั่วโมง แนะนำ 4–6 ครั้ง ห่างกัน 2–4 สัปดาห์</p>
+          <span class="price">2,900฿<small>ต่อครั้ง</small></span>
+        </div>
+        <div class="svc-row">
+          <h3>Skin Booster</h3>
+          <p>ใช้เวลา 30 นาที รอยจุดเข็มจางใน 1 วัน คอร์สแนะนำ 3 ครั้ง ห่างกัน 2–4 สัปดาห์</p>
+          <span class="price">6,500฿<small>ต่อครั้ง</small></span>
+        </div>
+      </div>
+      <p class="svc-note">* ราคาที่แสดงคือราคาเริ่มต้นต่อครั้ง และเป็นราคาเดียวกับที่ระบบจองคิวสรุปให้ในขั้นตอนที่ 4 แพทย์ประเมินปริมาณจริงและแจ้งยอดก่อนเริ่มทุกเคส</p>
+    </div>
+  </section>
+
+  <!-- ── Team — doctor bios ──────────────────────────────────── -->
+  <section class="team" id="team">
+    <div class="wrap">
+      <div class="team-head">
+        <h2 class="sr-only">ทีมแพทย์ผิวหนัง</h2>
+        <p>แพทย์เฉพาะทางผิวหนังทุกท่านที่เปิดให้เลือกในระบบจองคิว มีใบประกอบวิชาชีพเวชกรรมและความเชี่ยวชาญเฉพาะด้าน</p>
+      </div>
+      <div class="team-lead">
+        <span class="team-ava d1" aria-hidden="true">อ</span>
+        <div>
+          <h3>พญ. อริสรา วงศ์เกษม</h3>
+          <span class="team-spec">ตจวิทยา · 10 ปีประสบการณ์</span>
+          <p>วุฒิบัตรตจวิทยา ดูแลงานลดริ้วรอยและปัญหาผิวจากแสงแดดเป็นหลัก เป็นผู้กำหนดเกณฑ์ระยะเวลาต่อหัตถการที่ระบบจองคิวใช้คำนวณช่วงเวลาว่างในทุกวันนี้ — จึงไม่มีคิวไหนถูกจองทับหรือถูกบีบให้สั้นกว่าที่เคสต้องการ</p>
+        </div>
+      </div>
+      <div class="team-list">
+        <div class="team-row">
+          <span class="team-ava d2" aria-hidden="true">ภ</span>
+          <div>
+            <h3>นพ. ภูริต ชัยวัฒน์</h3>
+            <span class="team-spec">เวชศาสตร์ความงาม · Filler เฉพาะทาง</span>
+            <p>อนุมัติบัตรเวชศาสตร์ความงาม เชี่ยวชาญ HA filler บริเวณคาง ร่องแก้ม และใต้ตา ใช้เข็มปลายทู่ (cannula) เป็นหลักเพื่อลดโอกาสช้ำ</p>
+          </div>
+        </div>
+        <div class="team-row">
+          <span class="team-ava d3" aria-hidden="true">ช</span>
+          <div>
+            <h3>พญ. ชลิดา ตั้งตระกูล</h3>
+            <span class="team-spec">เลเซอร์ผิวหนัง · 8 ปีประสบการณ์</span>
+            <p>ดูแลเครื่องเลเซอร์ทุกตัวของคลินิกและตั้งค่าพลังงานใหม่เป็นรายเคส ถนัดผิวแพ้ง่ายและเคสฝ้าที่เคยรักษาที่อื่นมาก่อน</p>
+          </div>
+        </div>
+      </div>
+      <p class="team-note">แพทย์ทุกท่านมีใบประกอบวิชาชีพเวชกรรม · ตัวเลือก "แพทย์ท่านใดก็ได้" ในระบบจองจะจับคู่กับท่านที่ว่างเร็วที่สุดในวันนั้น</p>
+    </div>
+  </section>
+
+  <!-- ── Rooms — clinic ambience gallery ─────────────────────── -->
+  <section class="rooms" id="rooms" aria-label="บรรยากาศภายในคลินิก">
+    <div class="wrap">
+      <h2 class="sr-only">บรรยากาศภายในคลินิก</h2>
+      <div class="rooms-grid">
+        <figure class="rooms-fig">
+          <div class="ph-wrap rooms-media">
+            <img class="ph" src="assets/velve/room-reception.jpg"
+                 width="1000" height="707" loading="lazy" decoding="async"
+                 alt="โถงต้อนรับคลินิกโทนครีม โซฟาและเก้าอี้บุผ้าทรงกลม โต๊ะเคาน์เตอร์หินอ่อน ไม่มีผู้คนอยู่ในภาพ">
+          </div>
+          <figcaption>
+            <span class="room-kicker">โถงต้อนรับ</span>
+            <p class="room-text">เช็กอินด้วยรหัสคิวจาก SMS ไม่ต้องกรอกเอกสารเดิมซ้ำทุกครั้งที่มา</p>
+          </figcaption>
+        </figure>
+        <figure class="rooms-fig">
+          <div class="ph-wrap rooms-media">
+            <img class="ph" src="assets/velve/room-treatment.jpg"
+                 width="1000" height="540" loading="lazy" decoding="async"
+                 alt="ห้องหัตถการส่วนตัวของคลินิก เตียงทำหัตถการ กระจกและอุปกรณ์เลเซอร์ ไม่มีผู้คนอยู่ในภาพ">
+          </div>
+          <figcaption>
+            <span class="room-kicker">ห้องหัตถการ</span>
+            <p class="room-text">ห้องส่วนตัวแยกส่วน หนึ่งคิวต่อหนึ่งห้อง ไม่ต้องนั่งรอในห้องเดียวกับคนอื่น</p>
+          </figcaption>
+        </figure>
+        <figure class="rooms-fig">
+          <div class="ph-wrap rooms-media">
+            <img class="ph" src="assets/velve/room-prep.jpg"
+                 width="1000" height="667" loading="lazy" decoding="async"
+                 alt="ขวดเซรั่มและกระปุกครีมบนพื้นหินอ่อน ไม่มีผู้คนอยู่ในภาพ">
+          </div>
+          <figcaption>
+            <span class="room-kicker">ดูแลต่อที่บ้าน</span>
+            <p class="room-text">แนะนำผลิตภัณฑ์ดูแลผิวเฉพาะเคสให้กลับไปใช้ต่อ ตามขั้นตอนที่แพทย์อธิบายก่อนกลับ</p>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Reviews ──────────────────────────────────────────────── -->
+  <section class="reviews" id="reviews">
+    <div class="wrap">
+      <div class="rev-head">
+        <h2 class="sr-only">เสียงจากผู้ใช้บริการ</h2>
+        <p>คะแนน 4.8 จาก 186 รีวิว — ทุกข้อความด้านล่างมาจากรีวิวบน Google Business Profile ของคลินิก</p>
+      </div>
+      <div class="rev-lead">
+        <span class="stars" role="img" aria-label="ให้คะแนน 5 จาก 5 ดาว">★★★★★</span>
+        <blockquote>"จองคิวตอนตีหนึ่งหลังลูกหลับ กดเลือก 11 โมงวันเสาร์แล้วได้รหัสคิวมาทันที ไม่ต้องรอแอดมินตอบตอนเช้าเหมือนที่อื่นที่เคยไป ถึงคลินิกแล้วคิวตรงตามที่จองไว้จริง ไม่ได้ถูกเลื่อนโดยไม่บอก"</blockquote>
+        <div class="rev-who">ชนัญชิดา พ. — Botox ลดริ้วรอย (หน้าผาก)</div>
+      </div>
+      <div class="rev-pair">
+        <div class="rev-card">
+          <span class="stars" role="img" aria-label="ให้คะแนน 5 จาก 5 ดาว">★★★★★</span>
+          <blockquote>"ฉีดฟิลเลอร์คางกับหมอภูริต ใช้เข็มปลายทู่ ช้ำน้อยกว่าที่กลัวไว้เยอะ กลับไปทำงานวันรุ่งขึ้นได้ ราคาที่ระบบสรุปตอนจองกับที่จ่ายจริงหน้าเคาน์เตอร์ตรงกันพอดี"</blockquote>
+          <div class="rev-who">วรินทร ก. — Filler ปรับรูปหน้า</div>
+        </div>
+        <div class="rev-card">
+          <span class="stars" role="img" aria-label="ให้คะแนน 4 จาก 5 ดาว">★★★★☆</span>
+          <blockquote>"ทำครบคอร์ส 3 ครั้ง ผิวแก้มไม่ลอกเป็นขุยตอนแต่งหน้าแล้ว รอยจุดเข็มจางภายในวันเดียวจริงตามที่บอก ติดอย่างเดียวคือคิวเสาร์–อาทิตย์เต็มเร็วมาก ต้องจองล่วงหน้าเกือบสองสัปดาห์"</blockquote>
+          <div class="rev-who">ณิชกานต์ ธ. — Skin Booster (คอร์ส 3 ครั้ง)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ── Why — pull-quote band ───────────────────────────────── -->
   <section class="why" id="why">
     <div class="wrap why-grid">
@@ -659,8 +921,22 @@
   <!-- ── Footer ──────────────────────────────────────────────── -->
   <footer>
     <div class="wrap foot-inner">
-      <div class="foot-logo">VELVÉ</div>
-      <div class="foot-copy">© <span id="year">2026</span> VELVÉ Aesthetics — Demo project by Phakin Chawanpunya · 02-555-8899 · @velveclinic</div>
+      <div class="foot-top">
+        <div class="foot-logo">VELVÉ</div>
+        <nav class="foot-links" aria-label="เมนูท้ายหน้า">
+          <a href="#services">บริการ</a>
+          <a href="#team">ทีมแพทย์</a>
+          <a href="#rooms">บรรยากาศคลินิก</a>
+          <a href="#reviews">รีวิว</a>
+          <a href="#why">ทำไมต้องจองเอง</a>
+          <a href="#contact">ติดต่อ</a>
+          <a href="#booking">จองคิว</a>
+        </nav>
+      </div>
+      <div class="foot-bottom">
+        <div class="foot-meta">ชั้น 3 อาคารเวลเว่เฮาส์ ซอยสุขุมวิท 55 (ทองหล่อ 13) แขวงคลองตันเหนือ เขตวัฒนา กรุงเทพฯ 10110 · เปิดทุกวัน 11:00 – 20:00</div>
+        <div class="foot-copy">© <span id="year">2026</span> VELVÉ Aesthetics — Demo project by Phakin Chawanpunya · 02-555-8899 · @velveclinic</div>
+      </div>
     </div>
   </footer>
 
