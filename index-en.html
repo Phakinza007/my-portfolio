@@ -718,6 +718,23 @@
 
     .works-empty[hidden] { display: none; }
 
+    .work-tagcloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 32px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .work-tagcloud-label {
+      width: 100%;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
     .work-card {
       transition: opacity 250ms ease, transform 250ms ease;
     }
@@ -2544,6 +2561,35 @@
           <p class="works-empty" id="works-empty" hidden>No projects in this category yet.</p>
 
         </div>
+
+        <div class="work-tagcloud" aria-label="Styles and categories I've worked on">
+          <span class="work-tagcloud-label">Styles and categories I've worked on</span>
+          <span class="tag tag-mint">Construction</span>
+          <span class="tag tag-amber">Fitness</span>
+          <span class="tag tag-gray">Coffee</span>
+          <span class="tag tag-accent">E-commerce</span>
+          <span class="tag tag-gray">Booking</span>
+          <span class="tag tag-amber">Fine Dining</span>
+          <span class="tag tag-gray">Restaurant</span>
+          <span class="tag tag-amber">Energy</span>
+          <span class="tag tag-mint">Full Stack</span>
+          <span class="tag tag-gray">Dashboard</span>
+          <span class="tag tag-gray">Gallery</span>
+          <span class="tag tag-amber">Beauty</span>
+          <span class="tag tag-mint">Healthcare</span>
+          <span class="tag tag-gray">Interactive</span>
+          <span class="tag tag-rose">Dark</span>
+          <span class="tag tag-gray">Light UI</span>
+          <span class="tag tag-mint">UI Design</span>
+          <span class="tag tag-gray">Design System</span>
+          <span class="tag tag-accent">Figma</span>
+          <span class="tag tag-amber">Gamification</span>
+          <span class="tag tag-gray">Habit Tracker</span>
+          <span class="tag tag-amber">Gaming UI</span>
+          <span class="tag tag-gray">Brand</span>
+          <span class="tag tag-gray">Thai</span>
+        </div>
+
       </div>
     </section>
 
