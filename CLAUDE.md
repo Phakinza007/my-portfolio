@@ -43,7 +43,10 @@ my-portfolio/
 ├── case-study-*.html             # 4 case studies — THAI
 ├── case-study-*-en.html          # 4 case studies — English
 ├── showcase-*.html               # 13 project showcase pages — THAI
-└── showcase-*-en.html            # 13 project showcase pages — English
+├── showcase-*-en.html            # 13 project showcase pages — English
+├── landing-page.html / landing-page-en.html       # Service category page — Landing Page (฿3,900)
+├── dashboard-ui.html / dashboard-ui-en.html        # Service category page — Dashboard UI (฿7,900)
+└── business-website.html / business-website-en.html # Service category page — Business Website (฿9,900)
 ```
 
 ---
@@ -237,6 +240,32 @@ uncrawlable page — do all of these:
 5. Add `<script src="assets/analytics.js" defer></script>` before `</head>` on both
 6. Add a card in `#case-studies` on **both** `index.html` and `index-en.html`
 7. Add both URLs to `sitemap.xml`
+
+### Add a service category landing page
+Three exist today: `landing-page.html`, `dashboard-ui.html`, `business-website.html`
+(each with an `-en` sibling) — one per package in the `#services` section, giving each
+its own SEO-indexable, ad-landable URL instead of relying on the homepage section alone.
+Same bilingual-pair rule as case studies, built entirely from components already in
+`assets/portfolio-pages.css` — **no new CSS needed**:
+1. Create `<slug>.html` / `<slug>-en.html` using `portfolio-pages.css`, same hreflang/
+   canonical/`og:locale`/analytics-tag rules as case studies above
+2. Hero: `.hero.case-hero` + `.eyebrow` + `<h1>` + `.hero-copy` + `.hero-actions` with
+   a `.button.primary` Fastwork CTA
+3. Pricing/facts strip: `.study-meta` (4-box grid — price, timeline, revisions, best-for)
+4. Body: two `.study-block`s inside `.study-grid` — one `.featured` block with a
+   `.highlight-list` (copy the package's `<ul class="card-list">` bullets **verbatim**
+   from `index.html`'s `#services` section, don't rewrite them), one plain block
+   answering "who it's for"
+5. Closing CTA: `.result-band` (same Fastwork + email pattern as showcase pages)
+6. Real work: `.project-strip` of `.project-link`s pointing at matching showcase pages,
+   using each project's real one-line description already on its Selected Work card
+7. Link the page from its matching Services card's `.card-cta-row` (a third
+   `.card-cta-secondary` link) on **both** `index.html` and `index-en.html`
+8. Add both URLs to `sitemap.xml`
+
+Per "Bilingual structure" above, `index-en.html`'s `#services` pricing/feature copy stays
+in Thai (never translated) — so the `.highlight-list` on the `-en` category page also
+stays in Thai; only the surrounding hero/chrome copy is in English.
 
 ### Update meta / SEO
 Edit the `<head>` block in `index.html` — update `og:description`, `og:image`, `meta-description`
