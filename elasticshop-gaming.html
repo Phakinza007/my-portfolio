@@ -1965,16 +1965,20 @@
       });
 
       /* ============================================================
-         SCREEN 3 — HISTORY FILTERS
+         SCREEN 3 — HISTORY: SEED CARDS + REAL ORDERS
+         Cards can be added after page load (a completed checkout),
+         so filtering and the Detail button use delegated listeners
+         on the list container instead of a one-time querySelectorAll
+         snapshot — otherwise new cards would be invisible to both.
       ============================================================ */
       var pills    = $$('.filter-pill');
-      var txnCards = $$('.txn-card');
+      var txnList  = document.getElementById('txnList');
       var txnEmpty = document.getElementById('txnEmpty');
       var activeFilter = 'all';
 
       function applyTxnFilter() {
         var shown = 0;
-        txnCards.forEach(function (card) {
+        $$('.txn-card', txnList).forEach(function (card) {
           var match = activeFilter === 'all' || card.getAttribute('data-status') === activeFilter;
           card.classList.toggle('hide', !match);
           if (match) shown++;
@@ -1994,22 +1998,84 @@
         });
       });
 
-      // "Detail" opens that order on the transaction status screen
-      $$('.txn-detail').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var card = btn.closest('.txn-card');
-          fillStatusCard({
-            game: card.getAttribute('data-game'),
-            pub: card.getAttribute('data-pub'),
-            ref: card.getAttribute('data-ref'),
-            uid: card.getAttribute('data-uid'),
-            pkg: card.getAttribute('data-pkg'),
-            amount: Number(card.getAttribute('data-amt')),
-            date: card.getAttribute('data-date')
-          });
-          showScreen('status');
-        });
+      // "Detail" opens that order on the transaction status screen — delegated,
+      // so it works for cards rendered after page load too.
+      txnList.addEventListener('click', function (e) {
+        var btn = e.target.closest ? e.target.closest('.txn-detail') : null;
+        if (!btn) return;
+        var card = btn.closest('.txn-card');
+        var status = card.getAttribute('data-status');
+        var order = {
+          game: card.getAttribute('data-game'),
+          pub: card.getAttribute('data-pub'),
+          ref: card.getAttribute('data-ref'),
+          uid: card.getAttribute('data-uid'),
+          pkg: card.getAttribute('data-pkg'),
+          amount: Number(card.getAttribute('data-amt')),
+          date: card.getAttribute('data-date')
+        };
+        fillStatusCard(order);
+        if (status === 'pending') { showPendingStatus(order, true); } else { showSuccessStatus(true); }
+        showScreen('status');
       });
+
+      function statusBadgeHtml(status) {
+        if (status === 'pending') {
+          return '<span class="badge badge-pending">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' +
+            'Pending</span>';
+        }
+        return '<span class="badge badge-success">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' +
+          'Success</span>';
+      }
+
+      function renderOrderCard(order) {
+        var card = document.createElement('div');
+        card.className = 'txn-card';
+        card.setAttribute('data-status', order.status);
+        card.setAttribute('data-game', order.game);
+        card.setAttribute('data-pub', order.pub);
+        card.setAttribute('data-uid', order.uid);
+        card.setAttribute('data-pkg', order.pkg);
+        card.setAttribute('data-amt', String(order.amount));
+        card.setAttribute('data-ref', order.ref);
+        card.setAttribute('data-date', order.date);
+
+        card.innerHTML =
+          '<div class="txn-icon generic"></div>' +
+          '<div>' +
+            '<div class="txn-game">' + order.game + '</div>' +
+            '<div class="txn-sub">UID: ' + order.uid + '</div>' +
+          '</div>' +
+          '<div>' +
+            '<div class="txn-pkg">' + order.pkg + '</div>' +
+            '<div class="txn-date">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>' +
+              order.date +
+            '</div>' +
+          '</div>' +
+          '<div>' +
+            '<div class="txn-amt">' + baht(order.amount) + '</div>' +
+            '<div class="txn-status">' + statusBadgeHtml(order.status) + '</div>' +
+          '</div>' +
+          '<button class="txn-detail">Detail</button>';
+
+        txnList.insertBefore(card, txnList.firstChild);
+        applyTxnFilter();
+      }
+
+      function updateOrderCardStatus(ref, status) {
+        var card = $('.txn-card[data-ref="' + ref + '"]', txnList);
+        if (!card) return;
+        card.setAttribute('data-status', status);
+        $('.txn-status', card).innerHTML = statusBadgeHtml(status);
+        applyTxnFilter();
+      }
+
+      // paint any orders from previous visits, oldest first so the
+      // final DOM order matches Orders.all()'s newest-first array
+      Orders.all().slice().reverse().forEach(renderOrderCard);
 
       /* ============================================================
          SCREEN 4 — STATUS DISPLAY + PENDING → SUCCESS REFRESH
