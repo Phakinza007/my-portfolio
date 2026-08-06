@@ -225,7 +225,7 @@ Add the new URL **before** the closing `</urlset>` tag:
 
 ```xml
 <url>
-  <loc>https://phakinza007.github.io/my-portfolio/{filename}</loc>
+  <loc>https://ph-akin.dev/{filename}</loc>
   <changefreq>monthly</changefreq>
   <priority>0.7</priority>
 </url>

@@ -9,11 +9,12 @@
 ## Project Overview
 
 Personal frontend portfolio hosted on GitHub Pages.  
-URL: https://phakinza007.github.io/my-portfolio/
+URL: https://ph-akin.dev/
 
 **Owner:** Phakin Chawanpunya  
 **Stack:** HTML · CSS · JavaScript (vanilla, no framework)  
-**Hosting:** GitHub Pages (`main` branch, auto-deploys)
+**Hosting:** GitHub Pages (`main` branch, auto-deploys), custom domain `ph-akin.dev` (live as of
+2026-08-06 — DNS A/AAAA records at name.com point to GitHub Pages, `CNAME` file in repo root)
 
 ---
 
@@ -111,8 +112,9 @@ Tag colour classes:
 
 - Theme color: `#5274f8`
 - OG image: `assets/social-preview.png` (1200×630)
-- Canonical URL set on all pages — must be `https://phakinza007.github.io/my-portfolio/...`
-  (see `docs/superpowers/plans/2026-08-05-technical-seo-fix.md` — ph-akin.dev does not resolve)
+- Canonical URL set on all pages — `https://ph-akin.dev/...` (custom domain, live since
+  2026-08-06; see `docs/superpowers/plans/2026-08-05-technical-seo-fix.md` for the prior
+  github.io-subpath era this replaced)
 - `robots: index, follow`
 - Twitter card: `summary_large_image`
 - Sitemap: `sitemap.xml`, referenced from `robots.txt`
@@ -139,12 +141,11 @@ Click/scroll heatmaps + session recording via **Microsoft Clarity**, loaded from
 
 - Project ID lives at the top of `assets/analytics.js` (`CLARITY_PROJECT_ID` const)
 - Every `.html` page must have `<script src="assets/analytics.js" defer></script>` right
-  before `</head>` — **use the relative path**, not `/assets/analytics.js`. The site has no
-  `CNAME` file (deliberately — see Task 1 of
-  `docs/superpowers/plans/2026-08-05-technical-seo-fix.md`) and is served at
-  `https://phakinza007.github.io/my-portfolio/` (a subpath). An absolute `/assets/...` path
-  breaks under that subpath — this applies to every relative reference on every page, not
-  just `analytics.js`.
+  before `</head>` — **use the relative path**, not `/assets/analytics.js`. The site is served
+  at the custom domain root `https://ph-akin.dev/` (via the `CNAME` file + DNS at name.com,
+  live since 2026-08-06 — see `docs/superpowers/plans/2026-08-05-technical-seo-fix.md` for the
+  prior github.io-subpath era). An absolute path would work fine at this root, but keep using
+  relative paths anyway — it's the established convention and safe regardless of hosting path.
 - Click tracking is delegated (one listener, no per-button markup needed) — classifies
   clicks by `href`/class in `assets/analytics.js`. Custom events fired: `cta_fastwork`,
   `fastwork_profile`, `contact_email`, `resume_download`, `showcase_open`,

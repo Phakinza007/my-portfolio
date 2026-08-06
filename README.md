@@ -2,7 +2,7 @@
 
 A static HTML portfolio gallery that collects seven featured front-end projects into one cover page. The root `index.html` works as the portfolio entry point, with separate links for viewing each live page and opening its source file.
 
-Live site: <https://phakinza007.github.io/my-portfolio/>
+Live site: <https://ph-akin.dev/>
 
 ![Portfolio cover](assets/screenshots/cover.png)
 ![Social preview](assets/social-preview.png)
@@ -11,26 +11,26 @@ Live site: <https://phakinza007.github.io/my-portfolio/>
 
 | Project | Live page | Source file | Preview |
 | --- | --- | --- | --- |
-| LaunchLedger | [Open live](https://phakinza007.github.io/my-portfolio/LaunchLedger.html) | [`LaunchLedger.html`](https://github.com/Phakinza007/my-portfolio/blob/main/LaunchLedger.html) | ![LaunchLedger screenshot](assets/screenshots/launch-ledger.png) |
-| MuseRoom | [Open live](https://phakinza007.github.io/my-portfolio/MuseRoom.html) | [`MuseRoom.html`](https://github.com/Phakinza007/my-portfolio/blob/main/MuseRoom.html) | ![MuseRoom screenshot](assets/screenshots/museroom.png) |
-| InternTrack | [Open live](https://phakinza007.github.io/my-portfolio/InternTrack.html) | [`InternTrack.html`](https://github.com/Phakinza007/my-portfolio/blob/main/InternTrack.html) | ![InternTrack screenshot](assets/screenshots/interntrack.png) |
-| PulseBoard | [Open live](https://phakinza007.github.io/my-portfolio/PulseBoard.html) | [`PulseBoard.html`](https://github.com/Phakinza007/my-portfolio/blob/main/PulseBoard.html) | ![PulseBoard screenshot](assets/screenshots/pulseboard.png) |
-| Iron Republic | [Open live](https://phakinza007.github.io/my-portfolio/gym-landing.html) | [`gym-landing.html`](https://github.com/Phakinza007/my-portfolio/blob/main/gym-landing.html) | ![Iron Republic screenshot](assets/screenshots/gym-landing.png) |
-| NOIR Coffee | [Open live](https://phakinza007.github.io/my-portfolio/coffee-landing.html) | [`coffee-landing.html`](https://github.com/Phakinza007/my-portfolio/blob/main/coffee-landing.html) | ![NOIR Coffee screenshot](assets/screenshots/noir-coffee.png) |
-| DRIP Coffee Bar | [Open live](https://phakinza007.github.io/my-portfolio/DRIP.html) | [`DRIP.html`](https://github.com/Phakinza007/my-portfolio/blob/main/DRIP.html) | ![DRIP Coffee Bar screenshot](assets/screenshots/drip.png) |
+| LaunchLedger | [Open live](https://ph-akin.dev/LaunchLedger.html) | [`LaunchLedger.html`](https://github.com/Phakinza007/my-portfolio/blob/main/LaunchLedger.html) | ![LaunchLedger screenshot](assets/screenshots/launch-ledger.png) |
+| MuseRoom | [Open live](https://ph-akin.dev/MuseRoom.html) | [`MuseRoom.html`](https://github.com/Phakinza007/my-portfolio/blob/main/MuseRoom.html) | ![MuseRoom screenshot](assets/screenshots/museroom.png) |
+| InternTrack | [Open live](https://ph-akin.dev/InternTrack.html) | [`InternTrack.html`](https://github.com/Phakinza007/my-portfolio/blob/main/InternTrack.html) | ![InternTrack screenshot](assets/screenshots/interntrack.png) |
+| PulseBoard | [Open live](https://ph-akin.dev/PulseBoard.html) | [`PulseBoard.html`](https://github.com/Phakinza007/my-portfolio/blob/main/PulseBoard.html) | ![PulseBoard screenshot](assets/screenshots/pulseboard.png) |
+| Iron Republic | [Open live](https://ph-akin.dev/gym-landing.html) | [`gym-landing.html`](https://github.com/Phakinza007/my-portfolio/blob/main/gym-landing.html) | ![Iron Republic screenshot](assets/screenshots/gym-landing.png) |
+| NOIR Coffee | [Open live](https://ph-akin.dev/coffee-landing.html) | [`coffee-landing.html`](https://github.com/Phakinza007/my-portfolio/blob/main/coffee-landing.html) | ![NOIR Coffee screenshot](assets/screenshots/noir-coffee.png) |
+| DRIP Coffee Bar | [Open live](https://ph-akin.dev/DRIP.html) | [`DRIP.html`](https://github.com/Phakinza007/my-portfolio/blob/main/DRIP.html) | ![DRIP Coffee Bar screenshot](assets/screenshots/drip.png) |
 
 ## Resume and Case Studies
 
 The portfolio includes a public resume page and downloadable PDF:
 
-- Resume page: <https://phakinza007.github.io/my-portfolio/resume.html>
+- Resume page: <https://ph-akin.dev/resume.html>
 - Resume PDF: [`assets/resume-phakin-chawanpunya.pdf`](assets/resume-phakin-chawanpunya.pdf)
 
 Three full case study pages explain the thinking behind the strongest reviewer examples:
 
-- InternTrack: <https://phakinza007.github.io/my-portfolio/case-study-interntrack.html>
-- LaunchLedger: <https://phakinza007.github.io/my-portfolio/case-study-launchledger.html>
-- PulseBoard: <https://phakinza007.github.io/my-portfolio/case-study-pulseboard.html>
+- InternTrack: <https://ph-akin.dev/case-study-interntrack.html>
+- LaunchLedger: <https://ph-akin.dev/case-study-launchledger.html>
+- PulseBoard: <https://ph-akin.dev/case-study-pulseboard.html>
 
 The homepage also includes compact DevLaunch Academy project notes, an About / Skills band, project status badges, and a stronger contact CTA so reviewers can understand the portfolio without copying links or searching through files.
 
@@ -63,7 +63,7 @@ http://127.0.0.1:4173/index.html
 This repository is deployed from the `main` branch and root folder:
 
 ```text
-https://phakinza007.github.io/my-portfolio/
+https://ph-akin.dev/
 ```
 
 The launch setup includes SEO metadata, Open Graph/Twitter preview tags, a custom favicon, a web manifest, and a GitHub Pages `404.html` fallback.
@@ -75,7 +75,7 @@ Phakin Chawanpunya
 - GitHub: <https://github.com/Phakinza007>
 - Instagram: <https://www.instagram.com/phakinkinpa/>
 - Email: <a0626568471@gmail.com>
-- Resume page: <https://phakinza007.github.io/my-portfolio/resume.html>
+- Resume page: <https://ph-akin.dev/resume.html>
 - Resume PDF: [`assets/resume-phakin-chawanpunya.pdf`](assets/resume-phakin-chawanpunya.pdf)
 - Resume notes: [`RESUME.md`](RESUME.md)
 
