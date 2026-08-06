@@ -278,7 +278,7 @@ Expected every row: `hreflang:0 canonical:1 analytics:1 lang:<html lang="th"> ro
 
 The current filter keys are `landing`, `app`, `dashboard`, `ecommerce`, `fullstack` — system-type vocabulary no shop owner uses. The existing JS derives its counts from the DOM, which is good and must be preserved.
 
-- [ ] **Step 1: Write the check that currently fails**
+- [x] **Step 1: Write the check that currently fails**
 
 Run Recipe A, open `http://localhost:8123/index.html`, then in the page context:
 
@@ -291,11 +291,11 @@ Run Recipe A, open `http://localhost:8123/index.html`, then in the page context:
 })()
 ```
 
-- [ ] **Step 2: Run it and confirm it fails**
+- [x] **Step 2: Run it and confirm it fails**
 
 Expected right now: `{ cardCount: 0, unknownKeys: [] }` — no card carries `data-industry` yet.
 
-- [ ] **Step 3: Rename the attribute on all 13 cards in `index.html`**
+- [x] **Step 3: Rename the attribute on all 13 cards in `index.html`**
 
 Replace `data-tags="..."` with `data-industry="..."` on each `.work-card`, using this mapping. The card order in the file is exactly this order.
 
@@ -317,7 +317,7 @@ Replace `data-tags="..."` with `data-industry="..."` on each `.work-card`, using
 
 Leave `data-featured="1"` untouched where present (cards 1, 4, 6, 8, 12).
 
-- [ ] **Step 4: Replace the filter bar markup in `index.html`**
+- [x] **Step 4: Replace the filter bar markup in `index.html`**
 
 Replace the six `<button class="filter-btn" …>` elements (around line 1820) with these nine. The `data-label` attribute is new — the JS needs a clean label without the count text.
 
@@ -335,7 +335,7 @@ Replace the six `<button class="filter-btn" …>` elements (around line 1820) wi
 
 The counts above are the no-JS fallback values; the JS overwrites them from the DOM on load. They sum to 14 across 13 cards because VELVÉ Aesthetics is both `clinic` and `booking` — that is correct, not a mistake.
 
-- [ ] **Step 5: Add the active-filter chip markup in `index.html`**
+- [x] **Step 5: Add the active-filter chip markup in `index.html`**
 
 Insert immediately after the closing tag of the filter-bar container, before the works grid:
 
@@ -346,7 +346,7 @@ Insert immediately after the closing tag of the filter-bar container, before the
 </p>
 ```
 
-- [ ] **Step 6: Add the chip styles to the `<style>` block in `index.html`**
+- [x] **Step 6: Add the chip styles to the `<style>` block in `index.html`**
 
 ```css
 .active-filter{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin:0 0 1.1rem;font-size:.92rem;color:var(--muted);}
@@ -359,7 +359,7 @@ Insert immediately after the closing tag of the filter-bar container, before the
 
 `--accent-text` (`#7c93fb`) rather than `--accent` for the hover text colour — `--accent` is tuned for use *as* a background, and this text sits on the dark page background.
 
-- [ ] **Step 7: Fix the carousel clone in `index.html`**
+- [x] **Step 7: Fix the carousel clone in `index.html`**
 
 Around line 2940 the carousel clones featured cards and strips attributes so clones never reach the filter. It currently removes `data-tags`, which no longer exists. Change:
 
@@ -377,7 +377,7 @@ clone.removeAttribute('data-industry');
 
 Missing this leaks 5 clone cards into every filtered result.
 
-- [ ] **Step 8: Replace the filter JS in `index.html`**
+- [x] **Step 8: Replace the filter JS in `index.html`**
 
 Replace the whole `/* ---- Filter bar ---- */` block (roughly lines 3104-3148) with:
 
@@ -450,11 +450,11 @@ Replace the whole `/* ---- Filter bar ---- */` block (roughly lines 3104-3148) w
 
 Returning focus to the "ทั้งหมด" button after clearing matters — otherwise a keyboard user's focus lands on a button that has just been hidden.
 
-- [ ] **Step 9: Run the Step 1 check again**
+- [x] **Step 9: Run the Step 1 check again**
 
 Expected: `{ cardCount: 13, unknownKeys: [] }`
 
-- [ ] **Step 10: Verify filter behaviour in the browser**
+- [x] **Step 10: Verify filter behaviour in the browser**
 
 ```js
 (() => {
@@ -475,7 +475,7 @@ Expected: `{ cardCount: 13, unknownKeys: [] }`
 ```
 Expected: `count === visible` on every row; `chipShown` false only for `all`; every filter's `visible` ≥ 1; `all` shows 13 — **not 18**, which would mean the carousel clones are leaking (Step 7).
 
-- [ ] **Step 11: Repeat Steps 3-8 in `index-en.html`**
+- [x] **Step 11: Repeat Steps 3-8 in `index-en.html`**
 
 Same `data-industry` values and same JS. The **button labels are English**, the `data-filter` keys stay identical:
 
@@ -502,19 +502,19 @@ The chip markup uses English copy:
 
 And the two status strings in the JS become `'No projects in this category yet'` and `'Showing ' + visible + ' projects'`.
 
-- [ ] **Step 12: Run Step 10's check against `index-en.html`**
+- [x] **Step 12: Run Step 10's check against `index-en.html`**
 
 Same expectations.
 
-- [ ] **Step 13: Run Recipe C for `index` and `index-en`**
+- [x] **Step 13: Run Recipe C for `index` and `index-en`**
 
 Expected both: `vw: 375`, `canScrollX: false`, `overflowing: []`.
 
-- [ ] **Step 14: Run Recipe B for `index.html`**
+- [x] **Step 14: Run Recipe B for `index.html`**
 
 Expected: accessibility 100, seo 100, BP failures exactly `['third-party-cookies','inspector-issues']`.
 
-- [ ] **Step 15: Commit**
+- [x] **Step 15: Commit**
 
 ```bash
 git add index.html index-en.html
@@ -550,7 +550,7 @@ Current tags describe style to a designer (`Dark`, `Light UI`, `Design System`).
 
 Colour classes are unchanged from CLAUDE.md: `tag-mint` for tech/health, `tag-amber` for finance/energy/luxury, `tag-gray` default, `tag-rose` and `tag-accent` as already used.
 
-- [ ] **Step 1: Replace the `.work-tags` block on all 13 cards in `index.html`**
+- [x] **Step 1: Replace the `.work-tags` block on all 13 cards in `index.html`**
 
 | # | Card | Replacement `.work-tags` inner HTML |
 |---|---|---|
@@ -568,7 +568,7 @@ Colour classes are unchanged from CLAUDE.md: `tag-mint` for tech/health, `tag-am
 | 12 | VELVÉ Aesthetics | `<span class="tag tag-amber">คลินิกความงาม</span><span class="tag tag-gray">จองคิวออนไลน์</span><span class="tag tag-gray">ฉีดฟิลเลอร์</span>` |
 | 13 | HabitQuest | `<span class="tag tag-amber">แอปสร้างนิสัย</span><span class="tag tag-gray">เกมมิฟิเคชัน</span>` |
 
-- [ ] **Step 2: Replace the `.work-tags` block on all 13 cards in `index-en.html`**
+- [x] **Step 2: Replace the `.work-tags` block on all 13 cards in `index-en.html`**
 
 | # | Card | Replacement `.work-tags` inner HTML |
 |---|---|---|
@@ -586,17 +586,17 @@ Colour classes are unchanged from CLAUDE.md: `tag-mint` for tech/health, `tag-am
 | 12 | VELVÉ Aesthetics | `<span class="tag tag-amber">Beauty Clinic</span><span class="tag tag-gray">Online Booking</span><span class="tag tag-gray">Fillers</span>` |
 | 13 | HabitQuest | `<span class="tag tag-amber">Habit App</span><span class="tag tag-gray">Gamification</span>` |
 
-- [ ] **Step 3: Confirm no tag exceeds the card width at 375px**
+- [x] **Step 3: Confirm no tag exceeds the card width at 375px**
 
 Run Recipe C for `index` and `index-en`. Thai tag strings are longer than the English originals, so this is the real risk in this task.
 
 Expected: `overflowing: []` on both.
 
-- [ ] **Step 4: Run Recipe B for `index.html` and `index-en.html`**
+- [x] **Step 4: Run Recipe B for `index.html` and `index-en.html`**
 
 Expected: accessibility 100, seo 100 on both.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add index.html index-en.html
@@ -623,7 +623,7 @@ data-industry keys so the filter behaves identically."
 
 This is the strongest industry page — three demos back it.
 
-- [ ] **Step 1: Create the file from the Shared Industry Page Template with these values**
+- [x] **Step 1: Create the file from the Shared Industry Page Template with these values**
 
 | Placeholder | Value |
 |---|---|
@@ -698,19 +698,19 @@ This is the strongest industry page — three demos back it.
 </article>
 ```
 
-- [ ] **Step 2: Run Recipe D**
+- [x] **Step 2: Run Recipe D**
 
 Expected for `web-clinic`: `hreflang:0 canonical:1 analytics:1 lang:<html lang="th"> robots:1`.
 
-- [ ] **Step 3: Run Recipe C for `web-clinic`**
+- [x] **Step 3: Run Recipe C for `web-clinic`**
 
 Expected: `vw: 375`, `canScrollX: false`, `overflowing: []`.
 
-- [ ] **Step 4: Run Recipe B for `web-clinic.html`**
+- [x] **Step 4: Run Recipe B for `web-clinic.html`**
 
 Expected: accessibility 100, seo 100, BP failures exactly the two Clarity audits.
 
-- [ ] **Step 5: Confirm every internal link resolves**
+- [x] **Step 5: Confirm every internal link resolves**
 
 ```bash
 grep -oE 'href="[a-z0-9-]+\.html"' web-clinic.html | sed 's/href="//;s/"//' | sort -u | while read f; do
@@ -719,7 +719,7 @@ done
 ```
 Expected: no `DEAD` rows.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add web-clinic.html
@@ -749,7 +749,7 @@ owner who has been promised page one by someone else will notice."
 
 This page sells the ฿7,900 Dashboard UI package, not the ฿3,900 one — a booking system is a system, not a page.
 
-- [ ] **Step 1: Create the file from the Shared Industry Page Template with these values**
+- [x] **Step 1: Create the file from the Shared Industry Page Template with these values**
 
 | Placeholder | Value |
 |---|---|
@@ -820,11 +820,11 @@ This page sells the ฿7,900 Dashboard UI package, not the ฿3,900 one — a bo
 </article>
 ```
 
-- [ ] **Step 2: Run Recipe D, Recipe C for `web-booking`, and Recipe B for `web-booking.html`**
+- [x] **Step 2: Run Recipe D, Recipe C for `web-booking`, and Recipe B for `web-booking.html`**
 
 Expected as in Task 3.
 
-- [ ] **Step 3: Confirm every internal link resolves**
+- [x] **Step 3: Confirm every internal link resolves**
 
 ```bash
 grep -oE 'href="[a-z0-9-]+\.html"' web-booking.html | sed 's/href="//;s/"//' | sort -u | while read f; do
@@ -833,7 +833,7 @@ done
 ```
 Expected: no `DEAD` rows.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add web-booking.html
@@ -860,7 +860,7 @@ flows."
 - Consumes: the Shared Industry Page Template.
 - Produces: `web-restaurant.html`. Linked by Task 10, sitemapped by Task 12.
 
-- [ ] **Step 1: Create the file from the Shared Industry Page Template with these values**
+- [x] **Step 1: Create the file from the Shared Industry Page Template with these values**
 
 | Placeholder | Value |
 |---|---|
@@ -931,11 +931,11 @@ flows."
 </article>
 ```
 
-- [ ] **Step 2: Run Recipe D, Recipe C for `web-restaurant`, and Recipe B for `web-restaurant.html`**
+- [x] **Step 2: Run Recipe D, Recipe C for `web-restaurant`, and Recipe B for `web-restaurant.html`**
 
 Expected as in Task 3.
 
-- [ ] **Step 3: Confirm every internal link resolves**
+- [x] **Step 3: Confirm every internal link resolves**
 
 ```bash
 grep -oE 'href="[a-z0-9-]+\.html"' web-restaurant.html | sed 's/href="//;s/"//' | sort -u | while read f; do
@@ -944,7 +944,7 @@ done
 ```
 Expected: no `DEAD` rows.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add web-restaurant.html
@@ -971,7 +971,7 @@ disappointed client at handover."
 
 This page sells the ฿9,900 Business Website package.
 
-- [ ] **Step 1: Create the file from the Shared Industry Page Template with these values**
+- [x] **Step 1: Create the file from the Shared Industry Page Template with these values**
 
 | Placeholder | Value |
 |---|---|
@@ -1042,11 +1042,11 @@ This page sells the ฿9,900 Business Website package.
 </article>
 ```
 
-- [ ] **Step 2: Run Recipe D, Recipe C for `web-shop`, and Recipe B for `web-shop.html`**
+- [x] **Step 2: Run Recipe D, Recipe C for `web-shop`, and Recipe B for `web-shop.html`**
 
 Expected as in Task 3.
 
-- [ ] **Step 3: Confirm every internal link resolves**
+- [x] **Step 3: Confirm every internal link resolves**
 
 ```bash
 grep -oE 'href="[a-z0-9-]+\.html"' web-shop.html | sed 's/href="//;s/"//' | sort -u | while read f; do
@@ -1055,7 +1055,7 @@ done
 ```
 Expected: no `DEAD` rows.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add web-shop.html
@@ -1083,7 +1083,7 @@ buyer than a pitch, and neither is something the work can deliver."
 
 Only one demo backs this page. Its weight comes from the feature and FAQ blocks, not from demo count.
 
-- [ ] **Step 1: Create the file from the Shared Industry Page Template with these values**
+- [x] **Step 1: Create the file from the Shared Industry Page Template with these values**
 
 | Placeholder | Value |
 |---|---|
@@ -1150,11 +1150,11 @@ Only one demo backs this page. Its weight comes from the feature and FAQ blocks,
 </article>
 ```
 
-- [ ] **Step 2: Run Recipe D, Recipe C for `web-gym`, and Recipe B for `web-gym.html`**
+- [x] **Step 2: Run Recipe D, Recipe C for `web-gym`, and Recipe B for `web-gym.html`**
 
 Expected as in Task 3.
 
-- [ ] **Step 3: Confirm every internal link resolves**
+- [x] **Step 3: Confirm every internal link resolves**
 
 ```bash
 grep -oE 'href="[a-z0-9-]+\.html"' web-gym.html | sed 's/href="//;s/"//' | sort -u | while read f; do
@@ -1163,7 +1163,7 @@ done
 ```
 Expected: no `DEAD` rows.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add web-gym.html
@@ -1189,7 +1189,7 @@ question gym owners actually hesitate on."
 - Consumes: the Shared Industry Page Template.
 - Produces: `web-construction.html`. Linked by Task 10, sitemapped by Task 12.
 
-- [ ] **Step 1: Create the file from the Shared Industry Page Template with these values**
+- [x] **Step 1: Create the file from the Shared Industry Page Template with these values**
 
 | Placeholder | Value |
 |---|---|
@@ -1256,11 +1256,11 @@ question gym owners actually hesitate on."
 </article>
 ```
 
-- [ ] **Step 2: Run Recipe D, Recipe C for `web-construction`, and Recipe B for `web-construction.html`**
+- [x] **Step 2: Run Recipe D, Recipe C for `web-construction`, and Recipe B for `web-construction.html`**
 
 Expected as in Task 3.
 
-- [ ] **Step 3: Confirm every internal link resolves**
+- [x] **Step 3: Confirm every internal link resolves**
 
 ```bash
 grep -oE 'href="[a-z0-9-]+\.html"' web-construction.html | sed 's/href="//;s/"//' | sort -u | while read f; do
@@ -1269,7 +1269,7 @@ done
 ```
 Expected: no `DEAD` rows.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add web-construction.html
@@ -1294,7 +1294,7 @@ site closes deals already in motion rather than generating new ones."
 - Consumes: the Shared Industry Page Template.
 - Produces: `web-solar.html`. This is the last of the seven; Task 10 links to all of them.
 
-- [ ] **Step 1: Create the file from the Shared Industry Page Template with these values**
+- [x] **Step 1: Create the file from the Shared Industry Page Template with these values**
 
 | Placeholder | Value |
 |---|---|
@@ -1361,21 +1361,21 @@ site closes deals already in motion rather than generating new ones."
 </article>
 ```
 
-- [ ] **Step 2: Run Recipe D**
+- [x] **Step 2: Run Recipe D**
 
 This is the first point where all seven pages exist. Expected: all seven rows show `hreflang:0 canonical:1 analytics:1 lang:<html lang="th"> robots:1`.
 
-- [ ] **Step 3: Run Recipe C for all seven pages at once**
+- [x] **Step 3: Run Recipe C for all seven pages at once**
 
 Set `pages` to `['web-clinic','web-booking','web-restaurant','web-shop','web-gym','web-construction','web-solar']`.
 
 Expected every row: `vw: 375`, `canScrollX: false`, `overflowing: []`.
 
-- [ ] **Step 4: Run Recipe B for `web-solar.html`**
+- [x] **Step 4: Run Recipe B for `web-solar.html`**
 
 Expected: accessibility 100, seo 100.
 
-- [ ] **Step 5: Confirm every internal link on all seven pages resolves**
+- [x] **Step 5: Confirm every internal link on all seven pages resolves**
 
 ```bash
 for p in web-clinic web-booking web-restaurant web-shop web-gym web-construction web-solar; do
@@ -1386,7 +1386,7 @@ done; echo "link check done"
 ```
 Expected: no `DEAD` rows.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add web-solar.html
@@ -1416,7 +1416,7 @@ Completes the seven industry pages."
 
 This is the highest-value change in the plan. It sits directly under the hero and converts a browsing visitor into a self-qualified one in a single click.
 
-- [ ] **Step 1: Write the check that currently fails**
+- [x] **Step 1: Write the check that currently fails**
 
 Run Recipe A, open `http://localhost:8123/index.html`, then:
 
@@ -1430,11 +1430,11 @@ Run Recipe A, open `http://localhost:8123/index.html`, then:
 })()
 ```
 
-- [ ] **Step 2: Run it and confirm it fails**
+- [x] **Step 2: Run it and confirm it fails**
 
 Expected right now: `{ count: 0, dead: [] }`.
 
-- [ ] **Step 3: Add the CSS to the `<style>` block in `index.html`**
+- [x] **Step 3: Add the CSS to the `<style>` block in `index.html`**
 
 ```css
 .need-sub{margin:0 0 1.8rem;color:var(--muted);max-width:52ch;}
@@ -1451,7 +1451,7 @@ Expected right now: `{ count: 0, dead: [] }`.
 
 Two columns below 900px gives the 4×2 desktop / 2×4 mobile layout from the spec. `--r` and `--ease` are the site's existing radius and easing tokens — do not hard-code replacements. Icon strokes use `--accent-text`, which is the accent tuned for dark backgrounds.
 
-- [ ] **Step 4: Add the section markup to `index.html`**
+- [x] **Step 4: Add the section markup to `index.html`**
 
 Insert immediately after the hero's closing `</section>`:
 
@@ -1512,11 +1512,11 @@ Insert immediately after the hero's closing `</section>`:
 
 Every `<svg>` is `aria-hidden="true"` — the tile's `<strong>` already names it, so announcing the icon would just repeat.
 
-- [ ] **Step 5: Run the Step 1 check again**
+- [x] **Step 5: Run the Step 1 check again**
 
 Expected: `{ count: 8, dead: [] }`.
 
-- [ ] **Step 6: Confirm all eight destinations resolve**
+- [x] **Step 6: Confirm all eight destinations resolve**
 
 ```bash
 for f in web-clinic web-booking web-restaurant web-shop web-gym web-construction web-solar; do
@@ -1526,7 +1526,7 @@ grep -c 'id="contact"' index.html
 ```
 Expected: seven `OK` rows and `1`.
 
-- [ ] **Step 7: Mirror Steps 3-4 into `index-en.html`**
+- [x] **Step 7: Mirror Steps 3-4 into `index-en.html`**
 
 Same CSS, same markup, same seven `web-*.html` destinations — those pages are Thai-only and both languages link to them, exactly as both languages link to the 13 demo pages. Only the surrounding chrome is English:
 
@@ -1551,21 +1551,21 @@ Tile labels in `index-en.html`:
 
 Keep `lang="th"` **off** this section in `index-en.html` — the chrome is English here. The destination pages carry their own `lang="th"`.
 
-- [ ] **Step 8: Run the Step 1 check against `index-en.html`**
+- [x] **Step 8: Run the Step 1 check against `index-en.html`**
 
 Expected: `{ count: 8, dead: [] }`.
 
-- [ ] **Step 9: Run Recipe C for `index` and `index-en`**
+- [x] **Step 9: Run Recipe C for `index` and `index-en`**
 
 The 4-column grid at 375px is the risk here.
 
 Expected: `vw: 375`, `canScrollX: false`, `overflowing: []`.
 
-- [ ] **Step 10: Run Recipe B for `index.html` and `index-en.html`**
+- [x] **Step 10: Run Recipe B for `index.html` and `index-en.html`**
 
 Expected: accessibility 100, seo 100 on both. Heading order matters — the new `<h2>` must not skip a level after the hero's `<h1>`.
 
-- [ ] **Step 11: Commit**
+- [x] **Step 11: Commit**
 
 ```bash
 git add index.html index-en.html
@@ -1600,7 +1600,7 @@ to the same 13 demo pages."
 
 Placing this between services and testimonials puts the real 5★ reviews directly after the price, which is where the objection lands.
 
-- [ ] **Step 1: Add the CSS to the `<style>` block in `index.html`**
+- [x] **Step 1: Add the CSS to the `<style>` block in `index.html`**
 
 ```css
 .pricing-sub{margin:0 0 1.6rem;color:var(--muted);max-width:60ch;}
@@ -1619,7 +1619,7 @@ Placing this between services and testimonials puts the real 5★ reviews direct
 
 `.price-col` deliberately mirrors the existing `.card` rule (`--surface` background, `--border` border, `var(--r)` radius, `var(--sh-sm)` shadow) so the pricing columns read as the same component family as the services cards directly above them.
 
-- [ ] **Step 2: Add the section markup to `index.html`**
+- [x] **Step 2: Add the section markup to `index.html`**
 
 ```html
     <!-- =============================================
@@ -1675,7 +1675,7 @@ Placing this between services and testimonials puts the real 5★ reviews direct
 
 There is no existing section-subtitle class on the site — sections currently go straight from `.section-title` to their content — so `.pricing-sub` is defined in Step 1 rather than borrowed.
 
-- [ ] **Step 3: Verify the numbers match the category pages exactly**
+- [x] **Step 3: Verify the numbers match the category pages exactly**
 
 ```bash
 for p in landing-page dashboard-ui business-website; do
@@ -1686,7 +1686,7 @@ grep -oE '฿[0-9,]+|[0-9]+-[0-9]+ วัน|2 รอบ[^<]*' index.html | sort
 ```
 Expected: every price, duration and revision string in `index.html` appears identically in the category pages. Any mismatch is a real error — these are live Fastwork listings.
 
-- [ ] **Step 4: Mirror Steps 1-2 into `index-en.html`**
+- [x] **Step 4: Mirror Steps 1-2 into `index-en.html`**
 
 Per the site's bilingual rule, the pricing and feature copy **stays in Thai** on the English page, exactly as `#services` already does. Only the heading and subtitle become English:
 
@@ -1700,7 +1700,7 @@ Keep `lang="th"` on the section wrapper in `index-en.html` — the body copy rea
 
 The three `ดูรายละเอียด` links become `landing-page-en.html`, `dashboard-ui-en.html`, `business-website-en.html` and read `View details`.
 
-- [ ] **Step 5: Confirm the English page's links resolve**
+- [x] **Step 5: Confirm the English page's links resolve**
 
 ```bash
 for f in landing-page-en dashboard-ui-en business-website-en; do
@@ -1709,15 +1709,15 @@ done
 ```
 Expected: three `OK` rows.
 
-- [ ] **Step 6: Run Recipe C for `index` and `index-en`**
+- [x] **Step 6: Run Recipe C for `index` and `index-en`**
 
 Expected: `vw: 375`, `canScrollX: false`, `overflowing: []`. The 3-column grid collapsing to 1 column below 900px is what makes this pass.
 
-- [ ] **Step 7: Run Recipe B for `index.html` and `index-en.html`**
+- [x] **Step 7: Run Recipe B for `index.html` and `index-en.html`**
 
 Expected: accessibility 100, seo 100 on both.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add index.html index-en.html
@@ -1747,7 +1747,7 @@ correctly."
 **Interfaces:**
 - Consumes: all seven industry pages from Tasks 3-9 and the homepage changes from Tasks 1, 2, 10, 11.
 
-- [ ] **Step 1: Check the current sitemap entry format**
+- [x] **Step 1: Check the current sitemap entry format**
 
 ```bash
 grep -A4 -m1 '<url>' sitemap.xml
@@ -1755,7 +1755,7 @@ grep -c '<loc>' sitemap.xml
 ```
 Expected: `59`. Match whatever `<lastmod>` / `<changefreq>` / `<priority>` fields the existing entries use — do not invent a different shape.
 
-- [ ] **Step 2: Add the seven URLs to `sitemap.xml`**
+- [x] **Step 2: Add the seven URLs to `sitemap.xml`**
 
 Following the existing entry format exactly, add:
 
@@ -1771,7 +1771,7 @@ https://ph-akin.dev/web-solar.html
 
 These have no `-en` twin, so no `xhtml:link` alternates — same as the 13 demo pages already in the file.
 
-- [ ] **Step 3: Verify the sitemap**
+- [x] **Step 3: Verify the sitemap**
 
 ```bash
 python3 -c "
@@ -1787,7 +1787,7 @@ print('missing files:', missing)
 ```
 Expected: `total: 66`, `duplicates: []`, `missing files: []`. The XML parsing succeeding at all also proves the file is still well-formed.
 
-- [ ] **Step 4: Update the bilingual rules in `CLAUDE.md`**
+- [x] **Step 4: Update the bilingual rules in `CLAUDE.md`**
 
 In the "Bilingual structure" section, replace the single demo-page exception note with an explicit statement of **two** classes that have no `-en` twin:
 
@@ -1806,7 +1806,7 @@ Both classes carry: no `hreflang`, a self-referential `canonical`, `robots: inde
 Do not "fix" them by generating `-en` siblings.
 ```
 
-- [ ] **Step 5: Correct the stale cards table in `CLAUDE.md`**
+- [x] **Step 5: Correct the stale cards table in `CLAUDE.md`**
 
 The "Current Cards in Selected Work" table lists file names that no longer match — card 1 is listed as `construction-landing.html` but the card links to `showcase-buildnest.html`. Replace the whole table with:
 
@@ -1837,11 +1837,11 @@ for m in re.finditer(r'data-industry=\"([^\"]*)\".*?<a class=\"work-thumb\" href
 "
 ```
 
-- [ ] **Step 6: Add the new sections to the `CLAUDE.md` "Pages & Sections" table**
+- [x] **Step 6: Add the new sections to the `CLAUDE.md` "Pages & Sections" table**
 
 Add rows for `#need` (the need selector, directly under the hero) and `#pricing` (between Services and Testimonials), and note that `#projects`' filter axis is now industry with an `อื่นๆ` bucket.
 
-- [ ] **Step 7: Add the industry page recipe to "Common Tasks for Claude" in `CLAUDE.md`**
+- [x] **Step 7: Add the industry page recipe to "Common Tasks for Claude" in `CLAUDE.md`**
 
 ```markdown
 ### Add an industry landing page
@@ -1860,7 +1860,7 @@ Built entirely from `assets/portfolio-pages.css` components, no new CSS:
 8. Add the URL to `sitemap.xml` (no `xhtml:link` alternates)
 ```
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add sitemap.xml CLAUDE.md
@@ -1890,11 +1890,11 @@ showcase-buildnest.html. Adds the data-industry column."
 
 Nothing in Tasks 1-12 verified the whole site at once. This task does, and it is where regressions in pages nobody touched get caught.
 
-- [ ] **Step 1: Start the server**
+- [x] **Step 1: Start the server**
 
 Run Recipe A.
 
-- [ ] **Step 2: Lighthouse mobile on all seven industry pages plus both homepages**
+- [x] **Step 2: Lighthouse mobile on all seven industry pages plus both homepages**
 
 ```bash
 for p in index index-en web-clinic web-booking web-restaurant web-shop web-gym web-construction web-solar; do
@@ -1914,13 +1914,13 @@ done
 ```
 Expected: no `<-- FAIL` rows. Accessibility and SEO 100 everywhere; Best Practices 77 with only the two Clarity audits.
 
-- [ ] **Step 3: Mobile overflow on all nine pages**
+- [x] **Step 3: Mobile overflow on all nine pages**
 
 Run Recipe C with `pages` set to `['index','index-en','web-clinic','web-booking','web-restaurant','web-shop','web-gym','web-construction','web-solar']`.
 
 Expected every row: `vw: 375`, `canScrollX: false`, `bw: 375`, `overflowing: []`.
 
-- [ ] **Step 4: Every internal link on the site resolves**
+- [x] **Step 4: Every internal link on the site resolves**
 
 ```bash
 for f in *.html; do
@@ -1931,11 +1931,11 @@ done; echo "link sweep complete"
 ```
 Expected: no `DEAD` rows.
 
-- [ ] **Step 5: Head-tag audit on the industry pages**
+- [x] **Step 5: Head-tag audit on the industry pages**
 
 Run Recipe D. Expected all seven rows correct.
 
-- [ ] **Step 6: No unsupportable technology claims anywhere**
+- [x] **Step 6: No unsupportable technology claims anywhere**
 
 ```bash
 grep -rniE '(สร้างด้วย|พัฒนาด้วย|built with|ใช้เทคโนโลยี).{0,60}(React|Node|Express|PostgreSQL)' *.html || echo "no unsupportable stack claims"
@@ -1943,7 +1943,7 @@ grep -rn 'เทคโนโลยีที่เราใช้ในผลง�
 ```
 Expected: both fall through to their `echo`. All 12 local demos are plain HTML/CSS/vanilla JS; only the HabitQuest case study names React.
 
-- [ ] **Step 7: Filter still returns 13, not 18**
+- [x] **Step 7: Filter still returns 13, not 18**
 
 On `index.html` and `index-en.html`:
 
@@ -1957,11 +1957,11 @@ On `index.html` and `index-en.html`:
 ```
 Expected: `{ visibleOnAll: 13, carouselClones: 5 }`. If `visibleOnAll` is 18 the carousel fix from Task 1 Step 7 was missed.
 
-- [ ] **Step 8: Fix anything the checks surfaced, then re-run the failing check only**
+- [x] **Step 8: Fix anything the checks surfaced, then re-run the failing check only**
 
 Do not proceed until every check above passes. If a check cannot be made to pass, stop and report it rather than marking this task done.
 
-- [ ] **Step 9: Stop the server and commit any fixes**
+- [x] **Step 9: Stop the server and commit any fixes**
 
 ```bash
 pkill -f "http.server 8123"
@@ -1980,3 +1980,48 @@ If Step 8 changed files, commit them with a message naming the specific check th
 **Type consistency.** `data-industry` is used identically in Tasks 1, 12 and 13. The eight filter keys in Task 1 Step 4 match the eight card values in Step 3 and the seven page slugs in Tasks 3-9. `applyFilter(filter, label)` is defined once in Task 1 Step 8 and called from two places in the same block. `.need-tile` in Task 10's CSS matches the selector in its Step 1 check.
 
 **Known cross-task ordering constraint.** Task 10 must not run before Tasks 3-9 are all committed — `main` auto-deploys and the selector would ship seven dead links. This is stated in Task 10's Interfaces block.
+
+---
+
+## Completion note — 2026-08-06
+
+All 13 tasks shipped across commits `19ab68b`..`cae1725`. Executed in parallel waves rather
+than task order: Task 3 alone first as a template gate, then six agents on Tasks 4-9 (one new
+file each, zero overlap) concurrently with one agent on Tasks 1-2-11 (which all edit
+`index.html`/`index-en.html` and had to serialise), then Tasks 10, 12, 13.
+
+**Executed differently from what is written above:**
+
+1. **Per-task Lighthouse and overflow checks in Tasks 4-9 were deferred to Task 13.** Only one
+   browser session exists and seven concurrent headless Chromes would thrash 16 GB. Task 3 kept
+   its full verification so a broken template would surface on one file, not seven. Coverage is
+   identical; it ran once instead of seven times.
+2. **Wave agents did not commit.** Seven concurrent `git commit`s race on `.git/index.lock`.
+   The orchestrator committed after reviewing each agent's diff.
+3. **Tasks 1, 2 and 11 landed in one commit** (`766ecd7`) rather than three. They interleave in
+   the same two files; splitting after the fact would have meant hunk-level staging for no
+   reviewability gain.
+
+**Defects this plan contained, found during execution and fixed:**
+
+- The Shared Industry Page Template was wrong in five ways and would have produced broken pages
+  if followed literally. Corrected above; `web-clinic.html` is now the canonical skeleton.
+- Task 3/11's CSS referenced `--card`, `--line`, `--text` and `.wrap` — none exist. Real tokens
+  are `--surface`, `--border`, `--ink` inside `.container`.
+- Tasks 8 and 9 set `{{WHO_H2}}` identical to the eyebrow above it, so the block rendered
+  "เหมาะกับใคร" twice. Two agents flagged it independently.
+- The plan's `.project-strip` blurbs contradicted CLAUDE.md, which requires each project's real
+  Selected Work description. Twelve descriptions normalised in `3171266`.
+- Task 11 put `lang="th"` on the whole pricing section of `index-en.html`, whose heading is
+  English — a screen reader would have announced English in a Thai voice. Narrowed to the
+  genuinely Thai runs.
+
+**Final verification (Task 13), all passing:** Lighthouse mobile on 9 pages — accessibility 100,
+SEO 100, CLS 0 everywhere, Best Practices 77 with only the two accepted Clarity cookie audits.
+No overflow at 375x812 on any page. Zero dead links site-wide. Sitemap 66 URLs, no duplicates,
+every `<loc>` resolving. All seven industry pages reachable from both homepages. Filter reports
+13, not 18.
+
+**Not done here — this was plan 1 of 2.** The global nav, client-side search, the five bilingual
+funnel pairs, the homepage 11-section reorder and the clickable technology row all depend on the
+nav and search, and are plan 2.
