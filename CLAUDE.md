@@ -47,8 +47,13 @@ my-portfolio/
 ├── landing-page.html / landing-page-en.html       # Service category page — Landing Page (฿3,900)
 ├── dashboard-ui.html / dashboard-ui-en.html        # Service category page — Dashboard UI (฿7,900)
 ├── business-website.html / business-website-en.html # Service category page — Business Website (฿9,900)
-└── web-*.html                    # 7 industry landing pages — THAI ONLY, no -en twin
-                                  # clinic · booking · restaurant · shop · gym · construction · solar
+├── web-*.html                    # 7 industry landing pages — THAI ONLY, no -en twin
+│                                 # clinic · booking · restaurant · shop · gym · construction · solar
+├── work.html / work-en.html      # Full archive — 13 projects + filter + 4 case studies
+├── services.html / -en           # 3 packages + price comparison + 7 industry entry points
+├── about.html / -en              # Bio, experience, tools, KMUTT
+├── faq.html / -en                # 10 pre-hire questions + FAQPage JSON-LD
+└── process.html / -en            # Brief → delivery, 5 steps
 ```
 
 ---
@@ -143,6 +148,69 @@ Tag colour classes:
 - `tag-mint` — AI, SaaS, Developer tools, Green-tech, Weather
 - `tag-amber` — Finance, Energy, Fine Dining, Warm/luxury brands
 - `tag-gray` — Default: Dashboard, Landing Page, Brand, Booking, etc.
+
+---
+
+## Two stylesheet families — never mix them
+
+| Family | Stylesheet | Pages | Section wrapper | Headings |
+|---|---|---|---|---|
+| Home shell | `assets/home-shell.css` | `index`, `index-en`, `work`, `services`, `about`, `faq`, `process` (+ `-en`) | `<div class="container">` | `.section-label` + `.section-title` |
+| Portfolio pages | `assets/portfolio-pages.css` | resume, case studies, showcases, category pages, the 7 `web-*.html` | `<div class="page-shell">` | `.eyebrow` + `<h2>` |
+
+**A page must load exactly one of them.** They define `.hero`, `.section`, `.nav-links` and
+all five `.tag*` classes differently — nine colliding selectors. Loading both breaks the page.
+
+They also disagree on token names for the same values: `--border` / `--border-2` in
+home-shell, `--line` / `--line-2` in portfolio-pages (both `#21262d` / `#30363d`). Anything
+loaded by both families — `assets/site-search.css` — must ask for one, then the other, then a
+literal fallback.
+
+`home-shell.css` was extracted from `index.html`'s inline `<style>` on 2026-08-06. The two
+homepages' stylesheets were byte-identical apart from one `content:` string, now the
+`--preview-label` custom property; `index-en.html` keeps a 3-line `<style>` overriding it.
+
+**Scripts live with the page, not the stylesheet.** `home-shell.css` sets
+`.reveal { opacity: 0 }` and only `.reveal.visible` restores it, so any page using `.reveal`
+**must** ship the IntersectionObserver — without it every card renders invisible, and
+Lighthouse still scores 100 because opacity-0 elements stay in the accessibility tree. The
+mobile drawer likewise needs its own toggle handler. Both live inline at the end of
+`index.html`; copy them when creating a new home-shell page.
+
+---
+
+## Global navigation
+
+19 selling pages share the same destinations: `หน้าแรก · ผลงาน · บริการ · เกี่ยวกับผม · FAQ`
+plus the site search.
+
+- The 12 home-shell pages carry the full `.navbar` with hamburger and mobile panel.
+- The 7 industry pages keep `portfolio-pages.css`'s `.page-shell nav` and get the same links
+  and search. Two navs, one set of destinations — unifying the CSS was tried and reverted
+  because of the `.nav-links` collision above.
+- `aria-current="page"` marks the active entry.
+- The CTA button is `#contact` on the homepages and `/#contact` everywhere else.
+- `process.html` is deliberately **not** a nav item — six links plus a search field plus two
+  controls overflow at 1180px.
+- The 42 showcase / case-study / resume files keep their **contextual** nav on purpose: its
+  links differ per page (`ดูเว็บจริง` points somewhere different on each), which a generic bar
+  would destroy.
+
+---
+
+## Site search
+
+`assets/site-search.js` + `site-search.css` + `search-index.json`, live on all 19 selling pages.
+
+- **`search-index.json` is hand-maintained.** A new page that is not added to *both* the `th`
+  and `en` arrays is simply unfindable, and nothing fails to tell you.
+- Matching is plain **substring** — Thai has no word spaces, so segmentation would be heavy and
+  error-prone. Each entry carries hidden keywords (`k`), which is why `หมอฟัน` finds BRIGHT
+  Dental and `ราคา` finds all three packages.
+- The index is fetched on **first focus**, not page load, so it never competes with LCP.
+- The results panel is `position: absolute` — CLS must stay 0.
+- Below 768px the field hides from both navbars; on home-shell pages the full-width copy inside
+  the hamburger panel takes over.
 
 ---
 

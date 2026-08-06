@@ -776,7 +776,10 @@
       gap: 5px;
       font-size: 0.88rem;
       font-weight: 600;
-      color: var(--accent);
+      /* --accent-text, not --accent. On the page background (#0d1117) --accent
+         clears 4.5:1, but inside a .card (#161b22) it is 4.29:1 and fails.
+         --accent-text is the accent tuned for dark surfaces: 6.11:1. */
+      color: var(--accent-text);
       margin-top: 6px;
       transition: gap 150ms;
     }
