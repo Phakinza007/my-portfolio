@@ -118,14 +118,30 @@ Rejected: dropping `work.html` entirely and pointing the nav at `#projects` (the
 very long and the 4 case studies lose a home). Rejected: showing 6 cards on the homepage and 13
 on `work.html` (splits the proof for no real gain).
 
-### D7 — Technology tags sit in a static row beneath the marquee
+### D7 — Technology tags open the search; they do not filter the grid
 
 The marquee is in continuous motion. Making its items the click targets would mean asking users
 to click moving elements and tab through a scrolling strip. The marquee is kept as decoration and
 a static row of real `<button>`s is added below it.
 
-Industry and technology are **mutually exclusive filters**, not combinable. Across only 13
-projects, two simultaneous axes would routinely produce an empty grid.
+**A technology filter over the portfolio was designed, then abandoned on evidence.** An audit of
+all 12 local demo files found `<script>` count 2 on every one — the page's own inline script plus
+`analytics.js` — and zero external libraries anywhere. All 12 are plain HTML, CSS and vanilla JS.
+Of the 4 case studies, only HabitQuest names a non-vanilla stack (React, Vite).
+
+So a truthful technology filter would offer `HTML` / `CSS` / `JavaScript`, each matching all 13
+projects and changing nothing when clicked. Offering `React` / `Node.js` / `PostgreSQL` instead
+would advertise stacks no demo actually uses.
+
+The tags therefore **fire the site search** with that term — the same treatment the tag cloud
+gets, for the same reason. Clicking `React` surfaces the HabitQuest case study; clicking
+`JavaScript` surfaces everything that genuinely mentions it.
+
+The section heading changes from "เทคโนโลยีที่เราใช้ในผลงาน" to **"เทคโนโลยีที่ผมทำงานด้วย"**.
+The marquee is not itself dishonest — it is a skill set, and the skill set is real — but a heading
+claiming these technologies were used *in these projects* is not supportable.
+
+Because these tags depend on the search, they ship with it, not with the portfolio grid.
 
 ## Page Inventory
 
@@ -337,17 +353,17 @@ site's icon pattern.
 
 ### Clickable technology section (new behaviour, section 8)
 
-Today the dual-row logo marquee is purely decorative. It becomes a way into the work:
+Today the dual-row logo marquee is purely decorative. It becomes a way into the site's search:
 
 ```
-        เทคโนโลยีและเฟรมเวิร์ก
-เทคโนโลยีที่ผมใช้ในผลงาน — คลิกเพื่อดูโปรเจกต์ที่ใช้เทคโนโลยีนั้น
+        เทคโนโลยีที่ผมทำงานด้วย
+        คลิกเพื่อค้นหาในเว็บ
 
   [ existing dual-row logo marquee — unchanged, decorative, aria-hidden ]
 
   HTML   CSS   JavaScript   React   Node.js   Express
-  PostgreSQL   Figma   Tailwind   Chart.js   ...
-  └── static row of real <button>s
+  PostgreSQL   Figma   Tailwind   ...
+  └── static row of real <button>s → opens search prefilled with that term
 ```
 
 **The marquee is kept and a static clickable row is added beneath it**, rather than making the
@@ -356,19 +372,11 @@ target is hostile, and tabbing through a scrolling strip is worse. The marquee s
 visual, the static row does the work. The existing `prefers-reduced-motion` static fallback and
 pause-on-hover behaviour are untouched.
 
-Clicking a technology scrolls to `ผลงานของเรา` and filters the grid to projects using it.
+See **D7** for why these buttons open the search rather than filtering the portfolio grid, and
+for the heading change. The grid therefore has **one** filter axis — industry — not two.
 
-**Two filter axes, one active filter.** The grid can be filtered by industry (the button bar) or
-by technology (this section) but never both at once — selecting one clears the other, and an
-active-filter chip with a dismiss control shows what is applied. Two simultaneous axes would
-routinely produce empty result sets across only 13 projects.
-
-**Technology tags must be truthful.** The 13 projects are simulated client work and most are
-static HTML/CSS/JS; the marquee currently advertises React, Node.js, Express and PostgreSQL,
-which reflects Phakin's skill set rather than every demo's stack. During implementation, each
-project's `data-tech` value must be taken from what that project actually uses — read from its
-showcase page's stated stack — not assigned to make a technology look well-represented. A
-technology with no truthful matches does not get a button.
+Because this behaviour depends on the search existing, it ships with the navigation work, not
+with the portfolio grid.
 
 ## Tag Taxonomy
 
@@ -431,8 +439,9 @@ crosses the whole site — and exercises the search index that is being built an
 Small problems found while surveying the code that this work touches directly:
 
 - `data-tags` → `data-industry` affects both the filter JS **and** the featured carousel, which
-  reads `data-featured` from the same elements. A third attribute, `data-tech`, is added for the
-  technology filter. All three live on the same `.work-card` elements and must change together.
+  clones `.work-card`s and strips `data-featured`/`data-tags` from the clones (`index.html`
+  ~line 2940). The carousel must strip the renamed attribute, or clones will leak into the
+  filtered grid.
 - CLAUDE.md's "Current Cards in Selected Work" table is stale: it lists card 1 as
   `construction-landing.html`, but the card links to `showcase-buildnest.html`. Since this work
   rewrites that table's tag column anyway, correct the file column at the same time.
@@ -471,11 +480,12 @@ Every item must pass before the work is called done:
 3. **CLS 0** on pages carrying the search box.
 4. **Search keyboard path** works without a mouse: focus input → type → `↓` → `Enter` navigates;
    `Esc` closes and returns focus.
-5. **Filter mutual exclusion** — selecting an industry clears any active technology filter and
-   vice versa; the active-filter chip reflects what is applied and dismisses correctly. No
-   combination of clicks can produce a silently empty grid with no chip explaining why.
-6. **Technology tags are truthful** — every `data-tech` value on a card is backed by that
-   project's actually stated stack, and every technology button returns at least one project.
+5. **Industry filter** — every button returns at least one project, counts are derived from the
+   DOM rather than hard-coded, and the empty state never appears without the status line
+   explaining it.
+6. **No unsupportable technology claims** — the technology section's heading describes a skill
+   set, not the demos' stacks, and no copy anywhere states that these projects were built with
+   React, Node.js, Express or PostgreSQL.
 7. **hreflang audit** — the 5 funnel pairs each carry the 3-link trio and a self canonical; the 7
    industry pages carry no `hreflang` and a self canonical.
 8. **Every new URL is in `sitemap.xml`** and reachable by at least one crawlable `<a href>` from
