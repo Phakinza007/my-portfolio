@@ -151,7 +151,17 @@
     <priority>0.75</priority>
   </url>
   <url>
+    <loc>https://ph-akin.dev/showcase-buildnest-th.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
     <loc>https://ph-akin.dev/showcase-iron-republic.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://ph-akin.dev/showcase-iron-republic-th.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
@@ -161,7 +171,17 @@
     <priority>0.75</priority>
   </url>
   <url>
+    <loc>https://ph-akin.dev/showcase-noir-coffee-th.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
     <loc>https://ph-akin.dev/showcase-elevate-commerce.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://ph-akin.dev/showcase-elevate-commerce-th.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
@@ -171,7 +191,17 @@
     <priority>0.75</priority>
   </url>
   <url>
+    <loc>https://ph-akin.dev/showcase-elasticshop-gaming-th.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
     <loc>https://ph-akin.dev/showcase-ratri-restaurant.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://ph-akin.dev/showcase-ratri-restaurant-th.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
@@ -181,7 +211,17 @@
     <priority>0.75</priority>
   </url>
   <url>
+    <loc>https://ph-akin.dev/showcase-solarpeak-th.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
     <loc>https://ph-akin.dev/showcase-bookease.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://ph-akin.dev/showcase-bookease-th.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
@@ -191,7 +231,17 @@
     <priority>0.75</priority>
   </url>
   <url>
+    <loc>https://ph-akin.dev/showcase-museroom-th.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
     <loc>https://ph-akin.dev/showcase-lumi-clinic.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://ph-akin.dev/showcase-lumi-clinic-th.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
@@ -201,12 +251,27 @@
     <priority>0.75</priority>
   </url>
   <url>
+    <loc>https://ph-akin.dev/showcase-dental-clinic-th.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
     <loc>https://ph-akin.dev/showcase-velve-aesthetics.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
+    <loc>https://ph-akin.dev/showcase-velve-aesthetics-th.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
     <loc>https://ph-akin.dev/showcase-habitquest.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://ph-akin.dev/showcase-habitquest-th.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>

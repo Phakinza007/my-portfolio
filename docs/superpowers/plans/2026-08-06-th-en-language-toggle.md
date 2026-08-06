@@ -234,15 +234,20 @@ problems = []
 for fname in os.listdir("."):
     if not fname.endswith("-th.html"):
         continue
+    own_slug = fname[:-len("-th.html")]  # e.g. "showcase-buildnest" for "showcase-buildnest-th.html"
     text = open(fname, encoding="utf-8").read()
     for href in re.findall(r'href="([a-zA-Z0-9_-]+)\.html', text):
-        if href in SCOPE_SLUGS:
+        # Exclude own_slug: every -th.html file has exactly one intentional link to its
+        # own English counterpart (the "EN" nav switcher) — that's correct, not a leak.
+        if href in SCOPE_SLUGS and href != own_slug:
             problems.append(f"{fname}: links to {href}.html (English) instead of {href}-th.html")
 
 print("\n".join(problems) if problems else "No English-language leaks found in any -th.html file's internal links.")
 ```
 
 Expected: `No English-language leaks found in any -th.html file's internal links.` If this finds anything, it's a real bug — fix it and re-run.
+
+**Correction found during execution:** the first version of this check (without the `href != own_slug` exclusion) flagged all 18 files' legitimate "EN" switcher links as leaks — false positives, not bugs. The `own_slug` exclusion above is the corrected version; use it, not a version without the exclusion.
 
 - [ ] **Step 3: sitemap.xml has all 19 new entries and is still valid XML.**
 
