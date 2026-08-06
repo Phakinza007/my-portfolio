@@ -19,7 +19,7 @@ The duplication has now grown past the point where it pays for itself. Measured:
 | Nav markup | 75 files | |
 | Search markup | 61 files | ~11 lines each |
 | Footer markup | 57 files | |
-| Behaviour scripts (reveal / nav toggle / filter) | 21 blocks | **1,844 lines** |
+| Behaviour scripts (reveal / nav toggle / filter) | 12 portfolio pages | **21.7 KB** |
 
 `index.html` and `work.html` carry byte-identical copies of all 13 cards: **110 KB stored
 twice across the two language pairs** purely because both pages show the same grid.
@@ -97,21 +97,32 @@ not transcribe faithfully keeps its `<div>` thumbnail and the work moves on.
 
 ### D4 — Behaviour scripts move to `assets/site-ui.js`
 
-1,844 lines across 21 inline `<script>` blocks implement three behaviours:
+**Corrected after measurement.** An earlier draft of this spec claimed 1,844 lines of
+byte-identical script across 21 files. That number counted every inline block on the site,
+including nine **demo pages** — `DRIP`, `MuseRoom`, `ElevateCommerce`, `dental-clinic`,
+`spa-retreat`, `construction-landing`, `sorn-restaurant`, `lumi-clinic`, `BookEase`. Those
+are simulated client sites with their own smaller reveal implementations (85, 409, 64, 496
+and 455 characters against the portfolio's 798). They are not duplication and must not be
+touched.
 
-- the `.reveal` IntersectionObserver (12 files)
-- the mobile nav drawer toggle (15 files)
-- the industry filter bar (4 files)
+The real scope is the **12 portfolio pages**, holding **21.7 KB** of behaviour script:
 
-They are byte-identical copies. One file, three self-guarding blocks — each returns early if
-its elements are absent — and pages include `<script src="assets/site-ui.js" defer></script>`.
+| Block | Files | Identical? |
+|---|---|---|
+| `.reveal` observer | `index`, `index-en`, `work`, `work-en` | yes |
+| Mobile nav toggle | those 4 plus `about`, `faq`, `process`, `services` (± `-en`) — 12 total | yes |
+| Industry filter | `index`, `index-en`, `work`, `work-en` | yes apart from the two status strings, which are translated |
 
-This is the highest-value and lowest-risk item in the spec: the code already behaves
-identically everywhere, so moving it cannot change behaviour, only location.
+One file, three self-guarding blocks — each returns early if its elements are absent — and
+pages include `<script src="assets/site-ui.js" defer></script>`. The filter's two
+user-visible strings come from `document.documentElement.lang` rather than being hard-coded,
+which is what makes the English and Thai copies mergeable.
 
-It also removes a whole class of bug. `work.html` shipped with all 13 cards at `opacity: 0`
-because the reveal observer was not copied along with the filter block — see the plan-2
-completion note. With one shared file there is nothing to forget to copy.
+**The byte saving is modest — roughly 18 KB. That is not the reason to do it.** The reason is
+that `work.html` shipped with all 13 cards at `opacity: 0` and a dead hamburger because the
+reveal observer and nav handler were not copied along with the filter block. Lighthouse,
+the overflow recipe and the dead-link sweep all passed on that page. With one shared file
+there is nothing to forget to copy, and that class of bug disappears.
 
 ### D5 — Search markup collapses to a placeholder
 
@@ -164,7 +175,7 @@ Fixing it while the cards are already open is cheaper than a separate pass.
 |---|---|
 | 10 `<div>` thumbnails → SVG files | **−168 KB of HTML**, replaced by cached SVG |
 | `BRIGHT Dental` → local SVG (11th file) | no byte change; one fewer third-party request |
-| Scripts → `assets/site-ui.js` | **−1,844 duplicated lines** |
+| Scripts → `assets/site-ui.js` | **−18 KB**, and one place to change instead of 12 |
 | Search markup → placeholder | **−610 duplicated lines** |
 | Footer | unchanged — measured, does not pay (**D6**) |
 
@@ -174,12 +185,13 @@ Fixing it while the cards are already open is cheaper than a separate pass.
 
 **Created:** ~11 files in `assets/thumbs/`, `assets/site-ui.js`
 
-**Modified:** `index.html`, `index-en.html`, `work.html`, `work-en.html` (thumbnails), the 21
-files carrying inline behaviour scripts, the 61 files carrying search markup,
+**Modified:** `index.html`, `index-en.html`, `work.html`, `work-en.html` (thumbnails), the 12
+portfolio pages carrying inline behaviour scripts, the 61 files carrying search markup,
 `assets/site-search.js` (gains the markup builder), `CLAUDE.md`
 
 **Untouched:** all nav markup, all card text content, all footers, `portfolio-pages.css`,
-`home-shell.css`, the 13 demo pages
+`home-shell.css`, and **the demo pages** — including the nine that carry their own inline
+reveal scripts, which are theirs and not duplication
 
 ## Verification
 
