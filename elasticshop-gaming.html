@@ -1352,7 +1352,7 @@
                 </div>
               </div>
               <div class="ss-title thai">เติมเงินสำเร็จ</div>
-              <div class="ss-sub thai">รายการของคุณถูกดำเนินการเรียบร้อยแล้ว ขอให้สนุกกับเกม!</div>
+              <div class="ss-sub thai" id="ssSub">รายการของคุณถูกดำเนินการเรียบร้อยแล้ว ขอให้สนุกกับเกม!</div>
 
               <div class="ss-detail">
                 <div class="ssd-left">
@@ -1921,32 +1921,47 @@
 
       confirmBtn.addEventListener('click', function () {
         if (!validate()) {
-          if (!uidInput.value.trim()) uidInput.focus();
+          if (checkoutMode === 'package' && !uidInput.value.trim()) uidInput.focus();
           return;
         }
-        var pkg   = pkgById(selectedId);
-        var money = priceOf(pkg);
 
-        // step 3 (Payment) is now complete
-        var pkgStep = document.getElementById('stepPackage');
-        pkgStep.classList.remove('active');
-        pkgStep.classList.add('done');
-        $('.step-node', pkgStep).textContent = '✓';
-        document.getElementById('stepLine2').classList.add('done');
+        if (checkoutMode === 'package') {
+          enterPaymentMode();
+          return;
+        }
+
+        // checkoutMode === 'payment' — this click actually submits the order
+        var pkg    = pkgById(selectedId);
+        var money  = priceOf(pkg);
+        var status = selectedMethod === 'card' ? 'success' : 'pending';
+
+        var order = {
+          ref: newRef(),
+          game: selectedGame.game,
+          pub: selectedGame.pub,
+          uid: uidInput.value.trim(),
+          pkg: pkg.label,
+          amount: money.total,
+          date: stampNow(),
+          method: selectedMethod,
+          status: status
+        };
+        var saved = Orders.add(order);
+        renderOrderCard(order);
+
         var payStep = document.getElementById('stepPayment');
         payStep.classList.add('done');
         $('.step-node', payStep).textContent = '✓';
 
-        fillStatusCard({
-          game: 'RoV: Arena of Valor',
-          pub: 'Garena Thailand',
-          ref: newRef(),
-          uid: uidInput.value.trim(),
-          pkg: pkg.label,
-          amount: money.total,
-          date: stampNow()
-        });
+        fillStatusCard(order);
+        if (status === 'success') {
+          showSuccessStatus(saved);
+        } else {
+          showPendingStatus(order, saved);
+        }
         showScreen('status');
+
+        enterPackageMode();
       });
 
       /* ============================================================
@@ -1997,10 +2012,47 @@
       });
 
       /* ============================================================
-         SCREEN 4 — PENDING → SUCCESS REFRESH
+         SCREEN 4 — STATUS DISPLAY + PENDING → SUCCESS REFRESH
       ============================================================ */
-      var refreshBtn  = document.getElementById('spRefresh');
-      var refreshText = document.getElementById('spRefreshText');
+      var statusSuccessEl = $('.status-success');
+      var statusPendingEl = document.getElementById('pendingCard');
+      var refreshBtn       = document.getElementById('spRefresh');
+      var refreshText      = document.getElementById('spRefreshText');
+      var currentPendingRef = null;
+
+      // Orders.add/Profile.set return false when localStorage write fails
+      // (full quota, private-browsing restrictions) — the checkout still
+      // completes either way, this just tells the visitor it won't survive
+      // leaving the page, instead of silently failing to persist.
+      function saveNote(saved) {
+        return saved ? '' : ' (This device can’t save your order history right now — it won’t appear after you leave this page.)';
+      }
+
+      function showSuccessStatus(saved) {
+        statusSuccessEl.style.display = '';
+        statusPendingEl.style.display = 'none';
+        document.getElementById('ssSub').textContent =
+          'รายการของคุณถูกดำเนินการเรียบร้อยแล้ว ขอให้สนุกกับเกม!' + saveNote(saved);
+      }
+
+      function showPendingStatus(order, saved) {
+        statusSuccessEl.style.display = 'none';
+        statusPendingEl.style.display = '';
+        statusPendingEl.classList.remove('done');
+        currentPendingRef = order.ref;
+
+        var badge = document.getElementById('spBadge');
+        badge.classList.remove('done');
+        badge.innerHTML = '<span class="pdot"></span>Pending';
+        document.getElementById('spTitle').textContent = 'กำลังตรวจสอบรายการ';
+        document.getElementById('spSub').textContent   =
+          'ระบบกำลังยืนยันการชำระเงินของคุณ โปรดรอสักครู่...' + saveNote(saved);
+        $('.sp-meta').innerHTML =
+          '<div class="sp-row"><span class="k">Ref:</span><span class="v">' + order.ref + '</span></div>' +
+          '<div class="sp-row"><span class="k">Game:</span><span class="v">' + order.game + '</span></div>';
+        refreshBtn.removeAttribute('data-screen');
+        refreshText.textContent = 'รีเฟรชสถานะ';
+      }
 
       refreshBtn.addEventListener('click', function () {
         // once resolved the button becomes a link to the history screen
@@ -2014,23 +2066,19 @@
           refreshBtn.classList.remove('loading');
           refreshBtn.disabled = false;
 
-          document.getElementById('pendingCard').classList.add('done');
+          statusPendingEl.classList.add('done');
           var badge = document.getElementById('spBadge');
           badge.classList.add('done');
           badge.innerHTML = '<span class="pdot"></span>Success';
           document.getElementById('spTitle').textContent = 'ยืนยันการชำระเงินแล้ว';
-          document.getElementById('spSub').textContent   = 'เติม 1050 VP เข้าบัญชี Valorant เรียบร้อยแล้ว';
+          document.getElementById('spSub').textContent   = 'เติมแพ็กเกจเข้าบัญชีเรียบร้อยแล้ว';
           refreshText.textContent = 'ดูประวัติการเติม';
           refreshBtn.setAttribute('data-screen', 'history');
 
-          // keep the history row in sync
-          var row = document.getElementById('txnValorant');
-          row.setAttribute('data-status', 'success');
-          document.getElementById('txnValorantStatus').innerHTML =
-            '<span class="badge badge-success">' +
-            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' +
-            'Success</span>';
-          applyTxnFilter();
+          if (currentPendingRef) {
+            Orders.updateStatus(currentPendingRef, 'success');
+            updateOrderCardStatus(currentPendingRef, 'success');
+          }
         }, 900);
       });
 
