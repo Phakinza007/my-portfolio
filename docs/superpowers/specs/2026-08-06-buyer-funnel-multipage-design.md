@@ -106,13 +106,34 @@ If the full rollout is wanted later, it extends this design rather than replacin
 Rejected: searching projects only. A visitor who types `ราคา` or `คลินิก` should land on the
 services and industry pages, not just on demos.
 
+### D6 — The homepage carries the full portfolio grid, not a teaser
+
+An earlier draft of this spec moved the 13-card grid to `work.html` and left the homepage with a
+5-card carousel. That was reversed: the homepage carries **both** the featured carousel and the
+complete filterable grid, and `work.html` becomes the deeper archive behind a "ดูผลงานทั้งหมด"
+link. This matches Bigzweb, and it means a visitor who lands on the homepage from an ad never has
+to click through to see whether the work is any good.
+
+Rejected: dropping `work.html` entirely and pointing the nav at `#projects` (the homepage grows
+very long and the 4 case studies lose a home). Rejected: showing 6 cards on the homepage and 13
+on `work.html` (splits the proof for no real gain).
+
+### D7 — Technology tags sit in a static row beneath the marquee
+
+The marquee is in continuous motion. Making its items the click targets would mean asking users
+to click moving elements and tab through a scrolling strip. The marquee is kept as decoration and
+a static row of real `<button>`s is added below it.
+
+Industry and technology are **mutually exclusive filters**, not combinable. Across only 13
+projects, two simultaneous axes would routinely produce an empty grid.
+
 ## Page Inventory
 
 ### Funnel pages — bilingual pairs (5 pairs, 10 files)
 
 | Thai | English | Content |
 |---|---|---|
-| `work.html` | `work-en.html` | All 13 project cards + filter bar + carousel + tag cloud + the 4 case studies |
+| `work.html` | `work-en.html` | The deeper archive: same 13 cards + industry filter + tag cloud + the 4 case studies + longer per-project copy than the homepage grid carries |
 | `services.html` | `services-en.html` | Hub: 3 packages linking to the existing category pages, price comparison table, entry points to the 7 industry pages |
 | `about.html` | `about-en.html` | Bio, experience timeline, tools, KMUTT education |
 | `faq.html` | `faq-en.html` | Pre-hire questions + `FAQPage` JSON-LD |
@@ -249,20 +270,48 @@ Queries that return nothing are the signal for which industry page to build next
 
 ## Homepage Restructure
 
-The homepage is not gutted. It is the canonical root and the strongest page on the site;
-full content moves to the child pages while the homepage keeps a teaser of each.
+The homepage is not gutted — the opposite. It carries the full selling story, and the child pages
+exist as deeper destinations rather than as the only home for that content. This mirrors Bigzweb,
+whose homepage carries both a featured carousel *and* the complete filterable portfolio grid, with
+a link out to a fuller portfolio page.
 
 ```
-1  Hero                     unchanged
-2  คุณต้องการเว็บแบบไหน?     NEW — directly under the hero
-3  Tech stack marquee       unchanged
-4  บริการ (condensed)        3 packages, short → services.html
-5  รีวิว                    unchanged, full — real reviews, not trimmed
-6  ผลงานเด่น                 carousel of the 5 featured → work.html
-7  เกี่ยวกับผม (condensed)   → about.html
-8  Case studies (condensed) → work.html
-9  ติดต่อ                    unchanged, full
+1   Hero                          unchanged
+2   คุณต้องการเว็บแบบไหน?          NEW — directly under the hero, qualifies the visitor
+3   ผลงานแนะนำ                     carousel of the 5 featured
+4   ผลงานของเรา                    full 13-card grid + industry filter
+    └─ ดูผลงานทั้งหมด → work.html
+
+    ╔══ decision block — kept contiguous ══╗
+5   บริการของเรา                   3 packages → services.html
+6   ราคา                          NEW — ฿3,900 / ฿7,900 / ฿9,900 comparison
+7   รีวิว                          3 real 5★ Fastwork reviews, full, not trimmed
+    ╚═════════════════════════════════════╝
+
+8   เทคโนโลยีและเฟรมเวิร์ก          marquee + NEW clickable tech tags
+9   เกี่ยวกับผม (condensed)        → about.html
+10  Case studies (condensed)      → work.html
+11  ติดต่อ                         unchanged, full
 ```
+
+**Sections 5–7 stay contiguous on purpose.** A visitor who has just read a price is at peak
+objection; the reviews answer it immediately. Placing the technology section between them —
+the ordering originally sketched — interrupts that with a low-intent "how it's built" digression.
+
+**`work.html` is the deeper archive, not a duplicate.** It carries the same 13 cards plus the 4
+case studies, the tag cloud, and longer per-project copy. The 13 cards appearing on two pages is
+intentional and not a duplicate-content problem: they are card summaries, not substantive page
+bodies, and each links to its own showcase page.
+
+### Pricing section (new, section 6)
+
+A three-column comparison of the existing packages — ฿3,900 Landing Page, ฿7,900 Dashboard UI,
+฿9,900 Business Website. Prices, feature bullets and package names are copied **verbatim** from
+`index.html`'s current `#services` section; they are real Fastwork listings and must not be
+reworded. Each column links to its category page and to Fastwork.
+
+Per the existing bilingual rule, this section's pricing and feature copy stays in Thai on
+`index-en.html` as well.
 
 ### The need selector
 
@@ -285,6 +334,41 @@ Seven tiles link to their industry page; the eighth links to `#contact`.
 Icons are **inline SVG**, not emoji — emoji render inconsistently across platforms and screen
 readers announce them unpredictably. The tech marquee already establishes inline SVG as the
 site's icon pattern.
+
+### Clickable technology section (new behaviour, section 8)
+
+Today the dual-row logo marquee is purely decorative. It becomes a way into the work:
+
+```
+        เทคโนโลยีและเฟรมเวิร์ก
+เทคโนโลยีที่ผมใช้ในผลงาน — คลิกเพื่อดูโปรเจกต์ที่ใช้เทคโนโลยีนั้น
+
+  [ existing dual-row logo marquee — unchanged, decorative, aria-hidden ]
+
+  HTML   CSS   JavaScript   React   Node.js   Express
+  PostgreSQL   Figma   Tailwind   Chart.js   ...
+  └── static row of real <button>s
+```
+
+**The marquee is kept and a static clickable row is added beneath it**, rather than making the
+marquee items themselves clickable. Marquee items are in continuous motion; clicking a moving
+target is hostile, and tabbing through a scrolling strip is worse. The marquee stays as the
+visual, the static row does the work. The existing `prefers-reduced-motion` static fallback and
+pause-on-hover behaviour are untouched.
+
+Clicking a technology scrolls to `ผลงานของเรา` and filters the grid to projects using it.
+
+**Two filter axes, one active filter.** The grid can be filtered by industry (the button bar) or
+by technology (this section) but never both at once — selecting one clears the other, and an
+active-filter chip with a dismiss control shows what is applied. Two simultaneous axes would
+routinely produce empty result sets across only 13 projects.
+
+**Technology tags must be truthful.** The 13 projects are simulated client work and most are
+static HTML/CSS/JS; the marquee currently advertises React, Node.js, Express and PostgreSQL,
+which reflects Phakin's skill set rather than every demo's stack. During implementation, each
+project's `data-tech` value must be taken from what that project actually uses — read from its
+showcase page's stated stack — not assigned to make a technology look well-represented. A
+technology with no truthful matches does not get a button.
 
 ## Tag Taxonomy
 
@@ -347,7 +431,8 @@ crosses the whole site — and exercises the search index that is being built an
 Small problems found while surveying the code that this work touches directly:
 
 - `data-tags` → `data-industry` affects both the filter JS **and** the featured carousel, which
-  reads `data-featured` from the same elements. They must change together.
+  reads `data-featured` from the same elements. A third attribute, `data-tech`, is added for the
+  technology filter. All three live on the same `.work-card` elements and must change together.
 - CLAUDE.md's "Current Cards in Selected Work" table is stale: it lists card 1 as
   `construction-landing.html`, but the card links to `showcase-buildnest.html`. Since this work
   rewrites that table's tag column anyway, correct the file column at the same time.
@@ -364,9 +449,10 @@ Small problems found while surveying the code that this work touches directly:
 `assets/site-nav.css`, `assets/site-nav.js`, `assets/search-index.json`
 
 **Modified:**
-`index.html`, `index-en.html` (restructure + new nav + need selector),
-`assets/analytics.js` (two events), `sitemap.xml` (17 new URLs, 59 → 76), `CLAUDE.md` (structure, the
-two no-`-en`-twin classes, corrected cards table)
+`index.html`, `index-en.html` — the largest change: 11-section restructure, new nav, need
+selector, new pricing section, clickable technology row, and the filter axis rewrite,
+`assets/analytics.js` (two events), `sitemap.xml` (17 new URLs, 59 → 76), `CLAUDE.md` (structure,
+the two no-`-en`-twin classes, corrected cards table, new homepage section table)
 
 **Untouched:** the 13 demo pages, the 3 service category pages, the 42 contextual-nav files
 except for one added link back into the funnel.
@@ -385,7 +471,12 @@ Every item must pass before the work is called done:
 3. **CLS 0** on pages carrying the search box.
 4. **Search keyboard path** works without a mouse: focus input → type → `↓` → `Enter` navigates;
    `Esc` closes and returns focus.
-5. **hreflang audit** — the 5 funnel pairs each carry the 3-link trio and a self canonical; the 7
+5. **Filter mutual exclusion** — selecting an industry clears any active technology filter and
+   vice versa; the active-filter chip reflects what is applied and dismisses correctly. No
+   combination of clicks can produce a silently empty grid with no chip explaining why.
+6. **Technology tags are truthful** — every `data-tech` value on a card is backed by that
+   project's actually stated stack, and every technology button returns at least one project.
+7. **hreflang audit** — the 5 funnel pairs each carry the 3-link trio and a self canonical; the 7
    industry pages carry no `hreflang` and a self canonical.
-6. **Every new URL is in `sitemap.xml`** and reachable by at least one crawlable `<a href>` from
+8. **Every new URL is in `sitemap.xml`** and reachable by at least one crawlable `<a href>` from
    the homepage.
