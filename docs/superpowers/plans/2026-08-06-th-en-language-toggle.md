@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- Base domain for all absolute URLs: `https://phakinza007.github.io/my-portfolio/` (not `ph-akin.dev` — still a dead parking page, confirmed again during this brainstorm).
+- Base domain for all absolute URLs: `https://ph-akin.dev/` — now correctly configured (CNAME + DNS point at GitHub Pages), confirmed live during this brainstorm.
 - Every `-th.html` file: `<html lang="th">`, not `en`.
 - `hreflang` must be reciprocal — if `X.html` declares `X-th.html` as its `th` alternate, `X-th.html` must declare `X.html` as its `en` alternate, and both declare `x-default` → the English version.
 - `canonical` on each file points at itself (not at its counterpart).
@@ -28,9 +28,9 @@
 Every English page gets this added to its `<head>` (exact values substitute per page):
 
 ```html
-<link rel="alternate" hreflang="en" href="https://phakinza007.github.io/my-portfolio/<file>.html" />
-<link rel="alternate" hreflang="th" href="https://phakinza007.github.io/my-portfolio/<file>-th.html" />
-<link rel="alternate" hreflang="x-default" href="https://phakinza007.github.io/my-portfolio/<file>.html" />
+<link rel="alternate" hreflang="en" href="https://ph-akin.dev/<file>.html" />
+<link rel="alternate" hreflang="th" href="https://ph-akin.dev/<file>-th.html" />
+<link rel="alternate" hreflang="x-default" href="https://ph-akin.dev/<file>.html" />
 ```
 
 Every `-th.html` page gets the identical three lines (same URLs — both files in a pair declare the same set of alternates, pointing at each other and at English as `x-default`).
@@ -59,7 +59,7 @@ Every `-th.html` page's JSON-LD (only `index-th.html` and `resume-th.html` have 
   - Add the hreflang block (same three lines as Step 1 — both files in a pair carry identical alternate declarations)
   - Translate `<title>`, meta description, `og:title`/`og:description`, `twitter:title`/`twitter:description` into natural Thai; set `og:locale` to `th_TH`
   - Update `<link rel="canonical">` to `index-th.html`'s own URL
-  - Update JSON-LD: `"url"` → `https://phakinza007.github.io/my-portfolio/index-th.html`, add `"inLanguage": "th"`
+  - Update JSON-LD: `"url"` → `https://ph-akin.dev/index-th.html`, add `"inLanguage": "th"`
   - Translate the Hero, About, Experience, Selected Work (all 13 card titles/one-line descriptions — tags and hrefs stay as-is, pointing at the same showcase pages, since Selected Work links to showcase pages which get their own `-th` pair in Task 4-6, not `index-th.html`'s job to redirect those — wire Selected Work card links to `showcase-*-th.html` per the spec's internal-link rule), and Case Studies sections into natural Thai
   - Keep Services and Testimonials sections' Thai copy exactly as already written in `index.html` — do not retranslate
   - Change the desktop nav's "TH" link (added in Step 2's counterpart) to say "EN" and point at `index.html`; same for the mobile drawer
@@ -194,7 +194,7 @@ PAIRS = [
     "showcase-museroom", "showcase-lumi-clinic", "showcase-dental-clinic",
     "showcase-velve-aesthetics", "showcase-habitquest",
 ]
-BASE = "https://phakinza007.github.io/my-portfolio/"
+BASE = "https://ph-akin.dev/"
 problems = []
 for slug in PAIRS:
     for fname in (f"{slug}.html", f"{slug}-th.html"):

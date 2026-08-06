@@ -6,7 +6,7 @@ The site currently mixes languages by section: `index.html`'s Services and Testi
 
 Phakin wants every page that's actually *about him* — as opposed to the 13 project demo pages, which are sample client work, not content about him — to be readable in either language, with a simple TH/EN switch in the nav.
 
-**Domain note:** `ph-akin.dev` is a registered domain but still resolves to its registrar's parking page (confirmed via DNS/curl during this brainstorm — same broken state found and worked around in the [technical SEO fix](2026-08-05-technical-seo-fix.md)). This spec uses `https://phakinza007.github.io/my-portfolio/` as the base for all absolute URLs (hreflang, canonical, sitemap), consistent with that earlier decision. If the custom domain is ever configured, both this spec's URLs and the SEO fix's URLs need updating together.
+**Domain note:** `ph-akin.dev` was still resolving to its registrar's parking page when this brainstorm started (same broken state the [technical SEO fix](2026-08-05-technical-seo-fix.md) worked around by using the github.io URL). It's since been configured correctly — a `CNAME` file now exists and DNS points at GitHub Pages — so this spec uses `https://ph-akin.dev/` as the base for all absolute URLs (hreflang, canonical, sitemap), matching the rest of the site.
 
 ## Goals
 
@@ -65,12 +65,12 @@ Every `-th.html` file:
 - `<html lang="th">` (not `en`) — required for correct screen-reader pronunciation and Lighthouse Accessibility, independent of SEO.
 - `<title>`, meta description, `og:title`, `og:description`, `twitter:title`, `twitter:description` — Thai versions, written fresh (not translated word-for-word), same conversational tone as the existing Services/Testimonials copy.
 - `og:locale` set to `th_TH` (English pages keep `en_US`).
-- `<link rel="canonical" href="https://phakinza007.github.io/my-portfolio/<file>-th.html">` — points at itself, not the English original.
+- `<link rel="canonical" href="https://ph-akin.dev/<file>-th.html">` — points at itself, not the English original.
 - Both files get a matching pair:
   ```html
-  <link rel="alternate" hreflang="en" href="https://phakinza007.github.io/my-portfolio/<file>.html" />
-  <link rel="alternate" hreflang="th" href="https://phakinza007.github.io/my-portfolio/<file>-th.html" />
-  <link rel="alternate" hreflang="x-default" href="https://phakinza007.github.io/my-portfolio/<file>.html" />
+  <link rel="alternate" hreflang="en" href="https://ph-akin.dev/<file>.html" />
+  <link rel="alternate" hreflang="th" href="https://ph-akin.dev/<file>-th.html" />
+  <link rel="alternate" hreflang="x-default" href="https://ph-akin.dev/<file>.html" />
   ```
   (`x-default` points at English, matching the SEO-fix decision that English/the github.io URL is the primary indexed version.)
 - JSON-LD (`index.html`/`resume.html` only): `"url"` points at the `-th.html` file's own URL, `"inLanguage": "th"` added, `"name"` stays `"Phakin Chawanpunya"` (not translated).
