@@ -2761,7 +2761,7 @@
         <input type="hidden" name="_subject" value="New message from portfolio (Thai page)" />
         <input type="text"  name="name"    placeholder="ชื่อของคุณ"         required />
         <input type="email" name="email"   placeholder="อีเมลของคุณ"        required />
-        <input type="text"  name="subject" placeholder="ประเภทโปรเจกต์ (Landing page, Dashboard ฯลฯ)" />
+        <input type="text"  name="subject" id="project-type-input" placeholder="ประเภทโปรเจกต์ (Landing page, Dashboard ฯลฯ)" />
         <textarea           name="message" placeholder="เล่าเกี่ยวกับโปรเจกต์ของคุณให้ผมฟังหน่อย…" required></textarea>
         <button type="submit">ส่งข้อความ →</button>
       </form>
@@ -2898,6 +2898,56 @@
           toggle?.setAttribute('aria-label', 'Open navigation');
         }
       });
+
+      /* ---- Rotating example placeholder on the project-type field ---- */
+      const typeInput = document.getElementById('project-type-input');
+      if (typeInput) {
+        const examples = [
+          'เช่น เว็บร้านอาหาร',
+          'เช่น แลนดิ้งเพจธุรกิจ',
+          'เช่น แดชบอร์ดจัดการระบบ',
+          'เช่น เว็บจองคิว',
+          'เช่น ร้านค้าออนไลน์'
+        ];
+        const staticPlaceholder = typeInput.placeholder;
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (!reduceMotion) {
+          let exampleIndex = 0;
+          let charIndex = 0;
+          let deleting = false;
+          let timerId = null;
+
+          const tick = () => {
+            const current = examples[exampleIndex];
+            if (!deleting) {
+              charIndex++;
+              typeInput.placeholder = current.slice(0, charIndex);
+              if (charIndex === current.length) {
+                deleting = true;
+                timerId = setTimeout(tick, 1800);
+                return;
+              }
+            } else {
+              charIndex--;
+              typeInput.placeholder = current.slice(0, charIndex);
+              if (charIndex === 0) {
+                deleting = false;
+                exampleIndex = (exampleIndex + 1) % examples.length;
+              }
+            }
+            timerId = setTimeout(tick, deleting ? 35 : 55);
+          };
+
+          const stop = () => { clearTimeout(timerId); typeInput.placeholder = staticPlaceholder; };
+          const resume = () => { if (document.activeElement !== typeInput && !typeInput.value) tick(); };
+
+          typeInput.addEventListener('focus', stop);
+          typeInput.addEventListener('blur', () => { if (!typeInput.value) resume(); });
+
+          tick();
+        }
+      }
 
       /* ---- Contact form async submit ---- */
       const contactForm = document.getElementById('contact-form');
