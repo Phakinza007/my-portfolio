@@ -6,6 +6,7 @@
   <meta name="description" content="Elasticshop Gaming Top-Up — an interactive UI prototype for an automated game top-up platform, with home, top-up flow, history, and transaction status screens." />
   <meta name="author" content="Phakin Chawanpunya" />
   <title>Elasticshop Gaming Top-Up | UI Prototype | Phakin Portfolio</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="canonical" href="https://ph-akin.dev/elasticshop-gaming.html" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Elasticshop Gaming Top-Up | UI Prototype | Phakin Portfolio" />
@@ -19,8 +20,8 @@
   <link rel="stylesheet" href="assets/portfolio-context.css?v=back-button-clean" />
   <style>
     :root {
-      --red:        #F0442F;
-      --red-d:      #d8331f;
+      --red:        #d8331f;
+      --red-d:      #b82a19;
       --yellow:     #FFD400;
       --yellow-d:   #e6be00;
       --black:      #111111;
@@ -33,7 +34,7 @@
       --white:      #FFFFFF;
       --ink:        #1a1c1c;
       --ink-2:      #5c5c5c;
-      --muted:      #9aa0a6;
+      --muted:      #666e76;
       --border:     #E5E7EB;
       --r:          16px;
       --r-sm:       8px;
@@ -288,13 +289,18 @@
     .deal-name { color: #fff; font-weight: 700; font-size: 0.95rem; }
     .deal-price s { color: rgba(255,255,255,0.4); font-size: 0.85rem; margin-right: 5px; }
     .deal-price b { color: var(--yellow); font-size: 1.25rem; }
-    .hero-dots { display: flex; gap: 6px; justify-content: center; }
+    .hero-dots { display: flex; gap: 2px; justify-content: center; }
     .hero-dots button {
-      width: 7px; height: 7px; padding: 0; border-radius: 50%;
+      width: 24px; height: 24px; padding: 0; border-radius: 50%;
+      background: transparent; border: none; display: flex;
+      align-items: center; justify-content: center;
+    }
+    .hero-dots button::after {
+      content: ''; display: block; width: 7px; height: 7px; border-radius: 50%;
       background: rgba(255,255,255,0.25); transition: all 0.2s;
     }
-    .hero-dots button:hover { background: rgba(255,255,255,0.5); }
-    .hero-dots button.active { background: var(--yellow); width: 18px; border-radius: 4px; }
+    .hero-dots button:hover::after { background: rgba(255,255,255,0.5); }
+    .hero-dots button.active::after { background: var(--yellow); width: 18px; border-radius: 4px; }
     .hero-badge {
       display: inline-block;
       background: var(--yellow); color: #111;
