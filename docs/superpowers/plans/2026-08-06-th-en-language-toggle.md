@@ -177,7 +177,7 @@ EOF
 
 **Files:** None modified — verification only. Fix and commit separately if anything fails.
 
-**Interfaces:** Consumes the output of Tasks 1-6 (all 44 files must exist).
+**Interfaces:** Consumes the output of Tasks 1-6 (all 38 files must exist — 19 pairs).
 
 - [ ] **Step 1: hreflang reciprocity check across every pair.**
 
@@ -194,17 +194,20 @@ PAIRS = [
     "showcase-museroom", "showcase-lumi-clinic", "showcase-dental-clinic",
     "showcase-velve-aesthetics", "showcase-habitquest",
 ]
-BASE = "https://ph-akin.dev/"
+BASE = "https://ph-akin.dev"
 problems = []
 for slug in PAIRS:
+    # The homepage's canonical/hreflang "en" URL is the bare root, not "index.html" —
+    # every other page uses "<slug>.html".
+    en_url = BASE + "/" if slug == "index" else BASE + f"/{slug}.html"
     for fname in (f"{slug}.html", f"{slug}-th.html"):
         text = open(fname, encoding="utf-8").read()
         alts = dict(re.findall(r'hreflang="(en|th|x-default)" href="([^"]+)"', text))
-        if alts.get("en") != BASE + f"{slug}.html":
+        if alts.get("en") != en_url:
             problems.append(f"{fname}: en alternate wrong or missing")
-        if alts.get("th") != BASE + f"{slug}-th.html":
+        if alts.get("th") != BASE + f"/{slug}-th.html":
             problems.append(f"{fname}: th alternate wrong or missing")
-        if alts.get("x-default") != BASE + f"{slug}.html":
+        if alts.get("x-default") != en_url:
             problems.append(f"{fname}: x-default alternate wrong or missing")
         if fname.endswith("-th.html"):
             lang = re.search(r'<html lang="([^"]+)"', text)
@@ -215,6 +218,8 @@ print("\n".join(problems) if problems else f"All {len(PAIRS)*2} files: hreflang 
 ```
 
 Expected: `All 38 files: hreflang + lang correct.`
+
+**Correction found during execution:** the first version of this check used `BASE + f"{slug}.html"` for every slug, including `index` — but the homepage's real canonical/hreflang "en" URL is the bare root (`https://ph-akin.dev/`), not `https://ph-akin.dev/index.html` (confirmed correct in both `index.html` and `index-th.html` — matches the site's established root-link convention). The `en_url` special-case above is the corrected version.
 
 - [ ] **Step 2: Every internal link inside a `-th.html` file that has a Thai counterpart in Scope actually points at it.**
 
