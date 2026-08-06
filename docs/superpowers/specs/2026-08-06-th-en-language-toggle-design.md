@@ -56,7 +56,7 @@ Chosen: **Option 1.** The site just went through real SEO work (fixing a broken 
 | `showcase-velve-aesthetics.html` | `showcase-velve-aesthetics-th.html` |
 | `showcase-habitquest.html` | `showcase-habitquest-th.html` |
 
-22 English pages get a Thai sibling (44 total including originals). Everything else in the repo (13 project demo pages, `404.html`, `sitemap.xml`, `robots.txt`, `CNAME`-adjacent config) is unaffected.
+19 English pages get a Thai sibling (38 total including originals). Everything else in the repo (13 project demo pages, `404.html`, `sitemap.xml`, `robots.txt`, `CNAME`-adjacent config) is unaffected.
 
 ## Per-page requirements
 
@@ -89,7 +89,7 @@ The core rule: **while on a Thai page, every internal link that has a Thai count
 
 ## Verification
 
-- `hreflang` pairs are reciprocal (if A declares B, B declares A) — check systematically across all 22 pairs, since a one-directional hreflang is a common, silently-broken mistake.
-- `sitemap.xml` gets 22 new `<url>` entries for the `-th.html` files, same `priority`/`changefreq` as their English counterpart.
+- `hreflang` pairs are reciprocal (if A declares B, B declares A) — check systematically across all 19 pairs, since a one-directional hreflang is a common, silently-broken mistake.
+- `sitemap.xml` gets 19 new `<url>` entries for the `-th.html` files, same `priority`/`changefreq` as their English counterpart.
 - Lighthouse Accessibility/Best Practices/SEO all 100 on at least one Thai page (matching the standard already held for English pages).
 - Manual click-through on at least one full Thai journey (index-th → a showcase-th → its related work → back to index-th) confirms no accidental language-crossing link.
