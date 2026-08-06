@@ -1464,6 +1464,18 @@
     .price-col ul li::before{content:"";position:absolute;left:0;top:.5em;width:.5rem;height:.5rem;border-radius:50%;background:var(--accent-text);}
     .price-col .btn-project{margin-top:auto;text-align:center;}
     @media (max-width:900px){.pricing-grid{grid-template-columns:1fr;}}
+
+    /* Need selector */
+    .need-sub{margin:0 0 1.8rem;color:var(--muted);max-width:52ch;}
+    .need-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;}
+    .need-tile{display:flex;flex-direction:column;gap:.45rem;padding:1.1rem 1rem;border:1px solid var(--border);border-radius:var(--r);background:var(--surface);text-decoration:none;color:inherit;transition:border-color .18s var(--ease),transform .18s var(--ease);}
+    .need-tile:hover{border-color:var(--accent);transform:translateY(-2px);}
+    .need-tile:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+    .need-tile svg{width:26px;height:26px;stroke:var(--accent-text);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+    .need-tile strong{font-size:1rem;line-height:1.35;color:var(--ink);}
+    .need-tile span{font-size:.86rem;color:var(--muted);line-height:1.45;}
+    @media (max-width:900px){.need-grid{grid-template-columns:repeat(2,1fr);}}
+    @media (prefers-reduced-motion:reduce){.need-tile{transition:none;}.need-tile:hover{transform:none;}}
   </style>
   <script src="assets/analytics.js" defer></script>
 </head>
@@ -1595,6 +1607,59 @@
 
           </div>
 
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         NEED SELECTOR
+    ============================================= -->
+    <section class="section" id="need" lang="th" aria-labelledby="need-heading">
+      <div class="container">
+        <span class="section-label">เริ่มตรงนี้</span>
+        <h2 class="section-title" id="need-heading">คุณต้องการเว็บแบบไหน?</h2>
+        <p class="need-sub">เลือกประเภทที่ใกล้เคียง — พาไปดูผลงานจริงและราคาของหมวดนั้นทันที</p>
+        <div class="need-grid">
+          <a class="need-tile" href="web-clinic.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 7v10M7 12h10"/></svg>
+            <strong>คลินิก / ความงาม</strong>
+            <span>จองคิว บริการ ทีมแพทย์</span>
+          </a>
+          <a class="need-tile" href="web-booking.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 11h18"/></svg>
+            <strong>จองคิว / นัดหมาย</strong>
+            <span>ปฏิทินว่าง กันคิวชน</span>
+          </a>
+          <a class="need-tile" href="web-restaurant.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3v8a3 3 0 0 0 6 0V3M9 11v10M18 3c-1.5 2-2 4-2 6h4c0-2-.5-4-2-6zM18 9v12"/></svg>
+            <strong>ร้านอาหาร / คาเฟ่</strong>
+            <span>เมนู ราคา จองโต๊ะ</span>
+          </a>
+          <a class="need-tile" href="web-shop.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18l-1.6 11.2A2 2 0 0 1 17.4 19H6.6a2 2 0 0 1-2-1.8L3 6zM8 10a4 4 0 0 0 8 0"/></svg>
+            <strong>ขายของออนไลน์</strong>
+            <span>สินค้า ตะกร้า ชำระเงิน</span>
+          </a>
+          <a class="need-tile" href="web-gym.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6M8 7v10M16 7v10M20 9v6M8 12h8"/></svg>
+            <strong>ฟิตเนส / ยิม</strong>
+            <span>ตารางคลาส แพ็กเกจสมาชิก</span>
+          </a>
+          <a class="need-tile" href="web-construction.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 21V10l7-5 7 5v11M10 21v-6h4v6"/></svg>
+            <strong>ก่อสร้าง / รับเหมา</strong>
+            <span>ผลงาน ขอใบเสนอราคา</span>
+          </a>
+          <a class="need-tile" href="web-solar.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9L7 7M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/></svg>
+            <strong>โซลาร์ / พลังงาน</strong>
+            <span>ประเมินค่าไฟ แพ็กเกจ</span>
+          </a>
+          <a class="need-tile" href="#contact">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <strong>ไม่แน่ใจ</strong>
+            <span>เล่าโจทย์มา ผมช่วยดูให้</span>
+          </a>
         </div>
       </div>
     </section>
