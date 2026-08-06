@@ -642,6 +642,73 @@
     /* ============================================================
        FILTER BAR
     ============================================================ */
+    .featured-strip { margin-bottom: 28px; }
+
+    .featured-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .featured-head h3 {
+      font: 700 1.05rem/1.3 'Outfit', sans-serif;
+      color: var(--fg);
+    }
+
+    .featured-nav { display: flex; gap: 8px; }
+
+    .carousel-nav {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--r-sm);
+      border: 1.5px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      background: var(--surface);
+      cursor: pointer;
+      transition: color 150ms, border-color 150ms, transform 160ms, background 150ms;
+    }
+
+    .carousel-nav:hover {
+      color: var(--fg);
+      border-color: var(--border-2);
+      background: var(--surface-2);
+    }
+
+    .carousel-nav:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    .carousel-nav:disabled:hover {
+      color: var(--muted);
+      border-color: var(--border);
+      background: var(--surface);
+    }
+
+    .carousel-nav svg { width: 18px; height: 18px; }
+
+    .featured-track {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+    }
+
+    .featured-track::-webkit-scrollbar { display: none; }
+
+    .featured-track .work-card {
+      scroll-snap-align: start;
+      min-width: 280px;
+      max-width: 280px;
+      flex-shrink: 0;
+    }
+
     .filter-bar {
       display: flex;
       flex-wrap: wrap;
@@ -1730,6 +1797,21 @@
         <span class="section-label">ผลงาน</span>
         <h2 class="section-title" id="projects-heading">ผลงานคัดสรร</h2>
 
+        <div class="featured-strip">
+          <div class="featured-head">
+            <h3>ผลงานเด่น</h3>
+            <div class="featured-nav">
+              <button type="button" class="carousel-nav" id="featuredPrev" aria-label="ผลงานเด่นก่อนหน้า">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button type="button" class="carousel-nav" id="featuredNext" aria-label="ผลงานเด่นถัดไป">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="featured-track" id="featuredTrack"></div>
+        </div>
+
         <div class="filter-bar" role="group" aria-label="กรองผลงาน">
           <button class="filter-btn active" data-filter="all" aria-pressed="true">ทั้งหมด <span class="filter-count">13</span></button>
           <button class="filter-btn" data-filter="fullstack" aria-pressed="false">Full Stack <span class="filter-count">5</span></button>
@@ -1743,7 +1825,7 @@
         <div class="works-grid">
 
           <!-- BuildNest Construction -->
-          <article class="work-card reveal" data-tags="landing">
+          <article class="work-card reveal" data-tags="landing" data-featured="1">
             <a class="work-thumb" href="showcase-buildnest.html" aria-label="เปิดหน้าผลงาน BuildNest">
               <img src="assets/thumbs/construction-landing.svg" alt="BuildNest construction landing page preview" loading="eager" width="1200" height="750" />
             </a>
@@ -1887,7 +1969,7 @@
           </article>
 
           <!-- Elevate Commerce — CSS mini-UI preview -->
-          <article class="work-card reveal" data-tags="fullstack ecommerce">
+          <article class="work-card reveal" data-tags="fullstack ecommerce" data-featured="1">
             <a class="work-thumb" href="showcase-elevate-commerce.html" aria-label="เปิดหน้าผลงาน Elevate Commerce" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#f8f9ff;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;">
 
@@ -2072,7 +2154,7 @@
           </article>
 
           <!-- RATRI Restaurant — CSS mini-UI preview -->
-          <article class="work-card reveal" data-tags="fullstack landing">
+          <article class="work-card reveal" data-tags="fullstack landing" data-featured="1">
             <a class="work-thumb" href="showcase-ratri-restaurant.html" aria-label="เปิดหน้าผลงาน RATRI Restaurant" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#0c0a08;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
                 <!-- warm gold glow -->
@@ -2216,7 +2298,7 @@
           </article>
 
           <!-- BookEase Dashboard — CSS mini-UI preview (light theme) -->
-          <article class="work-card reveal" data-tags="fullstack dashboard">
+          <article class="work-card reveal" data-tags="fullstack dashboard" data-featured="1">
             <a class="work-thumb" href="showcase-bookease.html" aria-label="เปิดหน้าผลงาน BookEase Dashboard" style="display:block;overflow:hidden;">
               <div style="width:100%;height:100%;background:#f8fafc;display:flex;flex-direction:column;font-family:'Inter',sans-serif;overflow:hidden;position:relative;">
                 <!-- purple glow -->
@@ -2460,7 +2542,7 @@
           </article>
 
           <!-- VELVÉ Aesthetics — CSS mini-UI preview -->
-          <article class="work-card reveal" data-tags="landing app">
+          <article class="work-card reveal" data-tags="landing app" data-featured="1">
             <a class="work-thumb" href="showcase-velve-aesthetics.html" aria-label="เปิดหน้าผลงาน VELVÉ Aesthetics"
                style="display:block;overflow:hidden;position:relative;">
               <img
@@ -2847,6 +2929,40 @@
 
   <script>
     (() => {
+
+      /* ---- Featured-work carousel ---- */
+      const featuredTrack = document.getElementById('featuredTrack');
+      if (featuredTrack) {
+        const featuredSource = document.querySelectorAll('.work-card[data-featured]');
+        featuredSource.forEach(card => {
+          const clone = card.cloneNode(true);
+          clone.classList.remove('reveal');
+          clone.removeAttribute('data-featured');
+          clone.removeAttribute('data-tags');
+          featuredTrack.appendChild(clone);
+        });
+
+        const prevBtn = document.getElementById('featuredPrev');
+        const nextBtn = document.getElementById('featuredNext');
+        const scrollAmount = () => (featuredTrack.querySelector('.work-card')?.offsetWidth || 280) + 16;
+
+        const updateNavState = () => {
+          const max = featuredTrack.scrollWidth - featuredTrack.clientWidth;
+          prevBtn.disabled = featuredTrack.scrollLeft <= 4;
+          nextBtn.disabled = featuredTrack.scrollLeft >= max - 4;
+        };
+
+        prevBtn?.addEventListener('click', () => {
+          featuredTrack.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+        });
+        nextBtn?.addEventListener('click', () => {
+          featuredTrack.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+        });
+        featuredTrack.addEventListener('scroll', updateNavState);
+        window.addEventListener('resize', updateNavState);
+        updateNavState();
+      }
+
       /* ---- Scroll reveal with stagger ---- */
       const reveals = document.querySelectorAll('.reveal');
       if ('IntersectionObserver' in window) {
