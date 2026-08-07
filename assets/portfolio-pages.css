@@ -454,6 +454,32 @@ p {
   transition: transform 180ms var(--ease), box-shadow 180ms var(--ease), border-color 180ms var(--ease);
 }
 
+/* Preview thumbnail, full-bleed to the card's edges. The negative margins
+   cancel .project-link's padding; the grid item stretches, so no width is
+   needed. aspect-ratio plus width/height on the tag keeps CLS at 0 while
+   the image is still loading. */
+.project-link img {
+  margin: -18px -18px 2px;
+  /* A replaced element does not stretch to its grid track, so it would sit at
+     its intrinsic 351px inside a wider card. 100% is the track; +36px cancels
+     the padding the negative margins pulled it over. */
+  width: calc(100% + 36px);
+  max-width: none;
+  height: auto;
+  aspect-ratio: 351 / 220;
+  object-fit: cover;
+  border-bottom: 1px solid var(--line);
+  border-radius: calc(var(--r) - 1px) calc(var(--r) - 1px) 0 0;
+  background: var(--bg);
+}
+
+/* Cards that carry a preview start their text at the top; without this the
+   space-between meant for text-only cards pushes the copy to the bottom. */
+.project-link:has(img) {
+  align-content: start;
+  gap: 12px;
+}
+
 .project-link:hover {
   transform: translateY(-2px);
   border-color: var(--accent);
