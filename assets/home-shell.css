@@ -246,23 +246,43 @@
       background: var(--accent);
     }
 
+    /* The h1 no longer sets the display type itself — .hero-role and
+       .hero-name each carry their own, because the role now leads and the
+       name is the byline under it. Buyers search the service, not the person,
+       and the h1 text order follows the visual order. */
     .hero h1 {
-      font-size: clamp(3rem, 7.5vw, 5.8rem);
-      font-weight: 800;
-      line-height: 1.04;
-      letter-spacing: -0.03em;
-      color: var(--ink);
-      max-width: 13ch;
       margin-bottom: 22px;
     }
 
+    /* 2.8rem is the measured ceiling: the .hero-left grid track is 526px and
+       the English line fills it at 2.9rem, tipping to three lines at 3.1rem.
+       No max-width — the track already bounds it, and a ch limit cut the Thai
+       mid-word. */
     .hero-role {
       display: block;
-      font-size: clamp(1rem, 1.8vw, 1.25rem);
+      font-size: clamp(1.85rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+    }
+
+    /* Two real colours, not a gradient: `background-clip: text` computes the
+       text colour to transparent, which leaves the contrast audit unable to
+       measure it — and this page has to hold Accessibility 100.
+       --accent-text (#7c93fb), not --accent, is the vetted one on --bg. */
+    .hero-role-alt {
+      display: block;
+      color: var(--accent-text);
+    }
+
+    .hero-name {
+      display: block;
+      margin-top: 18px;
+      font-size: clamp(1rem, 1.8vw, 1.3rem);
       font-weight: 600;
-      letter-spacing: -0.01em;
-      color: var(--muted-2);
-      margin-top: 10px;
+      letter-spacing: 0.01em;
+      color: var(--ink-2);
     }
 
     .hero-desc {
@@ -1423,7 +1443,6 @@
     }
 
     @media (max-width: 480px) {
-      .hero h1    { font-size: clamp(2.6rem, 14vw, 3.4rem); }
       .hero-ctas  { flex-direction: column; }
       .hero-ctas .btn { width: 100%; }
       /* Contact form send button goes full-width on very small screens */
@@ -1434,7 +1453,6 @@
     }
 
     @media (max-width: 360px) {
-      .hero h1   { font-size: clamp(1.9rem, 11vw, 2.3rem); }
       .btn-project, .btn-github { width: 100%; flex: none; }
       .work-foot { gap: 6px; }
     }

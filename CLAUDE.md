@@ -516,7 +516,7 @@ copy.
 | Section | id | Description |
 |---------|----|-------------|
 | Nav | — | Logo + links: Services, Reviews, Projects, About, Experience, Case Studies, Contact, Resume |
-| Hero | `#top` | Name, full-time service positioning, primary CTA → Fastwork (external), secondary CTA → Services/pricing |
+| Hero | `#top` | **Role leads, name is the byline.** `h1` holds `.hero-role` (`นักพัฒนาเว็บฟรีแลนซ์` in `--ink`) + `.hero-role-alt` (`Freelance Web Developer` in `--accent-text`, own line) + `.hero-name` at ~1/2 the size in `--ink-2`. Buyers search the service, not the person, and the h1 text order follows the visual order. Two real colours, never `background-clip: text` — that computes the colour to transparent and the contrast audit cannot measure it. `.hero-role` maxes at **2.8rem**: the `.hero-left` track is 526px, the English line fills it at 2.9rem and tips to three lines at 3.1rem. No `max-width` on the `h1` — a `ch` limit cut the Thai mid-word. Primary CTA → Fastwork, secondary → pricing |
 | Need selector | `#need` | 8 tiles directly under the hero — 7 industries → their `web-*.html` page, 8th ("ไม่แน่ใจ") → `#contact`. 4×2 desktop, 2×4 mobile. Inline SVG icons, all `aria-hidden` |
 | Tech Stack | — | Dual-row logo marquee (Simple Icons inlined as SVG symbols), opposite scroll directions, pause on hover, reduced-motion static |
 | Services | `#services` | 3 priced packages (Landing Page ฿3,900 / Dashboard UI ฿7,900 / Business Website ฿9,900), Thai copy, each links to Fastwork + `#contact` |
