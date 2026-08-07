@@ -1483,7 +1483,12 @@
     }
 
     /* ── Tech stack marquee ─────────────────────── */
-    .stack-sec { padding: 6px 0 30px; overflow: hidden; }
+    /* Only `overflow` is set here. The padding used to be `6px 0 30px`, which
+       replaced .section's clamp() outright and left a 94px join above the
+       marquee where every other section boundary on the page is 176px — the
+       logo band read as crowded up against the pricing cards. Inheriting
+       .section is the whole fix; do not reintroduce a padding here. */
+    .stack-sec { overflow: hidden; }
     .stack-mask {
       overflow: hidden;
       -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);

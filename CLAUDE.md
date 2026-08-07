@@ -266,6 +266,26 @@ literal fallback.
 homepages' stylesheets were byte-identical apart from one `content:` string, now the
 `--preview-label` custom property; `index-en.html` keeps a 3-line `<style>` overriding it.
 
+### Vertical rhythm
+
+`.section` is `padding: clamp(56px, 9vw, 88px) 0`, so **every section boundary is 176px on
+desktop and 112px on mobile** — measured in a browser, not read off the sheet. A section that
+sets its own `padding` replaces that clamp outright and silently breaks the rhythm:
+`.stack-sec` carried `6px 0 30px` and produced a 94px join, barely half of its neighbours, so
+the logo marquee read as crowded against the pricing cards. Fixed 2026-08-07 by deleting the
+override, not by tuning it. **A new band on a home-shell page should take `.section`'s padding
+and add nothing.**
+
+Two bands legitimately differ, because both carry their own background and so read as separate
+surfaces rather than as part of the flow: `.contact-section` (`80px 0`, `#090d13`) and
+`.footer-section` (`clamp(48px, 7vw, 72px) 0 …`, `#010409`).
+
+Audited 2026-08-07 when the gaps were questioned as too large. They are not: the 1,392px of
+inter-section space is 14.7% of the page, while `#projects` alone is **36.7%**. Trimming the
+clamp to 64px would recover 3.7% of page height for a visibly tighter page — measure before
+touching it. Every other section is transparent over the page background, which is why the
+spacing *reads* emptier than it measures.
+
 **Behaviour lives in `assets/site-ui.js`, not inline.** `home-shell.css` sets
 `.reveal { opacity: 0 }` and only `.reveal.visible` restores it, so any page using `.reveal`
 **must** ship the IntersectionObserver — without it every card renders invisible, and
