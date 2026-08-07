@@ -72,6 +72,26 @@
   let instances = 0;
 
   function init(root) {
+    /* The markup used to be repeated in all 61 files. The page now supplies
+       an empty <div class="site-search"></div> and this fills it, so the
+       widget's structure lives in exactly one place. Placement stays in the
+       HTML because it differs per page family — .nav-inner on home-shell
+       pages, .page-shell nav on portfolio-pages ones, plus a second copy
+       inside .nav-mobile-panel. */
+    if (!root.querySelector('input[type="search"]')) {
+      const en = lang === 'en';
+      root.innerHTML =
+        '<div class="site-search-field">' +
+          '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>' +
+          '<input type="search" autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list"' +
+          ' aria-label="' + (en ? 'Search this site' : 'ค้นหาในเว็บไซต์') + '"' +
+          ' placeholder="' + (en ? 'Search work, services, pricing…' : 'ค้นหาผลงาน บริการ ราคา…') + '" />' +
+        '</div>' +
+        '<div class="site-search-panel" role="listbox" aria-label="' +
+          (en ? 'Search results' : 'ผลการค้นหา') + '" hidden></div>' +
+        '<p class="site-search-status" role="status" aria-live="polite"></p>';
+    }
+
     const input  = root.querySelector('input[type="search"]');
     const panel  = root.querySelector('.site-search-panel');
     const status = root.querySelector('.site-search-status');

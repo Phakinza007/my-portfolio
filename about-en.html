@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="assets/home-shell.css" />
   <style>:root{--preview-label:'View Preview \2192';}</style>
   <link rel="stylesheet" href="assets/site-search.css" />
-  <script src="assets/site-search.js" defer></script>
+  <script src="assets/site-search.js?v=self-render" defer></script>
   <script src="assets/site-ui.js" defer></script>
   <script src="assets/analytics.js" defer></script>
 </head>
@@ -54,16 +54,7 @@
       </nav>
 
 
-      <div class="site-search">
-        <div class="site-search-field">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
-          <input type="search" autocomplete="off" role="combobox" aria-expanded="false"
-                 aria-autocomplete="list" aria-label="Search this site"
-                 placeholder="Search work, services, pricing…" />
-        </div>
-        <div class="site-search-panel" role="listbox" aria-label="Search results" hidden></div>
-        <p class="site-search-status" role="status" aria-live="polite"></p>
-      </div>
+      <div class="site-search"></div>
 
       <a class="nav-resume" href="/#contact">Contact</a>
 
@@ -74,16 +65,7 @@
 
     <!-- Mobile drawer -->
     <nav class="nav-mobile-panel" id="mobile-panel" aria-label="Mobile navigation">
-      <div class="site-search">
-        <div class="site-search-field">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
-          <input type="search" autocomplete="off" role="combobox" aria-expanded="false"
-                 aria-autocomplete="list" aria-label="Search this site"
-                 placeholder="Search work, services, pricing…" />
-        </div>
-        <div class="site-search-panel" role="listbox" aria-label="Search results" hidden></div>
-        <p class="site-search-status" role="status" aria-live="polite"></p>
-      </div>
+      <div class="site-search"></div>
       <a href="index-en.html">Home</a>
       <a href="work-en.html">Work</a>
       <a href="services-en.html">Services</a>
