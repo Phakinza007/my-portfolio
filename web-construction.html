@@ -24,7 +24,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=optional" rel="stylesheet">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="site.webmanifest" />
-  <link rel="stylesheet" href="assets/portfolio-pages.css?v=story-stack" />
+  <link rel="stylesheet" href="assets/portfolio-pages.css?v=crumbs" />
   <link rel="stylesheet" href="assets/site-search.css" />
   <script src="assets/site-search.js?v=self-render" defer></script>
   <script src="assets/analytics.js" defer></script>
@@ -116,6 +116,32 @@
   ]
 }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "หน้าแรก",
+      "item": "https://ph-akin.dev/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "บริการ",
+      "item": "https://ph-akin.dev/services.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "รับทำเว็บบริษัทก่อสร้าง",
+      "item": "https://ph-akin.dev/web-construction.html"
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <header class="topbar">
@@ -144,6 +170,13 @@
   <main>
     <section class="hero case-hero">
       <div class="page-shell">
+                <nav aria-label="เส้นทาง">
+          <ol class="crumbs">
+            <li><a href="/">หน้าแรก</a></li>
+            <li><a href="services.html">บริการ</a></li>
+            <li aria-current="page">รับทำเว็บบริษัทก่อสร้าง</li>
+          </ol>
+        </nav>
         <span class="eyebrow">รับทำเว็บไซต์</span>
         <h1>รับทำเว็บบริษัทก่อสร้าง และรับเหมา</h1>
         <p class="hero-copy">งานก่อสร้างมูลค่าสูง คนจ้างจึงเช็กก่อนเสมอว่าคุณเคยทำอะไรมาแล้วบ้าง เว็บที่มีแกลเลอรีผลงานจริงและขอบเขตงานชัดเจน ทำให้คุณผ่านด่านนั้นก่อนจะได้คุยกันด้วยซ้ำ</p>

@@ -187,6 +187,24 @@ button:focus-visible {
   min-width: 0;
 }
 
+/* Breadcrumb. Mirrors home-shell.css's .crumbs so the two families look the
+   same; the token names differ (--line here, --border there). */
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.crumbs a { color: var(--muted); }
+.crumbs a:hover { color: var(--accent-text); text-decoration: underline; }
+.crumbs li + li::before { content: "\203A"; margin-right: 8px; }
+.crumbs [aria-current="page"] { color: var(--ink); }
+
 .eyebrow {
   display: inline-flex;
   align-items: center;
