@@ -366,14 +366,19 @@ a chip would cover them), and the `VDO` badge (no project has video).
 
 ## The `#need` selector
 
-**Nine tiles** — eight industries plus "ไม่แน่ใจ" — on `index`, `index-en`, `work` and `work-en`.
-`.need-grid` is **three columns**, not four: nine items divide evenly across three and leave one
-orphaned across four. Two columns below 900px.
+**Six tiles** on `index`, `index-en`, `work` and `work-en` — clinic, booking, restaurant, shop,
+gym, construction. `.need-grid` is **three columns**, giving a clean 3 × 2; two columns below
+900px. Owner's call on 2026-08-08: solar, "ไม่แน่ใจ" and association came out of the selector.
 
-`web-organization` (สมาคม / มูลนิธิ / องค์กร) was added 2026-08-08 and is the only industry page
-whose `#related` strip points at a **case study** rather than a showcase, because the work behind
-it — RAAT — is real client work. It shows **one** entry. Per the industry-page rules that is
-correct and it must not be padded with loosely-related demos.
+**There are eight industry pages, not six.** `web-solar` and `web-organization` are still live,
+still in `sitemap.xml`, and reach visitors through `services.html` / `services-en.html` instead.
+Anything that removes an industry tile must confirm the page keeps an entry point somewhere, or
+it becomes orphaned — reachable only from the sitemap and the site search.
+
+`web-organization` (สมาคม / มูลนิธิ / องค์กร) is the only industry page whose `#related` strip
+points at a **case study** rather than a showcase, because the work behind it — RAAT — is real
+client work. It shows **one** entry. Per the industry-page rules that is correct and it must not
+be padded with loosely-related demos.
 
 ---
 
