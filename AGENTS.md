@@ -1,8 +1,8 @@
-# CLAUDE.md — Phakin Chawanpunya Portfolio
+# AGENTS.md — Phakin Chawanpunya Portfolio
 
 ## Skills
 
-- **portfolio-add-card** (`.claude/skills/portfolio-add-card/SKILL.md`) — full workflow for adding a new project card. Trigger: any request to "add [page] to the portfolio", "link this page", "create a card for X", or "new project card".
+- **portfolio-add-card** (`.Codex/skills/portfolio-add-card/SKILL.md`) — full workflow for adding a new project card. Trigger: any request to "add [page] to the portfolio", "link this page", "create a card for X", or "new project card".
 
 ---
 
@@ -193,7 +193,7 @@ Tag colour classes:
 
 `_config.yml` controls this. Without it Jekyll renders and serves **every**
 `.md` file that does not start with `_` — which for a long time meant
-`CLAUDE.md`, `README.md`, `DESIGN.md`, `PRODUCT.md` and all 13 plans and specs
+`AGENTS.md`, `README.md`, `DESIGN.md`, `PRODUCT.md` and all 13 plans and specs
 were readable by anyone at `ph-akin.dev/<path>`, with `robots.txt` saying
 `Allow: /`. That included the line stating the 13 project pages are simulated
 client work, the pricing strategy, and the competitor analysis.
@@ -205,8 +205,8 @@ Fastwork reply templates. Those are 404 today *because* Jekyll skips
 underscore-prefixed paths. Jekyll is the guard, not the problem.
 
 Adding a new internal document? Put it under `docs/` (already excluded) or a
-`_`-prefixed folder. If it must live at the repo root — as `CLAUDE.md` does,
-because Claude Code only reads it there — add it to `_config.yml`'s `exclude`
+`_`-prefixed folder. If it must live at the repo root — as `AGENTS.md` does,
+because Codex only reads it there — add it to `_config.yml`'s `exclude`
 list and verify with `curl -o /dev/null -w '%{http_code}' https://ph-akin.dev/<file>`,
 which must return 404.
 
@@ -277,42 +277,6 @@ plus the site search.
 - The 42 showcase / case-study / resume files keep their **contextual** nav on purpose: its
   links differ per page (`ดูเว็บจริง` points somewhere different on each), which a generic bar
   would destroy.
-
----
-
-## The work archive (`work.html` / `work-en.html`)
-
-Rebuilt 2026-08-07 after `bigzweb.com/projects`, scoped down: that page carries 115 projects,
-this one 13, and most of its machinery exists to make 115 navigable.
-
-Layout: breadcrumb → merged hero → the eight `#need` tiles → `.work-layout`, a `240px` sidebar
-beside the results pane → the passive `.work-tagcloud` → case studies → contact.
-
-**The sidebar reuses the nine `<button class="filter-btn">` elements verbatim.** They are not
-radios. `assets/site-ui.js` drives the same filter on `index.html`, so changing the control
-type would break the homepage; only the flex axis differs, in CSS. `aria-pressed` carries the
-state, which is right for a toggle button — adding `role="radio"` without real radio-group
-keyboard semantics would be worse.
-
-Three predicates, ANDed in one `applyFilter()`:
-
-| Predicate | Source | Present on |
-|---|---|---|
-| category | `data-industry` | both pages |
-| keyword | `#work-search`, substring over the card's own `textContent` | archive only |
-| featured | `#featured-toggle`, reads `data-featured` | archive only |
-
-The last two are guarded on their elements, so they are inert on `index.html`. `#filter-status`
-is `.result-count` (visible) on the archive and `.sr-only` on the homepage — the same string
-serves both, and the initial fill is tied to `#work-search` existing so a screen reader is not
-made to announce a result count on page load.
-
-The sidebar ships `<details open>` and `site-ui.js` closes it below 900px. That is JS, not a
-media query, because `<details>` hides its own children and CSS cannot reliably reopen them.
-
-Deliberately **not** copied from bigzweb: a second tag axis (would mean retagging all 13),
-pagination (one page), category chips over the thumbnails (they are detailed SVG mini-UIs and
-a chip would cover them), and the `VDO` badge (no project has video).
 
 ---
 
@@ -432,7 +396,7 @@ Click/scroll heatmaps + session recording via **Microsoft Clarity**, loaded from
 
 ---
 
-## Common Tasks for Claude
+## Common Tasks for Codex
 
 ### Add a new project card
 Use the **portfolio-add-card** skill — it handles the full workflow automatically.

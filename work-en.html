@@ -27,11 +27,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=optional" rel="stylesheet">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="site.webmanifest" />
-  <link rel="stylesheet" href="assets/home-shell.css" />
+  <link rel="stylesheet" href="assets/home-shell.css?v=work-sidebar" />
   <style>:root{--preview-label:'View Preview \2192';}</style>
   <link rel="stylesheet" href="assets/site-search.css" />
   <script src="assets/site-search.js?v=self-render" defer></script>
-  <script src="assets/site-ui.js" defer></script>
+  <script src="assets/site-ui.js?v=archive" defer></script>
   <script src="assets/analytics.js" defer></script>
 </head>
 <body>
@@ -80,19 +80,79 @@
 
     <section class="section" aria-labelledby="work-heading">
       <div class="container">
+        <nav aria-label="Breadcrumb">
+          <ol class="crumbs">
+            <li><a href="index-en.html">Home</a></li>
+            <li aria-current="page">Work</li>
+          </ol>
+        </nav>
         <span class="section-label">Work</span>
         <h1 class="section-title" id="work-heading">All work</h1>
-        <p class="work-problem" style="max-width:60ch;margin-top:10px;">13 projects and 4 case studies, filterable by industry — open any of them for the full write-up and a link to the live site.</p>
+        <p class="work-problem" style="max-width:60ch;margin-top:10px;">13 websites and 4 case studies. Filter by business type or search by keyword — every one opens a full write-up and the live site.</p>
+      </div>
+    </section>
+
+    <section class="section" id="need" aria-labelledby="need-heading">
+      <div class="container">
+        <span class="section-label">Start here</span>
+        <h2 class="section-title" id="need-heading">What kind of site do you need?</h2>
+        <p class="need-sub">Pick the closest match — you'll see real work and pricing for that category.</p>
+        <div class="need-grid">
+          <a class="need-tile" href="web-clinic.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 7v10M7 12h10"/></svg>
+            <strong>Clinic / Beauty</strong>
+            <span>Booking, services, practitioners</span>
+          </a>
+          <a class="need-tile" href="web-booking.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 11h18"/></svg>
+            <strong>Booking / Appointments</strong>
+            <span>Live availability, no double-booking</span>
+          </a>
+          <a class="need-tile" href="web-restaurant.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3v8a3 3 0 0 0 6 0V3M9 11v10M18 3c-1.5 2-2 4-2 6h4c0-2-.5-4-2-6zM18 9v12"/></svg>
+            <strong>Restaurant / Café</strong>
+            <span>Menu, pricing, reservations</span>
+          </a>
+          <a class="need-tile" href="web-shop.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18l-1.6 11.2A2 2 0 0 1 17.4 19H6.6a2 2 0 0 1-2-1.8L3 6zM8 10a4 4 0 0 0 8 0"/></svg>
+            <strong>Online Store</strong>
+            <span>Products, cart, checkout</span>
+          </a>
+          <a class="need-tile" href="web-gym.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6M8 7v10M16 7v10M20 9v6M8 12h8"/></svg>
+            <strong>Fitness / Gym</strong>
+            <span>Class timetable, memberships</span>
+          </a>
+          <a class="need-tile" href="web-construction.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 21V10l7-5 7 5v11M10 21v-6h4v6"/></svg>
+            <strong>Construction</strong>
+            <span>Portfolio, quote requests</span>
+          </a>
+          <a class="need-tile" href="web-solar.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9L7 7M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/></svg>
+            <strong>Solar / Energy</strong>
+            <span>Savings estimate, packages</span>
+          </a>
+          <a class="need-tile" href="#contact">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <strong>Not sure yet</strong>
+            <span>Tell me the problem, I'll help</span>
+          </a>
+        </div>
       </div>
     </section>
 
 <section class="section" id="projects" aria-labelledby="projects-heading">
       <div class="container">
-        <span class="section-label">Portfolio</span>
-        <h2 class="section-title" id="projects-heading">Selected Work</h2>
+        <h2 class="sr-only" id="projects-heading">Project list</h2>
+        <div class="work-layout">
 
-        <div class="filter-bar" role="group" aria-label="Filter projects">
-          <button class="filter-btn active" data-filter="all" data-label="All" aria-pressed="true">All <span class="filter-count">13</span></button>
+          <details class="work-filter" open>
+            <summary>Filter work</summary>
+            <input type="search" id="work-search" class="work-search" autocomplete="off"
+                   placeholder="Search within work…" aria-label="Search within work" />
+            <div class="filter-bar" role="group" aria-label="Filter by business type">
+              <button class="filter-btn active" data-filter="all" data-label="All" aria-pressed="true">All <span class="filter-count">13</span></button>
           <button class="filter-btn" data-filter="clinic" data-label="Clinic / Beauty" aria-pressed="false">Clinic / Beauty <span class="filter-count">3</span></button>
           <button class="filter-btn" data-filter="booking" data-label="Booking" aria-pressed="false">Booking <span class="filter-count">2</span></button>
           <button class="filter-btn" data-filter="restaurant" data-label="Restaurant / Café" aria-pressed="false">Restaurant / Café <span class="filter-count">2</span></button>
@@ -101,14 +161,20 @@
           <button class="filter-btn" data-filter="construction" data-label="Construction" aria-pressed="false">Construction <span class="filter-count">1</span></button>
           <button class="filter-btn" data-filter="solar" data-label="Solar / Energy" aria-pressed="false">Solar / Energy <span class="filter-count">1</span></button>
           <button class="filter-btn" data-filter="other" data-label="Other" aria-pressed="false">Other <span class="filter-count">2</span></button>
-        </div>
-        <p class="active-filter" id="active-filter-chip" hidden>
+            </div>
+          </details>
+
+          <div class="work-results">
+            <div class="work-results-head">
+              <p class="result-count" role="status" aria-live="polite" id="filter-status"></p>
+              <button type="button" class="featured-toggle" id="featured-toggle" aria-pressed="false">Featured <span class="filter-count">5</span></button>
+            </div>
+            <p class="active-filter" id="active-filter-chip" hidden>
           Filtering by: <strong id="active-filter-label"></strong>
           <button type="button" id="active-filter-clear" class="active-filter-clear">Clear filter</button>
         </p>
-        <p class="sr-only" role="status" aria-live="polite" id="filter-status"></p>
 
-        <div class="works-grid">
+            <div class="works-grid">
 
           <!-- BuildNest Construction -->
           <article class="work-card reveal" data-industry="construction" data-featured="1">
@@ -429,10 +495,9 @@
           </article>
 
           <p class="works-empty" id="works-empty" hidden>No projects in this category yet.</p>
+            </div>
 
-        </div>
-
-        <div class="work-tagcloud" aria-label="Styles and categories I've worked on">
+            <div class="work-tagcloud" aria-label="Styles and categories I've worked on">
           <span class="work-tagcloud-label">Styles and categories I've worked on</span>
           <span class="tag tag-mint">Construction</span>
           <span class="tag tag-amber">Fitness</span>
@@ -459,7 +524,9 @@
           <span class="tag tag-gray">Brand</span>
           <span class="tag tag-gray">Thai</span>
         </div>
+          </div>
 
+        </div>
       </div>
     </section>
 
@@ -508,7 +575,7 @@
       </div>
     </section>
 
-    <section class="contact-section" aria-labelledby="work-cta-heading">
+    <section class="contact-section" id="contact" aria-labelledby="work-cta-heading">
       <div class="container">
         <span class="section-label">What are you after?</span>
         <h2 class="section-title" id="work-cta-heading">Tell me what you need</h2>

@@ -685,6 +685,139 @@
 
     .filter-btn.active .filter-count { background: rgba(0,0,0,0.28); color: #fff; }
 
+    /* ============================================================
+       WORK ARCHIVE — sidebar filter + results pane
+       The sidebar reuses .filter-btn verbatim so assets/site-ui.js,
+       which drives the same filter on index.html, needs no change.
+       Only the flex axis of the container differs from .filter-bar.
+    ============================================================ */
+    .work-layout {
+      display: grid;
+      grid-template-columns: 240px minmax(0, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .work-filter {
+      position: sticky;
+      top: 88px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      background: var(--surface);
+    }
+
+    .work-filter > summary {
+      font: 700 0.95rem/1 'Outfit', sans-serif;
+      color: var(--ink);
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .work-filter > summary::-webkit-details-marker { display: none; }
+    .work-filter > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    .work-search {
+      display: block;
+      width: 100%;
+      height: 38px;
+      margin: 14px 0 6px;
+      padding: 0 12px;
+      border: 1px solid var(--border-2);
+      border-radius: 8px;
+      background: var(--bg);
+      color: var(--ink);
+      font: 500 0.86rem/1 'Outfit', sans-serif;
+    }
+
+    .work-search::placeholder { color: var(--muted); }
+    .work-search:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .work-filter .filter-bar {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 4px;
+      margin: 14px 0 0;
+    }
+
+    /* Stacked and left-aligned, with the count pushed to the right edge */
+    .work-filter .filter-btn {
+      justify-content: flex-start;
+      height: 34px;
+      padding: 0 10px;
+      border-color: transparent;
+      border-radius: 8px;
+      text-align: left;
+    }
+
+    .work-filter .filter-btn .filter-count { margin-left: auto; }
+
+    .work-results-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .result-count {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .featured-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 32px;
+      padding: 0 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 99px;
+      background: transparent;
+      color: var(--muted);
+      font: 600 0.8rem/1 'Outfit', sans-serif;
+      cursor: pointer;
+      transition: background 150ms, color 150ms, border-color 150ms;
+    }
+
+    .featured-toggle:hover { border-color: rgba(255,255,255,0.28); color: var(--fg); }
+
+    .featured-toggle[aria-pressed="true"] {
+      background: var(--accent-dark);
+      border-color: transparent;
+      color: #fff;
+    }
+
+    .featured-toggle[aria-pressed="true"] .filter-count { background: rgba(0,0,0,0.28); color: #fff; }
+
+    .crumbs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 12px;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .crumbs a { color: var(--muted); text-decoration: none; }
+    .crumbs a:hover { color: var(--accent-text); text-decoration: underline; }
+    .crumbs li + li::before { content: "\203A"; margin-right: 8px; }
+    .crumbs [aria-current="page"] { color: var(--ink); }
+
+    @media (max-width: 900px) {
+      .work-layout { grid-template-columns: minmax(0, 1fr); }
+      .work-filter { position: static; }
+      .work-filter > summary::after { content: " \25BE"; }
+      .work-filter[open] > summary::after { content: " \25B4"; }
+      .work-filter .filter-bar { flex-direction: row; flex-wrap: wrap; }
+      .work-filter .filter-btn { justify-content: center; }
+      .work-filter .filter-btn .filter-count { margin-left: 6px; }
+    }
+
     /* Visually hidden but exposed to assistive tech */
     .sr-only {
       position: absolute;
