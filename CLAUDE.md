@@ -31,14 +31,18 @@ my-portfolio/
 ├── CNAME                         # ph-akin.dev custom domain
 │
 ├── assets/
-│   ├── thumbs/                   # Legacy .jpg thumbnails (some cards use CSS mini-UI instead)
+│   ├── thumbs/                   # 12 card thumbnails, all SVG (see Card Thumbnail Approach)
 │   ├── screenshots/              # showcase-*.jpg hero screenshots
 │   ├── social-preview.png        # OG image (1200×630)
 │   ├── favicon.svg
 │   ├── analytics.js              # Microsoft Clarity loader + click tracking (shared)
+│   ├── site-ui.js                # reveal + mobile drawer + work filter — 12 portfolio pages
+│   ├── site-search.js            # search widget; builds its own markup into an empty div
+│   ├── search-index.json         # hand-maintained, 33 entries per language
 │   ├── resume-phakin-chawanpunya.pdf
+│   ├── home-shell.css            # index / work / services / about / faq / process (+ -en)
 │   ├── portfolio-context.css     # "← Back to Portfolio" floating button (shared)
-│   └── portfolio-pages.css       # Shared styles for resume / case study / showcase pages
+│   └── portfolio-pages.css       # resume / case study / showcase / category / web-* pages
 │
 ├── case-study-*.html             # 4 case studies — THAI
 ├── case-study-*-en.html          # 4 case studies — English
@@ -140,9 +144,43 @@ not style descriptors. `index-en.html` carries English equivalents but the same
 
 ## Card Thumbnail Approach
 
-Cards use **CSS-only mini-UI previews** (inline styles inside the `<a class="work-thumb">`),
-not screenshot images. This means no `assets/thumbs/` files are needed for new cards.
-The `portfolio-add-card` skill handles the full thumbnail creation process.
+**All 13 cards are `<img src="assets/thumbs/*.svg">`.** The inline-styled `<div>` mini-UIs
+they used to be were transcribed to SVG on 2026-08-07 — 161.5 KB of HTML removed from the
+four files that carry the grid (`index`, `index-en`, `work`, `work-en`), against 64 KB of
+SVG the browser fetches once and caches across every page. `index.html` went 151 → 103 KB.
+
+The SVGs were **not redrawn by eye**. A browser-console extractor read each element's
+`getBoundingClientRect()` and computed style at the card's natural size (351.3 × 219.6) and
+emitted a `<rect>` or `<text>` per shape, so flexbox was resolved to numbers before anything
+was transcribed. Six things the first version silently got wrong, each found only by
+comparing side by side at natural size — if you ever rerun this, they are the traps:
+
+| Trap | Symptom |
+|---|---|
+| `radial-gradient` fed to the linear parser | first stop becomes `stop-color="at 60% 30%"` → renders **opaque black** |
+| text positioned from the element box | a flex-centred button label lands in the box's top-left corner (use a `Range` over the text nodes) |
+| only `borderTopWidth` read | a header ruled with `border-bottom` alone vanishes |
+| `transform` ignored | `getBoundingClientRect` returns the transformed AABB — a 45° chevron squares off, a skewed bar stands upright |
+| `border-radius` passed through unclamped | CSS clamps to `min(w,h)/2`; SVG clamps `rx`/`ry` **independently**, so `99px` on a 56×12 pill becomes a full ellipse |
+| `letter-spacing` / `text-transform` dropped | tracked-out wordmarks render tight; `SELECT PACKAGE` becomes `Select Package` |
+
+**Compare at natural size only.** At any other scale the SVG scales with its viewBox while
+the original's `rem`-sized text does not, so a correct SVG looks wrong. A three-up comparison
+at 0.72 scale once produced a false "all three are broken" verdict.
+
+Two effects are hand-patched because the flat-rect model cannot express them: Iron Republic's
+scanline and SolarPeak's blueprint grid (two 1px gradients tiled at 22px) are `<pattern>`s.
+SolarPeak's is swapped into the existing rect's `fill` **in place** so it keeps its z-order
+behind the content — appending it would paint over everything.
+
+`assets/thumbs/bright-dental.svg` is the one exception: hand-drawn, because that card was a
+remote `images.unsplash.com` photo with no `<div>` to measure. Its palette is read off
+`dental-clinic.html` (ink `#120F0C`, paper `#F7F2E9`, coral `#FF5B3B`).
+
+**XML comments cannot contain `--`.** A comment mentioning `--ink` makes the whole SVG fail
+to parse, and the card renders as a broken-image icon with no console error.
+
+Tag colour classes:
 
 Tag colour classes:
 - `tag-mint` — AI, SaaS, Developer tools, Green-tech, Weather
@@ -196,12 +234,30 @@ literal fallback.
 homepages' stylesheets were byte-identical apart from one `content:` string, now the
 `--preview-label` custom property; `index-en.html` keeps a 3-line `<style>` overriding it.
 
-**Scripts live with the page, not the stylesheet.** `home-shell.css` sets
+**Behaviour lives in `assets/site-ui.js`, not inline.** `home-shell.css` sets
 `.reveal { opacity: 0 }` and only `.reveal.visible` restores it, so any page using `.reveal`
 **must** ship the IntersectionObserver — without it every card renders invisible, and
-Lighthouse still scores 100 because opacity-0 elements stay in the accessibility tree. The
-mobile drawer likewise needs its own toggle handler. Both live inline at the end of
-`index.html`; copy them when creating a new home-shell page.
+Lighthouse still scores 100 because opacity-0 elements stay in the accessibility tree. That
+is exactly how `work.html` once shipped with all 13 cards invisible and a dead hamburger.
+
+Since 2026-08-07 the reveal observer, the mobile drawer and the industry filter live in one
+shared file on **12 pages** (`index`, `work`, `about`, `faq`, `process`, `services`, ± `-en`).
+Three self-guarding blocks, each returning early when its elements are absent. A new
+home-shell page needs one tag and nothing else:
+
+```html
+  <script src="assets/site-ui.js" defer></script>
+```
+
+Both user-visible string sets — the filter status line and the hamburger's `aria-label` —
+are chosen from `document.documentElement.lang`, which is what let the Thai and English
+copies merge. Merging them fixed three bugs that had drifted in: `work-en.html` announced
+its filter results in Thai, the Thai pages carried an English `aria-label`, and the two
+`services` pages had no close-on-outside-click handler at all.
+
+`index.html` / `index-en.html` keep their featured-carousel block inline — it is theirs
+alone, and it still must strip `data-industry` from the clones. **The nine demo pages carry
+their own, smaller reveal implementations and must not be given `site-ui.js`.**
 
 ---
 
@@ -230,6 +286,16 @@ plus the site search.
 everything except the 13 demo pages (they are simulated client sites and must not carry
 portfolio chrome) and `404.html`.
 
+- **The markup is a placeholder.** Pages ship `<div class="site-search"></div>` and the script
+  fills it — 72 copies of the same 11 lines across 61 files collapsed into one place on
+  2026-08-07. Placement stays in the HTML because it differs per family: `.nav-inner` on
+  home-shell pages, `.page-shell nav` on portfolio-pages ones, plus a second instance inside
+  `.nav-mobile-panel`. The two instances namespace their option ids (`ss0-opt-0`) or the
+  listboxes collide and `aria-activedescendant` points at the wrong element.
+- **The script tag is versioned: `assets/site-search.js?v=self-render`.** Bump it on any
+  change that alters the generated markup. A returning visitor pairing the new HTML with a
+  cached copy of an older script gets an empty placeholder and **no search field at all** —
+  which is exactly what happened during testing.
 - **`search-index.json` is hand-maintained.** A new page that is not added to *both* the `th`
   and `en` arrays is simply unfindable, and nothing fails to tell you.
 - Matching is plain **substring** — Thai has no word spaces, so segmentation would be heavy and
@@ -358,6 +424,28 @@ If viewport resize isn't available in your environment, embed the page in a 375�
 `<iframe>` on a blank page instead — its own CSS media queries evaluate against the
 iframe's viewport, giving the same real breakpoint behavior — then run the same
 snippet against `iframe.contentDocument`/`contentWindow`.
+
+### Edit a showcase page
+All 26 showcase files share one body layout, added 2026-08-07: a single-column **story
+stack** read top to bottom, replacing the old two-column `.study-grid` + separate `#fit`
+section + `.result-band`. One `<section class="section" id="overview">` holds:
+
+1. `.story-intro` — one muted line telling the reader how to read the page
+2. `.story-stack` with exactly **four** `.story-card`s, each opening with a `.story-head`:
+   a `.story-icon` badge (inline SVG, `stroke="currentColor"`) beside an `<h2>` and a
+   `.story-kicker` one-liner. The four are, in order: project overview (+ `.tag-list`),
+   the 30-second version (`.highlight-list`), who it fits, and the ask — the last is
+   `.story-card.accent` and carries `.story-actions` with the Fastwork + email buttons
+3. `.story-links` — "live site · all projects →"
+
+`#related` stays below as its own section. The card headings are deliberately generic
+labels; the project-specific claim belongs in the paragraph, not the heading.
+
+The `.story-*` block lives at the end of `assets/portfolio-pages.css` and uses **only
+existing tokens** — no new colours. `.story-card h2` overrides the sheet's global `h2`
+clamp, which is far too large inside a stack.
+
+`.eyebrow` is not used inside story cards, and neither is `.study-block`.
 
 ### Add a case study
 Case studies ship in bilingual pairs, same as every other page on the site (see
