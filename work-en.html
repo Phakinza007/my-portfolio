@@ -31,6 +31,7 @@
   <style>:root{--preview-label:'View Preview \2192';}</style>
   <link rel="stylesheet" href="assets/site-search.css" />
   <script src="assets/site-search.js" defer></script>
+  <script src="assets/site-ui.js" defer></script>
   <script src="assets/analytics.js" defer></script>
 </head>
 <body>
@@ -601,125 +602,5 @@
 
     </div>
   </footer>
-  <script>
-    (() => {
-/* ---- Scroll reveal with stagger ---- */
-      const reveals = document.querySelectorAll('.reveal');
-      if ('IntersectionObserver' in window) {
-        const obs = new IntersectionObserver((entries) => {
-          entries.forEach(e => {
-            if (e.isIntersecting) {
-              // Cards in a grid stagger in one after another based on their column index
-              const siblings = [...(e.target.parentElement?.children ?? [])];
-              const idx      = siblings.indexOf(e.target);
-              e.target.style.transitionDelay = (idx % 3) * 90 + 'ms';
-              e.target.classList.add('visible');
-              // Remove the delay once the animation is done so hover stays instant
-              setTimeout(() => { e.target.style.transitionDelay = ''; }, 700);
-              obs.unobserve(e.target);
-            }
-          });
-        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-        reveals.forEach(el => obs.observe(el));
-      } else {
-        reveals.forEach(el => el.classList.add('visible'));
-      }
-
-      /* ---- Mobile nav ---- */
-      const toggle = document.querySelector('.nav-toggle');
-      const panel  = document.getElementById('mobile-panel');
-
-      toggle?.addEventListener('click', () => {
-        const open = panel.classList.toggle('open');
-        toggle.setAttribute('aria-expanded', String(open));
-        toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
-      });
-
-      /* Close drawer on in-page link tap */
-      panel?.querySelectorAll('a[href^="#"]').forEach(a => {
-        a.addEventListener('click', () => {
-          panel.classList.remove('open');
-          toggle?.setAttribute('aria-expanded', 'false');
-          toggle?.setAttribute('aria-label', 'Open navigation');
-        });
-      });
-
-      /* Close drawer when clicking outside the nav */
-      document.addEventListener('click', (e) => {
-        if (panel?.classList.contains('open') &&
-            !panel.contains(e.target) &&
-            !toggle?.contains(e.target)) {
-          panel.classList.remove('open');
-          toggle?.setAttribute('aria-expanded', 'false');
-          toggle?.setAttribute('aria-label', 'Open navigation');
-        }
-      });
-
-      /* ---- Filter bar: one axis, industry ---- */
-      const filterBtns   = document.querySelectorAll('.filter-btn');
-      const cards        = document.querySelectorAll('.work-card[data-industry]');
-      const emptyState   = document.getElementById('works-empty');
-      const filterStatus = document.getElementById('filter-status');
-      const chip         = document.getElementById('active-filter-chip');
-      const chipLabel    = document.getElementById('active-filter-label');
-      const chipClear    = document.getElementById('active-filter-clear');
-
-      const industriesOf = card => (card.dataset.industry || '').trim().split(/\s+/).filter(Boolean);
-      const matches = (card, filter) => filter === 'all' || industriesOf(card).includes(filter);
-
-      /* Counts are derived from the DOM so they can never drift out of date. */
-      filterBtns.forEach(btn => {
-        const countEl = btn.querySelector('.filter-count');
-        if (!countEl) return;
-        let n = 0;
-        cards.forEach(card => { if (matches(card, btn.dataset.filter)) n++; });
-        countEl.textContent = String(n);
-      });
-
-      function applyFilter(filter, label) {
-        let visible = 0;
-
-        filterBtns.forEach(b => {
-          const on = b.dataset.filter === filter;
-          b.classList.toggle('active', on);
-          b.setAttribute('aria-pressed', on ? 'true' : 'false');
-        });
-
-        cards.forEach(card => {
-          if (matches(card, filter)) {
-            delete card.dataset.hidden;
-            visible++;
-          } else {
-            card.dataset.hidden = '';
-          }
-        });
-
-        if (chip) {
-          const show = filter !== 'all';
-          chip.hidden = !show;
-          if (show && chipLabel) chipLabel.textContent = label;
-        }
-
-        if (emptyState) emptyState.hidden = visible > 0;
-        if (filterStatus) {
-          filterStatus.textContent = visible === 0
-            ? 'ยังไม่มีผลงานในหมวดนี้'
-            : 'แสดง ' + visible + ' ผลงาน';
-        }
-      }
-
-      filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => applyFilter(btn.dataset.filter, btn.dataset.label || ''));
-      });
-
-      if (chipClear) {
-        chipClear.addEventListener('click', () => {
-          applyFilter('all', '');
-          const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
-          if (allBtn) allBtn.focus();
-        });
-      }
-    })();
-  </script>
 </body>
 </html>

@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="assets/home-shell.css" />
   <link rel="stylesheet" href="assets/site-search.css" />
   <script src="assets/site-search.js" defer></script>
+  <script src="assets/site-ui.js" defer></script>
   <script src="assets/analytics.js" defer></script>
 </head>
 <body>
@@ -334,38 +335,5 @@
 
     </div>
   </footer>
-  <script>
-    (() => {
-      /* ---- Mobile nav ---- */
-      const toggle = document.querySelector('.nav-toggle');
-      const panel  = document.getElementById('mobile-panel');
-
-      toggle?.addEventListener('click', () => {
-        const open = panel.classList.toggle('open');
-        toggle.setAttribute('aria-expanded', String(open));
-        toggle.setAttribute('aria-label', open ? 'ปิดเมนู' : 'เปิดเมนู');
-      });
-
-      /* Close drawer on in-page link tap */
-      panel?.querySelectorAll('a[href^="#"]').forEach(a => {
-        a.addEventListener('click', () => {
-          panel.classList.remove('open');
-          toggle?.setAttribute('aria-expanded', 'false');
-          toggle?.setAttribute('aria-label', 'เปิดเมนู');
-        });
-      });
-
-      /* Close drawer when clicking outside the nav */
-      document.addEventListener('click', (e) => {
-        if (panel?.classList.contains('open') &&
-            !panel.contains(e.target) &&
-            !toggle?.contains(e.target)) {
-          panel.classList.remove('open');
-          toggle?.setAttribute('aria-expanded', 'false');
-          toggle?.setAttribute('aria-label', 'เปิดเมนู');
-        }
-      });
-    })();
-  </script>
 </body>
 </html>
