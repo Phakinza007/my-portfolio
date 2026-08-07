@@ -670,6 +670,152 @@ p {
   background: var(--accent);
 }
 
+/* ============================================================
+   SHOWCASE STORY STACK — single-column narrative cards
+   Read top to bottom: what it is → what stands out → who it's
+   for → the ask. Same palette as everything else on this sheet;
+   only the layout is new.
+============================================================ */
+.story-intro {
+  max-width: 68ch;
+  margin: 0 0 22px;
+  color: var(--muted);
+}
+
+.story-stack {
+  display: grid;
+  gap: 16px;
+}
+
+.story-card {
+  padding: clamp(20px, 3vw, 28px);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface);
+}
+
+.story-card.accent {
+  border-color: rgba(82, 116, 248, 0.45);
+  background: linear-gradient(160deg, var(--accent-light), transparent 65%), var(--surface);
+}
+
+.story-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.story-head > div {
+  min-width: 0;
+}
+
+.story-icon {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-sm);
+  background: var(--accent-light);
+  color: var(--accent-text);
+}
+
+.story-icon.amber { background: var(--amber); color: var(--amber-text); }
+.story-icon.mint  { background: var(--mint);  color: var(--mint-text); }
+.story-icon.rose  { background: var(--rose);  color: var(--rose-text); }
+
+.story-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* The card headings are labels inside a stack, not page-level
+   headings — the global h2 clamp is far too large here. */
+.story-card h2 {
+  font-size: 1.22rem;
+  line-height: 1.32;
+  font-weight: 700;
+}
+
+.story-kicker {
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.story-card > p {
+  margin: 0;
+  color: var(--ink-2);
+}
+
+.story-card .highlight-list {
+  margin-top: 0;
+}
+
+.story-card .tag-list .tag::before {
+  content: "<>";
+  margin-right: 7px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.78em;
+  opacity: 0.7;
+}
+
+.story-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.story-actions .button svg {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.story-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  margin-top: 24px;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.story-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent-text);
+}
+
+.story-links a:hover {
+  text-decoration: underline;
+}
+
+.story-links svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .footer-band {
   padding: 32px 0 48px;
 }
