@@ -280,6 +280,23 @@ Two bands legitimately differ, because both carry their own background and so re
 surfaces rather than as part of the flow: `.contact-section` (`80px 0`, `#090d13`) and
 `.footer-section` (`clamp(48px, 7vw, 72px) 0 …`, `#010409`).
 
+**Every second section is banded**: `main > section:nth-of-type(even)` takes `#10151c` — a
+3-step lift off `--bg` — plus hairline `--border` rules top and bottom. `nth-of-type` rather
+than a hand-placed class, so the alternation stays correct through any add/remove/reorder and
+needs no markup on the 12 pages. `main >` is what keeps it off the two body-level bands above.
+
+The rule **redefines `--bg`** inside the band instead of only setting `background`.
+`.section-label` and `.work-search` paint `var(--bg)` on themselves to sit flush with the page;
+without the redefinition they would paint `#0d1117` rectangles on top of the band. Those two,
+plus `body` and `.hero-eyebrow`, are the sheet's only `var(--bg)` readers — and `.hero-eyebrow`
+sits in section 1, which is odd and never banded. **Anything new that paints `var(--bg)` to
+blend with the page keeps working; anything that hardcodes `#0d1117` will not.**
+
+Card-to-background contrast drops 1.094 → 1.059 inside a band, which sounds alarming and is
+not: `.card` / `.work-card` were never carried by fill contrast at 1.09 either — the `#21262d`
+border and `--sh-sm` do that work. Text stays at 5.62:1 minimum, and Lighthouse `color-contrast`
+passes on all three sampled pages.
+
 Audited 2026-08-07 when the gaps were questioned as too large. They are not: the 1,392px of
 inter-section space is 14.7% of the page, while `#projects` alone is **36.7%**. Trimming the
 clamp to 64px would recover 3.7% of page height for a visibly tighter page — measure before

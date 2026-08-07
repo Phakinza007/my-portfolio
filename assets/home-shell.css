@@ -396,6 +396,30 @@
       scroll-margin-top: 80px;
     }
 
+    /* Alternating band. Every section is otherwise transparent over --bg, so
+       the 176px between two identically-coloured blocks reads as far emptier
+       than it measures — there is nothing to say a section ended. A slightly
+       lifted fill plus hairline rules does that job at the same spacing.
+
+       nth-of-type, not a hand-placed class: it alternates correctly no matter
+       how sections are added, removed or reordered, and it needs no markup on
+       the 12 home-shell pages. `main >` keeps it off .contact-section and
+       .footer-band, which are body-level and carry their own darker surfaces.
+
+       --bg is REDEFINED, not merely painted over. .section-label and
+       .work-search set `background: var(--bg)` on themselves to sit flush with
+       the page; setting only `background` here would leave them painting
+       #0d1117 rectangles on top of the band. Redefining the token inside the
+       band makes both track it. Those two, plus body and .hero-eyebrow, are
+       the only var(--bg) readers in this sheet — and .hero-eyebrow lives in
+       section 1, which is odd and never banded. */
+    main > section:nth-of-type(even) {
+      --bg: #10151c;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
     .section-label {
       display: inline-block;
       font-size: 0.73rem;
