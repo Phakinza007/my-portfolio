@@ -1544,7 +1544,8 @@
 
     /* Need selector */
     .need-sub{margin:0 0 1.8rem;color:var(--muted);max-width:52ch;}
-    .need-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;}
+    /* 9 tiles: three columns divide evenly, four would leave one orphaned. */
+    .need-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;}
     .need-tile{display:flex;flex-direction:column;gap:.45rem;padding:1.1rem 1rem;border:1px solid var(--border);border-radius:var(--r);background:var(--surface);text-decoration:none;color:inherit;transition:border-color .18s var(--ease),transform .18s var(--ease);}
     .need-tile:hover{border-color:var(--accent);transform:translateY(-2px);}
     .need-tile:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}

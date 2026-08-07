@@ -54,8 +54,9 @@ my-portfolio/
 ├── landing-page.html / landing-page-en.html       # Service category page — Landing Page (฿3,900)
 ├── dashboard-ui.html / dashboard-ui-en.html        # Service category page — Dashboard UI (฿7,900)
 ├── business-website.html / business-website-en.html # Service category page — Business Website (฿9,900)
-├── web-*.html                    # 7 industry landing pages — THAI ONLY, no -en twin
-│                                 # clinic · booking · restaurant · shop · gym · construction · solar
+├── web-*.html                    # 8 industry landing pages — THAI ONLY, no -en twin
+│                                 # clinic · booking · restaurant · shop · gym · construction ·
+│                                 # solar · organization
 ├── work.html / work-en.html      # Full archive — 13 projects + filter + 4 case studies
 ├── services.html / -en           # 3 packages + price comparison + 7 industry entry points
 ├── about.html / -en              # Bio, experience, tools, KMUTT
@@ -92,8 +93,8 @@ my-portfolio/
 1. The **13 project demo pages** (`construction-landing.html`, `gym-landing.html`, …)
    are simulated client work. Both languages link to the same demo file. Same for
    GitHub / Fastwork / Vercel links.
-2. The **7 industry landing pages** (`web-clinic`, `web-booking`, `web-restaurant`,
-   `web-shop`, `web-gym`, `web-construction`, `web-solar`). The search intent
+2. The **8 industry landing pages** (`web-clinic`, `web-booking`, `web-restaurant`,
+   `web-shop`, `web-gym`, `web-construction`, `web-solar`, `web-organization`). The search intent
    (`รับทำเว็บคลินิก`) is Thai-only, so an English twin would double the file count for
    traffic that does not exist. Both languages' `#need` selectors link to the same
    Thai pages.
@@ -360,6 +361,19 @@ media query, because `<details>` hides its own children and CSS cannot reliably 
 Deliberately **not** copied from bigzweb: a second tag axis (would mean retagging all 13),
 pagination (one page), category chips over the thumbnails (they are detailed SVG mini-UIs and
 a chip would cover them), and the `VDO` badge (no project has video).
+
+---
+
+## The `#need` selector
+
+**Nine tiles** — eight industries plus "ไม่แน่ใจ" — on `index`, `index-en`, `work` and `work-en`.
+`.need-grid` is **three columns**, not four: nine items divide evenly across three and leave one
+orphaned across four. Two columns below 900px.
+
+`web-organization` (สมาคม / มูลนิธิ / องค์กร) was added 2026-08-08 and is the only industry page
+whose `#related` strip points at a **case study** rather than a showcase, because the work behind
+it — RAAT — is real client work. It shows **one** entry. Per the industry-page rules that is
+correct and it must not be padded with loosely-related demos.
 
 ---
 
