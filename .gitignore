@@ -7,5 +7,6 @@ desktop.ini
 *.bak
 
 .claude/worktrees/
+.worktrees/
 
 .superpowers/
