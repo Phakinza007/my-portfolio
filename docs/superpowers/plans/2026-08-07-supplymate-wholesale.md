@@ -249,6 +249,18 @@
 
   ```ts
   test('records immutable B2B checkout details', async ({ page }) => {
+    await signUp(page, {
+      fullName: 'Wholesale Buyer',
+      email: uniqueEmail('wholesale-buyer'),
+      password: 'password123',
+    })
+    await addAddress(page, {
+      recipientName: 'Wholesale Buyer',
+      phone: '0891234567',
+      line1: '99 Test Street',
+      province: 'Bangkok',
+      postalCode: '10110',
+    })
     await page.goto('/products/clear-cup-16oz')
     await expect(page.getByText('ขั้นต่ำ 1 ลัง')).toBeVisible()
     await page.getByRole('button', { name: 'เพิ่มลงตะกร้า' }).click()
