@@ -294,13 +294,29 @@ type would break the homepage; only the flex axis differs, in CSS. `aria-pressed
 state, which is right for a toggle button — adding `role="radio"` without real radio-group
 keyboard semantics would be worse.
 
-Three predicates, ANDed in one `applyFilter()`:
+Four predicates, ANDed in one `applyFilter()`:
 
 | Predicate | Source | Present on |
 |---|---|---|
 | category | `data-industry` | both pages |
 | keyword | `#work-search`, substring over the card's own `textContent` | archive only |
+| tag | `.tag-btn[data-tag]` against the card's `data-tags` | archive only |
 | featured | `#featured-toggle`, reads `data-featured` | archive only |
+
+**`data-tags` is pipe-separated**, not space-separated — eight of the 24 labels contain a
+space (`Fine Dining`, `Full Stack`, `Light UI`, `UI Design`, `Design System`, `Habit Tracker`,
+`Gaming UI`, `Landing Page`). All four card files carry it so the cards stay in sync, though
+only the archive renders the buttons.
+
+The 24 labels were **not invented**: each project's own showcase page already carried English
+tags, and the mapping is those, normalised. Every label owns at least one project, so no tag
+can be clicked into an empty grid — assert that when adding a project or a tag. The one
+exception needed patching: Iron Republic's page says `Fitness brand` where the list says
+`Fitness`.
+
+These pills used to be a passive `.work-tagcloud` under the grid. They moved into the sidebar
+when they became interactive — a filter belongs with the other filters, and a non-clickable
+list sitting there would read as a filter that does nothing.
 
 The last two are guarded on their elements, so they are inert on `index.html`. `#filter-status`
 is `.result-count` (visible) on the archive and `.sr-only` on the homepage — the same string

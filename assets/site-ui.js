@@ -94,8 +94,10 @@
        stay inert and the filter behaves exactly as it did before. */
     const search  = document.getElementById('work-search');
     const featBtn = document.getElementById('featured-toggle');
+    const tagBtns = document.querySelectorAll('.tag-btn');
     let activeFilter = 'all';
     let featuredOnly = false;
+    let activeTag    = '';
 
     const industriesOf = card => (card.dataset.industry || '').trim().split(/\s+/).filter(Boolean);
     const matches = (card, filter) => filter === 'all' || industriesOf(card).includes(filter);
@@ -105,6 +107,11 @@
        no word spaces, so segmenting would be heavy and error-prone. */
     const matchesQuery = (card, q) =>
       !q || (card.textContent || '').replace(/\s+/g, ' ').toLowerCase().includes(q);
+
+    /* data-tags is pipe-separated because eight of the labels contain a
+       space ("Fine Dining", "Full Stack", "Light UI", …). */
+    const tagsOf = card => (card.dataset.tags || '').split('|').filter(Boolean);
+    const matchesTag = (card, t) => !t || tagsOf(card).includes(t);
 
     /* Counts are derived from the DOM so they can never drift out of date. */
     filterBtns.forEach(btn => {
@@ -124,11 +131,12 @@
         b.setAttribute('aria-pressed', on ? 'true' : 'false');
       });
 
-      /* Three independent predicates, ANDed: category, keyword, featured. */
+      /* Four independent predicates, ANDed: category, keyword, tag, featured. */
       const q = (search?.value || '').trim().toLowerCase();
       cards.forEach(card => {
         const show = matches(card, filter)
                   && matchesQuery(card, q)
+                  && matchesTag(card, activeTag)
                   && (!featuredOnly || card.dataset.featured);
         if (show) {
           delete card.dataset.hidden;
@@ -173,8 +181,20 @@
       rerun();
     });
 
+    /* One tag at a time, and clicking the pressed one clears it — the same
+       shape as the category buttons, so the two read alike. */
+    tagBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeTag = activeTag === btn.dataset.tag ? '' : btn.dataset.tag;
+        tagBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.tag === activeTag)));
+        rerun();
+      });
+    });
+
     chipClear?.addEventListener('click', () => {
       activeFilter = 'all';
+      activeTag = '';
+      tagBtns.forEach(b => b.setAttribute('aria-pressed', 'false'));
       applyFilter('all', '');
       document.querySelector('.filter-btn[data-filter="all"]')?.focus();
     });

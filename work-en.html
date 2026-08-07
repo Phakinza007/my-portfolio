@@ -27,11 +27,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=optional" rel="stylesheet">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="site.webmanifest" />
-  <link rel="stylesheet" href="assets/home-shell.css?v=work-sidebar" />
+  <link rel="stylesheet" href="assets/home-shell.css?v=tag-filter" />
   <style>:root{--preview-label:'View Preview \2192';}</style>
   <link rel="stylesheet" href="assets/site-search.css" />
   <script src="assets/site-search.js?v=self-render" defer></script>
-  <script src="assets/site-ui.js?v=archive" defer></script>
+  <script src="assets/site-ui.js?v=tag-filter" defer></script>
   <script src="assets/analytics.js" defer></script>
 </head>
 <body>
@@ -162,6 +162,33 @@
           <button class="filter-btn" data-filter="solar" data-label="Solar / Energy" aria-pressed="false">Solar / Energy <span class="filter-count">1</span></button>
           <button class="filter-btn" data-filter="other" data-label="Other" aria-pressed="false">Other <span class="filter-count">2</span></button>
             </div>
+            <div class="tag-filter" role="group" aria-label="Filter by tag">
+              <span class="tag-filter-label">Tags</span>
+              <button type="button" class="tag tag-mint tag-btn" data-tag="Construction" aria-pressed="false">Construction</button>
+              <button type="button" class="tag tag-amber tag-btn" data-tag="Fitness" aria-pressed="false">Fitness</button>
+              <button type="button" class="tag tag-gray tag-btn" data-tag="Coffee" aria-pressed="false">Coffee</button>
+              <button type="button" class="tag tag-accent tag-btn" data-tag="E-commerce" aria-pressed="false">E-commerce</button>
+              <button type="button" class="tag tag-gray tag-btn" data-tag="Booking" aria-pressed="false">Booking</button>
+              <button type="button" class="tag tag-amber tag-btn" data-tag="Fine Dining" aria-pressed="false">Fine Dining</button>
+              <button type="button" class="tag tag-gray tag-btn" data-tag="Restaurant" aria-pressed="false">Restaurant</button>
+              <button type="button" class="tag tag-amber tag-btn" data-tag="Energy" aria-pressed="false">Energy</button>
+              <button type="button" class="tag tag-mint tag-btn" data-tag="Full Stack" aria-pressed="false">Full Stack</button>
+              <button type="button" class="tag tag-gray tag-btn" data-tag="Dashboard" aria-pressed="false">Dashboard</button>
+              <button type="button" class="tag tag-gray tag-btn" data-tag="Gallery" aria-pressed="false">Gallery</button>
+              <button type="button" class="tag tag-amber tag-btn" data-tag="Beauty" aria-pressed="false">Beauty</button>
+              <button type="button" class="tag tag-mint tag-btn" data-tag="Healthcare" aria-pressed="false">Healthcare</button>
+              <button type="button" class="tag tag-gray tag-btn" data-tag="Interactive" aria-pressed="false">Interactive</button>
+              <button type="button" class="tag tag-rose tag-btn" data-tag="Dark" aria-pressed="false">Dark</button>
+              <button type="button" class="tag tag-gray tag-btn" data-tag="Light UI" aria-pressed="false">Light UI</button>
+              <button type="button" class="tag tag-mint tag-btn" data-tag="UI Design" aria-pressed="false">UI Design</button>
+              <button type="button" class="tag tag-gray tag-btn" data-tag="Design System" aria-pressed="false">Design System</button>
+              <button type="button" class="tag tag-accent tag-btn" data-tag="Figma" aria-pressed="false">Figma</button>
+              <button type="button" class="tag tag-amber tag-btn" data-tag="Gamification" aria-pressed="false">Gamification</button>
+              <button type="button" class="tag tag-gray tag-btn" data-tag="Habit Tracker" aria-pressed="false">Habit Tracker</button>
+              <button type="button" class="tag tag-amber tag-btn" data-tag="Gaming UI" aria-pressed="false">Gaming UI</button>
+              <button type="button" class="tag tag-gray tag-btn" data-tag="Brand" aria-pressed="false">Brand</button>
+              <button type="button" class="tag tag-gray tag-btn" data-tag="Thai" aria-pressed="false">Thai</button>
+            </div>
           </details>
 
           <div class="work-results">
@@ -177,7 +204,7 @@
             <div class="works-grid">
 
           <!-- BuildNest Construction -->
-          <article class="work-card reveal" data-industry="construction" data-featured="1">
+          <article class="work-card reveal" data-tags="Construction" data-industry="construction" data-featured="1">
             <a class="work-thumb" href="showcase-buildnest-en.html" aria-label="Open BuildNest showcase page">
               <img src="assets/thumbs/construction-landing.svg" alt="BuildNest construction landing page preview" loading="eager" width="1200" height="750" />
             </a>
@@ -199,7 +226,7 @@
           </article>
 
           <!-- Iron Republic -->
-          <article class="work-card reveal" data-industry="gym">
+          <article class="work-card reveal" data-tags="Fitness" data-industry="gym">
             <a class="work-thumb" href="showcase-iron-republic-en.html" aria-label="Open Iron Republic showcase page">
               <img src="assets/thumbs/iron-republic.svg" alt="Iron Republic gym landing page preview" loading="lazy" width="351" height="220" />
             </a>
@@ -221,7 +248,7 @@
           </article>
 
           <!-- NOIR Coffee -->
-          <article class="work-card reveal" data-industry="restaurant">
+          <article class="work-card reveal" data-tags="Dark|Coffee" data-industry="restaurant">
             <a class="work-thumb" href="showcase-noir-coffee-en.html" aria-label="Open NOIR Coffee showcase page" style="display:block;overflow:hidden;">
               <img src="assets/thumbs/noir-coffee.svg" alt="NOIR Coffee landing page preview" loading="lazy" width="351" height="220" />
             </a>
@@ -243,7 +270,7 @@
           </article>
 
           <!-- Elevate Commerce — CSS mini-UI preview -->
-          <article class="work-card reveal" data-industry="shop" data-featured="1">
+          <article class="work-card reveal" data-tags="E-commerce|UI Design|Full Stack" data-industry="shop" data-featured="1">
             <a class="work-thumb" href="showcase-elevate-commerce-en.html" aria-label="Open Elevate Commerce showcase page" style="display:block;overflow:hidden;">
               <img src="assets/thumbs/elevate-commerce.svg" alt="Elevate Commerce product page preview" loading="lazy" width="351" height="220" />
             </a>
@@ -266,7 +293,7 @@
 
 
           <!-- Elasticshop Gaming Top-Up — CSS mini-UI preview -->
-          <article class="work-card reveal" data-industry="shop">
+          <article class="work-card reveal" data-tags="Design System|Gaming UI|Figma|Full Stack" data-industry="shop">
             <a class="work-thumb" href="showcase-elasticshop-gaming-en.html" aria-label="Open Elasticshop Gaming Top-Up showcase page" style="display:block;overflow:hidden;">
               <img src="assets/thumbs/elasticshop-gaming.svg" alt="Elasticshop game top-up interface preview" loading="lazy" width="351" height="220" />
             </a>
@@ -288,7 +315,7 @@
           </article>
 
           <!-- RATRI Restaurant — CSS mini-UI preview -->
-          <article class="work-card reveal" data-industry="restaurant" data-featured="1">
+          <article class="work-card reveal" data-tags="Fine Dining|Restaurant|Thai|Full Stack" data-industry="restaurant" data-featured="1">
             <a class="work-thumb" href="showcase-ratri-restaurant-en.html" aria-label="Open RATRI Restaurant showcase page" style="display:block;overflow:hidden;">
               <img src="assets/thumbs/ratri-restaurant.svg" alt="RATRI Restaurant landing page preview" loading="lazy" width="351" height="220" />
             </a>
@@ -310,7 +337,7 @@
           </article>
 
           <!-- SolarPeak — CSS mini-UI preview -->
-          <article class="work-card reveal" data-industry="solar">
+          <article class="work-card reveal" data-tags="Energy|Brand" data-industry="solar">
             <a class="work-thumb" href="showcase-solarpeak-en.html" aria-label="Open SolarPeak showcase page" style="display:block;overflow:hidden;">
               <img src="assets/thumbs/solarpeak.svg" alt="SolarPeak solar installation landing page preview" loading="lazy" width="351" height="220" />
             </a>
@@ -332,7 +359,7 @@
           </article>
 
           <!-- BookEase Dashboard — CSS mini-UI preview (light theme) -->
-          <article class="work-card reveal" data-industry="booking" data-featured="1">
+          <article class="work-card reveal" data-tags="Dashboard|Booking|Light UI|Full Stack" data-industry="booking" data-featured="1">
             <a class="work-thumb" href="showcase-bookease-en.html" aria-label="Open BookEase Dashboard showcase page" style="display:block;overflow:hidden;">
               <img src="assets/thumbs/bookease.svg" alt="BookEase booking dashboard preview" loading="lazy" width="351" height="220" />
             </a>
@@ -354,7 +381,7 @@
           </article>
 
           <!-- MuseRoom — CSS mini-UI preview -->
-          <article class="work-card reveal" data-industry="other">
+          <article class="work-card reveal" data-tags="Gallery|Brand" data-industry="other">
             <a class="work-thumb" href="showcase-museroom-en.html" aria-label="Open MuseRoom showcase page"
                style="display:block;overflow:hidden;">
               <img src="assets/thumbs/museroom.svg" alt="MuseRoom art gallery landing page preview" loading="lazy" width="351" height="220" />
@@ -382,7 +409,7 @@
           </article>
 
           <!-- LUMI Clinic — CSS mini-UI preview -->
-          <article class="work-card reveal" data-industry="clinic">
+          <article class="work-card reveal" data-tags="Beauty|Brand" data-industry="clinic">
             <a class="work-thumb" href="showcase-lumi-clinic-en.html" aria-label="Open LUMI Clinic showcase page"
                style="display:block;overflow:hidden;">
               <img src="assets/thumbs/lumi-clinic.svg" alt="LUMI Clinic landing page preview" loading="lazy" width="351" height="220" />
@@ -410,7 +437,7 @@
           </article>
 
           <!-- BRIGHT Dental Clinic — CSS mini-UI preview -->
-          <article class="work-card reveal" data-industry="clinic">
+          <article class="work-card reveal" data-tags="Healthcare|Booking" data-industry="clinic">
             <a class="work-thumb" href="showcase-dental-clinic-en.html" aria-label="Open BRIGHT Dental Clinic showcase page">
               <img src="assets/thumbs/bright-dental.svg" alt="BRIGHT Dental Clinic landing page preview" loading="lazy" width="351" height="220" />
             </a>
@@ -437,7 +464,7 @@
           </article>
 
           <!-- VELVÉ Aesthetics — CSS mini-UI preview -->
-          <article class="work-card reveal" data-industry="clinic booking" data-featured="1">
+          <article class="work-card reveal" data-tags="Beauty|Booking|Interactive" data-industry="clinic booking" data-featured="1">
             <a class="work-thumb" href="showcase-velve-aesthetics-en.html" aria-label="Open VELVÉ Aesthetics showcase page"
                style="display:block;overflow:hidden;position:relative;">
               <img
@@ -477,7 +504,7 @@
           </article>
 
           <!-- HabitQuest — CSS mini-UI preview -->
-          <article class="work-card reveal" data-industry="other">
+          <article class="work-card reveal" data-tags="Gamification|Habit Tracker" data-industry="other">
             <a class="work-thumb" href="showcase-habitquest-en.html" aria-label="Open HabitQuest showcase page" style="display:block;overflow:hidden;">
               <img src="assets/thumbs/habitquest.svg" alt="HabitQuest habit tracking app preview" loading="lazy" width="351" height="220" />
             </a>
@@ -496,34 +523,6 @@
 
           <p class="works-empty" id="works-empty" hidden>No projects in this category yet.</p>
             </div>
-
-            <div class="work-tagcloud" aria-label="Styles and categories I've worked on">
-          <span class="work-tagcloud-label">Styles and categories I've worked on</span>
-          <span class="tag tag-mint">Construction</span>
-          <span class="tag tag-amber">Fitness</span>
-          <span class="tag tag-gray">Coffee</span>
-          <span class="tag tag-accent">E-commerce</span>
-          <span class="tag tag-gray">Booking</span>
-          <span class="tag tag-amber">Fine Dining</span>
-          <span class="tag tag-gray">Restaurant</span>
-          <span class="tag tag-amber">Energy</span>
-          <span class="tag tag-mint">Full Stack</span>
-          <span class="tag tag-gray">Dashboard</span>
-          <span class="tag tag-gray">Gallery</span>
-          <span class="tag tag-amber">Beauty</span>
-          <span class="tag tag-mint">Healthcare</span>
-          <span class="tag tag-gray">Interactive</span>
-          <span class="tag tag-rose">Dark</span>
-          <span class="tag tag-gray">Light UI</span>
-          <span class="tag tag-mint">UI Design</span>
-          <span class="tag tag-gray">Design System</span>
-          <span class="tag tag-accent">Figma</span>
-          <span class="tag tag-amber">Gamification</span>
-          <span class="tag tag-gray">Habit Tracker</span>
-          <span class="tag tag-amber">Gaming UI</span>
-          <span class="tag tag-gray">Brand</span>
-          <span class="tag tag-gray">Thai</span>
-        </div>
           </div>
 
         </div>

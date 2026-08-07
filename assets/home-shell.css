@@ -752,6 +752,42 @@
 
     .work-filter .filter-btn .filter-count { margin-left: auto; }
 
+    /* Tag pills. These were a passive .work-tagcloud under the grid until the
+       labels were mapped onto the cards via data-tags; now they filter, so
+       they belong beside the other controls. */
+    .tag-filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .tag-filter-label {
+      width: 100%;
+      margin-bottom: 2px;
+      color: var(--muted);
+      font: 700 0.78rem/1 'Outfit', sans-serif;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .tag-btn {
+      border: 1px solid transparent;
+      cursor: pointer;
+      font-family: inherit;
+      transition: filter 150ms, border-color 150ms;
+    }
+
+    .tag-btn:hover { filter: brightness(1.25); }
+    .tag-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .tag-btn[aria-pressed="true"] {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+
     .work-results-head {
       display: flex;
       flex-wrap: wrap;
