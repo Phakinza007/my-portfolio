@@ -2,217 +2,217 @@
   "th": [
     {
       "t": "หน้าแรก",
-      "u": "index.html",
+      "u": "/",
       "g": "หน้าหลัก",
       "k": "หน้าแรก home phakin ภาคิน รับทำเว็บไซต์ ฟรีแลนซ์ นักพัฒนาเว็บ portfolio พอร์ตโฟลิโอ"
     },
     {
       "t": "ผลงานทั้งหมด",
-      "u": "work.html",
+      "u": "work",
       "g": "หน้าหลัก",
       "k": "ผลงาน โปรเจกต์ portfolio ตัวอย่างงาน case study กรอง"
     },
     {
       "t": "บริการและราคา",
-      "u": "services.html",
+      "u": "services",
       "g": "หน้าหลัก",
       "k": "บริการ ราคา แพ็กเกจ เปรียบเทียบ 3900 7900 9900 จ้างทำเว็บ"
     },
     {
       "t": "เกี่ยวกับผม",
-      "u": "about.html",
+      "u": "about",
       "g": "หน้าหลัก",
       "k": "ประวัติ ประสบการณ์ ทักษะ เครื่องมือ kmutt about"
     },
     {
       "t": "คำถามที่พบบ่อย",
-      "u": "faq.html",
+      "u": "faq",
       "g": "หน้าหลัก",
       "k": "faq คำถาม ราคาเท่าไหร่ กี่วัน แก้กี่รอบ โดเมน โฮสต์ seo รับประกัน"
     },
     {
       "t": "ขั้นตอนการทำงาน",
-      "u": "process.html",
+      "u": "process",
       "g": "หน้าหลัก",
       "k": "ขั้นตอน กระบวนการ สั่งงาน ส่งมอบ กี่วัน เตรียมอะไร fastwork"
     },
     {
       "t": "รับทำเว็บคลินิก / ความงาม",
-      "u": "web-clinic.html",
+      "u": "web-clinic",
       "g": "บริการ",
       "k": "คลินิก ความงาม ทันตกรรม จัดฟัน รากเทียม ฉีดฟิลเลอร์ หมอฟัน ดูแลผิว ผิวหนัง เสริมความงาม จองคิว 3900"
     },
     {
       "t": "รับทำระบบจองคิว / นัดหมาย",
-      "u": "web-booking.html",
+      "u": "web-booking",
       "g": "บริการ",
       "k": "จองคิว นัดหมาย ระบบจอง ปฏิทิน คิวชน ร้านทำผม สปา นวด แดชบอร์ด 7900"
     },
     {
       "t": "รับทำเว็บร้านอาหาร / คาเฟ่",
-      "u": "web-restaurant.html",
+      "u": "web-restaurant",
       "g": "บริการ",
       "k": "ร้านอาหาร คาเฟ่ ร้านกาแฟ เมนู จองโต๊ะ อาหาร บาร์ 3900"
     },
     {
       "t": "รับทำเว็บขายของออนไลน์",
-      "u": "web-shop.html",
+      "u": "web-shop",
       "g": "บริการ",
       "k": "ขายของ ออนไลน์ อีคอมเมิร์ซ ecommerce ตะกร้า ชำระเงิน ร้านค้า สินค้า shopee lazada 9900"
     },
     {
       "t": "รับทำเว็บฟิตเนส / ยิม",
-      "u": "web-gym.html",
+      "u": "web-gym",
       "g": "บริการ",
       "k": "ฟิตเนส ยิม gym ออกกำลังกาย เทรนเนอร์ คลาส โยคะ มวย แพ็กเกจสมาชิก 3900"
     },
     {
       "t": "รับทำเว็บบริษัทก่อสร้าง / รับเหมา",
-      "u": "web-construction.html",
+      "u": "web-construction",
       "g": "บริการ",
       "k": "ก่อสร้าง รับเหมา ผู้รับเหมา ตกแต่งภายใน ใบเสนอราคา โครงการ 3900"
     },
     {
       "t": "รับทำเว็บโซลาร์เซลล์ / พลังงาน",
-      "u": "web-solar.html",
+      "u": "web-solar",
       "g": "บริการ",
       "k": "โซลาร์ solar แผงโซลาร์ พลังงาน ค่าไฟ ประหยัดไฟ อินเวอร์เตอร์ คืนทุน 3900"
     },
     {
       "t": "แพ็กเกจ Landing Page — ฿3,900",
-      "u": "landing-page.html",
+      "u": "landing-page",
       "g": "แพ็กเกจและราคา",
       "k": "ราคา landing page แลนดิ้งเพจ หน้าเดียว 3900 5-7 วัน"
     },
     {
       "t": "แพ็กเกจ Dashboard UI — ฿7,900",
-      "u": "dashboard-ui.html",
+      "u": "dashboard-ui",
       "g": "แพ็กเกจและราคา",
       "k": "ราคา dashboard แดชบอร์ด ระบบหลังบ้าน ออกแบบระบบ 7900"
     },
     {
       "t": "แพ็กเกจ Business Website — ฿9,900",
-      "u": "business-website.html",
+      "u": "business-website",
       "g": "แพ็กเกจและราคา",
       "k": "ราคา เว็บบริษัท เว็บธุรกิจ seo หลายหน้า 9900"
     },
     {
       "t": "BuildNest Construction",
-      "u": "showcase-buildnest.html",
+      "u": "showcase-buildnest",
       "g": "ผลงาน",
       "k": "ก่อสร้าง รับเหมา แลนดิ้งเพจ construction"
     },
     {
       "t": "Iron Republic",
-      "u": "showcase-iron-republic.html",
+      "u": "showcase-iron-republic",
       "g": "ผลงาน",
       "k": "ยิม ฟิตเนส gym เวทเทรนนิ่ง"
     },
     {
       "t": "NOIR Coffee",
-      "u": "showcase-noir-coffee.html",
+      "u": "showcase-noir-coffee",
       "g": "ผลงาน",
       "k": "คาเฟ่ ร้านกาแฟ coffee ธีมมืด"
     },
     {
       "t": "Elevate Commerce",
-      "u": "showcase-elevate-commerce.html",
+      "u": "showcase-elevate-commerce",
       "g": "ผลงาน",
       "k": "ขายของออนไลน์ อีคอมเมิร์ซ ecommerce ตะกร้า ชำระเงิน"
     },
     {
       "t": "Elasticshop Gaming Top-Up",
-      "u": "showcase-elasticshop-gaming.html",
+      "u": "showcase-elasticshop-gaming",
       "g": "ผลงาน",
       "k": "เติมเกม ร้านเกม gaming ขายของออนไลน์"
     },
     {
       "t": "RATRI Restaurant",
-      "u": "showcase-ratri-restaurant.html",
+      "u": "showcase-ratri-restaurant",
       "g": "ผลงาน",
       "k": "ร้านอาหาร ไฟน์ไดนิ่ง จองโต๊ะ restaurant"
     },
     {
       "t": "SolarPeak",
-      "u": "showcase-solarpeak.html",
+      "u": "showcase-solarpeak",
       "g": "ผลงาน",
       "k": "โซลาร์ solar พลังงาน ค่าไฟ"
     },
     {
       "t": "BookEase Dashboard",
-      "u": "showcase-bookease.html",
+      "u": "showcase-bookease",
       "g": "ผลงาน",
       "k": "จองคิว นัดหมาย แดชบอร์ด dashboard booking"
     },
     {
       "t": "MuseRoom",
-      "u": "showcase-museroom.html",
+      "u": "showcase-museroom",
       "g": "ผลงาน",
       "k": "แกลเลอรี งานศิลปะ นิทรรศการ gallery"
     },
     {
       "t": "LUMI Clinic",
-      "u": "showcase-lumi-clinic.html",
+      "u": "showcase-lumi-clinic",
       "g": "ผลงาน",
       "k": "คลินิกความงาม ดูแลผิว จองคิว clinic"
     },
     {
       "t": "BRIGHT Dental Clinic",
-      "u": "showcase-dental-clinic.html",
+      "u": "showcase-dental-clinic",
       "g": "ผลงาน",
       "k": "คลินิกทันตกรรม จัดฟัน รากเทียม หมอฟัน dental"
     },
     {
       "t": "VELVÉ Aesthetics",
-      "u": "showcase-velve-aesthetics.html",
+      "u": "showcase-velve-aesthetics",
       "g": "ผลงาน",
       "k": "คลินิกความงาม จองคิว ฉีดฟิลเลอร์ vanilla js"
     },
     {
       "t": "HabitQuest",
-      "u": "showcase-habitquest.html",
+      "u": "showcase-habitquest",
       "g": "ผลงาน",
       "k": "แอป สร้างนิสัย เกมมิฟิเคชัน rpg react vite"
     },
     {
       "t": "PulseBoard",
-      "u": "case-study-pulseboard.html",
+      "u": "case-study-pulseboard",
       "g": "Case study",
       "k": "แดชบอร์ด dashboard analytics"
     },
     {
       "t": "LaunchLedger",
-      "u": "case-study-launchledger.html",
+      "u": "case-study-launchledger",
       "g": "Case study",
       "k": "การเงิน ledger saas"
     },
     {
       "t": "InternTrack",
-      "u": "case-study-interntrack.html",
+      "u": "case-study-interntrack",
       "g": "Case study",
       "k": "ฝึกงาน intern ระบบติดตาม"
     },
     {
       "t": "HabitQuest — case study",
-      "u": "case-study-habitquest.html",
+      "u": "case-study-habitquest",
       "g": "Case study",
       "k": "สร้างนิสัย react vite rpg เกมมิฟิเคชัน"
     },
     {
       "t": "เรซูเม่ / CV",
-      "u": "resume.html",
+      "u": "resume",
       "g": "เกี่ยวกับผม",
       "k": "resume cv ประวัติ ประสบการณ์ ทักษะ การศึกษา"
     },
     {
       "t": "RAAT — ปฏิทินการแข่งขัน (งานลูกค้าจริง)",
-      "u": "case-study-raat.html",
+      "u": "case-study-raat",
       "g": "Case study",
       "k": "raat ราชยานยนต์ สมาคม fia ปฏิทินการแข่งขัน มอเตอร์สปอร์ต wordpress elementor fullcalendar ลูกค้าจริง งานจริง"
     },
     {
       "t": "รับทำเว็บสมาคม มูลนิธิ และองค์กร",
-      "u": "web-organization.html",
+      "u": "web-organization",
       "g": "บริการตามอุตสาหกรรม",
       "k": "สมาคม มูลนิธิ ชมรม สหกรณ์ องค์กร หน่วยงาน ปฏิทินกิจกรรม ระเบียบ ข้อบังคับ เอกสาร ทำเนียบกรรมการ ราคา 9900"
     }
@@ -220,217 +220,217 @@
   "en": [
     {
       "t": "Home",
-      "u": "index-en.html",
+      "u": "index-en",
       "g": "Main pages",
       "k": "home phakin chawanpunya freelance web developer portfolio hire"
     },
     {
       "t": "All work",
-      "u": "work-en.html",
+      "u": "work-en",
       "g": "Main pages",
       "k": "work portfolio projects case studies filter"
     },
     {
       "t": "Services & pricing",
-      "u": "services-en.html",
+      "u": "services-en",
       "g": "Main pages",
       "k": "services pricing packages compare 3900 7900 9900 hire"
     },
     {
       "t": "About",
-      "u": "about-en.html",
+      "u": "about-en",
       "g": "Main pages",
       "k": "about background experience skills tools kmutt"
     },
     {
       "t": "FAQ",
-      "u": "faq-en.html",
+      "u": "faq-en",
       "g": "Main pages",
       "k": "faq questions price how long revisions domain hosting seo guarantee"
     },
     {
       "t": "Process",
-      "u": "process-en.html",
+      "u": "process-en",
       "g": "Main pages",
       "k": "process steps brief delivery timeline what to prepare fastwork"
     },
     {
       "t": "รับทำเว็บคลินิก / ความงาม",
-      "u": "web-clinic.html",
+      "u": "web-clinic",
       "g": "Services",
       "k": "clinic beauty dental braces implant skincare booking คลินิก ทันตกรรม"
     },
     {
       "t": "รับทำระบบจองคิว / นัดหมาย",
-      "u": "web-booking.html",
+      "u": "web-booking",
       "g": "Services",
       "k": "booking appointments calendar scheduling salon spa จองคิว"
     },
     {
       "t": "รับทำเว็บร้านอาหาร / คาเฟ่",
-      "u": "web-restaurant.html",
+      "u": "web-restaurant",
       "g": "Services",
       "k": "restaurant cafe coffee menu reservation ร้านอาหาร คาเฟ่"
     },
     {
       "t": "รับทำเว็บขายของออนไลน์",
-      "u": "web-shop.html",
+      "u": "web-shop",
       "g": "Services",
       "k": "shop store ecommerce cart checkout products ขายของออนไลน์"
     },
     {
       "t": "รับทำเว็บฟิตเนส / ยิม",
-      "u": "web-gym.html",
+      "u": "web-gym",
       "g": "Services",
       "k": "gym fitness trainer classes membership yoga ฟิตเนส ยิม"
     },
     {
       "t": "รับทำเว็บบริษัทก่อสร้าง / รับเหมา",
-      "u": "web-construction.html",
+      "u": "web-construction",
       "g": "Services",
       "k": "construction contractor quote portfolio ก่อสร้าง รับเหมา"
     },
     {
       "t": "รับทำเว็บโซลาร์เซลล์ / พลังงาน",
-      "u": "web-solar.html",
+      "u": "web-solar",
       "g": "Services",
       "k": "solar panels energy savings inverter payback โซลาร์"
     },
     {
       "t": "Landing Page package — ฿3,900",
-      "u": "landing-page-en.html",
+      "u": "landing-page-en",
       "g": "Packages & pricing",
       "k": "price pricing landing page single page 3900"
     },
     {
       "t": "Dashboard UI package — ฿7,900",
-      "u": "dashboard-ui-en.html",
+      "u": "dashboard-ui-en",
       "g": "Packages & pricing",
       "k": "price pricing dashboard admin ui design 7900"
     },
     {
       "t": "Business Website package — ฿9,900",
-      "u": "business-website-en.html",
+      "u": "business-website-en",
       "g": "Packages & pricing",
       "k": "price pricing business website seo multi page 9900"
     },
     {
       "t": "BuildNest Construction",
-      "u": "showcase-buildnest-en.html",
+      "u": "showcase-buildnest-en",
       "g": "Work",
       "k": "construction contractor landing page"
     },
     {
       "t": "Iron Republic",
-      "u": "showcase-iron-republic-en.html",
+      "u": "showcase-iron-republic-en",
       "g": "Work",
       "k": "gym fitness strength training"
     },
     {
       "t": "NOIR Coffee",
-      "u": "showcase-noir-coffee-en.html",
+      "u": "showcase-noir-coffee-en",
       "g": "Work",
       "k": "cafe coffee shop dark theme"
     },
     {
       "t": "Elevate Commerce",
-      "u": "showcase-elevate-commerce-en.html",
+      "u": "showcase-elevate-commerce-en",
       "g": "Work",
       "k": "ecommerce store cart checkout"
     },
     {
       "t": "Elasticshop Gaming Top-Up",
-      "u": "showcase-elasticshop-gaming-en.html",
+      "u": "showcase-elasticshop-gaming-en",
       "g": "Work",
       "k": "gaming top-up game shop ecommerce"
     },
     {
       "t": "RATRI Restaurant",
-      "u": "showcase-ratri-restaurant-en.html",
+      "u": "showcase-ratri-restaurant-en",
       "g": "Work",
       "k": "restaurant fine dining table booking"
     },
     {
       "t": "SolarPeak",
-      "u": "showcase-solarpeak-en.html",
+      "u": "showcase-solarpeak-en",
       "g": "Work",
       "k": "solar energy panels"
     },
     {
       "t": "BookEase Dashboard",
-      "u": "showcase-bookease-en.html",
+      "u": "showcase-bookease-en",
       "g": "Work",
       "k": "booking appointments dashboard"
     },
     {
       "t": "MuseRoom",
-      "u": "showcase-museroom-en.html",
+      "u": "showcase-museroom-en",
       "g": "Work",
       "k": "gallery art exhibition"
     },
     {
       "t": "LUMI Clinic",
-      "u": "showcase-lumi-clinic-en.html",
+      "u": "showcase-lumi-clinic-en",
       "g": "Work",
       "k": "beauty clinic skincare booking"
     },
     {
       "t": "BRIGHT Dental Clinic",
-      "u": "showcase-dental-clinic-en.html",
+      "u": "showcase-dental-clinic-en",
       "g": "Work",
       "k": "dental clinic braces implants"
     },
     {
       "t": "VELVÉ Aesthetics",
-      "u": "showcase-velve-aesthetics-en.html",
+      "u": "showcase-velve-aesthetics-en",
       "g": "Work",
       "k": "beauty clinic booking fillers vanilla js"
     },
     {
       "t": "HabitQuest",
-      "u": "showcase-habitquest-en.html",
+      "u": "showcase-habitquest-en",
       "g": "Work",
       "k": "habit app gamification rpg react vite"
     },
     {
       "t": "PulseBoard",
-      "u": "case-study-pulseboard-en.html",
+      "u": "case-study-pulseboard-en",
       "g": "Case study",
       "k": "dashboard analytics"
     },
     {
       "t": "LaunchLedger",
-      "u": "case-study-launchledger-en.html",
+      "u": "case-study-launchledger-en",
       "g": "Case study",
       "k": "finance ledger saas"
     },
     {
       "t": "InternTrack",
-      "u": "case-study-interntrack-en.html",
+      "u": "case-study-interntrack-en",
       "g": "Case study",
       "k": "internship tracking system"
     },
     {
       "t": "HabitQuest — case study",
-      "u": "case-study-habitquest-en.html",
+      "u": "case-study-habitquest-en",
       "g": "Case study",
       "k": "habit react vite rpg gamification"
     },
     {
       "t": "Résumé / CV",
-      "u": "resume-en.html",
+      "u": "resume-en",
       "g": "About",
       "k": "resume cv experience skills education"
     },
     {
       "t": "RAAT — competition calendar (client work)",
-      "u": "case-study-raat-en.html",
+      "u": "case-study-raat-en",
       "g": "Case study",
       "k": "raat royal automobile association thailand fia motorsport calendar wordpress elementor fullcalendar client work"
     },
     {
       "t": "Websites for associations and organisations",
-      "u": "web-organization.html",
+      "u": "web-organization",
       "g": "By industry",
       "k": "association foundation club organisation event calendar documents bylaws committee members thai"
     }

@@ -44,7 +44,6 @@ my-portfolio/
 │   ├── search-index.json         # hand-maintained, 33 entries per language
 │   ├── resume-phakin-chawanpunya.pdf
 │   ├── home-shell.css            # index / work / services / about / faq / process (+ -en)
-│   ├── portfolio-context.css     # "← Back to Portfolio" floating button (shared)
 │   └── portfolio-pages.css       # resume / case study / showcase / category / web-* pages
 │
 ├── case-study-*.html             # 4 case studies — THAI
@@ -261,6 +260,14 @@ They also disagree on token names for the same values: `--border` / `--border-2`
 home-shell, `--line` / `--line-2` in portfolio-pages (both `#21262d` / `#30363d`). Anything
 loaded by both families — `assets/site-search.css` — must ask for one, then the other, then a
 literal fallback.
+
+`assets/portfolio-context.css` and the floating "← Back to Portfolio" pill it styled were
+**deleted on 2026-08-07**. A demo page is a simulation of a client's site and must not wear
+portfolio chrome — the same rule that keeps the site search off those 13 pages. Six of them
+(`DRIP`, `PulseBoard`, `appointment-booking`, `coffee-landing`, `gym-landing`, `solar-landing`)
+now have no link back at all, and all 66 links into the demos open in the same tab, so the
+browser Back button is the only way out. If that becomes a problem the fix is
+`target="_blank"` on those links, **not** reinstating the pill.
 
 `home-shell.css` was extracted from `index.html`'s inline `<style>` on 2026-08-06. The two
 homepages' stylesheets were byte-identical apart from one `content:` string, now the
@@ -531,6 +538,38 @@ copy.
 
 ---
 
+## URLs carry no `.html`
+
+Every internal link, `canonical`, `hreflang`, `og:url`, JSON-LD `item`, `sitemap.xml` `<loc>`
+and `search-index.json` `u` points at an **extensionless** URL — `/showcase-buildnest`, not
+`/showcase-buildnest.html`. GitHub Pages resolves `/foo` to `foo.html` on its own; no config,
+no redirects, no directory restructure. Verified live before the rewrite.
+
+`index.html` is `/`. `404.html` is the one exception and keeps its extension in its own
+`canonical` and `og:url` — GitHub Pages looks the file up by name — though its outgoing links
+were rewritten with everything else.
+
+**The `.html` URLs still return 200.** GitHub Pages cannot redirect, so every page is reachable
+at two URLs and the `canonical` is the only thing telling Google which one counts. That makes
+the canonical load-bearing here in a way it was not before: a page whose canonical still ends
+in `.html` splits its own ranking signal.
+
+**Never strip `.html` from a link to github.com.** Seven `blob/main/*.html` source links exist
+and they point at real files in the repo; the migration matched only relative paths and
+`https://ph-akin.dev/…`.
+
+**`assets/analytics.js` classifies clicks by href, and its patterns had `\.html` baked in.**
+They now treat the extension as optional. Had they not been updated, `industry_open`,
+`package_open`, `showcase_open` and `case_study_open` would all have stopped firing silently —
+no error, no console warning, just an empty funnel.
+
+**`python3 -m http.server` no longer serves this site correctly** — it does not resolve
+extensionless paths, so every internal link 404s and a Lighthouse run measures a broken page.
+Use `python3 _tools/serve.py 8123` instead; it mirrors the GitHub Pages fallback and serves
+`404.html` on a miss. `_tools/` is underscore-prefixed so Jekyll skips it.
+
+---
+
 ## SEO & Meta
 
 - Theme color: `#5274f8`
@@ -603,8 +642,8 @@ Use the **portfolio-add-card** skill — it handles the full workflow automatica
 Real Lighthouse via the CLI — no MCP tool needed (`node`/`npx` are available; confirmed
 2026-08-06). Serve the site locally, then run per page/viewport:
 ```bash
-python3 -m http.server 8123 &
-npx -y lighthouse http://localhost:8123/index.html \
+python3 _tools/serve.py 8123 &          # ไม่ใช่ http.server — ดู "URLs carry no .html"
+npx -y lighthouse http://localhost:8123/ \
   --quiet --chrome-flags="--headless" \
   --output=json --output-path=/tmp/lh-<page>-mobile.json
 # add --preset=desktop for the desktop pass

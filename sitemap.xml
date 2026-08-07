@@ -3,7 +3,7 @@
 
   <!-- Core pages -->
   <url>
-    <loc>https://ph-akin.dev/index-en.html</loc>
+    <loc>https://ph-akin.dev/index-en</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -13,401 +13,401 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/resume-en.html</loc>
+    <loc>https://ph-akin.dev/resume-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/resume.html</loc>
+    <loc>https://ph-akin.dev/resume</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- Case studies -->
   <url>
-    <loc>https://ph-akin.dev/case-study-pulseboard-en.html</loc>
+    <loc>https://ph-akin.dev/case-study-pulseboard-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/case-study-pulseboard.html</loc>
+    <loc>https://ph-akin.dev/case-study-pulseboard</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/case-study-launchledger-en.html</loc>
+    <loc>https://ph-akin.dev/case-study-launchledger-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/case-study-launchledger.html</loc>
+    <loc>https://ph-akin.dev/case-study-launchledger</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/case-study-interntrack-en.html</loc>
+    <loc>https://ph-akin.dev/case-study-interntrack-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/case-study-interntrack.html</loc>
+    <loc>https://ph-akin.dev/case-study-interntrack</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/case-study-habitquest-en.html</loc>
+    <loc>https://ph-akin.dev/case-study-habitquest-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/case-study-habitquest.html</loc>
+    <loc>https://ph-akin.dev/case-study-habitquest</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Dashboard / SaaS projects -->
   <url>
-    <loc>https://ph-akin.dev/PulseBoard.html</loc>
+    <loc>https://ph-akin.dev/PulseBoard</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/LaunchLedger.html</loc>
+    <loc>https://ph-akin.dev/LaunchLedger</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/InternTrack.html</loc>
+    <loc>https://ph-akin.dev/InternTrack</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/elasticshop-gaming.html</loc>
+    <loc>https://ph-akin.dev/elasticshop-gaming</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/BookEase.html</loc>
+    <loc>https://ph-akin.dev/BookEase</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Landing pages / Brand -->
   <url>
-    <loc>https://ph-akin.dev/construction-landing.html</loc>
+    <loc>https://ph-akin.dev/construction-landing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/gym-landing.html</loc>
+    <loc>https://ph-akin.dev/gym-landing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/coffee-landing.html</loc>
+    <loc>https://ph-akin.dev/coffee-landing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/MuseRoom.html</loc>
+    <loc>https://ph-akin.dev/MuseRoom</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/ElevateCommerce.html</loc>
+    <loc>https://ph-akin.dev/ElevateCommerce</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/solar-landing.html</loc>
+    <loc>https://ph-akin.dev/solar-landing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/sorn-restaurant.html</loc>
+    <loc>https://ph-akin.dev/sorn-restaurant</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/lumi-clinic.html</loc>
+    <loc>https://ph-akin.dev/lumi-clinic</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/dental-clinic.html</loc>
+    <loc>https://ph-akin.dev/dental-clinic</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/aesthetic-booking.html</loc>
+    <loc>https://ph-akin.dev/aesthetic-booking</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Service category landing pages -->
   <url>
-    <loc>https://ph-akin.dev/landing-page-en.html</loc>
+    <loc>https://ph-akin.dev/landing-page-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/landing-page.html</loc>
+    <loc>https://ph-akin.dev/landing-page</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/dashboard-ui-en.html</loc>
+    <loc>https://ph-akin.dev/dashboard-ui-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/dashboard-ui.html</loc>
+    <loc>https://ph-akin.dev/dashboard-ui</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/business-website-en.html</loc>
+    <loc>https://ph-akin.dev/business-website-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/business-website.html</loc>
+    <loc>https://ph-akin.dev/business-website</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <!-- Funnel pages -->
   <url>
-    <loc>https://ph-akin.dev/work.html</loc>
+    <loc>https://ph-akin.dev/work</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/work-en.html</loc>
+    <loc>https://ph-akin.dev/work-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/services.html</loc>
+    <loc>https://ph-akin.dev/services</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/services-en.html</loc>
+    <loc>https://ph-akin.dev/services-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/about.html</loc>
+    <loc>https://ph-akin.dev/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/about-en.html</loc>
+    <loc>https://ph-akin.dev/about-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/faq.html</loc>
+    <loc>https://ph-akin.dev/faq</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/faq-en.html</loc>
+    <loc>https://ph-akin.dev/faq-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/process.html</loc>
+    <loc>https://ph-akin.dev/process</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/process-en.html</loc>
+    <loc>https://ph-akin.dev/process-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- Industry landing pages (Thai only — no -en twin, see CLAUDE.md) -->
   <url>
-    <loc>https://ph-akin.dev/web-clinic.html</loc>
+    <loc>https://ph-akin.dev/web-clinic</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/web-booking.html</loc>
+    <loc>https://ph-akin.dev/web-booking</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/web-restaurant.html</loc>
+    <loc>https://ph-akin.dev/web-restaurant</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/web-shop.html</loc>
+    <loc>https://ph-akin.dev/web-shop</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/web-gym.html</loc>
+    <loc>https://ph-akin.dev/web-gym</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/web-construction.html</loc>
+    <loc>https://ph-akin.dev/web-construction</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/web-solar.html</loc>
+    <loc>https://ph-akin.dev/web-solar</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <!-- Project showcase pages -->
   <url>
-    <loc>https://ph-akin.dev/showcase-buildnest-en.html</loc>
+    <loc>https://ph-akin.dev/showcase-buildnest-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-buildnest.html</loc>
+    <loc>https://ph-akin.dev/showcase-buildnest</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-iron-republic-en.html</loc>
+    <loc>https://ph-akin.dev/showcase-iron-republic-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-iron-republic.html</loc>
+    <loc>https://ph-akin.dev/showcase-iron-republic</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-noir-coffee-en.html</loc>
+    <loc>https://ph-akin.dev/showcase-noir-coffee-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-noir-coffee.html</loc>
+    <loc>https://ph-akin.dev/showcase-noir-coffee</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-elevate-commerce-en.html</loc>
+    <loc>https://ph-akin.dev/showcase-elevate-commerce-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-elevate-commerce.html</loc>
+    <loc>https://ph-akin.dev/showcase-elevate-commerce</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-elasticshop-gaming-en.html</loc>
+    <loc>https://ph-akin.dev/showcase-elasticshop-gaming-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-elasticshop-gaming.html</loc>
+    <loc>https://ph-akin.dev/showcase-elasticshop-gaming</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-ratri-restaurant-en.html</loc>
+    <loc>https://ph-akin.dev/showcase-ratri-restaurant-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-ratri-restaurant.html</loc>
+    <loc>https://ph-akin.dev/showcase-ratri-restaurant</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-solarpeak-en.html</loc>
+    <loc>https://ph-akin.dev/showcase-solarpeak-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-solarpeak.html</loc>
+    <loc>https://ph-akin.dev/showcase-solarpeak</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-bookease-en.html</loc>
+    <loc>https://ph-akin.dev/showcase-bookease-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-bookease.html</loc>
+    <loc>https://ph-akin.dev/showcase-bookease</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-museroom-en.html</loc>
+    <loc>https://ph-akin.dev/showcase-museroom-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-museroom.html</loc>
+    <loc>https://ph-akin.dev/showcase-museroom</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-lumi-clinic-en.html</loc>
+    <loc>https://ph-akin.dev/showcase-lumi-clinic-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-lumi-clinic.html</loc>
+    <loc>https://ph-akin.dev/showcase-lumi-clinic</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-dental-clinic-en.html</loc>
+    <loc>https://ph-akin.dev/showcase-dental-clinic-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-dental-clinic.html</loc>
+    <loc>https://ph-akin.dev/showcase-dental-clinic</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-velve-aesthetics-en.html</loc>
+    <loc>https://ph-akin.dev/showcase-velve-aesthetics-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-velve-aesthetics.html</loc>
+    <loc>https://ph-akin.dev/showcase-velve-aesthetics</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-habitquest-en.html</loc>
+    <loc>https://ph-akin.dev/showcase-habitquest-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/showcase-habitquest.html</loc>
+    <loc>https://ph-akin.dev/showcase-habitquest</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/case-study-raat.html</loc>
+    <loc>https://ph-akin.dev/case-study-raat</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/case-study-raat-en.html</loc>
+    <loc>https://ph-akin.dev/case-study-raat-en</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ph-akin.dev/web-organization.html</loc>
+    <loc>https://ph-akin.dev/web-organization</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>

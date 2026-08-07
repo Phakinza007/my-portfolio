@@ -6,14 +6,14 @@
   <title>SolarPeak | Residential Solar Landing Page | Phakin Portfolio</title>
   <meta name="description" content="SolarPeak — a dark-navy landing page for a residential solar installer: photographic hero, transparent per-kW pricing and a validated quote form. Built by Phakin Chawanpunya." />
   <meta name="author" content="Phakin Chawanpunya" />
-  <link rel="canonical" href="https://ph-akin.dev/solar-landing.html">
+  <link rel="canonical" href="https://ph-akin.dev/solar-landing">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#050d1a">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <meta property="og:title" content="SolarPeak — Residential Solar Landing Page">
   <meta property="og:description" content="Dark-navy solar installer landing page: photographic hero, transparent per-kW pricing and a validated quote form. Design and build by Phakin Chawanpunya.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://ph-akin.dev/solar-landing.html">
+  <meta property="og:url" content="https://ph-akin.dev/solar-landing">
   <meta property="og:image" content="https://ph-akin.dev/assets/solar/og-cover.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -28,7 +28,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=optional" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/portfolio-context.css?v=back-button-clean" />
   <style>
     :root {
       --bg:        #050d1a;
@@ -69,8 +68,6 @@
     :focus-visible { outline: 2px solid var(--sun); outline-offset: 3px; }
 
     /* The shared back button ships at 42px — lift it to the 44px touch minimum */
-    .portfolio-back { min-height: 44px; }
-
     /* ── NOISE + GRID BG ── */
     body::before {
       content: '';
@@ -666,15 +663,12 @@
       .why-visual { aspect-ratio: 3 / 2; }
     }
   </style>
-  <script src="assets/analytics.js?v=funnel" defer></script>
+  <script src="assets/analytics.js?v=clean-urls" defer></script>
 </head>
 <body>
 
 <div class="sun-glow"></div>
 
-<aside class="portfolio-context" aria-label="Portfolio navigation">
-  <a class="portfolio-back" href="/">&larr; Back to Portfolio</a>
-</aside>
 
 <!-- NAV -->
 <nav class="nav-bar">

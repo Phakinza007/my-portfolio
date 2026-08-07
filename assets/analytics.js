@@ -53,7 +53,12 @@
     return section?.id || 'body';
   };
 
-  /* ---- classify a clicked <a>/<button> and fire the right event ---- */
+  /* ---- classify a clicked <a>/<button> and fire the right event ----
+     URLs are extensionless as of 2026-08-07 (GitHub Pages resolves /foo to
+     foo.html). The patterns below therefore treat `.html` as OPTIONAL rather
+     than required — the old `\.html` anchors matched nothing the moment the
+     links were rewritten, and every funnel event would have silently stopped
+     firing with no error anywhere. */
   const HIGH_INTENT = new Set(['cta_fastwork', 'contact_email', 'resume_download']);
 
   const classify = (el) => {
@@ -91,18 +96,18 @@
     /* The industry pages are the whole search strategy and were untracked.
        Must be tested before the generic showcase/case-study rules — those
        patterns do not overlap, but the origin tag is what makes this useful. */
-    if (/(^|\/)web-[a-z-]+\.html/.test(href)) {
-      const m = href.match(/web-([a-z-]+)\.html/);
+    if (/(^|\/)web-[a-z-]+(\.html)?(?=[#?]|$)/.test(href)) {
+      const m = href.match(/web-([a-z-]+?)(?:\.html)?(?=[#?]|$)/);
       return { name: 'industry_open', tags: { industry: m ? m[1] : 'unknown', origin: originOf(el) } };
     }
-    if (/(^|\/)(landing-page|dashboard-ui|business-website)(-en)?\.html/.test(href)) {
+    if (/(^|\/)(landing-page|dashboard-ui|business-website)(-en)?(\.html)?(?=[#?]|$)/.test(href)) {
       const m = href.match(/(landing-page|dashboard-ui|business-website)/);
       return { name: 'package_open', tags: { package: m ? m[1] : 'unknown', origin: originOf(el) } };
     }
-    if (/(^|\/)showcase-[^/]+\.html/.test(href)) {
+    if (/(^|\/)showcase-[^/#?]+/.test(href)) {
       return { name: 'showcase_open', tags: { project: href.split('/').pop(), origin: originOf(el) } };
     }
-    if (/(^|\/)case-study-[^/]+\.html/.test(href)) {
+    if (/(^|\/)case-study-[^/#?]+/.test(href)) {
       return { name: 'case_study_open', tags: { project: href.split('/').pop() } };
     }
     if (el.matches('.work-thumb, .btn-live') || el.closest('.story-links')) {
