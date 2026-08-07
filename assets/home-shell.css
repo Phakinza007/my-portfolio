@@ -685,34 +685,6 @@
 
     .filter-btn.active .filter-count { background: rgba(0,0,0,0.28); color: #fff; }
 
-    /* Hero credential — one line of real client work, high on the page.
-       Singular on purpose: there is one client, and a plural would inflate it. */
-    .hero-credential {
-      margin: 18px 0 0;
-      padding-top: 16px;
-      border-top: 1px solid var(--border);
-      max-width: 52ch;
-      color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-
-    .hero-credential-label {
-      display: inline-block;
-      margin-right: 8px;
-      padding: 2px 9px;
-      border-radius: 99px;
-      background: var(--accent-dark);
-      color: #fff;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      vertical-align: 1px;
-    }
-
-    .hero-credential a { color: var(--ink); font-weight: 600; }
-    .hero-credential a:hover { color: var(--accent-text); text-decoration: underline; }
-
     /* ============================================================
        WORK ARCHIVE — sidebar filter + results pane
        The sidebar reuses .filter-btn verbatim so assets/site-ui.js,
