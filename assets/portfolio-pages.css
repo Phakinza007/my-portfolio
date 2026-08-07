@@ -407,7 +407,9 @@ p {
   color: var(--amber-text);
 }
 
-.tag-accent { background: var(--accent-light); color: var(--accent); }
+/* --accent on the tinted tag background is only 3.67:1. home-shell.css
+   already uses --accent-text here; this sheet had been left behind. */
+.tag-accent { background: var(--accent-light); color: var(--accent-text); }
 .tag-mint   { background: var(--mint); color: var(--mint-text); }
 .tag-amber  { background: var(--amber); color: var(--amber-text); }
 .tag-rose   { background: var(--rose); color: var(--rose-text); }
