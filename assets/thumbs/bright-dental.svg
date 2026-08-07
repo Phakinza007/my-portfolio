@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="351" height="220" viewBox="0 0 351 220" role="img" aria-labelledby="t d">
+  <title id="t">BRIGHT Dental Clinic landing page preview</title>
+  <desc id="d">Dark dental clinic landing page preview with a BRIGHT wordmark, navigation, a coral booking button, a type-led headline, two calls to action, a review line and a photo panel of a treatment room.</desc>
+  <defs>
+    <!-- Palette read off dental-clinic.html: ink #120F0C, paper #F7F2E9, coral #FF5B3B. -->
+    <style>
+      .ink    { fill: #120F0C; }
+      .bar    { fill: #1E1A15; }
+      .cream  { fill: #F5EFE3; }
+      .coral  { fill: #FF5B3B; }
+      .dark   { fill: #1C1811; }
+      .dim    { fill: #B7AA95; }
+      .hair   { fill: #F5EFE3; opacity: 0.12; }
+      .line   { fill: #B7AA95; opacity: 0.55; }
+      .navdot { fill: #F5EFE3; opacity: 0.35; }
+    </style>
+    <linearGradient id="photo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EDEEEF"/>
+      <stop offset="100%" stop-color="#C4C8CC"/>
+    </linearGradient>
+  </defs>
+
+  <rect class="ink" width="351" height="220"/>
+
+  <!-- top bar -->
+  <rect class="bar" width="351" height="26"/>
+  <rect class="hair" y="25" width="351" height="1"/>
+  <text x="28" y="16.5" class="cream" font-family="Inter, sans-serif" font-size="8" font-weight="800" letter-spacing="0.5">BRIGHT</text>
+  <rect class="coral" x="66" y="14" width="2.6" height="2.6"/>
+  <rect class="navdot" x="150" y="12.2" width="12" height="1.6" rx="0.8"/>
+  <rect class="navdot" x="168" y="12.2" width="10" height="1.6" rx="0.8"/>
+  <rect class="navdot" x="184" y="12.2" width="14" height="1.6" rx="0.8"/>
+  <rect class="navdot" x="204" y="12.2" width="9" height="1.6" rx="0.8"/>
+  <rect class="coral" x="289" y="6.5" width="34" height="13" rx="2"/>
+  <rect class="dark" x="298" y="11.7" width="16" height="2.5" rx="1"/>
+
+  <!-- headline: two cream lines then the coral BRIGHT line -->
+  <rect class="cream" x="28" y="52" width="118" height="13" rx="1"/>
+  <rect class="cream" x="28" y="69" width="86" height="13" rx="1"/>
+  <rect class="coral" x="28" y="86" width="132" height="15" rx="1"/>
+
+  <!-- body copy -->
+  <rect class="line" x="28" y="112" width="140" height="2.6" rx="1.3"/>
+  <rect class="line" x="28" y="118.5" width="132" height="2.6" rx="1.3"/>
+  <rect class="line" x="28" y="125" width="96" height="2.6" rx="1.3"/>
+
+  <!-- primary + secondary CTA -->
+  <rect class="coral" x="28" y="138" width="52" height="17" rx="2"/>
+  <rect class="dark" x="38" y="145.2" width="32" height="2.6" rx="1.3"/>
+  <rect x="86" y="138" width="52" height="17" rx="2" fill="none" stroke="#F5EFE3" stroke-opacity="0.35" stroke-width="1"/>
+  <rect class="cream" x="96" y="145.2" width="32" height="2.6" rx="1.3" opacity="0.7"/>
+
+  <!-- rule + review / since-year line -->
+  <rect class="hair" x="28" y="168" width="138" height="1"/>
+  <rect class="cream" x="28" y="177.5" width="10" height="3" rx="1"/>
+  <rect class="line" x="42" y="178" width="42" height="2" rx="1"/>
+  <rect class="line" x="92" y="178" width="28" height="2" rx="1"/>
+  <rect class="cream" x="124" y="177.5" width="12" height="3" rx="1"/>
+
+  <!-- treatment-room photo panel -->
+  <rect x="196" y="40" width="127" height="150" rx="2" fill="url(#photo)"/>
+  <rect x="206" y="58" width="58" height="112" rx="5" fill="#F2F3F4" opacity="0.9"/>
+  <rect x="290" y="48" width="24" height="68" rx="2" fill="#FDFDFD" opacity="0.85"/>
+  <rect x="216" y="72" width="34" height="6" rx="3" fill="#D7DADD"/>
+  <rect x="204" y="171" width="66" height="11" rx="2" fill="#120F0C" opacity="0.9"/>
+  <rect class="coral" x="209" y="175" width="3" height="3" rx="1.5"/>
+  <rect class="cream" x="216" y="175.5" width="46" height="2" rx="1" opacity="0.8"/>
+</svg>
