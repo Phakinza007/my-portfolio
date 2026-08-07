@@ -26,7 +26,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=optional" rel="stylesheet">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="site.webmanifest" />
-  <link rel="stylesheet" href="assets/portfolio-pages.css?v=crumbs" />
+  <link rel="stylesheet" href="assets/portfolio-pages.css?v=story-note" />
   <link rel="stylesheet" href="assets/site-search.css?v=1" />
   <script src="assets/site-search.js?v=self-render" defer></script>
   <script src="assets/analytics.js?v=funnel" defer></script>
@@ -46,13 +46,11 @@
         <span>RAAT Case Study</span>
       </a>
       <ul class="nav-links">
-        <li><a href="/">พอร์ตโฟลิโอ</a></li>
-        <li><a href="#work">สิ่งที่ทำ</a></li>
-        <li><a href="#result">ผลลัพธ์</a></li>
-        <li><a href="https://www.raat.or.th/competition-calendar/1442/" target="_blank" rel="noopener noreferrer">ดูเว็บจริง</a></li>
-        <li><a class="nav-primary" href="resume.html">เรซูเม่</a></li>
-        <li><a href="case-study-raat-en.html">EN</a></li>
-      </ul>
+          <li><a href="work.html">ผลงานทั้งหมด</a></li>
+          <li><a href="https://www.raat.or.th/competition-calendar/1442/" target="_blank" rel="noopener noreferrer">ดูเว็บจริง</a></li>
+          <li><a class="nav-primary" href="resume.html">เรซูเม่</a></li>
+          <li><a href="case-study-raat-en.html">EN</a></li>
+        </ul>
       <div class="site-search"></div>
     </nav>
   </header>
@@ -112,38 +110,88 @@
       </div>
     </section>
 
-    <section class="section" id="work">
-      <div class="page-shell study-grid">
-        <article class="study-block featured">
-          <span class="eyebrow">สิ่งที่ทำ</span>
-          <h2>หน้าปฏิทินการแข่งขันประจำฤดูกาล</h2>
-          <p>
-            หน้านี้รวมรายการแข่งขันทั้งฤดูกาลไว้ในปฏิทินเดียว แยกสีตามประเภทกีฬา
-            สลับได้ระหว่างมุมมองรายเดือนกับมุมมองรายการ และมีปุ่มกระโดดกลับมาที่เดือนปัจจุบัน
-            ปุ่มควบคุมทั้งหมดเป็นภาษาไทย และหัวข้อระบุทั้งปีไทยและปีสากลคู่กัน
-          </p>
-          <ul class="highlight-list">
-            <li>แยกสี 5 ประเภท — Circuit Racing · Karting · Rally · Digital (eRacing) · Drifting</li>
-            <li>มุมมองเดือนและมุมมองรายการ สลับได้จากปุ่มเดียว</li>
-            <li>แต่ละรายการแสดงชื่อรายการและสนามที่จัด</li>
-            <li>เอกสารตารางฤดูกาลฉบับทางการวางไว้ใต้ปฏิทิน สำหรับคนที่ต้องการต้นฉบับ</li>
-          </ul>
-        </article>
+        <section class="section" id="overview">
+      <div class="page-shell">
+        <p class="story-intro">อ่านจากบนลงล่าง — งานนี้คืออะไร ทำอะไรได้ เหมาะกับใคร แล้วลองนึกภาพงานแบบเดียวกันที่ทำขึ้นรอบองค์กรของคุณ</p>
 
-        <article class="study-block">
-          <span class="eyebrow">อีกส่วนของงาน</span>
-          <h2>ปรับหน้าตาเว็บไซต์</h2>
-          <p>
-            นอกจากหน้าปฏิทิน ผมปรับชุดสี ฟอนต์ และเปลี่ยนภาพ hero section ของเว็บไซต์
-            โดยเลือกฟอนต์ที่อ่านตัวเลขและตารางได้ชัด เพราะเนื้อหาหลักของสมาคมคือวันที่
-            ตารางแข่ง และกติกา
-          </p>
-          <div class="tag-list">
-            <span class="tag tag-accent">WordPress</span>
-            <span class="tag tag-accent">Elementor</span>
-            <span class="tag tag-mint">FullCalendar</span>
-          </div>
-        </article>
+        <div class="story-stack">
+          <article class="story-card">
+            <div class="story-head">
+              <span class="story-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3l1.9 4.9L19 10l-5.1 2.1L12 17l-1.9-4.9L5 10l5.1-2.1z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></svg>
+              </span>
+              <div>
+                <h2>ภาพรวมโปรเจกต์</h2>
+                <p class="story-kicker">ใช้เวลาไม่กี่นาที เห็นภาพทั้งหมด</p>
+              </div>
+            </div>
+            <p>ราชยานยนต์สมาคมแห่งประเทศไทย ในพระบรมราชูปถัมภ์ เป็นองค์กรกำกับดูแลกีฬายานยนต์ของไทย และเป็นผู้แทนสหพันธ์ยานยนต์นานาชาติ (FIA) ประจำประเทศ งานนี้มีสองส่วน — ปรับชุดสี ฟอนต์ และเปลี่ยนภาพ hero section ของเว็บไซต์ แล้วสร้างหน้าปฏิทินการแข่งขันประจำฤดูกาลขึ้นมาใหม่ ส่งมอบเดือนกรกฎาคม 2026 และยังใช้งานอยู่จนถึงตอนนี้</p>
+            <p class="story-note">หมายเหตุตามตรง — งานนี้ไม่ได้เก็บตัวเลขวัดผลไว้ ไม่มีสถิติยอดเข้าชมหรืออัตราการใช้งานก่อนและหลัง สิ่งที่ยืนยันได้คือหน้านี้เปิดใช้จริงและยังใช้งานต่อเนื่อง</p>
+            <div class="tag-list">
+              <span class="tag tag-accent">ลูกค้าจริง</span>
+              <span class="tag tag-gray">WordPress</span>
+              <span class="tag tag-gray">Elementor</span>
+              <span class="tag tag-mint">FullCalendar</span>
+            </div>
+          </article>
+
+          <article class="story-card">
+            <div class="story-head">
+              <span class="story-icon amber" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false"><path d="M13 2L4.5 13.5H11L10 22l8.5-11.5H12z"/></svg>
+              </span>
+              <div>
+                <h2>สรุปใน 30 วินาที</h2>
+                <p class="story-kicker">จุดที่โดดเด่น อ่านผ่าน ๆ ก็เห็น</p>
+              </div>
+            </div>
+            <ul class="highlight-list">
+              <li>รวมรายการแข่งขันทั้งฤดูกาลไว้ในปฏิทินเดียว แยกสี 5 ประเภท — Circuit Racing · Karting · Rally · Digital (eRacing) · Drifting</li>
+              <li>มุมมองเดือนและมุมมองรายการ สลับได้จากปุ่มเดียว พร้อมปุ่มกระโดดกลับมาที่เดือนปัจจุบัน</li>
+              <li>ปุ่มควบคุมเป็นภาษาไทยทั้งหมด หัวข้อระบุทั้งปีไทยและปีสากลคู่กัน</li>
+              <li>เอกสารตารางฤดูกาลฉบับทางการวางไว้ใต้ปฏิทิน สำหรับคนที่ต้องการต้นฉบับ</li>
+            </ul>
+          </article>
+
+          <article class="story-card">
+            <div class="story-head">
+              <span class="story-icon mint" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>
+              </span>
+              <div>
+                <h2>โปรเจกต์นี้เหมาะกับใคร</h2>
+                <p class="story-kicker">อ่านรอบเดียวรู้เลยว่าใช่หรือไม่ใช่</p>
+              </div>
+            </div>
+            <p>เหมาะกับสมาคม มูลนิธิ และหน่วยงานที่มีตารางกิจกรรมทั้งปี และมีเอกสารทางการที่คนต้องหาให้เจอ — ปฏิทินหน้าเดียวที่แก้เองได้ ตอบคำถามซ้ำๆ ว่า "รายการต่อไปวันไหน จัดที่ไหน" ได้ดีกว่าการอัปโหลดไฟล์ใหม่ทีละรอบ</p>
+          </article>
+
+          <article class="story-card accent">
+            <div class="story-head">
+              <span class="story-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false"><path d="M9.5 18h5M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.5.4.8 1 .8 1.6v.5h5.4v-.5c0-.6.3-1.2.8-1.6A6 6 0 0 0 12 3z"/></svg>
+              </span>
+              <div>
+                <h2>อยากได้แบบนี้บ้างไหม?</h2>
+                <p class="story-kicker">ปรับงานชิ้นนี้ให้เข้ากับองค์กรของคุณ</p>
+              </div>
+            </div>
+            <p>บอกผมว่าองค์กรคุณต้องเผยแพร่อะไรบ้าง คนเข้ามาหาข้อมูลอะไรบ่อยที่สุด และงบประมาณคร่าว ๆ เท่าไหร่ — ผมออกแบบและพัฒนาให้พอดีกับสิ่งนั้น</p>
+            <div class="story-actions">
+              <a class="button primary" href="https://fastwork.co/byob/0G16E5GFIO?openExternalBrowser=1&amp;source=byob" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 3L3 10.5l7 2.6 2.6 7z"/><path d="M21 3l-11 11"/></svg>เริ่มงานบน Fastwork
+              </a>
+              <a class="button" href="mailto:a0626568471@gmail.com">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5L12 13l8.5-6.5"/></svg>อีเมลหาผม
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <p class="story-links">
+          <a href="https://www.raat.or.th/competition-calendar/1442/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-8.5 8.5"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>ดูหน้าปฏิทินจริง</a>
+          <a href="work.html">ผลงานทั้งหมด<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12h15"/><path d="M13.5 6.5L19.5 12l-6 5.5"/></svg></a>
+        </p>
       </div>
     </section>
 
@@ -177,29 +225,6 @@
               การใช้ไลบรารีเดียวเฉพาะหน้าที่ต้องใช้ ทำให้ส่วนที่เหลือของเว็บไม่ต้องแบกอะไรเพิ่ม
             </p>
           </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="result">
-      <div class="page-shell">
-        <div class="result-band">
-          <div>
-            <span class="eyebrow">ผลลัพธ์</span>
-            <h2>ส่งมอบเดือนกรกฎาคม 2026 และยังใช้งานอยู่</h2>
-            <p>
-              หน้าปฏิทินเปิดใช้งานจริงและยังทำหน้าที่อยู่จนถึงตอนนี้ โดยมีรายการแข่งขันของฤดูกาล 2026
-              บรรจุอยู่ครบ กดเข้าไปดูของจริงได้จากปุ่มด้านล่าง
-            </p>
-            <p style="margin-top:14px;color:var(--muted);font-size:0.92rem;">
-              หมายเหตุตามตรง — งานนี้ไม่ได้เก็บตัวเลขวัดผลไว้ ไม่มีสถิติยอดเข้าชมหรืออัตราการใช้งานก่อนและหลัง
-              สิ่งที่ยืนยันได้คือหน้านี้เปิดใช้จริงและยังใช้งานต่อเนื่อง
-            </p>
-          </div>
-          <div class="result-actions">
-            <a class="button primary" href="https://www.raat.or.th/competition-calendar/1442/" target="_blank" rel="noopener noreferrer">เปิดหน้าปฏิทิน</a>
-            <a class="button" href="https://fastwork.co/byob/0G16E5GFIO?openExternalBrowser=1&amp;source=byob" target="_blank" rel="noopener noreferrer">เริ่มงานบน Fastwork</a>
-          </div>
         </div>
       </div>
     </section>

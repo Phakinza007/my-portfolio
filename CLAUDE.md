@@ -646,6 +646,29 @@ clamp, which is far too large inside a stack.
 `.eyebrow` is not used inside story cards, and neither is `.study-block`.
 
 ### Add a case study
+
+**Two body formats are in use, deliberately.** The four concept case studies
+(`pulseboard`, `launchledger`, `interntrack`, `habitquest`) run
+`#problem` → `#decisions` → `#practice` → `#result`, where `#decisions` is an
+`<ol class="decision-list">` of three numbered `.study-block.decision` cards. That shape is
+built to narrate a design exercise.
+
+`case-study-raat.html` uses the **showcase story stack** instead — `.story-intro` +
+four `.story-card`s + `.story-links`, identical to the 26 `showcase-*` pages — because a
+buyer reading the one piece of real client work wants the same scan as the demos, not an
+essay. It keeps `#stack` (three reasons FullCalendar beat a plugin) between the stack and
+`#related`: that is the substance of the engagement, and cutting it to match the showcase
+outline exactly would leave the real project thinner than the self-directed ones.
+
+Its nav follows the showcase pattern too — `ผลงานทั้งหมด · ดูเว็บจริง · เรซูเม่ · EN`, four
+items, **no in-page anchors**. The old nav pointed at `#work` and `#result`; restructuring
+the body deleted both ids and left four dead anchors behind. **Changing a section id on
+these pages means checking the contextual nav in the same edit.**
+
+The honest "no metrics were recorded" line survives the reformat as `p.story-note` inside
+the first card — a `--muted` aside with a left rule, immediately under the claim it
+qualifies. It is required content, not decoration; see "Client work".
+
 Case studies ship in bilingual pairs, same as every other page on the site (see
 "Bilingual structure" above). Producing only the Thai file makes an unpaired,
 uncrawlable page — do all of these:
