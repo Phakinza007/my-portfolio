@@ -561,8 +561,26 @@ are **Thai-only** — see "Bilingual structure" for why. Built entirely from
    its `.eyebrow` — repeating "เหมาะกับใคร" twice reads as a bug
 6. `#related`: `.project-strip` using each project's `.work-problem` text from `index.html`
    **verbatim**. A single-demo page shows one link — do not pad it
-7. `#faq`: 4–5 `.study-block`s with `<h3>` questions. This is where a page with few demos
-   earns its weight
+7. `#faq`: **10** `.study-block`s with `<h3>` questions — 4 industry-specific, 2 on price
+   objections, 4 shared (domain/host, revisions, payment, dissatisfaction) copied from
+   `faq.html`. A matching `FAQPage` JSON-LD ships in the `<head>`; the question count in the
+   JSON must equal the rendered `<h3>` count.
+
+Since 2026-08-07 each page also carries `#problem`, `#included`, `#compare` and `#process`,
+taking the body from ~2,300 to ~6,800 characters — the page-1 result measured against them
+carries roughly 2,500–3,000 words. All four are built from existing components; **no page in
+this family has ever needed new CSS.**
+
+`#compare` sets ฿3,900 against the ฿19,900–25,900 bracket the page-1 agencies occupy. It
+**names no competitor** and states the freelance side's own limits (one person, no cover, no
+out-of-hours support) — a comparison that only flatters one side reads as advertising.
+
+**These pages must not claim clients.** All thirteen projects are self-directed design work.
+The eyebrow above `#related` is `ตัวอย่างงานออกแบบ`, never `ผลงานจริง`, and no page carries a
+client count, a client name, or a testimonial beyond the three real Fastwork reviews.
+
+**No PDPA content** until it is true — the owner does not currently do anything about it, and
+implying otherwise to a clinic is worse than silence
 8. Add a tile to `#need` on **both** `index.html` and `index-en.html` — only after the page
    exists, since `main` auto-deploys
 9. Add the URL to `sitemap.xml` under the industry-pages comment, priority `0.85`
