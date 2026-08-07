@@ -1,6 +1,12 @@
 {
   "th": [
     {
+      "t": "หน้าแรก",
+      "u": "index.html",
+      "g": "หน้าหลัก",
+      "k": "หน้าแรก home phakin ภาคิน รับทำเว็บไซต์ ฟรีแลนซ์ นักพัฒนาเว็บ portfolio พอร์ตโฟลิโอ"
+    },
+    {
       "t": "ผลงานทั้งหมด",
       "u": "work.html",
       "g": "หน้าหลัก",
@@ -212,6 +218,12 @@
     }
   ],
   "en": [
+    {
+      "t": "Home",
+      "u": "index-en.html",
+      "g": "Main pages",
+      "k": "home phakin chawanpunya freelance web developer portfolio hire"
+    },
     {
       "t": "All work",
       "u": "work-en.html",

@@ -447,6 +447,52 @@ portfolio chrome) and `404.html`.
 
 ---
 
+## Lessons from the 2026-08-07 site-wide audit
+
+Four defects that static greps and the Lighthouse score both missed. Each is a class of bug,
+not a one-off:
+
+**`aria-hidden` does not satisfy WCAG 2.5.3.** The VELVÉ card's `.work-thumb` link wraps a
+photo with a `4-step booking wizard` badge painted over it. Hiding the badge with
+`aria-hidden="true"` removed it from the accessible name but **not** from the rendered text
+axe compares against, so `label-content-name-mismatch` kept firing. The fix is the opposite
+of hiding: the `aria-label` must *contain* the visible string. A voice-control user saying
+"click 4-step booking wizard" has to reach the link.
+
+**That audit has weight 0**, so Accessibility still reported 100 while failing. Read the
+per-audit failures, never the category score alone.
+
+**A bare element selector in a demo page will find a second element eventually.**
+`aesthetic-booking.html` styled `nav { position: sticky; background: rgba(244,239,230,.92) }`
+for its header. When a `nav.foot-links` was later added to the footer it inherited the cream
+panel, putting cream 0.68 links on cream 0.92: **1.11:1, effectively invisible**, and it had
+been shipping that way. Now `.site-nav`. The 13 demo pages each carry their own inline CSS
+with no shared reset — assume every bare tag selector in them is a latent collision.
+
+**An `-en` page carrying Thai copy must mark it.** Package features stay Thai deliberately
+(see the bilingual rules), so `lang="th"` on that block is what stops a screen reader reading
+Thai in an English voice. `index-en.html` and `services-en.html` already did this; the three
+category pages did not. Their `.project-strip` blurbs were also Thai — those were the wrong
+source, not a language-marking problem: the English one-liners already existed on
+`index-en.html`'s cards, which is what step 6 of the category-page recipe means by "the
+project's real one-line description".
+
+**Verified clean and not worth re-checking blind:** 0 dead links and 0 dead anchors across 84
+files, no stylesheet-family mixing, sitemap 79 URLs with no duplicates or dead entries, all
+JSON-LD parses, all 8 `FAQPage` blocks match their rendered `<h3>` count, every `<img>` has
+`alt` and resolves, no duplicate `id`s, and no horizontal overflow at 375px on any of the 84
+pages. `ลูกค้าจริง` appears only around RAAT; the three `ผลงานจริง` hits are ordinary Thai for
+"actual work" in copy about the *client's* needs, not a claim about this portfolio.
+
+**Left alone, deliberately.** Four retired demos — `DRIP`, `appointment-booking`,
+`spa-retreat`, `stock` — are `noindex, follow`, absent from `sitemap.xml`, and linked from
+nowhere. `appointment-booking.html` has no heading of any level and is superseded by
+`BookEase.html`. Deleting them is the owner's call. Twenty meta descriptions sit at 161–190
+characters; only those over 190 were trimmed, because shortening the rest means rewriting his
+copy.
+
+---
+
 ## Key Standards to Maintain
 
 - **Lighthouse:** 100 / 100 / 100 (Accessibility / Best Practices / SEO) — run after changes.

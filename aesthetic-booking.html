@@ -90,7 +90,10 @@
     .btn:disabled { opacity: .4; cursor: not-allowed; transform: none; box-shadow: none; }
 
     /* ── Nav ───────────────────────────────────────────────────── */
-    nav {
+    /* .site-nav, not a bare `nav` — the bare selector also caught
+       nav.foot-links in the footer, painting a cream 0.92 panel behind
+       cream 0.68 links: 1.11:1, effectively invisible. */
+    .site-nav {
       position: sticky; top: 0; z-index: 100;
       background: rgba(244,239,230,.92);
       backdrop-filter: blur(12px);
@@ -545,7 +548,7 @@
 <body>
 
   <!-- ── Nav ─────────────────────────────────────────────────── -->
-  <nav>
+  <nav class="site-nav" aria-label="เมนูหลัก">
     <div class="wrap nav-inner">
       <a class="logo" href="#top">VELVÉ</a>
       <div class="nav-links">
@@ -919,7 +922,7 @@
   </aside>
 
   <!-- ── Footer ──────────────────────────────────────────────── -->
-  <footer>
+  <footer id="contact">
     <div class="wrap foot-inner">
       <div class="foot-top">
         <div class="foot-logo">VELVÉ</div>
