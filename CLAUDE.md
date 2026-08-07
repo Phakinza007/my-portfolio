@@ -438,10 +438,23 @@ Click/scroll heatmaps + session recording via **Microsoft Clarity**, loaded from
   live since 2026-08-06 — see `docs/superpowers/plans/2026-08-05-technical-seo-fix.md` for the
   prior github.io-subpath era). An absolute path would work fine at this root, but keep using
   relative paths anyway — it's the established convention and safe regardless of hosting path.
+- **Clarity does not load on localhost / 127.0.0.1 / file:.** Checked 2026-08-08 against the
+  real project: six of the ten most-visited URLs were `localhost:8123`, 91 of 157 visits.
+  Development traffic was indistinguishable from buyers. The click listeners still run
+  locally so `?cl_debug` verifies instrumentation without sending anything.
 - Click tracking is delegated (one listener, no per-button markup needed) — classifies
   clicks by `href`/class in `assets/analytics.js`. Custom events fired: `cta_fastwork`,
-  `fastwork_profile`, `contact_email`, `resume_download`, `showcase_open`,
-  `case_study_open`, `project_open`, `project_filter`, `contact_submit`
+  `fastwork_profile`, `contact_email`, `contact_phone`, `resume_download`, `showcase_open`,
+  `case_study_open`, `project_open`, `project_filter`, `tag_filter`, `featured_toggle`,
+  `work_search`, `industry_open`, `package_open`, `breadcrumb_nav`, `contact_submit`
+- **Most events carry an `origin` tag** from `originOf()` — `need_tile`, `breadcrumb`,
+  `project_strip`, `story_links`, `nav`, `footer`, or the enclosing section id. The same
+  industry page is reachable from four places; without it they are one number.
+- `industry_open` is the load-bearing one. The seven `web-*.html` pages are the entire search
+  strategy and went untracked until 2026-08-08, so the funnel
+  `home → #need tile → industry page → Fastwork` could only be seen at its last step.
+- `work_search` is debounced 1.2s — typing is not a click, and a six-character query should
+  be one event, not six.
 - `cta_fastwork` / `contact_email` / `resume_download` also call `clarity('upgrade', 'high_intent')`
   so those sessions aren't dropped by sampling
 - Debug: open any page with `?cl_debug` in the URL to `console.log` every tracked event
