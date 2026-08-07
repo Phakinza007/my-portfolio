@@ -197,6 +197,12 @@
       "u": "resume.html",
       "g": "เกี่ยวกับผม",
       "k": "resume cv ประวัติ ประสบการณ์ ทักษะ การศึกษา"
+    },
+    {
+      "t": "RAAT — ปฏิทินการแข่งขัน (งานลูกค้าจริง)",
+      "u": "case-study-raat.html",
+      "g": "Case study",
+      "k": "raat ราชยานยนต์ สมาคม fia ปฏิทินการแข่งขัน มอเตอร์สปอร์ต wordpress elementor fullcalendar ลูกค้าจริง งานจริง"
     }
   ],
   "en": [
@@ -397,6 +403,12 @@
       "u": "resume-en.html",
       "g": "About",
       "k": "resume cv experience skills education"
+    },
+    {
+      "t": "RAAT — competition calendar (client work)",
+      "u": "case-study-raat-en.html",
+      "g": "Case study",
+      "k": "raat royal automobile association thailand fia motorsport calendar wordpress elementor fullcalendar client work"
     }
   ]
 }

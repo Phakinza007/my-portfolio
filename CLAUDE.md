@@ -12,7 +12,10 @@ Personal frontend portfolio hosted on GitHub Pages.
 URL: https://ph-akin.dev/
 
 **Owner:** Phakin Chawanpunya  
-**Stack:** HTML · CSS · JavaScript (vanilla, no framework)  
+**Stack (this site):** HTML · CSS · JavaScript (vanilla, no framework)  
+**Stack (the owner's work generally):** also WordPress · Elementor · FullCalendar — see the
+RAAT case study. The line above describes this repository, not the range of work on offer;
+do not cite it as the latter.  
 **Hosting:** GitHub Pages (`main` branch, auto-deploys), custom domain `ph-akin.dev` (live as of
 2026-08-06 — DNS A/AAAA records at name.com point to GitHub Pages, `CNAME` file in repo root)
 
@@ -122,6 +125,12 @@ The card links to its **showcase page**; the showcase page's "ดูเว็บ
 | 11 | BRIGHT Dental Clinic | `showcase-dental-clinic.html` | `dental-clinic.html` | `clinic` |
 | 12 | VELVÉ Aesthetics | `showcase-velve-aesthetics.html` | `aesthetic-booking.html` | `clinic booking` |
 | 13 | HabitQuest | `showcase-habitquest.html` | external: `https://habitquest-pi.vercel.app/` | `other` |
+| 14 | **RAAT Competition Calendar** | `case-study-raat.html` | external: `https://www.raat.or.th/competition-calendar/1442/` | `other` |
+
+**Card 14 is the only real client work on the site.** The other thirteen are self-directed
+design pieces. It is the one card that may carry the `ลูกค้าจริง` tag, and that tag must never
+appear on the other thirteen — it was stripped from twelve files on 2026-08-07 for exactly
+that reason. RAAT also appears as the fifth `#case-studies` card, deliberately in both places.
 
 **On `index.html` the `#projects` filter runs on `data-industry` alone.** Keys: `clinic`,
 `booking`, `restaurant`, `shop`, `gym`, `construction`, `solar`, `other`. The archive adds a
@@ -188,6 +197,26 @@ Tag colour classes:
 - `tag-mint` — AI, SaaS, Developer tools, Green-tech, Weather
 - `tag-amber` — Finance, Energy, Fine Dining, Warm/luxury brands
 - `tag-gray` — Default: Dashboard, Landing Page, Brand, Booking, etc.
+
+---
+
+## Client work
+
+**Facts about client work come from the person who did it. Never infer scope by diffing a
+client's live site against a Wayback snapshot.** On 2026-08-08 that inference nearly put a
+false claim on the site — that the owner had restructured RAAT's navigation from three menus
+to seven. He had not. Caught only because he was asked.
+
+What may be said about RAAT is fixed by what he confirmed: a colour, type and hero-image
+refresh, plus one competition-calendar page built with FullCalendar, delivered July 2026 and
+still live. Not an IA change. No metrics — none were recorded, and the case study says so
+rather than reaching for a substitute number. No claim about how the calendar's fixtures are
+loaded; he does not remember, so the page stops at "configured the calendar and loaded the
+season's fixtures".
+
+No images of the client's previous design are published. The 2024 Wayback capture cannot be
+shown to be the immediate predecessor, and republishing a client's old site is a courtesy that
+was never asked for.
 
 ---
 
