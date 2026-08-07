@@ -123,8 +123,10 @@ The card links to its **showcase page**; the showcase page's "ดูเว็บ
 | 12 | VELVÉ Aesthetics | `showcase-velve-aesthetics.html` | `aesthetic-booking.html` | `clinic booking` |
 | 13 | HabitQuest | `showcase-habitquest.html` | external: `https://habitquest-pi.vercel.app/` | `other` |
 
-**The `#projects` filter runs on `data-industry`, one axis only.** Keys: `clinic`, `booking`,
-`restaurant`, `shop`, `gym`, `construction`, `solar`, `other`. `other` is load-bearing —
+**On `index.html` the `#projects` filter runs on `data-industry` alone.** Keys: `clinic`,
+`booking`, `restaurant`, `shop`, `gym`, `construction`, `solar`, `other`. The archive adds a
+second axis on top of it — see "The work archive" — but the homepage has only this one.
+`other` is load-bearing —
 MuseRoom and HabitQuest match none of the seven industries and would vanish from the filter
 without it. Counts are derived from the DOM at runtime, so the static `.filter-count` values
 are only a no-JS fallback.
