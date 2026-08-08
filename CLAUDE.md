@@ -824,14 +824,22 @@ are **Thai-only** — see "Bilingual structure" for why. Built entirely from
 3. Nav has **no EN link**
 4. `.study-meta` price/timeline/revisions come **verbatim** from the matching package on the
    category pages. Never invent pricing — these are live Fastwork listings
-5. `#overview`: a `.featured` block listing features that industry actually needs, plus a
-   plain block answering "who it's for". Give the plain block's `<h2>` different wording from
-   its `.eyebrow` — repeating "เหมาะกับใคร" twice reads as a bug
+5. `#overview`: a **`.feature-grid` of six `.feature-card`s** — one per feature that industry
+   actually needs, each a check badge beside a single line — then a plain `.study-block`
+   answering "who it's for". Give that block's `<h2>` different wording from its `.eyebrow` —
+   repeating "เหมาะกับใคร" twice reads as a bug.
+   Rebuilt 2026-08-08 from `bigzweb.com/recommend/corporate`'s benefit row. The six features
+   used to be a bulleted list inside one tall card beside a short paragraph, so the section
+   was a 382px column next to a 236px one and the features read as fine print. **The copy is
+   the same six lines, moved not rewritten** — three columns, two below 900px, one below 640px
 6. `#preview` then `#related`, in that order. `#preview` is the design preview widget (below),
    now on all 8 pages. `#related`: `.project-strip` using each project's `.work-problem` text
    from `index.html` **verbatim**. A single-demo page shows one link — do not pad it.
    The preview answers "what do I get", the strip answers "can he build it";
-   `bigzweb.com/recommend/*` runs them the other way round and the owner asked to invert it
+   `bigzweb.com/recommend/*` runs them the other way round and the owner asked to invert it.
+   A `.heading-link` ("ดูผลงานทั้งหมด →") sits in the second cell of `#related`'s
+   `.section-heading`, which was already a two-column grid with `align-items: end`, so it
+   needed no new layout
 7. `#faq`: **10** `.study-block`s with `<h3>` questions — 4 industry-specific, 2 on price
    objections, 4 shared (domain/host, revisions, payment, dissatisfaction) copied from
    `faq.html`. A matching `FAQPage` JSON-LD ships in the `<head>`; the question count in the
@@ -866,6 +874,12 @@ Two things about that rule are load-bearing:
 
 Fixing the orphan took `web-booking` from 7,171px to 5,969px tall — 17% shorter with no copy
 removed.
+
+**`.section-heading .eyebrow` carries `margin-bottom: 12px`, and it is not decoration.**
+`.eyebrow` had no bottom margin and the `h2` beneath it runs at line-height 1.1 — fine for
+Latin, but Thai upper vowels and tone marks are drawn above the line box, so `สิ่ง` and `ที่`
+collided with the eyebrow. Measured at `gap: 0px` on **every** `.section-heading` sitewide
+before the fix. It is a spacing change, not a type-size change, so no heading got smaller.
 
 **These pages must not claim clients.** All thirteen projects are self-directed design work.
 The eyebrow above `#related` is `ตัวอย่างงานออกแบบ`, never `ผลงานจริง`, and no page carries a

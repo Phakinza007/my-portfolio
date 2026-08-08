@@ -1300,3 +1300,90 @@ p {
 #stack .study-grid {
   align-items: stretch;
 }
+
+/* ============================================================
+   Feature grid — #overview on the web-* industry pages
+   Adapted from bigzweb.com/recommend/corporate's benefit row.
+   ============================================================ */
+
+/* Six features used to sit as a bulleted list inside one tall card beside a
+   short paragraph, so the section was a 382px column next to a 236px one and
+   the features themselves read as fine print. Each is now its own card, which
+   is what makes them scannable — the copy is the same six lines, unchanged. */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.feature-card {
+  display: flex;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface);
+}
+
+.feature-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--accent-light);
+  color: var(--accent-text);
+}
+
+.feature-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.feature-card p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+/* .section-heading is already a two-column grid with align-items:end, so a
+   "see all" link drops into its second cell without any new layout. */
+.heading-link {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent-text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.heading-link:hover { text-decoration: underline; }
+.heading-link svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+@media (max-width: 900px) {
+  .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .heading-link { justify-self: start; }
+}
+
+@media (max-width: 640px) {
+  .feature-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* .eyebrow carries no bottom margin, and the h2 under it runs at line-height
+   1.1. That is fine for Latin, but Thai upper vowels and tone marks (สิ่ง, ทำ,
+   ที่) are drawn above the line box and collide with the eyebrow — measured at
+   gap: 0px on every .section-heading across these pages, not just the ones
+   reformatted here. Separating them is a spacing fix, not a type-size change,
+   so no heading gets smaller. */
+.section-heading .eyebrow { margin-bottom: 12px; }
