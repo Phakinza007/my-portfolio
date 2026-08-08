@@ -549,10 +549,35 @@ no redirects, no directory restructure. Verified live before the rewrite.
 `canonical` and `og:url` — GitHub Pages looks the file up by name — though its outgoing links
 were rewritten with everything else.
 
-**The `.html` URLs still return 200.** GitHub Pages cannot redirect, so every page is reachable
-at two URLs and the `canonical` is the only thing telling Google which one counts. That makes
-the canonical load-bearing here in a way it was not before: a page whose canonical still ends
-in `.html` splits its own ranking signal.
+**The `.html` URLs still return 200** — GitHub Pages cannot redirect, and
+`jekyll-redirect-from` cannot help because source and target are the same file. `canonical` is
+what tells Google which URL counts, so a page whose canonical still ends in `.html` splits its
+own ranking signal.
+
+Canonical fixes the index; it does nothing for the address bar. A visitor arriving from an old
+bookmark or an already-indexed result sat on the URL we had just told Google to ignore, and
+Clarity counted the homepage twice — 32 sessions on `/` beside 19 on `/index.html`. So all 83
+pages (every file except `404.html`) carry a **six-line inline redirect in `<head>`**:
+
+```js
+(function(p){if(location.protocol!=='file:'&&/\.html$/.test(p)&&!/\/404\.html$/.test(p))
+  location.replace((/\/index\.html$/.test(p)?p.slice(0,-10):p.slice(0,-5))+location.search+location.hash)})(location.pathname)
+```
+
+Four things about it are deliberate and should survive edits:
+
+- **Inline, in `<head>`.** This repo consolidates duplicated inline scripts on principle — this
+  is the exception. A deferred external file runs after the parse, so the page renders and then
+  jumps.
+- **`location.replace`, not `location.href`.** No history entry, so Back leaves the site instead
+  of bouncing off the redirect.
+- **`404.html` is excluded.** GitHub Pages serves it under the *missing* path, which does not end
+  in `.html` and so never triggers; visiting `/404.html` directly is the only case, and it is
+  left alone.
+- **It cannot loop.** The result never ends in `.html`, so the guard is false on the second pass.
+
+`/index.html` → `/`, `/index.html#services` → `/#services`, `/work.html#projects` →
+`/work#projects`. Query strings and hashes are carried through.
 
 **Never strip `.html` from a link to github.com.** Seven `blob/main/*.html` source links exist
 and they point at real files in the repo; the migration matched only relative paths and

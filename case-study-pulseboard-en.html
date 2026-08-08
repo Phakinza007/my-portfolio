@@ -2,6 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <!-- Sends /foo.html to /foo and /index.html to /, in the address bar as well
+       as in the index. GitHub Pages serves both and cannot redirect, so canonical
+       alone leaves the visitor looking at the URL we told Google not to use.
+       Inline and in <head> on purpose: a deferred external script would run after
+       the parse and the page would render, then jump. location.replace keeps it
+       out of history, so Back still leaves the site. -->
+  <script>(function(p){if(location.protocol!=='file:'&&/\.html$/.test(p)&&!/\/404\.html$/.test(p))location.replace((/\/index\.html$/.test(p)?p.slice(0,-10):p.slice(0,-5))+location.search+location.hash)})(location.pathname)</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Full case study for PulseBoard, an event operations dashboard concept focused on scan-first status hierarchy, role ownership, timeline pressure, and responsive frontend practice." />
   <meta name="theme-color" content="#5274f8" />
