@@ -361,8 +361,29 @@ plus the site search.
 Rebuilt 2026-08-07 after `bigzweb.com/projects`, scoped down: that page carries 115 projects,
 this one 13, and most of its machinery exists to make 115 navigable.
 
-Layout: breadcrumb → merged hero → the eight `#need` tiles → `.work-layout`, a `240px` sidebar
-beside the results pane → the passive `.work-tagcloud` → case studies → contact.
+Layout: **one opening band — breadcrumb + `h1` + one-line blurb + the six `#need` tiles** →
+`#projects`, which now opens with a *visible* `h2` + blurb above `.work-layout` (a `240px`
+sidebar beside the results pane) → the passive `.work-tagcloud` → case studies → contact.
+
+Restructured 2026-08-08 against `bigzweb.com/projects`, in two passes:
+
+- **The title band and `#need` merged.** The title was its own `.section` carrying four lines
+  of text — 176px of padding for a heading — and its `.section-label` read `ผลงาน`, the same
+  word as the breadcrumb's current page and all but the same as the `h1`, so the page opened
+  by saying it three times.
+- **The `h1` is now the question, not the page name** — `คุณต้องการเว็บแบบไหน?` /
+  `What kind of site do you need?`. The `เริ่มตรงนี้` / `Start here` eyebrow went with it.
+- **`ผลงานทั้งหมด` / `All work` moved down to `#projects` as a visible `h2`**, together with
+  the blurb that used to sit under the old title. It was `sr-only` before, so the page gained
+  visible keyword text rather than losing it; `<title>` and the breadcrumb are unchanged.
+
+Three consequences worth knowing:
+
+- **The banding shifted by one.** `main > section:nth-of-type(even)` now lands on `#projects`,
+  not `#need`.
+- `id="work-heading"` stays on the `h1` and labels the merged section; `#need-heading` is gone.
+- `lang="th"` came off `#need` on `work.html`: redundant on a `lang="th"` document, and after
+  the merge it would have wrapped the `h1` too.
 
 **The sidebar reuses the nine `<button class="filter-btn">` elements verbatim.** They are not
 radios. `assets/site-ui.js` drives the same filter on `index.html`, so changing the control
@@ -411,8 +432,15 @@ a chip would cover them), and the `VDO` badge (no project has video).
 ## The `#need` selector
 
 **Six tiles** on `index`, `index-en`, `work` and `work-en` — clinic, booking, restaurant, shop,
-gym, construction. `.need-grid` is **three columns**, giving a clean 3 × 2; two columns below
-900px. Owner's call on 2026-08-08: solar, "ไม่แน่ใจ" and association came out of the selector.
+gym, construction. Owner's call on 2026-08-08: solar, "ไม่แน่ใจ" and association came out of
+the selector.
+
+`.need-grid` is **six columns — one row** above 1100px, so the selector reads as a single row
+of choices rather than a 3 × 2 block that looks like content. It steps to three columns below
+1100px (six would put every Thai label on three lines) and two below 900px. Each tile carries
+a **`.need-icon` badge** — a 34 × 34 tinted rounded square around the 18px inline SVG — and a
+`→` drawn by `.need-tile::after`, so a tile reads as a destination rather than a label.
+`.need-tile` is `position: relative` purely to anchor that arrow.
 
 **There are eight industry pages, not six.** `web-solar` and `web-organization` are still live,
 still in `sitemap.xml`, and reach visitors through `services.html` / `services-en.html` instead.
@@ -525,7 +553,7 @@ copy.
 |---------|----|-------------|
 | Nav | — | Logo + links: Services, Reviews, Projects, About, Experience, Case Studies, Contact, Resume |
 | Hero | `#top` | **Role leads, name is the byline.** `h1` holds `.hero-role` (`นักพัฒนาเว็บฟรีแลนซ์` in `--ink`) + `.hero-role-alt` (`Freelance Web Developer` in `--accent-text`, own line) + `.hero-name` at ~1/2 the size in `--ink-2`. Buyers search the service, not the person, and the h1 text order follows the visual order. Two real colours, never `background-clip: text` — that computes the colour to transparent and the contrast audit cannot measure it. `.hero-role` maxes at **2.8rem**: the `.hero-left` track is 526px, the English line fills it at 2.9rem and tips to three lines at 3.1rem. No `max-width` on the `h1` — a `ch` limit cut the Thai mid-word. Primary CTA → Fastwork, secondary → pricing |
-| Need selector | `#need` | 8 tiles directly under the hero — 7 industries → their `web-*.html` page, 8th ("ไม่แน่ใจ") → `#contact`. 4×2 desktop, 2×4 mobile. Inline SVG icons, all `aria-hidden` |
+| Need selector | `#need` | **6 tiles**, one row on desktop → their `web-*.html` page. 3 columns below 1100px, 2 below 900px. Each tile: `.need-icon` badge + inline SVG (`aria-hidden`) + a `::after` arrow. See "The `#need` selector" |
 | Tech Stack | — | Dual-row logo marquee (Simple Icons inlined as SVG symbols), opposite scroll directions, pause on hover, reduced-motion static |
 | Services | `#services` | 3 priced packages (Landing Page ฿3,900 / Dashboard UI ฿7,900 / Business Website ฿9,900), Thai copy, each links to Fastwork + `#contact` |
 | Pricing | `#pricing` | 3-column comparison of the same packages, prices verbatim from the category pages. On `index-en.html` the copy stays Thai, with `lang="th"` on the `.price-meta` and feature lists **only** — not the section, whose heading is English |

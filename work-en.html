@@ -105,7 +105,13 @@
 
   <main id="top" tabindex="-1">
 
-    <section class="section" aria-labelledby="work-heading">
+    <!-- The page title and the #need selector share one band. The title used to
+         be its own .section carrying four lines of text, which spent 176px of
+         padding on a heading, and its .section-label read "Work" — the same word
+         as the breadcrumb's current page and all but the same as the h1, so the
+         page opened by saying it three times. The label is gone; the breadcrumb
+         and the h1 already carry it. -->
+    <section class="section" id="need" aria-labelledby="work-heading">
       <div class="container">
         <nav aria-label="Breadcrumb">
           <ol class="crumbs">
@@ -113,45 +119,36 @@
             <li aria-current="page">Work</li>
           </ol>
         </nav>
-        <span class="section-label">Work</span>
-        <h1 class="section-title" id="work-heading">All work</h1>
-        <p class="work-problem" style="max-width:60ch;margin-top:10px;">13 websites and 4 case studies. Filter by business type or search by keyword — every one opens a full write-up and the live site.</p>
-      </div>
-    </section>
-
-    <section class="section" id="need" aria-labelledby="need-heading">
-      <div class="container">
-        <span class="section-label">Start here</span>
-        <h2 class="section-title" id="need-heading">What kind of site do you need?</h2>
+        <h1 class="section-title work-title" id="work-heading">What kind of site do you need?</h1>
         <p class="need-sub">Pick the closest match — you'll see real work and pricing for that category.</p>
         <div class="need-grid">
           <a class="need-tile" href="web-clinic">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 7v10M7 12h10"/></svg>
+            <span class="need-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 7v10M7 12h10"/></svg></span>
             <strong>Clinic / Beauty</strong>
             <span>Booking, services, practitioners</span>
           </a>
           <a class="need-tile" href="web-booking">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 11h18"/></svg>
+            <span class="need-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 11h18"/></svg></span>
             <strong>Booking / Appointments</strong>
             <span>Live availability, no double-booking</span>
           </a>
           <a class="need-tile" href="web-restaurant">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3v8a3 3 0 0 0 6 0V3M9 11v10M18 3c-1.5 2-2 4-2 6h4c0-2-.5-4-2-6zM18 9v12"/></svg>
+            <span class="need-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3v8a3 3 0 0 0 6 0V3M9 11v10M18 3c-1.5 2-2 4-2 6h4c0-2-.5-4-2-6zM18 9v12"/></svg></span>
             <strong>Restaurant / Café</strong>
             <span>Menu, pricing, reservations</span>
           </a>
           <a class="need-tile" href="web-shop">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18l-1.6 11.2A2 2 0 0 1 17.4 19H6.6a2 2 0 0 1-2-1.8L3 6zM8 10a4 4 0 0 0 8 0"/></svg>
+            <span class="need-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18l-1.6 11.2A2 2 0 0 1 17.4 19H6.6a2 2 0 0 1-2-1.8L3 6zM8 10a4 4 0 0 0 8 0"/></svg></span>
             <strong>Online Store</strong>
             <span>Products, cart, checkout</span>
           </a>
           <a class="need-tile" href="web-gym">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6M8 7v10M16 7v10M20 9v6M8 12h8"/></svg>
+            <span class="need-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6M8 7v10M16 7v10M20 9v6M8 12h8"/></svg></span>
             <strong>Fitness / Gym</strong>
             <span>Class timetable, memberships</span>
           </a>
           <a class="need-tile" href="web-construction">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 21V10l7-5 7 5v11M10 21v-6h4v6"/></svg>
+            <span class="need-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 21V10l7-5 7 5v11M10 21v-6h4v6"/></svg></span>
             <strong>Construction</strong>
             <span>Portfolio, quote requests</span>
           </a>
@@ -161,7 +158,12 @@
 
 <section class="section" id="projects" aria-labelledby="projects-heading">
       <div class="container">
-        <h2 class="sr-only" id="projects-heading">Project list</h2>
+        <!-- Visible, not sr-only: the opening band now leads with the "what kind
+             of site" question, so this is where the page says what the grid below
+             actually is. The blurb is the one that used to sit under the old
+             "All work" title — moved, not dropped. -->
+        <h2 class="section-title results-title" id="projects-heading">All work</h2>
+        <p class="results-sub">13 websites and 4 case studies. Filter by business type or search by keyword — every one opens a full write-up and the live site.</p>
         <div class="work-layout">
 
           <details class="work-filter" open>

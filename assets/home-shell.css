@@ -1564,12 +1564,54 @@
     /* Need selector */
     .need-sub{margin:0 0 1.8rem;color:var(--muted);max-width:52ch;}
     /* 9 tiles: three columns divide evenly, four would leave one orphaned. */
-    .need-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;}
-    .need-tile{display:flex;flex-direction:column;gap:.45rem;padding:1.1rem 1rem;border:1px solid var(--border);border-radius:var(--r);background:var(--surface);text-decoration:none;color:inherit;transition:border-color .18s var(--ease),transform .18s var(--ease);}
+    /* The page title now shares a band with this selector (work / work-en).
+       .section-title's 36px bottom margin is meant to sit above a grid, not
+       above a second heading, so the h1 tightens and the label that follows it
+       gets the breathing room instead. */
+    /* .section-title's 36px is spacing to a grid. Here the heading is followed
+       by its own one-line subtitle, which belongs next to it, not a paragraph
+       away. */
+    .work-title{margin-bottom:10px;}
+
+    /* The results grid's own heading. The opening band leads with the "what kind
+       of site" question, so this is where the page names what is below it. */
+    .results-title{font-size:clamp(1.4rem,2.4vw,1.9rem);margin-bottom:8px;}
+    .results-sub{margin:0 0 2rem;color:var(--muted);max-width:66ch;line-height:1.6;}
+
+    /* One row. Six tiles across at full width — the selector reads as a single
+       choice rather than a 3x2 block that looks like content. Below 1100px six
+       columns would put every Thai label on three lines, so it steps down. */
+    .need-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:.7rem;}
+    @media (max-width:1100px){.need-grid{grid-template-columns:repeat(3,1fr);gap:.9rem;}}
+    /* The icon sits in a tinted rounded badge and an arrow marks the top-right,
+       so each tile reads as a destination rather than a label. position:relative
+       is what the arrow anchors to. */
+    .need-tile{position:relative;display:flex;flex-direction:column;gap:.4rem;padding:.95rem .85rem;border:1px solid var(--border);border-radius:var(--r);background:var(--surface);text-decoration:none;color:inherit;transition:border-color .18s var(--ease),transform .18s var(--ease);}
+    @media (max-width:1100px){.need-tile{gap:.45rem;padding:1.1rem 1rem;}}
+
+    .need-tile::after{
+      content:"→";
+      position:absolute;top:.8rem;right:.85rem;
+      font-size:.9rem;line-height:1;color:var(--muted);
+      transition:color .18s var(--ease),transform .18s var(--ease);
+    }
+    .need-tile:hover::after{color:var(--accent-text);transform:translateX(2px);}
+
+    .need-icon{
+      display:grid;place-items:center;
+      width:34px;height:34px;
+      border-radius:10px;
+      background:var(--accent-light);
+      margin-bottom:.35rem;
+    }
     .need-tile:hover{border-color:var(--accent);transform:translateY(-2px);}
     .need-tile:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
-    .need-tile svg{width:26px;height:26px;stroke:var(--accent-text);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
-    .need-tile strong{font-size:1rem;line-height:1.35;color:var(--ink);}
-    .need-tile span{font-size:.86rem;color:var(--muted);line-height:1.45;}
+    .need-tile svg{width:18px;height:18px;stroke:var(--accent-text);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+    .need-tile strong{font-size:.92rem;line-height:1.35;color:var(--ink);}
+    .need-tile span{font-size:.79rem;color:var(--muted);line-height:1.45;}
+    @media (max-width:1100px){
+      .need-tile strong{font-size:1rem;}
+      .need-tile span{font-size:.86rem;}
+    }
     @media (max-width:900px){.need-grid{grid-template-columns:repeat(2,1fr);}}
     @media (prefers-reduced-motion:reduce){.need-tile{transition:none;}.need-tile:hover{transform:none;}}
