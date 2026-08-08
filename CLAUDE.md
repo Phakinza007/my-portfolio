@@ -579,7 +579,15 @@ Use `python3 _tools/serve.py 8123` instead; it mirrors the GitHub Pages fallback
   github.io-subpath era this replaced)
 - `robots: index, follow`
 - Twitter card: `summary_large_image`
-- Sitemap: `sitemap.xml`, referenced from `robots.txt`
+- Sitemap: `sitemap.xml`, referenced from `robots.txt`. Every `<url>` carries
+  `<lastmod>` · `<changefreq>` · `<priority>`, in that order after `<loc>`.
+  **`<lastmod>` is generated, never hand-edited** — run
+  `python3 _tools/sitemap-lastmod.py` after any change to page content. It reads
+  `git log -1 --format=%cs` per page and maps the extensionless `<loc>` back to its file.
+  Stamping every URL with today's date on each deploy is the pattern Google treats as
+  unreliable and then ignores; deriving from git keeps the values honest and lets them
+  diverge as pages actually diverge. First run (2026-08-07) legitimately produced one date
+  for all 79, because the extensionless-URL rewrite touched every page in a single commit.
 - `robots.txt` at the repo root allows all crawlers and points at the sitemap
 
 ---
