@@ -139,6 +139,26 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "หน้าแรก",
+      "item": "https://ph-akin.dev/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "FAQ",
+      "item": "https://ph-akin.dev/faq"
+    }
+  ]
+}
+  </script>
 </head>
 <body>
 <header class="navbar">
@@ -184,16 +204,18 @@
 
   <main id="top" tabindex="-1">
 
-    <section class="section" aria-labelledby="faq-heading">
-      <div class="container">
-        <span class="section-label">คำถามที่พบบ่อย</span>
-        <h1 class="section-title" id="faq-heading">คำถามก่อนจ้างทำเว็บไซต์</h1>
-        <p class="work-problem" style="max-width:60ch;margin-top:10px;">สิบคำถามที่ลูกค้าถามจริงก่อนตัดสินใจ ตอบตามที่ทำได้จริง รวมถึงข้อที่ตอบว่าไม่ได้ — เพราะการรู้ขอบเขตก่อนเริ่มดีกว่ามารู้ตอนงานเดินไปแล้ว</p>
-      </div>
-    </section>
 
-    <section class="section" id="price-time" aria-labelledby="price-time-heading">
+    <section class="section" id="price-time" aria-labelledby="faq-heading">
       <div class="container">
+        <nav aria-label="เส้นทาง">
+          <ol class="crumbs">
+            <li><a href="/">หน้าแรก</a></li>
+            <li aria-current="page">FAQ</li>
+          </ol>
+        </nav>
+        <h1 class="section-title work-title" id="faq-heading">คำถามก่อนจ้างทำเว็บไซต์</h1>
+        <p class="work-problem" style="max-width:60ch;margin-top:10px;">สิบคำถามที่ลูกค้าถามจริงก่อนตัดสินใจ ตอบตามที่ทำได้จริง รวมถึงข้อที่ตอบว่าไม่ได้ — เพราะการรู้ขอบเขตก่อนเริ่มดีกว่ามารู้ตอนงานเดินไปแล้ว</p>
+
         <span class="section-label">ราคาและเวลา</span>
         <h2 class="section-title" id="price-time-heading">ราคา ระยะเวลา และรอบแก้ไข</h2>
 

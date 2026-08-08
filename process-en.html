@@ -40,6 +40,26 @@
   <script src="assets/site-search.js?v=clean-urls" defer></script>
   <script src="assets/site-ui.js?v=tag-filter" defer></script>
   <script src="assets/analytics.js?v=clean-urls" defer></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://ph-akin.dev/index-en"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Process",
+      "item": "https://ph-akin.dev/process-en"
+    }
+  ]
+}
+  </script>
 </head>
 <body>
 <header class="navbar">
@@ -85,17 +105,18 @@
 
   <main id="top" tabindex="-1">
 
-    <section class="section" aria-labelledby="process-heading">
-      <div class="container">
-        <span class="section-label">How I work</span>
-        <h1 class="section-title" id="process-heading">From your first message to handover</h1>
-        <p class="work-problem" style="max-width:62ch;margin-top:10px;font-size:0.95rem;line-height:1.8;">If you have never hired a freelancer to build a website before, this page tells you exactly what happens — five steps, who does what and when, what you need to prepare, how many rounds of changes you get, and how the delivery date is counted. By the end you will know what your money buys.</p>
-        <a class="btn-live" href="https://fastwork.co/byob/0G16E5GFIO?openExternalBrowser=1&amp;source=byob" target="_blank" rel="noopener noreferrer" style="margin-top:22px;">Start a conversation on Fastwork →</a>
-      </div>
-    </section>
 
-    <section class="section" id="steps" aria-labelledby="steps-heading">
+    <section class="section" id="steps" aria-labelledby="process-heading">
       <div class="container">
+        <nav aria-label="Breadcrumb">
+          <ol class="crumbs">
+            <li><a href="index-en">Home</a></li>
+            <li aria-current="page">Process</li>
+          </ol>
+        </nav>
+        <h1 class="section-title work-title" id="process-heading">From your first message to handover</h1>
+        <p class="work-problem" style="max-width:62ch;margin-top:10px;font-size:0.95rem;line-height:1.8;">If you have never hired a freelancer to build a website before, this page tells you exactly what happens — five steps, who does what and when, what you need to prepare, how many rounds of changes you get, and how the delivery date is counted. By the end you will know what your money buys.</p>
+
         <span class="section-label">Five steps</span>
         <h2 class="section-title" id="steps-heading">How a project actually runs</h2>
 

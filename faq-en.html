@@ -140,6 +140,26 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://ph-akin.dev/index-en"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "FAQ",
+      "item": "https://ph-akin.dev/faq-en"
+    }
+  ]
+}
+  </script>
 </head>
 <body>
 <header class="navbar">
@@ -185,16 +205,18 @@
 
   <main id="top" tabindex="-1">
 
-    <section class="section" aria-labelledby="faq-heading">
-      <div class="container">
-        <span class="section-label">FAQ</span>
-        <h1 class="section-title" id="faq-heading">Questions people ask before hiring me</h1>
-        <p class="work-problem" style="max-width:60ch;margin-top:10px;">Ten questions clients actually ask before deciding, answered with what I can really do — including the ones where the answer is no. Knowing the limits before we start beats finding them halfway through.</p>
-      </div>
-    </section>
 
-    <section class="section" id="price-time" aria-labelledby="price-time-heading">
+    <section class="section" id="price-time" aria-labelledby="faq-heading">
       <div class="container">
+        <nav aria-label="Breadcrumb">
+          <ol class="crumbs">
+            <li><a href="index-en">Home</a></li>
+            <li aria-current="page">FAQ</li>
+          </ol>
+        </nav>
+        <h1 class="section-title work-title" id="faq-heading">Questions people ask before hiring me</h1>
+        <p class="work-problem" style="max-width:60ch;margin-top:10px;">Ten questions clients actually ask before deciding, answered with what I can really do — including the ones where the answer is no. Knowing the limits before we start beats finding them halfway through.</p>
+
         <span class="section-label">Price and time</span>
         <h2 class="section-title" id="price-time-heading">Price, timeline and revision rounds</h2>
 

@@ -39,6 +39,26 @@
   <script src="assets/site-search.js?v=clean-urls" defer></script>
   <script src="assets/site-ui.js?v=tag-filter" defer></script>
   <script src="assets/analytics.js?v=clean-urls" defer></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "หน้าแรก",
+      "item": "https://ph-akin.dev/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "บริการ",
+      "item": "https://ph-akin.dev/services"
+    }
+  ]
+}
+  </script>
 </head>
 <body>
 <header class="navbar">
@@ -84,17 +104,18 @@
 
   <main id="top" tabindex="-1">
 
-    <section class="section" aria-labelledby="services-heading">
-      <div class="container">
-        <span class="section-label">บริการและราคา</span>
-        <h1 class="section-title" id="services-heading">บริการรับทำเว็บไซต์ และราคา</h1>
-        <p class="work-problem" style="max-width:62ch;margin-top:10px;">มี 3 แพ็กเกจหลัก บอกราคาเริ่มต้นไว้ตั้งแต่แรกทุกตัว ไม่มีค่าใช้จ่ายแอบแฝง — เทียบทั้งสามด้านล่างได้เลย หรือถ้ารู้อยู่แล้วว่าธุรกิจคุณเป็นแบบไหน ข้ามไปดูหน้าที่แยกตามประเภทธุรกิจได้</p>
-      </div>
-    </section>
 
-    <section class="section" id="packages" aria-labelledby="packages-heading">
+    <section class="section" id="packages" aria-labelledby="services-heading">
       <div class="container">
-        <span class="section-label">แพ็กเกจ</span>
+        <nav aria-label="เส้นทาง">
+          <ol class="crumbs">
+            <li><a href="/">หน้าแรก</a></li>
+            <li aria-current="page">บริการ</li>
+          </ol>
+        </nav>
+        <h1 class="section-title work-title" id="services-heading">บริการรับทำเว็บไซต์ และราคา</h1>
+        <p class="work-problem" style="max-width:62ch;margin-top:10px;">มี 3 แพ็กเกจหลัก บอกราคาเริ่มต้นไว้ตั้งแต่แรกทุกตัว ไม่มีค่าใช้จ่ายแอบแฝง — เทียบทั้งสามด้านล่างได้เลย หรือถ้ารู้อยู่แล้วว่าธุรกิจคุณเป็นแบบไหน ข้ามไปดูหน้าที่แยกตามประเภทธุรกิจได้</p>
+
         <h2 class="section-title" id="packages-heading">เลือกแพ็กเกจที่ตรงกับงานของคุณ</h2>
 
         <div class="works-grid">

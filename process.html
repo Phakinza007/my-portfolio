@@ -39,6 +39,26 @@
   <script src="assets/site-search.js?v=clean-urls" defer></script>
   <script src="assets/site-ui.js?v=tag-filter" defer></script>
   <script src="assets/analytics.js?v=clean-urls" defer></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "หน้าแรก",
+      "item": "https://ph-akin.dev/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "ขั้นตอนการทำงาน",
+      "item": "https://ph-akin.dev/process"
+    }
+  ]
+}
+  </script>
 </head>
 <body>
 <header class="navbar">
@@ -84,17 +104,18 @@
 
   <main id="top" tabindex="-1">
 
-    <section class="section" aria-labelledby="process-heading">
-      <div class="container">
-        <span class="section-label">ขั้นตอนการทำงาน</span>
-        <h1 class="section-title" id="process-heading">ตั้งแต่ทักมาจนถึงวันส่งมอบ</h1>
-        <p class="work-problem" style="max-width:62ch;margin-top:10px;font-size:0.95rem;line-height:1.8;">ถ้าไม่เคยจ้างฟรีแลนซ์ทำเว็บมาก่อน หน้านี้บอกทุกอย่างที่จะเกิดขึ้น — 5 ขั้น ใครทำอะไรตอนไหน คุณต้องเตรียมอะไรบ้าง แก้งานได้กี่รอบ และวันส่งมอบนับยังไง อ่านจบแล้วจะรู้ว่าเงินที่จ่ายไปได้อะไรกลับมา</p>
-        <a class="btn-live" href="https://fastwork.co/byob/0G16E5GFIO?openExternalBrowser=1&amp;source=byob" target="_blank" rel="noopener noreferrer" style="margin-top:22px;">คุยโจทย์ผ่าน Fastwork →</a>
-      </div>
-    </section>
 
-    <section class="section" id="steps" aria-labelledby="steps-heading">
+    <section class="section" id="steps" aria-labelledby="process-heading">
       <div class="container">
+        <nav aria-label="เส้นทาง">
+          <ol class="crumbs">
+            <li><a href="/">หน้าแรก</a></li>
+            <li aria-current="page">ขั้นตอนการทำงาน</li>
+          </ol>
+        </nav>
+        <h1 class="section-title work-title" id="process-heading">ตั้งแต่ทักมาจนถึงวันส่งมอบ</h1>
+        <p class="work-problem" style="max-width:62ch;margin-top:10px;font-size:0.95rem;line-height:1.8;">ถ้าไม่เคยจ้างฟรีแลนซ์ทำเว็บมาก่อน หน้านี้บอกทุกอย่างที่จะเกิดขึ้น — 5 ขั้น ใครทำอะไรตอนไหน คุณต้องเตรียมอะไรบ้าง แก้งานได้กี่รอบ และวันส่งมอบนับยังไง อ่านจบแล้วจะรู้ว่าเงินที่จ่ายไปได้อะไรกลับมา</p>
+
         <span class="section-label">5 ขั้น</span>
         <h2 class="section-title" id="steps-heading">งานหนึ่งชิ้นเดินยังไง</h2>
 

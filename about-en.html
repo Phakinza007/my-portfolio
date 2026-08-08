@@ -40,6 +40,26 @@
   <script src="assets/site-search.js?v=clean-urls" defer></script>
   <script src="assets/site-ui.js?v=tag-filter" defer></script>
   <script src="assets/analytics.js?v=clean-urls" defer></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://ph-akin.dev/index-en"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "About",
+      "item": "https://ph-akin.dev/about-en"
+    }
+  ]
+}
+  </script>
 </head>
 <body>
 <header class="navbar">
@@ -85,16 +105,18 @@
 
   <main id="top" tabindex="-1">
 
+
     <section class="section" aria-labelledby="about-heading">
       <div class="container">
-        <span class="section-label">About</span>
-        <h1 class="section-title" id="about-heading">Phakin Chawanpunya</h1>
+        <nav aria-label="Breadcrumb">
+          <ol class="crumbs">
+            <li><a href="index-en">Home</a></li>
+            <li aria-current="page">About</li>
+          </ol>
+        </nav>
+        <h1 class="section-title work-title" id="about-heading">Phakin Chawanpunya</h1>
         <p class="work-problem" style="max-width:60ch;margin-top:10px;">A web developer working mainly on the front end — landing pages, dashboard UI and business websites. This page is the longer version: where I come from, what I can do, the tools I use and what I studied.</p>
-      </div>
-    </section>
 
-    <section class="section" aria-labelledby="profile-heading">
-      <div class="container">
         <span class="section-label">Background</span>
         <h2 class="section-title" id="profile-heading">Who I am</h2>
 

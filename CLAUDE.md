@@ -347,6 +347,20 @@ plus the site search.
   `.page-shell nav` and get the same links and search — 25 selling pages in total. Two navs, one set of destinations — unifying the CSS was tried and reverted
   because of the `.nav-links` collision above.
 - `aria-current="page"` marks the active entry.
+- **`services` · `about` · `faq` · `process` (± `-en`) open with a merged band**, same shape as
+  `work`: breadcrumb → `h1.work-title` → one `.work-problem` blurb → straight into that
+  section's own content. Merged 2026-08-08; each used to spend a whole `.section` (336–441px)
+  on four lines of text. `services` and `faq` also lost a `.section-label` that repeated the
+  `h1` — `บริการและราคา` above `บริการรับทำเว็บไซต์ และราคา`, `คำถามที่พบบ่อย` above
+  `คำถามก่อนจ้างทำเว็บไซต์`. `about` and `process` keep theirs, which complement rather than
+  repeat. All eight gained a breadcrumb and a `BreadcrumbList` JSON-LD, which they had never
+  carried while `work`, the 8 `web-*` and the 6 category pages all did.
+  **`.work-title + .work-problem` gets `margin-bottom: 2.2rem`** — the blurb otherwise sat
+  8–13px off the content below it, because the section boundary that used to separate them
+  is gone. This is the counterpart of `.need-start` on `work`.
+  ⚠️ **Removing a section's `h2` breaks `heading-order`.** Dropping `#packages`'s h2 on
+  `services` left `h1 → h3` straight to the card titles; Lighthouse Accessibility fell to 98.
+  The `h2` is back, the redundant `.section-label` above it is not.
 - The CTA button is `#contact` on the homepages and `/#contact` everywhere else.
 - `process.html` is deliberately **not** a nav item — six links plus a search field plus two
   controls overflow at 1180px.

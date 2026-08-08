@@ -39,6 +39,26 @@
   <script src="assets/site-search.js?v=clean-urls" defer></script>
   <script src="assets/site-ui.js?v=tag-filter" defer></script>
   <script src="assets/analytics.js?v=clean-urls" defer></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "หน้าแรก",
+      "item": "https://ph-akin.dev/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "เกี่ยวกับผม",
+      "item": "https://ph-akin.dev/about"
+    }
+  ]
+}
+  </script>
 </head>
 <body>
 <header class="navbar">
@@ -84,16 +104,18 @@
 
   <main id="top" tabindex="-1">
 
+
     <section class="section" aria-labelledby="about-heading">
       <div class="container">
-        <span class="section-label">เกี่ยวกับผม</span>
-        <h1 class="section-title" id="about-heading">Phakin Chawanpunya</h1>
+        <nav aria-label="เส้นทาง">
+          <ol class="crumbs">
+            <li><a href="/">หน้าแรก</a></li>
+            <li aria-current="page">เกี่ยวกับผม</li>
+          </ol>
+        </nav>
+        <h1 class="section-title work-title" id="about-heading">Phakin Chawanpunya</h1>
         <p class="work-problem" style="max-width:60ch;margin-top:10px;">นักพัฒนาเว็บที่ทำงานฝั่งหน้าบ้านเป็นหลัก รับทำ Landing Page, Dashboard UI และเว็บไซต์ธุรกิจ — หน้านี้คือประวัติฉบับเต็ม ทั้งที่มา ทักษะ เครื่องมือที่ใช้ และการศึกษา</p>
-      </div>
-    </section>
 
-    <section class="section" aria-labelledby="profile-heading">
-      <div class="container">
         <span class="section-label">ประวัติ</span>
         <h2 class="section-title" id="profile-heading">ผมเป็นใคร</h2>
 
