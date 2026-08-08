@@ -53,8 +53,8 @@ my-portfolio/
 │
 ├── case-study-*.html             # 4 case studies — THAI
 ├── case-study-*-en.html          # 4 case studies — English
-├── showcase-*.html               # 13 project showcase pages — THAI
-├── showcase-*-en.html            # 13 project showcase pages — English
+├── showcase-*.html               # 14 project showcase pages — THAI
+├── showcase-*-en.html            # 14 project showcase pages — English
 ├── landing-page.html / landing-page-en.html       # Service category page — Landing Page (฿3,900)
 ├── dashboard-ui.html / dashboard-ui-en.html        # Service category page — Dashboard UI (฿7,900)
 ├── business-website.html / business-website-en.html # Service category page — Business Website (฿9,900)
@@ -79,7 +79,7 @@ my-portfolio/
 | ไทย (default) | `/` · `/{slug}.html` | `th` |
 | English | `/index-en.html` · `/{slug}-en.html` | `en` |
 
-19 pairs (38 files): `index`, `resume`, 4 × `case-study-*`, 13 × `showcase-*`.
+20 pairs (40 files): `index`, `resume`, 4 × `case-study-*`, 14 × `showcase-*`.
 
 **Rules any change must preserve:**
 
@@ -110,7 +110,7 @@ See `docs/superpowers/specs/2026-08-06-th-en-language-toggle-design.md`.
 
 ---
 
-## Current Cards in Selected Work (13 total)
+## Current Cards in Selected Work (15 cards — 14 projects + the RAAT case study)
 
 The card links to its **showcase page**; the showcase page's "ดูเว็บจริง" link goes to the
 **demo file**. The old version of this table conflated the two.
@@ -122,32 +122,53 @@ The card links to its **showcase page**; the showcase page's "ดูเว็บ
 | 3 | NOIR Coffee | `showcase-noir-coffee.html` | `coffee-landing.html` | `restaurant` |
 | 4 | Elevate Commerce | `showcase-elevate-commerce.html` | `ElevateCommerce.html` | `shop` |
 | 5 | Elasticshop Gaming Top-Up | `showcase-elasticshop-gaming.html` | `elasticshop-gaming.html` | `shop` |
-| 6 | RATRI Restaurant | `showcase-ratri-restaurant.html` | `sorn-restaurant.html` | `restaurant` |
-| 7 | SolarPeak | `showcase-solarpeak.html` | `solar-landing.html` | `solar` |
-| 8 | BookEase Dashboard | `showcase-bookease.html` | `BookEase.html` | `booking` |
-| 9 | MuseRoom | `showcase-museroom.html` | `MuseRoom.html` | `other` |
-| 10 | LUMI Clinic | `showcase-lumi-clinic.html` | `lumi-clinic.html` | `clinic` |
-| 11 | BRIGHT Dental Clinic | `showcase-dental-clinic.html` | `dental-clinic.html` | `clinic` |
-| 12 | VELVÉ Aesthetics | `showcase-velve-aesthetics.html` | `aesthetic-booking.html` | `clinic booking` |
-| 13 | HabitQuest | `showcase-habitquest.html` | external: `https://habitquest-pi.vercel.app/` | `other` |
-| 14 | **RAAT Competition Calendar** | `case-study-raat.html` | external: `https://www.raat.or.th/competition-calendar/1442/` | `other` |
+| 6 | SupplyMate Wholesale | `showcase-supplymate.html` | external: `https://phakinza007.github.io/supplymate-wholesale/` | `shop` |
+| 7 | RATRI Restaurant | `showcase-ratri-restaurant.html` | `sorn-restaurant.html` | `restaurant` |
+| 8 | SolarPeak | `showcase-solarpeak.html` | `solar-landing.html` | `solar` |
+| 9 | BookEase Dashboard | `showcase-bookease.html` | `BookEase.html` | `booking` |
+| 10 | MuseRoom | `showcase-museroom.html` | `MuseRoom.html` | `other` |
+| 11 | LUMI Clinic | `showcase-lumi-clinic.html` | `lumi-clinic.html` | `clinic` |
+| 12 | BRIGHT Dental Clinic | `showcase-dental-clinic.html` | `dental-clinic.html` | `clinic` |
+| 13 | VELVÉ Aesthetics | `showcase-velve-aesthetics.html` | `aesthetic-booking.html` | `clinic booking` |
+| 14 | HabitQuest | `showcase-habitquest.html` | external: `https://habitquest-pi.vercel.app/` | `other` |
+| 15 | **RAAT Competition Calendar** | `case-study-raat.html` | external: `https://www.raat.or.th/competition-calendar/1442/` | `other` |
 
-**Card 14 is the only real client work on the site.** The other thirteen are self-directed
+**Card 15 is the only real client work on the site.** The other fourteen are self-directed
 design pieces. It is the one card that may carry the `ลูกค้าจริง` tag, and that tag must never
-appear on the other thirteen — it was stripped from twelve files on 2026-08-07 for exactly
+appear on the other fourteen — it was stripped from twelve files on 2026-08-07 for exactly
 that reason. RAAT also appears as the fifth `#case-studies` card, deliberately in both places.
+
+**SupplyMate (card 6) is the second project that lives in its own repository**, alongside
+HabitQuest. It is a React + Vite + TypeScript app deployed to GitHub Pages at
+`phakinza007.github.io/supplymate-wholesale`, source at
+`github.com/Phakinza007/supplymate-wholesale`. What is deployed is the **static showcase
+build**, not the full application in that repo: home, `#/shop`, `#/products/:slug`, `#/cart`
+and a simulated `#/checkout`, with a browser-only cart and no network calls. There is **no
+login, no admin, no payment-slip upload and no order history** in the published demo, and
+`showcase-supplymate.html` must keep describing only what is deployed. The 2026-08-07 plan
+predates that decision and still describes an admin/slip-upload build — do not write the
+showcase page from the plan.
 
 **On `index.html` the `#projects` filter runs on `data-industry` alone.** Keys: `clinic`,
 `booking`, `restaurant`, `shop`, `gym`, `construction`, `solar`, `other`. The archive adds a
 second axis on top of it — see "The work archive" — but the homepage has only this one.
 `other` is load-bearing —
-MuseRoom and HabitQuest match none of the seven industries and would vanish from the filter
-without it. Counts are derived from the DOM at runtime, so the static `.filter-count` values
-are only a no-JS fallback.
+MuseRoom, HabitQuest and RAAT match none of the seven industries and would vanish from the
+filter without it. Counts are derived from the DOM at runtime, so the static `.filter-count`
+values are only a no-JS fallback.
+
+⚠️ **Because they are a fallback, nothing tells you when they go stale.** They sat at
+`all 13 / other 2` from the day the RAAT card was added until 2026-08-08 while the DOM had
+already been at `14 / 3` — `site-ui.js` overwrites them on load, so the wrong numbers were
+invisible in every browser and only showed with JS off. They are now `all 15 / other 3`.
+**Adding or removing a card means editing these by hand in all four grid files** (`index`,
+`index-en`, `work`, `work-en`); read the truth off the DOM rather than counting the table
+above. `work.html` / `work-en.html` also state the project count in prose — the
+`.results-sub` line and all three meta descriptions.
 
 The featured carousel clones `.work-card`s and **must** strip `data-industry` from the clones
 (`clone.removeAttribute('data-industry')`). Miss it and five clones leak into every filtered
-result — "ทั้งหมด" reports 18 instead of 13.
+result — "ทั้งหมด" reports 20 instead of 15.
 
 Visible card tags are **Thai buyer search terms** (`คลินิกทันตกรรม`, `จัดฟัน`, `ขอใบเสนอราคา`),
 not style descriptors. `index-en.html` carries English equivalents but the same
@@ -160,7 +181,7 @@ not style descriptors. `index-en.html` carries English equivalents but the same
 
 ## Card Thumbnail Approach
 
-**All 13 cards are `<img src="assets/thumbs/*.svg">`.** The inline-styled `<div>` mini-UIs
+**All 14 cards are `<img src="assets/thumbs/*.svg">`.** The inline-styled `<div>` mini-UIs
 they used to be were transcribed to SVG on 2026-08-07 — 161.5 KB of HTML removed from the
 four files that carry the grid (`index`, `index-en`, `work`, `work-en`), against 64 KB of
 SVG the browser fetches once and caches across every page. `index.html` went 151 → 103 KB.
@@ -189,9 +210,26 @@ scanline and SolarPeak's blueprint grid (two 1px gradients tiled at 22px) are `<
 SolarPeak's is swapped into the existing rect's `fill` **in place** so it keeps its z-order
 behind the content — appending it would paint over everything.
 
-`assets/thumbs/bright-dental.svg` is the one exception: hand-drawn, because that card was a
-remote `images.unsplash.com` photo with no `<div>` to measure. Its palette is read off
-`dental-clinic.html` (ink `#120F0C`, paper `#F7F2E9`, coral `#FF5B3B`).
+**Two are hand-drawn rather than extracted**, because neither had a `<div>` mini-UI to
+measure:
+
+- `assets/thumbs/bright-dental.svg` — that card was a remote `images.unsplash.com` photo.
+  Its palette is read off `dental-clinic.html` (ink `#120F0C`, paper `#F7F2E9`,
+  coral `#FF5B3B`).
+- `assets/thumbs/supplymate.svg` — the source is a React app on another origin, so there is
+  nothing local to extract. Palette and geometry were still **measured, not eyeballed**:
+  colours sampled by painting the app's `oklch()` values onto a 1×1 canvas and reading the
+  pixel back (`getComputedStyle` returns `oklch()` verbatim in Chrome, and feeding that
+  string to `canvas.fillStyle` does not convert it either) — bg `#f8f7f2`, card `#fefdfb`,
+  navy `#152f4b`, ink `#121b26`, line `#d3d1c8`, muted `#545f6c` — and card proportions read
+  off `getBoundingClientRect()` on the live catalogue, scaled 0.288. It is a **composition,
+  not a viewport crop**: at true scale the 220px-tall frame would cut off the price lines,
+  which are the whole point of the card, so the vertical spacing is tightened while each
+  element keeps its real internal proportions.
+
+Both hand-drawn files clip their photo areas with a `<clipPath>` per card. Drawing a
+square-cornered "table" rect straight over a rounded image rect leaves the corners poking
+out — subtle at natural size and invisible at any smaller scale.
 
 **XML comments cannot contain `--`.** A comment mentioning `--ink` makes the whole SVG fail
 to parse, and the card renders as a broken-image icon with no console error.
@@ -521,7 +559,7 @@ be padded with loosely-related demos.
 
 ## Site search
 
-`assets/site-search.js` + `site-search.css` + `search-index.json`, live on **61 pages** —
+`assets/site-search.js` + `site-search.css` + `search-index.json`, live on **63 pages** —
 everything except the 13 demo pages (they are simulated client sites and must not carry
 portfolio chrome) and `404.html`.
 

@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="351" height="220" viewBox="0 0 351 220" role="img" aria-labelledby="t d">
+  <title id="t">SupplyMate Wholesale catalogue preview</title>
+  <desc id="d">Light wholesale commerce catalogue preview with a navy SupplyMate Wholesale header, a concept demo notice, category filter chips, and three product cards showing packaging photography above a price per carton and a pieces per carton line.</desc>
+  <defs>
+    <!-- Palette sampled from the live build: bg #f8f7f2, card #fefdfb, navy #152f4b, ink #121b26, line #d3d1c8, muted #545f6c. -->
+    <style>
+      .page   { fill: #f8f7f2; }
+      .card   { fill: #fefdfb; }
+      .navy   { fill: #152f4b; }
+      .ink    { fill: #121b26; }
+      .muted  { fill: #545f6c; opacity: 0.72; }
+      .rule   { fill: #d3d1c8; }
+      .notice { fill: #eeede7; }
+      .cream  { fill: #fbfaf6; }
+      .photo  { fill: #24365a; }
+      .kraft  { fill: #b5875c; }
+      .kraftl { fill: #cba883; }
+      .clear  { fill: #cfd3d7; }
+      .lid    { fill: #1c1f24; }
+      .table  { fill: #e4ddd0; }
+      .edge   { fill: none; stroke: #d3d1c8; stroke-width: 0.8; }
+    </style>
+    <clipPath id="ph1"><rect x="14.6" y="73.6" width="103.1" height="96" rx="4"/></clipPath>
+    <clipPath id="ph2"><rect x="123.9" y="73.6" width="103.1" height="96" rx="4"/></clipPath>
+    <clipPath id="ph3"><rect x="233.3" y="73.6" width="103.1" height="96" rx="4"/></clipPath>
+  </defs>
+
+  <rect class="page" width="351" height="220"/>
+
+  <!-- sticky header -->
+  <rect class="card" width="351" height="17"/>
+  <rect class="rule" y="16.2" width="351" height="0.8"/>
+  <rect class="navy" x="14" y="3" width="11" height="11" rx="3"/>
+  <rect class="cream" x="17.6" y="6.6" width="3.8" height="3.8" rx="1" opacity="0.9"/>
+  <text x="29.5" y="11.4" class="ink" font-family="Inter, sans-serif" font-size="6.6" font-weight="700">SupplyMate Wholesale</text>
+  <rect class="muted" x="286" y="7.6" width="16" height="2" rx="1"/>
+  <rect class="muted" x="307" y="7.6" width="13" height="2" rx="1"/>
+  <circle class="navy" cx="333" cy="8.5" r="5"/>
+  <rect class="cream" x="331.7" y="7.6" width="2.6" height="1.9" rx="0.9"/>
+
+  <!-- concept demo notice, present on every screen of the live build -->
+  <rect class="notice" x="14" y="23" width="323" height="12" rx="3"/>
+  <rect x="14" y="23" width="323" height="12" rx="3" class="edge"/>
+  <rect class="muted" x="22" y="28" width="76" height="2.2" rx="1.1"/>
+
+  <!-- catalogue eyebrow and heading -->
+  <rect class="navy" x="14" y="42" width="26" height="2.4" rx="1.2" opacity="0.85"/>
+  <rect class="ink" x="14" y="48" width="118" height="7" rx="1.6"/>
+
+  <!-- category filter chips, first one active -->
+  <rect class="navy" x="14" y="60" width="22" height="8" rx="4"/>
+  <rect x="39" y="60" width="27" height="8" rx="4" class="edge"/>
+  <rect x="69" y="60" width="24" height="8" rx="4" class="edge"/>
+  <rect x="96" y="60" width="29" height="8" rx="4" class="edge"/>
+  <rect x="128" y="60" width="22" height="8" rx="4" class="edge"/>
+
+  <!-- product card 1: cups and lids on a diagonal set table -->
+  <rect class="card" x="14" y="73" width="104.3" height="139.3" rx="4.6"/>
+  <g clip-path="url(#ph1)">
+    <rect class="photo" x="14.6" y="73.6" width="103.1" height="96"/>
+    <path class="table" d="M14.6 158 L117.7 134 L117.7 169.6 L14.6 169.6 Z"/>
+    <rect class="clear" x="27" y="104" width="15" height="51" rx="3"/>
+    <rect class="clear" x="45" y="112" width="13" height="39" rx="3" opacity="0.85"/>
+    <rect class="clear" x="61" y="120" width="12" height="27" rx="3" opacity="0.7"/>
+    <ellipse class="lid" cx="86" cy="125" rx="12" ry="4"/>
+    <ellipse class="lid" cx="86" cy="131" rx="12" ry="4"/>
+    <ellipse class="lid" cx="86" cy="137" rx="12" ry="4"/>
+  </g>
+  <rect x="14" y="73" width="104.3" height="139.3" rx="4.6" class="edge"/>
+  <rect class="ink" x="22" y="177.6" width="74" height="4" rx="1.2"/>
+  <rect class="muted" x="22" y="185.4" width="88" height="2.3" rx="1.15"/>
+  <rect class="muted" x="22" y="190.4" width="52" height="2.3" rx="1.15"/>
+  <rect class="ink" x="22" y="196.4" width="46" height="4.6" rx="1.2"/>
+  <rect class="muted" x="22" y="204" width="34" height="2.3" rx="1.15"/>
+
+  <!-- product card 2: kraft food containers -->
+  <rect class="card" x="123.3" y="73" width="104.3" height="139.3" rx="4.6"/>
+  <g clip-path="url(#ph2)">
+    <rect class="photo" x="123.9" y="73.6" width="103.1" height="96"/>
+    <rect class="table" x="123.9" y="150" width="103.1" height="19.6"/>
+    <rect class="kraft" x="132" y="126" width="26" height="24" rx="1.5"/>
+    <rect class="kraftl" x="136" y="130" width="14" height="8" rx="1"/>
+    <rect class="kraft" x="162" y="120" width="22" height="30" rx="1.5"/>
+    <rect class="kraftl" x="188" y="128" width="24" height="22" rx="1.5"/>
+    <rect class="kraft" x="140" y="152" width="30" height="8" rx="1.5"/>
+    <rect class="kraftl" x="176" y="152" width="34" height="8" rx="1.5"/>
+  </g>
+  <rect x="123.3" y="73" width="104.3" height="139.3" rx="4.6" class="edge"/>
+  <rect class="ink" x="131.3" y="177.6" width="70" height="4" rx="1.2"/>
+  <rect class="muted" x="131.3" y="185.4" width="88" height="2.3" rx="1.15"/>
+  <rect class="muted" x="131.3" y="190.4" width="46" height="2.3" rx="1.15"/>
+  <rect class="ink" x="131.3" y="196.4" width="50" height="4.6" rx="1.2"/>
+  <rect class="muted" x="131.3" y="204" width="36" height="2.3" rx="1.15"/>
+
+  <!-- product card 3: kraft carry bags -->
+  <rect class="card" x="232.7" y="73" width="104.3" height="139.3" rx="4.6"/>
+  <g clip-path="url(#ph3)">
+    <rect class="photo" x="233.3" y="73.6" width="103.1" height="96"/>
+    <rect class="table" x="233.3" y="152" width="103.1" height="17.6"/>
+    <path d="M252 104 a7 7 0 0 1 14 0" fill="none" stroke="#cba883" stroke-width="1.6"/>
+    <rect class="kraft" x="246" y="104" width="26" height="48" rx="1.5"/>
+    <path d="M284 112 a6 6 0 0 1 12 0" fill="none" stroke="#cba883" stroke-width="1.6"/>
+    <rect class="kraftl" x="279" y="112" width="22" height="40" rx="1.5"/>
+    <rect class="kraft" x="305" y="126" width="17" height="26" rx="1.5"/>
+    <rect class="kraftl" x="240" y="154" width="24" height="7" rx="1.5"/>
+    <rect class="kraft" x="270" y="154" width="20" height="7" rx="1.5"/>
+  </g>
+  <rect x="232.7" y="73" width="104.3" height="139.3" rx="4.6" class="edge"/>
+  <rect class="ink" x="240.7" y="177.6" width="78" height="4" rx="1.2"/>
+  <rect class="muted" x="240.7" y="185.4" width="88" height="2.3" rx="1.15"/>
+  <rect class="muted" x="240.7" y="190.4" width="58" height="2.3" rx="1.15"/>
+  <rect class="ink" x="240.7" y="196.4" width="44" height="4.6" rx="1.2"/>
+  <rect class="muted" x="240.7" y="204" width="32" height="2.3" rx="1.15"/>
+</svg>

@@ -650,6 +650,32 @@
   git commit -m "docs: record SupplyMate deployment verification"
   ```
 
+## Task 8 completion note — 2026-08-08
+
+Task 8 was executed on `main` on 2026-08-08, after the app had already shipped. Three points
+where the plan above no longer matched reality, and what was done instead:
+
+- **The deployed demo is the static showcase build, not the admin/slip-upload build this
+  plan describes.** `#/`, `#/shop`, `#/products/:slug`, `#/cart` and a simulated `#/checkout`,
+  browser-only cart, no network calls, no login and no back office. Verified by walking the
+  live site before writing a word of the showcase page. So the showcase copy describes only
+  that, and Step 4's suggested `หลังบ้านออเดอร์` tag was **dropped** — it would have claimed a
+  back office that is not there. Tags shipped: `ขายส่ง` / `สั่งเป็นลัง` / `บรรจุภัณฑ์`.
+- **Step 5's `python3 -m http.server 8123` no longer serves this site.** Extensionless URLs
+  mean every internal link 404s under it; `python3 _tools/serve.py 8123` is the replacement.
+  Its Lighthouse URL also drops the `.html`.
+- **Step 5's "verify `site-ui.js` is only present on home-shell pages" is obsolete.** Since
+  `ee2f9fe` all 64 selling pages load it, showcases included, and the new pair does too.
+
+Also corrected while here: the static `.filter-count` fallbacks in all four grid files had
+been stale by one since the RAAT card was added (`all 13 / other 2` against a DOM of 14 / 3).
+They are now `all 15 / other 3`. `work.html` / `work-en.html` prose counts went 13 to 14.
+
+Left alone deliberately: `resume.html` / `resume-en.html` still say 13 projects. That line is
+about "standalone HTML/CSS/JS projects ... curated down to the 13 strongest", and SupplyMate
+is a React + Vite app in its own repository, so 13 is arguably still correct there. Owner's
+call, not a silent edit.
+
 ## Task 8: Add the verified demo to the bilingual static portfolio
 
 **Files:**
@@ -670,23 +696,23 @@
 - Consumes: the verified live SupplyMate deployment, honest screenshot, and the portfolio’s existing showcase/story-stack layout.
 - Produces: two self-canonical showcase pages with the Thai-default hreflang trio, in-language links, analytics, search indexing, and one card per language/grid.
 
-- [ ] **Step 1: Invoke the `portfolio-add-card` skill before touching the four project grids.**
+- [x] **Step 1: Invoke the `portfolio-add-card` skill before touching the four project grids.**
 
   Inspect the final demo at natural thumbnail size. Derive `assets/thumbs/supplymate.svg` from actual SupplyMate layout/measurements; do not use generated product images or an arbitrary stock-style thumbnail. Set its `data-industry="shop"` only on the canonical project card, never on featured-carousel clones.
 
-- [ ] **Step 2: Create the Thai/English showcase pair from an existing current showcase skeleton.**
+- [x] **Step 2: Create the Thai/English showcase pair from an existing current showcase skeleton.**
 
   Each page needs a self-referential canonical, `og:locale` (`th_TH` / `en_US`), the same Thai-default `hreflang` trio, and `<script src="assets/analytics.js" defer></script>` before `</head>`. Use the four story cards in order: project overview, 30-second version, who it fits, and the ask. State `โปรเจกต์แนวคิดที่พัฒนาขึ้นเอง` / `self-initiated concept project` in the overview.
 
-- [ ] **Step 3: Link only to verified experience.**
+- [x] **Step 3: Link only to verified experience.**
 
   Use the deployed SupplyMate URL for `ดูเว็บจริง` / `View live site`, the actual `showcase-supplymate.jpg` for the hero image, and no fabricated metrics or review quotes. Make both project cards link to their respective showcase sibling, not directly to the demo.
 
-- [ ] **Step 4: Add cards to all four grids and both search-index language arrays.**
+- [x] **Step 4: Add cards to all four grids and both search-index language arrays.**
 
   Add SupplyMate after the existing shopping examples with Thai buyer tags such as `ขายส่ง`, `สั่งเป็นลัง`, `หลังบ้านออเดอร์`; use English equivalents in English pages while retaining `data-industry="shop"`. Add concise searchable keywords for both `ขายส่ง` and `wholesale` in `assets/search-index.json`.
 
-- [ ] **Step 5: Update sitemap and run portfolio integrity checks.**
+- [x] **Step 5: Update sitemap and run portfolio integrity checks.**
 
   Add both showcase URLs to `sitemap.xml`. Then run:
 
@@ -698,7 +724,7 @@
 
   Check the Thai and English pages at 375×812 for horizontal overflow. Verify `site-ui.js` is only present on home-shell pages and that the showcase pages load only `portfolio-pages.css`.
 
-- [ ] **Step 6: Commit the portfolio hand-off.**
+- [x] **Step 6: Commit the portfolio hand-off.**
 
   ```bash
   git add showcase-supplymate.html showcase-supplymate-en.html assets/thumbs/supplymate.svg \

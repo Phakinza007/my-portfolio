@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Sends /foo.html to /foo and /index.html to /, in the address bar as well
+       as in the index. GitHub Pages serves both and cannot redirect, so canonical
+       alone leaves the visitor looking at the URL we told Google not to use.
+       Inline and in <head> on purpose: a deferred external script would run after
+       the parse and the page would render, then jump. location.replace keeps it
+       out of history, so Back still leaves the site. -->
+  <script>(function(p){if(location.protocol!=='file:'&&/\.html$/.test(p)&&!/\/404\.html$/.test(p))location.replace((/\/index\.html$/.test(p)?p.slice(0,-10):p.slice(0,-5))+location.search+location.hash)})(location.pathname)</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A Thai wholesale packaging store for cafés and restaurants, sold by the carton with pieces per carton and minimum order up front — a self-initiated concept." />
+  <meta name="theme-color" content="#5274f8" />
+  <link rel="canonical" href="https://ph-akin.dev/showcase-supplymate-en" />
+  <link rel="alternate" hreflang="th" href="https://ph-akin.dev/showcase-supplymate" />
+  <link rel="alternate" hreflang="en" href="https://ph-akin.dev/showcase-supplymate-en" />
+  <link rel="alternate" hreflang="x-default" href="https://ph-akin.dev/showcase-supplymate" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SupplyMate Wholesale | Phakin Portfolio" />
+  <meta property="og:description" content="A Thai wholesale packaging store for cafés and restaurants, sold by the carton with pieces per carton and minimum order up front — a self-initiated concept." />
+  <meta property="og:url" content="https://ph-akin.dev/showcase-supplymate-en" />
+  <meta property="og:image" content="https://ph-akin.dev/assets/screenshots/showcase-supplymate.jpg" />
+  <meta property="og:image:alt" content="SupplyMate Wholesale catalogue screen showing product cards priced per carton." />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SupplyMate Wholesale | Phakin Portfolio" />
+  <meta name="twitter:description" content="A Thai wholesale packaging store for cafés and restaurants, sold by the carton with pieces per carton and minimum order up front — a self-initiated concept." />
+  <meta name="twitter:image" content="https://ph-akin.dev/assets/screenshots/showcase-supplymate.jpg" />
+  <title>SupplyMate Wholesale | Phakin Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=optional" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="stylesheet" href="assets/portfolio-pages.css?v=chrome" />
+  <link rel="stylesheet" href="assets/site-search.css?v=motion-2" />
+  <script src="assets/site-search.js?v=clean-urls" defer></script>
+  <script src="assets/site-ui.js?v=chrome" defer></script>
+  <script src="assets/analytics.js?v=clean-urls" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="page-shell nav" aria-label="Showcase navigation">
+      <a class="brand" href="index-en" aria-label="SupplyMate Wholesale — back to portfolio">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 34 34" focusable="false">
+            <rect class="mark-back" x="8" y="7" width="16" height="13" rx="3" />
+            <rect class="mark-front" x="12" y="12" width="16" height="15" rx="3" />
+            <path class="mark-line" d="M16 18h7M16 23h4" />
+            <circle class="mark-dot" cx="24" cy="17" r="2.1" />
+          </svg>
+        </span>
+        <span>SupplyMate Wholesale</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="work-en">All projects</a></li>
+        <li><a href="https://phakinza007.github.io/supplymate-wholesale/" target="_blank" rel="noopener noreferrer">View live site</a></li>
+        <li><a class="nav-primary" href="resume-en">Resume</a></li>
+        <li><span class="lang-toggle" role="group" aria-label="Language"><span class="lang-on" aria-current="true">EN</span><a href="showcase-supplymate" hreflang="th" lang="th">TH</a></span></li>
+      </ul>
+      <div class="site-search"></div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero case-hero">
+      <div class="page-shell">
+        <span class="eyebrow">project showcase</span>
+        <h1><span class="sheen">SupplyMate Wholesale</span></h1>
+        <p class="hero-copy">A Thai wholesale packaging store for caf&eacute;s and restaurants that sells by the carton rather than the piece &mdash; every screen states the price per carton, the pieces inside it, and the minimum order.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="https://phakinza007.github.io/supplymate-wholesale/" target="_blank" rel="noopener noreferrer">View live site</a>
+        </div>
+      </div>
+
+      <div class="page-shell" style="margin-top:32px;">
+        <figure class="browser-frame reveal">
+          <div class="browser-frame-bar reveal">
+            <span class="browser-dot browser-dot-red" aria-hidden="true"></span>
+            <span class="browser-dot browser-dot-amber" aria-hidden="true"></span>
+            <span class="browser-dot browser-dot-green" aria-hidden="true"></span>
+            <span class="browser-url">phakinza007.github.io/supplymate-wholesale</span>
+          </div>
+          <img src="assets/screenshots/showcase-supplymate.jpg" alt="SupplyMate Wholesale catalogue screen showing product cards with a price per carton and a pieces per carton line." width="1491" height="812" loading="eager" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="overview">
+      <div class="page-shell">
+        <p class="story-intro">Read it top to bottom &mdash; what this project is, what it does, who it&rsquo;s for. Then picture the same thing built around your business.</p>
+
+        <div class="story-stack">
+          <article class="story-card reveal">
+            <div class="story-head">
+              <span class="story-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3l1.9 4.9L19 10l-5.1 2.1L12 17l-1.9-4.9L5 10l5.1-2.1z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></svg>
+              </span>
+              <div>
+                <h2>Project overview</h2>
+                <p class="story-kicker">A few minutes gets you the whole picture</p>
+              </div>
+            </div>
+            <p>SupplyMate Wholesale is a self-initiated concept project: a fictional supplier of packaging and front-of-house consumables for Thai caf&eacute;s and restaurants. Wholesale differs from retail in the unit being sold &mdash; buyers order cartons, packs and rolls, not single pieces. So the storefront has to settle three questions before anyone can order: what one carton costs, how many pieces are inside it, and what the minimum order is. The catalogue, the product page and the cart are all built around those three.</p>
+            <p class="story-note">An honest note &mdash; the published demo is front-end only. There is no account system, no back office and no real orders. Every screen carries the notice <span lang="th">&ldquo;Concept demo &mdash; ไม่รับคำสั่งซื้อจริง&rdquo;</span> and the final button is labelled a simulated order.</p>
+            <div class="tag-list">
+              <span class="tag tag-accent">E-commerce</span>
+              <span class="tag tag-mint">Full Stack</span>
+              <span class="tag tag-gray">Light UI</span>
+              <span class="tag tag-gray">Thai</span>
+            </div>
+          </article>
+
+          <article class="story-card reveal">
+            <div class="story-head">
+              <span class="story-icon amber" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false"><path d="M13 2L4.5 13.5H11L10 22l8.5-11.5H12z"/></svg>
+              </span>
+              <div>
+                <h2>The 30-second version</h2>
+                <p class="story-kicker">What stands out, at a glance</p>
+              </div>
+            </div>
+            <ul class="highlight-list">
+              <li>Six catalogue categories, with Thai search and category filtering on one page</li>
+              <li>Product cards carry the price per carton and the pieces per carton in the grid itself</li>
+              <li>The product page groups unit, pieces per carton and minimum order in one block above the buy control</li>
+              <li>The cart enforces the minimum order &mdash; quantity cannot drop below it</li>
+              <li>Checkout ends at a simulated confirmation: no payment taken, nothing sent out of the browser</li>
+              <li>React + Vite + TypeScript, Tailwind + shadcn/ui, cart state in Zustand</li>
+            </ul>
+          </article>
+
+          <article class="story-card reveal">
+            <div class="story-head">
+              <span class="story-icon mint" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>
+              </span>
+              <div>
+                <h2>Who this project fits</h2>
+                <p class="story-kicker">Know in one read whether it&rsquo;s for you</p>
+              </div>
+            </div>
+            <p>It suits suppliers, distributors and shops selling by the carton or the pack &mdash; businesses whose site has to settle unit and minimum order before anything else, not merely show the product. If you sell single items at retail, a standard online store is enough and this structure is more than you need.</p>
+          </article>
+
+          <article class="story-card accent reveal">
+            <div class="story-head">
+              <span class="story-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false"><path d="M9.5 18h5M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.5.4.8 1 .8 1.6v.5h5.4v-.5c0-.6.3-1.2.8-1.6A6 6 0 0 0 12 3z"/></svg>
+              </span>
+              <div>
+                <h2>Want something like this?</h2>
+                <p class="story-kicker">Adapt this build to your own business</p>
+              </div>
+            </div>
+            <p>Tell me what your business does, what you want the site to help with, and roughly what your budget is &mdash; I&rsquo;ll design and build to fit that.</p>
+            <div class="story-actions">
+              <a class="button primary" href="https://fastwork.co/byob/0G16E5GFIO?openExternalBrowser=1&amp;source=byob" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 3L3 10.5l7 2.6 2.6 7z"/><path d="M21 3l-11 11"/></svg>Start a project on Fastwork
+              </a>
+              <a class="button" href="mailto:a0626568471@gmail.com">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5L12 13l8.5-6.5"/></svg>Email me
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <p class="story-links">
+          <a href="https://phakinza007.github.io/supplymate-wholesale/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-8.5 8.5"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>View live site</a>
+          <a href="work-en">All projects<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12h15"/><path d="M13.5 6.5L19.5 12l-6 5.5"/></svg></a>
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="related">
+      <div class="page-shell">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">related work</span>
+            <h2>More projects like this one.</h2>
+          </div>
+        </div>
+        <div class="project-strip">
+          <a class="project-link reveal" href="showcase-elevate-commerce-en">
+            <img src="assets/thumbs/elevate-commerce.svg" alt="" loading="lazy" width="351" height="220" />
+            <strong>Elevate Commerce</strong>
+            <span>A full-stack e-commerce concept designed around the path to checkout</span>
+          </a>
+          <a class="project-link reveal" href="showcase-elasticshop-gaming-en">
+            <img src="assets/thumbs/elasticshop-gaming.svg" alt="" loading="lazy" width="351" height="220" />
+            <strong>Elasticshop Gaming Top-Up</strong>
+            <span>A dark, yellow-accented design system for an automated game top-up platform</span>
+          </a>
+          <a class="project-link reveal" href="showcase-bookease-en">
+            <img src="assets/thumbs/bookease.svg" alt="" loading="lazy" width="351" height="220" />
+            <strong>BookEase Dashboard</strong>
+            <span>An appointment booking dashboard backed by a real booking API</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer-band">
+    <div class="page-shell footer-inner">
+      <span>SupplyMate Wholesale showcase</span>
+      <span>Phakin Chawanpunya</span>
+    </div>
+  </footer>
+</body>
+</html>
