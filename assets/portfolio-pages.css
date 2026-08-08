@@ -1266,3 +1266,37 @@ p {
 @media (prefers-reduced-motion: reduce) {
   .dp-tab { transition: none; }
 }
+
+/* ============================================================
+   Section-scoped .study-grid corrections
+   ============================================================ */
+
+/* #compare weighs three options against one another, and #stack lists three
+   reasons. The shared .study-grid is two columns, so the third card dropped to
+   a row of its own and left a 292px hole beside it — which reads as the third
+   option being an afterthought rather than a peer.
+
+   Scoped to these two sections deliberately: .study-grid is correct at two
+   columns on the ~50 pages that use it for a pair, and this repo has already
+   been bitten once by a selector that later matched a second element it was
+   never written for (see CLAUDE.md, the aesthetic-booking `nav` collision).
+
+   Wrapped in min-width rather than written as a plain override, because the
+   860px rule collapses .study-grid to one column and an id selector would
+   out-specify it and force three columns onto a phone. */
+@media (min-width: 861px) {
+  #compare .study-grid,
+  #stack .study-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* .study-grid sets align-items: start globally, which is what let a short card
+   stop 146px above its neighbour's bottom edge in #overview. Where the cards
+   are peers meant to be read against each other, they share a bottom edge. */
+#overview .study-grid,
+#included .study-grid,
+#compare .study-grid,
+#stack .study-grid {
+  align-items: stretch;
+}

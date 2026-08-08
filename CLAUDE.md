@@ -849,6 +849,24 @@ else here is still built from existing components, and a new industry page needs
 **names no competitor** and states the freelance side's own limits (one person, no cover, no
 out-of-hours support) — a comparison that only flatters one side reads as advertising.
 
+**`#compare` is a three-column grid, not the sheet's default two.** `.study-grid` is two
+columns, so the third card used to drop onto a row of its own and leave a 292px hole beside
+it — the third option read as an afterthought rather than a peer. Fixed 2026-08-08 with a
+rule scoped to `#compare` and `#stack` (RAAT's three FullCalendar reasons); `.study-grid`
+itself is untouched and still correct at two columns on the ~50 pages that use it for a pair.
+Two things about that rule are load-bearing:
+
+- It is wrapped in `@media (min-width: 861px)`. The 860px rule collapses `.study-grid` to one
+  column, and an **id selector out-specifies a class inside a media query** — written as a
+  plain override it would have forced three columns onto a phone.
+- `align-items: stretch` is set alongside it on `#overview` / `#included` / `#compare` /
+  `#stack`. `.study-grid` is `align-items: start` globally, which is what let `#overview`'s
+  short right card stop 146px above its neighbour's bottom edge. Cards being read *against*
+  each other share a bottom edge; cards that merely sit near each other need not.
+
+Fixing the orphan took `web-booking` from 7,171px to 5,969px tall — 17% shorter with no copy
+removed.
+
 **These pages must not claim clients.** All thirteen projects are self-directed design work.
 The eyebrow above `#related` is `ตัวอย่างงานออกแบบ`, never `ผลงานจริง`, and no page carries a
 client count, a client name, or a testimonial beyond the three real Fastwork reviews.
