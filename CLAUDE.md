@@ -3,6 +3,11 @@
 ## Skills
 
 - **portfolio-add-card** (`.claude/skills/portfolio-add-card/SKILL.md`) — full workflow for adding a new project card. Trigger: any request to "add [page] to the portfolio", "link this page", "create a card for X", or "new project card".
+- **portfolio-ship-change** (`.claude/skills/portfolio-ship-change/SKILL.md`) — pre-deploy
+  checks. Trigger: "deploy", "ship it", "push", or any change touching both an `assets/`
+  stylesheet/script and a `.html` file. Run `python3 _tools/check-deploy.py` before pushing;
+  it fails when a versioned asset changed and its `?v=` token did not, which is invisible
+  locally and invisible to Lighthouse.
 
 ---
 
