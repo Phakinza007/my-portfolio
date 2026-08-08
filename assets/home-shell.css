@@ -191,7 +191,27 @@
       z-index: 99;
     }
 
-    .nav-mobile-panel.open { display: flex; }
+    .nav-mobile-panel.open { display: flex; opacity: 1; transform: none; }
+
+    /* The drawer used to go straight from display:none to display:flex, so the
+       primary navigation on mobile — the first thing most visitors touch —
+       appeared with no transition at all. display is not animatable on its own;
+       `allow-discrete` plus @starting-style is what lets it be. Browsers
+       without support fall back to exactly the old snap, so this costs nothing
+       to try. The display:none base is kept deliberately: it is what keeps the
+       closed drawer out of the tab order and the accessibility tree. */
+    .nav-mobile-panel {
+      opacity: 0;
+      transform: translateY(-6px);
+      transition:
+        opacity 200ms var(--ease),
+        transform 200ms var(--ease),
+        display 200ms allow-discrete;
+    }
+
+    @starting-style {
+      .nav-mobile-panel.open { opacity: 0; transform: translateY(-6px); }
+    }
 
     .nav-mobile-panel a {
       display: flex;
@@ -1396,6 +1416,7 @@
       }
       html { scroll-behavior: auto; }
       .js-reveal .reveal { opacity: 1; transform: none; }
+      .nav-mobile-panel { transition: none; transform: none; }
     }
 
     /* ============================================================

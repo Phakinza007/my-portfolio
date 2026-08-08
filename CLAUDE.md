@@ -320,6 +320,18 @@ stylesheets, three lines, so moving between the 84 pages cross-fades instead of 
 white. Nothing feature-detects it: a browser without support just navigates as it always
 did. Off under `prefers-reduced-motion`.
 
+**Three things used to change state with no transition, all for the same reason:**
+`display` is not animatable, so a rule that swaps `display` cancels any fade declared
+beside it. The work filter was one (below); the other two are the **mobile drawer** and the
+**site-search results panel**. Both keep their original mechanism — the drawer keeps
+`display: none` so the closed panel stays out of the tab order, the search panel keeps its
+`hidden` attribute so it stays out of the accessibility tree — and gain
+`transition: display …ms allow-discrete` plus an `@starting-style` rule, which is what
+makes a discrete property transitionable. A browser without support gets exactly the
+previous snap, so there is nothing to feature-detect. **Do not "simplify" these by
+dropping `display: none` or the `hidden` attribute** — those are load-bearing for
+accessibility, not leftovers.
+
 **The work filter's transition was dead code until 2026-08-08.** `.work-card` declared
 `transition: opacity 250ms, transform 250ms` while the hidden state used `display: none`,
 which is not animatable — so the filter snapped from the day it was written. It now uses

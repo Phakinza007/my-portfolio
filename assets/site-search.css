@@ -71,7 +71,35 @@
   padding: 6px;
   z-index: 200;
 }
-.site-search-panel[hidden] { display: none; }
+/* The panel appeared and vanished instantly — the one transition in this file
+   was on the input's border. It keeps the `hidden` attribute, which is what
+   takes it out of the accessibility tree; `allow-discrete` is only what lets
+   the display change be transitioned alongside the fade. Unsupported browsers
+   get the old instant behaviour. The panel is position:absolute, so none of
+   this can move the page — CLS stays 0. */
+.site-search-panel {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 140ms ease,
+    transform 140ms ease,
+    display 140ms allow-discrete;
+}
+
+.site-search-panel[hidden] {
+  display: none;
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+@starting-style {
+  .site-search-panel:not([hidden]) { opacity: 0; transform: translateY(-4px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-search-panel { transition: none; transform: none; }
+  .site-search-panel[hidden] { transform: none; }
+}
 
 .site-search-group {
   padding: 10px 10px 4px;
