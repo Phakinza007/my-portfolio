@@ -33,9 +33,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=optional" rel="stylesheet">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="site.webmanifest" />
-  <link rel="stylesheet" href="assets/portfolio-pages.css?v=lang-toggle" />
+  <link rel="stylesheet" href="assets/portfolio-pages.css?v=motion" />
   <link rel="stylesheet" href="assets/site-search.css?v=1" />
   <script src="assets/site-search.js?v=clean-urls" defer></script>
+  <script src="assets/site-ui.js?v=motion" defer></script>
   <script src="assets/analytics.js?v=clean-urls" defer></script>
 </head>
 <body>
@@ -66,7 +67,7 @@
     <section class="hero case-hero">
       <div class="page-shell">
         <span class="eyebrow">project showcase</span>
-        <h1>Elevate Commerce</h1>
+        <h1><span class="sheen">Elevate Commerce</span></h1>
         <p class="hero-copy">An e-commerce product experience built to move a visitor from browsing to checkout without friction, backed by a working product API.</p>
         <div class="hero-actions">
           <a class="button primary" href="ElevateCommerce">View live site</a>
@@ -74,8 +75,8 @@
       </div>
 
       <div class="page-shell" style="margin-top:32px;">
-        <figure class="browser-frame">
-          <div class="browser-frame-bar">
+        <figure class="browser-frame reveal">
+          <div class="browser-frame-bar reveal">
             <span class="browser-dot browser-dot-red" aria-hidden="true"></span>
             <span class="browser-dot browser-dot-amber" aria-hidden="true"></span>
             <span class="browser-dot browser-dot-green" aria-hidden="true"></span>
@@ -91,7 +92,7 @@
         <p class="story-intro">Read it top to bottom &mdash; what this project is, what it does, who it&rsquo;s for. Then picture the same thing built around your business.</p>
 
         <div class="story-stack">
-          <article class="story-card">
+          <article class="story-card reveal">
             <div class="story-head">
               <span class="story-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3l1.9 4.9L19 10l-5.1 2.1L12 17l-1.9-4.9L5 10l5.1-2.1z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></svg>
@@ -109,7 +110,7 @@
             </div>
           </article>
 
-          <article class="story-card">
+          <article class="story-card reveal">
             <div class="story-head">
               <span class="story-icon amber" aria-hidden="true">
                 <svg viewBox="0 0 24 24" focusable="false"><path d="M13 2L4.5 13.5H11L10 22l8.5-11.5H12z"/></svg>
@@ -127,7 +128,7 @@
             </ul>
           </article>
 
-          <article class="story-card">
+          <article class="story-card reveal">
             <div class="story-head">
               <span class="story-icon mint" aria-hidden="true">
                 <svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>
@@ -140,7 +141,7 @@
             <p>This project suits early-stage e-commerce brands and small online stores that need both a storefront visitors trust and a real backend behind it, without paying platform fees for a full SaaS solution.</p>
           </article>
 
-          <article class="story-card accent">
+          <article class="story-card accent reveal">
             <div class="story-head">
               <span class="story-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" focusable="false"><path d="M9.5 18h5M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.5.4.8 1 .8 1.6v.5h5.4v-.5c0-.6.3-1.2.8-1.6A6 6 0 0 0 12 3z"/></svg>
@@ -178,17 +179,17 @@
           </div>
         </div>
         <div class="project-strip">
-          <a class="project-link" href="showcase-elasticshop-gaming-en">
+          <a class="project-link reveal" href="showcase-elasticshop-gaming-en">
             <img src="assets/thumbs/elasticshop-gaming.svg" alt="" loading="lazy" width="351" height="220" />
             <strong>Elasticshop Gaming Top-Up</strong>
             <span>Dark, yellow-accented design system across four full screen flows.</span>
           </a>
-          <a class="project-link" href="showcase-bookease-en">
+          <a class="project-link reveal" href="showcase-bookease-en">
             <img src="assets/thumbs/bookease.svg" alt="" loading="lazy" width="351" height="220" />
             <strong>BookEase Dashboard</strong>
             <span>Appointment booking dashboard backed by a real booking API.</span>
           </a>
-          <a class="project-link" href="showcase-velve-aesthetics-en">
+          <a class="project-link reveal" href="showcase-velve-aesthetics-en">
             <img src="assets/velve/care-tools.jpg" alt="" loading="lazy" width="351" height="220" />
             <strong>VELVÉ Aesthetics</strong>
             <span>Working 4-step booking wizard built in vanilla JavaScript.</span>

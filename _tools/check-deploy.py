@@ -93,6 +93,18 @@ def main():
         print(f"no versioned asset changed ({len(html)} HTML file(s) only) — nothing to bump")
         return 0
 
+    # A split token is worse than a stale one: half the visitors get one build
+    # of the asset and half get the other, and neither half is wrong enough to
+    # notice. Checked for every versioned asset, not just the changed ones,
+    # because a split is usually introduced by a page being added rather than
+    # by the asset being edited.
+    split = []
+    for a in sorted(set(ASSET.match(f).string for f in sh("git", "ls-files").splitlines()
+                        if ASSET.match(f))):
+        toks = token_for(a)
+        if len(toks) > 1:
+            split.append((a, sorted(toks)))
+
     problems = []
     for a in assets:
         now, before = token_for(a), token_for(a, BASE)
@@ -102,6 +114,15 @@ def main():
             refs = len([f for f in sh("bash", "-c",
                         f"grep -l '{a.split('/')[-1]}?v=' *.html").splitlines()])
             problems.append((a, sorted(now) or ["(none)"], refs))
+
+    if split:
+        print("STOP — one asset, more than one ?v= token:\n")
+        for a, toks in split:
+            print(f"  {a}")
+            print(f"    {' vs '.join(toks)}")
+        print("\nHalf your visitors get one build of it and half get the other.")
+        print("Every reference moves together or not at all.")
+        return 1
 
     if not problems:
         print("all changed assets have a moved ?v= token — good to ship")

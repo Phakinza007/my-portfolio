@@ -33,9 +33,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=optional" rel="stylesheet">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="site.webmanifest" />
-  <link rel="stylesheet" href="assets/portfolio-pages.css?v=lang-toggle" />
+  <link rel="stylesheet" href="assets/portfolio-pages.css?v=motion" />
   <link rel="stylesheet" href="assets/site-search.css?v=1" />
   <script src="assets/site-search.js?v=clean-urls" defer></script>
+  <script src="assets/site-ui.js?v=motion" defer></script>
   <script src="assets/analytics.js?v=clean-urls" defer></script>
   <script type="application/ld+json">
 {
@@ -100,7 +101,7 @@
           </ol>
         </nav>
         <span class="eyebrow">บริการ</span>
-        <h1>รับทำเว็บไซต์ธุรกิจ เริ่มต้น ฿9,900</h1>
+        <h1><span class="sheen">รับทำเว็บไซต์ธุรกิจ เริ่มต้น ฿9,900</span></h1>
         <p class="hero-copy">เว็บไซต์ธุรกิจครบวงจร 3-5 หน้า พัฒนาใหม่ 100% วางโครงสร้างรองรับ SEO พื้นฐาน พร้อมฟอร์มติดต่อหรือปุ่ม LINE OA ส่งงานภายใน 10-14 วัน</p>
         <div class="hero-actions">
           <a class="button primary" href="https://fastwork.co/byob/0G16E5GFIO?openExternalBrowser=1&amp;source=byob" target="_blank" rel="noopener noreferrer">เริ่มงานบน Fastwork</a>
@@ -111,19 +112,19 @@
         <div class="study-meta" aria-label="ข้อมูลบริการ Business Website">
           <div>
             <strong>ราคาเริ่มต้น</strong>
-            <span>฿9,900</span>
+            <span data-countup>฿9,900</span>
           </div>
           <div>
             <strong>ระยะเวลา</strong>
-            <span>10-14 วัน</span>
+            <span data-countup>10-14 วัน</span>
           </div>
           <div>
             <strong>แก้ไขได้</strong>
-            <span>2 รอบ + ฟรีแก้บั๊ก 3 เดือน</span>
+            <span data-countup>2 รอบ + ฟรีแก้บั๊ก 3 เดือน</span>
           </div>
           <div>
             <strong>เหมาะกับ</strong>
-            <span>ธุรกิจที่ต้องการเว็บ 3-5 หน้าพร้อม SEO</span>
+            <span data-countup>ธุรกิจที่ต้องการเว็บ 3-5 หน้าพร้อม SEO</span>
           </div>
         </div>
       </div>
@@ -131,7 +132,7 @@
 
     <section class="section" id="overview">
       <div class="page-shell study-grid">
-        <article class="study-block featured">
+        <article class="study-block featured reveal">
           <span class="showcase-icon" aria-hidden="true">&#10024;</span>
           <span class="eyebrow">รวมอยู่ในแพ็กเกจ</span>
           <h2>สิ่งที่คุณได้รับ</h2>
@@ -143,7 +144,7 @@
           </ul>
         </article>
 
-        <article class="study-block">
+        <article class="study-block reveal">
           <span class="showcase-icon" aria-hidden="true">&#127919;</span>
           <span class="eyebrow">เหมาะกับใคร</span>
           <h2>เหมาะกับธุรกิจที่ต้องการเว็บไซต์ครบวงจร</h2>
@@ -177,27 +178,27 @@
           </div>
         </div>
         <div class="project-strip">
-          <a class="project-link" href="showcase-elevate-commerce">
+          <a class="project-link reveal" href="showcase-elevate-commerce">
             <img src="assets/thumbs/elevate-commerce.svg" alt="" loading="lazy" width="351" height="220" />
             <strong>Elevate Commerce</strong>
             <span>สตาร์ทอัพอีคอมเมิร์ซที่ต้องการหน้าสินค้าพาผู้เข้าชมตั้งแต่เลือกดูจนถึงชำระเงิน</span>
           </a>
-          <a class="project-link" href="showcase-elasticshop-gaming">
+          <a class="project-link reveal" href="showcase-elasticshop-gaming">
             <img src="assets/thumbs/elasticshop-gaming.svg" alt="" loading="lazy" width="351" height="220" />
             <strong>Elasticshop Gaming Top-Up</strong>
             <span>ดีไซน์ระบบโทนดำ-เหลืองสำหรับแพลตฟอร์มเติมเงินเกมอัตโนมัติ — ครบ 4 หน้าจอ ดีไซน์แบบเกมเมอร์</span>
           </a>
-          <a class="project-link" href="showcase-ratri-restaurant">
+          <a class="project-link reveal" href="showcase-ratri-restaurant">
             <img src="assets/thumbs/ratri-restaurant.svg" alt="" loading="lazy" width="351" height="220" />
             <strong>RATRI Restaurant</strong>
             <span>แลนดิ้งเพจโทนมืดสไตล์หรู สำหรับร้านอาหารไทยไฟน์ไดนิ่งสมัยใหม่ พร้อมระบบจองโต๊ะที่ใช้งานได้จริง</span>
           </a>
-          <a class="project-link" href="showcase-velve-aesthetics">
+          <a class="project-link reveal" href="showcase-velve-aesthetics">
             <img src="assets/velve/care-tools.jpg" alt="" loading="lazy" width="351" height="220" />
             <strong>VELVÉ Aesthetics</strong>
             <span>คลินิกเสริมความงามพร้อมระบบจองคิว 4 ขั้นตอนที่ใช้งานได้จริง — เลือกบริการ แพทย์ ช่วงเวลา แล้วยืนยัน — เขียนด้วย vanilla JS ล้วน</span>
           </a>
-          <a class="project-link" href="showcase-habitquest">
+          <a class="project-link reveal" href="showcase-habitquest">
             <img src="assets/thumbs/habitquest.svg" alt="" loading="lazy" width="351" height="220" />
             <strong>HabitQuest</strong>
             <span>เปลี่ยนนิสัยประจำวันให้กลายเป็นการผจญภัยแบบ RPG — ทำเควส ปราบมอนสเตอร์ และเลเวลอัพฮีโร่ ทีละนิสัยจากชีวิตจริง</span>

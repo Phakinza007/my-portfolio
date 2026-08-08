@@ -68,7 +68,11 @@ asset every time. Nothing errors, nothing logs, and Lighthouse scores 100.
 | `design-preview.js` | 8 files |
 
 **Every reference moves together or not at all.** A half-bumped token splits
-visitors across two versions of the same sheet.
+visitors across two versions of the same sheet — half get one build, half get
+the other, and neither half is broken enough to report it. `check-deploy.py`
+fails on that too, separately from the stale-token case, because a split is
+usually introduced by *adding a page* rather than by editing the asset: the new
+page gets today's token while every existing page keeps yesterday's.
 
 Tokens are names, not numbers — `?v=feature-grid`, `?v=merged-band`. Name it
 after the change so the diff explains itself.

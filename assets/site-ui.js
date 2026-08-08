@@ -21,9 +21,49 @@
      hard-coded, which is what lets the Thai and English copies merge. */
   const EN = (document.documentElement.lang || 'th').toLowerCase().startsWith('en');
 
-  /* ---- Scroll reveal with stagger ---- */
+  /* ---- Count-up on .study-meta figures ----
+     The real value is already in the HTML; this only counts up to it. So with
+     JS off, with reduced motion on, or if this file 404s, the reader sees the
+     true number immediately — which matters because several of these figures
+     are prices, and a price caught mid-count reads as a smaller price. The
+     run is kept short for the same reason. */
+  const figures = document.querySelectorAll('[data-countup]');
+  if (figures.length && 'IntersectionObserver' in window &&
+      !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const numOf = (t) => Number(String(t).replace(/[^0-9]/g, ''));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        const final = e.target.textContent;
+        const target = numOf(final);
+        if (!target) return;
+        const grouped = /,/.test(final);
+        const render = (n) => final.replace(/[\d,]+/,
+          grouped ? n.toLocaleString('en-US') : String(n));
+        const t0 = performance.now(), dur = 620;
+        const step = (t) => {
+          const p = Math.min(1, (t - t0) / dur);
+          e.target.textContent = render(Math.round(target * (1 - Math.pow(1 - p, 3))));
+          if (p < 1) requestAnimationFrame(step);
+          else e.target.textContent = final;
+        };
+        requestAnimationFrame(step);
+      });
+    }, { rootMargin: '0px 0px -10% 0px' });
+    figures.forEach((f) => io.observe(f));
+  }
+
+  /* ---- Scroll reveal with stagger ----
+     The hidden state is scoped to .js-reveal on <html>, set here, so a page
+     that ships .reveal markup without this file renders visible instead of
+     blank. work.html once went out with all 13 cards at opacity 0 for exactly
+     that reason, and Lighthouse still scored 100 because opacity-0 elements
+     stay in the accessibility tree. Adding the class from JS makes that
+     failure structurally impossible rather than a thing to remember. */
   const reveals = document.querySelectorAll('.reveal');
   if (reveals.length) {
+    document.documentElement.classList.add('js-reveal');
     if ('IntersectionObserver' in window) {
       const obs = new IntersectionObserver((entries) => {
         entries.forEach(e => {
