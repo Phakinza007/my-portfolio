@@ -832,18 +832,33 @@ are **Thai-only** — see "Bilingual structure" for why. Built entirely from
    used to be a bulleted list inside one tall card beside a short paragraph, so the section
    was a 382px column next to a 236px one and the features read as fine print. **The copy is
    the same six lines, moved not rewritten** — three columns, two below 900px, one below 640px
-6. `#preview` then `#related`, in that order. `#preview` is the design preview widget (below),
-   now on all 8 pages. `#related`: `.project-strip` using each project's `.work-problem` text
-   from `index.html` **verbatim**. A single-demo page shows one link — do not pad it.
-   The preview answers "what do I get", the strip answers "can he build it";
-   `bigzweb.com/recommend/*` runs them the other way round and the owner asked to invert it.
-   A `.heading-link` ("ดูผลงานทั้งหมด →") sits in the second cell of `#related`'s
-   `.section-heading`, which was already a two-column grid with `align-items: end`, so it
-   needed no new layout
+6. `#related`: `.project-strip` using each project's `.work-problem` text from `index.html`
+   **verbatim**. A single-demo page shows one link — do not pad it. A `.heading-link`
+   ("ดูผลงานทั้งหมด →") sits in the second cell of its `.section-heading`, which was already a
+   two-column grid with `align-items: end`, so it needed no new layout
 7. `#faq`: **10** `.study-block`s with `<h3>` questions — 4 industry-specific, 2 on price
    objections, 4 shared (domain/host, revisions, payment, dissatisfaction) copied from
    `faq.html`. A matching `FAQPage` JSON-LD ships in the `<head>`; the question count in the
    JSON must equal the rendered `<h3>` count.
+
+**Section order, all 8 pages:**
+
+```
+hero → #problem → #preview → #overview → #included → #compare → #process → #related → #faq → #cta
+```
+
+`#preview` sits **directly after `#problem`** — owner's call 2026-08-08. State the problem,
+then show what the fix looks like, before any of the scope, price or process copy. It used to
+sit between `#process` and `#related`.
+
+Two things depend on that position and must survive any reorder:
+
+- `#preview` ships `hidden`, so `design-preview.js` watches its **previous sibling** for the
+  IntersectionObserver — an element with no box never triggers one. That sibling is now
+  `#problem`. Any section it lands after must be a real, rendered section with height.
+- `#related` still follows `#preview` in reading order even though they are no longer
+  adjacent: the preview answers "what do I get", the strip answers "can he build it".
+  `bigzweb.com/recommend/*` runs proof before preview; the owner asked to invert it.
 
 Since 2026-08-07 each page also carries `#problem`, `#included`, `#compare` and `#process`,
 taking the body from ~2,300 to ~6,800 characters — the page-1 result measured against them

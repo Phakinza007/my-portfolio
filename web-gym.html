@@ -233,6 +233,15 @@
       </div>
     </section>
 
+    <!-- hidden until design-preview.js builds the widget: an empty .section
+         still carries its 56-88px of vertical padding, so a failed fetch would
+         otherwise leave a blank band on the page. -->
+    <section class="section" id="preview" hidden>
+      <div class="page-shell">
+        <div class="design-preview" data-preview="gym"></div>
+      </div>
+    </section>
+
     <section class="section" id="overview">
       <div class="page-shell">
         <div class="section-heading">
@@ -403,15 +412,6 @@
       </div>
     </section>
 
-
-    <!-- hidden until design-preview.js builds the widget: an empty .section
-         still carries its 56-88px of vertical padding, so a failed fetch would
-         otherwise leave a blank band on the page. -->
-    <section class="section" id="preview" hidden>
-      <div class="page-shell">
-        <div class="design-preview" data-preview="gym"></div>
-      </div>
-    </section>
 
     <section class="section" id="related">
       <div class="page-shell">
