@@ -1623,3 +1623,56 @@
     }
     @media (max-width:900px){.need-grid{grid-template-columns:repeat(2,1fr);}}
     @media (prefers-reduced-motion:reduce){.need-tile{transition:none;}.need-tile:hover{transform:none;}}
+
+/* ============================================================
+   Language toggle — TH | EN
+   Replaces the single "EN" / "TH" nav link, which never showed which
+   language you were already in: on a Thai page the lone word "EN" reads
+   equally as "you are in English" or "switch to English".
+   The current language is a <span aria-current="true">, not a link, because
+   there is nowhere for it to go.
+   One identical block ships in both stylesheets. They are never loaded
+   together, but they name the same colour differently — --border in
+   home-shell, --line in portfolio-pages — so each value asks for one, then
+   the other, then a literal, the way site-search.css already does.
+   ============================================================ */
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid var(--border, var(--line, #21262d));
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.lang-toggle > * {
+  padding: 5px 9px;
+  color: var(--muted, #8b949e);
+  text-decoration: none;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.lang-toggle > a:hover { color: var(--ink, #e6edf3); background: rgba(255, 255, 255, 0.06); }
+.lang-toggle > a:focus-visible { outline: 2px solid var(--accent, #5274f8); outline-offset: -2px; }
+
+.lang-toggle .lang-on {
+  background: var(--accent-dark, #3651d4);
+  color: #fff;
+}
+
+/* Inside the drawer the toggle is a child of a flex column whose `a` rule sets
+   a 44px block. Left alone that stretches the pill to the full panel width and
+   restyles its inner link. Keep it content-sized and let .lang-toggle own the
+   anchor. */
+.nav-mobile-panel .lang-toggle { align-self: flex-start; }
+.nav-mobile-panel .lang-toggle a {
+  height: auto;
+  padding: 5px 9px;
+  border-radius: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+.nav-mobile-panel .lang-toggle a:hover { background: rgba(255, 255, 255, 0.06); }

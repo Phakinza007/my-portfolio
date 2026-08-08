@@ -34,7 +34,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=optional" rel="stylesheet">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="site.webmanifest" />
-  <link rel="stylesheet" href="assets/home-shell.css?v=merged-band" />
+  <link rel="stylesheet" href="assets/home-shell.css?v=lang-toggle" />
   <link rel="stylesheet" href="assets/site-search.css?v=1" />
   <style>
     .faq-card h3 {
@@ -175,7 +175,7 @@
           <li><a href="services">บริการ</a></li>
           <li><a href="about">เกี่ยวกับผม</a></li>
           <li><a href="faq" aria-current="page">FAQ</a></li>
-          <li><a href="faq-en">EN</a></li>
+          <li><span class="lang-toggle" role="group" aria-label="ภาษา"><span class="lang-on" aria-current="true">TH</span><a href="faq-en" hreflang="en" lang="en">EN</a></span></li>
         </ul>
       </nav>
 
@@ -197,7 +197,7 @@
       <a href="services">บริการ</a>
       <a href="about">เกี่ยวกับผม</a>
       <a href="faq" aria-current="page">FAQ</a>
-      <a href="faq-en">EN</a>
+      <span class="lang-toggle" role="group" aria-label="ภาษา"><span class="lang-on" aria-current="true">TH</span><a href="faq-en" hreflang="en" lang="en">EN</a></span>
       <a class="resume-mobile" href="/#contact">ติดต่อ</a>
     </nav>
   </header>

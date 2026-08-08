@@ -34,7 +34,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=optional" rel="stylesheet">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="site.webmanifest" />
-  <link rel="stylesheet" href="assets/home-shell.css?v=merged-band" />
+  <link rel="stylesheet" href="assets/home-shell.css?v=lang-toggle" />
   <style>:root{--preview-label:'View Preview \2192';}</style>
   <link rel="stylesheet" href="assets/site-search.css?v=1" />
   <script src="assets/site-search.js?v=clean-urls" defer></script>
@@ -76,7 +76,7 @@
           <li><a href="services-en">Services</a></li>
           <li><a href="about-en" aria-current="page">About</a></li>
           <li><a href="faq-en">FAQ</a></li>
-          <li><a href="about">TH</a></li>
+          <li><span class="lang-toggle" role="group" aria-label="Language"><span class="lang-on" aria-current="true">EN</span><a href="about" hreflang="th" lang="th">TH</a></span></li>
         </ul>
       </nav>
 
@@ -98,7 +98,7 @@
       <a href="services-en">Services</a>
       <a href="about-en" aria-current="page">About</a>
       <a href="faq-en">FAQ</a>
-      <a href="about">TH</a>
+      <span class="lang-toggle" role="group" aria-label="Language"><span class="lang-on" aria-current="true">EN</span><a href="about" hreflang="th" lang="th">TH</a></span>
       <a class="resume-mobile" href="/#contact">Contact</a>
     </nav>
   </header>

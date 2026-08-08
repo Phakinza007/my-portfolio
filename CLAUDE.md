@@ -352,6 +352,21 @@ plus the site search.
   `.page-shell nav` and get the same links and search — 25 selling pages in total. Two navs, one set of destinations — unifying the CSS was tried and reverted
   because of the `.nav-links` collision above.
 - `aria-current="page"` marks the active entry.
+- **The language switcher is a two-state toggle, not a link.** `.lang-toggle` renders
+  `TH | EN` with the current language as a `<span class="lang-on" aria-current="true">` and
+  the other as the only anchor. It replaced a lone `EN` (or `TH`) nav link on 56 pages —
+  which never said which language you were *in*: on a Thai page the bare word `EN` reads
+  equally as "you are in English" and "switch to English". The current side is deliberately
+  not a link; there is nowhere for it to go. The anchor carries `hreflang` **and** `lang` so
+  a screen reader pronounces `EN`/`TH` in the right voice.
+  One identical block ships in **both** stylesheets — they are never loaded together, but
+  they name the same colour differently (`--border` vs `--line`), so each value asks for one,
+  then the other, then a literal, exactly as `site-search.css` does.
+  Home-shell pages carry two copies, navbar and drawer. The drawer needs its own override:
+  `.nav-mobile-panel a` sets a 44px block, which stretches the pill to the full 335px panel
+  width and restyles its inner link.
+  **The 8 `web-*` industry pages have no toggle and must not get one** — they are Thai-only
+  by design and have no `-en` twin to point at.
 - **`services` · `about` · `faq` · `process` (± `-en`) open with a merged band**, same shape as
   `work`: breadcrumb → `h1.work-title` → one `.work-problem` blurb → straight into that
   section's own content. Merged 2026-08-08; each used to spend a whole `.section` (336–441px)
