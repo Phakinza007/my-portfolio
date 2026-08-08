@@ -441,7 +441,8 @@ portfolio chrome) and `404.html`.
 - **The script tag is versioned: `assets/site-search.js?v=self-render`.** Bump it on any
   change that alters the generated markup. A returning visitor pairing the new HTML with a
   cached copy of an older script gets an empty placeholder and **no search field at all** —
-  which is exactly what happened during testing.
+  which is exactly what happened during testing. `assets/design-preview.js?v=` is a second
+  self-rendering script with the identical hazard; the same rule applies to it.
 - **`search-index.json` is hand-maintained.** A new page that is not added to *both* the `th`
   and `en` arrays is simply unfindable, and nothing fails to tell you.
 - Matching is plain **substring** — Thai has no word spaces, so segmentation would be heavy and
@@ -798,8 +799,11 @@ are **Thai-only** — see "Bilingual structure" for why. Built entirely from
 5. `#overview`: a `.featured` block listing features that industry actually needs, plus a
    plain block answering "who it's for". Give the plain block's `<h2>` different wording from
    its `.eyebrow` — repeating "เหมาะกับใคร" twice reads as a bug
-6. `#related`: `.project-strip` using each project's `.work-problem` text from `index.html`
-   **verbatim**. A single-demo page shows one link — do not pad it
+6. `#preview` then `#related`, in that order. `#preview` is the design preview widget (below)
+   and is on `web-clinic` only so far. `#related`: `.project-strip` using each project's
+   `.work-problem` text from `index.html` **verbatim**. A single-demo page shows one link —
+   do not pad it. The preview answers "what do I get", the strip answers "can he build it";
+   `bigzweb.com/recommend/*` runs them the other way round and the owner asked to invert it
 7. `#faq`: **10** `.study-block`s with `<h3>` questions — 4 industry-specific, 2 on price
    objections, 4 shared (domain/host, revisions, payment, dissatisfaction) copied from
    `faq.html`. A matching `FAQPage` JSON-LD ships in the `<head>`; the question count in the
@@ -807,8 +811,11 @@ are **Thai-only** — see "Bilingual structure" for why. Built entirely from
 
 Since 2026-08-07 each page also carries `#problem`, `#included`, `#compare` and `#process`,
 taking the body from ~2,300 to ~6,800 characters — the page-1 result measured against them
-carries roughly 2,500–3,000 words. All four are built from existing components; **no page in
-this family has ever needed new CSS.**
+carries roughly 2,500–3,000 words. All four are built from existing components and needed no
+new CSS.
+
+**One page in the family now carries new CSS: the design preview widget** (below). Everything
+else here is still built from existing components, and a new industry page needs none.
 
 `#compare` sets ฿3,900 against the ฿19,900–25,900 bracket the page-1 agencies occupy. It
 **names no competitor** and states the freelance side's own limits (one person, no cover, no
@@ -817,6 +824,42 @@ out-of-hours support) — a comparison that only flatters one side reads as adve
 **These pages must not claim clients.** All thirteen projects are self-directed design work.
 The eyebrow above `#related` is `ตัวอย่างงานออกแบบ`, never `ผลงานจริง`, and no page carries a
 client count, a client name, or a testimonial beyond the three real Fastwork reviews.
+
+### The design preview widget (`#preview`)
+
+"เว็บของคุณจะหน้าตาแบบนี้" — a tabbed sidebar of the eight parts of a clinic site, each
+swapping a **rendered** mockup (no screenshots) plus a caption. Added 2026-08-08, adapted from
+`bigzweb.com/recommend/realestate`. Live on `web-clinic.html` only; the other seven industry
+pages are a follow-on that adds JSON and nothing else.
+
+- `assets/design-preview.js?v=1` + `assets/design-preview.json`; the page ships only
+  `<div class="design-preview" data-preview="clinic"></div>` inside `<section id="preview">`.
+  **The `?v=` is load-bearing** — same hazard as `site-search.js`: new HTML paired with a
+  cached older script renders an empty placeholder and no widget. Bump it whenever the
+  generated markup changes.
+- Styles are a `.dp-*` block appended to `assets/portfolio-pages.css` — no new file, no new
+  colours, +1.6 KB gzipped on a sheet 52 pages load. That is the exception noted above.
+- **The section ships `hidden` and only `build()` reveals it.** An empty `.section` still
+  carries 56–88px of padding top and bottom, so without this a failed fetch leaves a blank band.
+- **The IntersectionObserver watches the *preceding* section.** `#preview` is `hidden` and the
+  placeholder is empty, so both have zero area before the build — and an element with no box
+  never triggers an observer. A 3s `setTimeout` backs it up, because a lazy trigger that fails
+  to fire produces no error and no console warning; `work.html` once shipped all 13 cards at
+  opacity 0 exactly this way while Lighthouse still scored 100.
+- **`role="tabpanel"` wraps the caption; the mockup inside it is `aria-hidden`.** The caption
+  is the only readable content, so a panel holding just the mockup would be an empty shell.
+  No `aria-live` — a correct tab pattern announces the switch once already. Arrow keys wrap,
+  Home/End jump, roving `tabindex` leaves exactly one `0`.
+- **The two admin tabs carry the literal text `งานเพิ่มเติม · ประเมินราคาแยก`**, never the amber
+  dot alone. ฿3,900 is one page with no backend — no `<form>` in this repo has an `action`.
+  A header line states the scope so six sidebar entries cannot read as six pages for ฿3,900.
+- The mockup brand is **`คลินิกของคุณ`**, fictional on purpose and chosen not to collide with
+  LUMI / BRIGHT / VELVÉ, which appear in `#related` right below it.
+- Tabs emit `data-track="preview_page"` with `data-industry` / `data-page` / `data-side`.
+  `analytics.js` already spreads `el.dataset` into the tags, so **that file needed no change**.
+
+Spec: `docs/superpowers/specs/2026-08-08-design-preview-widget-design.md`.
+Plan: `docs/superpowers/plans/2026-08-08-design-preview-widget.md`.
 
 **No PDPA content** until it is true — the owner does not currently do anything about it, and
 implying otherwise to a clinic is worse than silence

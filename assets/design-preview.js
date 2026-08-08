@@ -20,6 +20,8 @@
   const KEY = root.dataset.preview;
   if (!KEY) return;
 
+  const section = root.closest('section');
+
   const el = (tag, cls, text) => {
     const n = document.createElement(tag);
     if (cls) n.className = cls;
@@ -276,9 +278,16 @@
     if (data.note) root.append(el('p', 'dp-note', data.note));
     root.append(frame);
     show(0);
+
+    /* Reveal only once there is something to reveal. The section ships hidden
+       so a failed fetch leaves no blank band. */
+    if (section) section.hidden = false;
   };
 
+  let loaded = false;
   const load = () => {
+    if (loaded) return;
+    loaded = true;
     fetch('assets/design-preview.json')
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(r.status))))
       .then((all) => {
@@ -290,6 +299,26 @@
       });
   };
 
+  /* Watch the PRECEDING section, not this one and not the placeholder.
+     Both of those have zero area before the widget is built — the placeholder
+     is empty by design, and the section shipped `hidden` so a failed fetch
+     leaves no blank band — and an element with no box is a poor thing to hand
+     an IntersectionObserver. The preceding section always has content, so it
+     always has height.
+
+     No CLS: at rootMargin 600px the widget is built before it scrolls into
+     view, and content inserted outside the viewport does not count as a
+     layout shift.
+
+     The timeout is a deliberate backstop, not belt-and-braces. When a lazy
+     trigger fails to fire there is no error and no console warning — the
+     section simply renders empty and looks intentional. This repo has shipped
+     that exact class of bug before: work.html once went out with all thirteen
+     cards at opacity 0 because the reveal observer was missing, and Lighthouse
+     still scored 100. Three seconds is long past LCP, so the laziness that
+     matters is preserved. */
+  const watch = (section && section.previousElementSibling) || section || root;
+
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver(
       (entries) => {
@@ -300,7 +329,8 @@
       },
       { rootMargin: '600px' }
     );
-    io.observe(root);
+    io.observe(watch);
+    setTimeout(load, 3000);
   } else {
     load();
   }
