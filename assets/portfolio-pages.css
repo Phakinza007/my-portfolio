@@ -1521,3 +1521,76 @@ p {
   .feature-card:hover { transform: none; }
   .sheen::after { animation: none; content: none; }
 }
+
+/* ============================================================
+   View Transitions — cross-document
+   Three lines that make navigating between the 84 pages cross-fade instead
+   of flashing white. Pure progressive enhancement: a browser without it
+   simply navigates as before, so there is nothing to feature-detect and
+   nothing to fall back to.
+   ============================================================ */
+@view-transition { navigation: auto; }
+
+::view-transition-old(root),
+::view-transition-new(root) { animation-duration: 220ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+}
+
+/* ============================================================
+   Reading progress · section rail · copy-email feedback
+   All three are created by site-ui.js, so they exist only where that file
+   runs — never on the 13 demo pages.
+   ============================================================ */
+
+.read-progress{
+  position:fixed; inset:0 0 auto 0; height:2px; z-index:200;
+  background:transparent; pointer-events:none;
+}
+.read-progress i{
+  display:block; height:100%; width:100%; transform-origin:left;
+  transform:scaleX(0);
+  background:var(--accent, #5274f8);
+}
+
+.section-rail{
+  position:fixed; top:50%; right:18px; transform:translateY(-50%);
+  z-index:150; display:flex; flex-direction:column; gap:2px;
+  max-width:190px;
+}
+.section-rail a{
+  position:relative; padding:4px 0 4px 13px;
+  border-left:2px solid var(--border, var(--line, #21262d));
+  color:transparent; text-decoration:none;
+  font-size:.72rem; line-height:1.35;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  transition:color .2s var(--ease), border-color .2s var(--ease);
+}
+/* Collapsed to a row of ticks until the rail is hovered or focused, so it
+   never competes with the page it is indexing. */
+.section-rail:hover a,
+.section-rail:focus-within a{ color:var(--muted, #8b949e); }
+.section-rail a.here{ border-left-color:var(--accent, #5274f8); }
+.section-rail:hover a.here,
+.section-rail:focus-within a.here{ color:var(--accent-text, #7b93fa); }
+.section-rail a:focus-visible{ outline:2px solid var(--accent, #5274f8); outline-offset:2px; color:var(--ink, #e6edf3); }
+
+/* Below this the rail would sit on top of the content it indexes. */
+@media (max-width:1280px){ .section-rail{ display:none; } }
+
+/* mailto feedback — the label swaps in place, no layout shift */
+a[data-copied]{ position:relative; }
+a[data-copied]::after{
+  content:attr(data-copied);
+  position:absolute; left:50%; bottom:calc(100% + 6px); transform:translateX(-50%);
+  padding:3px 9px; border-radius:999px; white-space:nowrap;
+  background:var(--accent-dark, #3651d4); color:#fff;
+  font-size:.68rem; font-weight:700; letter-spacing:.02em;
+  pointer-events:none;
+}
+
+@media (prefers-reduced-motion:reduce){
+  .read-progress i{ transition:none; }
+  .section-rail a{ transition:none; }
+}

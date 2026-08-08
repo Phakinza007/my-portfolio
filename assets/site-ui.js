@@ -17,9 +17,94 @@
 (() => {
   'use strict';
 
+  const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   /* Both user-visible string sets are chosen from <html lang> rather than
      hard-coded, which is what lets the Thai and English copies merge. */
   const EN = (document.documentElement.lang || 'th').toLowerCase().startsWith('en');
+
+
+  /* ---- Copy the email on click ----
+     Enhances the mailto links already on the page rather than needing new
+     markup, and keeps the href: plenty of people want their mail client, and
+     on a phone selecting an address by dragging is genuinely hard. Only wired
+     up where the Clipboard API exists, so nothing is promised that cannot be
+     delivered. */
+  if (navigator.clipboard) {
+    document.querySelectorAll('a[href^="mailto:"]').forEach((a) => {
+      const address = a.getAttribute('href').slice(7).split('?')[0];
+      if (!address) return;
+      a.addEventListener('click', (e) => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+        e.preventDefault();
+        navigator.clipboard.writeText(address).then(() => {
+          const was = a.dataset.copied;
+          a.dataset.copied = EN ? 'Copied' : 'คัดลอกแล้ว';
+          clearTimeout(+was || 0);
+          setTimeout(() => delete a.dataset.copied, 1800);
+        }).catch(() => { location.href = a.getAttribute('href'); });
+      });
+    });
+  }
+
+  /* ---- Reading progress ----
+     Turned on by page length, not by a class, so no page has to remember to
+     opt in. The threshold is four viewports: below that the scrollbar already
+     answers "how much is left" and a second indicator is noise. web-clinic is
+     7,104 characters over ten sections, which is where this earns its keep. */
+  if (document.documentElement.scrollHeight > innerHeight * 4) {
+    const bar = document.createElement('div');
+    bar.className = 'read-progress';
+    bar.innerHTML = '<i></i>';
+    bar.setAttribute('aria-hidden', 'true');   /* decorative: scroll position is already exposed */
+    document.body.appendChild(bar);
+    const fill = bar.firstElementChild;
+    let ticking = false;
+    const paint = () => {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      fill.style.transform = 'scaleX(' + (max <= 0 ? 1 : Math.min(1, scrollY / max)) + ')';
+      ticking = false;
+    };
+    addEventListener('scroll', () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(paint); }
+    }, { passive: true });
+    paint();
+  }
+
+  /* ---- Section rail ----
+     Built from the sections that are already there, so adding or reordering a
+     section needs no second edit. Five is the floor: fewer than that and the
+     rail lists things the reader can already see. It is a real <nav> with
+     aria-current, not decorative dots. */
+  const railSections = [...document.querySelectorAll('main > section[id]')]
+    .filter((sec) => sec.querySelector('h2'));
+  if (railSections.length >= 5) {
+    const nav = document.createElement('nav');
+    nav.className = 'section-rail';
+    nav.setAttribute('aria-label', EN ? 'On this page' : 'หัวข้อในหน้านี้');
+    railSections.forEach((sec) => {
+      const a = document.createElement('a');
+      a.href = '#' + sec.id;
+      a.textContent = sec.querySelector('h2').textContent.trim();
+      nav.appendChild(a);
+    });
+    document.body.appendChild(nav);
+    const links = [...nav.children];
+    if ('IntersectionObserver' in window) {
+      const spy = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          links.forEach((a) => {
+            const here = a.getAttribute('href') === '#' + e.target.id;
+            a.classList.toggle('here', here);
+            if (here) a.setAttribute('aria-current', 'true');
+            else a.removeAttribute('aria-current');
+          });
+        });
+      }, { rootMargin: '-15% 0px -70% 0px' });
+      railSections.forEach((sec) => spy.observe(sec));
+    }
+  }
 
   /* ---- Count-up on .study-meta figures ----
      The real value is already in the HTML; this only counts up to it. So with
@@ -180,9 +265,15 @@
                   && (!featuredOnly || card.dataset.featured);
         if (show) {
           delete card.dataset.hidden;
+          /* next frame, so the browser has a layout to transition *from* */
+          requestAnimationFrame(() => delete card.dataset.leaving);
           visible++;
         } else {
-          card.dataset.hidden = '';
+          card.dataset.leaving = '';
+          /* display:none only after the fade, otherwise it cancels it */
+          setTimeout(() => {
+            if (card.dataset.leaving === '') card.dataset.hidden = '';
+          }, REDUCED ? 0 : 260);
         }
       });
 

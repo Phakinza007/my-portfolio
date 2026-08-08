@@ -315,6 +315,17 @@ clamp to 64px would recover 3.7% of page height for a visibly tighter page — m
 touching it. Every other section is transparent over the page background, which is why the
 spacing *reads* emptier than it measures.
 
+**View Transitions are on sitewide** — `@view-transition { navigation: auto }` in both
+stylesheets, three lines, so moving between the 84 pages cross-fades instead of flashing
+white. Nothing feature-detects it: a browser without support just navigates as it always
+did. Off under `prefers-reduced-motion`.
+
+**The work filter's transition was dead code until 2026-08-08.** `.work-card` declared
+`transition: opacity 250ms, transform 250ms` while the hidden state used `display: none`,
+which is not animatable — so the filter snapped from the day it was written. It now uses
+two attributes: `data-leaving` fades the card, and `data-hidden` removes it from layout
+260ms later. **Do not collapse them back into one.**
+
 **Behaviour lives in `assets/site-ui.js`, not inline.** `home-shell.css` sets
 `.reveal { opacity: 0 }` and only `.reveal.visible` restores it, so any page using `.reveal`
 **must** ship the IntersectionObserver — without it every card renders invisible, and
@@ -352,6 +363,14 @@ plus the site search.
   `.page-shell nav` and get the same links and search — 25 selling pages in total. Two navs, one set of destinations — unifying the CSS was tried and reverted
   because of the `.nav-links` collision above.
 - `aria-current="page"` marks the active entry.
+- **Three chrome elements are built by `site-ui.js`, not written into any page** — the
+  reading-progress bar, the section rail, and the copy-on-click behaviour on `mailto:`
+  links. None needs markup, so none of the 84 files had to change and none can drift.
+  Each self-guards on something observable rather than on a class someone has to remember:
+  the progress bar appears when the page is taller than four viewports, the rail when
+  `main > section[id]` with an `h2` numbers five or more. `work.html` has four, so it
+  correctly gets no rail. The rail is a real `<nav>` with `aria-current`, collapsed to
+  ticks until hovered, and `display: none` below 1280px where it would overlap content.
 - **The language switcher is a two-state toggle, not a link.** `.lang-toggle` renders
   `TH | EN` with the current language as a `<span class="lang-on" aria-current="true">` and
   the other as the only anchor. It replaced a lone `EN` (or `TH`) nav link on 56 pages —
