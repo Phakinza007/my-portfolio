@@ -155,10 +155,14 @@
     const c = el('div', 'dp-caption');
     const head = el('div', 'dp-caption-head');
     head.append(el('h3', null, page.name));
+    /* `badge` lets a page override the admin wording. web-booking needs it:
+       that page's own #overview already promises a back office, so labelling
+       it plain "งานเพิ่มเติม" would contradict the copy above it, while
+       calling it included would claim a database this site does not have. */
     head.append(
       page.side === 'admin'
-        ? el('span', 'dp-tag dp-tag-admin', 'งานเพิ่มเติม · ประเมินราคาแยก')
-        : el('span', 'dp-tag dp-tag-customer', 'หน้าฝั่งลูกค้า')
+        ? el('span', 'dp-tag dp-tag-admin', page.badge || 'งานเพิ่มเติม · ประเมินราคาแยก')
+        : el('span', 'dp-tag dp-tag-customer', page.badge || 'หน้าฝั่งลูกค้า')
     );
     c.append(head);
     c.append(el('p', null, page.desc));
@@ -288,10 +292,16 @@
   const load = () => {
     if (loaded) return;
     loaded = true;
-    fetch('assets/design-preview.json')
+    /* One file per industry, not one file keyed by industry. All eight
+       together are 11.2 KB gzipped against 2.6 KB for the largest single one,
+       so a combined file would have every visitor download 8.6 KB they never
+       use. Shared caching does not pay it back: the whole point of these pages
+       is that someone searching รับทำเว็บคลินิก lands on one of them and never
+       sees the other seven. Adding an industry is still just adding a file. */
+    fetch('assets/design-preview-' + KEY + '.json')
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(r.status))))
-      .then((all) => {
-        if (all[KEY]) build(all[KEY]);
+      .then((data) => {
+        if (data && data.pages) build(data);
       })
       .catch(() => {
         /* Leave the placeholder empty. A failed fetch must not leave a broken

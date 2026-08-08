@@ -441,7 +441,7 @@ portfolio chrome) and `404.html`.
 - **The script tag is versioned: `assets/site-search.js?v=self-render`.** Bump it on any
   change that alters the generated markup. A returning visitor pairing the new HTML with a
   cached copy of an older script gets an empty placeholder and **no search field at all** —
-  which is exactly what happened during testing. `assets/design-preview.js?v=` is a second
+  which is exactly what happened during testing. `assets/design-preview.js?v=` (now `v=2`) is a second
   self-rendering script with the identical hazard; the same rule applies to it.
 - **`search-index.json` is hand-maintained.** A new page that is not added to *both* the `th`
   and `en` arrays is simply unfindable, and nothing fails to tell you.
@@ -799,10 +799,10 @@ are **Thai-only** — see "Bilingual structure" for why. Built entirely from
 5. `#overview`: a `.featured` block listing features that industry actually needs, plus a
    plain block answering "who it's for". Give the plain block's `<h2>` different wording from
    its `.eyebrow` — repeating "เหมาะกับใคร" twice reads as a bug
-6. `#preview` then `#related`, in that order. `#preview` is the design preview widget (below)
-   and is on `web-clinic` only so far. `#related`: `.project-strip` using each project's
-   `.work-problem` text from `index.html` **verbatim**. A single-demo page shows one link —
-   do not pad it. The preview answers "what do I get", the strip answers "can he build it";
+6. `#preview` then `#related`, in that order. `#preview` is the design preview widget (below),
+   now on all 8 pages. `#related`: `.project-strip` using each project's `.work-problem` text
+   from `index.html` **verbatim**. A single-demo page shows one link — do not pad it.
+   The preview answers "what do I get", the strip answers "can he build it";
    `bigzweb.com/recommend/*` runs them the other way round and the owner asked to invert it
 7. `#faq`: **10** `.study-block`s with `<h3>` questions — 4 industry-specific, 2 on price
    objections, 4 shared (domain/host, revisions, payment, dissatisfaction) copied from
@@ -827,13 +827,21 @@ client count, a client name, or a testimonial beyond the three real Fastwork rev
 
 ### The design preview widget (`#preview`)
 
-"เว็บของคุณจะหน้าตาแบบนี้" — a tabbed sidebar of the eight parts of a clinic site, each
+"เว็บของคุณจะหน้าตาแบบนี้" — a tabbed sidebar of the parts of that industry's site, each
 swapping a **rendered** mockup (no screenshots) plus a caption. Added 2026-08-08, adapted from
-`bigzweb.com/recommend/realestate`. Live on `web-clinic.html` only; the other seven industry
-pages are a follow-on that adds JSON and nothing else.
+`bigzweb.com/recommend/realestate`. **Live on all 8 `web-*.html` pages**, 57 mockup pages in
+total, 6–8 per industry.
 
-- `assets/design-preview.js?v=1` + `assets/design-preview.json`; the page ships only
-  `<div class="design-preview" data-preview="clinic"></div>` inside `<section id="preview">`.
+- `assets/design-preview.js?v=2` + **one `assets/design-preview-<key>.json` per industry**;
+  the page ships only `<div class="design-preview" data-preview="clinic"></div>` inside
+  `<section id="preview">`.
+- **One file per industry, not one file keyed by industry.** All eight combined are 11.2 KB
+  gzipped against 2.6 KB for the largest single one — 8.6 KB per visit that the page never
+  uses. Shared caching does not pay it back, because the whole point of these pages is that
+  someone searching `รับทำเว็บคลินิก` lands on one and never sees the other seven.
+- Nine block types (`nav` `hero` `head` `cards` `list` `form` `gallery` `map` `table`) covered
+  all 8 industries with none left over. **A new industry is a new JSON file and nothing else.**
+  If one ever needs a tenth block type, that is a code change — call it out as one.
   **The `?v=` is load-bearing** — same hazard as `site-search.js`: new HTML paired with a
   cached older script renders an empty placeholder and no widget. Bump it whenever the
   generated markup changes.
@@ -850,9 +858,19 @@ pages are a follow-on that adds JSON and nothing else.
   is the only readable content, so a panel holding just the mockup would be an empty shell.
   No `aria-live` — a correct tab pattern announces the switch once already. Arrow keys wrap,
   Home/End jump, roving `tabindex` leaves exactly one `0`.
-- **The two admin tabs carry the literal text `งานเพิ่มเติม · ประเมินราคาแยก`**, never the amber
-  dot alone. ฿3,900 is one page with no backend — no `<form>` in this repo has an `action`.
-  A header line states the scope so six sidebar entries cannot read as six pages for ฿3,900.
+- **Every admin tab carries escalation wording as text**, never the amber dot alone — the
+  default is `งานเพิ่มเติม · ประเมินราคาแยก`, and a page may override it with an optional
+  `badge` field. No `<form>` in this repo has an `action` and nothing here talks to a backend.
+  This is not a new position: `web-clinic`'s own FAQ already says a booking system with a
+  calendar and a back office is "งานคนละส่วน เริ่มที่ ฿7,900".
+- **`note` states each page's real price, and they differ** — ฿3,900 (clinic, restaurant, gym,
+  construction, solar) buys one page, ฿9,900 (shop, organization) buys 3–5 pages, and
+  `web-booking` is ฿7,900. Do not copy one industry's `note` to another.
+- ⚠️ **`web-booking`'s existing copy already promises more than the stack can deliver** —
+  its `#overview` sells "หน้าหลังบ้านดูคิววันนี้", "กันคิวชน" and "ส่งข้อความยืนยันและเตือน",
+  all of which need a database. That predates this widget, but the widget makes it concrete,
+  which is why that page alone overrides the badge to `ต้องต่อระบบหลังบ้าน · ประเมินราคาแยก`.
+  The copy itself is still worth a decision.
 - The mockup brand is **`คลินิกของคุณ`**, fictional on purpose and chosen not to collide with
   LUMI / BRIGHT / VELVÉ, which appear in `#related` right below it.
 - Tabs emit `data-track="preview_page"` with `data-industry` / `data-page` / `data-side`.

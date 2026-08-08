@@ -34,6 +34,7 @@
   <link rel="stylesheet" href="assets/portfolio-pages.css?v=story-note" />
   <link rel="stylesheet" href="assets/site-search.css?v=1" />
   <script src="assets/site-search.js?v=clean-urls" defer></script>
+  <script src="assets/design-preview.js?v=2" defer></script>
   <script src="assets/analytics.js?v=clean-urls" defer></script>
   <script type="application/ld+json">
 {
@@ -382,6 +383,15 @@
       </div>
     </section>
 
+
+    <!-- hidden until design-preview.js builds the widget: an empty .section
+         still carries its 56-88px of vertical padding, so a failed fetch would
+         otherwise leave a blank band on the page. -->
+    <section class="section" id="preview" hidden>
+      <div class="page-shell">
+        <div class="design-preview" data-preview="booking"></div>
+      </div>
+    </section>
 
     <section class="section" id="related">
       <div class="page-shell">
