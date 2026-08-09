@@ -1649,10 +1649,6 @@
     .need-tile:hover::after{color:var(--accent-text);transform:translateX(2px);}
 
     .need-icon{
-      /* Emoji, not an SVG, since 2026-08-09: explicit emoji stack because Inter
-         has no emoji coverage, and line-height 1 to centre it in the badge. */
-      font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
-      font-size:17px; line-height:1;
       display:grid;place-items:center;
       width:34px;height:34px;
       border-radius:10px;

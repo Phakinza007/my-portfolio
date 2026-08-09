@@ -234,32 +234,6 @@ out — subtle at natural size and invisible at any smaller scale.
 **XML comments cannot contain `--`.** A comment mentioning `--ink` makes the whole SVG fail
 to parse, and the card renders as a broken-image icon with no console error.
 
-## Icon badges are emoji, not SVG
-
-Since 2026-08-09 all three rounded icon-badge families hold a single emoji instead of an
-inline `<svg>`. The tinted rounded box stays — only what sits inside it changed. 192 badges
-across 42 files:
-
-| Class | Size | Where | Emoji |
-|---|---|---|---|
-| `.story-icon` | 40×40 | 4 per showcase / RAAT page, 30 files | ✨ overview · ⚡ 30-second · 👤 who it fits · 💡 the ask |
-| `.feature-icon` | 32×32 | 6 per `web-*` `#overview`, 8 files | ✅ (it is a "what's included" checklist; one mark is correct, not lazy) |
-| `.need-icon` | 34×34 | 6 `#need` tiles on `index`/`work` ± `-en` | 🩺 clinic · 📅 booking · 🍽️ restaurant · 🛒 shop · 🏋️ gym · 🏗️ construction |
-
-Three things are load-bearing:
-
-- **Every badge carries `aria-hidden="true"` on the `<span>`, not on a child.** An emoji is
-  text and a screen reader will announce it ("sparkles", "check mark"), which the SVGs never
-  did; the heading beside it already carries the meaning. Verified 192/192 after the swap.
-- **An explicit emoji font stack is set** (`"Apple Color Emoji","Segoe UI Emoji","Noto Color
-  Emoji"`). The body face is Inter, which has no emoji coverage, and leaving the fallback to
-  chance renders a monochrome outline glyph on some systems.
-- **`line-height: 1`** — the default leading pushes the glyph off-centre inside the badge's
-  `place-items: center` grid.
-
-The old `.story-icon svg` / `.feature-icon svg` rules are left in place as a fallback in case
-a badge is ever given an icon back.
-
 Tag colour classes:
 
 Tag colour classes:
@@ -401,6 +375,25 @@ accessibility, not leftovers.
 which is not animatable — so the filter snapped from the day it was written. It now uses
 two attributes: `data-leaving` fades the card, and `data-hidden` removes it from layout
 260ms later. **Do not collapse them back into one.**
+
+**The hero screenshot shows a skeleton while it loads.** The 28 showcase / case-study
+pages open on a ~115 KB JPEG inside `.browser-frame`; its box was already reserved by the
+img's `width`/`height` attributes so CLS was 0, but the reserved box sat empty and flat,
+which reads as a stalled page rather than a loading one.
+
+The shimmer paints on the **img's own `background`**, not on an overlay element — an
+`<img>` shows its background wherever the bitmap has not painted, so this needs no extra
+node, no absolute positioning, and no knowledge of the frame bar's height, and the decoded
+image covers it with no swap. It is gated on a `[data-loading]` attribute that `site-ui.js`
+sets **only when the image is not already `complete`** (a cached image would otherwise flash
+a skeleton it does not need) and removes on `load`, on `error`, and on an 8s timer. With no
+JS, a cached image, or a 404 on `site-ui.js` the attribute is never set and the pages behave
+exactly as they did before — the skeleton is additive, never a gate on content.
+
+The sweep runs `--surface` → `--line-2`, not `--surface` → `--line`: the first version moved
+through three near-identical greys on this dark theme and read as a flat panel. A skeleton
+that cannot be seen is not doing the one job it has. Under `prefers-reduced-motion` it keeps
+the placeholder tint and drops the sweep.
 
 ⚠️ **The `.study-meta` count-up clamps `p` at BOTH ends, and the low clamp is the
 load-bearing one.** It shipped as `Math.min(1, (t - t0) / dur)` and rendered **฿-325 on

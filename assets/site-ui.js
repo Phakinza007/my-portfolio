@@ -106,6 +106,31 @@
     }
   }
 
+  /* ---- Hero screenshot skeleton ----
+     The 28 showcase / case-study pages open on a ~115 KB JPEG. Its box is
+     already reserved by the img's width/height attributes, so nothing moves
+     and CLS stays 0 — but the reserved box sat empty while the file arrived,
+     which reads as a stalled page rather than a loading one.
+
+     This only ever ADDS an attribute the stylesheet keys a shimmer off. It is
+     never set when the image is already complete (a cached image would flash a
+     skeleton it does not need), and it is removed on load, on error, and on a
+     timer. If this file 404s the attribute is never set at all and the pages
+     look exactly as they did before, which is why the skeleton lives behind an
+     attribute rather than the image living behind a class. */
+  document.querySelectorAll('.browser-frame > img').forEach((img) => {
+    if (img.complete) return;
+    const frame = img.parentElement;
+    frame.dataset.loading = '';
+    /* The timer is the backstop the count-up above had to learn the hard way:
+       a load event that never fires would otherwise shimmer forever. */
+    let timer = 0;
+    const done = () => { clearTimeout(timer); delete frame.dataset.loading; };
+    timer = setTimeout(done, 8000);
+    img.addEventListener('load', done, { once: true });
+    img.addEventListener('error', done, { once: true });
+  });
+
   /* ---- Count-up on .study-meta figures ----
      The real value is already in the HTML; this only counts up to it. So with
      JS off, with reduced motion on, or if this file 404s, the reader sees the
