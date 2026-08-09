@@ -1708,3 +1708,21 @@ a[data-copied]::after{
     border-left: 0;
   }
 }
+
+/* Emoji inside the icon badges — 2026-08-09.
+   The badges keep their tinted rounded box; only the inline SVG inside them
+   became an emoji. Sized at roughly half the badge so the glyph sits inside
+   the tint rather than filling it, and given an explicit emoji font stack:
+   the body face is Inter, which has no emoji coverage, and leaving the
+   fallback to chance produced a monochrome outline glyph on some systems.
+   line-height: 1 because the default leading pushes the glyph off-centre in
+   a `place-items: center` grid.
+   The `svg` rules above still apply if any badge is ever given an icon back. */
+.story-icon,
+.feature-icon {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  line-height: 1;
+}
+
+.story-icon { font-size: 20px; }
+.feature-icon { font-size: 16px; }

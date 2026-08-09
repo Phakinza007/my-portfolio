@@ -234,6 +234,32 @@ out — subtle at natural size and invisible at any smaller scale.
 **XML comments cannot contain `--`.** A comment mentioning `--ink` makes the whole SVG fail
 to parse, and the card renders as a broken-image icon with no console error.
 
+## Icon badges are emoji, not SVG
+
+Since 2026-08-09 all three rounded icon-badge families hold a single emoji instead of an
+inline `<svg>`. The tinted rounded box stays — only what sits inside it changed. 192 badges
+across 42 files:
+
+| Class | Size | Where | Emoji |
+|---|---|---|---|
+| `.story-icon` | 40×40 | 4 per showcase / RAAT page, 30 files | ✨ overview · ⚡ 30-second · 👤 who it fits · 💡 the ask |
+| `.feature-icon` | 32×32 | 6 per `web-*` `#overview`, 8 files | ✅ (it is a "what's included" checklist; one mark is correct, not lazy) |
+| `.need-icon` | 34×34 | 6 `#need` tiles on `index`/`work` ± `-en` | 🩺 clinic · 📅 booking · 🍽️ restaurant · 🛒 shop · 🏋️ gym · 🏗️ construction |
+
+Three things are load-bearing:
+
+- **Every badge carries `aria-hidden="true"` on the `<span>`, not on a child.** An emoji is
+  text and a screen reader will announce it ("sparkles", "check mark"), which the SVGs never
+  did; the heading beside it already carries the meaning. Verified 192/192 after the swap.
+- **An explicit emoji font stack is set** (`"Apple Color Emoji","Segoe UI Emoji","Noto Color
+  Emoji"`). The body face is Inter, which has no emoji coverage, and leaving the fallback to
+  chance renders a monochrome outline glyph on some systems.
+- **`line-height: 1`** — the default leading pushes the glyph off-centre inside the badge's
+  `place-items: center` grid.
+
+The old `.story-icon svg` / `.feature-icon svg` rules are left in place as a fallback in case
+a badge is ever given an icon back.
+
 Tag colour classes:
 
 Tag colour classes:
