@@ -17,8 +17,29 @@
     /^(localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\])$/.test(location.hostname) ||
     location.protocol === 'file:';
 
+  /* The owner's own visits are the other half of the same problem, and the
+     localhost guard cannot catch them — he reads the live site from a phone
+     on mobile data and from a laptop, the same way a buyer would. Measured
+     2026-08-09: one visitor accounted for 27 of 184 sessions, 15% of every
+     number on the dashboard.
+
+     A persistent per-browser flag rather than an IP block, because the IP
+     changes with the network and the block would have to be re-entered for
+     each one. Visit any page with `?cl_off` once per browser to opt out,
+     `?cl_on` to undo. Wrapped because localStorage throws outright in some
+     privacy modes, and an analytics opt-out must never take the page with it. */
+  const OPT_OUT_KEY = 'clOptOut';
+  let optedOut = false;
+  try {
+    if (/[?&]cl_off\b/.test(location.search)) localStorage.setItem(OPT_OUT_KEY, '1');
+    if (/[?&]cl_on\b/.test(location.search)) localStorage.removeItem(OPT_OUT_KEY);
+    optedOut = localStorage.getItem(OPT_OUT_KEY) === '1';
+  } catch (e) { /* storage unavailable: measure the visit, it is the safer default */ }
+
+  const IS_EXCLUDED = IS_LOCAL || optedOut;
+
   /* ---- Clarity loader (official async snippet) ---- */
-  if (!IS_LOCAL) {
+  if (!IS_EXCLUDED) {
     (function (c, l, a, r, i, t, y) {
       c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
       t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
@@ -35,7 +56,7 @@
     Object.entries(tags).forEach(([key, value]) => {
       if (value != null) window.clarity?.('set', key, String(value));
     });
-    if (DEBUG) console.log('[track]', name, tags, IS_LOCAL ? '(local — not sent)' : '');
+    if (DEBUG) console.log('[track]', name, tags, IS_EXCLUDED ? '(excluded — not sent)' : '');
   };
   window.__track = track;
 

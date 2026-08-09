@@ -518,6 +518,18 @@ These pills used to be a passive `.work-tagcloud` under the grid. They moved int
 when they became interactive — a filter belongs with the other filters, and a non-clickable
 list sitting there would read as a filter that does nothing.
 
+**`border` is this site's signal for "this is a control", and `.tag-btn` was the one
+exception.** `.filter-btn` beside it has always carried `border: 1px solid rgba(255,255,255,
+0.12)`; `.tag-btn` sat at `border: 1px solid transparent`, so a clickable filter pill and
+the static `.work-tags` pill on every card below it were **pixel-identical apart from the
+cursor — and a phone has no cursor.** Mobile is 51% of traffic and Clarity logged dead
+clicks in 7.61% of sessions (14 of 184, measured 2026-08-09). `.tag-btn` now takes the same
+visible border as `.filter-btn`; `aria-pressed="true"` still swaps it to `--accent` plus a
+ring, which reads more clearly from a neutral border than it ever did from a transparent
+one. **Anything new that is a pill and is clickable needs that border**; static `.tag` /
+`.tag-list` pills on the showcase pages must stay borderless, which is what makes the
+distinction mean something.
+
 The last two are guarded on their elements, so they are inert on `index.html`. `#filter-status`
 is `.result-count` (visible) on the archive and `.sr-only` on the homepage — the same string
 serves both, and the initial fill is tied to `#work-search` existing so a screen reader is not
@@ -777,6 +789,17 @@ Click/scroll heatmaps + session recording via **Microsoft Clarity**, loaded from
   real project: six of the ten most-visited URLs were `localhost:8123`, 91 of 157 visits.
   Development traffic was indistinguishable from buyers. The click listeners still run
   locally so `?cl_debug` verifies instrumentation without sending anything.
+- **The owner's own visits are the other half of that problem, and the localhost guard
+  cannot catch them** — he reads the live site from a phone on mobile data and from a
+  laptop, exactly as a buyer would. Measured 2026-08-09: one visitor was 27 of 184
+  sessions, **15% of every number on the dashboard**. Visiting any page once with
+  **`?cl_off`** sets a `clOptOut` flag in `localStorage` and Clarity never loads in that
+  browser again; **`?cl_on`** undoes it. A per-browser flag rather than a Clarity IP block
+  because the IP changes with the network and each one would have to be re-entered. The
+  `localStorage` calls are wrapped in `try`/`catch` — it throws outright in some privacy
+  modes, and an analytics opt-out must never take the page down with it. **This has to be
+  done once per browser and per device**, so it is not self-enforcing; if the dashboard
+  ever shows a suspiciously heavy single visitor again, that is the first thing to check.
 - Click tracking is delegated (one listener, no per-button markup needed) — classifies
   clicks by `href`/class in `assets/analytics.js`. Custom events fired: `cta_fastwork`,
   `fastwork_profile`, `contact_email`, `contact_phone`, `resume_download`, `showcase_open`,
@@ -837,8 +860,27 @@ section + `.result-band`. One `<section class="section" id="overview">` holds:
    a `.story-icon` badge (inline SVG, `stroke="currentColor"`) beside an `<h2>` and a
    `.story-kicker` one-liner. The four are, in order: project overview (+ `.tag-list`),
    the 30-second version (`.highlight-list`), who it fits, and the ask — the last is
-   `.story-card.accent` and carries `.story-actions` with the Fastwork + email buttons
+   `.story-card.accent` and carries a `.story-price` line plus `.story-actions` with the
+   Fastwork + email buttons
 3. `.story-links` — "live site · all projects →"
+
+**`.story-price` is required on all 28 pages and states the *site's* entry price, not the
+project's.** Added 2026-08-09 off the first full week of Clarity: `showcase_open` fired in
+19 sessions and `cta_fastwork` in 1, and no showcase page named a price anywhere while
+`#related` sent the reader to three more demos. The copy is
+`ราคาเริ่มต้น ฿3,900 ขึ้นอยู่กับขอบเขตงาน — ดูราคาทั้ง 3 แพ็กเกจ` → `services`
+(`-en`: "Pricing starts at ฿3,900, depending on scope" → `services-en`). It must stay a
+floor statement: several of these projects are dashboards that start at the ฿7,900 package,
+so "งานนี้ ฿3,900" would be false on them. The figure is verbatim from the category pages.
+
+⚠️ Its selector is **`.story-card > p.story-price`**, not `.story-price`. `.story-card > p`
+zeroes paragraph margins and out-specifies a lone class, so the first version computed to
+`margin-top: 0` and welded the line to the paragraph above it — visible only in the browser,
+never in the CSS. `.story-note` carries the same shape for the same reason.
+
+**`case-study-raat.html` is deliberately excluded** even though it uses the same story
+stack: it is real client work, and a package price under it would read as what that client
+paid.
 
 `#related` stays below as its own section. The card headings are deliberately generic
 labels; the project-specific claim belongs in the paragraph, not the heading.
@@ -998,6 +1040,25 @@ removed.
 Latin, but Thai upper vowels and tone marks are drawn above the line box, so `สิ่ง` and `ที่`
 collided with the eyebrow. Measured at `gap: 0px` on **every** `.section-heading` sitewide
 before the fix. It is a spacing change, not a type-size change, so no heading got smaller.
+
+**All 8 carry `<body class="industry-page">`, and that class is load-bearing.** Added
+2026-08-09 when the family was de-boxed: `web-booking` measured 7,215px tall carrying **29
+boxed containers** across 10 sections, every one the same recipe (1px `--line` border, `--r`
+radius, `--surface` fill), ten of them in `#faq` alone — one repeated surface for the whole
+scroll. Inside `.industry-page`, `.study-block`, `.feature-card` and `.study-meta` drop the
+border, radius and fill and keep a 1px top rule instead; `.study-meta`'s column dividers
+become real 1px `border-left`s because its `gap: 1px` over a `--line` background had nothing
+to show once the fill was gone. Result: 29 boxes to 3, page 7,215px to 6,850px.
+
+**The scope is what protects the other 52 pages.** `.study-block` is shared with 17
+non-industry files and `.study-meta` with 16 — case studies, showcases and the three category
+pages all still want their cards. Verified after the change: `case-study-pulseboard` keeps
+7/7 boxed, `landing-page` / `dashboard-ui` / `business-website` 2/2 each, `case-study-raat`
+3/3. **Never move these rules out of the `.industry-page` scope**, and a new industry page
+must carry the class or it will look like nothing else in the family.
+
+Two containers survive on purpose: `#related`'s `.project-link` carries a thumbnail and is a
+real card, and `#cta`'s `.result-band` has to read as a separate surface to close the page.
 
 **These pages must not claim clients.** All thirteen projects are self-directed design work.
 The eyebrow above `#related` is `ตัวอย่างงานออกแบบ`, never `ผลงานจริง`, and no page carries a

@@ -837,8 +837,15 @@
       text-transform: uppercase;
     }
 
+    /* A visible resting border, because `border` is already this site's
+       signal for "this is a control": .filter-btn beside it carries the same
+       rgba(255,255,255,0.12). .tag-btn was the one exception, and it sat at
+       `transparent` — so a filter pill and the static .work-tags pill on every
+       card below it were pixel-identical apart from the cursor, and a phone
+       has no cursor. Mobile is 51% of traffic and Clarity logged dead clicks
+       in 7.61% of sessions (14 of 184, measured 2026-08-09). */
     .tag-btn {
-      border: 1px solid transparent;
+      border: 1px solid rgba(255,255,255,0.12);
       cursor: pointer;
       font-family: inherit;
       transition: filter 150ms, border-color 150ms;

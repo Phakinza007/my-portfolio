@@ -1594,3 +1594,117 @@ a[data-copied]::after{
   .read-progress i{ transition:none; }
   .section-rail a{ transition:none; }
 }
+
+/* Price line in the ask card — added 2026-08-09.
+   Clarity, first full week of data: showcase_open fired in 19 sessions and
+   cta_fastwork in 1. People read the work; almost nobody reached the ask.
+   No showcase page named a price anywhere, and #related sent the reader to
+   three more demos — deeper into browsing rather than nearer a decision.
+
+   It states the site's entry price, NOT this project's: several of these are
+   dashboards that start at the ฿7,900 package, so "งานนี้ ฿3,900" would be
+   wrong on them. Figure is verbatim from the category pages.
+   A top rule rather than a left rule: a separator, not an accent stripe.
+
+   Selector must be `.story-card > p.story-price`, not `.story-price`:
+   `.story-card > p` zeroes paragraph margins and out-specifies a lone class,
+   so the spacing silently computed to 0 and the line sat welded to the
+   paragraph above it. `.story-note` above carries the same shape for the
+   same reason. */
+.story-card > p.story-price {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-2);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.story-price strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.story-price a {
+  color: var(--accent-text);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(123, 147, 250, 0.4);
+}
+
+.story-price a:hover,
+.story-price a:focus-visible { border-bottom-color: var(--accent-text); }
+
+/* ============================================================
+   Industry pages — take the boxes off. Added 2026-08-09.
+
+   Measured on web-booking before this: 7,215px tall carrying 29 boxed
+   containers across 10 sections, every one of them the same recipe
+   (1px --line border, --r radius, --surface fill). Ten of them were the FAQ
+   alone. Scrolling the page gave one repeated surface and no rhythm, which
+   is what "มันเป็นกล่องๆ" means.
+
+   Scoped to `body.industry-page`, which all 8 web-*.html carry — one block
+   for the family rather than eight page-scoped copies. `.study-block` and
+   `.study-meta` are shared with 17 and 16 non-industry files (showcases,
+   case studies, category pages) and those must keep their cards, which is
+   what the scope protects.
+
+   A rule replaces each box rather than nothing at all: the grouping was
+   doing real work, and only the chrome is being removed. Two containers
+   survive on purpose — `#related`'s .project-link carries a thumbnail and is
+   a genuine card, and `#cta`'s .result-band has to read as a distinct
+   surface to close the page.
+   ============================================================ */
+
+.industry-page .study-block {
+  padding: 22px 0 6px;
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+  background: none;
+}
+
+/* .featured kept its meaning through a tinted fill; an accent rule says the
+   same thing without putting the box back. */
+.industry-page .study-block.featured {
+  border-top-color: var(--accent);
+  background: none;
+}
+
+.industry-page .feature-card {
+  padding: 16px 0 4px;
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+  background: none;
+}
+
+/* The facts strip was a 4-cell grid faking its dividers with `gap: 1px` over
+   a --line background. Without a fill that trick has nothing to show, so the
+   dividers become real 1px column rules. */
+.industry-page .study-meta {
+  gap: 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: none;
+}
+
+.industry-page .study-meta div {
+  padding: 16px 20px;
+  border-left: 1px solid var(--line);
+  background: none;
+}
+
+.industry-page .study-meta div:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+@media (max-width: 860px) {
+  .industry-page .study-meta div {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
