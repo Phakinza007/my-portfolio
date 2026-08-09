@@ -1090,6 +1090,36 @@ p {
   transition: background 0.2s var(--ease), color 0.2s var(--ease);
 }
 
+/* Customer / admin groups in the preview sidebar — 2026-08-09.
+   The two sides used to run together in one list, told apart only by a dot
+   colour and an "Admin — " prefix, and the admin screens read as part of the
+   same price. They are quoted separately, so that misreading is the expensive
+   one. .dp-group mirrors .dp-tabs' own axis at each breakpoint because it sits
+   between the flex container and its items. */
+.dp-group {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  flex: none;
+}
+
+.dp-group-label {
+  flex: none;
+  padding: 0 8px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Separates the second group from the first. A left rule on the row axis, a
+   top rule on the column axis — the divider follows the reading direction. */
+.dp-group + .dp-group {
+  margin-left: 8px;
+  padding-left: 10px;
+  border-left: 1px solid var(--line);
+}
+
 .dp-tab .dp-dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
 .dp-tab:hover { background: var(--surface-2); color: var(--ink); }
 .dp-tab[aria-selected="true"] { background: var(--accent-light); color: var(--ink); font-weight: 600; }
@@ -1253,6 +1283,16 @@ p {
     border-right: 1px solid var(--line);
   }
   .dp-tab { width: 100%; }
+  .dp-group { flex-direction: column; align-items: stretch; }
+  .dp-group + .dp-group {
+    margin-left: 0;
+    padding-left: 0;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+  .dp-group-label { padding: 0 12px 6px; }
   .dp-pane { flex: 1 1 auto; padding: 20px; }
 }
 

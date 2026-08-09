@@ -127,12 +127,31 @@
         const render = (n) => final.replace(/[\d,]+/,
           grouped ? n.toLocaleString('en-US') : String(n));
         const t0 = performance.now(), dur = 620;
+        /* p is clamped at BOTH ends. It used to be `Math.min(1, …)` only, and
+           a negative p renders a negative number: (1 - p) exceeds 1, cubing it
+           exceeds 1, and `1 - that` goes below zero, so `target * p'` comes out
+           the wrong side of nothing. Observed live on web-booking as
+           **฿-325** where the real figure is ฿7,900.
+
+           t can legitimately be earlier than t0: t0 is performance.now() at
+           the moment the observer fires, while the rAF timestamp is the START
+           of the frame being rendered. An observer that fires mid-frame gets a
+           t that predates its own t0. It is a coin flip on frame timing, not a
+           rare edge case, and it lands on the one number these pages exist to
+           state. */
         const step = (t) => {
-          const p = Math.min(1, (t - t0) / dur);
+          const p = Math.min(1, Math.max(0, (t - t0) / dur));
           e.target.textContent = render(Math.round(target * (1 - Math.pow(1 - p, 3))));
           if (p < 1) requestAnimationFrame(step);
           else e.target.textContent = final;
         };
+        /* Backstop: the true figure is restored on a timer as well as on the
+           last frame. rAF stops in a background tab and can be starved by a
+           busy main thread, and the only thing that ever put the real number
+           back was the final frame — so an interrupted run left a wrong price
+           on screen until reload. Setting it twice is harmless; not setting it
+           at all is not. */
+        setTimeout(() => { e.target.textContent = final; }, dur + 600);
         requestAnimationFrame(step);
       });
     }, { rootMargin: '0px 0px -10% 0px' });

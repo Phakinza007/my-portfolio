@@ -402,6 +402,17 @@ which is not animatable — so the filter snapped from the day it was written. I
 two attributes: `data-leaving` fades the card, and `data-hidden` removes it from layout
 260ms later. **Do not collapse them back into one.**
 
+⚠️ **The `.study-meta` count-up clamps `p` at BOTH ends, and the low clamp is the
+load-bearing one.** It shipped as `Math.min(1, (t - t0) / dur)` and rendered **฿-325 on
+`web-booking` where the real figure is ฿7,900** — a negative `p` makes `(1 - p)` exceed 1,
+cubing it exceeds 1, and `1 - that` goes below zero. `t` can legitimately predate `t0`:
+`t0` is `performance.now()` when the observer fires, `t` is the *start* of the frame being
+rendered, so an observer firing mid-frame gets a `t` earlier than its own `t0`. It is frame
+timing, not a rare edge case, and it lands on the one number these pages exist to state.
+A `setTimeout` backstop also restores the true figure, because rAF stops in a background tab
+and the final frame used to be the only thing that put the real number back — an interrupted
+run left a wrong price on screen until reload. **Any new count-up needs both.**
+
 **Behaviour lives in `assets/site-ui.js`, not inline.** `home-shell.css` sets
 `.reveal { opacity: 0 }` and only `.reveal.visible` restores it, so any page using `.reveal`
 **must** ship the IntersectionObserver — without it every card renders invisible, and
@@ -1140,6 +1151,18 @@ total, 6–8 per industry.
   LUMI / BRIGHT / VELVÉ, which appear in `#related` right below it.
 - Tabs emit `data-track="preview_page"` with `data-industry` / `data-page` / `data-side`.
   `analytics.js` already spreads `el.dataset` into the tags, so **that file needed no change**.
+
+- **The tab list is split into two labelled groups, customer and admin** (2026-08-09).
+  They used to run together as one list, told apart only by a dot colour and an
+  `Admin — ` prefix, so the admin screens read as part of the same ฿-figure — the one
+  misreading these pages cannot afford, since every admin screen is quoted separately.
+  Each group is a `role="presentation"` wrapper (a `tablist` may only own `tab`s, and a
+  presentational wrapper is transparent to AT) and the group heading is `aria-hidden`,
+  because the grouping is already in each admin tab's accessible name. Grouping is **by
+  run, not by filtering**, so a file that ever interleaves sides still renders in the
+  order the JSON asked for; all eight are customer-then-admin today, giving two groups.
+  `.dp-group` has to mirror `.dp-tabs`' own axis at each breakpoint — row under 900px,
+  column above — because it now sits between the flex container and its items.
 
 Spec: `docs/superpowers/specs/2026-08-08-design-preview-widget-design.md`.
 Plan: `docs/superpowers/plans/2026-08-08-design-preview-widget.md`.

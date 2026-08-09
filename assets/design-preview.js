@@ -219,7 +219,38 @@
     tabs.setAttribute('aria-label', 'เลือกส่วนของเว็บเพื่อดูตัวอย่าง');
     const pane = el('div', 'dp-pane');
 
+    /* Customer and admin pages are split into labelled groups. Before this
+       they were one unbroken list separated only by a dot colour and an
+       "Admin — " prefix, and readers took the admin screens for part of the
+       same ฿-figure — which is the one misreading these pages cannot afford,
+       since every admin screen is quoted separately.
+
+       The group wrapper is role="presentation" so the tablist still owns the
+       tabs directly: a tablist may only contain tabs, and a presentational
+       wrapper is transparent to assistive tech. The group heading is
+       aria-hidden for the same reason — it is a visual aid, and the grouping
+       is already in each admin tab's own accessible name.
+
+       Grouping is by run rather than by filtering, so a file that ever
+       interleaves sides renders correctly instead of silently reordering the
+       tabs away from the order the JSON asked for. All eight files are
+       customer-then-admin today, which gives exactly two groups. */
+    const SIDE_LABEL = { customer: 'ฝั่งลูกค้า — คนที่มาจอง', admin: 'ฝั่ง Admin — คนดูแลร้าน' };
+    let runSide = null;
+    let group = null;
+
     const buttons = pages.map((page, i) => {
+      if (page.side !== runSide) {
+        runSide = page.side;
+        group = el('div', 'dp-group');
+        group.setAttribute('role', 'presentation');
+        group.dataset.side = page.side;
+        const label = el('span', 'dp-group-label', SIDE_LABEL[page.side] || page.side);
+        label.setAttribute('aria-hidden', 'true');
+        group.append(label);
+        tabs.append(group);
+      }
+
       const b = el('button', 'dp-tab');
       b.type = 'button';
       b.id = 'dp-tab-' + page.id;
@@ -235,7 +266,7 @@
       b.dataset.industry = KEY;
       b.dataset.page = page.id;
       b.dataset.side = page.side;
-      tabs.append(b);
+      group.append(b);
       return b;
     });
 
