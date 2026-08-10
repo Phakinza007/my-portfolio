@@ -586,10 +586,6 @@ p {
   color: var(--accent);
 }
 
-.study-block.featured .eyebrow::before {
-  background: var(--accent);
-}
-
 .decision-list,
 .practice-list {
   display: grid;
@@ -760,31 +756,6 @@ p {
 
 .story-head > div {
   min-width: 0;
-}
-
-.story-icon {
-  flex: none;
-  width: 40px;
-  height: 40px;
-  display: grid;
-  place-items: center;
-  border-radius: var(--r-sm);
-  background: var(--accent-light);
-  color: var(--accent-text);
-}
-
-.story-icon.amber { background: var(--amber); color: var(--amber-text); }
-.story-icon.mint  { background: var(--mint);  color: var(--mint-text); }
-.story-icon.rose  { background: var(--rose);  color: var(--rose-text); }
-
-.story-icon svg {
-  width: 20px;
-  height: 20px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
 }
 
 /* The card headings are labels inside a stack, not page-level
@@ -1817,4 +1788,53 @@ a[data-copied]::after{
     background-color: var(--surface-2);
     animation: none;
   }
+}
+
+/* ============================================================
+   Story stack — four shapes, not four copies. Added 2026-08-10.
+
+   The four cards held a narrative paragraph, a bullet list, a fit statement
+   and a call to action, dressed identically: same radius, border, surface and
+   padding, each opened by a 40×40 rounded tinted badge. 128 cards and 128
+   badges across 32 files, flattening every project page into one texture.
+
+   Card 1 stays a card because it anchors the page; card 4 stays because it is
+   the ask. The middle two step out of their boxes.
+   ============================================================ */
+
+/* 2 · the 30-second list reads as a list, not as a boxed list */
+.story-card--flat {
+  padding-left: 0;
+  padding-right: 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+  background: none;
+}
+
+/* 3 · who it fits is one claim, so it is set as one — larger, indented,
+   with a rule instead of a container. Left rule is 1px: a divider, not the
+   decorative side-stripe the shared bans rule out. */
+.story-card--statement {
+  padding: 4px 0 4px 22px;
+  border: 0;
+  border-left: 1px solid var(--accent);
+  border-radius: 0;
+  background: none;
+}
+
+.story-card--statement p {
+  color: var(--ink-2);
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+
+/* The head lost its badge, so the text is now the whole row. */
+.story-card--flat .story-head,
+.story-card--statement .story-head { gap: 0; }
+
+.story-card h2 { font-family: var(--font-display); }
+
+@media (max-width: 640px) {
+  .story-card--statement { padding-left: 16px; }
 }
