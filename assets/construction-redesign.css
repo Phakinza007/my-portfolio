@@ -1,3 +1,17 @@
+/* This file is loaded by construction-landing.html and by nothing else, and
+   the demo pages deliberately ship without a shared reset — so this one has to
+   set box-sizing itself. Without it `.btn-primary { width: 100% }` in the
+   ≤560px block added its own `padding: 0 21px` on top of the full width and
+   the hero CTA ran 18px past the right edge of a 375px screen: the primary
+   call to action on the page, clipped, on the half of traffic that is mobile.
+   Same trap waits for every padded form field.
+
+   Checked before adding: only two rules in the file pair a width with any
+   padding, and both are vertical-only, so nothing else moves. */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
 /* BuildNest 2026 redesign — kept separate so the showcase can evolve without altering other demos. */
 :root {
   --bn-ink: #123d45;
@@ -147,4 +161,305 @@ button { color: inherit; font: inherit; }
   .bn-feature-points { gap: 14px; }
   .bn-contact-links { display: grid; }
   .bn-footer-inner { align-items: flex-start; flex-direction: column; }
+}
+
+/* ============================================================
+   Sections added 2026-08-10. The page had four sections against
+   802–1405 lines on its sibling demos, and three of its four nav
+   links pointed at something other than what they named: #services
+   led to the process list, #projects to a standards blurb with no
+   projects in it, #about to the footer. Those ids now belong to
+   real sections; the process and standards blocks kept their content
+   and took honest ids (#process, #standards).
+
+   Existing tokens only — no new colours, no new radius.
+   ============================================================ */
+
+/* ---- services ---- */
+.bn-service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1px;
+  background: var(--bn-line);
+  border: 1px solid var(--bn-line);
+}
+
+.bn-service {
+  padding: 32px 28px 34px;
+  background: var(--bn-paper);
+}
+
+.bn-service-num {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--bn-gold);
+  font-family: "Bai Jamjuree", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.bn-service h3 {
+  margin: 0 0 10px;
+  font-family: "Noto Serif Thai", serif;
+  font-size: 1.18rem;
+  line-height: 1.4;
+  color: var(--bn-ink-strong);
+}
+
+.bn-service p { margin: 0 0 16px; color: var(--bn-muted); font-size: 0.95rem; }
+
+.bn-service ul { margin: 0; padding: 0; list-style: none; }
+
+.bn-service li {
+  position: relative;
+  padding: 6px 0 6px 20px;
+  border-top: 1px solid var(--bn-line);
+  color: var(--bn-ink);
+  font-size: 0.9rem;
+}
+
+.bn-service li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 15px;
+  width: 8px;
+  height: 1px;
+  background: var(--bn-gold);
+}
+
+/* ---- projects ---- */
+.bn-projects { background: #ffffff; }
+
+/* Two columns, not auto-fit. Four cards at minmax(300px, 1fr) landed three-up
+   at 1280px and left the fourth alone on a row of its own — the same orphan
+   that #compare grew on the industry pages. Two-up also keeps each photo big
+   enough to read, which four-up does not. */
+.bn-project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px;
+}
+
+@media (max-width: 820px) {
+  .bn-project-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+.bn-project {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--bn-line);
+  background: var(--bn-paper);
+}
+
+.bn-project img {
+  display: block;
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+}
+
+.bn-project-body { padding: 24px 24px 26px; }
+
+.bn-project-tag {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 4px 10px;
+  border: 1px solid var(--bn-gold);
+  color: var(--bn-gold-dark);
+  font-family: "Bai Jamjuree", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.bn-project h3 {
+  margin: 0 0 10px;
+  font-family: "Noto Serif Thai", serif;
+  font-size: 1.12rem;
+  line-height: 1.45;
+  color: var(--bn-ink-strong);
+}
+
+.bn-project p { margin: 0 0 18px; color: var(--bn-muted); font-size: 0.93rem; }
+
+.bn-project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 26px;
+  margin: 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--bn-line);
+}
+
+.bn-project-meta dt {
+  color: var(--bn-muted);
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+}
+
+.bn-project-meta dd {
+  margin: 2px 0 0;
+  color: var(--bn-ink-strong);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* ---- about ---- */
+.bn-about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(28px, 5vw, 64px);
+  align-items: center;
+}
+
+.bn-about-copy p { margin: 18px 0 0; color: var(--bn-muted); max-width: 56ch; }
+
+.bn-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1px;
+  margin: 30px 0 0;
+  background: var(--bn-line);
+  border: 1px solid var(--bn-line);
+}
+
+.bn-stats > div { padding: 18px 20px; background: var(--bn-paper); }
+.bn-stats dt { color: var(--bn-muted); font-size: 0.78rem; }
+.bn-stats dd {
+  margin: 6px 0 0;
+  font-family: "Noto Serif Thai", serif;
+  font-size: 1.5rem;
+  color: var(--bn-ink-strong);
+}
+
+.bn-about-figure { margin: 0; }
+.bn-about-figure img { display: block; width: 100%; height: auto; }
+.bn-about-figure figcaption {
+  margin-top: 12px;
+  color: var(--bn-muted);
+  font-size: 0.85rem;
+}
+
+/* ---- coverage ---- */
+.bn-coverage-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bn-coverage-list li {
+  padding: 9px 18px;
+  border: 1px solid var(--bn-line);
+  background: var(--bn-paper);
+  color: var(--bn-ink);
+  font-size: 0.93rem;
+}
+
+/* ---- faq ---- */
+.bn-faq-list { border-top: 1px solid var(--bn-line); }
+
+.bn-faq-item { border-bottom: 1px solid var(--bn-line); }
+
+.bn-faq-item summary {
+  padding: 20px 40px 20px 0;
+  position: relative;
+  cursor: pointer;
+  list-style: none;
+  font-family: "Noto Serif Thai", serif;
+  font-size: 1.04rem;
+  color: var(--bn-ink-strong);
+}
+
+.bn-faq-item summary::-webkit-details-marker { display: none; }
+
+/* A plus that becomes a minus. Two bars, one rotated — no icon font, no SVG. */
+.bn-faq-item summary::before,
+.bn-faq-item summary::after {
+  content: "";
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  width: 13px;
+  height: 1px;
+  background: var(--bn-gold);
+  transition: transform 220ms ease;
+}
+
+.bn-faq-item summary::after { transform: rotate(90deg); }
+.bn-faq-item[open] summary::after { transform: rotate(0deg); }
+
+.bn-faq-item p {
+  margin: 0;
+  padding: 0 40px 22px 0;
+  color: var(--bn-muted);
+  max-width: 72ch;
+}
+
+/* ---- contact form ---- */
+.bn-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.bn-field { display: flex; flex-direction: column; gap: 6px; }
+.bn-field-wide { grid-column: 1 / -1; }
+
+.bn-field label {
+  color: var(--bn-ink);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.bn-field input,
+.bn-field select,
+.bn-field textarea {
+  padding: 11px 13px;
+  border: 1px solid var(--bn-line);
+  border-radius: var(--bn-radius);
+  background: #ffffff;
+  color: var(--bn-ink-strong);
+  font: inherit;
+  font-size: 0.95rem;
+}
+
+.bn-field textarea { resize: vertical; }
+
+.bn-field input:focus-visible,
+.bn-field select:focus-visible,
+.bn-field textarea:focus-visible {
+  outline: 2px solid var(--bn-gold);
+  outline-offset: 1px;
+}
+
+.bn-form-foot {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.bn-form-note { margin: 0; color: var(--bn-muted); font-size: 0.88rem; }
+.bn-form-note a { color: var(--bn-ink-strong); font-weight: 600; }
+
+.bn-form-status:empty { display: none; }
+.bn-form-status {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 12px 14px;
+  border-left: 1px solid var(--bn-gold);
+  background: var(--bn-paper);
+  color: var(--bn-ink);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 860px) {
+  .bn-about-grid { grid-template-columns: minmax(0, 1fr); }
+  .bn-form { grid-template-columns: minmax(0, 1fr); }
 }

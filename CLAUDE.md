@@ -667,6 +667,14 @@ of hiding: the `aria-label` must *contain* the visible string. A voice-control u
 **That audit has weight 0**, so Accessibility still reported 100 while failing. Read the
 per-audit failures, never the category score alone.
 
+**A demo page has no reset, so `width: 100%` plus horizontal padding overflows by exactly
+the padding.** `construction-landing.html` shipped `.btn-primary { width: 100% }` in its
+≤560px block on top of `padding: 0 21px`, and with no `box-sizing` anywhere in
+`construction-redesign.css` the hero CTA — the page's primary call to action — ran 18px past
+the right edge of a 375px screen. `canScrollX` stayed `false`, so the overflow sweep never
+caught it; the button was simply clipped. Found 2026-08-10. Each demo stylesheet must set its
+own `box-sizing`; check with a per-element right-edge sweep, not just `canScrollX`.
+
 **A bare element selector in a demo page will find a second element eventually.**
 `aesthetic-booking.html` styled `nav { position: sticky; background: rgba(244,239,230,.92) }`
 for its header. When a `nav.foot-links` was later added to the footer it inherited the cream
