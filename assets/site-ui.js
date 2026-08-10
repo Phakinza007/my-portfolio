@@ -23,6 +23,45 @@
      hard-coded, which is what lets the Thai and English copies merge. */
   const EN = (document.documentElement.lang || 'th').toLowerCase().startsWith('en');
 
+  /* ---- Homepage work-card spotlight ----
+     The homepage alone opts in through .hero-ambient. This keeps the archive
+     and every other home-shell page still, and a fine-pointer media query
+     prevents touch devices from doing work for an effect they cannot use. */
+  if (!REDUCED && document.querySelector('.hero-ambient') &&
+      matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll('.works-grid > .work-card').forEach((card) => {
+      let frame = 0;
+      let x = 50;
+      let y = 50;
+
+      const paint = () => {
+        card.style.setProperty('--spotlight-x', x + '%');
+        card.style.setProperty('--spotlight-y', y + '%');
+        frame = 0;
+      };
+
+      const position = (event) => {
+        const rect = card.getBoundingClientRect();
+        x = ((event.clientX - rect.left) / rect.width) * 100;
+        y = ((event.clientY - rect.top) / rect.height) * 100;
+        if (!frame) frame = requestAnimationFrame(paint);
+      };
+
+      card.addEventListener('pointerenter', (event) => {
+        card.classList.add('is-spotlit');
+        position(event);
+      });
+      card.addEventListener('pointermove', position);
+      card.addEventListener('pointerleave', () => {
+        card.classList.remove('is-spotlit');
+        if (frame) {
+          cancelAnimationFrame(frame);
+          frame = 0;
+        }
+      });
+    });
+  }
+
 
   /* ---- Copy the email on click ----
      Enhances the mailto links already on the page rather than needing new

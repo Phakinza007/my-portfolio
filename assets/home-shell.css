@@ -244,6 +244,48 @@
       padding: clamp(64px, 10vw, 108px) 0 clamp(52px, 8vw, 88px);
     }
 
+    /* Homepage-only atmospheric depth. It sits behind the existing split hero
+       and uses the established blue accent at low opacity, so it guides the
+       eye to the introduction without changing the page's dark-theme system. */
+    .hero-ambient {
+      isolation: isolate;
+      overflow: clip;
+      position: relative;
+    }
+
+    .hero-ambient::before,
+    .hero-ambient::after {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      pointer-events: none;
+      border-radius: 50%;
+      filter: blur(2px);
+    }
+
+    .hero-ambient::before {
+      width: min(64vw, 760px);
+      aspect-ratio: 1.2;
+      top: -42%;
+      right: -16%;
+      background: radial-gradient(ellipse at center, rgba(82,116,248,0.15), rgba(82,116,248,0) 68%);
+      opacity: 0.9;
+    }
+
+    .hero-ambient::after {
+      width: min(42vw, 520px);
+      aspect-ratio: 1;
+      right: 24%;
+      bottom: -66%;
+      background: radial-gradient(circle at center, rgba(82,116,248,0.1), rgba(82,116,248,0) 70%);
+      opacity: 0.72;
+    }
+
+    .hero-ambient .container {
+      position: relative;
+      z-index: 1;
+    }
+
     .hero-eyebrow {
       display: inline-flex;
       align-items: center;
@@ -303,6 +345,35 @@
       font-weight: 600;
       letter-spacing: 0.01em;
       color: var(--ink-2);
+    }
+
+    /* React-Bits-inspired entrance without splitting Thai glyphs. The title
+       moves as complete lines, keeping Thai vowel and tone-mark clusters intact. */
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-ambient .hero-role,
+      .hero-ambient .hero-name {
+        animation: hero-blur-up 620ms var(--ease) both;
+      }
+
+      .hero-ambient .hero-name { animation-delay: 110ms; }
+
+      .hero-ambient::before { animation: hero-ambient-drift-a 14s ease-in-out infinite alternate; }
+      .hero-ambient::after  { animation: hero-ambient-drift-b 18s ease-in-out infinite alternate; }
+    }
+
+    @keyframes hero-blur-up {
+      from { opacity: 0; transform: translateY(14px); filter: blur(7px); }
+      to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
+    @keyframes hero-ambient-drift-a {
+      from { opacity: 0.76; transform: translate3d(0, 0, 0) scale(1); }
+      to   { opacity: 1; transform: translate3d(-3%, 5%, 0) scale(1.08); }
+    }
+
+    @keyframes hero-ambient-drift-b {
+      from { opacity: 0.52; transform: translate3d(0, 0, 0) scale(1); }
+      to   { opacity: 0.84; transform: translate3d(5%, -8%, 0) scale(1.1); }
     }
 
     .hero-desc {
@@ -494,11 +565,28 @@
       border: 1px solid #21262d;
       border-radius: var(--r);
       overflow: hidden;
+      position: relative;
       box-shadow: var(--sh-sm);
       display: flex;
       flex-direction: column;
       transition: transform 240ms var(--ease), box-shadow 240ms var(--ease), border-color 200ms;
     }
+
+    /* Pointer-driven spotlight is enabled only by site-ui.js on the two
+       homepages and only for a fine pointer. The layer cannot intercept links
+       or buttons inside a work card. */
+    .work-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: radial-gradient(320px circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%), rgba(82,116,248,0.2), rgba(82,116,248,0) 68%);
+      opacity: 0;
+      transition: opacity 180ms var(--ease);
+    }
+
+    .work-card.is-spotlit::after { opacity: 1; }
 
     .work-card:hover {
       transform: translateY(-5px);
