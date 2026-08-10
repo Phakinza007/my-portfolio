@@ -289,6 +289,45 @@ which is why the defaults are restated in the file.
 
 ---
 
+## Typography
+
+**Body:** Inter + Noto Sans Thai on the 56 `portfolio-pages.css` pages, Outfit on the 12
+`home-shell.css` pages. **Display** (`h1`/`h2`/`h3`, plus `.section-title` on home-shell and
+`.hero-role` / `.hero-role-alt`): Bai Jamjuree, via the `--font-display` token — see "Two
+stylesheet families" below for the per-family fallback stack and how the face was chosen.
+
+⚠️ **Both stylesheets once named a body font that most of their own pages never requested**,
+and a system fallback covered for it with nothing in the CSS to reveal the gap. `home-shell.css`
+named Outfit while only `index` / `index-en` asked for it, so the other ten shell pages —
+`about`, `faq`, `process`, `services`, `work`, each ± `-en` — rendered in `-apple-system`.
+`portfolio-pages.css` named Noto Sans Thai while **none** of its 56 pages requested it, so
+every Thai character on the resume, the showcases, the case studies, the category pages and
+the `web-*` pages was drawn by whatever the OS happened to ship — different on macOS, Windows,
+Android and iOS. Found 2026-08-10, fixed by appending the missing family to each page's
+existing Google Fonts request rather than adding a second `<link>`. **After changing a font
+declaration, check that every page loads every family its stylesheet names** — a font a
+stylesheet names but no page requests fails with no console warning and no Lighthouse penalty.
+
+**A kicker (`.eyebrow`, `.section-label`) is restyled, not counted.** They lost
+`text-transform: uppercase`, `letter-spacing`, weight 700 → 600, and `.eyebrow::before` (a
+28px rule drawn in front of the label) — 0.8rem uppercase, tracked, weight 700, with a rule in
+front is the kicker every generated landing page shipped in 2023, and that treatment, not the
+fact of a label above a heading, was the actual tell. The rule this replaced — keep one kicker
+per page, delete the rest — was tested against the copy first and found false: of 25
+`.section-label`s on the shell pages only 3 repeat their own heading, and of roughly 244
+`.eyebrow`-to-heading pairs on the portfolio pages most complement rather than repeat it
+(`เริ่มตรงนี้` above `คุณต้องการเว็บแบบไหน?`, `ขอบเขตงาน` above `ราคานี้ได้อะไร และไม่ได้อะไร`)
+— `about` and `process` above already kept theirs for exactly that reason. Only kickers that
+measurably repeat their own heading were deleted: 44 instances across 43 files, out of
+hundreds that were restyled and kept. **Reading only the delete count invites the wrong
+generalisation** — the decision was never "fewer kickers," it was "no scaffolding."
+
+**The four `.story-card`s on the showcase / case-study story stack are four shapes now, not
+four copies of one box, and none of the 128 carries a `.story-icon` badge any more** — see
+"Edit a showcase page" for which class does what.
+
+---
+
 ## Two stylesheet families — never mix them
 
 | Family | Stylesheet | Pages | Section wrapper | Headings |
@@ -933,13 +972,23 @@ stack** read top to bottom, replacing the old two-column `.study-grid` + separat
 section + `.result-band`. One `<section class="section" id="overview">` holds:
 
 1. `.story-intro` — one muted line telling the reader how to read the page
-2. `.story-stack` with exactly **four** `.story-card`s, each opening with a `.story-head`:
-   a `.story-icon` badge (inline SVG, `stroke="currentColor"`) beside an `<h2>` and a
-   `.story-kicker` one-liner. The four are, in order: project overview (+ `.tag-list`),
-   the 30-second version (`.highlight-list`), who it fits, and the ask — the last is
-   `.story-card.accent` and carries a `.story-price` line plus `.story-actions` with the
-   Fastwork + email buttons
+2. `.story-stack` with exactly **four** `.story-card`s, each opening with a `.story-head`
+   holding an `<h2>` and a `.story-kicker` one-liner — **no `.story-icon` badge**; the badge
+   was removed from all four cards 2026-08-10 (see below). The four are, in order: project
+   overview (+ `.tag-list`), the 30-second version (`.highlight-list`), who it fits, and the
+   ask — the last is `.story-card.accent` and carries a `.story-price` line plus
+   `.story-actions` with the Fastwork + email buttons
 3. `.story-links` — "live site · all projects →"
+
+**The four cards are four shapes, not four copies.** They shipped identical — same radius,
+border, surface and padding, each opened by a 40×40 rounded tinted badge — 128 cards and 128
+badges across 32 files reading as one texture, and an icon above every heading was a second
+template tell on top of the first. Card 1 (overview) stays a bordered card: it anchors the
+page and holds the tag list. Card 2 (`.story-card--flat`, the 30-second version) drops border,
+radius and background and reads as a plain ruled list. Card 3 (`.story-card--statement`, who
+it fits) is one claim set as one — larger type, indented, a 1px `--accent` rule in place of a
+container, not a decorative side-stripe. Card 4 (`.story-card.accent`) is unchanged and stays
+the most prominent, because it is the ask.
 
 **`.story-price` is required on all 28 pages and states the *site's* entry price, not the
 project's.** Added 2026-08-09 off the first full week of Clarity: `showcase_open` fired in
