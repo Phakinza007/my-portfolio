@@ -1529,9 +1529,23 @@ p {
 .story-card:hover { border-color: var(--line-2); }
 
 /* 5 · screenshots open from the left rather than fading. A fade reads as
-   "still loading"; a wipe reads as "here it is". */
-.js-reveal .browser-frame.reveal { opacity: 1; transform: none; clip-path: inset(0 100% 0 0); }
-.js-reveal .browser-frame.reveal.visible {
+   "still loading"; a wipe reads as "here it is".
+
+   ⚠️ The clip is on the IMG, never on .browser-frame itself. .browser-frame is
+   the element the reveal IntersectionObserver watches, and Chrome subtracts a
+   target's own clip-path from its intersection rect — so clipping the observed
+   element to zero width gave it intersectionRatio 0, which never reaches the
+   0.08 threshold, so `.visible` was never added, so the clip never opened. A
+   loop that locks itself: the hero screenshot stayed invisible forever, on all
+   28 showcase / case-study pages, and nothing errored. Reported 2026-08-10 as
+   "preview หาย" on showcase-elevate-commerce.
+
+   Anything that hides a .reveal element must hide it with opacity or transform,
+   which do not affect the intersection rect. Never clip-path, never
+   visibility:hidden, never display:none. */
+.js-reveal .browser-frame.reveal { opacity: 1; transform: none; }
+.js-reveal .browser-frame.reveal > img { clip-path: inset(0 100% 0 0); }
+.js-reveal .browser-frame.reveal.visible > img {
   clip-path: inset(0 0 0 0);
   transition: clip-path 720ms var(--ease);
 }
@@ -1556,7 +1570,7 @@ p {
 
 @media (prefers-reduced-motion: reduce) {
   .js-reveal .reveal { opacity: 1; transform: none; }
-  .js-reveal .browser-frame.reveal { clip-path: none; }
+  .js-reveal .browser-frame.reveal > img { clip-path: none; }
   .project-link:hover,
   .feature-card:hover { transform: none; }
   .sheen::after { animation: none; content: none; }

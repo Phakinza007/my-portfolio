@@ -406,6 +406,30 @@ A `setTimeout` backstop also restores the true figure, because rAF stops in a ba
 and the final frame used to be the only thing that put the real number back — an interrupted
 run left a wrong price on screen until reload. **Any new count-up needs both.**
 
+🔴 **Never hide a `.reveal` element with anything that shrinks its box.** The hero
+screenshot's wipe shipped as `clip-path: inset(0 100% 0 0)` on `.browser-frame.reveal` — the
+very element the reveal IntersectionObserver watches. Chrome subtracts a target's own
+`clip-path` from its intersection rect, so the element had `intersectionRatio: 0`, never
+reached the `0.08` threshold, never got `.visible`, and so the clip never opened. **A loop
+that locks itself**: the hero image stayed invisible on all 28 showcase / case-study pages,
+with no console error, no failed request and no Lighthouse penalty. Reported 2026-08-10 as
+"preview หาย" on `showcase-elevate-commerce`; the file was there and returned HTTP 200 the
+whole time.
+
+The clip now lives on the `> img` inside the frame, so the observed box is never shrunk.
+**Hide with `opacity` or `transform` only** — neither affects the intersection rect. Not
+`clip-path`, not `visibility: hidden`, not `display: none`, not `width: 0`.
+
+`site-ui.js` also carries a failsafe: 2.5s after load, any `.reveal` still hidden whose box is
+in or above the viewport is shown outright. The observer is the nice path, not the only one.
+Below-fold elements are left to the observer so the scroll reveal still reads as one.
+
+⚠️ **This class of bug cannot be reproduced in a background tab.** Chrome suspends
+IntersectionObserver *and* freezes CSS transitions in a hidden tab, so an automated browser
+whose tab never becomes visible reports every reveal as broken and every transition as stuck
+at its start value — which looks exactly like the real bug and is not. Verify the end state
+by disabling the transition and reading the computed value, not by waiting.
+
 **Behaviour lives in `assets/site-ui.js`, not inline.** `home-shell.css` sets
 `.reveal { opacity: 0 }` and only `.reveal.visible` restores it, so any page using `.reveal`
 **must** ship the IntersectionObserver — without it every card renders invisible, and

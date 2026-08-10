@@ -246,6 +246,21 @@
         });
       }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
       reveals.forEach(el => obs.observe(el));
+
+      /* Failsafe: anything already in or above the viewport is shown outright
+         if the observer has not done it. The observer is the nice path, not
+         the only one — a target the observer cannot see (zero intersection
+         area for any reason) would otherwise stay hidden for good, with no
+         error anywhere. That is precisely how the hero screenshot went
+         invisible on all 28 showcase pages: it was clipped to zero width by
+         the very rule its own reveal was meant to undo. Below-fold elements
+         are left alone so the scroll reveal still reads as a scroll reveal. */
+      setTimeout(() => {
+        reveals.forEach((el) => {
+          if (el.classList.contains('visible')) return;
+          if (el.getBoundingClientRect().top < innerHeight) el.classList.add('visible');
+        });
+      }, 2500);
     } else {
       reveals.forEach(el => el.classList.add('visible'));
     }
