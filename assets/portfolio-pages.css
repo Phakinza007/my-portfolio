@@ -211,23 +211,19 @@ button:focus-visible {
 .crumbs li + li::before { content: "\203A"; margin-right: 8px; }
 .crumbs [aria-current="page"] { color: var(--ink); }
 
+/* Set quietly. The words mostly earn their place: `ขอบเขตงาน` above "ราคานี้ได้
+   อะไร และไม่ได้อะไร" tells a reader something the heading does not. What made
+   this read as scaffolding was the treatment — 0.8rem at weight 700,
+   uppercased, tracked 1.6px, with a rule in front. That exact combination is
+   the kicker every generated landing page shipped in 2023. Same words,
+   ordinary label. */
 .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
+  display: inline-block;
   color: var(--accent-text);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 1.6px;
-  text-transform: uppercase;
-}
-
-.eyebrow::before {
-  content: "";
-  width: 28px;
-  height: 2px;
-  border-radius: 99px;
-  background: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 h1,
