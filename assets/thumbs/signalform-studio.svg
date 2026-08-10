@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 351 220" role="img" aria-labelledby="title desc">
+  <title id="title">Signalform Studio preview</title>
+  <desc id="desc">A dark creative studio landing page with cobalt and chrome ribbon artwork</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#171a23"/>
+      <stop offset="1" stop-color="#07080b"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#647086"/>
+      <stop offset=".42" stop-color="#e5e9f1"/>
+      <stop offset=".62" stop-color="#76849a"/>
+      <stop offset="1" stop-color="#e3e8f0"/>
+    </linearGradient>
+    <linearGradient id="cobalt" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#1a2f9e"/>
+      <stop offset=".55" stop-color="#426bff"/>
+      <stop offset="1" stop-color="#0a1657"/>
+    </linearGradient>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="20"/></filter>
+  </defs>
+  <rect width="351" height="220" fill="url(#bg)"/>
+  <circle cx="288" cy="106" r="78" fill="#193796" opacity=".44" filter="url(#blur)"/>
+  <rect x="18" y="16" width="315" height="1" fill="#303440"/>
+  <circle cx="29" cy="31" r="5" fill="none" stroke="#426bff" stroke-width="2"/>
+  <rect x="41" y="27" width="57" height="7" rx="2" fill="#f3f5fa"/>
+  <rect x="232" y="27" width="39" height="4" rx="2" fill="#7f8796"/>
+  <rect x="283" y="27" width="33" height="4" rx="2" fill="#7f8796"/>
+  <rect x="20" y="76" width="101" height="4" rx="2" fill="#7996ff"/>
+  <rect x="20" y="91" width="120" height="28" rx="3" fill="#f3f5fa"/>
+  <rect x="20" y="126" width="105" height="8" rx="3" fill="#f3f5fa"/>
+  <rect x="20" y="144" width="93" height="5" rx="2" fill="#9ca4b2"/>
+  <rect x="20" y="163" width="80" height="25" rx="5" fill="#3659e5"/>
+  <path d="M270 46c27 10 34 23 8 39-28 17-37 38-4 57 26 15 23 31-8 45" fill="none" stroke="url(#metal)" stroke-width="18" stroke-linecap="round"/>
+  <path d="M294 55c-13 15-8 28 14 39 24 12 24 28-4 43-24 13-32 28-8 43" fill="none" stroke="url(#cobalt)" stroke-width="12" stroke-linecap="round" opacity=".9"/>
+</svg>

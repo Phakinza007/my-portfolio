@@ -6,6 +6,9 @@ desktop.ini
 *.tmp
 *.bak
 
+# Local dependencies for self-contained demo source projects
+node_modules/
+
 .claude/worktrees/
 .worktrees/
 
