@@ -316,6 +316,19 @@ browser Back button is the only way out. If that becomes a problem the fix is
 homepages' stylesheets were byte-identical apart from one `content:` string, now the
 `--preview-label` custom property; `index-en.html` keeps a 3-line `<style>` overriding it.
 
+**Headings carry a display token, body type does not.** Both stylesheets define
+`--font-display`, set to `"Bai Jamjuree", "Noto Sans Thai", sans-serif` in `portfolio-pages.css`
+and `'Bai Jamjuree', 'Outfit', sans-serif` in `home-shell.css`, and `h1`/`h2`/`h3` (plus
+`.section-title`, `.hero-role`, `.hero-role-alt` in home-shell) read from it. The body face is
+unchanged — `'Outfit'` in home-shell, `"Inter", "Noto Sans Thai", Arial` in portfolio-pages —
+because swapping body type across 84 pages risks line-height, Thai vowel collisions and CLS
+for little gain, while a display face on headings alone carries most of the distinctiveness.
+Bai Jamjuree was chosen 2026-08-10 by rendering Thai and Latin headings at 3.2rem/1.02 against
+Anuphan, Chakra Petch, Trirong and Inter and checking that tone marks in `เว็บไซต์` clear the
+line above and `ญ` descenders clear the line below — not from a specimen page. All 68 pages
+that load either stylesheet append `family=Bai+Jamjuree:wght@600;700` to their existing Google
+Fonts request (never a second `<link>`), keeping `display=optional` so CLS stays 0.
+
 ### Vertical rhythm
 
 `.section` is `padding: clamp(56px, 9vw, 88px) 0`, so **every section boundary is 176px on
@@ -719,7 +732,9 @@ copy.
 - **Mobile overflow:** `canScrollX: false` at 375 × 812 px on every page
 - **Accent colour:** `--accent: #5274f8` (slightly lighter than #4f6ef7 for WCAG AA contrast)
 - **Button bg:** `--accent-dark: #3651d4` (white text: 6.4:1 contrast ✅)
-- **Fonts:** Inter via Google Fonts with `display=optional` (prevents CLS)
+- **Fonts:** body text via Google Fonts with `display=optional` (prevents CLS) — `Outfit` on
+  home-shell pages, `Inter` + `Noto Sans Thai` on portfolio-pages ones; headings on both
+  families use the `--font-display` token (`Bai Jamjuree`) — see "Two stylesheet families"
 - **Overflow guard:** `html, body { overflow-x: hidden; }`
 
 ---

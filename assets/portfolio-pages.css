@@ -23,6 +23,12 @@
   --r: 14px;
   --r-sm: 8px;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Headings only. The body face stays Inter + Noto Sans Thai: swapping body
+     type across 84 pages risks line-height, Thai vowel collisions and CLS for
+     little gain, while a display face carries most of the distinctiveness.
+     Chosen against rendered Thai at 3.2rem/1.02, not from a specimen. */
+  --font-display: "Bai Jamjuree", "Noto Sans Thai", sans-serif;
 }
 
 * {
@@ -228,6 +234,7 @@ h1,
 h2,
 h3 {
   margin: 0;
+  font-family: var(--font-display);
   letter-spacing: -0.02em;
   color: var(--ink);
   overflow-wrap: break-word;
@@ -238,7 +245,10 @@ h1 {
   margin-top: 18px;
   font-size: clamp(2.4rem, 7.5vw, 5.4rem);
   line-height: 1.02;
-  font-weight: 800;
+  /* Bai Jamjuree ships no 800 cut on Google Fonts (this page loads it at
+     wght@600;700 only) — 700 is the heaviest weight that actually exists,
+     so the heading now asks for a weight the family really has. */
+  font-weight: 700;
 }
 
 h2 {
