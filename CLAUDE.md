@@ -784,7 +784,7 @@ copy.
 | Section | id | Description |
 |---------|----|-------------|
 | Nav | — | Logo + links: Services, Reviews, Projects, About, Experience, Case Studies, Contact, Resume |
-| Hero | `#top` | **Role leads, name is the byline.** `h1` holds `.hero-role` (`นักพัฒนาเว็บฟรีแลนซ์` in `--ink`) + `.hero-role-alt` (`Freelance Web Developer` in `--accent-text`, own line) + `.hero-name` at ~1/2 the size in `--ink-2`. Buyers search the service, not the person, and the h1 text order follows the visual order. Two real colours, never `background-clip: text` — that computes the colour to transparent and the contrast audit cannot measure it. `.hero-role` maxes at **2.8rem**: the `.hero-left` track is 526px, the English line fills it at 2.9rem and tips to three lines at 3.1rem. No `max-width` on the `h1` — a `ch` limit cut the Thai mid-word. Primary CTA → Fastwork, secondary → pricing |
+| Hero | `#top` | **Role leads, name is the byline.** `h1` holds `.hero-role` (`นักพัฒนาเว็บฟรีแลนซ์` in `--ink`) + `.hero-role-alt` (`Freelance Web Developer` in `--accent-text`, own line) + `.hero-name` at ~1/2 the size in `--ink-2`. Buyers search the service, not the person, and the h1 text order follows the visual order. Two real colours, never `background-clip: text` — that computes the colour to transparent and the contrast audit cannot measure it. `.hero-role` maxes at **2.8rem**: the `.hero-left` track is 526px, the English line fills it at 2.9rem and tips to three lines at 3.1rem. No `max-width` on the `h1` — a `ch` limit cut the Thai mid-word. Primary CTA → Fastwork, secondary → pricing. Below the CTAs, `.hero-proof` states price floor, reply time and review count as **one line of running text, never a three-card stat row** — that shape is the SaaS metric template. Every figure is already stated elsewhere (`฿3,900` on the category pages, 24 hours in the FAQ, the three reviews in `#testimonials`), so the hero claims nothing new; **if one of those changes, this line is a second place to edit.** The right half is `.hero-work` — see below |
 | Need selector | `#need` | **6 tiles**, one row on desktop → their `web-*.html` page. 3 columns below 1100px, 2 below 900px. Each tile: `.need-icon` badge + inline SVG (`aria-hidden`) + a `::after` arrow. See "The `#need` selector" |
 | Tech Stack | — | Dual-row logo marquee (Simple Icons inlined as SVG symbols), opposite scroll directions, pause on hover, reduced-motion static |
 | Services | `#services` | 3 priced packages (Landing Page ฿3,900 / Dashboard UI ฿7,900 / Business Website ฿9,900), Thai copy, each links to Fastwork + `#contact` |
@@ -796,6 +796,36 @@ copy.
 | Case Studies | `#case-studies` | PulseBoard, LaunchLedger, InternTrack, HabitQuest |
 | Contact | `#contact` | Form + email |
 | Footer | — | Nav links, email, social icons |
+
+### `.hero-work` — the right half of the hero
+
+Three real projects, one per package sold: **BuildNest** (Landing Page), **BookEase**
+(Dashboard), **LUMI Clinic** (business site). They are `<a>`s to the showcase pages, reusing
+the `assets/thumbs/*.svg` the card grid already ships, so the browser has them cached and the
+hero fetches nothing new.
+
+It replaced three `<div>` cards drawn from grey bars — a fake chart, a fake tag, a fake pill,
+the whole block `aria-hidden="true"`. That block filled half the first screen and said
+nothing, on the one screen where a buyer decides whether to keep reading. **It is no longer
+`aria-hidden`**, because it now contains real links.
+
+Three things about it are deliberate:
+
+- **The cards must not overlap.** The first version stacked them for a "deck" feel and the
+  overlap landed on the `.hw-meta` strips — the project names, the one thing the block exists
+  to say. `.hw-1` ends at ~196px, `.hw-2` sits hard left in the band below it, `.hw-3` starts
+  below `.hw-1`'s bottom edge. Measure after any change to `height: 408px` or the card widths.
+- **Names are short** (`BuildNest`, not `BuildNest Construction`). `.hw-name` is
+  `text-overflow: ellipsis`, so a long name truncates silently rather than wrapping — it
+  looked fine in CSS and shipped as `BuildNest Constructi…` in the browser.
+- **Below 900px it becomes a three-up row, not `display: none`.** The old decorative block was
+  hidden there and that was correct for scenery; real work is not scenery, and mobile is 51%
+  of this site's traffic. Below 480px `.hw-kind` drops so the name still fits.
+
+`.hero-eyebrow` was deleted in the same change — it read `รับทำเว็บไซต์เต็มเวลา` directly under
+a badge already saying `รับงานใหม่บน Fastwork`, two availability statements stacked, and it was
+the last element on the site still carrying the pre-2026-08-10 kicker treatment (uppercase,
+`0.1em` tracking, weight 700, a 28px `::before` rule). Its meaning moved into the badge.
 
 ---
 

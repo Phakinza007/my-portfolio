@@ -410,62 +410,207 @@
       align-items: center;
     }
 
-    .hero-right {
-      position: relative;
-      height: 340px;
+    /* One quiet line, not a stat row. Three numbers set as cards under a hero
+       is the SaaS metric template; the same three facts as running text read
+       as an answer to "what will this cost me and when will I hear back".
+       Every figure here is already stated elsewhere on the site — the price on
+       the category pages, the 24-hour reply in the FAQ, the three reviews in
+       #testimonials — so nothing new is being claimed. */
+    .hero-proof {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px 14px;
+      margin-top: 24px;
+      font-size: 0.9rem;
+      color: var(--muted);
     }
 
-    .hc {
+    .hero-proof > * { display: inline-flex; align-items: center; gap: 6px; }
+
+    .hero-proof strong {
+      color: var(--ink-2);
+      font-weight: 600;
+    }
+
+    .hero-proof a {
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color 160ms ease, border-color 160ms ease;
+    }
+
+    .hero-proof a:hover,
+    .hero-proof a:focus-visible {
+      color: var(--ink-2);
+      border-bottom-color: var(--border-2);
+    }
+
+    .hero-proof .proof-sep {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--border-2);
+      flex: none;
+    }
+
+    .hero-stars { color: #f0b429; letter-spacing: 0.06em; font-size: 0.82rem; }
+
+    /* Below 640px the three facts wrap, and a wrap that lands right after a
+       separator leaves the dot stranded at the end of the line. There is no
+       CSS selector for "last on its own line", so the row becomes a column
+       and the separators go away entirely rather than being hidden by
+       guesswork. */
+    @media (max-width: 640px) {
+      .hero-proof {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 7px;
+      }
+      .hero-proof .proof-sep { display: none; }
+    }
+
+    /* ============================================================
+       HERO — THE WORK DECK
+
+       This half of the hero used to be three <div> cards drawn from grey
+       bars: a fake chart, a fake tag, a fake pill, the whole block
+       aria-hidden. It filled the space without saying anything, on the one
+       screen where a buyer decides whether to keep reading. It now shows
+       three real projects, one per package sold — a landing page, a
+       dashboard and a business site — using the thumbnails the card grid
+       already ships, so the browser has them cached and nothing new is
+       fetched. They are links, so this is navigation as well as proof, and
+       the block is no longer aria-hidden.
+    ============================================================ */
+    .hero-work {
+      position: relative;
+      height: 408px;
+    }
+
+    .hw-card {
       position: absolute;
+      display: block;
+      width: 246px;
       background: var(--surface);
       border: 1px solid var(--border-2);
       border-radius: var(--r);
       box-shadow: var(--sh-lg);
-      padding: 18px 20px;
+      overflow: hidden;
+      text-decoration: none;
+      transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+                  border-color 320ms ease,
+                  box-shadow 320ms ease;
     }
 
-    .hc-main {
-      width: 224px;
-      top: 16px;
-      right: 0;
-      animation: hc-float1 5s ease-in-out infinite;
+    .hw-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-bottom: 1px solid var(--border);
     }
 
-    .hc-tag {
-      width: 200px;
-      bottom: 28px;
-      right: 28px;
-      animation: hc-float2 6.5s ease-in-out infinite 1.2s;
+    .hw-meta {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 13px 11px;
     }
 
-    .hc-pill {
-      width: 128px;
-      top: 138px;
-      left: 0;
-      padding: 12px 16px;
-      animation: hc-float3 7s ease-in-out infinite 0.6s;
+    .hw-name {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    @keyframes hc-float1 {
+    .hw-kind {
+      font-size: 0.72rem;
+      color: var(--accent-text);
+      flex: none;
+    }
+
+    /* Staggered, not stacked. The first version overlapped the cards for a
+       "deck" feel and the overlap landed on the meta strips — the project
+       names, the one thing the block exists to say, were the pixels being
+       covered. Each card now clears its neighbours: hw-1 sits right and
+       ends at ~196px, hw-2 sits hard left in the band below it, hw-3 starts
+       below hw-1's bottom edge. The offsets still read as arranged rather
+       than gridded, which is the point; the names stay legible, which is
+       the requirement. */
+    .hw-1 { top: 0;     right: 0;    width: 252px; }
+    .hw-2 { top: 108px; left: 0;     width: 232px; }
+    .hw-3 { bottom: 0;  right: 38px; width: 240px; }
+
+    .hw-card:hover,
+    .hw-card:focus-visible {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.5);
+      z-index: 4;
+    }
+
+    .hw-card:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .hw-1 { animation: hw-drift-a 7s ease-in-out infinite; }
+      .hw-2 { animation: hw-drift-b 9s ease-in-out infinite 0.8s; }
+      .hw-3 { animation: hw-drift-c 8s ease-in-out infinite 1.6s; }
+
+      /* Hover has to beat the drift or the card slides out from under the
+         pointer, so the keyframes pause rather than fight the transform. */
+      .hw-card:hover,
+      .hw-card:focus-visible { animation-play-state: paused; }
+    }
+
+    @keyframes hw-drift-a {
       0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-14px); }
+      50%      { transform: translateY(-11px); }
     }
-    @keyframes hc-float2 {
-      0%, 100% { transform: translateY(0) rotate(0.4deg); }
-      50%       { transform: translateY(-10px) rotate(-0.4deg); }
+    @keyframes hw-drift-b {
+      0%, 100% { transform: translateY(0) rotate(0.35deg); }
+      50%      { transform: translateY(-8px) rotate(-0.35deg); }
     }
-    @keyframes hc-float3 {
-      0%, 100% { transform: translateY(0) rotate(-1deg); }
-      50%       { transform: translateY(-8px) rotate(0.6deg); }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .hc { animation: none !important; }
+    @keyframes hw-drift-c {
+      0%, 100% { transform: translateY(0) rotate(-0.6deg); }
+      50%      { transform: translateY(-7px) rotate(0.3deg); }
     }
 
     @media (max-width: 900px) {
       .hero-inner { grid-template-columns: 1fr; }
-      .hero-right  { display: none; }
+
+      /* The old decorative block was display:none here, which was the right
+         call for scenery. Real work is not scenery, and mobile is 51% of
+         this site's traffic — the deck becomes a plain three-up row instead
+         of disappearing. */
+      .hero-work {
+        position: static;
+        height: auto;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 8px;
+      }
+
+      .hw-card,
+      .hw-1, .hw-2, .hw-3 {
+        position: static;
+        width: auto;
+        animation: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-work { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+      .hw-meta { padding: 8px 9px 9px; }
+      .hw-name { font-size: 0.76rem; }
+      .hw-kind { display: none; }
     }
 
     /* ============================================================
