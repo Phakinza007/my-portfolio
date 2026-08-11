@@ -240,7 +240,16 @@ h1 {
   max-width: 760px;
   margin-top: 18px;
   font-size: clamp(2.4rem, 7.5vw, 5.4rem);
-  line-height: 1.02;
+  /* 1.3, not the 1.02 this carried under Noto Sans Thai. Bai Jamjuree draws
+     Thai far taller: measured per line, its ink ascent on a tone-marked
+     cluster plus the ink descent of the line above needs up to 1.271x the
+     font size of baseline-to-baseline clearance (worst case on this site:
+     case-study-pulseboard's h1 at 375px). At 1.02 that heading rendered 140
+     shared pixels — tone marks drawn *inside* the glyphs of the line above.
+     1.3 is that measured minimum plus a ~2.5px margin at the 86.4px desktop
+     size. Only headings that WRAP are affected, so a single-line render is
+     not a test of this. */
+  line-height: 1.3;
   /* Bai Jamjuree ships no 800 cut on Google Fonts (this page loads it at
      wght@600;700 only) — 700 is the heaviest weight that actually exists,
      so the heading now asks for a weight the family really has. */
@@ -249,7 +258,10 @@ h1 {
 
 h2 {
   font-size: clamp(1.8rem, 3.6vw, 2.8rem);
-  line-height: 1.1;
+  /* Same reason as h1 above: the measured worst case across all 56 pages that
+     load this sheet is 1.272x (case-study-interntrack at 1280px), against the
+     1.1 this carried. */
+  line-height: 1.3;
   font-weight: 700;
 }
 
@@ -1823,7 +1835,13 @@ a[data-copied]::after{
   background: none;
 }
 
-.story-card--statement p {
+/* `>` is load-bearing, not tidiness. Written as `.story-card--statement p`
+   this is (0,1,1) against .story-kicker's (0,1,0) and sits later in the file,
+   so it captured the kicker too — the sub-heading rendered at the claim's own
+   17.28px --ink-2 instead of 14.08px --muted and the two lines became
+   indistinguishable on all 32 story-stack pages. The kicker lives inside
+   .story-head > div, so it is not a direct child; the claim is. */
+.story-card--statement > p {
   color: var(--ink-2);
   font-size: 1.08rem;
   line-height: 1.7;

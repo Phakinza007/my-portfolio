@@ -325,11 +325,16 @@
        wght@600;700 only) — 700 is the heaviest weight that actually exists,
        so .hero-role (and .hero-role-alt, which inherits it) now asks for a
        weight the family really has. */
+    /* 1.21, not 1.08: .hero-role-alt is a second block inside the same h1 and
+       inherits this line-height, so the gap between the Thai role line and the
+       English one under it is set here. At 1.08 the F/l/D ascenders of
+       "Freelance Web Developer" shared 9 pixels with the below-vowels of
+       "นักพัฒนาเว็บฟรีแลนซ์" on /index-en at 375px. Measured minimum 1.182. */
     .hero-role {
       display: block;
       font-size: clamp(1.85rem, 4vw, 2.8rem);
       font-weight: 700;
-      line-height: 1.08;
+      line-height: 1.21;
       letter-spacing: -0.03em;
       color: var(--ink);
     }
@@ -547,12 +552,20 @@
       margin-bottom: 10px;
     }
 
+    /* line-height 1.35, not the 1.12 this carried under Outfit + Noto Sans
+       Thai. Bai Jamjuree's Thai ink runs far higher above and lower below the
+       baseline; measured per line and per column, the worst wrapped
+       .section-title on this sheet ("...ธุรกิจคุณอยากได้เว็บแบบ" / "ไหน?" on
+       /services at 375px) needs 1.321x the font size of baseline-to-baseline
+       clearance before the ไ of the lower line stops sharing pixels with the
+       line above it. It was rendering 35 shared pixels at 1.12. 1.35 is that
+       minimum plus margin. This only shows on headings that WRAP. */
     .section-title {
       font-size: clamp(1.75rem, 3.6vw, 2.5rem);
       font-weight: 700;
       letter-spacing: -0.022em;
       color: var(--ink);
-      line-height: 1.12;
+      line-height: 1.35;
       margin-bottom: 36px;
     }
 
