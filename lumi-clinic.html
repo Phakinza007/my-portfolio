@@ -22,23 +22,42 @@
   <meta property="og:image:alt" content="LUMI Clinic live page screenshot.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Trirong:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- display=optional, not swap: swap reflows the h1, the nav logo and the
+       hero buttons when Trirong arrives, which measured CLS 0.011-0.015.
+       The rest of this site standardised on optional for exactly this. -->
+  <link href="https://fonts.googleapis.com/css2?family=Trirong:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=optional" rel="stylesheet">
 
   <style>
     /* ── Tokens ──────────────────────────────────────────────────── */
     :root {
-      --paper:      #F6F3EE;
-      --paper-dim:  #ECE5D9;
-      --paper-lift: #FBF9F5;
-      --ink:        #1C1714;
-      --ink-2:      #262019;
-      --soft:       #4A4038;   /* body text on paper */
-      --faint:      #6B5F54;   /* muted on paper — 5.1:1 */
-      --clay:       #D96C3F;   /* accent on ink — 5.2:1 on ink */
-      --clay-ink:   #9C4221;   /* accent as text on paper — 5.9:1 */
-      --mist:       #B9B0A4;   /* muted on ink — 8.3:1 */
-      --line:       rgba(28,23,20,.15);
-      --line-inv:   rgba(246,243,238,.16);
+      /* The scene, because the palette is downstream of it: a Sukhumvit
+         consult room at six in the evening. The overhead lights are off.
+         One warm lamp on the desk. The doctor is telling you that you do
+         not need filler yet — you need three months of retinoid first.
+
+         Lights off, one lamp: the surface is dark and the warm light is the
+         accent, not the substrate. The page used to be #F6F3EE, which sits
+         inside the warm-neutral band (OKLCH L .84–.97, C < .06, hue 40–100)
+         that reads as the default "premium clinic" surface — and the token
+         was called --paper, one of the names that gives it away. Serif +
+         rules + restraint + almost no imagery on top of that is a second
+         saturated lane. Neither is wrong alone; together they were the shape
+         a generator reaches for.
+
+         Every value below is OKLCH-derived and contrast-checked against the
+         surface it is used on, not eyeballed. Lowest pair on the page is
+         --faint on --surface-2 at 5.41:1. */
+      --surface:    #0D1511;   /* oklch(.185 .014 168) — page */
+      --surface-2:  #16201C;   /* oklch(.232 .016 168) — alternating bands */
+      --surface-3:  #222D28;   /* oklch(.285 .018 168) — inputs, wells */
+      --paper:      #F5F3EF;   /* light ink — 16.73:1 on surface */
+      --soft:       #DBD9D3;   /* body text — 13.14:1 */
+      --mist:       #A9B4B2;   /* muted — 8.71:1 */
+      --faint:      #8A9593;   /* quietest — 6.01:1 */
+      --ink:        #0D1511;   /* dark ink, for text ON the lamp accent */
+      --clay:       #EEB15B;   /* the lamp — 9.78:1 on surface */
+      --clay-deep:  #BF7B1F;   /* lamp, pressed / borders — 5.36:1 */
+      --line:       rgba(245,243,239,.14);
 
       --serif: 'Trirong', Georgia, serif;
       --sans:  'Inter', 'Helvetica Neue', Arial, sans-serif;
@@ -55,7 +74,7 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: var(--sans);
-      background: var(--paper);
+      background: var(--surface);
       color: var(--soft);
       font-size: 15.5px;
       line-height: 1.75;
@@ -68,7 +87,7 @@
 
     .wrap { max-width: var(--container); margin: 0 auto; padding: 0 var(--pad); }
 
-    h1, h2, h3 { font-family: var(--serif); color: var(--ink); font-weight: 500; }
+    h1, h2, h3 { font-family: var(--serif); color: var(--paper); font-weight: 500; }
 
     /* ── Fade-up ─────────────────────────────────────────────────── */
     .fade-up {
@@ -85,21 +104,21 @@
     /* ── Buttons / links ─────────────────────────────────────────── */
     .btn-ink {
       display: inline-block;
-      background: var(--ink);
-      color: var(--paper);
+      background: var(--clay);
+      color: var(--ink);
       font-size: 14.5px;
       font-weight: 500;
       padding: 15px 34px;
-      border: 1px solid var(--ink);
+      border: 1px solid var(--clay);
       border-radius: 2px;
       transition: background var(--t), color var(--t);
     }
-    .btn-ink:hover { background: transparent; color: var(--ink); }
+    .btn-ink:hover { background: transparent; color: var(--clay); }
 
     .link-quiet {
       font-size: 14.5px;
       font-weight: 500;
-      color: var(--clay-ink);
+      color: var(--clay);
       border-bottom: 1px solid currentColor;
       padding-bottom: 2px;
       transition: opacity var(--t);
@@ -111,7 +130,7 @@
       position: fixed;
       inset: 0 0 auto;
       z-index: 200;
-      background: rgba(246,243,238,.92);
+      background: rgba(13,21,17,.88);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid transparent;
       transition: border-color var(--t);
@@ -132,7 +151,7 @@
       font-size: 24px;
       font-weight: 600;
       letter-spacing: 2px;
-      color: var(--ink);
+      color: var(--paper);
     }
     .nav-logo span {
       font-family: var(--sans);
@@ -155,9 +174,9 @@
       color: var(--soft);
       transition: color var(--t);
     }
-    .nav-links a:hover { color: var(--ink); }
-    .nav-links .link-quiet { color: var(--clay-ink); }
-    .nav-links .link-quiet:hover { color: var(--clay-ink); }
+    .nav-links a:hover { color: var(--paper); }
+    .nav-links .link-quiet { color: var(--clay); }
+    .nav-links .link-quiet:hover { color: var(--clay); }
 
     .hamburger {
       display: none;
@@ -173,7 +192,7 @@
     .hamburger span {
       display: block;
       width: 22px; height: 2px;
-      background: var(--ink);
+      background: var(--paper);
       transition: all var(--t) var(--ease);
     }
     .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -183,7 +202,7 @@
     .mobile-nav {
       display: none;
       flex-direction: column;
-      background: var(--paper);
+      background: var(--surface-2);
       border-top: 1px solid var(--line);
       padding: 16px 24px 26px;
     }
@@ -191,10 +210,10 @@
     .mobile-nav a {
       padding: 13px 0;
       font-size: 16px;
-      color: var(--ink);
+      color: var(--paper);
       border-bottom: 1px solid var(--line);
     }
-    .mobile-nav a:last-child { border-bottom: none; color: var(--clay-ink); font-weight: 500; }
+    .mobile-nav a:last-child { border-bottom: none; color: var(--clay); font-weight: 500; }
 
     /* ════ HERO ══════════════════════════════════════════════════ */
     .hero { padding: 150px 0 0; }
@@ -216,7 +235,7 @@
       font-family: var(--serif);
       font-style: italic;
       font-size: clamp(16px, 1.8vw, 21px);
-      color: var(--clay-ink);
+      color: var(--clay);
       margin-bottom: 30px;
     }
     .hero-sub {
@@ -258,7 +277,8 @@
     }
 
     /* ════ TREATMENTS ════════════════════════════════════════════ */
-    .treatments { padding: var(--gap-section) 0; }
+    .treatments {
+        background: var(--surface-2); padding: var(--gap-section) 0; }
 
     .treat-head {
       display: flex;
@@ -281,13 +301,13 @@
       transition: background var(--t);
     }
     .treat-row:last-child { border-bottom: 1px solid var(--line); }
-    .treat-row:hover { background: var(--paper-lift); }
+    .treat-row:hover { background: var(--surface-2); }
 
     .treat-num {
       font-family: var(--serif);
       font-style: italic;
       font-size: 15px;
-      color: var(--clay-ink);
+      color: var(--clay);
     }
     .treat-name {
       font-size: clamp(21px, 2.2vw, 27px);
@@ -299,7 +319,7 @@
       font-family: var(--serif);
       font-size: 19px;
       font-weight: 500;
-      color: var(--clay-ink);
+      color: var(--clay);
       text-align: right;
       white-space: nowrap;
     }
@@ -314,7 +334,7 @@
 
     /* ════ RESULTS (dark) ════════════════════════════════════════ */
     .results {
-      background: var(--ink);
+      background: var(--surface);
       color: var(--mist);
       padding: var(--gap-section) 0;
     }
@@ -343,13 +363,13 @@
        better than a comparison widget ever did. */
     .course-panel {
       display: flex; flex-direction: column;
-      border: 1px solid var(--line-inv);
+      border: 1px solid var(--line);
     }
     .course-row {
       display: grid; grid-template-columns: 92px 1fr;
       gap: 20px;
       padding: 28px 26px;
-      border-bottom: 1px solid var(--line-inv);
+      border-bottom: 1px solid var(--line);
     }
     .course-row:last-child { border-bottom: none; }
     .course-week {
@@ -364,12 +384,12 @@
 
     .course-stats {
       display: flex; flex-direction: column;
-      border: 1px solid var(--line-inv);
+      border: 1px solid var(--line);
     }
     .stat-row {
       display: flex; align-items: baseline; gap: 14px;
       padding: 18px 24px;
-      border-bottom: 1px solid var(--line-inv);
+      border-bottom: 1px solid var(--line);
     }
     .stat-row:last-child { border-bottom: none; }
     .stat-num {
@@ -388,7 +408,8 @@
     }
 
     /* ════ ABOUT ═════════════════════════════════════════════════ */
-    .about { padding: var(--gap-section) 0; }
+    .about {
+        background: var(--surface-2); padding: var(--gap-section) 0; }
     .about-grid {
       display: grid;
       grid-template-columns: .9fr 1.1fr;
@@ -420,8 +441,8 @@
 
     /* ════ QUOTES ════════════════════════════════════════════════ */
     .quotes {
-      background: var(--paper-dim);
-      padding: var(--gap-section) 0;
+      background: var(--surface);
+      padding: clamp(56px, 6vw, 88px) 0;
     }
     .quote-main {
       font-family: var(--serif);
@@ -429,7 +450,7 @@
       font-size: clamp(23px, 3vw, 34px);
       font-weight: 400;
       line-height: 1.5;
-      color: var(--ink);
+      color: var(--paper);
       max-width: 820px;
       margin-bottom: 22px;
     }
@@ -446,7 +467,7 @@
       gap: clamp(32px, 5vw, 72px);
     }
     .quote-small {
-      border-left: 2px solid var(--clay-ink);
+      border-left: 2px solid var(--clay);
       padding-left: 22px;
     }
     .quote-small p {
@@ -457,7 +478,7 @@
 
     /* ════ BOOKING (dark) ════════════════════════════════════════ */
     .booking {
-      background: var(--ink);
+      background: var(--surface-2);
       color: var(--mist);
       padding: var(--gap-section) 0;
     }
@@ -479,7 +500,7 @@
       display: flex;
       justify-content: space-between;
       gap: 20px;
-      border-top: 1px solid var(--line-inv);
+      border-top: 1px solid var(--line);
       padding: 15px 0;
       font-size: 14px;
     }
@@ -497,7 +518,7 @@
       width: 100%;
       background: transparent;
       border: none;
-      border-bottom: 1px solid var(--line-inv);
+      border-bottom: 1px solid var(--line);
       border-radius: 0;
       padding: 10px 2px 12px;
       font-size: 16px;
@@ -522,7 +543,7 @@
       padding-right: 32px;
       cursor: pointer;
     }
-    .form-select option { color: var(--ink); background: var(--paper); }
+    .form-select option { color: var(--paper); background: var(--surface-2); }
 
     .form-submit {
       margin-top: 10px;
@@ -539,7 +560,7 @@
     .form-submit:hover { background: transparent; color: var(--clay); }
     .form-submit:disabled {
       background: transparent;
-      border-color: var(--line-inv);
+      border-color: var(--line);
       color: var(--paper);
       cursor: default;
     }
@@ -553,10 +574,75 @@
     }
     .form-ok.show { display: block; }
 
+    /* ════ STICKY BOOK BAR (mobile) ══════════════════════════════
+       Every 2026 med-spa roundup agrees on one thing this page did not
+       do: the booking action has to be reachable from any screen. On
+       desktop the fixed nav already carries "Book a consult", so this is
+       mobile only — where most of the traffic is and where that nav
+       collapses into a hamburger.
+
+       No JS and no scroll listener; it is simply always there below
+       768px. .booking gets extra bottom padding so the bar never covers
+       the last field of the form it points at — a bar that hides the
+       thing it advertises is worse than no bar. */
+    .book-bar { display: none; }
+
+    @media (max-width: 768px) {
+      .book-bar {
+        display: flex;
+        position: fixed;
+        inset: auto 0 0;
+        z-index: 300;
+        gap: 10px;
+        padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+        background: rgba(13,21,17,.94);
+        backdrop-filter: blur(12px);
+        border-top: 1px solid var(--line);
+      }
+      .book-bar a {
+        flex: 1;
+        text-align: center;
+        padding: 13px 10px;
+        border-radius: 2px;
+        font-size: 14.5px;
+        font-weight: 500;
+        min-height: 44px;
+      }
+      .book-bar .bb-primary { background: var(--clay); color: var(--ink); }
+      .book-bar .bb-second {
+        color: var(--paper);
+        border: 1px solid var(--line);
+        flex: 0 0 34%;
+      }
+      /* Reserve the bar's height on the document, not on .booking. The
+         first version padded the booking section and the FOOTER — the
+         actual last element — still ran 73px underneath the bar. Padding
+         the body is indifferent to which element happens to be last. */
+      body { padding-bottom: 78px; }
+    }
+
+    /* One patient line sits with the form, not only in the quotes band
+       far above it. The decision happens here. */
+    .booking-proof {
+      margin-top: 26px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      font-size: 14px;
+      color: var(--mist);
+      line-height: 1.7;
+    }
+    .booking-proof cite {
+      display: block;
+      margin-top: 8px;
+      font-size: 12.5px;
+      color: var(--faint);
+      font-style: normal;
+    }
+
     /* ════ FOOTER ════════════════════════════════════════════════ */
     .footer {
-      background: var(--ink);
-      border-top: 1px solid var(--line-inv);
+      background: var(--surface);
+      border-top: 1px solid var(--line);
       padding: 44px 0;
       color: var(--mist);
       font-size: 13px;
@@ -636,6 +722,7 @@
 </nav>
 
 
+<main id="content">
 <!-- ════ HERO ═══════════════════════════════════════════════════ -->
 <header class="hero" id="top">
   <div class="wrap">
@@ -868,6 +955,10 @@
           <li><span>Hours</span><span>Daily 10:00 – 20:00</span></li>
           <li><span>Instagram</span><span>@lumi</span></li>
         </ul>
+        <blockquote class="booking-proof">
+          "The doctor was the one who told me &lsquo;you don&rsquo;t need filler yet.&rsquo;"
+          <cite>Botox patient — second year at the clinic</cite>
+        </blockquote>
       </div>
 
       <form class="booking-form fade-up" id="bookingForm" style="transition-delay:.12s">
@@ -902,6 +993,7 @@
     </div>
   </div>
 </section>
+</main>
 
 
 <!-- ════ FOOTER ══════════════════════════════════════════════════ -->
@@ -978,6 +1070,12 @@
     ok.focus();
   });
 </script>
+
+<!-- ════ STICKY BOOK BAR (mobile) ═══════════════════════════════════ -->
+<div class="book-bar">
+  <a class="bb-primary" href="#contact">Book a free consult</a>
+  <a class="bb-second" href="#services">Pricing</a>
+</div>
 
 </body>
 </html>

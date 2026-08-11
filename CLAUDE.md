@@ -705,6 +705,41 @@ portfolio chrome) and `404.html`.
 
 ---
 
+## `lumi-clinic.html` — the one demo with a written direction
+
+Redesigned 2026-08-11. It is a demo page: its own inline CSS, no shared reset, no portfolio
+chrome. Two things about it are decisions, not defaults, and both are easy to undo by accident.
+
+**The surface is deliberately dark.** It used to be `#F6F3EE` on a token literally named
+`--paper`. That colour sits inside the warm-neutral band (OKLCH L .84–.97, C < .06, hue
+40–100) that reads as the default "premium clinic" surface, and display-serif + rules +
+restraint + almost no imagery on top of it is a second saturated lane. Neither is wrong alone.
+The palette now runs off a written scene — *a Sukhumvit consult room at six, overhead lights
+off, one warm lamp, the doctor saying you don't need filler yet* — which is in a comment above
+`:root`. Lights off, one lamp: surface `#0D1511`, the warm `#EEB15B` as accent rather than
+substrate. Every value is OKLCH-derived and contrast-checked; the lowest pair on the page is
+5.41:1. **`assets/thumbs/lumi-clinic.svg` was recoloured to match** — it is the card on the
+homepage, the archive, *and* one of the three cards in the homepage hero deck, so a palette
+change here is four places, not one.
+
+⚠️ **No identifiable faces, and no before/after.** Commit `6cf2ad1` removed four hotlinked
+Unsplash photos showing a clear face and retired a before/after slider that used the same face
+as both its "before" and its "after". The page turns that into a claim — "We don't publish
+before/after photos — skin tone, lighting and angle make them easy to fake and hard to verify"
+— which is better copy than the widget was. **Do not add faces back and do not add a
+comparison widget**, however many med-spa articles list it as essential.
+
+The page carries a mobile-only sticky `.book-bar`. It reserves its height with
+`body { padding-bottom }`, **not** with padding on `.booking` — the first version padded the
+booking section and the *footer*, the actual last element, still ran 73px underneath the bar.
+Padding the body is indifferent to which element happens to be last.
+
+`display=optional`, not `swap`: swap reflowed the `h1`, the nav logo and the hero buttons when
+Trirong arrived and measured CLS 0.011–0.015. **13 other demo pages are still on `display=swap`
+and have the same exposure** — that is a real finding, not a style preference.
+
+---
+
 ## Lessons from the 2026-08-07 site-wide audit
 
 Four defects that static greps and the Lighthouse score both missed. Each is a class of bug,
