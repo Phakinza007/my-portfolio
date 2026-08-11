@@ -794,6 +794,49 @@ copy.
 
 ---
 
+## How to measure this repo without fooling yourself
+
+Four wrong answers were reported to the owner as fact on 2026-08-11, all from the
+same two mistakes. They are cheap to avoid and expensive to miss.
+
+**`class` is a list — never match it with equality.** Every one of these was
+written as an exact match and silently under-counted:
+
+| Written | Missed | Reported | Truth |
+|---|---|---|---|
+| `class="story-icon"` | `class="story-icon amber"`, `… mint` | 64 | **128** |
+| `class="browser-frame"` | `class="browser-frame reveal"` | 0 files | **30 files** |
+
+Grep the bare token (`grep -c 'story-icon'`) or match `class="[^"]*token`, then
+list the distinct values you actually found:
+`grep -ho 'class="story-icon[^"]*"' *.html | sort | uniq -c`.
+
+**A zero is a claim about your instrument until you prove otherwise.**
+`BookEase.html` was reported as having a dead sidebar and a dead "New Booking"
+button. It has **86 controls, 12 switchable views and a 27 KB script**, and all of
+it works. The probe checked `e.onclick`, which is always `null` on this page
+because it binds with `addEventListener`; and the selector `^Appointments$` never
+matched that nav button, because it contains a `<span class="nav-badge">2</span>`,
+so the click never happened. Before reporting an absence, run the same probe
+against something that must be non-zero — and treat an *inconsistent* result as
+the same warning (two buttons had handlers and seven did not; that asymmetry was
+the tell).
+
+⚠️ **Character count does not measure a JS-rendered page.** `BookEase.html` has
+2,419 characters of static HTML and renders everything else from its script; by
+that metric it looked like one of the thinnest pages on the site when it is one of
+the most substantial. Count controls, views and rendered `innerText` instead.
+
+⚠️ **The automated browser here reports unreliable image intrinsics.** The same
+JPEG returned `naturalWidth` 1470, 1600 and 1959 across three reads, and a file
+that rendered correctly on screen reported `0x0`. Use `sips -g pixelWidth -g
+pixelHeight`, `file`, and the server's byte count; those three agree with each
+other. Also distinguish `complete && naturalWidth === 0` (broken) from
+`!complete` (not loaded yet) — a `loading="lazy"` image below the fold is the
+second, and was once reported as the first.
+
+---
+
 ## Key Standards to Maintain
 
 - **Lighthouse:** 100 / 100 / 100 (Accessibility / Best Practices / SEO) — run after changes.
