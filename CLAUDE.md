@@ -53,8 +53,8 @@ my-portfolio/
 │
 ├── case-study-*.html             # 4 case studies — THAI
 ├── case-study-*-en.html          # 4 case studies — English
-├── showcase-*.html               # 14 project showcase pages — THAI
-├── showcase-*-en.html            # 14 project showcase pages — English
+├── showcase-*.html               # 15 project showcase pages — THAI
+├── showcase-*-en.html            # 15 project showcase pages — English
 ├── landing-page.html / landing-page-en.html       # Service category page — Landing Page (฿3,900)
 ├── dashboard-ui.html / dashboard-ui-en.html        # Service category page — Dashboard UI (฿7,900)
 ├── business-website.html / business-website-en.html # Service category page — Business Website (฿9,900)
@@ -79,7 +79,7 @@ my-portfolio/
 | ไทย (default) | `/` · `/{slug}.html` | `th` |
 | English | `/index-en.html` · `/{slug}-en.html` | `en` |
 
-20 pairs (40 files): `index`, `resume`, 4 × `case-study-*`, 14 × `showcase-*`.
+21 pairs (42 files): `index`, `resume`, 4 × `case-study-*`, 15 × `showcase-*`.
 
 **Rules any change must preserve:**
 
@@ -428,7 +428,7 @@ which is not animatable — so the filter snapped from the day it was written. I
 two attributes: `data-leaving` fades the card, and `data-hidden` removes it from layout
 260ms later. **Do not collapse them back into one.**
 
-**The hero screenshot shows a skeleton while it loads.** The 28 showcase / case-study
+**The hero screenshot shows a skeleton while it loads.** The 30 `showcase-*.html`
 pages open on a ~115 KB JPEG inside `.browser-frame`; its box was already reserved by the
 img's `width`/`height` attributes so CLS was 0, but the reserved box sat empty and flat,
 which reads as a stalled page rather than a loading one.
@@ -463,7 +463,7 @@ screenshot's wipe shipped as `clip-path: inset(0 100% 0 0)` on `.browser-frame.r
 very element the reveal IntersectionObserver watches. Chrome subtracts a target's own
 `clip-path` from its intersection rect, so the element had `intersectionRatio: 0`, never
 reached the `0.08` threshold, never got `.visible`, and so the clip never opened. **A loop
-that locks itself**: the hero image stayed invisible on all 28 showcase / case-study pages,
+that locks itself**: the hero image stayed invisible on all 30 showcase pages,
 with no console error, no failed request and no Lighthouse penalty. Reported 2026-08-10 as
 "preview หาย" on `showcase-elevate-commerce`; the file was there and returned HTTP 200 the
 whole time.
@@ -967,7 +967,7 @@ iframe's viewport, giving the same real breakpoint behavior — then run the sam
 snippet against `iframe.contentDocument`/`contentWindow`.
 
 ### Edit a showcase page
-All 26 showcase files share one body layout, added 2026-08-07: a single-column **story
+All 30 showcase files share one body layout, added 2026-08-07: a single-column **story
 stack** read top to bottom, replacing the old two-column `.study-grid` + separate `#fit`
 section + `.result-band`. One `<section class="section" id="overview">` holds:
 
@@ -990,7 +990,7 @@ it fits) is one claim set as one — larger type, indented, a 1px `--accent` rul
 container, not a decorative side-stripe. Card 4 (`.story-card.accent`) is unchanged and stays
 the most prominent, because it is the ask.
 
-**`.story-price` is required on all 28 pages and states the *site's* entry price, not the
+**`.story-price` is required on all 30 showcase pages and states the *site's* entry price, not the
 project's.** Added 2026-08-09 off the first full week of Clarity: `showcase_open` fired in
 19 sessions and `cta_fastwork` in 1, and no showcase page named a price anywhere while
 `#related` sent the reader to three more demos. The copy is
