@@ -955,7 +955,8 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: rgba(255,255,255,.38);
+      /* .38 measured 3.39:1 on the #1e293b footer; .52 is 4.98:1. */
+      color: rgba(255,255,255,.52);
       margin-bottom: 20px;
     }
 
@@ -981,7 +982,8 @@
       flex-wrap: wrap;
       gap: 12px;
       font-size: 0.8rem;
-      color: rgba(255,255,255,.3);
+      /* .3 measured 2.65:1 on the footer; .52 is 4.98:1. */
+      color: rgba(255,255,255,.52);
     }
 
     .footer-bottom a { color: rgba(255,255,255,.48); transition: color 150ms; }
@@ -1076,6 +1078,133 @@
       stroke-linecap: round; stroke-linejoin: round;
       flex-shrink: 0;
     }
+
+    /* ════ CART DRAWER · SEARCH · QUICK VIEW ═══════════════════════
+       The shop let you add to cart and then never let you see it: the
+       badge counted, the cart icon did nothing, search did nothing, and
+       every product linked to "#". Those are the first three things
+       anyone testing a shop tries, so the demo died on contact.
+
+       No backend and no persistence — the cart lives in memory for the
+       length of the visit, and the checkout button says so rather than
+       pretending. Item data is read off the card that was clicked, so
+       there is no second copy of the catalogue to drift. */
+    .overlay-backdrop {
+      position: fixed; inset: 0; z-index: 900;
+      background: rgba(17,17,17,.44);
+      opacity: 0; pointer-events: none;
+      transition: opacity .28s var(--ease, cubic-bezier(.4,0,.2,1));
+    }
+    .overlay-backdrop.open { opacity: 1; pointer-events: auto; }
+
+    /* ── Cart drawer ── */
+    .cart-drawer {
+      position: fixed; top: 0; right: 0; bottom: 0; z-index: 950;
+      width: min(400px, 100vw);
+      background: var(--white, #fff);
+      display: flex; flex-direction: column;
+      transform: translateX(100%);
+      transition: transform .32s cubic-bezier(.22,1,.36,1);
+      box-shadow: -18px 0 46px rgba(17,17,17,.14);
+    }
+    .cart-drawer.open { transform: none; }
+    .cart-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 24px; border-bottom: 1px solid var(--border, #e6e6e6);
+    }
+    .cart-head h2 { font-size: 1.05rem; margin: 0; }
+    .icon-close {
+      background: none; border: 0; cursor: pointer; padding: 8px;
+      line-height: 0; border-radius: 6px; color: inherit;
+    }
+    .icon-close:hover { background: rgba(17,17,17,.06); }
+    .cart-items { flex: 1; overflow-y: auto; padding: 8px 24px; }
+    .cart-line {
+      display: grid; grid-template-columns: 62px 1fr auto; gap: 14px;
+      align-items: center; padding: 16px 0;
+      border-bottom: 1px solid var(--border, #e6e6e6);
+    }
+    .cart-line img { width: 62px; height: 62px; object-fit: cover; border-radius: 6px; display: block; }
+    .cart-line-name { font-size: .88rem; line-height: 1.4; }
+    .cart-line-price { font-size: .82rem; opacity: .62; margin-top: 3px; }
+    .qty { display: inline-flex; align-items: center; gap: 2px; margin-top: 8px; }
+    .qty button {
+      width: 26px; height: 26px; border: 1px solid var(--border, #e6e6e6);
+      background: none; cursor: pointer; border-radius: 5px; font-size: 14px; line-height: 1;
+    }
+    .qty button:hover { border-color: #111; }
+    .qty span { min-width: 26px; text-align: center; font-size: .85rem; }
+    .cart-remove {
+      background: none; border: 0; cursor: pointer; font-size: .76rem;
+      opacity: .55; text-decoration: underline; padding: 4px;
+    }
+    .cart-remove:hover { opacity: 1; }
+    .cart-empty { padding: 48px 0; text-align: center; opacity: .55; font-size: .9rem; }
+    .cart-foot { border-top: 1px solid var(--border, #e6e6e6); padding: 20px 24px 24px; }
+    .cart-total { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 6px; }
+    .cart-note { font-size: .76rem; opacity: .58; line-height: 1.6; margin-bottom: 14px; }
+    .cart-checkout {
+      width: 100%; padding: 15px; border: 0; cursor: pointer;
+      background: #111; color: #fff; font: inherit; font-weight: 500; border-radius: 4px;
+    }
+    .cart-checkout:disabled { opacity: .4; cursor: not-allowed; }
+
+    /* ── Search ── */
+    .search-panel {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 950;
+      background: var(--white, #fff);
+      border-bottom: 1px solid var(--border, #e6e6e6);
+      transform: translateY(-100%);
+      transition: transform .3s cubic-bezier(.22,1,.36,1);
+      padding: 20px 24px 22px;
+    }
+    .search-panel.open { transform: none; }
+    .search-row { display: flex; align-items: center; gap: 12px; max-width: 720px; margin: 0 auto; }
+    .search-row input {
+      flex: 1; border: 0; border-bottom: 2px solid #111; background: none;
+      font: inherit; font-size: 1.15rem; padding: 8px 2px; color: inherit;
+    }
+    .search-row input:focus { outline: none; }
+    .search-count { max-width: 720px; margin: 10px auto 0; font-size: .8rem; opacity: .6; }
+    .product-card[hidden] { display: none; }
+
+    /* ── Quick view ── */
+    .quick-view {
+      position: fixed; z-index: 950; inset: 50% auto auto 50%;
+      transform: translate(-50%,-50%) scale(.97);
+      width: min(860px, calc(100vw - 32px));
+      max-height: calc(100vh - 48px); overflow-y: auto;
+      background: var(--white, #fff); border-radius: 8px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .24s ease, transform .24s cubic-bezier(.22,1,.36,1);
+    }
+    .quick-view.open { opacity: 1; pointer-events: auto; transform: translate(-50%,-50%) scale(1); }
+    .qv-grid { display: grid; grid-template-columns: 1fr 1fr; }
+    .qv-grid img { width: 100%; height: 100%; min-height: 320px; object-fit: cover; display: block; }
+    .qv-body { padding: 30px 32px 32px; position: relative; }
+    .qv-body .icon-close { position: absolute; top: 14px; right: 14px; }
+    .qv-badge { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; opacity: .55; }
+    .qv-body h2 { font-size: 1.4rem; margin: 8px 0 10px; line-height: 1.25; }
+    .qv-price { font-size: 1.25rem; font-weight: 600; margin-bottom: 4px; }
+    .qv-price s { font-size: .95rem; font-weight: 400; opacity: .45; margin-left: 8px; }
+    .qv-rating { font-size: .82rem; opacity: .6; margin-bottom: 18px; }
+    .qv-desc { font-size: .92rem; line-height: 1.75; margin-bottom: 10px; }
+    .qv-spec { font-size: .82rem; line-height: 1.9; opacity: .7; margin-bottom: 22px; padding-left: 18px; }
+    .qv-add {
+      width: 100%; padding: 15px; border: 0; cursor: pointer;
+      background: #111; color: #fff; font: inherit; font-weight: 500; border-radius: 4px;
+    }
+
+    @media (max-width: 720px) {
+      .qv-grid { grid-template-columns: 1fr; }
+      .qv-grid img { min-height: 210px; max-height: 240px; }
+      .qv-body { padding: 24px 22px 26px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cart-drawer, .search-panel, .quick-view, .overlay-backdrop { transition: none; }
+    }
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
   </style>
   <script src="assets/analytics.js?v=funnel" defer></script>
 </head>
@@ -1118,9 +1247,9 @@
           <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
         </button>
         <!-- Cart -->
-        <button class="nav-icon-btn" aria-label="Shopping cart" id="cart-btn">
+        <button class="nav-icon-btn" aria-label="Shopping cart, 0 items" id="cart-btn">
           <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          <span class="cart-badge" id="cart-count">0</span>
+          <span class="cart-badge" id="cart-count" aria-hidden="true">0</span>
         </button>
 
         <button class="nav-hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-drawer" id="hamburger">
@@ -1282,7 +1411,7 @@
             </div>
             <div class="product-body">
               <div class="product-rating">
-                <div class="stars" aria-label="4.8 out of 5 stars">
+                <div class="stars" role="img" aria-label="4.8 out of 5 stars">
                   <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                   <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                   <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -1316,7 +1445,7 @@
             </div>
             <div class="product-body">
               <div class="product-rating">
-                <div class="stars" aria-label="5 out of 5 stars">
+                <div class="stars" role="img" aria-label="5 out of 5 stars">
                   <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                   <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                   <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -1349,7 +1478,7 @@
             </div>
             <div class="product-body">
               <div class="product-rating">
-                <div class="stars" aria-label="4.6 out of 5 stars">
+                <div class="stars" role="img" aria-label="4.6 out of 5 stars">
                   <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                   <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                   <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -1383,7 +1512,7 @@
             </div>
             <div class="product-body">
               <div class="product-rating">
-                <div class="stars" aria-label="4.9 out of 5 stars">
+                <div class="stars" role="img" aria-label="4.9 out of 5 stars">
                   <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                   <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                   <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -1564,6 +1693,54 @@
   <!-- SR-only utility -->
   <style>.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}</style>
 
+<!-- ════ CART · SEARCH · QUICK VIEW ══════════════════════════════ -->
+<div class="overlay-backdrop" id="backdrop" hidden></div>
+
+<aside class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cart-title" hidden>
+  <div class="cart-head">
+    <h2 id="cart-title">Your bag</h2>
+    <button class="icon-close" id="cart-close" aria-label="Close bag">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-foot">
+    <div class="cart-total"><span>Subtotal</span><span id="cart-total">$0</span></div>
+    <p class="cart-note">Shipping and tax are calculated at checkout. This is a design demo — nothing is charged and the bag empties when you close the tab.</p>
+    <button class="cart-checkout" id="cart-checkout" disabled>Checkout</button>
+  </div>
+</aside>
+
+<div class="search-panel" id="search-panel" role="dialog" aria-modal="true" aria-label="Search products" hidden>
+  <div class="search-row">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <label for="search-input" class="sr-only">Search products</label>
+    <input id="search-input" type="search" placeholder="Search products…" autocomplete="off">
+    <button class="icon-close" id="search-close" aria-label="Close search">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <p class="search-count" id="search-count" role="status"></p>
+</div>
+
+<div class="quick-view" id="quick-view" role="dialog" aria-modal="true" aria-labelledby="qv-title" hidden>
+  <div class="qv-grid">
+    <img id="qv-img" src="" alt="">
+    <div class="qv-body">
+      <button class="icon-close" id="qv-close" aria-label="Close product details">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="qv-badge" id="qv-badge"></div>
+      <h2 id="qv-title"></h2>
+      <div class="qv-price" id="qv-price"></div>
+      <div class="qv-rating" id="qv-rating"></div>
+      <p class="qv-desc" id="qv-desc"></p>
+      <ul class="qv-spec" id="qv-spec"></ul>
+      <button class="qv-add" id="qv-add">Add to Cart</button>
+    </div>
+  </div>
+</div>
+
   <script>
     (() => {
       /* ---- Scroll reveal ---- */
@@ -1628,6 +1805,193 @@
           toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
         });
       });
+
+
+      /* ════ CART · SEARCH · QUICK VIEW ═══════════════════════════
+         Item data is read off the card that was clicked rather than
+         kept in a second array, so the catalogue cannot drift out of
+         sync with the markup. The cart is in memory only — there is no
+         backend on this site and the copy in the drawer says so. */
+      const COPY = {
+        'Merino Tote Bag — Minimal Series': {
+          d: 'Woven from a single length of merino and finished by hand, so the strap and body are one piece with nothing to come apart at the join.',
+          s: ['Merino wool, unlined', 'Fits a 14" laptop', 'Carries 12kg', 'Two years of repairs included']
+        },
+        'Studio Noise-Cancelling Headphones': {
+          d: 'Tuned flat rather than loud. Built for long sessions where you need to hear what is actually in the mix, not a flattering version of it.',
+          s: ['40mm drivers, 32Ω', '34-hour battery', 'Replaceable earpads and cable', 'USB-C, wired or wireless']
+        },
+        'Essential Soy Candle Set — 3 Piece': {
+          d: 'Three scents meant to be burned in sequence across an evening rather than competing on a shelf: bergamot, then cedar, then smoke.',
+          s: ['100% soy wax, cotton wick', '40 hours each', 'Refillable glass', 'Poured in small batches']
+        },
+        'Nordic Linen Throw Blanket — Stone': {
+          d: 'Stonewashed European flax that arrives already soft, so it does not need a year of use before it feels like yours.',
+          s: ['100% European flax linen', '130 × 180 cm', 'Machine washable', 'Gets softer, not thinner']
+        }
+      };
+
+      const $ = id => document.getElementById(id);
+      const backdrop = $('backdrop');
+      const cartDrawer = $('cart-drawer'), searchPanel = $('search-panel'), quickView = $('quick-view');
+      let lastFocus = null;
+
+      function openPanel(el, focusEl) {
+        lastFocus = document.activeElement;
+        [backdrop, el].forEach(n => { n.hidden = false; });
+        /* Force a reflow, then set the class synchronously. requestAnimationFrame
+           does not fire in a background tab, and a dialog that fails to open
+           because the tab was not focused is a dialog that fails. The reflow is
+           what makes the transition still animate from the closed state. */
+        void el.offsetWidth;
+        backdrop.classList.add('open');
+        el.classList.add('open');
+        (focusEl || el.querySelector('button, input')).focus();
+      }
+      function closeAll() {
+        [cartDrawer, searchPanel, quickView].forEach(el => {
+          if (!el.classList.contains('open')) return;
+          el.classList.remove('open');
+          setTimeout(() => { if (!el.classList.contains('open')) el.hidden = true; }, 320);
+        });
+        backdrop.classList.remove('open');
+        setTimeout(() => { if (!backdrop.classList.contains('open')) backdrop.hidden = true; }, 320);
+        lastFocus?.focus();
+      }
+      backdrop.addEventListener('click', closeAll);
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); });
+      ['cart-close','search-close','qv-close'].forEach(id => $(id).addEventListener('click', closeAll));
+
+      /* ── Cart state ── */
+      const cart = [];
+      const money = n => '$' + n.toFixed(0);
+
+      function cardData(card) {
+        const price = card.querySelector('.price-current').textContent.trim();
+        return {
+          name: card.querySelector('.product-name').textContent.trim(),
+          price: Number(price.replace(/[^0-9.]/g, '')),
+          priceLabel: price,
+          was: card.querySelector('.price-original')?.textContent.trim() || '',
+          img: card.querySelector('.product-thumb img').getAttribute('src'),
+          badge: card.querySelector('.product-badge')?.textContent.trim() || '',
+          rating: card.querySelector('.stars')?.getAttribute('aria-label') || '',
+          count: card.querySelector('.rating-count')?.textContent.trim() || ''
+        };
+      }
+
+      function addToCart(item) {
+        const line = cart.find(l => l.name === item.name);
+        if (line) line.qty++; else cart.push({ ...item, qty: 1 });
+        renderCart();
+      }
+
+      function renderCart() {
+        const box = $('cart-items');
+        const total = cart.reduce((s, l) => s + l.price * l.qty, 0);
+        const units = cart.reduce((s, l) => s + l.qty, 0);
+        badge.textContent = units;
+        /* The badge is aria-hidden, so the count has to reach the
+           accessible name some other way or a screen-reader user is told
+           "Shopping cart" and never how much is in it. */
+        const cartBtnEl = document.getElementById('cart-btn');
+        /* The label must CONTAIN the visible badge text. aria-hidden on the
+           badge does not satisfy WCAG 2.5.3 — axe compares the accessible
+           name against the rendered text either way, so "empty" fails while
+           the badge shows "0". A voice-control user saying "click 0" has to
+           reach this button. */
+        if (cartBtnEl) cartBtnEl.setAttribute('aria-label',
+          `Shopping cart, ${units} item${units === 1 ? '' : 's'}`);
+        $('cart-total').textContent = money(total);
+        $('cart-checkout').disabled = units === 0;
+        if (!cart.length) { box.innerHTML = '<p class="cart-empty">Your bag is empty.</p>'; return; }
+        box.innerHTML = cart.map((l, i) => `
+          <div class="cart-line">
+            <img src="${l.img}" alt="">
+            <div>
+              <div class="cart-line-name">${l.name}</div>
+              <div class="cart-line-price">${l.priceLabel} each</div>
+              <div class="qty">
+                <button data-dec="${i}" aria-label="Decrease quantity of ${l.name}">−</button>
+                <span aria-label="Quantity">${l.qty}</span>
+                <button data-inc="${i}" aria-label="Increase quantity of ${l.name}">+</button>
+              </div>
+            </div>
+            <button class="cart-remove" data-rm="${i}">Remove</button>
+          </div>`).join('');
+      }
+
+      $('cart-items').addEventListener('click', e => {
+        const b = e.target.closest('button'); if (!b) return;
+        if (b.dataset.inc !== undefined) cart[+b.dataset.inc].qty++;
+        else if (b.dataset.dec !== undefined) { const l = cart[+b.dataset.dec]; if (--l.qty < 1) cart.splice(+b.dataset.dec, 1); }
+        else if (b.dataset.rm !== undefined) cart.splice(+b.dataset.rm, 1);
+        else return;
+        renderCart();
+      });
+
+      $('cart-checkout').addEventListener('click', () => {
+        const btn = $('cart-checkout');
+        btn.textContent = 'This is a demo — no payment is taken';
+        btn.disabled = true;
+        setTimeout(() => { btn.textContent = 'Checkout'; btn.disabled = cart.length === 0; }, 2600);
+      });
+
+      document.querySelectorAll('.product-card [data-add]').forEach(btn => {
+        btn.addEventListener('click', () => addToCart(cardData(btn.closest('.product-card'))));
+      });
+
+      document.querySelectorAll('[aria-label*="cart" i], [class*="cart-btn"], #cart-btn').forEach(el => {
+        if (el.closest('.product-card') || el.id === 'cart-checkout') return;
+        el.addEventListener('click', e => { e.preventDefault(); renderCart(); openPanel(cartDrawer, $('cart-close')); });
+      });
+
+      /* ── Search ── */
+      const cards = [...document.querySelectorAll('.product-card')];
+      const input = $('search-input'), countEl = $('search-count');
+      function runSearch() {
+        const q = input.value.trim().toLowerCase();
+        let n = 0;
+        cards.forEach(c => {
+          const hit = !q || c.querySelector('.product-name').textContent.toLowerCase().includes(q)
+                        || (c.querySelector('.product-badge')?.textContent || '').toLowerCase().includes(q);
+          c.hidden = !hit; if (hit) n++;
+        });
+        countEl.textContent = q ? `${n} of ${cards.length} products match "${input.value.trim()}"` : '';
+      }
+      input.addEventListener('input', runSearch);
+      document.querySelectorAll('[aria-label*="search" i], #search-btn').forEach(el => {
+        if (el.id === 'search-close' || el.closest('#search-panel')) return;
+        el.addEventListener('click', e => { e.preventDefault(); openPanel(searchPanel, input); });
+      });
+
+      /* ── Quick view ── */
+      function openQuick(card) {
+        const d = cardData(card), copy = COPY[d.name] || { d: '', s: [] };
+        $('qv-img').src = d.img; $('qv-img').alt = d.name;
+        $('qv-badge').textContent = d.badge;
+        $('qv-title').textContent = d.name;
+        $('qv-price').innerHTML = d.priceLabel + (d.was ? ` <s>${d.was}</s>` : '');
+        $('qv-rating').textContent = [d.rating, d.count].filter(Boolean).join(' · ');
+        $('qv-desc').textContent = copy.d;
+        $('qv-spec').innerHTML = copy.s.map(x => `<li>${x}</li>`).join('');
+        $('qv-add').onclick = () => { addToCart(d); closeAll(); renderCart(); openPanel(cartDrawer, $('cart-close')); };
+        openPanel(quickView, $('qv-close'));
+      }
+      cards.forEach(card => {
+        [card.querySelector('.product-thumb'), card.querySelector('.product-name')].forEach(el => {
+          if (!el) return;
+          el.style.cursor = 'pointer';
+          el.addEventListener('click', e => { if (e.target.closest('[data-wish]')) return; openQuick(card); });
+        });
+        const name = card.querySelector('.product-name');
+        name.setAttribute('tabindex', '0');
+        name.setAttribute('role', 'button');
+        name.setAttribute('aria-label', 'View details for ' + name.textContent.trim());
+        name.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openQuick(card); } });
+      });
+
+      renderCart();
 
       /* ---- Wishlist toggle ---- */
       document.querySelectorAll('[data-wish]').forEach(btn => {
