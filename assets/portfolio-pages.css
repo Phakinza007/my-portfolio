@@ -23,6 +23,12 @@
   --r: 14px;
   --r-sm: 8px;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Headings only. The body face stays Inter + Noto Sans Thai: swapping body
+     type across 84 pages risks line-height, Thai vowel collisions and CLS for
+     little gain, while a display face carries most of the distinctiveness.
+     Chosen against rendered Thai at 3.2rem/1.02, not from a specimen. */
+  --font-display: "Bai Jamjuree", "Noto Sans Thai", sans-serif;
 }
 
 * {
@@ -205,29 +211,26 @@ button:focus-visible {
 .crumbs li + li::before { content: "\203A"; margin-right: 8px; }
 .crumbs [aria-current="page"] { color: var(--ink); }
 
+/* Set quietly. The words mostly earn their place: `ขอบเขตงาน` above "ราคานี้ได้
+   อะไร และไม่ได้อะไร" tells a reader something the heading does not. What made
+   this read as scaffolding was the treatment — 0.8rem at weight 700,
+   uppercased, tracked 1.6px, with a rule in front. That exact combination is
+   the kicker every generated landing page shipped in 2023. Same words,
+   ordinary label. */
 .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
+  display: inline-block;
   color: var(--accent-text);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 1.6px;
-  text-transform: uppercase;
-}
-
-.eyebrow::before {
-  content: "";
-  width: 28px;
-  height: 2px;
-  border-radius: 99px;
-  background: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 h1,
 h2,
 h3 {
   margin: 0;
+  font-family: var(--font-display);
   letter-spacing: -0.02em;
   color: var(--ink);
   overflow-wrap: break-word;
@@ -237,13 +240,28 @@ h1 {
   max-width: 760px;
   margin-top: 18px;
   font-size: clamp(2.4rem, 7.5vw, 5.4rem);
-  line-height: 1.02;
-  font-weight: 800;
+  /* 1.3, not the 1.02 this carried under Noto Sans Thai. Bai Jamjuree draws
+     Thai far taller: measured per line, its ink ascent on a tone-marked
+     cluster plus the ink descent of the line above needs up to 1.271x the
+     font size of baseline-to-baseline clearance (worst case on this site:
+     case-study-pulseboard's h1 at 375px). At 1.02 that heading rendered 140
+     shared pixels — tone marks drawn *inside* the glyphs of the line above.
+     1.3 is that measured minimum plus a ~2.5px margin at the 86.4px desktop
+     size. Only headings that WRAP are affected, so a single-line render is
+     not a test of this. */
+  line-height: 1.3;
+  /* Bai Jamjuree ships no 800 cut on Google Fonts (this page loads it at
+     wght@600;700 only) — 700 is the heaviest weight that actually exists,
+     so the heading now asks for a weight the family really has. */
+  font-weight: 700;
 }
 
 h2 {
   font-size: clamp(1.8rem, 3.6vw, 2.8rem);
-  line-height: 1.1;
+  /* Same reason as h1 above: the measured worst case across all 56 pages that
+     load this sheet is 1.272x (case-study-interntrack at 1280px), against the
+     1.1 this carried. */
+  line-height: 1.3;
   font-weight: 700;
 }
 
@@ -580,10 +598,6 @@ p {
   color: var(--accent);
 }
 
-.study-block.featured .eyebrow::before {
-  background: var(--accent);
-}
-
 .decision-list,
 .practice-list {
   display: grid;
@@ -754,31 +768,6 @@ p {
 
 .story-head > div {
   min-width: 0;
-}
-
-.story-icon {
-  flex: none;
-  width: 40px;
-  height: 40px;
-  display: grid;
-  place-items: center;
-  border-radius: var(--r-sm);
-  background: var(--accent-light);
-  color: var(--accent-text);
-}
-
-.story-icon.amber { background: var(--amber); color: var(--amber-text); }
-.story-icon.mint  { background: var(--mint);  color: var(--mint-text); }
-.story-icon.rose  { background: var(--rose);  color: var(--rose-text); }
-
-.story-icon svg {
-  width: 20px;
-  height: 20px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
 }
 
 /* The card headings are labels inside a stack, not page-level
@@ -1811,4 +1800,59 @@ a[data-copied]::after{
     background-color: var(--surface-2);
     animation: none;
   }
+}
+
+/* ============================================================
+   Story stack — four shapes, not four copies. Added 2026-08-10.
+
+   The four cards held a narrative paragraph, a bullet list, a fit statement
+   and a call to action, dressed identically: same radius, border, surface and
+   padding, each opened by a 40×40 rounded tinted badge. 128 cards and 128
+   badges across 32 files, flattening every project page into one texture.
+
+   Card 1 stays a card because it anchors the page; card 4 stays because it is
+   the ask. The middle two step out of their boxes.
+   ============================================================ */
+
+/* 2 · the 30-second list reads as a list, not as a boxed list */
+.story-card--flat {
+  padding-left: 0;
+  padding-right: 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+  background: none;
+}
+
+/* 3 · who it fits is one claim, so it is set as one — larger, indented,
+   with a rule instead of a container. Left rule is 1px: a divider, not the
+   decorative side-stripe the shared bans rule out. */
+.story-card--statement {
+  padding: 4px 0 4px 22px;
+  border: 0;
+  border-left: 1px solid var(--accent);
+  border-radius: 0;
+  background: none;
+}
+
+/* `>` is load-bearing, not tidiness. Written as `.story-card--statement p`
+   this is (0,1,1) against .story-kicker's (0,1,0) and sits later in the file,
+   so it captured the kicker too — the sub-heading rendered at the claim's own
+   17.28px --ink-2 instead of 14.08px --muted and the two lines became
+   indistinguishable on all 32 story-stack pages. The kicker lives inside
+   .story-head > div, so it is not a direct child; the claim is. */
+.story-card--statement > p {
+  color: var(--ink-2);
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+
+/* The head lost its badge, so the text is now the whole row. */
+.story-card--flat .story-head,
+.story-card--statement .story-head { gap: 0; }
+
+.story-card h2 { font-family: var(--font-display); }
+
+@media (max-width: 640px) {
+  .story-card--statement { padding-left: 16px; }
 }

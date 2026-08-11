@@ -53,8 +53,8 @@ my-portfolio/
 │
 ├── case-study-*.html             # 4 case studies — THAI
 ├── case-study-*-en.html          # 4 case studies — English
-├── showcase-*.html               # 14 project showcase pages — THAI
-├── showcase-*-en.html            # 14 project showcase pages — English
+├── showcase-*.html               # 15 project showcase pages — THAI
+├── showcase-*-en.html            # 15 project showcase pages — English
 ├── landing-page.html / landing-page-en.html       # Service category page — Landing Page (฿3,900)
 ├── dashboard-ui.html / dashboard-ui-en.html        # Service category page — Dashboard UI (฿7,900)
 ├── business-website.html / business-website-en.html # Service category page — Business Website (฿9,900)
@@ -79,7 +79,7 @@ my-portfolio/
 | ไทย (default) | `/` · `/{slug}.html` | `th` |
 | English | `/index-en.html` · `/{slug}-en.html` | `en` |
 
-20 pairs (40 files): `index`, `resume`, 4 × `case-study-*`, 14 × `showcase-*`.
+21 pairs (42 files): `index`, `resume`, 4 × `case-study-*`, 15 × `showcase-*`.
 
 **Rules any change must preserve:**
 
@@ -110,7 +110,7 @@ See `docs/superpowers/specs/2026-08-06-th-en-language-toggle-design.md`.
 
 ---
 
-## Current Cards in Selected Work (15 cards — 14 projects + the RAAT case study)
+## Current Cards in Selected Work (16 cards — 15 projects + the RAAT case study)
 
 The card links to its **showcase page**; the showcase page's "ดูเว็บจริง" link goes to the
 **demo file**. The old version of this table conflated the two.
@@ -122,23 +122,24 @@ The card links to its **showcase page**; the showcase page's "ดูเว็บ
 | 3 | NOIR Coffee | `showcase-noir-coffee.html` | `coffee-landing.html` | `restaurant` |
 | 4 | Elevate Commerce | `showcase-elevate-commerce.html` | `ElevateCommerce.html` | `shop` |
 | 5 | Elasticshop Gaming Top-Up | `showcase-elasticshop-gaming.html` | `elasticshop-gaming.html` | `shop` |
-| 6 | SupplyMate Wholesale | `showcase-supplymate.html` | external: `https://phakinza007.github.io/supplymate-wholesale/` | `shop` |
-| 7 | RATRI Restaurant | `showcase-ratri-restaurant.html` | `sorn-restaurant.html` | `restaurant` |
-| 8 | SolarPeak | `showcase-solarpeak.html` | `solar-landing.html` | `solar` |
-| 9 | BookEase Dashboard | `showcase-bookease.html` | `BookEase.html` | `booking` |
-| 10 | MuseRoom | `showcase-museroom.html` | `MuseRoom.html` | `other` |
-| 11 | LUMI Clinic | `showcase-lumi-clinic.html` | `lumi-clinic.html` | `clinic` |
-| 12 | BRIGHT Dental Clinic | `showcase-dental-clinic.html` | `dental-clinic.html` | `clinic` |
-| 13 | VELVÉ Aesthetics | `showcase-velve-aesthetics.html` | `aesthetic-booking.html` | `clinic booking` |
-| 14 | HabitQuest | `showcase-habitquest.html` | external: `https://habitquest-pi.vercel.app/` | `other` |
-| 15 | **RAAT Competition Calendar** | `case-study-raat.html` | external: `https://www.raat.or.th/competition-calendar/1442/` | `other` |
+| 6 | Signalform Studio | `showcase-signalform.html` | source: `_studio-src/signalform` (React 19 + Vite) | `other` |
+| 7 | SupplyMate Wholesale | `showcase-supplymate.html` | external: `https://phakinza007.github.io/supplymate-wholesale/` | `shop` |
+| 8 | RATRI Restaurant | `showcase-ratri-restaurant.html` | `sorn-restaurant.html` | `restaurant` |
+| 9 | SolarPeak | `showcase-solarpeak.html` | `solar-landing.html` | `solar` |
+| 10 | BookEase Dashboard | `showcase-bookease.html` | `BookEase.html` | `booking` |
+| 11 | MuseRoom | `showcase-museroom.html` | `MuseRoom.html` | `other` |
+| 12 | LUMI Clinic | `showcase-lumi-clinic.html` | `lumi-clinic.html` | `clinic` |
+| 13 | BRIGHT Dental Clinic | `showcase-dental-clinic.html` | `dental-clinic.html` | `clinic` |
+| 14 | VELVÉ Aesthetics | `showcase-velve-aesthetics.html` | `aesthetic-booking.html` | `clinic booking` |
+| 15 | HabitQuest | `showcase-habitquest.html` | external: `https://habitquest-pi.vercel.app/` | `other` |
+| 16 | **RAAT Competition Calendar** | `case-study-raat.html` | external: `https://www.raat.or.th/competition-calendar/1442/` | `other` |
 
-**Card 15 is the only real client work on the site.** The other fourteen are self-directed
+**Card 16 is the only real client work on the site.** The other fifteen are self-directed
 design pieces. It is the one card that may carry the `ลูกค้าจริง` tag, and that tag must never
-appear on the other fourteen — it was stripped from twelve files on 2026-08-07 for exactly
+appear on the other fifteen — it was stripped from twelve files on 2026-08-07 for exactly
 that reason. RAAT also appears as the fifth `#case-studies` card, deliberately in both places.
 
-**SupplyMate (card 6) is the second project that lives in its own repository**, alongside
+**SupplyMate (card 7) is the second project that lives in its own repository**, alongside
 HabitQuest. It is a React + Vite + TypeScript app deployed to GitHub Pages at
 `phakinza007.github.io/supplymate-wholesale`, source at
 `github.com/Phakinza007/supplymate-wholesale`. What is deployed is the **static showcase
@@ -160,7 +161,7 @@ values are only a no-JS fallback.
 ⚠️ **Because they are a fallback, nothing tells you when they go stale.** They sat at
 `all 13 / other 2` from the day the RAAT card was added until 2026-08-08 while the DOM had
 already been at `14 / 3` — `site-ui.js` overwrites them on load, so the wrong numbers were
-invisible in every browser and only showed with JS off. They are now `all 15 / other 3`.
+invisible in every browser and only showed with JS off. They are now `all 16 / other 4`.
 **Adding or removing a card means editing these by hand in all four grid files** (`index`,
 `index-en`, `work`, `work-en`); read the truth off the DOM rather than counting the table
 above. `work.html` / `work-en.html` also state the project count in prose — the
@@ -289,6 +290,45 @@ which is why the defaults are restated in the file.
 
 ---
 
+## Typography
+
+**Body:** Inter + Noto Sans Thai on the 56 `portfolio-pages.css` pages, Outfit on the 12
+`home-shell.css` pages. **Display** (`h1`/`h2`/`h3`, plus `.section-title` on home-shell and
+`.hero-role` / `.hero-role-alt`): Bai Jamjuree, via the `--font-display` token — see "Two
+stylesheet families" below for the per-family fallback stack and how the face was chosen.
+
+⚠️ **Both stylesheets once named a body font that most of their own pages never requested**,
+and a system fallback covered for it with nothing in the CSS to reveal the gap. `home-shell.css`
+named Outfit while only `index` / `index-en` asked for it, so the other ten shell pages —
+`about`, `faq`, `process`, `services`, `work`, each ± `-en` — rendered in `-apple-system`.
+`portfolio-pages.css` named Noto Sans Thai while **none** of its 56 pages requested it, so
+every Thai character on the resume, the showcases, the case studies, the category pages and
+the `web-*` pages was drawn by whatever the OS happened to ship — different on macOS, Windows,
+Android and iOS. Found 2026-08-10, fixed by appending the missing family to each page's
+existing Google Fonts request rather than adding a second `<link>`. **After changing a font
+declaration, check that every page loads every family its stylesheet names** — a font a
+stylesheet names but no page requests fails with no console warning and no Lighthouse penalty.
+
+**A kicker (`.eyebrow`, `.section-label`) is restyled, not counted.** They lost
+`text-transform: uppercase`, `letter-spacing`, weight 700 → 600, and `.eyebrow::before` (a
+28px rule drawn in front of the label) — 0.8rem uppercase, tracked, weight 700, with a rule in
+front is the kicker every generated landing page shipped in 2023, and that treatment, not the
+fact of a label above a heading, was the actual tell. The rule this replaced — keep one kicker
+per page, delete the rest — was tested against the copy first and found false: of 25
+`.section-label`s on the shell pages only 3 repeat their own heading, and of roughly 244
+`.eyebrow`-to-heading pairs on the portfolio pages most complement rather than repeat it
+(`เริ่มตรงนี้` above `คุณต้องการเว็บแบบไหน?`, `ขอบเขตงาน` above `ราคานี้ได้อะไร และไม่ได้อะไร`)
+— `about` and `process` above already kept theirs for exactly that reason. Only kickers that
+measurably repeat their own heading were deleted: 44 instances across 43 files, out of
+hundreds that were restyled and kept. **Reading only the delete count invites the wrong
+generalisation** — the decision was never "fewer kickers," it was "no scaffolding."
+
+**The four `.story-card`s on the showcase / case-study story stack are four shapes now, not
+four copies of one box, and none of the 128 carries a `.story-icon` badge any more** — see
+"Edit a showcase page" for which class does what.
+
+---
+
 ## Two stylesheet families — never mix them
 
 | Family | Stylesheet | Pages | Section wrapper | Headings |
@@ -315,6 +355,19 @@ browser Back button is the only way out. If that becomes a problem the fix is
 `home-shell.css` was extracted from `index.html`'s inline `<style>` on 2026-08-06. The two
 homepages' stylesheets were byte-identical apart from one `content:` string, now the
 `--preview-label` custom property; `index-en.html` keeps a 3-line `<style>` overriding it.
+
+**Headings carry a display token, body type does not.** Both stylesheets define
+`--font-display`, set to `"Bai Jamjuree", "Noto Sans Thai", sans-serif` in `portfolio-pages.css`
+and `'Bai Jamjuree', 'Outfit', sans-serif` in `home-shell.css`, and `h1`/`h2`/`h3` (plus
+`.section-title`, `.hero-role`, `.hero-role-alt` in home-shell) read from it. The body face is
+unchanged — `'Outfit'` in home-shell, `"Inter", "Noto Sans Thai", Arial` in portfolio-pages —
+because swapping body type across 84 pages risks line-height, Thai vowel collisions and CLS
+for little gain, while a display face on headings alone carries most of the distinctiveness.
+Bai Jamjuree was chosen 2026-08-10 by rendering Thai and Latin headings at 3.2rem/1.02 against
+Anuphan, Chakra Petch, Trirong and Inter and checking that tone marks in `เว็บไซต์` clear the
+line above and `ญ` descenders clear the line below — not from a specimen page. All 68 pages
+that load either stylesheet append `family=Bai+Jamjuree:wght@600;700` to their existing Google
+Fonts request (never a second `<link>`), keeping `display=optional` so CLS stays 0.
 
 ### Vertical rhythm
 
@@ -376,7 +429,7 @@ which is not animatable — so the filter snapped from the day it was written. I
 two attributes: `data-leaving` fades the card, and `data-hidden` removes it from layout
 260ms later. **Do not collapse them back into one.**
 
-**The hero screenshot shows a skeleton while it loads.** The 28 showcase / case-study
+**The hero screenshot shows a skeleton while it loads.** The 30 `showcase-*.html`
 pages open on a ~115 KB JPEG inside `.browser-frame`; its box was already reserved by the
 img's `width`/`height` attributes so CLS was 0, but the reserved box sat empty and flat,
 which reads as a stalled page rather than a loading one.
@@ -411,7 +464,7 @@ screenshot's wipe shipped as `clip-path: inset(0 100% 0 0)` on `.browser-frame.r
 very element the reveal IntersectionObserver watches. Chrome subtracts a target's own
 `clip-path` from its intersection rect, so the element had `intersectionRatio: 0`, never
 reached the `0.08` threshold, never got `.visible`, and so the clip never opened. **A loop
-that locks itself**: the hero image stayed invisible on all 28 showcase / case-study pages,
+that locks itself**: the hero image stayed invisible on all 30 showcase pages,
 with no console error, no failed request and no Lighthouse penalty. Reported 2026-08-10 as
 "preview หาย" on `showcase-elevate-commerce`; the file was there and returned HTTP 200 the
 whole time.
@@ -719,7 +772,9 @@ copy.
 - **Mobile overflow:** `canScrollX: false` at 375 × 812 px on every page
 - **Accent colour:** `--accent: #5274f8` (slightly lighter than #4f6ef7 for WCAG AA contrast)
 - **Button bg:** `--accent-dark: #3651d4` (white text: 6.4:1 contrast ✅)
-- **Fonts:** Inter via Google Fonts with `display=optional` (prevents CLS)
+- **Fonts:** body text via Google Fonts with `display=optional` (prevents CLS) — `Outfit` on
+  home-shell pages, `Inter` + `Noto Sans Thai` on portfolio-pages ones; headings on both
+  families use the `--font-display` token (`Bai Jamjuree`) — see "Two stylesheet families"
 - **Overflow guard:** `html, body { overflow-x: hidden; }`
 
 ---
@@ -913,20 +968,30 @@ iframe's viewport, giving the same real breakpoint behavior — then run the sam
 snippet against `iframe.contentDocument`/`contentWindow`.
 
 ### Edit a showcase page
-All 26 showcase files share one body layout, added 2026-08-07: a single-column **story
+All 30 showcase files share one body layout, added 2026-08-07: a single-column **story
 stack** read top to bottom, replacing the old two-column `.study-grid` + separate `#fit`
 section + `.result-band`. One `<section class="section" id="overview">` holds:
 
 1. `.story-intro` — one muted line telling the reader how to read the page
-2. `.story-stack` with exactly **four** `.story-card`s, each opening with a `.story-head`:
-   a `.story-icon` badge (inline SVG, `stroke="currentColor"`) beside an `<h2>` and a
-   `.story-kicker` one-liner. The four are, in order: project overview (+ `.tag-list`),
-   the 30-second version (`.highlight-list`), who it fits, and the ask — the last is
-   `.story-card.accent` and carries a `.story-price` line plus `.story-actions` with the
-   Fastwork + email buttons
+2. `.story-stack` with exactly **four** `.story-card`s, each opening with a `.story-head`
+   holding an `<h2>` and a `.story-kicker` one-liner — **no `.story-icon` badge**; the badge
+   was removed from all four cards 2026-08-10 (see below). The four are, in order: project
+   overview (+ `.tag-list`), the 30-second version (`.highlight-list`), who it fits, and the
+   ask — the last is `.story-card.accent` and carries a `.story-price` line plus
+   `.story-actions` with the Fastwork + email buttons
 3. `.story-links` — "live site · all projects →"
 
-**`.story-price` is required on all 28 pages and states the *site's* entry price, not the
+**The four cards are four shapes, not four copies.** They shipped identical — same radius,
+border, surface and padding, each opened by a 40×40 rounded tinted badge — 128 cards and 128
+badges across 32 files reading as one texture, and an icon above every heading was a second
+template tell on top of the first. Card 1 (overview) stays a bordered card: it anchors the
+page and holds the tag list. Card 2 (`.story-card--flat`, the 30-second version) drops border,
+radius and background and reads as a plain ruled list. Card 3 (`.story-card--statement`, who
+it fits) is one claim set as one — larger type, indented, a 1px `--accent` rule in place of a
+container, not a decorative side-stripe. Card 4 (`.story-card.accent`) is unchanged and stays
+the most prominent, because it is the ask.
+
+**`.story-price` is required on all 30 showcase pages and states the *site's* entry price, not the
 project's.** Added 2026-08-09 off the first full week of Clarity: `showcase_open` fired in
 19 sessions and `cta_fastwork` in 1, and no showcase page named a price anywhere while
 `#related` sent the reader to three more demos. The copy is

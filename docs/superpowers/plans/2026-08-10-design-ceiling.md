@@ -825,10 +825,18 @@ Display faces are chosen by rendering Thai and Latin headings at the real size a
 line-height, not from a specimen. The test that matters is whether the tone mark in
 `เว็บไซต์` clears the line above and `ญ` clears the line below at `line-height: 1.02`.
 
-**One kicker per page.** `.eyebrow` and `.section-label` belong in the hero, where they orient
-someone arriving from search. They ran 246 and 61 times respectively before 2026-08-10 — a
-kicker above every section is scaffolding, not voice, and it is the first thing a reader
-recognises as generated.
+**The kicker was restyled, not counted out.** `.eyebrow` and `.section-label` ran 246 and 61
+times before 2026-08-10, and the drafted rule here was "one per page". Measuring the copy
+disproved it: only 3 of 25 `.section-label`s repeat their heading, and most `.eyebrow`s
+complement it — `เริ่มตรงนี้` above `คุณต้องการเว็บแบบไหน?` tells a reader something the
+heading does not, and CLAUDE.md already recorded that `about` and `process` keep theirs on
+purpose. What read as generated was the *treatment*: 0.8rem at weight 700, uppercased,
+tracked 1.6px, with a 28px rule in front. Those four properties are gone and the words
+stayed; only the 44 instances that measurably repeated their own heading were deleted.
+⚠️ Do not re-derive "delete kickers" from that commit's 44 deletions — it is the opposite of
+what was decided. `.section-heading .eyebrow { margin-bottom: 12px }` stays regardless: Thai
+upper vowels and tone marks are drawn above the line box and collide with the heading at
+`line-height: 1.1`.
 
 **The story stack is four shapes, not four copies.** Card 1 is a card (it anchors the page and
 holds the tags), card 2 is a bare ruled list, card 3 is an indented statement, card 4 is the

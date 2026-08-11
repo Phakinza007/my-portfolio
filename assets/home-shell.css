@@ -40,6 +40,7 @@
       --dark-2:       #0d1117;
       --max:          1100px;
       --ease:         cubic-bezier(0.16, 1, 0.3, 1);
+      --font-display: 'Bai Jamjuree', 'Outfit', sans-serif;
       --r-sm:         8px;
       --r:            14px;
       --r-lg:         20px;
@@ -320,11 +321,20 @@
        the English line fills it at 2.9rem, tipping to three lines at 3.1rem.
        No max-width — the track already bounds it, and a ch limit cut the Thai
        mid-word. */
+    /* Bai Jamjuree ships no 800 cut on Google Fonts (loaded here at
+       wght@600;700 only) — 700 is the heaviest weight that actually exists,
+       so .hero-role (and .hero-role-alt, which inherits it) now asks for a
+       weight the family really has. */
+    /* 1.21, not 1.08: .hero-role-alt is a second block inside the same h1 and
+       inherits this line-height, so the gap between the Thai role line and the
+       English one under it is set here. At 1.08 the F/l/D ascenders of
+       "Freelance Web Developer" shared 9 pixels with the below-vowels of
+       "นักพัฒนาเว็บฟรีแลนซ์" on /index-en at 375px. Measured minimum 1.182. */
     .hero-role {
       display: block;
       font-size: clamp(1.85rem, 4vw, 2.8rem);
-      font-weight: 800;
-      line-height: 1.08;
+      font-weight: 700;
+      line-height: 1.21;
       letter-spacing: -0.03em;
       color: var(--ink);
     }
@@ -534,22 +544,34 @@
     .section-label {
       display: inline-block;
       font-size: 0.73rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0;
+      text-transform: none;
       color: var(--accent);
       background-color: var(--bg);
       margin-bottom: 10px;
     }
 
+    /* line-height 1.35, not the 1.12 this carried under Outfit + Noto Sans
+       Thai. Bai Jamjuree's Thai ink runs far higher above and lower below the
+       baseline; measured per line and per column, the worst wrapped
+       .section-title on this sheet ("...ธุรกิจคุณอยากได้เว็บแบบ" / "ไหน?" on
+       /services at 375px) needs 1.321x the font size of baseline-to-baseline
+       clearance before the ไ of the lower line stops sharing pixels with the
+       line above it. It was rendering 35 shared pixels at 1.12. 1.35 is that
+       minimum plus margin. This only shows on headings that WRAP. */
     .section-title {
       font-size: clamp(1.75rem, 3.6vw, 2.5rem);
       font-weight: 700;
       letter-spacing: -0.022em;
       color: var(--ink);
-      line-height: 1.12;
+      line-height: 1.35;
       margin-bottom: 36px;
     }
+
+    h1, h2, h3,
+    .section-title,
+    .hero-role, .hero-role-alt { font-family: var(--font-display); }
 
     /* ============================================================
        WORK CARDS
