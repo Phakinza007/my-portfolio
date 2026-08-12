@@ -1,0 +1,183 @@
+{
+  "_note": "Canonical one-line blurb per project. Long = .work-problem cards and #related strips on category/industry pages. Short = #related strips on showcase pages. Verify with python3 _tools/check-copy.py. Underscore-prefixed so Jekyll never serves it.",
+  "projects": {
+    "case-study-interntrack": {
+      "th": {
+        "long": "ระบบติดตามการฝึกงาน มองเห็นภาพรวมชัดเจน เตรียมสัมภาษณ์ ติดตามผลตามจังหวะ"
+      },
+      "en": {
+        "long": "Internship tracker, pipeline clarity, interview prep, follow-up rhythm."
+      }
+    },
+    "case-study-launchledger": {
+      "th": {
+        "long": "แดชบอร์ดงบประมาณสตาร์ทอัพ มองเห็น runway ชัดเจน มีคิวการตัดสินใจ"
+      },
+      "en": {
+        "long": "Startup budget dashboard, runway visibility, decision queue."
+      }
+    },
+    "case-study-pulseboard": {
+      "th": {
+        "long": "แดชบอร์ดปฏิบัติการอีเวนต์ จัดลำดับความสำคัญด้วยการสแกน แบ่งความรับผิดชอบตามบทบาท กดดันเรื่องเวลา"
+      },
+      "en": {
+        "long": "Event operations dashboard, scan-first hierarchy, role ownership, timeline pressure."
+      }
+    },
+    "case-study-raat": {
+      "th": {
+        "long": "ปฏิทินการแข่งขันของราชยานยนต์สมาคมแห่งประเทศไทย ผู้แทน FIA ประจำไทย — 5 ประเภทแยกสี ส่งมอบ ก.ค. 2026 และยังใช้งานอยู่"
+      },
+      "en": {
+        "long": "The competition calendar for the Royal Automobile Association of Thailand, the FIA member federation &mdash; five colour-coded disciplines, live through the 2026 season."
+      }
+    },
+    "showcase-bookease": {
+      "th": {
+        "long": "แดชบอร์ดจองคิวนัดหมาย พร้อมตรวจสอบฟอร์ม เลือกช่วงเวลา และขั้นตอนยืนยันการจอง",
+        "short": "แดชบอร์ดจองคิวนัดหมาย ครบทุกขั้นตอนในเบราว์เซอร์"
+      },
+      "en": {
+        "long": "Appointment booking dashboard with form validation, time-slot picker, and confirmation flow.",
+        "short": "Appointment booking dashboard, complete in the browser."
+      }
+    },
+    "showcase-buildnest": {
+      "th": {
+        "long": "แลนดิ้งเพจบริษัทก่อสร้าง ออกแบบเป็นภาษาไทยตั้งแต่ต้น โครงสร้างบริการครบวงจร พร้อมขั้นตอนทำงานและแกลเลอรีโครงการที่ผ่านมา",
+        "short": "แลนดิ้งเพจบริษัทก่อสร้างไทย มีขั้นตอนทำงานและแกลเลอรีผลงาน"
+      },
+      "en": {
+        "long": "Thai-first construction landing page inspired by one-stop service structure, with a three-step process and project proof sections.",
+        "short": "Thai-first construction landing page with a three-step process."
+      }
+    },
+    "showcase-dental-clinic": {
+      "th": {
+        "long": "แลนดิ้งเพจคลินิกทันตกรรม โทนดำ-ครีม ตัดด้วยสีส้ม พร้อมตารางราคาโปร่งใส โปรไฟล์ทันตแพทย์ และฟอร์มจองคิวออนไลน์",
+        "short": "แลนดิ้งเพจคลินิกทันตกรรมโทนดำ-ครีม ตัดด้วยสีส้ม ราคาโปร่งใส พร้อมจองคิว"
+      },
+      "en": {
+        "long": "Dental clinic landing page with transparent price table, dentist profiles, and an online booking form in a dark ink-and-cream palette with coral accents.",
+        "short": "Teal medical landing page with transparent pricing and booking."
+      }
+    },
+    "showcase-elasticshop-gaming": {
+      "th": {
+        "long": "ดีไซน์ระบบโทนดำ-เหลืองสำหรับแพลตฟอร์มเติมเงินเกมอัตโนมัติ — ครบ 4 หน้าจอ ดีไซน์แบบเกมเมอร์",
+        "short": "ระบบดีไซน์โทนดำ-เหลือง ครบ 4 หน้าจอ"
+      },
+      "en": {
+        "long": "Dark yellow design system for an automated game top-up platform — 4 screen flows with gaming-focused UI patterns.",
+        "short": "Dark, yellow-accented design system across four full screen flows."
+      }
+    },
+    "showcase-elevate-commerce": {
+      "th": {
+        "long": "สตาร์ทอัพอีคอมเมิร์ซที่ต้องการหน้าสินค้าพาผู้เข้าชมตั้งแต่เลือกดูจนถึงชำระเงิน",
+        "short": "คอนเซปต์หน้าร้านอีคอมเมิร์ซ ออกแบบรอบเส้นทางไปสู่การชำระเงิน"
+      },
+      "en": {
+        "long": "E-commerce startup needed product pages that guide visitors from browsing to checkout.",
+        "short": "An e-commerce storefront concept designed around the path to checkout."
+      }
+    },
+    "showcase-habitquest": {
+      "th": {
+        "long": "เปลี่ยนนิสัยประจำวันให้กลายเป็นการผจญภัยแบบ RPG — ทำเควส ปราบมอนสเตอร์ และเลเวลอัพฮีโร่ ทีละนิสัยจากชีวิตจริง",
+        "short": "แอปสร้างนิสัย full-stack เปลี่ยนนิสัยให้เป็นการผจญภัยแบบ RPG"
+      },
+      "en": {
+        "long": "Turn daily habits into an RPG adventure — complete quests, defeat monsters, and level up your hero, one real-life habit at a time.",
+        "short": "Full-stack habit tracker that turns habits into an RPG adventure."
+      }
+    },
+    "showcase-iron-republic": {
+      "th": {
+        "long": "แบรนด์ยิมที่ต้องการหน้าเว็บกระตุ้นให้คนสมัครสมาชิก พร้อมสื่อถึงพลังและความเข้มข้น",
+        "short": "หน้าแรกแบรนด์ยิมโทนตัดกันสูง ออกแบบรอบปุ่มสมัครสมาชิกเดียว"
+      },
+      "en": {
+        "long": "Gym brand needed a homepage that drives sign-ups and communicates energy.",
+        "short": "High-contrast gym brand homepage built around one sign-up CTA."
+      }
+    },
+    "showcase-lumi-clinic": {
+      "th": {
+        "long": "หน้าเว็บคลินิกความงามสไตล์เอดิทอเรียล โทนสีขาวหมึกดำ ภาพถ่ายจริง ตารางราคาชัดเจน และไทม์ไลน์คอร์สที่จริงใจ แทนภาพก่อน-หลังปลอมๆ",
+        "short": "หน้าเว็บคลินิกความงามสไตล์เอดิทอเรียล ราคาโปร่งใส"
+      },
+      "en": {
+        "long": "Editorial beauty clinic page — porcelain-and-ink palette, real photography, price-list layout, and an honest course-timeline instead of faked before/after photos.",
+        "short": "Editorial beauty clinic page with transparent pricing."
+      }
+    },
+    "showcase-museroom": {
+      "th": {
+        "long": "แลนดิ้งเพจแกลเลอรีโทนมืด เน้นบรรยากาศดื่มด่ำ การ์ดจัดแสดงผลงาน และประสบการณ์เยี่ยมชมที่ผ่อนคลาย",
+        "short": "แลนดิ้งเพจแกลเลอรีโทนมืด บรรยากาศดื่มด่ำ เยี่ยมชมแบบผ่อนคลาย"
+      },
+      "en": {
+        "long": "Dark gallery landing page exploring immersive art direction, exhibit cards, and a calm visit flow.",
+        "short": "Dark, immersive gallery landing page with a calm visit flow."
+      }
+    },
+    "showcase-noir-coffee": {
+      "th": {
+        "long": "ร้านกาแฟพิเศษที่ต้องการแลนดิ้งเพจหรูหรา ดึงดูดลูกค้าเดินเข้าร้านและสร้างความผูกพันกับแบรนด์",
+        "short": "แลนดิ้งเพจคาเฟ่โทนมืดหรูหรา ดึงดูดลูกค้าเดินเข้าร้าน"
+      },
+      "en": {
+        "long": "Specialty café wanted a premium landing page to attract walk-ins and build brand loyalty.",
+        "short": "Premium dark-mode café landing page built to earn walk-ins."
+      }
+    },
+    "showcase-ratri-restaurant": {
+      "th": {
+        "long": "แลนดิ้งเพจโทนมืดสไตล์หรู สำหรับร้านอาหารไทยไฟน์ไดนิ่งสมัยใหม่ พร้อมระบบจองโต๊ะที่ใช้งานได้จริง",
+        "short": "แลนดิ้งเพจร้านอาหารไฟน์ไดนิ่งโทนมืดหรูหรา พร้อมระบบจองโต๊ะจริง"
+      },
+      "en": {
+        "long": "Elegant dark landing page for a modern Thai fine-dining concept, built around a validated reservation flow.",
+        "short": "Elegant dark fine-dining landing page with a real reservation flow."
+      }
+    },
+    "showcase-signalform": {
+      "th": {
+        "long": "คอนเซปต์ creative web studio ที่ใช้ React 19, Vite และ SpotlightCard เพื่อให้ interaction มีหน้าที่ชัดเจน"
+      },
+      "en": {
+        "long": "A creative web studio concept using React 19, Vite, and SpotlightCard so each interaction has a clear purpose."
+      }
+    },
+    "showcase-solarpeak": {
+      "th": {
+        "long": "แลนดิ้งเพจบริษัทโซลาร์เซลล์ ดีไซน์แบบเอกสารสเปกวิศวกรรม พร้อมภาพถ่ายหน้างานจริง ตารางเปรียบเทียบ และภาพประกอบสไตล์พิมพ์เขียว",
+        "short": "แลนดิ้งเพจโซลาร์เซลล์ ดีไซน์แบบเอกสารสเปกวิศวกรรม"
+      },
+      "en": {
+        "long": "Solar company landing page styled as an engineering spec sheet — real field photography, comparison datasheet, and blueprint-style figures.",
+        "short": "Solar landing page styled as an engineering spec sheet."
+      }
+    },
+    "showcase-supplymate": {
+      "th": {
+        "long": "ร้านค้าส่งบรรจุภัณฑ์สำหรับคาเฟ่และร้านอาหาร — ขายเป็นลัง บอกชิ้นต่อลังและขั้นต่ำก่อนกดสั่ง"
+      },
+      "en": {
+        "long": "A wholesale packaging store for cafés and restaurants — sold by the carton, with pieces per carton and minimum order stated up front."
+      }
+    },
+    "showcase-velve-aesthetics": {
+      "th": {
+        "long": "คลินิกเสริมความงามพร้อมระบบจองคิว 4 ขั้นตอนที่ใช้งานได้จริง — เลือกบริการ แพทย์ ช่วงเวลา แล้วยืนยัน — เขียนด้วย vanilla JS ล้วน",
+        "short": "ระบบจองคิว 4 ขั้นตอนที่ใช้งานได้จริง เขียนด้วย vanilla JavaScript"
+      },
+      "en": {
+        "long": "Aesthetic clinic with a working 4-step booking wizard — pick a service, doctor, and time slot, then confirm — built in vanilla JS.",
+        "short": "Working 4-step booking wizard built in vanilla JavaScript."
+      }
+    }
+  }
+}

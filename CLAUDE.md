@@ -902,6 +902,29 @@ subject, and run a positive control so a clean result is not just a broken patte
 Rewriting a demo means re-reading every page that describes it: both showcases, the four
 `.work-problem` copies per language, and any `#related` strip that names it.
 
+**Run `python3 _tools/check-copy.py` after touching any project blurb.** Measured 2026-08-12:
+63 distinct strings repeated across **203 locations in 84 files**, one of them in seven files
+at once. `_content/project-copy.json` is now the canonical text per project, per language, per
+role — `long` for `.work-problem` cards and for `#related` strips on category and industry
+pages, `short` for the deliberately tighter `#related` strips on showcase pages. Both paths are
+underscore-prefixed so Jekyll never serves them.
+
+It found eight drifts the moment it existed, and a ninth thing worth knowing: **the third
+wording of the ElevateCommerce backend claim was still live** — `Full-stack e-commerce concept
+built around the path to checkout.` on three `-en` showcase strips — after two grep sweeps had
+each declared that claim gone. Drift concentrates in the newest pages (`case-study-raat-en`,
+`showcase-supplymate`), which were written with fresh copy instead of the existing blurb.
+
+⚠️ **The canonical is seeded from the majority variant, and majority is not truth.** RAAT's
+was the counter-example: five files said `ใช้งานจริงตลอดฤดูกาล 2026` while `web-organization`
+alone said `ส่งมอบ ก.ค. 2026 และยังใช้งานอยู่` — and the minority is the one that matches what
+the owner actually confirmed (see "Client work"). The canonical was set to the minority and the
+other five normalised to it. **When this script reports drift, decide which side is true before
+picking a winner.**
+
+The script checks that repeated copy agrees *with itself*. It cannot tell you the copy is
+true — that still needs reading the page it describes.
+
 **An `-en` page carrying Thai copy must mark it.** Package features stay Thai deliberately
 (see the bilingual rules), so `lang="th"` on that block is what stops a screen reader reading
 Thai in an English voice. `index-en.html` and `services-en.html` already did this; the three
