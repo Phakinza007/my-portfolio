@@ -827,6 +827,30 @@ panel, putting cream 0.68 links on cream 0.92: **1.11:1, effectively invisible**
 been shipping that way. Now `.site-nav`. The 13 demo pages each carry their own inline CSS
 with no shared reset — assume every bare tag selector in them is a latent collision.
 
+**A showcase page describes a demo page, and nothing re-reads it when that demo is
+redesigned.** Until 2026-08-12 twenty-three strings across thirteen files said BuildNest used
+"hand-drawn SVG architecture graphics **instead of stock photography**" — in both showcases'
+hero copy, body paragraph, bullet list and all six meta descriptions, in the `.work-problem`
+blurb repeated across `index` / `work` / `landing-page` / `web-construction` (± `-en`), and in
+the `#related` strips on `showcase-iron-republic` and `showcase-solarpeak`.
+`construction-landing.html` has **zero `<svg>` elements and eight references to
+`assets/construction/*.jpg|webp`**. It is a photographic page claiming to avoid photography.
+
+The copy was **true when written** — `git grep -c '<svg' 2062285 -- construction-landing.html`
+returns 7 with no photo references at all — and the page was rebuilt around photography on
+2026-08-06 (`3bfe282`) without the copy following. That is the failure mode to watch: not a
+false claim someone invented, but a true one nobody retired.
+
+⚠️ **The strings do not share a wording, so one grep will not find them all.** Four variants
+were in play (`ภาพประกอบ SVG งานสถาปัตย์`, `ภาพประกอบสถาปัตย์แบบ SVG วาดมือ`,
+`custom SVG architecture graphics`, `custom SVG graphics`); a sweep for the first three
+reported "done" while two `#related` strips still carried the fourth. After editing copy that
+repeats across files, **re-grep for the bare distinguishing token** (`SVG`) narrowed by
+subject, and run a positive control so a clean result is not just a broken pattern.
+
+Rewriting a demo means re-reading every page that describes it: both showcases, the four
+`.work-problem` copies per language, and any `#related` strip that names it.
+
 **An `-en` page carrying Thai copy must mark it.** Package features stay Thai deliberately
 (see the bilingual rules), so `lang="th"` on that block is what stops a screen reader reading
 Thai in an English voice. `index-en.html` and `services-en.html` already did this; the three
