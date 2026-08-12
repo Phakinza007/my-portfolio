@@ -76,7 +76,7 @@
       font-family: var(--sans);
       background: var(--surface);
       color: var(--soft);
-      font-size: 15.5px;
+      font-size: 16px;
       line-height: 1.75;
       overflow-wrap: break-word;
       overflow-x: hidden;
@@ -253,8 +253,12 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px 0;
-      font-size: 13px;
-      color: var(--faint);
+      /* 13px on --faint was the smallest, dimmest type on the page and it
+         carries the three credibility claims — the one line a clinic buyer
+         is actually checking. Contrast was never the problem (6.01:1); size
+         was. */
+      font-size: 15px;
+      color: var(--mist);
       border-top: 1px solid var(--line);
       padding-top: 18px;
       max-width: 470px;
@@ -271,8 +275,8 @@
       object-fit: cover;
     }
     .img-caption {
-      font-size: 12px;
-      color: var(--faint);
+      font-size: 13.5px;
+      color: var(--mist);
       padding-top: 10px;
     }
 
@@ -280,16 +284,13 @@
     .treatments {
         background: var(--surface-2); padding: var(--gap-section) 0; }
 
-    .treat-head {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-      margin-bottom: 44px;
-    }
+    /* The intro used to sit far right, small, opposite the h2 — a caption
+       floating away from the thing it introduces. It also said "per session"
+       while two of the four rows are priced per area and per cc. It now sits
+       under the heading, on the left, where it is read. */
+    .treat-head { margin-bottom: 44px; }
     .treat-head h2 { font-size: clamp(30px, 3.6vw, 44px); }
-    .treat-note { font-size: 13px; color: var(--faint); max-width: 300px; text-align: right; line-height: 1.7; }
+    .treat-note { font-size: 15px; color: var(--mist); max-width: 520px; line-height: 1.7; margin-top: 14px; }
 
     .treat-row {
       display: grid;
@@ -314,7 +315,7 @@
       font-weight: 500;
       margin-bottom: 6px;
     }
-    .treat-desc { font-size: 14.5px; max-width: 560px; }
+    .treat-desc { font-size: 15.5px; max-width: 560px; }
     .treat-price {
       font-family: var(--serif);
       font-size: 19px;
@@ -323,6 +324,19 @@
       text-align: right;
       white-space: nowrap;
     }
+    .treat-book {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--clay);
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--t);
+      white-space: nowrap;
+    }
+    .treat-row:hover .treat-book,
+    .treat-book:focus-visible { border-bottom-color: var(--clay); }
+
     .treat-price small {
       display: block;
       font-family: var(--sans);
@@ -346,7 +360,7 @@
     .results-intro {
       max-width: 520px;
       margin-bottom: 56px;
-      font-size: 15px;
+      font-size: 16px;
     }
 
     .results-grid {
@@ -380,7 +394,7 @@
       font-size: 16px; color: var(--paper);
       margin-bottom: 6px; font-weight: 600;
     }
-    .course-row p { font-size: 13.5px; line-height: 1.65; }
+    .course-row p { font-size: 14.5px; line-height: 1.65; }
 
     .course-stats {
       display: flex; flex-direction: column;
@@ -397,7 +411,7 @@
       font-size: 26px; color: var(--paper);
       flex: none; min-width: 58px;
     }
-    .stat-label { font-size: 13px; color: var(--mist); }
+    .stat-label { font-size: 14px; color: var(--mist); }
 
     .results-note {
       font-size: 12.5px;
@@ -493,7 +507,7 @@
       font-size: clamp(30px, 3.6vw, 44px);
       margin-bottom: 18px;
     }
-    .booking-lede { margin-bottom: 44px; max-width: 400px; font-size: 15px; }
+    .booking-lede { margin-bottom: 44px; max-width: 400px; font-size: 16px; }
 
     .booking-contact { list-style: none; }
     .booking-contact li {
@@ -502,14 +516,14 @@
       gap: 20px;
       border-top: 1px solid var(--line);
       padding: 15px 0;
-      font-size: 14px;
+      font-size: 15px;
     }
     .booking-contact li span:first-child { color: var(--paper); }
 
     .booking-form { display: flex; flex-direction: column; gap: 30px; padding-top: 8px; }
     .form-field { display: flex; flex-direction: column; gap: 8px; }
     .form-label {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 500;
       letter-spacing: .4px;
       color: var(--mist);
@@ -535,7 +549,18 @@
       outline: 2px solid var(--clay);
       outline-offset: 3px;
     }
-    .form-hint { font-size: 12px; color: var(--mist); }
+    .form-hint { font-size: 13px; color: var(--mist); }
+
+    /* A Thai clinic collecting a name and a phone number owes the visitor
+       this line. It is in the demo because a clinic owner reading the page
+       should see that the person who built it knows the law their business
+       sits under — almost nobody on Fastwork ships it. */
+    .form-consent {
+      margin-top: 14px;
+      font-size: 13px;
+      line-height: 1.75;
+      color: var(--mist);
+    }
     .form-select {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23B9B0A4' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
@@ -660,8 +685,8 @@
       max-width: var(--container);
       margin: 0 auto;
       padding: 14px var(--pad) 0;
-      font-size: 12.5px;
-      color: var(--faint);
+      font-size: 13.5px;
+      color: var(--mist);
     }
 
     /* A quiet second image inside #results, sized to the timeline beside
@@ -707,8 +732,14 @@
       color: var(--paper);
     }
     .footer-links { display: flex; gap: 26px; }
-    .footer-links a { transition: color var(--t); }
-    .footer-links a:hover { color: var(--paper); }
+    /* Spans, not links. A fictional clinic has no LINE account and no Maps
+       pin, so these pointed at "#" — three dead clicks in the footer of a
+       page whose own analytics doc treats dead clicks as a measured defect.
+       They read as the channels the clinic would list; they just do not
+       pretend to go anywhere. The wrapper stopped being a <nav> at the same
+       time: a navigation landmark containing nothing navigable is worse for
+       a screen-reader user than no landmark. */
+    .footer-links span { color: var(--mist); }
 
     /* ════ RESPONSIVE ════════════════════════════════════════════ */
     @media (max-width: 900px) {
@@ -718,7 +749,7 @@
       .booking-grid { grid-template-columns: 1fr; }
       .hero { padding-top: 120px; }
       .hero-visual { order: 2; }
-      .treat-note { text-align: left; }
+      
       .quote-pair { grid-template-columns: 1fr; gap: 32px; }
     }
 
@@ -815,7 +846,7 @@
   <div class="wrap">
     <div class="treat-head fade-up">
       <h2>Treatments</h2>
-      <p class="treat-note">Starting prices per session — your actual plan is quoted after the consult, with no hidden costs.</p>
+      <p class="treat-note">Starting prices — your actual plan is quoted after the consult, with no hidden costs.</p>
     </div>
 
     <div class="fade-up">
@@ -825,7 +856,7 @@
           <h3 class="treat-name">Botox</h3>
           <p class="treat-desc">Relaxes only the muscles that crease — forehead, frown lines, crow's feet — dosed so your face still moves naturally. No frozen look.</p>
         </div>
-        <div class="treat-price">฿2,500<small>from / area</small></div>
+        <div class="treat-price">฿2,500<small>from / area</small><a class="treat-book" href="#contact" data-treat="botox">Book &rarr;</a></div>
       </div>
 
       <div class="treat-row">
@@ -834,7 +865,7 @@
           <h3 class="treat-name">Filler</h3>
           <p class="treat-desc">FDA-registered hyaluronic acid for deep lines and facial structure. Our approach: add a little, refine later — better than overfilling and dissolving.</p>
         </div>
-        <div class="treat-price">฿8,500<small>from / cc</small></div>
+        <div class="treat-price">฿8,500<small>from / cc</small><a class="treat-book" href="#contact" data-treat="filler">Book &rarr;</a></div>
       </div>
 
       <div class="treat-row">
@@ -843,7 +874,7 @@
           <h3 class="treat-name">Laser Skin</h3>
           <p class="treat-desc">Tone, acne scarring and pores — planned as a course around your actual skin condition, not a one-size package everyone gets.</p>
         </div>
-        <div class="treat-price">฿3,500<small>from / session</small></div>
+        <div class="treat-price">฿3,500<small>from / session</small><a class="treat-book" href="#contact" data-treat="laser">Book &rarr;</a></div>
       </div>
 
       <div class="treat-row">
@@ -852,7 +883,7 @@
           <h3 class="treat-name">IV Drip</h3>
           <p class="treat-desc">Vitamin infusions for tired, under-slept skin — mixed to your bloodwork, not one formula for every customer.</p>
         </div>
-        <div class="treat-price">฿1,800<small>from / session</small></div>
+        <div class="treat-price">฿1,800<small>from / session</small><a class="treat-book" href="#contact" data-treat="iv">Book &rarr;</a></div>
       </div>
     </div>
   </div>
@@ -1014,8 +1045,8 @@
           <li><span>Instagram</span><span>@lumi</span></li>
         </ul>
         <blockquote class="booking-proof">
-          "The doctor was the one who told me &lsquo;you don&rsquo;t need filler yet.&rsquo;"
-          <cite>Botox patient — second year at the clinic</cite>
+          "Four laser sessions in and nobody has ever tried to upsell me a course."
+          <cite>Laser Skin patient — 4 sessions</cite>
         </blockquote>
       </div>
 
@@ -1045,6 +1076,7 @@
           </select>
         </div>
         <button type="submit" class="form-submit" id="submitBtn">Send — we reply within 24 hours</button>
+          <p class="form-consent" lang="th">ข้อมูลของคุณใช้เพื่อติดต่อกลับเท่านั้น ตาม พ.ร.บ.&nbsp;คุ้มครองข้อมูลส่วนบุคคล (PDPA) และจะไม่ถูกส่งต่อให้บุคคลที่สาม</p>
         <p class="form-ok" id="formOk" role="status" tabindex="-1">We'll call you back within 24 hours during clinic hours.</p>
       </form>
 
@@ -1058,11 +1090,11 @@
 <footer class="footer">
   <div class="wrap footer-inner">
     <span class="footer-logo">LUMI</span>
-    <nav class="footer-links" aria-label="Social links">
-      <a href="#">LINE</a>
-      <a href="#">Instagram</a>
-      <a href="#">Google Maps</a>
-    </nav>
+    <div class="footer-links">
+      <span>LINE</span>
+      <span>Instagram</span>
+      <span>Google Maps</span>
+    </div>
     <span>© 2026 LUMI Clinic — Bangkok. A concept project.</span>
   </div>
 </footer>
@@ -1106,13 +1138,29 @@
 
   document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
 
+  /* "Book →" on a treatment row preselects that treatment in the form. The
+     option values are the visible labels, so match on text rather than
+     inventing a parallel set of ids that could drift. */
+  const TREAT_LABEL = { botox: 'Botox', filler: 'Filler', laser: 'Laser Skin', iv: 'IV Drip' };
+  document.querySelectorAll('.treat-book').forEach(link => {
+    link.addEventListener('click', () => {
+      const want = TREAT_LABEL[link.dataset.treat];
+      const sel = document.getElementById('f-service');
+      if (!sel || !want) return;
+      const opt = [...sel.options].find(o => o.textContent.trim() === want);
+      if (opt) { sel.value = opt.value || opt.textContent; sel.selectedIndex = opt.index; }
+    });
+  });
+
   /* ── Booking form ────────────────────────────────────────── */
   const bookingForm = document.getElementById('bookingForm');
 
   bookingForm.addEventListener('submit', e => {
     e.preventDefault();
 
-    /* Whitespace-only entries must not pass `required` */
+  
+
+  /* Whitespace-only entries must not pass `required` */
     ['f-name', 'f-phone'].forEach(id => {
       const field = document.getElementById(id);
       field.value = field.value.trim();
