@@ -386,9 +386,11 @@ literal fallback.
 
 `assets/portfolio-context.css` and the floating "← Back to Portfolio" pill it styled were
 **deleted on 2026-08-07**. A demo page is a simulation of a client's site and must not wear
-portfolio chrome — the same rule that keeps the site search off those 13 pages. Six of them
-(`DRIP`, `PulseBoard`, `appointment-booking`, `coffee-landing`, `gym-landing`, `solar-landing`)
-now have no link back at all, and all 66 links into the demos open in the same tab, so the
+portfolio chrome — the same rule that keeps the site search off those 13 pages. Four of them
+(`PulseBoard`, `coffee-landing`, `gym-landing`, `solar-landing`) now have no link back at all
+— `DRIP` and `appointment-booking` were on this list until they were deleted 2026-08-12 — and
+**all 80 links into the demos open in the same tab, none carries `target="_blank"`**
+(re-measured 2026-08-12; the figure was 66 before the archive and category pages grew), so the
 browser Back button is the only way out. If that becomes a problem the fix is
 `target="_blank"` on those links, **not** reinstating the pill.
 
@@ -782,9 +784,9 @@ moved 2026-08-12 — with Playfair Display and Inter dropped from their own stac
 157 visible elements shift, the furthest by 65.2px**, which is the reflow `swap` was letting a
 cold visitor watch. (That is total reflow, not a CLS score; CLS weights by viewport fraction.)
 
-The only two files left on `swap` are `DRIP.html` and `spa-retreat.html`, both retired demos —
-`noindex`, absent from `sitemap.xml`, and linked from zero files. Leave them or delete them
-with the rest of the retired set; there is no visitor to protect.
+**No file asks for `swap` any more.** The last two that did, `DRIP.html` and `spa-retreat.html`,
+were deleted with the rest of the retired set on 2026-08-12. A new page must ask for
+`display=optional`; there is nothing left to migrate.
 
 ⚠️ **Measuring this needs a positive control.** Adding a `@font-face` with
 `src: local("__none__")` to unload a webfont does **nothing** — Google's own `@font-face` rules
@@ -840,12 +842,19 @@ JSON-LD parses, all 8 `FAQPage` blocks match their rendered `<h3>` count, every 
 pages. `ลูกค้าจริง` appears only around RAAT; the three `ผลงานจริง` hits are ordinary Thai for
 "actual work" in copy about the *client's* needs, not a claim about this portfolio.
 
-**Left alone, deliberately.** Four retired demos — `DRIP`, `appointment-booking`,
-`spa-retreat`, `stock` — are `noindex, follow`, absent from `sitemap.xml`, and linked from
-nowhere. `appointment-booking.html` has no heading of any level and is superseded by
-`BookEase.html`. Deleting them is the owner's call. Twenty meta descriptions sit at 161–190
-characters; only those over 190 were trimmed, because shortening the rest means rewriting his
-copy.
+**Deleted 2026-08-12.** Four retired demos — `DRIP`, `appointment-booking`, `spa-retreat`,
+`stock`, 126 KB — were `noindex, follow`, absent from `sitemap.xml`, and linked from nowhere;
+`appointment-booking.html` had no heading of any level and was superseded by `BookEase.html`.
+Owner's call, taken. They are in git history at `f6b16bf` if one is ever wanted back.
+
+⚠️ **A bare `grep -l <name>` is the wrong safety check before deleting a page.** All four
+looked referenced: `stock` matched nine files and `appointment-booking` matched
+`showcase-bookease-en.html`. Every hit was prose — "instead of stock photography", "an
+appointment-booking dashboard". Match the reference, not the word:
+`(?:href|src)="…"`, then resolve each target against the tree.
+
+Twenty meta descriptions sit at 161–190 characters; only those over 190 were trimmed, because
+shortening the rest means rewriting his copy.
 
 ---
 
