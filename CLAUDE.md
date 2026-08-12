@@ -182,7 +182,10 @@ not style descriptors. `index-en.html` carries English equivalents but the same
 
 ## Card Thumbnail Approach
 
-**All 14 cards are `<img src="assets/thumbs/*.svg">`.** The inline-styled `<div>` mini-UIs
+**14 of the 16 cards are `<img src="assets/thumbs/*.svg">`**, and `assets/thumbs/` holds
+exactly those 14 files. The other two carry real photographs and always should: VELVÉ
+(`assets/velve/care-tools.jpg`) and RAAT (`assets/raat/competition-calendar.jpg`). The
+inline-styled `<div>` mini-UIs
 they used to be were transcribed to SVG on 2026-08-07 — 161.5 KB of HTML removed from the
 four files that carry the grid (`index`, `index-en`, `work`, `work-en`), against 64 KB of
 SVG the browser fetches once and caches across every page. `index.html` went 151 → 103 KB.
@@ -211,8 +214,8 @@ scanline and SolarPeak's blueprint grid (two 1px gradients tiled at 22px) are `<
 SolarPeak's is swapped into the existing rect's `fill` **in place** so it keeps its z-order
 behind the content — appending it would paint over everything.
 
-**Two are hand-drawn rather than extracted**, because neither had a `<div>` mini-UI to
-measure:
+**Three never had a `<div>` mini-UI to transcribe.** Two of those are hand-drawn; the third
+was measured off its own live page instead:
 
 - `assets/thumbs/bright-dental.svg` — that card was a remote `images.unsplash.com` photo.
   Its palette is read off `dental-clinic.html` (ink `#120F0C`, paper `#F7F2E9`,
@@ -227,8 +230,14 @@ measure:
   not a viewport crop**: at true scale the 220px-tall frame would cut off the price lines,
   which are the whole point of the card, so the vertical spacing is tightened while each
   element keeps its real internal proportions.
+- `assets/thumbs/construction-landing.svg` (BuildNest) — rebuilt 2026-08-12. The file it
+  replaced predated the transcription batch and was never part of it: an illustrated
+  1200 × 750 poster with readable display text, decorative circles and an isometric
+  building, drawn in rounded dark green against a page that is teal `#123d45`, gold
+  `#c9922f` and 2px corners. Nothing about it was measured. It is now extracted from
+  `construction-landing.html` itself — see **Extracting from a live page** below.
 
-Both hand-drawn files clip their photo areas with a `<clipPath>` per card. Drawing a
+The two hand-drawn files clip their photo areas with a `<clipPath>` per card. Drawing a
 square-cornered "table" rect straight over a rounded image rect leaves the corners poking
 out — subtle at natural size and invisible at any smaller scale.
 
@@ -236,11 +245,42 @@ out — subtle at natural size and invisible at any smaller scale.
 to parse, and the card renders as a broken-image icon with no console error.
 
 Tag colour classes:
-
-Tag colour classes:
 - `tag-mint` — AI, SaaS, Developer tools, Green-tech, Weather
 - `tag-amber` — Finance, Energy, Fine Dining, Warm/luxury brands
 - `tag-gray` — Default: Dashboard, Landing Page, Brand, Booking, etc.
+
+### Extracting from a live page
+
+Reading the page rather than a card-sized `<div>` adds two traps the 2026-08-07 batch never
+hit. Both were paid for on `construction-landing.svg`:
+
+**Measure inside a 1440 × 1000 `<iframe>`, not in the window this environment gives you.**
+The automated browser here reported a 1960px viewport for a 1440px resize request. `.bn-shell`
+is `min(1280px, 100% - 48px)`, so that viewport yields 17% side margins where a real 1440px
+one yields 5.6% — the thumbnail would have read as inset from nothing, and no other thumb in
+the set looks like that. An iframe evaluates the page's own media queries against the
+iframe's box, which is the same mechanism the "Check mobile overflow" recipe uses at 375px.
+
+🔴 **`await document.fonts.ready` before reading a single box.** Every page here loads fonts
+with `display=optional`, so the first paint uses the fallback. Measured too early,
+`#hero-heading` reported **three** lines of 114.9px; with Noto Serif Thai actually loaded it
+wraps to **four** of 86.1px, the third a one-word orphan (`คุณ`). That is not a rounding
+error — every y-coordinate below the headline was wrong and the whole file had to be
+rewritten. `getBoundingClientRect()` is honest about what is rendered and has no way to tell
+you a different face is still in flight.
+
+Two further notes, both consistent with how supplymate was done:
+
+- **A photographic hero is composited, not picked.** Sample `hero.webp` through a canvas —
+  replicating `object-fit: cover` and `object-position: center 55%` by hand, since the canvas
+  will not do it for you — then blend the result under the page's own overlay
+  (`rgba(4,32,38, .93 → .81 → .51)`) to get the three stops of the SVG's gradient. Reading a
+  colour off a screenshot instead bakes in the JPEG's own shifts.
+- **It is a composition, not a viewport crop.** Nav plus hero at 1440px is 1.77 aspect and the
+  frame is 1.60, so at true scale the services section never enters it. The hero's vertical
+  dead space is tightened (its 102px top and 95px bottom gaps scaled down together) while
+  every element keeps its measured internal proportions — the same call supplymate's price
+  lines forced.
 
 ---
 
