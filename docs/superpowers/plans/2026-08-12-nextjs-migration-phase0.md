@@ -4,7 +4,7 @@
 
 **Goal:** Prove, on a throwaway branch and without touching a single live file, that Next.js 15 + TypeScript + Tailwind can reproduce three representative pages of ph-akin.dev at byte-identical URLs, with Lighthouse 100/100/100 and CLS 0 — or find out which of those is impossible before any of the 84 pages is rewritten.
 
-**Architecture:** A separate `next/` directory inside the repo, building to `next/out/`, never deployed. Three pages are ported by hand — one home-shell page, one showcase page, one Thai-only industry page — because between them they exercise every mechanism the real migration must preserve. Nothing in the repo root changes. The spike is deleted or promoted at the end.
+**Architecture:** A separate `_spike-next/` directory inside the repo, building to `_spike-next/out/`, never deployed. **The leading underscore is load-bearing:** `main` auto-deploys and Jekyll serves every root path it is not told to skip, so a plain `next/` directory would publish the spike's `.tsx` sources at `ph-akin.dev/next/app/page.tsx`. Underscore-prefixed paths are skipped without touching `_config.yml`, the same guard that already keeps `_tools/`, `_docs/` and `_content/` off the site. Three pages are ported by hand — one home-shell page, one showcase page, one Thai-only industry page — because between them they exercise every mechanism the real migration must preserve. Nothing in the repo root changes. The spike is deleted or promoted at the end.
 
 **Tech Stack:** Next.js 15 (App Router, `output: 'export'`), TypeScript 5, Tailwind CSS 4, Node 26.5.1 / npm 11.17.0 (confirmed present on this machine 2026-08-12).
 
@@ -53,22 +53,22 @@ Copied verbatim from CLAUDE.md. Every task's requirements implicitly include thi
 
 ## File Structure
 
-Everything lives under `next/`, which is git-tracked but never deployed. The repo root is untouched by every task in this plan.
+Everything lives under `_spike-next/`, which is git-tracked but never deployed. The repo root is untouched by every task in this plan.
 
 | Path | Responsibility |
 |---|---|
-| `next/package.json` | Pins Next 15, React 19, TypeScript 5, Tailwind 4. Scripts: `dev`, `build`, `verify`. |
-| `next/next.config.ts` | `output: 'export'`, `trailingSlash`, `images.unoptimized`, `distDir`. The whole URL question lives in this file. |
-| `next/tsconfig.json` | Strict mode, `@/*` path alias. |
-| `next/app/layout.tsx` | `<html lang>` is per-page, so this holds only what is truly global. |
-| `next/app/globals.css` | Tailwind entry + the ported design tokens. |
-| `next/lib/site.ts` | `SITE`, `hreflangFor()`, `canonicalFor()` — the bilingual URL rules in one place. |
-| `next/lib/copy.ts` | Reads `_content/project-copy.json`. The single source built on 2026-08-12 becomes the migration's content layer. |
-| `next/app/page.tsx` | Thai homepage → `/`. Home-shell family. |
-| `next/app/showcase-buildnest/page.tsx` | Portfolio-pages family, bilingual pair, story stack. |
-| `next/app/web-clinic/page.tsx` | Thai-only industry page. **No `hreflang` at all** — asserts the negative case. |
-| `next/_verify/urls.test.ts` | Asserts the emitted file tree matches the live URL set exactly. |
-| `next/_verify/head.test.ts` | Asserts canonical / hreflang / og:locale per the bilingual rules. |
+| `_spike-next/package.json` | Pins Next 15, React 19, TypeScript 5, Tailwind 4. Scripts: `dev`, `build`, `verify`. |
+| `_spike-next/next.config.ts` | `output: 'export'`, `trailingSlash`, `images.unoptimized`, `distDir`. The whole URL question lives in this file. |
+| `_spike-next/tsconfig.json` | Strict mode, `@/*` path alias. |
+| `_spike-next/app/layout.tsx` | `<html lang>` is per-page, so this holds only what is truly global. |
+| `_spike-next/app/globals.css` | Tailwind entry + the ported design tokens. |
+| `_spike-next/lib/site.ts` | `SITE`, `hreflangFor()`, `canonicalFor()` — the bilingual URL rules in one place. |
+| `_spike-next/lib/copy.ts` | Reads `_content/project-copy.json`. The single source built on 2026-08-12 becomes the migration's content layer. |
+| `_spike-next/app/page.tsx` | Thai homepage → `/`. Home-shell family. |
+| `_spike-next/app/showcase-buildnest/page.tsx` | Portfolio-pages family, bilingual pair, story stack. |
+| `_spike-next/app/web-clinic/page.tsx` | Thai-only industry page. **No `hreflang` at all** — asserts the negative case. |
+| `_spike-next/_verify/urls.test.ts` | Asserts the emitted file tree matches the live URL set exactly. |
+| `_spike-next/_verify/head.test.ts` | Asserts canonical / hreflang / og:locale per the bilingual rules. |
 
 **Three pages, chosen to cover everything:** `/` is home-shell + the featured carousel + the `#need` selector; `showcase-buildnest` is portfolio-pages + a bilingual pair + the story stack + the hero skeleton; `web-clinic` is Thai-only with no twin, and carries the `design-preview` widget and a `FAQPage` JSON-LD. Between them they touch both stylesheet families, both `hreflang` cases, and every JSON-LD type on the site.
 
@@ -79,14 +79,14 @@ Everything lives under `next/`, which is git-tracked but never deployed. The rep
 Nothing else matters if the URLs cannot match. This task ends when the emitted tree is proven identical to the live URL set, or proven impossible.
 
 **Files:**
-- Create: `next/package.json`, `next/next.config.ts`, `next/tsconfig.json`, `next/.gitignore`
-- Create: `next/app/layout.tsx`, `next/app/page.tsx`, `next/app/showcase-buildnest/page.tsx`, `next/app/web-clinic/page.tsx`
-- Create: `next/_verify/urls.test.ts`
-- Modify: `.gitignore` (repo root) — add `next/node_modules/` and `next/out/`
+- Create: `_spike-next/package.json`, `_spike-next/next.config.ts`, `_spike-next/tsconfig.json`, `_spike-next/.gitignore`
+- Create: `_spike-next/app/layout.tsx`, `_spike-next/app/page.tsx`, `_spike-next/app/showcase-buildnest/page.tsx`, `_spike-next/app/web-clinic/page.tsx`
+- Create: `_spike-next/_verify/urls.test.ts`
+- Modify: `.gitignore` (repo root) — add `_spike-next/node_modules/` and `_spike-next/out/`
 
 **Interfaces:**
 - Consumes: nothing.
-- Produces: `next/out/` — a static tree whose paths later tasks assert against. Route directory names are the URL slugs (`app/showcase-buildnest/page.tsx` → `/showcase-buildnest`).
+- Produces: `_spike-next/out/` — a static tree whose paths later tasks assert against. Route directory names are the URL slugs (`app/showcase-buildnest/page.tsx` → `/showcase-buildnest`).
 
 - [ ] **Step 1: Capture the live URL set as the fixture to match**
 
@@ -106,7 +106,7 @@ Expected: 84 lines, beginning with `/` and containing `/showcase-buildnest` and 
 
 - [ ] **Step 2: Write the failing URL-parity test**
 
-Create `next/_verify/urls.test.ts`:
+Create `_spike-next/_verify/urls.test.ts`:
 
 ```ts
 import { test } from 'node:test'
@@ -162,7 +162,7 @@ check the path before continuing.
 
 - [ ] **Step 4: Scaffold the app**
 
-`next/package.json`:
+`_spike-next/package.json`:
 
 ```json
 {
@@ -183,7 +183,7 @@ check the path before continuing.
 }
 ```
 
-`next/next.config.ts` — **`trailingSlash: false` is the whole hypothesis**:
+`_spike-next/next.config.ts` — **`trailingSlash: false` is the whole hypothesis**:
 
 ```ts
 import type { NextConfig } from 'next'
@@ -200,15 +200,15 @@ const config: NextConfig = {
 export default config
 ```
 
-`next/.gitignore`:
+`_spike-next/.gitignore`:
 
 ```
 node_modules/
 out/
-.next/
+._spike-next/
 ```
 
-`next/tsconfig.json`:
+`_spike-next/tsconfig.json`:
 
 ```json
 {
@@ -220,14 +220,14 @@ out/
     "paths": { "@/*": ["./*"] },
     "plugins": [{ "name": "next" }]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "._spike-next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
 ```
 
 - [ ] **Step 5: Add the three pages as stubs**
 
-`next/app/layout.tsx` — note `lang` is deliberately not set here; each page owns it:
+`_spike-next/app/layout.tsx` — note `lang` is deliberately not set here; each page owns it:
 
 ```tsx
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -235,19 +235,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-`next/app/page.tsx`:
+`_spike-next/app/page.tsx`:
 
 ```tsx
 export default function Home() { return <main><h1>หน้าแรก</h1></main> }
 ```
 
-`next/app/showcase-buildnest/page.tsx`:
+`_spike-next/app/showcase-buildnest/page.tsx`:
 
 ```tsx
 export default function Page() { return <main><h1>BuildNest</h1></main> }
 ```
 
-`next/app/web-clinic/page.tsx`:
+`_spike-next/app/web-clinic/page.tsx`:
 
 ```tsx
 export default function Page() { return <main><h1>รับทำเว็บคลินิก</h1></main> }
@@ -259,7 +259,7 @@ export default function Page() { return <main><h1>รับทำเว็บค
 cd next && npm install && npm run build
 ```
 
-Expected: build succeeds and `next/out/` exists.
+Expected: build succeeds and `_spike-next/out/` exists.
 
 - [ ] **Step 7: Read the emitted tree — this is the answer**
 
@@ -305,10 +305,10 @@ extensionless URLs survive the migration."
 ### Task 2: The bilingual head, including the negative case
 
 **Files:**
-- Create: `next/lib/site.ts`
-- Create: `next/app/showcase-buildnest-en/page.tsx`
-- Create: `next/_verify/head.test.ts`
-- Modify: `next/app/page.tsx`, `next/app/showcase-buildnest/page.tsx`, `next/app/web-clinic/page.tsx`
+- Create: `_spike-next/lib/site.ts`
+- Create: `_spike-next/app/showcase-buildnest-en/page.tsx`
+- Create: `_spike-next/_verify/head.test.ts`
+- Modify: `_spike-next/app/page.tsx`, `_spike-next/app/showcase-buildnest/page.tsx`, `_spike-next/app/web-clinic/page.tsx`
 
 **Interfaces:**
 - Consumes: the route tree from Task 1.
@@ -316,7 +316,7 @@ extensionless URLs survive the migration."
 
 - [ ] **Step 1: Write the failing head test**
 
-Create `next/_verify/head.test.ts`:
+Create `_spike-next/_verify/head.test.ts`:
 
 ```ts
 import { test } from 'node:test'
@@ -366,7 +366,7 @@ Expected: FAIL — four failures, all `AssertionError` on a missing `canonical`.
 
 - [ ] **Step 3: Implement the URL rules in one place**
 
-Create `next/lib/site.ts`:
+Create `_spike-next/lib/site.ts`:
 
 ```ts
 import type { Metadata } from 'next'
@@ -419,7 +419,7 @@ export function headFor(
 
 - [ ] **Step 4: Wire it into all four pages**
 
-`next/app/showcase-buildnest/page.tsx`:
+`_spike-next/app/showcase-buildnest/page.tsx`:
 
 ```tsx
 import type { Metadata } from 'next'
@@ -436,7 +436,7 @@ export default function Page() {
 }
 ```
 
-`next/app/showcase-buildnest-en/page.tsx`:
+`_spike-next/app/showcase-buildnest-en/page.tsx`:
 
 ```tsx
 import type { Metadata } from 'next'
@@ -453,7 +453,7 @@ export default function Page() {
 }
 ```
 
-`next/app/web-clinic/page.tsx` — the negative case:
+`_spike-next/app/web-clinic/page.tsx` — the negative case:
 
 ```tsx
 import type { Metadata } from 'next'
@@ -470,7 +470,7 @@ export default function Page() {
 }
 ```
 
-`next/app/page.tsx`:
+`_spike-next/app/page.tsx`:
 
 ```tsx
 import type { Metadata } from 'next'
@@ -515,8 +515,8 @@ drift per page the way 21 hand-written pairs can."
 The two things most likely to regress silently. Both are measured, not eyeballed.
 
 **Files:**
-- Create: `next/app/globals.css`, `next/lib/fonts.ts`
-- Modify: `next/app/layout.tsx`, `next/app/showcase-buildnest/page.tsx`
+- Create: `_spike-next/app/globals.css`, `_spike-next/lib/fonts.ts`
+- Modify: `_spike-next/app/layout.tsx`, `_spike-next/app/showcase-buildnest/page.tsx`
 
 **Interfaces:**
 - Consumes: `headFor()` from Task 2.
@@ -524,7 +524,7 @@ The two things most likely to regress silently. Both are measured, not eyeballed
 
 - [ ] **Step 1: Write the failing CLS + collision test**
 
-Create `next/_verify/type.test.ts`:
+Create `_spike-next/_verify/type.test.ts`:
 
 ```ts
 import { test } from 'node:test'
@@ -558,7 +558,7 @@ Expected: FAIL on all three — no font is configured yet.
 
 - [ ] **Step 3: Configure the faces**
 
-Create `next/lib/fonts.ts`:
+Create `_spike-next/lib/fonts.ts`:
 
 ```ts
 import { Bai_Jamjuree, Inter, Noto_Sans_Thai } from 'next/font/google'
@@ -581,7 +581,7 @@ export const bodyThai = Noto_Sans_Thai({
 
 - [ ] **Step 4: Port the tokens and the Thai spacing fix**
 
-Create `next/app/globals.css`:
+Create `_spike-next/app/globals.css`:
 
 ```css
 @import "tailwindcss";
@@ -609,7 +609,7 @@ h1, h2, h3 { font-family: var(--font-display); }
 
 - [ ] **Step 5: Attach the variables**
 
-`next/app/layout.tsx`:
+`_spike-next/app/layout.tsx`:
 
 ```tsx
 import './globals.css'
@@ -622,7 +622,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-and in `next/app/showcase-buildnest/page.tsx`, change the opening tag to:
+and in `_spike-next/app/showcase-buildnest/page.tsx`, change the opening tag to:
 
 ```tsx
     <html lang="th" className={fontClass}>
@@ -640,7 +640,7 @@ Expected: PASS — 3/3 on type, 4/4 still passing on head.
 
 - [ ] **Step 7: Measure the Thai collision in a real browser**
 
-Serve `next/out` and, at 1440 × 900 with the tab **foregrounded**, run against a `.section-heading`:
+Serve `_spike-next/out` and, at 1440 × 900 with the tab **foregrounded**, run against a `.section-heading`:
 
 ```js
 (() => {
@@ -673,8 +673,8 @@ collide with the line above at line-height 1.1 without it."
 The task that decides whether the spike is a green light.
 
 **Files:**
-- Create: `next/_verify/README.md` (records the measured numbers — this is the spike's actual deliverable)
-- Modify: `next/app/globals.css`
+- Create: `_spike-next/_verify/README.md` (records the measured numbers — this is the spike's actual deliverable)
+- Modify: `_spike-next/app/globals.css`
 
 **Interfaces:**
 - Consumes: everything from Tasks 1–3.
@@ -723,7 +723,7 @@ Expected: `canScrollX: false` on all three.
 
 - [ ] **Step 4: Determine what happened to View Transitions**
 
-Add to `next/app/globals.css`:
+Add to `_spike-next/app/globals.css`:
 
 ```css
 @view-transition { navigation: auto; }
@@ -745,7 +745,7 @@ Rebuild, then navigate between two pages **by clicking a link** and record wheth
 
 - [ ] **Step 5: Write down what was actually measured**
 
-Create `next/_verify/README.md` with the real numbers from Steps 2–4 — not a template. It must state, for each of the three pages: the six Lighthouse category scores, CLS, `canScrollX`, and the View Transitions outcome; plus whether `out/` emitted `<slug>.html` or `<slug>/index.html`.
+Create `_spike-next/_verify/README.md` with the real numbers from Steps 2–4 — not a template. It must state, for each of the three pages: the six Lighthouse category scores, CLS, `canScrollX`, and the View Transitions outcome; plus whether `out/` emitted `<slug>.html` or `<slug>/index.html`.
 
 - [ ] **Step 6: Commit**
 
@@ -753,7 +753,7 @@ Create `next/_verify/README.md` with the real numbers from Steps 2–4 — not a
 git add next
 git commit -m "spike: measured Lighthouse, CLS, mobile overflow and View Transitions
 
-Numbers in next/_verify/README.md. This is the spike's deliverable: the
+Numbers in _spike-next/_verify/README.md. This is the spike's deliverable: the
 go/no-go for migrating 84 pages rests on these six Lighthouse runs and the
 View Transitions result, not on an expectation that Next behaves like the
 hand-written site."
@@ -777,7 +777,7 @@ Per the writing-plans scope check, the full migration spans several independent 
 
 ## Exit criteria
 
-Phase 0 succeeds if all of the following are true, each with a number recorded in `next/_verify/README.md`:
+Phase 0 succeeds if all of the following are true, each with a number recorded in `_spike-next/_verify/README.md`:
 
 - [ ] `out/` emits `<slug>.html`, matching the live extensionless URL shape
 - [ ] `hreflang` trio + self-canonical correct on the pair; **zero** `hreflang` on `web-clinic`
