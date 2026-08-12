@@ -853,10 +853,30 @@ their own pass: five JSON-LD `skills` entries (`Node.js`, `Express.js`, `REST AP
 ElevateCommerce almost exactly ("Services, time slots, availability checker, public booking,
 admin JWT routes"; "Products, categories, orders, reviews, admin + customer roles, JWT auth")
 — the "9 Node.js + Express REST APIs" figure, the claim that any recruiter can "clone, run,
-and inspect the full stack in under 5 minutes", the `full-stack` bio line repeated on
-`index` / `about` (± `-en`), and `assets/resume-phakin-chawanpunya.pdf`, which **cannot be
-regenerated from this repo** — there is no source document for it. That last item is why the
-resume is a scoped decision and not a find-and-replace.
+and inspect the full stack in under 5 minutes", and the `full-stack` bio line repeated on
+`index` / `about` (± `-en`).
+
+✅ **`assets/resume-phakin-chawanpunya.pdf` is not part of that problem — it is the honest
+document, and it is the model to correct the HTML against.** Read all four pages 2026-08-12
+(Chrome's PDF viewer; `qlmanage -t` renders page 1 only). It never mentions Node, Express,
+SQLite, JWT, REST or a backend anywhere. It says **"Frontend practice, presented as real
+work."**, **"Junior frontend direction with practical page craft."**, targets *"frontend
+intern, junior frontend role, landing page practice reviewer"* under the tags `frontend
+intern` / `landing pages` / `dashboard UI`, lists Tools as Git · GitHub · GitHub Pages ·
+Browser DevTools · Figma, and states outright: **"The work is static, but the presentation is
+treated like a real portfolio."** The HTML resume targets a different job entirely — *"Junior
+full-stack developer, frontend engineer, or backend intern"*, tagged `full-stack intern` /
+`junior backend` / `Node.js developer`. Correcting the HTML **re-syncs** the two rather than
+splitting them.
+
+The PDF's own staleness is a separate, smaller matter: it is dated 2026-05-22 and still counts
+**10** live projects and **2** case studies where the site now carries 15 and 5.
+
+⚠️ **Do not try to read this PDF by pulling `( )` strings out of its streams.** It is
+Skia/PDF (Chrome print-to-PDF) with subset fonts, so those strings are glyph indices — the
+extraction yields 14 KB that contains neither "Phakin" nor "Chawanpunya", and every keyword
+search over it returns a confident, meaningless zero. There is no `pdftotext`, `mutool`,
+`pypdf` or `Quartz` on this machine. Render it and read the pages.
 
 **A showcase page describes a demo page, and nothing re-reads it when that demo is
 redesigned.** Until 2026-08-12 twenty-three strings across thirteen files said BuildNest used
