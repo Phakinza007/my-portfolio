@@ -94,7 +94,9 @@ my-portfolio/
 **Two page classes deliberately have no `-en` twin. Neither is unfinished work — do not
 "fix" them by generating `-en` siblings:**
 
-1. The **13 project demo pages** (`construction-landing.html`, `gym-landing.html`, …)
+1. The **15 project demo pages** (`construction-landing.html`, `gym-landing.html`, …,
+   plus `PulseBoard.html`, `InternTrack.html` and `LaunchLedger.html`, the three case-study
+   demos, which are the same kind of page and are counted here — measured 2026-08-12)
    are simulated client work. Both languages link to the same demo file. Same for
    GitHub / Fastwork / Vercel links.
 2. The **8 industry landing pages** (`web-clinic`, `web-booking`, `web-restaurant`,
@@ -386,7 +388,7 @@ literal fallback.
 
 `assets/portfolio-context.css` and the floating "← Back to Portfolio" pill it styled were
 **deleted on 2026-08-07**. A demo page is a simulation of a client's site and must not wear
-portfolio chrome — the same rule that keeps the site search off those 13 pages. Four of them
+portfolio chrome — the same rule that keeps the site search off those 15 pages. Four of them
 (`PulseBoard`, `coffee-landing`, `gym-landing`, `solar-landing`) now have no link back at all
 — `DRIP` and `appointment-booking` were on this list until they were deleted 2026-08-12 — and
 **all 80 links into the demos open in the same tab, none carries `target="_blank"`**
@@ -720,8 +722,9 @@ be padded with loosely-related demos.
 
 ## Site search
 
-`assets/site-search.js` + `site-search.css` + `search-index.json`, live on **63 pages** —
-everything except the 13 demo pages (they are simulated client sites and must not carry
+`assets/site-search.js` + `site-search.css` + `search-index.json`, live on **68 pages** —
+measured 2026-08-12: 84 files minus the 15 demo pages minus `404.html`. Everything except
+those (they are simulated client sites and must not carry
 portfolio chrome) and `404.html`.
 
 - **The markup is a placeholder.** Pages ship `<div class="site-search"></div>` and the script
@@ -824,7 +827,7 @@ own `box-sizing`; check with a per-element right-edge sweep, not just `canScroll
 `aesthetic-booking.html` styled `nav { position: sticky; background: rgba(244,239,230,.92) }`
 for its header. When a `nav.foot-links` was later added to the footer it inherited the cream
 panel, putting cream 0.68 links on cream 0.92: **1.11:1, effectively invisible**, and it had
-been shipping that way. Now `.site-nav`. The 13 demo pages each carry their own inline CSS
+been shipping that way. Now `.site-nav`. The 15 demo pages each carry their own inline CSS
 with no shared reset — assume every bare tag selector in them is a latent collision.
 
 🔴 **No demo on this site talks to a backend, and the copy must never say one does.** Asked
