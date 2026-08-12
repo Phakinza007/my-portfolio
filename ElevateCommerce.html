@@ -1403,7 +1403,7 @@
           <!-- Product 1 -->
           <article class="product-card reveal">
             <div class="product-thumb">
-              <img src="assets/demo/elevate/merino-tote-bag.jpg" alt="Merino Tote Bag" loading="lazy" />
+              <img src="assets/demo/elevate/tote-canvas.jpg" alt="A plain canvas tote bag with fabric handles, hanging against a light wall" loading="lazy" />
               <span class="product-badge">Apparel</span>
               <button class="wishlist-btn" aria-label="Add to wishlist" data-wish>
                 <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -1420,13 +1420,13 @@
                 </div>
                 <span class="rating-count">(214)</span>
               </div>
-              <div class="product-name">Merino Tote Bag — Minimal Series</div>
+              <div class="product-name">Canvas Tote Bag — Minimal Series</div>
               <div class="product-price">
                 <span class="price-current">$89</span>
                 <span class="price-original">$120</span>
               </div>
               <div class="product-footer">
-                <button class="btn-add" data-add aria-label="Add Merino Tote Bag to cart">
+                <button class="btn-add" data-add aria-label="Add Canvas Tote Bag to cart">
                   <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
                   Add to Cart
                 </button>
@@ -1437,7 +1437,7 @@
           <!-- Product 2 -->
           <article class="product-card reveal" style="transition-delay:80ms">
             <div class="product-thumb">
-              <img src="assets/demo/elevate/studio-wireless-headphones.jpg" alt="Studio Wireless Headphones" loading="lazy" />
+              <img src="assets/demo/elevate/headphones-studio.jpg" alt="Grey over-ear headphones with a coiled cable, on a white surface" loading="lazy" />
               <span class="product-badge">Tech</span>
               <button class="wishlist-btn" aria-label="Add to wishlist" data-wish>
                 <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -1470,7 +1470,7 @@
           <!-- Product 3 -->
           <article class="product-card reveal" style="transition-delay:160ms">
             <div class="product-thumb">
-              <img src="assets/demo/elevate/essential-candle-set.jpg" alt="Essential Candle Set" loading="lazy" />
+              <img src="assets/demo/elevate/candle-set.jpg" alt="Several lit soy candles in amber and white glass jars" loading="lazy" />
               <span class="product-badge">Wellness</span>
               <button class="wishlist-btn" aria-label="Add to wishlist" data-wish>
                 <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -1504,7 +1504,7 @@
           <!-- Product 4 -->
           <article class="product-card reveal" style="transition-delay:240ms">
             <div class="product-thumb">
-              <img src="assets/demo/elevate/nordic-linen-throw.jpg" alt="Nordic Linen Throw" loading="lazy" />
+              <img src="assets/demo/elevate/linen-throw.jpg" alt="Folded linen throws in cream and stone, stacked on a bench" loading="lazy" />
               <span class="product-badge">Home</span>
               <button class="wishlist-btn" aria-label="Add to wishlist" data-wish>
                 <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -1778,7 +1778,7 @@
       let toastTimer;
 
       const productNames = [
-        'Merino Tote Bag', 'Studio Headphones', 'Soy Candle Set', 'Linen Throw'
+        'Canvas Tote Bag', 'Studio Headphones', 'Soy Candle Set', 'Linen Throw'
       ];
 
       document.querySelectorAll('[data-add]').forEach((btn, i) => {
@@ -1813,9 +1813,9 @@
          sync with the markup. The cart is in memory only — there is no
          backend on this site and the copy in the drawer says so. */
       const COPY = {
-        'Merino Tote Bag — Minimal Series': {
-          d: 'Woven from a single length of merino and finished by hand, so the strap and body are one piece with nothing to come apart at the join.',
-          s: ['Merino wool, unlined', 'Fits a 14" laptop', 'Carries 12kg', 'Two years of repairs included']
+        'Canvas Tote Bag — Minimal Series': {
+          d: 'Cut from a single piece of heavy cotton canvas and finished by hand, so the strap and body are one piece with nothing to come apart at the join.',
+          s: ['16oz cotton canvas, unlined', 'Fits a 14" laptop', 'Carries 12kg', 'Two years of repairs included']
         },
         'Studio Noise-Cancelling Headphones': {
           d: 'Tuned flat rather than loud. Built for long sessions where you need to hear what is actually in the mix, not a flattering version of it.',
@@ -1874,6 +1874,7 @@
           priceLabel: price,
           was: card.querySelector('.price-original')?.textContent.trim() || '',
           img: card.querySelector('.product-thumb img').getAttribute('src'),
+          alt: card.querySelector('.product-thumb img').getAttribute('alt') || '',
           badge: card.querySelector('.product-badge')?.textContent.trim() || '',
           rating: card.querySelector('.stars')?.getAttribute('aria-label') || '',
           count: card.querySelector('.rating-count')?.textContent.trim() || ''
@@ -1968,7 +1969,10 @@
       /* ── Quick view ── */
       function openQuick(card) {
         const d = cardData(card), copy = COPY[d.name] || { d: '', s: [] };
-        $('qv-img').src = d.img; $('qv-img').alt = d.name;
+        /* Reuse the grid image's alt, which describes the photograph, rather
+           than the product name — the name is already the dialog's heading
+           two lines below, so repeating it tells a screen reader nothing. */
+        $('qv-img').src = d.img; $('qv-img').alt = d.alt;
         $('qv-badge').textContent = d.badge;
         $('qv-title').textContent = d.name;
         $('qv-price').innerHTML = d.priceLabel + (d.was ? ` <s>${d.was}</s>` : '');
