@@ -174,13 +174,13 @@
   <!-- Service category landing pages -->
   <url>
     <loc>https://ph-akin.dev/landing-page-en</loc>
-    <lastmod>2026-08-11</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ph-akin.dev/landing-page</loc>
-    <lastmod>2026-08-11</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -304,7 +304,7 @@
   </url>
   <url>
     <loc>https://ph-akin.dev/web-construction</loc>
-    <lastmod>2026-08-11</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -318,25 +318,25 @@
   <!-- Project showcase pages -->
   <url>
     <loc>https://ph-akin.dev/showcase-buildnest-en</loc>
-    <lastmod>2026-08-11</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ph-akin.dev/showcase-buildnest</loc>
-    <lastmod>2026-08-11</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ph-akin.dev/showcase-iron-republic-en</loc>
-    <lastmod>2026-08-11</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ph-akin.dev/showcase-iron-republic</loc>
-    <lastmod>2026-08-11</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
@@ -420,13 +420,13 @@
   </url>
   <url>
     <loc>https://ph-akin.dev/showcase-solarpeak-en</loc>
-    <lastmod>2026-08-11</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ph-akin.dev/showcase-solarpeak</loc>
-    <lastmod>2026-08-11</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
