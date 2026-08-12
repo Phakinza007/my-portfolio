@@ -827,6 +827,37 @@ panel, putting cream 0.68 links on cream 0.92: **1.11:1, effectively invisible**
 been shipping that way. Now `.site-nav`. The 13 demo pages each carry their own inline CSS
 with no shared reset — assume every bare tag selector in them is a latent collision.
 
+🔴 **No demo on this site talks to a backend, and the copy must never say one does.** Asked
+and answered by the owner on 2026-08-12: BookEase and ElevateCommerce never had a Node/Express
+API, and there is no repo behind either. Until that day 37 strings across 13 files said
+otherwise — "backed by a real Node.js booking API", "a working product API", "a real
+Node.js/Express API, **not a static mockup**", "a real backend — products, categories, orders,
+reviews, JWT auth", "full-stack". Measured, with `fetch(` in `assets/design-preview.js` and
+`assets/site-search.js` as the positive control:
+
+| demo | `fetch` | XHR | axios | `<form action>` |
+|---|---|---|---|---|
+| `BookEase.html` | 0 | 0 | 0 | 0 |
+| `ElevateCommerce.html` | 0 | 0 | 0 | 0 |
+
+**Separate the feature claim from the backend claim — the features were all true.** BookEase
+really has 87 controls across 12 views and six back-office sections, and its "New Booking"
+modal really has client / email / date / time / service / staff / notes with required markers,
+a confirm step, and a time `select` of 9:00 AM–4:00 PM slots, all from a 27 KB inline script.
+Only the sentence about *where the data comes from* was false, so only that was replaced. Do
+not delete a working feature from the copy because a neighbouring sentence was wrong.
+
+⚠️ **`resume.html` / `resume-en.html` still state the opposite and were left alone**, pending
+their own pass: five JSON-LD `skills` entries (`Node.js`, `Express.js`, `REST API`, `SQLite`,
+`JWT Authentication`), seven `<span>` lines each — two of which describe BookEase and
+ElevateCommerce almost exactly ("Services, time slots, availability checker, public booking,
+admin JWT routes"; "Products, categories, orders, reviews, admin + customer roles, JWT auth")
+— the "9 Node.js + Express REST APIs" figure, the claim that any recruiter can "clone, run,
+and inspect the full stack in under 5 minutes", the `full-stack` bio line repeated on
+`index` / `about` (± `-en`), and `assets/resume-phakin-chawanpunya.pdf`, which **cannot be
+regenerated from this repo** — there is no source document for it. That last item is why the
+resume is a scoped decision and not a find-and-replace.
+
 **A showcase page describes a demo page, and nothing re-reads it when that demo is
 redesigned.** Until 2026-08-12 twenty-three strings across thirteen files said BuildNest used
 "hand-drawn SVG architecture graphics **instead of stock photography**" — in both showcases'
