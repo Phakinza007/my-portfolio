@@ -432,6 +432,13 @@
     }
     .about-visual img {
       width: 100%;
+      /* height: auto is load-bearing, same trap as .results-photo. The
+         width/height attributes are on the img so the box is reserved and
+         CLS stays 0 — but that height also lands as a presentational hint,
+         and with no CSS height it beat the aspect-ratio below. The old
+         photo was 880px tall so nothing looked wrong; swapping in a
+         1350px-tall one stretched this column to 1384px. */
+      height: auto;
       aspect-ratio: 3 / 4;
       object-fit: cover;
     }
@@ -966,10 +973,16 @@
     <div class="about-grid">
 
       <figure class="about-visual fade-up">
+        <!-- Deliberately NOT another crop of the hero photograph. The hero and
+             this section used to be two crops of the same dropper shot, which
+             a designer reads instantly as "the asset budget ran out" — the one
+             impression this page cannot afford. Same object, completely
+             different shot: flat on stone under hard blind shadows, no hands,
+             no brand mark. -->
         <img
-          src="assets/lumi/about-dropper.jpg"
-          alt="A dropper of skincare serum held above an amber bottle, wide framing with warm afternoon light"
-          width="800" height="880" loading="lazy">
+          src="assets/lumi/dosing-pipette.jpg"
+          alt="A glass pipette of serum lying on pale stone, crossed by hard shadows from a window blind"
+          width="900" height="1350" loading="lazy">
         <figcaption class="img-caption">Every product is opened and dosed in front of you</figcaption>
       </figure>
 
