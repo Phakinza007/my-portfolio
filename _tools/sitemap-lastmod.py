@@ -11,7 +11,12 @@ same date every deploy is exactly the pattern that earns that judgement. A URL
 whose page has not been committed since 2026-08-06 says 2026-08-06.
 
 <loc> values are extensionless (see CLAUDE.md, "URLs carry no .html"), so each
-one is mapped back to its file: "/" -> index.html, "/foo" -> foo.html.
+one is mapped back to its file: "/" -> index.html, "/foo" -> foo.html. A <loc>
+that ends in "/" is a built app served from its own folder, not a page --
+"/signalform-studio/" -> the signalform-studio directory, which `git log`
+accepts as a path. Without that case it became "signalform-studio/.html", the
+URL was skipped every run, and its <lastmod> silently stopped tracking the
+commits that changed it.
 
 Lives under `_tools/` so Jekyll skips it.
 """
@@ -26,6 +31,8 @@ def page_file(loc):
     path = loc[len(SITE):].split('#')[0].split('?')[0].lstrip('/')
     if path == '':
         return 'index.html'
+    if path.endswith('/'):
+        return path.rstrip('/')     # a built app served from its own folder
     return path if path.endswith('.html') else path + '.html'
 
 

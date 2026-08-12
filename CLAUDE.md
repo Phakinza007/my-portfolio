@@ -775,8 +775,23 @@ booking section and the *footer*, the actual last element, still ran 73px undern
 Padding the body is indifferent to which element happens to be last.
 
 `display=optional`, not `swap`: swap reflowed the `h1`, the nav logo and the hero buttons when
-Trirong arrived and measured CLS 0.011–0.015. **13 other demo pages are still on `display=swap`
-and have the same exposure** — that is a real finding, not a style preference.
+Trirong arrived and measured CLS 0.011–0.015. That was a real finding, not a style preference,
+and it has since been worked through the family: **86 of the 88 `.html` files now ask for
+`display=optional`.** `sorn-restaurant.html` was the last reachable page still on `swap` and
+moved 2026-08-12 — with Playfair Display and Inter dropped from their own stacks, **111 of its
+157 visible elements shift, the furthest by 65.2px**, which is the reflow `swap` was letting a
+cold visitor watch. (That is total reflow, not a CLS score; CLS weights by viewport fraction.)
+
+The only two files left on `swap` are `DRIP.html` and `spa-retreat.html`, both retired demos —
+`noindex`, absent from `sitemap.xml`, and linked from zero files. Leave them or delete them
+with the rest of the retired set; there is no visitor to protect.
+
+⚠️ **Measuring this needs a positive control.** Adding a `@font-face` with
+`src: local("__none__")` to unload a webfont does **nothing** — Google's own `@font-face` rules
+still match, the face stays applied, and the sweep reports **0 elements moved**, which reads
+exactly like "no exposure" and is not. Patch each element's computed `font-family`, dropping
+only the webfont and keeping the rest of that element's own stack, and confirm the count is
+non-zero before believing a zero anywhere else.
 
 ---
 
