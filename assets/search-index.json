@@ -151,6 +151,12 @@
       "k": "โซลาร์ solar พลังงาน ค่าไฟ"
     },
     {
+      "t": "มูลนิธิบันไดแรก",
+      "u": "showcase-bandairaek",
+      "g": "ผลงาน",
+      "k": "มูลนิธิ สมาคม องค์กร ชมรม ทุนการศึกษา บริจาค foundation nonprofit เว็บมูลนิธิ รับทำเว็บสมาคม ปฏิทินกิจกรรม ทำเนียบกรรมการ"
+    },
+    {
       "t": "BookEase Dashboard",
       "u": "showcase-bookease",
       "g": "ผลงาน",
@@ -379,6 +385,12 @@
       "u": "showcase-solarpeak-en",
       "g": "Work",
       "k": "solar energy panels"
+    },
+    {
+      "t": "Bandairaek Foundation",
+      "u": "showcase-bandairaek-en",
+      "g": "Work",
+      "k": "foundation nonprofit charity association scholarship ledger transparency board directory"
     },
     {
       "t": "BookEase Dashboard",

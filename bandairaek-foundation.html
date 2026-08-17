@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <!-- Sends /foo.html to /foo and /index.html to /, in the address bar as well
+       as in the index. GitHub Pages serves both and cannot redirect, so canonical
+       alone leaves the visitor looking at the URL we told Google not to use.
+       Inline and in <head> on purpose: a deferred external script would run after
+       the parse and the page would render, then jump. location.replace keeps it
+       out of history, so Back still leaves the site. -->
+  <script>(function(p){if(location.protocol!=='file:'&&/\.html$/.test(p)&&!/\/404\.html$/.test(p))location.replace((/\/index\.html$/.test(p)?p.slice(0,-10):p.slice(0,-5))+location.search+location.hash)})(location.pathname)</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>มูลนิธิบันไดแรก — ทุนการศึกษาต่อเนื่อง เปิดบัญชีทุนให้ตรวจสอบได้</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <meta name="description" content="มูลนิธิบันไดแรกให้ทุนการศึกษาต่อเนื่องกับเด็กที่เสี่ยงหลุดจากระบบกลางคัน และเปิดบัญชีทุนทุกก้อนให้ดูได้ว่าโอนให้ใคร โรงเรียนไหน วันที่เท่าไร พร้อมระเบียบ เอกสาร และทำเนียบกรรมการ">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://ph-akin.dev/bandairaek-foundation">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="th_TH">
+  <meta property="og:title" content="มูลนิธิบันไดแรก — ทุนการศึกษาต่อเนื่อง เปิดบัญชีทุนให้ตรวจสอบได้">
+  <meta property="og:description" content="ทุนการศึกษาต่อเนื่องสำหรับเด็กที่เสี่ยงหลุดจากระบบกลางคัน เปิดบัญชีทุนทุกก้อนให้ดูได้ว่าโอนให้ใคร โรงเรียนไหน วันที่เท่าไร">
+  <meta property="og:url" content="https://ph-akin.dev/bandairaek-foundation">
+  <meta property="og:image" content="https://ph-akin.dev/assets/screenshots/showcase-bandairaek.jpg">
+  <meta property="og:image:alt" content="ภาพหน้าเว็บมูลนิธิบันไดแรก">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- display=optional, not swap. Every reachable page on this site is on
+       optional; swap was measured reflowing headings and CTAs on arrival. -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=optional" rel="stylesheet">
+
+  <style>
+    /* ── Tokens ──────────────────────────────────────────────────── */
+    :root {
+      /* The scene, because the palette is downstream of it: the staff room
+         of an up-country school at four in the afternoon. A stack of grant
+         applications sits on the desk in their folders. A teacher is copying
+         one student's bank account number onto a transfer form. Nobody is
+         taking a photograph.
+
+         What that scene rules out, in order:
+
+         1. Photographs. Not "no faces of children" but zero images on the
+            whole page. The argument this site makes is that a foundation
+            should show its records rather than its beneficiaries' faces,
+            and a page that made that argument over a stock photo of a
+            smiling child would be arguing against itself.
+         2. Donate-button orange (high chroma, hue 40-70) and charity
+            emerald (hue ~150). Those two as large fills are the template
+            every nonprofit page in this category ships with. The deep
+            forest and deep ochre below are neither: they appear only as
+            status text inside one table column, as a data encoding, never
+            as a surface.
+         3. The warm-neutral paper band (OKLCH L .84-.97, C < .06, hue
+            40-100) that reads as the default "premium" surface elsewhere
+            on this site. This paper is cool: hue sits near 240.
+
+         Structural colour is one deep ink-blue, the colour of an official
+         document rather than a brand. Money, dates and file sizes are set
+         in mono so the columns line up on their digits, which is a
+         functional decision, not a stylistic one. */
+
+      --paper:    #F6F8FA;
+      --paper-2:  #ECF0F5;
+      --paper-3:  #E3E9F1;
+      --ink:      #10151B;
+      --ink-2:    #333D4A;
+      --muted:    #55606D;
+      --line:     #D3DBE4;
+      --line-2:   #BAC5D3;
+      /* Controls get their own, darker border. WCAG 1.4.11 wants 3:1 for the
+         visible boundary that identifies a control, and the hairline above is
+         1.64:1 against the paper. Lighthouse only measures text contrast, so
+         a button outlined in --line-2 fails silently and scores 100.
+         Measured: 3.66 on --paper, 3.40 on --paper-2, 3.19 on --paper-3. */
+      --control-line: #748298;
+      --accent:   #1B3A6B;
+      --accent-2: #2C5595;
+      --accent-soft: #E6ECF6;
+      /* status encodings, table column only */
+      --ok:       #1A5C43;
+      --wait:     #7E4E10;
+
+      --shell: 1080px;
+      --r: 6px;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    /* The demo pages on this site carry no shared reset. A page that skips
+       this ships width:100% on top of horizontal padding and overflows by
+       exactly the padding, which is invisible to a scrollWidth check because
+       the element is simply clipped. */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body { overflow-x: hidden; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "IBM Plex Sans Thai", "Noto Sans Thai", system-ui, sans-serif;
+      font-size: 17px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3 { line-height: 1.3; margin: 0; font-weight: 600; letter-spacing: -0.01em; }
+    p { margin: 0; }
+    a { color: var(--accent); }
+
+    .shell {
+      width: min(var(--shell), 100% - 40px);
+      margin-inline: auto;
+    }
+
+    .skip {
+      position: absolute; left: -9999px; top: 0;
+      background: var(--ink); color: var(--paper);
+      padding: 10px 16px; z-index: 60;
+    }
+    .skip:focus { left: 12px; top: 12px; }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+    /* ── Nav ─────────────────────────────────────────────────────── */
+    /* Scoped to a class, never a bare `nav` selector: a second nav added to
+       the footer later would otherwise inherit the sticky bar's surface. */
+    .site-nav {
+      position: sticky; top: 0; z-index: 40;
+      background: rgba(246, 248, 250, 0.93);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      display: flex; align-items: center; gap: 24px;
+      min-height: 66px;
+      width: min(var(--shell), 100% - 40px);
+      margin-inline: auto;
+    }
+    .brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; color: var(--ink); }
+    .brand-mark {
+      font-family: var(--mono); font-weight: 500; font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      color: var(--paper); background: var(--accent);
+      padding: 5px 7px; border-radius: 3px;
+    }
+    .brand-name { font-weight: 600; font-size: 1.02rem; white-space: nowrap; }
+    .nav-links {
+      display: flex; gap: 22px; margin-left: auto;
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-links a {
+      color: var(--ink-2); text-decoration: none; font-size: 0.94rem;
+      white-space: nowrap; padding: 4px 0;
+      border-bottom: 2px solid transparent;
+    }
+    .nav-links a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .nav-links a.is-cta {
+      color: var(--accent); font-weight: 500;
+    }
+
+    /* ── Section frame ───────────────────────────────────────────── */
+    .band { padding: clamp(52px, 8vw, 84px) 0; border-top: 1px solid var(--line); }
+    .band.alt { background: var(--paper-2); }
+    .band-head { max-width: 62ch; margin-bottom: 32px; }
+    .kicker {
+      font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.12em;
+      color: var(--muted); text-transform: none; margin-bottom: 10px;
+    }
+    .band-head h2 { font-size: clamp(1.5rem, 3vw, 1.95rem); }
+    .band-head p { color: var(--ink-2); margin-top: 12px; }
+
+    /* ── Hero ────────────────────────────────────────────────────── */
+    .hero { padding: clamp(56px, 9vw, 104px) 0 clamp(40px, 6vw, 64px); }
+    .hero h1 {
+      font-size: clamp(2rem, 5.2vw, 3.15rem);
+      max-width: 17ch;
+      letter-spacing: -0.02em;
+    }
+    .hero-lede {
+      margin-top: 22px; max-width: 60ch;
+      font-size: clamp(1.02rem, 1.5vw, 1.14rem);
+      color: var(--ink-2);
+    }
+    /* The year's numbers as one line of running text. A three-box stat row
+       is the shape this page is trying not to be. */
+    .hero-ledger {
+      margin-top: 26px; max-width: 66ch;
+      color: var(--muted); font-size: 0.98rem;
+    }
+    .hero-ledger strong { font-family: var(--mono); font-weight: 500; color: var(--ink); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+
+    .btn {
+      display: inline-block; text-decoration: none;
+      padding: 12px 22px; border-radius: var(--r);
+      font-size: 0.97rem; font-weight: 500;
+      border: 1px solid var(--accent);
+      transition: background 160ms ease, color 160ms ease;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-2); }
+    .btn-ghost { background: transparent; color: var(--accent); }
+    .btn-ghost:hover { background: var(--accent-soft); }
+
+    /* The page's own argument, stated rather than implied. */
+    .stance {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 26px 0;
+      max-width: 70ch;
+      color: var(--ink-2);
+    }
+    .stance strong { color: var(--ink); font-weight: 600; }
+
+    /* ── Ledger table ────────────────────────────────────────────── */
+    .ledger-controls {
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+      margin-bottom: 18px;
+    }
+    .chip {
+      font: inherit; font-size: 0.88rem;
+      padding: 7px 14px; border-radius: 999px;
+      border: 1px solid var(--control-line); background: transparent;
+      color: var(--ink-2); cursor: pointer;
+    }
+    .chip:hover { border-color: var(--accent); color: var(--accent); }
+    .chip[aria-pressed="true"] {
+      background: var(--accent); border-color: var(--accent); color: #fff;
+    }
+    .ledger-count { margin-left: auto; color: var(--muted); font-size: 0.9rem; }
+
+    /* The table scrolls inside its own box. Letting the page scroll instead
+       is the 375px overflow this site checks for on every page. */
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      background: var(--paper);
+    }
+    .ledger-table { border-collapse: collapse; width: 100%; min-width: 740px; }
+    .ledger-table caption {
+      text-align: left; padding: 14px 18px; color: var(--muted);
+      font-size: 0.88rem; border-bottom: 1px solid var(--line);
+    }
+    .ledger-table th, .ledger-table td {
+      text-align: left; padding: 13px 18px;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.94rem;
+    }
+    .ledger-table thead th {
+      background: var(--paper-3); color: var(--ink);
+      font-weight: 600; font-size: 0.85rem;
+      white-space: nowrap;
+    }
+    .ledger-table tbody tr:last-child td { border-bottom: 0; }
+    .ledger-table tbody tr:hover { background: var(--paper-2); }
+    .ledger-table td.num {
+      font-family: var(--mono); font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    /* The header has to move with the column. Right-aligned figures under a
+       left-aligned heading read as two different columns. */
+    .ledger-table td.amount, .ledger-table th.amount { text-align: right; }
+    .status { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; font-size: 0.9rem; }
+    .status::before {
+      content: ""; width: 7px; height: 7px; border-radius: 2px;
+      background: currentColor; flex: none;
+    }
+    .status.is-ok { color: var(--ok); }
+    .status.is-wait { color: var(--wait); }
+    .ledger-note { margin-top: 16px; color: var(--muted); font-size: 0.9rem; max-width: 66ch; }
+    .ledger-total {
+      margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line);
+      display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: baseline;
+    }
+    .ledger-total dt { color: var(--muted); font-size: 0.9rem; }
+    .ledger-total dd {
+      margin: 0 24px 0 0; font-family: var(--mono);
+      font-variant-numeric: tabular-nums; font-weight: 500;
+    }
+
+    /* ── Documents ───────────────────────────────────────────────── */
+    .doc-list { border-top: 1px solid var(--line); }
+    .doc-row { border-bottom: 1px solid var(--line); padding: 18px 0; }
+    .doc-line { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: baseline; }
+    .doc-name { font-weight: 500; flex: 1 1 260px; }
+    .doc-meta {
+      font-family: var(--mono); font-size: 0.85rem; color: var(--muted);
+      font-variant-numeric: tabular-nums; white-space: nowrap;
+    }
+    .doc-dl {
+      font: inherit; font-size: 0.9rem;
+      background: transparent; border: 1px solid var(--control-line);
+      color: var(--accent); border-radius: var(--r);
+      padding: 6px 14px; cursor: pointer;
+    }
+    .doc-dl:hover { border-color: var(--accent); background: var(--accent-soft); }
+    .doc-note {
+      margin-top: 10px; color: var(--muted); font-size: 0.89rem;
+      border-left: 2px solid var(--line-2); padding-left: 12px;
+    }
+    .doc-note[hidden] { display: none; }
+
+    /* ── Calendar ────────────────────────────────────────────────── */
+    .cal-top { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 18px; }
+    .cal-nav { display: flex; gap: 8px; }
+    .cal-btn {
+      font: inherit; width: 38px; height: 38px; line-height: 1;
+      border: 1px solid var(--control-line); background: transparent;
+      color: var(--ink-2); border-radius: var(--r); cursor: pointer;
+    }
+    .cal-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+    .cal-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .cal-month { font-weight: 600; font-size: 1.08rem; min-width: 12ch; }
+    .cal-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-left: auto; font-size: 0.85rem; color: var(--muted); }
+    .cal-legend span { display: inline-flex; align-items: center; gap: 7px; }
+    .cal-legend i {
+      width: 8px; height: 8px; border-radius: 2px; background: currentColor;
+      flex: none; font-style: normal;
+    }
+    .t-grant { color: var(--accent); }
+    .t-meeting { color: var(--ink-2); }
+    .t-visit { color: var(--ok); }
+    .t-intake { color: var(--wait); }
+
+    .cal-layout { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+    .cal-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      border: 1px solid var(--line); border-radius: var(--r);
+      overflow: hidden; background: var(--line);
+      gap: 1px;
+    }
+    .cal-dow {
+      background: var(--paper-3); text-align: center;
+      padding: 9px 2px; font-size: 0.78rem; color: var(--ink-2); font-weight: 600;
+    }
+    .cal-cell {
+      background: var(--paper); min-height: 74px; padding: 7px 8px;
+      display: flex; flex-direction: column; gap: 5px;
+    }
+    .cal-cell.is-blank { background: var(--paper-2); }
+    .cal-date { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
+    .cal-cell.has-event .cal-date { color: var(--ink); font-weight: 500; }
+    .cal-dot { width: 8px; height: 8px; border-radius: 2px; background: currentColor; }
+    .cal-dots { display: flex; gap: 4px; flex-wrap: wrap; }
+
+    .cal-events { border-top: 1px solid var(--line); }
+    .cal-event { border-bottom: 1px solid var(--line); padding: 14px 0; display: flex; gap: 14px; }
+    .cal-event-date {
+      font-family: var(--mono); font-size: 0.85rem; color: var(--muted);
+      white-space: nowrap; padding-top: 2px; min-width: 6.5ch;
+    }
+    .cal-event-title { font-weight: 500; }
+    .cal-event-kind { font-size: 0.85rem; display: inline-flex; align-items: center; gap: 7px; margin-top: 2px; }
+    .cal-event-kind::before { content: ""; width: 7px; height: 7px; border-radius: 2px; background: currentColor; flex: none; }
+    .cal-empty { padding: 18px 0; color: var(--muted); }
+
+    /* ── Board ───────────────────────────────────────────────────── */
+    /* Initials rather than portraits, for the same reason the page carries
+       no photographs at all. */
+    .board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(232px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+    .board-card { background: var(--paper); padding: 22px 20px; display: flex; gap: 14px; align-items: flex-start; }
+    .board-initials {
+      font-family: var(--mono); font-size: 0.82rem; font-weight: 500;
+      width: 40px; height: 40px; flex: none; border-radius: 3px;
+      display: grid; place-items: center;
+      background: var(--accent-soft); color: var(--accent);
+    }
+    .board-name { font-weight: 600; }
+    .board-role { color: var(--ink-2); font-size: 0.92rem; }
+    .board-term { color: var(--muted); font-size: 0.85rem; font-family: var(--mono); }
+
+    /* ── Donate ──────────────────────────────────────────────────── */
+    .give-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr); gap: 36px; align-items: start; }
+    .give-panel {
+      border: 1px solid var(--line); border-radius: var(--r);
+      background: var(--paper); padding: 26px 24px;
+    }
+    .give-panel h3 { font-size: 1.05rem; margin-bottom: 14px; }
+    .give-rows { display: grid; gap: 12px; }
+    .give-row { display: flex; gap: 14px; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 11px; }
+    .give-row:last-child { border-bottom: 0; padding-bottom: 0; }
+    .give-row dt { color: var(--muted); font-size: 0.9rem; }
+    .give-row dd { margin: 0; font-family: var(--mono); font-size: 0.94rem; text-align: right; }
+    .qr-slot {
+      margin-top: 20px; border: 1px dashed var(--line-2); border-radius: var(--r);
+      display: grid; place-items: center; gap: 6px;
+      padding: 26px 18px; text-align: center; color: var(--muted); font-size: 0.87rem;
+    }
+    .qr-slot .mono { font-size: 0.78rem; letter-spacing: 0.1em; }
+    .give-note { color: var(--ink-2); }
+    .give-note + .give-note { margin-top: 14px; }
+
+    /* ── Footer ──────────────────────────────────────────────────── */
+    .site-foot {
+      border-top: 1px solid var(--line);
+      background: var(--paper-2);
+      padding: 44px 0 52px;
+      color: var(--ink-2); font-size: 0.92rem;
+    }
+    .foot-grid { display: flex; flex-wrap: wrap; gap: 28px 48px; justify-content: space-between; }
+    .foot-links { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+    .foot-links a { color: var(--ink-2); text-decoration: none; }
+    .foot-links a:hover { color: var(--accent); text-decoration: underline; }
+    .foot-disclaimer {
+      margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--line);
+      color: var(--muted); font-size: 0.87rem; max-width: 74ch;
+    }
+
+    /* ── Reveal ──────────────────────────────────────────────────── */
+    /* Hidden with opacity and transform only. clip-path, visibility and
+       display all shrink or remove the observed box, and an element with no
+       intersection rect never crosses its own threshold. */
+    .reveal { opacity: 0; transform: translateY(14px); transition: opacity 520ms ease, transform 520ms ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      * { scroll-behavior: auto !important; }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    /* ── Breakpoints ─────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .cal-layout, .give-layout { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+      .cal-legend { margin-left: 0; width: 100%; }
+    }
+    @media (max-width: 720px) {
+      body { font-size: 16px; }
+      .nav-inner { gap: 14px; }
+      .brand-name { font-size: 0.92rem; }
+      .cal-cell { min-height: 58px; }
+    }
+    @media (max-width: 560px) {
+      .shell, .nav-inner { width: calc(100% - 32px); }
+      .hero-actions .btn { width: 100%; text-align: center; }
+      .give-row { flex-direction: column; gap: 2px; }
+      .give-row dd { text-align: left; }
+    }
+  </style>
+
+  <script src="assets/analytics.js?v=funnel" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">ข้ามไปยังเนื้อหา</a>
+
+  <header class="site-nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark">BR</span>
+        <span class="brand-name">มูลนิธิบันไดแรก</span>
+      </a>
+      <nav class="nav-links" aria-label="เมนูหลัก">
+        <a href="#scholarships">บัญชีทุน</a>
+        <a href="#documents">ระเบียบและเอกสาร</a>
+        <a href="#calendar">ปฏิทินกิจกรรม</a>
+        <a href="#board">คณะกรรมการ</a>
+        <a class="is-cta" href="#give">ร่วมสมทบทุน</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ── Hero ──────────────────────────────────────────────── -->
+    <section class="hero" id="top">
+      <div class="shell">
+        <h1>ทุนก้อนแรก ที่ทำให้เด็กคนหนึ่งได้เรียนต่อ</h1>
+        <p class="hero-lede">มูลนิธิบันไดแรกให้ทุนการศึกษาต่อเนื่องกับเด็กที่เสี่ยงหลุดจากระบบกลางคัน และเปิดบัญชีทุนทุกก้อนให้ดูได้ว่าโอนให้ใคร โรงเรียนไหน จำนวนเท่าไร และวันที่เท่าไร</p>
+        <p class="hero-ledger">ปีการศึกษา <strong>2568</strong> — ให้ทุนแล้ว <strong>42</strong> ทุน ใน <strong>7</strong> โรงเรียน โอนแล้ว <strong>38</strong> ทุน คงเหลือรอเอกสารรับรองรายได้อีก <strong>4</strong> ทุน ยอดรวมที่โอนแล้ว <strong>฿1,284,000</strong></p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#scholarships">ดูบัญชีทุนปีนี้</a>
+          <a class="btn btn-ghost" href="#documents">ระเบียบและเอกสาร</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell">
+      <p class="stance"><strong>เราไม่เผยแพร่ภาพใบหน้าของเด็กที่รับทุน</strong> ทั้งเว็บนี้จึงไม่มีรูปถ่ายสักรูป เด็กที่ขอทุนไม่ได้อยู่ในฐานะที่จะปฏิเสธการถ่ายรูปได้จริง และรูปหนึ่งใบก็ไม่ได้บอกว่าเงินไปถึงใคร สิ่งที่เราเอามาแสดงแทนคือบัญชีทุนรายคน เอกสารที่ดาวน์โหลดตรวจสอบได้ และรายชื่อกรรมการพร้อมวาระ</p>
+    </section>
+
+    <!-- ── Ledger ────────────────────────────────────────────── -->
+    <section class="band" id="scholarships">
+      <div class="shell">
+        <div class="band-head reveal">
+          <p class="kicker">บัญชีทุน / ปีการศึกษา 2568</p>
+          <h2>ทุนทุกก้อนมีชื่อโรงเรียนและวันที่โอนกำกับ</h2>
+          <p>ทุนแบ่งจ่ายปีละสองงวด ตามภาคเรียน งวดแรกโอนหลังเปิดเทอมภายในสองสัปดาห์ ทุนที่ยังไม่โอนจะระบุเหตุผลไว้ ไม่ตัดออกจากตาราง</p>
+        </div>
+
+        <div class="ledger-controls reveal">
+          <button type="button" class="chip" data-ledger="all" aria-pressed="true">ทั้งหมด</button>
+          <button type="button" class="chip" data-ledger="ok" aria-pressed="false">โอนแล้ว</button>
+          <button type="button" class="chip" data-ledger="wait" aria-pressed="false">รอเอกสาร</button>
+          <p class="ledger-count" id="ledger-count" role="status">แสดง 10 จาก 10 รายการ</p>
+        </div>
+
+        <div class="table-wrap reveal">
+          <table class="ledger-table">
+            <caption>แสดง 10 รายการล่าสุดจากทั้งหมด 42 ทุน รายการเต็มอยู่ในรายงานประจำปี</caption>
+            <thead>
+              <tr>
+                <th scope="col">รหัสทุน</th>
+                <th scope="col">ระดับชั้น</th>
+                <th scope="col">โรงเรียน</th>
+                <th scope="col" class="amount">จำนวนเงิน</th>
+                <th scope="col">งวด</th>
+                <th scope="col">วันที่โอน</th>
+                <th scope="col">สถานะ</th>
+              </tr>
+            </thead>
+            <tbody id="ledger-body">
+              <tr data-state="ok">
+                <td class="num">BR-68-001</td><td>ม.1</td><td>โรงเรียนบ้านห้วยแสงเหนือ</td>
+                <td class="num amount">12,000</td><td class="num">1/2</td><td class="num">15 พ.ค. 2568</td>
+                <td><span class="status is-ok">โอนแล้ว</span></td>
+              </tr>
+              <tr data-state="ok">
+                <td class="num">BR-68-002</td><td>ม.2</td><td>โรงเรียนบ้านห้วยแสงเหนือ</td>
+                <td class="num amount">12,000</td><td class="num">1/2</td><td class="num">15 พ.ค. 2568</td>
+                <td><span class="status is-ok">โอนแล้ว</span></td>
+              </tr>
+              <tr data-state="ok">
+                <td class="num">BR-68-003</td><td>ม.4</td><td>โรงเรียนวัดหนองผักบุ้ง</td>
+                <td class="num amount">18,000</td><td class="num">1/2</td><td class="num">15 พ.ค. 2568</td>
+                <td><span class="status is-ok">โอนแล้ว</span></td>
+              </tr>
+              <tr data-state="ok">
+                <td class="num">BR-68-004</td><td>ป.6</td><td>โรงเรียนบ้านโคกสว่าง</td>
+                <td class="num amount">8,000</td><td class="num">1/2</td><td class="num">22 พ.ค. 2568</td>
+                <td><span class="status is-ok">โอนแล้ว</span></td>
+              </tr>
+              <tr data-state="ok">
+                <td class="num">BR-68-005</td><td>ม.3</td><td>โรงเรียนบ้านโคกสว่าง</td>
+                <td class="num amount">12,000</td><td class="num">1/2</td><td class="num">22 พ.ค. 2568</td>
+                <td><span class="status is-ok">โอนแล้ว</span></td>
+              </tr>
+              <tr data-state="ok">
+                <td class="num">BR-68-006</td><td>ปวช.1</td><td>วิทยาลัยการอาชีพอำเภอกลาง</td>
+                <td class="num amount">20,000</td><td class="num">1/2</td><td class="num">30 พ.ค. 2568</td>
+                <td><span class="status is-ok">โอนแล้ว</span></td>
+              </tr>
+              <tr data-state="ok">
+                <td class="num">BR-68-007</td><td>ม.5</td><td>โรงเรียนวัดหนองผักบุ้ง</td>
+                <td class="num amount">18,000</td><td class="num">1/2</td><td class="num">30 พ.ค. 2568</td>
+                <td><span class="status is-ok">โอนแล้ว</span></td>
+              </tr>
+              <tr data-state="wait">
+                <td class="num">BR-68-008</td><td>ม.1</td><td>โรงเรียนบ้านทุ่งกระโดน</td>
+                <td class="num amount">12,000</td><td class="num">1/2</td><td class="num">—</td>
+                <td><span class="status is-wait">รอเอกสารรับรองรายได้</span></td>
+              </tr>
+              <tr data-state="wait">
+                <td class="num">BR-68-009</td><td>ป.5</td><td>โรงเรียนบ้านทุ่งกระโดน</td>
+                <td class="num amount">8,000</td><td class="num">1/2</td><td class="num">—</td>
+                <td><span class="status is-wait">รอเอกสารรับรองรายได้</span></td>
+              </tr>
+              <tr data-state="ok">
+                <td class="num">BR-68-010</td><td>ปวช.2</td><td>วิทยาลัยการอาชีพอำเภอกลาง</td>
+                <td class="num amount">20,000</td><td class="num">1/2</td><td class="num">6 มิ.ย. 2568</td>
+                <td><span class="status is-ok">โอนแล้ว</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <dl class="ledger-total reveal">
+          <dt>ยอดโอนแล้วทั้งปี</dt><dd>฿1,284,000</dd>
+          <dt>ค่าบริหารจัดการ</dt><dd>6.2%</dd>
+          <dt>ผู้สอบบัญชี</dt><dd>สำนักงานสอบบัญชีอิสระ</dd>
+        </dl>
+
+        <p class="ledger-note">ชื่อโรงเรียน รหัสทุน และตัวเลขในตารางนี้เป็นข้อมูลตัวอย่างสำหรับสาธิตหน้าเว็บ ไม่ใช่ข้อมูลขององค์กรจริง</p>
+      </div>
+    </section>
+
+    <!-- ── Documents ─────────────────────────────────────────── -->
+    <section class="band alt" id="documents">
+      <div class="shell">
+        <div class="band-head reveal">
+          <p class="kicker">ระเบียบและเอกสาร</p>
+          <h2>รู้ชื่อไฟล์ ชนิด ขนาด และวันที่ ก่อนกดโหลด</h2>
+          <p>ไฟล์ทุกชุดบอกไว้ตั้งแต่ก่อนกดว่าเป็นอะไร ปรับปรุงล่าสุดเมื่อไร และหนักเท่าไร เพื่อไม่ให้ใครโหลดของเก่าไปใช้โดยไม่รู้ตัว</p>
+        </div>
+
+        <div class="doc-list reveal">
+          <div class="doc-row">
+            <div class="doc-line">
+              <p class="doc-name">รายงานประจำปี 2567</p>
+              <p class="doc-meta">PDF · 2.4 MB · ปรับปรุง 12 มี.ค. 2568</p>
+              <button type="button" class="doc-dl" aria-expanded="false">ดาวน์โหลด</button>
+            </div>
+            <p class="doc-note" hidden>ไฟล์ตัวอย่าง — หน้านี้เป็นงานออกแบบ จึงยังไม่มีไฟล์จริงให้ดาวน์โหลด</p>
+          </div>
+          <div class="doc-row">
+            <div class="doc-line">
+              <p class="doc-name">ระเบียบการให้ทุนการศึกษา ฉบับปรับปรุง 2568</p>
+              <p class="doc-meta">PDF · 380 KB · ปรับปรุง 4 เม.ย. 2568</p>
+              <button type="button" class="doc-dl" aria-expanded="false">ดาวน์โหลด</button>
+            </div>
+            <p class="doc-note" hidden>ไฟล์ตัวอย่าง — หน้านี้เป็นงานออกแบบ จึงยังไม่มีไฟล์จริงให้ดาวน์โหลด</p>
+          </div>
+          <div class="doc-row">
+            <div class="doc-line">
+              <p class="doc-name">แบบฟอร์มขอรับทุน ปีการศึกษา 2568</p>
+              <p class="doc-meta">DOCX · 88 KB · ปรับปรุง 4 เม.ย. 2568</p>
+              <button type="button" class="doc-dl" aria-expanded="false">ดาวน์โหลด</button>
+            </div>
+            <p class="doc-note" hidden>ไฟล์ตัวอย่าง — หน้านี้เป็นงานออกแบบ จึงยังไม่มีไฟล์จริงให้ดาวน์โหลด</p>
+          </div>
+          <div class="doc-row">
+            <div class="doc-line">
+              <p class="doc-name">แบบฟอร์มรับรองรายได้ผู้ปกครอง</p>
+              <p class="doc-meta">PDF · 210 KB · ปรับปรุง 4 เม.ย. 2568</p>
+              <button type="button" class="doc-dl" aria-expanded="false">ดาวน์โหลด</button>
+            </div>
+            <p class="doc-note" hidden>ไฟล์ตัวอย่าง — หน้านี้เป็นงานออกแบบ จึงยังไม่มีไฟล์จริงให้ดาวน์โหลด</p>
+          </div>
+          <div class="doc-row">
+            <div class="doc-line">
+              <p class="doc-name">งบการเงินที่ผ่านการสอบบัญชี ปี 2567</p>
+              <p class="doc-meta">PDF · 1.1 MB · ปรับปรุง 28 ก.พ. 2568</p>
+              <button type="button" class="doc-dl" aria-expanded="false">ดาวน์โหลด</button>
+            </div>
+            <p class="doc-note" hidden>ไฟล์ตัวอย่าง — หน้านี้เป็นงานออกแบบ จึงยังไม่มีไฟล์จริงให้ดาวน์โหลด</p>
+          </div>
+          <div class="doc-row">
+            <div class="doc-line">
+              <p class="doc-name">หนังสือรับรองการจดทะเบียนมูลนิธิ</p>
+              <p class="doc-meta">PDF · 640 KB · ปรับปรุง 9 ม.ค. 2567</p>
+              <button type="button" class="doc-dl" aria-expanded="false">ดาวน์โหลด</button>
+            </div>
+            <p class="doc-note" hidden>ไฟล์ตัวอย่าง — หน้านี้เป็นงานออกแบบ จึงยังไม่มีไฟล์จริงให้ดาวน์โหลด</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Calendar ──────────────────────────────────────────── -->
+    <section class="band" id="calendar">
+      <div class="shell">
+        <div class="band-head reveal">
+          <p class="kicker">ปฏิทินกิจกรรม</p>
+          <h2>กดดูได้จริง แยกประเภทงานด้วยสี ไม่ใช่ตารางที่เป็นรูปภาพ</h2>
+          <p>กิจกรรมของมูลนิธิเดินตามปฏิทินการศึกษา ทั้งรอบรับสมัคร รอบมอบทุน รอบเยี่ยมบ้าน และวันประชุมกรรมการ</p>
+        </div>
+
+        <div class="cal-top reveal">
+          <div class="cal-nav">
+            <button type="button" class="cal-btn" id="cal-prev" aria-label="เดือนก่อนหน้า">&#8592;</button>
+            <button type="button" class="cal-btn" id="cal-next" aria-label="เดือนถัดไป">&#8594;</button>
+          </div>
+          <p class="cal-month" id="cal-month" role="status">พฤษภาคม 2568</p>
+          <div class="cal-legend" aria-hidden="true">
+            <span class="t-grant"><i></i>มอบทุน</span>
+            <span class="t-meeting"><i></i>ประชุมกรรมการ</span>
+            <span class="t-visit"><i></i>เยี่ยมบ้าน</span>
+            <span class="t-intake"><i></i>รับสมัคร</span>
+          </div>
+        </div>
+
+        <div class="cal-layout reveal">
+          <div class="cal-grid" id="cal-grid" aria-hidden="true"></div>
+          <div>
+            <h3 class="kicker">กิจกรรมในเดือนนี้</h3>
+            <div class="cal-events" id="cal-events"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Board ─────────────────────────────────────────────── -->
+    <section class="band alt" id="board">
+      <div class="shell">
+        <div class="band-head reveal">
+          <p class="kicker">คณะกรรมการ</p>
+          <h2>ใครเป็นคนอนุมัติทุน และอยู่ในวาระถึงเมื่อไร</h2>
+          <p>กรรมการชุดปัจจุบันมีวาระคราวละสามปี การอนุมัติทุนแต่ละรอบต้องผ่านที่ประชุมและบันทึกไว้ในรายงานประจำปี</p>
+        </div>
+
+        <div class="board-grid reveal">
+          <div class="board-card">
+            <p class="board-initials">ปว</p>
+            <div>
+              <p class="board-name">ปรีดา วงศ์อนันต์</p>
+              <p class="board-role">ประธานกรรมการ</p>
+              <p class="board-term">วาระ 2566–2569</p>
+            </div>
+          </div>
+          <div class="board-card">
+            <p class="board-initials">สธ</p>
+            <div>
+              <p class="board-name">สุมาลี ธนวัฒน์</p>
+              <p class="board-role">รองประธานกรรมการ</p>
+              <p class="board-term">วาระ 2566–2569</p>
+            </div>
+          </div>
+          <div class="board-card">
+            <p class="board-initials">อร</p>
+            <div>
+              <p class="board-name">อนุชา รัตนพงศ์</p>
+              <p class="board-role">เหรัญญิก</p>
+              <p class="board-term">วาระ 2566–2569</p>
+            </div>
+          </div>
+          <div class="board-card">
+            <p class="board-initials">กศ</p>
+            <div>
+              <p class="board-name">กมลชนก ศรีสุพรรณ</p>
+              <p class="board-role">เลขานุการ</p>
+              <p class="board-term">วาระ 2567–2570</p>
+            </div>
+          </div>
+          <div class="board-card">
+            <p class="board-initials">วภ</p>
+            <div>
+              <p class="board-name">วิชัย ภักดีเดช</p>
+              <p class="board-role">กรรมการ ฝ่ายพิจารณาทุน</p>
+              <p class="board-term">วาระ 2567–2570</p>
+            </div>
+          </div>
+          <div class="board-card">
+            <p class="board-initials">นจ</p>
+            <div>
+              <p class="board-name">นภาพร จันทร์โสภา</p>
+              <p class="board-role">กรรมการ ฝ่ายติดตามผล</p>
+              <p class="board-term">วาระ 2567–2570</p>
+            </div>
+          </div>
+          <div class="board-card">
+            <p class="board-initials">ธค</p>
+            <div>
+              <p class="board-name">ธีรพงษ์ คงมั่น</p>
+              <p class="board-role">กรรมการ ฝ่ายประสานโรงเรียน</p>
+              <p class="board-term">วาระ 2568–2571</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Give ──────────────────────────────────────────────── -->
+    <section class="band" id="give">
+      <div class="shell">
+        <div class="band-head reveal">
+          <p class="kicker">ร่วมสมทบทุน</p>
+          <h2>สมทบเข้าบัญชีมูลนิธิโดยตรง ไม่ผ่านตัวกลาง</h2>
+          <p>ยอดที่สมทบเข้ามาจะปรากฏในบัญชีทุนของปีการศึกษาถัดไป และในงบการเงินที่ผ่านการสอบบัญชี</p>
+        </div>
+
+        <div class="give-layout reveal">
+          <div>
+            <p class="give-note">ทุนหนึ่งทุนต่อหนึ่งปีการศึกษาอยู่ระหว่าง <span class="mono">฿8,000</span> ถึง <span class="mono">฿20,000</span> ตามระดับชั้น สมทบเท่าไรก็ได้ ไม่จำเป็นต้องเต็มทุน ทุกยอดจะถูกรวมเข้ากองกลางและจัดสรรตามลำดับที่คณะกรรมการพิจารณาไว้แล้ว</p>
+            <p class="give-note">ใบเสร็จรับเงินสำหรับลดหย่อนภาษีจะออกให้ตามรอบบัญชี โดยส่งไปตามที่อยู่ที่แจ้งไว้ หากต้องการใบเสร็จเร่งด่วนให้ติดต่อฝ่ายเหรัญญิกโดยตรง</p>
+            <p class="give-note">มูลนิธิไม่มีนโยบายรับบริจาคผ่านบุคคลหรือผ่านช่องทางแชทส่วนตัว หากมีผู้ติดต่อในนามมูลนิธิเพื่อขอให้โอนเข้าบัญชีบุคคล ให้ถือว่าไม่ใช่ของเรา</p>
+          </div>
+
+          <div class="give-panel">
+            <h3>บัญชีรับสมทบทุน</h3>
+            <dl class="give-rows">
+              <div class="give-row"><dt>ชื่อบัญชี</dt><dd>มูลนิธิบันไดแรก</dd></div>
+              <div class="give-row"><dt>ธนาคาร</dt><dd>ออมทรัพย์</dd></div>
+              <div class="give-row"><dt>เลขที่บัญชี</dt><dd>xxx-x-xxxxx-x</dd></div>
+              <div class="give-row"><dt>พร้อมเพย์</dt><dd>x-xxxx-xxxxx-xx-x</dd></div>
+            </dl>
+            <div class="qr-slot">
+              <p class="mono">QR</p>
+              <p>ตัวอย่างตำแหน่งคิวอาร์พร้อมเพย์<br>หน้านี้เป็นงานออกแบบ จึงไม่มีคิวอาร์จริง</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="shell">
+      <div class="foot-grid">
+        <div>
+          <p><strong>มูลนิธิบันไดแรก</strong></p>
+          <p>ทุนการศึกษาต่อเนื่องสำหรับเด็กที่เสี่ยงหลุดจากระบบกลางคัน</p>
+        </div>
+        <nav class="foot-links" aria-label="เมนูท้ายหน้า">
+          <a href="#scholarships">บัญชีทุน</a>
+          <a href="#documents">ระเบียบและเอกสาร</a>
+          <a href="#calendar">ปฏิทินกิจกรรม</a>
+          <a href="#board">คณะกรรมการ</a>
+          <a href="#give">ร่วมสมทบทุน</a>
+        </nav>
+      </div>
+      <p class="foot-disclaimer">หน้านี้เป็นตัวอย่างงานออกแบบเว็บไซต์ ไม่ใช่เว็บไซต์ของมูลนิธิที่มีอยู่จริง ชื่อองค์กร ชื่อบุคคล ตัวเลข เอกสาร และเลขบัญชีทั้งหมดเป็นข้อมูลสมมติ และหน้านี้ไม่รับเงินบริจาคจริงในทุกช่องทาง</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      "use strict";
+
+      /* ── Ledger filter ─────────────────────────────────────── */
+      var chips = Array.prototype.slice.call(document.querySelectorAll(".chip[data-ledger]"));
+      var rows = Array.prototype.slice.call(document.querySelectorAll("#ledger-body tr"));
+      var count = document.getElementById("ledger-count");
+
+      function applyLedger(state) {
+        var shown = 0;
+        rows.forEach(function (row) {
+          var match = state === "all" || row.getAttribute("data-state") === state;
+          row.hidden = !match;
+          if (match) shown++;
+        });
+        chips.forEach(function (chip) {
+          chip.setAttribute("aria-pressed", String(chip.getAttribute("data-ledger") === state));
+        });
+        if (count) count.textContent = "แสดง " + shown + " จาก " + rows.length + " รายการ";
+      }
+
+      if (chips.length && rows.length) {
+        chips.forEach(function (chip) {
+          chip.addEventListener("click", function () {
+            applyLedger(chip.getAttribute("data-ledger"));
+          });
+        });
+        applyLedger("all");
+      }
+
+      /* ── Document rows ─────────────────────────────────────── */
+      /* A control that looks like a download and does nothing is a dead
+         click. It says what it is instead. */
+      Array.prototype.forEach.call(document.querySelectorAll(".doc-dl"), function (btn) {
+        btn.addEventListener("click", function () {
+          var note = btn.closest(".doc-row").querySelector(".doc-note");
+          if (!note) return;
+          var open = note.hidden;
+          note.hidden = !open;
+          btn.setAttribute("aria-expanded", String(open));
+        });
+      });
+
+      /* ── Calendar ──────────────────────────────────────────── */
+      /* Three static months of fixtures. The grid offset is computed from
+         Date rather than hardcoded, so the first weekday is never wrong. */
+      var THAI_MONTHS = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+                         "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+      var DOW = ["อา", "จ", "อ", "พ", "พฤ", "ศ", "ส"];
+      var KIND = {
+        grant:   { label: "มอบทุน", cls: "t-grant" },
+        meeting: { label: "ประชุมกรรมการ", cls: "t-meeting" },
+        visit:   { label: "เยี่ยมบ้าน", cls: "t-visit" },
+        intake:  { label: "รับสมัคร", cls: "t-intake" }
+      };
+
+      var MONTHS = [
+        {
+          year: 2025, month: 4,
+          events: [
+            { day: 8,  kind: "meeting", title: "ประชุมคณะกรรมการ ครั้งที่ 2/2568 พิจารณาทุนรอบแรก" },
+            { day: 15, kind: "grant",   title: "โอนทุนงวดที่ 1 กลุ่มโรงเรียนบ้านห้วยแสงเหนือ" },
+            { day: 22, kind: "grant",   title: "โอนทุนงวดที่ 1 กลุ่มโรงเรียนบ้านโคกสว่าง" },
+            { day: 27, kind: "visit",   title: "เยี่ยมบ้านผู้รับทุนรายใหม่ 6 ครอบครัว" },
+            { day: 30, kind: "grant",   title: "โอนทุนงวดที่ 1 กลุ่มสายอาชีพ" }
+          ]
+        },
+        {
+          year: 2025, month: 5,
+          events: [
+            { day: 6,  kind: "grant",   title: "โอนทุนรายที่เอกสารครบเพิ่มเติม" },
+            { day: 12, kind: "meeting", title: "ประชุมคณะกรรมการ ครั้งที่ 3/2568" },
+            { day: 18, kind: "visit",   title: "เยี่ยมบ้านติดตามผล ภาคเรียนที่ 1" },
+            { day: 25, kind: "intake",  title: "เปิดรับใบสมัครทุนต่อเนื่อง รอบเพิ่มเติม" }
+          ]
+        },
+        {
+          year: 2025, month: 6,
+          events: [
+            { day: 4,  kind: "intake",  title: "ปิดรับใบสมัครรอบเพิ่มเติม" },
+            { day: 10, kind: "meeting", title: "ประชุมพิจารณาใบสมัครรอบเพิ่มเติม" },
+            { day: 21, kind: "visit",   title: "เยี่ยมบ้านผู้สมัครรอบเพิ่มเติม" },
+            { day: 29, kind: "grant",   title: "โอนทุนผู้ผ่านการพิจารณารอบเพิ่มเติม" }
+          ]
+        }
+      ];
+
+      var grid = document.getElementById("cal-grid");
+      var list = document.getElementById("cal-events");
+      var label = document.getElementById("cal-month");
+      var prev = document.getElementById("cal-prev");
+      var next = document.getElementById("cal-next");
+      var cursor = 0;
+
+      function renderCalendar() {
+        if (!grid || !list || !label) return;
+        var m = MONTHS[cursor];
+        var first = new Date(m.year, m.month, 1).getDay();
+        var days = new Date(m.year, m.month + 1, 0).getDate();
+        var byDay = {};
+        m.events.forEach(function (ev) {
+          (byDay[ev.day] = byDay[ev.day] || []).push(ev);
+        });
+
+        label.textContent = THAI_MONTHS[m.month] + " " + (m.year + 543);
+
+        grid.textContent = "";
+        DOW.forEach(function (d) {
+          var head = document.createElement("div");
+          head.className = "cal-dow";
+          head.textContent = d;
+          grid.appendChild(head);
+        });
+        var i;
+        for (i = 0; i < first; i++) {
+          var blank = document.createElement("div");
+          blank.className = "cal-cell is-blank";
+          grid.appendChild(blank);
+        }
+        for (i = 1; i <= days; i++) {
+          var cell = document.createElement("div");
+          cell.className = "cal-cell" + (byDay[i] ? " has-event" : "");
+          var date = document.createElement("span");
+          date.className = "cal-date";
+          date.textContent = String(i);
+          cell.appendChild(date);
+          if (byDay[i]) {
+            var dots = document.createElement("div");
+            dots.className = "cal-dots";
+            byDay[i].forEach(function (ev) {
+              var dot = document.createElement("span");
+              dot.className = "cal-dot " + KIND[ev.kind].cls;
+              dots.appendChild(dot);
+            });
+            cell.appendChild(dots);
+          }
+          grid.appendChild(cell);
+        }
+
+        list.textContent = "";
+        if (!m.events.length) {
+          var empty = document.createElement("p");
+          empty.className = "cal-empty";
+          empty.textContent = "เดือนนี้ไม่มีกิจกรรม";
+          list.appendChild(empty);
+        }
+        m.events.slice().sort(function (a, b) { return a.day - b.day; }).forEach(function (ev) {
+          var row = document.createElement("article");
+          row.className = "cal-event";
+          var when = document.createElement("p");
+          when.className = "cal-event-date";
+          when.textContent = ev.day + " " + THAI_MONTHS[m.month].slice(0, 3) + ".";
+          var body = document.createElement("div");
+          var title = document.createElement("p");
+          title.className = "cal-event-title";
+          title.textContent = ev.title;
+          var kind = document.createElement("p");
+          kind.className = "cal-event-kind " + KIND[ev.kind].cls;
+          kind.textContent = KIND[ev.kind].label;
+          body.appendChild(title);
+          body.appendChild(kind);
+          row.appendChild(when);
+          row.appendChild(body);
+          list.appendChild(row);
+        });
+
+        if (prev) prev.disabled = cursor === 0;
+        if (next) next.disabled = cursor === MONTHS.length - 1;
+      }
+
+      if (prev) prev.addEventListener("click", function () {
+        if (cursor > 0) { cursor--; renderCalendar(); }
+      });
+      if (next) next.addEventListener("click", function () {
+        if (cursor < MONTHS.length - 1) { cursor++; renderCalendar(); }
+      });
+      renderCalendar();
+
+      /* ── Reveal ────────────────────────────────────────────── */
+      var targets = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
+      if (!("IntersectionObserver" in window)) {
+        targets.forEach(function (el) { el.classList.add("visible"); });
+      } else {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.08, rootMargin: "0px 0px -40px 0px" });
+        targets.forEach(function (el) { io.observe(el); });
+
+        /* Failsafe: anything at or above the fold that is still hidden after
+           2.5s is shown outright. The observer is the nice path, not the
+           only one. */
+        window.setTimeout(function () {
+          targets.forEach(function (el) {
+            if (el.classList.contains("visible")) return;
+            if (el.getBoundingClientRect().top < window.innerHeight) {
+              el.classList.add("visible");
+            }
+          });
+        }, 2500);
+      }
+    })();
+  </script>
+</body>
+</html>

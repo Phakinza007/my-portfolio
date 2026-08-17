@@ -33,6 +33,14 @@
         "long": "The competition calendar for the Royal Automobile Association of Thailand, the FIA member federation &mdash; five colour-coded disciplines, live through the 2026 season."
       }
     },
+    "showcase-bandairaek": {
+      "th": {
+        "long": "เว็บมูลนิธิที่เปิดบัญชีทุนรายคน บอกโรงเรียน จำนวนเงิน และวันที่โอนของทุกทุน พร้อมระเบียบ เอกสารดาวน์โหลด และทำเนียบกรรมการ"
+      },
+      "en": {
+        "long": "A foundation site built around a public scholarship ledger — school, amount and transfer date for every grant, plus documents and a board directory."
+      }
+    },
     "showcase-bookease": {
       "th": {
         "long": "แดชบอร์ดจองคิวนัดหมาย พร้อมตรวจสอบฟอร์ม เลือกช่วงเวลา และขั้นตอนยืนยันการจอง",

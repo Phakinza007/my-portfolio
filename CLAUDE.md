@@ -39,29 +39,30 @@ my-portfolio/
 ├── CNAME                         # ph-akin.dev custom domain
 │
 ├── assets/
-│   ├── thumbs/                   # 12 card thumbnails, all SVG (see Card Thumbnail Approach)
+│   ├── thumbs/                   # 27 files: 15 card SVGs in use + 12 unused JPGs from
+│                                 # culled projects (see Card Thumbnail Approach)
 │   ├── screenshots/              # showcase-*.jpg hero screenshots
 │   ├── social-preview.png        # OG image (1200×630)
 │   ├── favicon.svg
 │   ├── analytics.js              # Microsoft Clarity loader + click tracking (shared)
 │   ├── site-ui.js                # reveal + mobile drawer + work filter — 12 portfolio pages
 │   ├── site-search.js            # search widget; builds its own markup into an empty div
-│   ├── search-index.json         # hand-maintained, 33 entries per language
+│   ├── search-index.json         # hand-maintained, 39 entries per language
 │   ├── resume-phakin-chawanpunya.pdf
 │   ├── home-shell.css            # index / work / services / about / faq / process (+ -en)
 │   └── portfolio-pages.css       # resume / case study / showcase / category / web-* pages
 │
 ├── case-study-*.html             # 4 case studies — THAI
 ├── case-study-*-en.html          # 4 case studies — English
-├── showcase-*.html               # 15 project showcase pages — THAI
-├── showcase-*-en.html            # 15 project showcase pages — English
+├── showcase-*.html               # 16 project showcase pages — THAI
+├── showcase-*-en.html            # 16 project showcase pages — English
 ├── landing-page.html / landing-page-en.html       # Service category page — Landing Page (฿3,900)
 ├── dashboard-ui.html / dashboard-ui-en.html        # Service category page — Dashboard UI (฿7,900)
 ├── business-website.html / business-website-en.html # Service category page — Business Website (฿9,900)
 ├── web-*.html                    # 8 industry landing pages — THAI ONLY, no -en twin
 │                                 # clinic · booking · restaurant · shop · gym · construction ·
 │                                 # solar · organization
-├── work.html / work-en.html      # Full archive — 13 projects + filter + 4 case studies
+├── work.html / work-en.html      # Full archive — 16 projects + filter + 4 case studies
 ├── services.html / -en           # 3 packages + price comparison + 7 industry entry points
 ├── about.html / -en              # Bio, experience, tools, KMUTT
 ├── faq.html / -en                # 10 pre-hire questions + FAQPage JSON-LD
@@ -79,7 +80,7 @@ my-portfolio/
 | ไทย (default) | `/` · `/{slug}.html` | `th` |
 | English | `/index-en.html` · `/{slug}-en.html` | `en` |
 
-21 pairs (42 files): `index`, `resume`, 4 × `case-study-*`, 15 × `showcase-*`.
+22 pairs (44 files): `index`, `resume`, 4 × `case-study-*`, 16 × `showcase-*`.
 
 **Rules any change must preserve:**
 
@@ -94,7 +95,7 @@ my-portfolio/
 **Two page classes deliberately have no `-en` twin. Neither is unfinished work — do not
 "fix" them by generating `-en` siblings:**
 
-1. The **15 project demo pages** (`construction-landing.html`, `gym-landing.html`, …,
+1. The **16 project demo pages** (`construction-landing.html`, `gym-landing.html`, …,
    plus `PulseBoard.html`, `InternTrack.html` and `LaunchLedger.html`, the three case-study
    demos, which are the same kind of page and are counted here — measured 2026-08-12)
    are simulated client work. Both languages link to the same demo file. Same for
@@ -112,7 +113,7 @@ See `docs/superpowers/specs/2026-08-06-th-en-language-toggle-design.md`.
 
 ---
 
-## Current Cards in Selected Work (16 cards — 15 projects + the RAAT case study)
+## Current Cards in Selected Work (17 cards — 16 projects + the RAAT case study)
 
 The card links to its **showcase page**; the showcase page's "ดูเว็บจริง" link goes to the
 **demo file**. The old version of this table conflated the two.
@@ -134,12 +135,26 @@ The card links to its **showcase page**; the showcase page's "ดูเว็บ
 | 13 | BRIGHT Dental Clinic | `showcase-dental-clinic.html` | `dental-clinic.html` | `clinic` |
 | 14 | VELVÉ Aesthetics | `showcase-velve-aesthetics.html` | `aesthetic-booking.html` | `clinic booking` |
 | 15 | HabitQuest | `showcase-habitquest.html` | external: `https://habitquest-pi.vercel.app/` | `other` |
-| 16 | **RAAT Competition Calendar** | `case-study-raat.html` | external: `https://www.raat.or.th/competition-calendar/1442/` | `other` |
+| 16 | มูลนิธิบันไดแรก | `showcase-bandairaek.html` | `bandairaek-foundation.html` | `other` |
+| 17 | **RAAT Competition Calendar** | `case-study-raat.html` | external: `https://www.raat.or.th/competition-calendar/1442/` | `other` |
 
-**Card 16 is the only real client work on the site.** The other fifteen are self-directed
+**Card 17 is the only real client work on the site.** The other sixteen are self-directed
 design pieces. It is the one card that may carry the `ลูกค้าจริง` tag, and that tag must never
-appear on the other fifteen — it was stripped from twelve files on 2026-08-07 for exactly
+appear on the other sixteen — it was stripped from twelve files on 2026-08-07 for exactly
 that reason. RAAT also appears as the fifth `#case-studies` card, deliberately in both places.
+
+**Card 16 is the newest and the only one whose demo carries no images at all** — added
+2026-08-16 to fill the thinnest industry page on the site, `web-organization`, whose
+`#related` strip had one entry and that entry was the RAAT case study. The demo's palette,
+its refusal of photography, and the reason both are stated in the page's own copy are
+written up in
+`docs/superpowers/specs/2026-08-16-bandairaek-foundation-showcase-design.md`.
+Two rules of that page are easy to undo by accident: **it must never gain a photograph**
+(the page argues in running text that a foundation should publish records rather than
+beneficiaries' faces, so an image would contradict its own copy), and **the donation block
+must stay inert and marked** — placeholder account number, labelled QR slot, and a footer
+saying the page takes no real money. A convincing charity page that appears to solicit
+donations is worth marking unambiguously.
 
 **SupplyMate (card 7) is the second project that lives in its own repository**, alongside
 HabitQuest. It is a React + Vite + TypeScript app deployed to GitHub Pages at
@@ -163,7 +178,7 @@ values are only a no-JS fallback.
 ⚠️ **Because they are a fallback, nothing tells you when they go stale.** They sat at
 `all 13 / other 2` from the day the RAAT card was added until 2026-08-08 while the DOM had
 already been at `14 / 3` — `site-ui.js` overwrites them on load, so the wrong numbers were
-invisible in every browser and only showed with JS off. They are now `all 16 / other 4`.
+invisible in every browser and only showed with JS off. They are now `all 17 / other 5`.
 **Adding or removing a card means editing these by hand in all four grid files** (`index`,
 `index-en`, `work`, `work-en`); read the truth off the DOM rather than counting the table
 above. `work.html` / `work-en.html` also state the project count in prose — the
@@ -184,7 +199,7 @@ not style descriptors. `index-en.html` carries English equivalents but the same
 
 ## Card Thumbnail Approach
 
-**14 of the 16 cards are `<img src="assets/thumbs/*.svg">`**, and `assets/thumbs/` holds
+**15 of the 17 cards are `<img src="assets/thumbs/*.svg">`**, and `assets/thumbs/` holds
 exactly those 14 files. The other two carry real photographs and always should: VELVÉ
 (`assets/velve/care-tools.jpg`) and RAAT (`assets/raat/competition-calendar.jpg`). The
 inline-styled `<div>` mini-UIs
@@ -366,7 +381,7 @@ hundreds that were restyled and kept. **Reading only the delete count invites th
 generalisation** — the decision was never "fewer kickers," it was "no scaffolding."
 
 **The four `.story-card`s on the showcase / case-study story stack are four shapes now, not
-four copies of one box, and none of the 128 carries a `.story-icon` badge any more** — see
+four copies of one box, and none of the 136 carries a `.story-icon` badge any more** — see
 "Edit a showcase page" for which class does what.
 
 ---
@@ -473,7 +488,7 @@ which is not animatable — so the filter snapped from the day it was written. I
 two attributes: `data-leaving` fades the card, and `data-hidden` removes it from layout
 260ms later. **Do not collapse them back into one.**
 
-**The hero screenshot shows a skeleton while it loads.** The 30 `showcase-*.html`
+**The hero screenshot shows a skeleton while it loads.** The 32 `showcase-*.html`
 pages open on a ~115 KB JPEG inside `.browser-frame`; its box was already reserved by the
 img's `width`/`height` attributes so CLS was 0, but the reserved box sat empty and flat,
 which reads as a stalled page rather than a loading one.
@@ -508,7 +523,8 @@ screenshot's wipe shipped as `clip-path: inset(0 100% 0 0)` on `.browser-frame.r
 very element the reveal IntersectionObserver watches. Chrome subtracts a target's own
 `clip-path` from its intersection rect, so the element had `intersectionRatio: 0`, never
 reached the `0.08` threshold, never got `.visible`, and so the clip never opened. **A loop
-that locks itself**: the hero image stayed invisible on all 30 showcase pages,
+that locks itself**: the hero image stayed invisible on all 30 showcase pages that
+existed at the time,
 with no console error, no failed request and no Lighthouse penalty. Reported 2026-08-10 as
 "preview หาย" on `showcase-elevate-commerce`; the file was there and returned HTTP 200 the
 whole time.
@@ -526,6 +542,13 @@ IntersectionObserver *and* freezes CSS transitions in a hidden tab, so an automa
 whose tab never becomes visible reports every reveal as broken and every transition as stuck
 at its start value — which looks exactly like the real bug and is not. Verify the end state
 by disabling the transition and reading the computed value, not by waiting.
+
+**`scroll-behavior: smooth` is frozen by the same mechanism**, which is worth knowing before
+it wastes an hour: in a hidden tab `scrollTo()` and `scrollIntoView()` return with
+`scrollY` unchanged, so a probe that scrolls to a section and then measures reads the top of
+the page and reports the section as missing. Set `documentElement.style.scrollBehavior =
+'auto'` on the page under test first. Check `document.hidden` before believing any of this
+family of results.
 
 **Behaviour lives in `assets/site-ui.js`, not inline.** `home-shell.css` sets
 `.reveal { opacity: 0 }` and only `.reveal.visible` restores it, so any page using `.reveal`
@@ -613,7 +636,7 @@ plus the site search.
 ## The work archive (`work.html` / `work-en.html`)
 
 Rebuilt 2026-08-07 after `bigzweb.com/projects`, scoped down: that page carries 115 projects,
-this one 13, and most of its machinery exists to make 115 navigable.
+this one 16, and most of its machinery exists to make 115 navigable.
 
 Layout: **one opening band — breadcrumb + `h1` + one-line blurb + the six `#need` tiles** →
 `#projects`, which now opens with a *visible* `h2` + blurb above `.work-layout` (a `240px`
@@ -654,16 +677,24 @@ Four predicates, ANDed in one `applyFilter()`:
 | tag | `.tag-btn[data-tag]` against the card's `data-tags` | archive only |
 | featured | `#featured-toggle`, reads `data-featured` | archive only |
 
-**`data-tags` is pipe-separated**, not space-separated — eight of the 24 labels contain a
+**`data-tags` is pipe-separated**, not space-separated — eight of the 31 labels contain a
 space (`Fine Dining`, `Full Stack`, `Light UI`, `UI Design`, `Design System`, `Habit Tracker`,
 `Gaming UI`, `Landing Page`). All four card files carry it so the cards stay in sync, though
 only the archive renders the buttons.
 
-The 24 labels were **not invented**: each project's own showcase page already carried English
+The 31 labels were **not invented**: each project's own showcase page already carried English
 tags, and the mapping is those, normalised. Every label owns at least one project, so no tag
 can be clicked into an empty grid — assert that when adding a project or a tag. The one
 exception needed patching: Iron Republic's page says `Fitness brand` where the list says
 `Fitness`.
+
+⚠️ **31 labels, 28 buttons — the two counts are not the same and never were.** Measured
+2026-08-16: `Creative Studio`, `React` and `React Bits` (all Signalform's) appear in
+`data-tags` on the cards but have no pill in the sidebar, so they are filterable by nobody.
+That is the harmless direction. **The dangerous direction is a button with no card**, which
+filters to an empty grid — assert *that* one, in both `work.html` and `work-en.html`, whenever
+a project or a label is added or removed. Counting the buttons is not the check; matching them
+against the union of every card's `data-tags` is.
 
 These pills used to be a passive `.work-tagcloud` under the grid. They moved into the sidebar
 when they became interactive — a filter belongs with the other filters, and a non-clickable
@@ -715,15 +746,23 @@ it becomes orphaned — reachable only from the sitemap and the site search.
 
 `web-organization` (สมาคม / มูลนิธิ / องค์กร) is the only industry page whose `#related` strip
 points at a **case study** rather than a showcase, because the work behind it — RAAT — is real
-client work. It shows **one** entry. Per the industry-page rules that is correct and it must not
-be padded with loosely-related demos.
+client work. It is also the only one whose strip is **two labelled groups**, and the labels are
+the point: RAAT sits under `งานลูกค้าจริง`, มูลนิธิบันไดแรก under `ตัวอย่างงานออกแบบ`.
+
+⚠️ **A demo must never be appended to the first group.** That eyebrow says the work below it
+was done for a paying client, so one more `.project-link` under it silently turns a true
+sentence into a false one — the first rule of this page family. Until 2026-08-16 the strip had
+one entry for exactly this reason, and it stayed padding-free by staying at one; adding the
+second group, rather than the second link, is what let it grow honestly. The rule against
+padding with *loosely-related* demos still stands: the second group holds the one demo built
+for this sector, not any spare card.
 
 ---
 
 ## Site search
 
-`assets/site-search.js` + `site-search.css` + `search-index.json`, live on **68 pages** —
-measured 2026-08-12: 84 files minus the 15 demo pages minus `404.html`. Everything except
+`assets/site-search.js` + `site-search.css` + `search-index.json`, live on **70 pages** —
+measured 2026-08-16: 87 files minus the 16 demo pages minus `404.html`. Everything except
 those (they are simulated client sites and must not carry
 portfolio chrome) and `404.html`.
 
@@ -992,6 +1031,17 @@ the tell).
 that metric it looked like one of the thinnest pages on the site when it is one of
 the most substantial. Count controls, views and rendered `innerText` instead.
 
+**Capturing a hero screenshot that matches the existing 15.** `assets/screenshots/showcase-*.jpg`
+are all **1491 × 812**, and that is the size this environment's screenshot tool emits — but it
+emits it by *downscaling* the window, which reports a 1960 × 1068 CSS viewport. Screenshotting
+the page directly therefore renders a 1080px shell inside 1960px and lands two 440px margins in
+the frame, which no other showcase screenshot has. Render the page in an iframe sized
+**1491 × 812** and scale it up by `1960 / 1491` with `transform-origin: 0 0`; the tool's own
+downscale cancels the transform and the result is a true 1491px-viewport render. Neutralise
+`.reveal` inside the iframe first, or anything below the fold is captured mid-transition. The
+file lands on disk at the device-pixel size (1988 × 1083 at dpr 1.5), so `sips -z 812 1491`
+before committing.
+
 ⚠️ **The automated browser here reports unreliable image intrinsics.** The same
 JPEG returned `naturalWidth` 1470, 1600 and 1959 across three reads, and a file
 that rendered correctly on screen reported `0x0`. Use `sips -g pixelWidth -g
@@ -1241,7 +1291,7 @@ iframe's viewport, giving the same real breakpoint behavior — then run the sam
 snippet against `iframe.contentDocument`/`contentWindow`.
 
 ### Edit a showcase page
-All 30 showcase files share one body layout, added 2026-08-07: a single-column **story
+All 32 showcase files share one body layout, added 2026-08-07: a single-column **story
 stack** read top to bottom, replacing the old two-column `.study-grid` + separate `#fit`
 section + `.result-band`. One `<section class="section" id="overview">` holds:
 
@@ -1264,7 +1314,7 @@ it fits) is one claim set as one — larger type, indented, a 1px `--accent` rul
 container, not a decorative side-stripe. Card 4 (`.story-card.accent`) is unchanged and stays
 the most prominent, because it is the ask.
 
-**`.story-price` is required on all 30 showcase pages and states the *site's* entry price, not the
+**`.story-price` is required on all 32 showcase pages and states the *site's* entry price, not the
 project's.** Added 2026-08-09 off the first full week of Clarity: `showcase_open` fired in
 19 sessions and `cta_fastwork` in 1, and no showcase page named a price anywhere while
 `#related` sent the reader to three more demos. The copy is
@@ -1300,7 +1350,7 @@ clamp, which is far too large inside a stack.
 built to narrate a design exercise.
 
 `case-study-raat.html` uses the **showcase story stack** instead — `.story-intro` +
-four `.story-card`s + `.story-links`, identical to the 26 `showcase-*` pages — because a
+four `.story-card`s + `.story-links`, identical to the 32 `showcase-*` pages — because a
 buyer reading the one piece of real client work wants the same scan as the demos, not an
 essay. It keeps `#stack` (three reasons FullCalendar beat a plugin) between the stack and
 `#related`: that is the substance of the engagement, and cutting it to match the showcase
