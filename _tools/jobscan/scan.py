@@ -26,7 +26,7 @@ import argparse
 import json
 import os
 import sys
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -35,16 +35,12 @@ import notify                       # noqa: E402
 import score as scoring             # noqa: E402
 import state as statelib            # noqa: E402
 
-BANGKOK = timezone(timedelta(hours=7))
-THAI_MONTHS = [
-    "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.",
-    "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค.",
-]
-
 
 def thai_today():
-    now = datetime.now(BANGKOK)
-    return f"{now.day} {THAI_MONTHS[now.month - 1]} {now.strftime('%H:%M')}"
+    # Shares notify.thai_stamp's Thai-month table and Bangkok offset, so the
+    # issue title and the "โพสต์เมื่อ" column in its own body never drift
+    # apart into two different date formats.
+    return notify.thai_stamp(datetime.now(timezone.utc))
 
 
 def load_jobs(args, profile):
