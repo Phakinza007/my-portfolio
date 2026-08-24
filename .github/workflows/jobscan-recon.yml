@@ -31,6 +31,11 @@ jobs:
   recon:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      # Without this Python buffers stdout when it is not a tty, so a step that
+      # gets killed on timeout produces an empty log -- which is exactly what
+      # happened on the first run and cost the whole attempt.
+      PYTHONUNBUFFERED: '1'
     steps:
       - uses: actions/checkout@v4
 
@@ -46,6 +51,7 @@ jobs:
 
       - name: Recon
         id: recon
+        timeout-minutes: 6
         # Do not let a non-zero exit hide the output -- exit 2 (robots.txt
         # disallows) is a result worth reading, not a crash.
         run: |

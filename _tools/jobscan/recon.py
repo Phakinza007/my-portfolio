@@ -198,10 +198,16 @@ def browser_probe():
         print("  playwright not installed; skipping (pip install playwright)")
         return
 
+    # Every wait here is bounded. The first version used wait_until="networkidle"
+    # and an unbounded page.evaluate(fetch), and hung until the job timeout on a
+    # page that polls -- networkidle never arrives, and a fetch that never
+    # settles has no deadline of its own. A recon that cannot finish tells you
+    # nothing.
     seen = []
     with sync_playwright() as pw:
         browser = pw.chromium.launch()
         page = browser.new_page(user_agent=UA, locale="th-TH")
+        page.set_default_timeout(20_000)
 
         def on_response(resp):
             ctype = (resp.headers or {}).get("content-type", "")
@@ -209,39 +215,58 @@ def browser_probe():
                 seen.append((resp.status, resp.request.method, resp.url, ctype))
 
         page.on("response", on_response)
-        page.goto(JOBS_URL, wait_until="networkidle", timeout=90_000)
-        page.wait_for_timeout(3000)
+        try:
+            page.goto(JOBS_URL, wait_until="domcontentloaded", timeout=45_000)
+        except Exception as exc:                                # noqa: BLE001
+            print(f"  goto failed: {exc}")
+            browser.close()
+            return
+        page.wait_for_timeout(8000)          # let the client-side fetches land
+
         html = page.content()
         save("rendered.html", html)
         text = page.inner_text("body")
-        print(f"  rendered body text: {len(text):,} chars")
         anchors = page.query_selector_all("a[href*='/jobs/']")
+        print(f"  rendered body text: {len(text):,} chars")
         print(f"  anchors to /jobs/:  {len(anchors)}")
-        print("  ---- first 800 chars of rendered text ----")
-        print("  " + text[:800].replace("\n", "\n  "))
+        for a in anchors[:8]:
+            print(f"    {a.get_attribute('href')}  |  {(a.inner_text() or '')[:70]}")
+        print("  ---- first 1200 chars of rendered text ----")
+        print("  " + text[:1200].replace("\n", "\n  "))
         print("  ------------------------------------------")
 
         print(f"\n  JSON responses observed: {len(seen)}")
         for status, method, url, ctype in seen:
             print(f"    {status} {method} {url[:150]}")
 
-        # Re-fetch the most promising ones inside the browser context so any
-        # auth header or cookie the app sets is carried along.
-        for status, method, url, _ in seen:
-            if status == 200 and method == "GET" and re.search(r"job|search|list|feed", url, re.I):
-                try:
-                    body = page.evaluate(
-                        "u => fetch(u).then(r => r.text())", url
-                    )
-                except Exception as exc:                        # noqa: BLE001
-                    print(f"    re-fetch {url[:80]} failed: {exc}")
-                    continue
-                name = re.sub(r"[^a-z0-9]+", "-", url.lower())[-60:] + ".json"
-                save(name, body)
-                try:
-                    describe_arrays(json.loads(body), url.split("?")[0].split("/")[-1])
-                except Exception:                               # noqa: BLE001
-                    pass
+        # Re-fetch the most promising few inside the page context, so any
+        # header or cookie the app sets is carried along. Capped, and each with
+        # its own deadline on the JS side.
+        candidates = [
+            (s_, m, u) for (s_, m, u, _) in seen
+            if s_ == 200 and m == "GET" and re.search(r"job|search|list|feed|post", u, re.I)
+        ][:6]
+        print(f"\n  re-fetching {len(candidates)} candidate endpoint(s)")
+        for _, _, url in candidates:
+            try:
+                body = page.evaluate(
+                    """async (u) => {
+                        const c = new AbortController();
+                        const t = setTimeout(() => c.abort(), 15000);
+                        try { const r = await fetch(u, {signal: c.signal}); return await r.text(); }
+                        finally { clearTimeout(t); }
+                    }""",
+                    url,
+                )
+            except Exception as exc:                            # noqa: BLE001
+                print(f"    re-fetch failed {url[:90]}: {str(exc)[:120]}")
+                continue
+            name = re.sub(r"[^a-z0-9]+", "-", url.lower())[-60:] + ".json"
+            save(name, body)
+            try:
+                describe_arrays(json.loads(body), url.split("?")[0].split("/")[-1])
+            except Exception:                                   # noqa: BLE001
+                print("    (body is not JSON we could walk)")
         browser.close()
 
 
