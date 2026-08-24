@@ -1,0 +1,74 @@
+# One-off reconnaissance of jobboard.fastwork.co.
+#
+# Manual only -- there is no schedule here on purpose. It exists to answer a
+# question the scanner cannot be written without: how does that board actually
+# serve its listings? See _tools/jobscan/recon.py for what it checks and why.
+#
+# It runs here rather than locally because the Claude Code sandbox's egress
+# proxy refuses CONNECT to jobboard.fastwork.co (403), so the page could not be
+# read from there at all.
+#
+# Run it from the Actions tab, then read the job log. Nothing is committed.
+#
+# The push trigger is here because `workflow_dispatch` only appears once the
+# workflow exists on the default branch, and this one is still on its feature
+# branch. Drop the push trigger when the branch merges.
+name: jobscan recon
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - claude/fastwork-job-scan-automation-exk99a
+    paths:
+      - .github/workflows/jobscan-recon.yml
+      - _tools/jobscan/recon.py
+
+permissions:
+  contents: read
+
+jobs:
+  recon:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install deps
+        run: |
+          python -m pip install --quiet --upgrade pip
+          pip install --quiet requests playwright
+          python -m playwright install --with-deps chromium
+
+      - name: Recon
+        id: recon
+        # Do not let a non-zero exit hide the output -- exit 2 (robots.txt
+        # disallows) is a result worth reading, not a crash.
+        run: |
+          set +e
+          python3 _tools/jobscan/recon.py
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Upload raw captures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: recon-output
+          path: _recon_out/
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Report exit code
+        run: |
+          code="${{ steps.recon.outputs.exit_code }}"
+          echo "recon.py exited $code"
+          case "$code" in
+            0) echo "OK -- read the log above and pick a source for fetch.py" ;;
+            2) echo "::error::robots.txt disallows /jobs. Stop here." ; exit 1 ;;
+            3) echo "::error::could not fetch the page at all" ; exit 1 ;;
+            *) echo "::error::unexpected exit $code" ; exit 1 ;;
+          esac
