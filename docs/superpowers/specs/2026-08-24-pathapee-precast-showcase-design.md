@@ -279,6 +279,34 @@ refuse, so the references stayed targeted (technical catalogues and spec-led pro
 Higgsfield MCP generates hero imagery, and this page carries no photography by rule. 21st.dev
 is a React component source, and this is one file of hand-written CSS.
 
+## Fourth pass: motion
+
+The page had two transitions and zero keyframes after the accessibility fix, which is close
+to static. The motion added is the page's own subject rather than decoration: **the drawings
+draw themselves.** Each stroke is dashed to its own `getTotalLength()` and the offset runs to
+zero — outline first, voids staggered, strands landing at 620ms, dimension lines at 750ms, and
+the labels travelling in last. The catalogue sections draw the first time their tab is opened.
+Alongside it the plant figures count up, the catalogue panel slides on tab change, and the
+span readout and derived figures nudge when they change.
+
+Three rules govern all of it, and each was learned the hard way earlier in this build:
+
+1. **Nothing containing text animates opacity.** axe measures the composited colour of a
+   partially faded node. This is the single constraint that keeps accessibility at 100.
+2. **Every hidden start state is gated behind `[data-anim]`, which only JS sets.** Without it
+   `.fill` and `.strand` sat at `scale(0)` in the stylesheet, so a visitor without JS lost the
+   concrete and the prestressing strands entirely. With the gate, no-JS renders the finished
+   drawing.
+3. **No bounce.** Two `cubic-bezier` curves overshot past y = 1; the detector flagged both as
+   `bounce-easing`. Replaced with ease-out-quart.
+
+⚠️ **Verifying this needs the transition disabled, never a wait.** Chrome freezes CSS
+transitions in a hidden tab, so stepping through the animation and reading computed values
+returns the start value at every timestamp — which looks exactly like "the animation is
+broken" and is not. Both apparent bugs found while testing this pass were that artifact. The
+real check is: inject `* { transition: none !important }`, toggle the class, and read the two
+end states (`stroke-dashoffset` 1214px → 0px, `.fill` `scaleX(0)` → `scaleX(1)`).
+
 ## Verification
 
 | check | result |

@@ -468,6 +468,61 @@
       font-family: var(--mono); font-size: 0.72rem; color: #7E888B; line-height: 1.8;
     }
 
+
+    /* ── Motion ──────────────────────────────────────────────────── */
+    /* The page is a drawing set, so the drawings draw themselves: strokes are
+       dashed to their own measured length and the offset runs to zero. JS sets
+       the lengths because getTotalLength() is exact and a hand-guessed
+       dasharray shows as a gap.
+
+       One rule governs all of it: NOTHING containing text animates opacity.
+       axe measures the composited colour of a partially-faded node, so a page
+       caught mid-transition fails colour-contrast on every text node at once —
+       that is how accessibility fell to 97 on the previous pass. Labels travel;
+       they never fade. */
+    .dwg[data-anim] .line, .dwg[data-anim] .thin, .dwg[data-anim] .dim {
+      stroke-dasharray: var(--len, 0) var(--len, 0);
+      stroke-dashoffset: var(--len, 0);
+    }
+    .dwg.drawn .line, .dwg.drawn .thin, .dwg.drawn .dim { stroke-dashoffset: 0; }
+    .dwg .line { transition: stroke-dashoffset .85s cubic-bezier(.65, 0, .35, 1); }
+    .dwg .thin { transition: stroke-dashoffset .6s cubic-bezier(.65, 0, .35, 1) var(--d, 0ms); }
+    .dwg .dim  { transition: stroke-dashoffset .5s cubic-bezier(.65, 0, .35, 1) .75s; }
+
+    /* the prestressing strands land after the section exists */
+    .dwg[data-anim] .strand circle { transform: scale(0); transform-origin: center; transform-box: fill-box; }
+    .dwg.drawn .strand circle {
+      transform: scale(1);
+      transition: transform .3s cubic-bezier(.25, 1, .5, 1) var(--d, 0ms);
+    }
+    /* fills arrive with the outline, by width not by opacity */
+    .dwg[data-anim] .fill { transform: scaleX(0); transform-origin: left center; transform-box: fill-box; }
+    .dwg.drawn .fill { transform: scaleX(1); transition: transform .8s cubic-bezier(.22, 1, .36, 1); }
+    /* dimension text travels in; it never fades */
+    .dwg[data-anim] text { transform: translateY(4px); transform-box: fill-box; }
+    .dwg.drawn text { transform: none; transition: transform .45s cubic-bezier(.22, 1, .36, 1) 1s; }
+
+    /* the catalogue panel slides rather than swapping */
+    .cat-panel [role="tabpanel"] { animation: dwg-panel .35s cubic-bezier(.22, 1, .36, 1); }
+    @keyframes dwg-panel { from { transform: translateY(8px); } to { transform: none; } }
+
+    /* the chosen row settles instead of snapping as the slider moves */
+    tbody tr td { transition: background-color .28s ease, color .28s ease; }
+    .range-val, #derived b { transition: transform .18s cubic-bezier(.25, 1, .5, 1); }
+    .range-val.tick, #derived b.tick { transform: translateY(-2px); }
+    input[type="range"]::-webkit-slider-thumb { transition: transform .15s ease; }
+    input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.25); }
+
+    /* the plant figures count up when the dark band arrives */
+    .figrow dd .n { font-variant-numeric: tabular-nums; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .dwg[data-anim] .line, .dwg[data-anim] .thin, .dwg[data-anim] .dim { stroke-dasharray: none; stroke-dashoffset: 0; transition: none; }
+      .dwg .strand circle, .dwg .fill, .dwg text { transform: none; transition: none; }
+      .cat-panel [role="tabpanel"] { animation: none; }
+      tbody tr td, .range-val, #derived b { transition: none; }
+    }
+
     /* ── Reveal ──────────────────────────────────────────────────── */
     /* The default state is VISIBLE. Only JS marks an element pending, and only
        when it is below the fold at load, so no-JS, a hidden tab and a headless
@@ -892,12 +947,12 @@
         </div>
         <div class="plant rv">
           <dl class="figrow">
-            <div><dt>กำลังการผลิตแผ่นพื้น</dt><dd>9,500 <small>ตร.ม./เดือน</small></dd></div>
-            <div><dt>แท่นหล่ออัดแรง</dt><dd>14 <small>แท่น &#215; ยาว 120 ม.</small></dd></div>
-            <div><dt>ลานสต็อกสินค้า</dt><dd>6,400 <small>ตร.ม.</small></dd></div>
+            <div><dt>กำลังการผลิตแผ่นพื้น</dt><dd><span class="n" data-to="9500">9,500</span> <small>ตร.ม./เดือน</small></dd></div>
+            <div><dt>แท่นหล่ออัดแรง</dt><dd><span class="n" data-to="14">14</span> <small>แท่น &#215; ยาว 120 ม.</small></dd></div>
+            <div><dt>ลานสต็อกสินค้า</dt><dd><span class="n" data-to="6400">6,400</span> <small>ตร.ม.</small></dd></div>
             <div><dt>กำลังอัดคอนกรีตที่ใช้</dt><dd>350&#8211;400 <small>กก./ตร.ซม.</small></dd></div>
-            <div><dt>รถลากพ่วงประจำโรงงาน</dt><dd>9 <small>คัน &#183; บรรทุก 18 ตัน/เที่ยว</small></dd></div>
-            <div><dt>รัศมีจัดส่งปกติ</dt><dd>180 <small>กิโลเมตร</small></dd></div>
+            <div><dt>รถลากพ่วงประจำโรงงาน</dt><dd><span class="n" data-to="9">9</span> <small>คัน &#183; บรรทุก 18 ตัน/เที่ยว</small></dd></div>
+            <div><dt>รัศมีจัดส่งปกติ</dt><dd><span class="n" data-to="180">180</span> <small>กิโลเมตร</small></dd></div>
             <div><dt>คิวผลิตว่างถัดไป</dt><dd>18 พ.ย. <small>2569</small></dd></div>
           </dl>
 
@@ -1090,6 +1145,9 @@
             document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
           });
           if (focus) tab.focus();
+          if (!reduced) {
+            draw(document.getElementById(tab.getAttribute('aria-controls')).querySelector('.dwg'));
+          }
         };
         tabs.forEach(function (tab, i) {
           tab.addEventListener('click', function () { select(tab, false); });
@@ -1115,6 +1173,7 @@
         { id: 'HC-250',   w: 1.20, kg: 365, span: { 200: 12.80, 300: 12.00, 400: 11.30, 500: 10.70 } }
       ];
       var TRUCK = 18; /* tonnes per trip */
+      var lastBest = null;
 
       var elSpan = document.getElementById('f-span');
       var elLoad = document.getElementById('f-load');
@@ -1134,7 +1193,9 @@
         var area = parseFloat(elArea.value);
         if (!(area > 0)) area = 0;
 
+        var prev = outSpan.textContent;
         outSpan.textContent = fmt(span, 1);
+        if (prev !== outSpan.textContent) tick(outSpan.parentNode);
 
         var pass = [];
         rows.innerHTML = '';
@@ -1175,6 +1236,10 @@
           derived.innerHTML = fmt(area, 0) + ' ตร.ม. ด้วย ' + best.id + ' &rarr; <b>' +
             fmt(pieces, 0) + '</b> แผ่น · <b>' + fmt(tonnes, 1) + '</b> ตัน · <b>' + trips +
             '</b> เที่ยวรถ <span class="q">(18 ตัน/เที่ยว)</span>';
+          if (best.id !== lastBest) {
+            lastBest = best.id;
+            Array.prototype.forEach.call(derived.querySelectorAll('b'), tick);
+          }
         } else {
           derived.className = 'verdict';
           derived.innerHTML = 'ใส่พื้นที่เพื่อประมาณจำนวนแผ่นและเที่ยวรถ';
@@ -1188,6 +1253,86 @@
           elArea.addEventListener(ev, run);
         });
         run();
+      }
+
+
+      /* ── Drawings that draw themselves ─────────────────────────── */
+      /* Each stroke is dashed to its own measured length. getTotalLength() is
+         exact; a guessed dasharray leaves a visible gap or a dead tail. */
+      var reduced = window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function prepare(svg) {
+        if (svg.dataset.anim) return;
+        /* the marker is what switches the hidden start states on, so a page
+           without JS renders the finished drawing rather than an empty frame */
+        svg.dataset.anim = '1';
+        var strokes = svg.querySelectorAll('.line, .thin, .dim');
+        Array.prototype.forEach.call(strokes, function (el, i) {
+          var len = 0;
+          try { len = el.getTotalLength(); } catch (e) { len = 0; }
+          if (!len) return;
+          el.style.setProperty('--len', Math.ceil(len));
+          if (el.classList.contains('thin')) el.style.setProperty('--d', (140 + i * 35) + 'ms');
+        });
+        Array.prototype.forEach.call(svg.querySelectorAll('.strand circle'), function (c, i) {
+          c.style.setProperty('--d', (620 + i * 22) + 'ms');
+        });
+      }
+      function draw(svg) {
+        if (!svg) return;
+        prepare(svg);
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () { svg.classList.add('drawn'); });
+        });
+      }
+
+      if (!reduced) {
+        draw(document.querySelector('.hero .dwg'));
+        /* the catalogue drawings wait for their own tab */
+        draw(document.querySelector('[role="tabpanel"]:not([hidden]) .dwg'));
+      }
+
+      /* ── Count-up on the plant figures ─────────────────────────── */
+      /* p is clamped at BOTH ends. t is the start of the frame being rendered
+         and t0 is performance.now() when the observer fired, so an observer
+         firing mid-frame yields t < t0; an unclamped low end makes (1 - p)
+         exceed 1, and the eased value goes negative — which once rendered a
+         negative price on a live page. The setTimeout is the second half of
+         the fix: rAF stops in a background tab, so without it an interrupted
+         run leaves a wrong number on screen until reload. */
+      function countUp(el) {
+        var to = parseFloat(el.getAttribute('data-to'));
+        if (!isFinite(to)) return;
+        var dur = 900, t0 = performance.now();
+        var fmt = function (v) { return Math.round(v).toLocaleString('en-US'); };
+        var settle = setTimeout(function () { el.textContent = fmt(to); }, dur + 260);
+        (function frame(t) {
+          var p = Math.min(1, Math.max(0, (t - t0) / dur));
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = fmt(to * eased);
+          if (p < 1) requestAnimationFrame(frame);
+          else { clearTimeout(settle); el.textContent = fmt(to); }
+        })(t0);
+      }
+
+      var figs = Array.prototype.slice.call(document.querySelectorAll('.figrow .n'));
+      if (figs.length && !reduced && 'IntersectionObserver' in window) {
+        var figIo = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (!en.isIntersecting) return;
+            figIo.unobserve(en.target);
+            countUp(en.target);
+          });
+        }, { threshold: 0.6 });
+        figs.forEach(function (el) { figIo.observe(el); });
+      }
+
+      /* ── Slider feedback ───────────────────────────────────────── */
+      function tick(el) {
+        if (!el || reduced) return;
+        el.classList.add('tick');
+        setTimeout(function () { el.classList.remove('tick'); }, 180);
       }
 
       /* ── Reveal ────────────────────────────────────────────────── */
