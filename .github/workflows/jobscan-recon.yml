@@ -22,7 +22,10 @@ on:
       - claude/fastwork-job-scan-automation-exk99a
     paths:
       - .github/workflows/jobscan-recon.yml
-      - _tools/jobscan/recon.py
+      # The whole package, not just recon.py: the dry-run step below exercises
+      # fetch/normalize/score too, and a change to those that is never run is
+      # a change that is never checked.
+      - _tools/jobscan/**
 
 permissions:
   contents: write
