@@ -16,13 +16,29 @@ actually went out.
 """
 import json
 import os
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import requests
 
 TIMEOUT = 20
 DISCORD_LIMIT = 2000          # hard limit imposed by Discord
 DISCORD_TOP_N = 5
+
+BANGKOK = timezone(timedelta(hours=7))
+THAI_MONTHS = [
+    "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.",
+    "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค.",
+]
+
+
+def thai_stamp(dt):
+    """A UTC-aware datetime, rendered as a Thai calendar date in Bangkok time.
+
+    scan.py's issue title uses the same format for "now" -- kept here as the
+    one definition so the two never drift apart.
+    """
+    local = dt.astimezone(BANGKOK)
+    return f"{local.day} {THAI_MONTHS[local.month - 1]} {local.strftime('%H:%M')}"
 
 FLAG_LABELS = {
     "needs_backend": "⚠ ต้องมีหลังบ้าน",
@@ -50,7 +66,14 @@ def _flags(job):
 
 
 def _age(job):
-    """How long the post has been up, in Thai. Freshness is most of the edge."""
+    """When the post went up, in Thai -- calendar date plus how long ago.
+
+    Relative age alone ("2 ชม.") is computed at scan time and then frozen into
+    the GitHub issue text forever; read the issue a day later and it still
+    says "2 ชม.", which by then is wrong. The calendar date is what stays
+    correct no matter when it's read; the relative part is a convenience on
+    top of it, not a replacement for it.
+    """
     stamp = job.get("posted_at")
     if not stamp:
         return "—"
@@ -60,10 +83,12 @@ def _age(job):
         return "—"
     minutes = (datetime.now(timezone.utc) - posted).total_seconds() / 60
     if minutes < 60:
-        return f"{minutes:.0f} นาที"
-    if minutes < 60 * 24:
-        return f"{minutes / 60:.0f} ชม."
-    return f"{minutes / 1440:.0f} วัน"
+        relative = f"{minutes:.0f} นาทีที่แล้ว"
+    elif minutes < 60 * 24:
+        relative = f"{minutes / 60:.0f} ชม.ที่แล้ว"
+    else:
+        relative = f"{minutes / 1440:.0f} วันที่แล้ว"
+    return f"{thai_stamp(posted)} ({relative})"
 
 
 def _offers(job):
