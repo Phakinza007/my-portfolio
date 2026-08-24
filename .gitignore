@@ -20,3 +20,12 @@ _recon_out/
 
 __pycache__/
 *.pyc
+
+# --- เพิ่มโดยการจัดระเบียบไฟล์ (2026-08-24) ---
+.next/
+dist/
+build/
+.turbo/
+.venv/
+.env
+.env.local

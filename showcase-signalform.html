@@ -28,7 +28,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@600;700&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&display=optional" rel="stylesheet">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="site.webmanifest" />
-  <link rel="stylesheet" href="assets/portfolio-pages.css?v=thai-leading" />
+  <link rel="stylesheet" href="assets/portfolio-pages.css?v=work-strip" />
   <link rel="stylesheet" href="assets/site-search.css?v=motion-2" />
   <script src="assets/site-search.js?v=clean-urls" defer></script>
   <script src="assets/site-ui.js?v=reveal-fix" defer></script>
@@ -62,6 +62,19 @@
       </div>
     </section>
     <section class="section" id="overview"><div class="page-shell">
+      <div class="work-strip">
+        <figure class="work-shot work-shot--wide reveal">
+          <img src="assets/screenshots/showcase-signalform-b.jpg" alt="ภาพหน้าจอ Signalform Studio บนเดสก์ท็อป"
+               width="1491" height="812" loading="lazy" />
+          <figcaption>การ์ด capability สามใบ ใบที่เลือกอยู่ถูกเน้นขอบและยกขึ้น เป็น state ที่ React ถือไว้</figcaption>
+        </figure>
+        <figure class="work-shot work-shot--tall reveal">
+          <img src="assets/screenshots/showcase-signalform-c.jpg" alt="ภาพหน้าจอ Signalform Studio บนมือถือกว้าง 375 พิกเซล"
+               width="375" height="812" loading="lazy" />
+          <figcaption>จอ 375px — กริดสามคอลัมน์ยุบเหลือหนึ่ง การ์ดยังสูงเต็มและเลข 01–03 ยังนำแต่ละใบ</figcaption>
+        </figure>
+      </div>
+
       <div class="story-stack">
         <article class="story-card reveal"><div class="story-head"><div><h2>ภาพรวมโปรเจกต์</h2></div></div><p>Signalform Studio เป็นโปรเจกต์แนวคิดที่พัฒนาขึ้นเอง เพื่อทดลองแนวทางเว็บสตูดิโอที่ดูหนักแน่น แต่ยังตอบสนองต่อการชี้และเลือกของผู้ใช้ ภาพ hero เป็นงานสร้างสรรค์ต้นฉบับของโปรเจกต์ ส่วนหน้าเว็บตั้งใจให้ผู้ชมเข้าใจคุณค่าและเลือกหัวข้อที่สนใจได้ตั้งแต่แรกเห็น</p><div class="tag-list"><span class="tag tag-mint">React 19</span><span class="tag tag-accent">React Bits</span><span class="tag tag-gray">Vite</span><span class="tag tag-gray">Static build</span></div></article>
         <article class="story-card story-card--flat reveal"><div class="story-head"><div><h2>สรุปใน 30 วินาที</h2></div></div><ul class="highlight-list"><li>React 19 แยกองค์ประกอบ hero, capability card และ state ของหัวข้อที่เลือก</li><li>Vite build เป็น static output ที่เปิดได้ตรงจาก GitHub Pages ใต้เส้นทาง <code>/signalform-studio/</code></li><li>นำ SpotlightCard จาก React Bits มาปรับใช้จริง เพื่อให้แสงตอบสนองตามตำแหน่ง pointer</li><li>ใช้ CSS transition ที่เบาและรองรับ reduced-motion fallback จากระบบปฏิบัติการ</li><li>ภาพประติมากรรมริบบิ้นสีน้ำเงินเป็น asset ต้นฉบับที่สร้างสำหรับโปรเจกต์นี้</li><li>ทดสอบที่ viewport 375px แล้วไม่มี horizontal overflow</li></ul></article>

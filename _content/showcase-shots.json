@@ -1,0 +1,251 @@
+{
+  "bandairaek": {
+    "url": "bandairaek-foundation",
+    "b": {
+      "selector": "#scholarships",
+      "label_th": "บัญชีทุนรายก้อน กรองด้วยชิปสถานะ โอนแล้ว / รอเอกสาร ตัวเลขเรียงหลักด้วยฟอนต์ monospace",
+      "label_en": "The scholarship ledger, filtered by transfer status, with every amount aligned in a monospace column."
+    },
+    "c": {
+      "scroll": 0,
+      "label_th": "จอ 375px — เปิดด้วยหัวเรื่องและยอดรวมของปีการศึกษา ไม่มีรูปถ่ายสักรูปเช่นเดิม",
+      "label_en": "At 375px the page still opens on a headline and the year's totals — and still not one photograph."
+    },
+    "note": "The three-month calendar from bullet 2 (#calendar, #cal-grid) is the other candidate for B; the ledger was chosen because it is bullet 1 and because its status chips are visible in a still, while the calendar's month stepper is not."
+  },
+
+  "bookease": {
+    "url": "BookEase",
+    "b": {
+      "selector": "#todayList",
+      "label_th": "ตารางคิววันนี้ในหน้า Dashboard เรียงต่อจากแถบตัวเลขสรุปสี่ช่อง",
+      "label_en": "The dashboard's Today's Schedule panel, sitting under the four summary figures."
+    },
+    "c": {
+      "scroll": 0,
+      "label_th": "จอ 375px — แถบเมนูซ้ายพับออกนอกจอหลังปุ่มแฮมเบอร์เกอร์ การ์ดตัวเลขเหลือสองคอลัมน์",
+      "label_en": "At 375px the sidebar slides off-canvas behind a hamburger and the stat cards drop to two columns."
+    },
+    "note": "The New Booking modal the spec names for B is #bookModal, and it cannot be captured without a click: .modal-backdrop is display:none until .show is added by #bookNowBtn / #apptBookBtn. The five non-default views (#view-appointments, #view-clients, #view-services, #view-analytics, #view-settings) are equally click-gated — .view is display:none until .active, switchView() is bound to sidebar buttons, and the page has no location.hash handling (checked). #todayList is the most substantial thing reachable without a click. If capture-shots.py ever learns to click, B should become #bookModal after clicking #bookNowBtn."
+  },
+
+  "buildnest": {
+    "url": "construction-landing",
+    "b": {
+      "selector": "#process",
+      "label_th": "ขั้นตอนทำงานสามขั้น ปรึกษาและประเมิน → ออกแบบและวางแผน → ก่อสร้างและส่งมอบ",
+      "label_en": "The three-step build process — consult and cost, design and plan, build and hand over."
+    },
+    "c": {
+      "scroll": 0,
+      "label_th": "จอ 375px — หัวเรื่องภาษาไทยและปุ่มหลักเรียงซ้อนกันบนภาพถ่ายหน้างานจริง",
+      "label_en": "At 375px the Thai headline and the buttons stack over the site photograph."
+    }
+  },
+
+  "dental-clinic": {
+    "url": "dental-clinic",
+    "b": {
+      "selector": "#menu",
+      "label_th": "รายการค่ารักษาที่บอกช่วงราคาทุกบรรทัด ตั้งแต่ตรวจฟรีจนถึงรากเทียม",
+      "label_en": "The treatment list, price range on every line, from a free check-up to implants."
+    },
+    "c": {
+      "scroll": 0,
+      "label_th": "จอ 375px — โทนดำครีมตัดส้ม หัวเรื่อง ยิ้มที่ดีเริ่มที่ BRIGHT และปุ่มจองคิวอยู่ในหน้าจอแรก",
+      "label_en": "At 375px the ink-and-cream hero keeps both the headline and the booking button in the first screen."
+    }
+  },
+
+  "elasticshop-gaming": {
+    "url": "elasticshop-gaming",
+    "b": {
+      "selector": "#deals",
+      "label_th": "แคตตาล็อกเกม ดีลประจำสัปดาห์และราคาเริ่มต้นรายเกม บน UI มืดตัดเหลืองความคมสูง",
+      "label_en": "The game catalogue — a weekly deal card and a starting price per title on the dark, yellow-accented UI."
+    },
+    "c": {
+      "scroll": 0,
+      "label_th": "จอ 375px — เมนูข้างพับเก็บหลังปุ่ม การ์ดเกมเรียงเป็นตารางแคบโดยราคาเริ่มต้นยังอยู่ครบ",
+      "label_en": "At 375px the side menu folds away and the game cards reflow to a narrow grid, each keeping its starting price."
+    },
+    "note": "Bullet 1's four screen flows are #screen-home / #screen-topup / #screen-status / #screen-history. Only #screen-home is capturable: the other three carry `hidden` plus .screen{display:none} and switch on a tab click, and the page does not read location.hash (checked). #deals is inside the default screen. The top-up flow's own step rail is #stepPackage / #stepPayment inside #screen-topup, which needs a click on #tab-topup first."
+  },
+
+  "elevate-commerce": {
+    "url": "ElevateCommerce",
+    "b": {
+      "selector": "#trending",
+      "label_th": "ตะแกรงสินค้าแนะนำ ราคาเดิมกับราคาลด เรตติ้ง และปุ่มหยิบใส่ตะกร้าบนการ์ดทุกใบ",
+      "label_en": "The trending grid — was/now pricing, a rating, and an add-to-cart control on every card."
+    },
+    "c": {
+      "scroll": 0,
+      "label_th": "จอ 375px — เมนูและตะกร้าย่อเป็นไอคอนบนแถบบน การ์ดสินค้าเหลือคอลัมน์เดียว",
+      "label_en": "At 375px the nav and cart shrink to icons in the top bar and the product cards fall to a single column."
+    },
+    "note": "Bullet 2's cart, search and product view are #cart-drawer (transform-gated on .open), #search-panel and #quick-view — all opened by a click, none capturable as-is. #trending is the start of the same path and needs no click. One-column at 375px verified: @media (max-width: 420px) sets .products-grid to a single column."
+  },
+
+  "habitquest": {
+    "url": "https://habitquest-pi.vercel.app/",
+    "b": {
+      "selector": ".landing-bg",
+      "label_th": "ลูปประจำวันสามขั้น ทำนิสัยให้สำเร็จ → ตีมอนสเตอร์ → เลเวลอัป อธิบายไว้บนหน้าแรก",
+      "label_en": "The daily loop in three steps — finish a habit, deal damage, level up — spelled out on the landing page."
+    },
+    "c": {
+      "scroll": 0,
+      "label_th": "จอ 375px — ฉากพิกเซลวางฮีโร่กับมอนสเตอร์ยืนคู่กัน ปุ่มเริ่มเล่นเรียงซ้อนอยู่เหนือฉาก",
+      "label_en": "At 375px the pixel scene keeps hero and monster facing each other, with the start buttons stacked above them."
+    },
+    "note": ".landing-bg measured unique in a live browser on 2026-08-24 (1 match; it wraps the 'Your daily loop' section). It is a Tailwind-era class from a separate repo with no id anywhere in the built bundle, so re-verify it if HabitQuest is redeployed. The quest board and battle screen themselves are React routes behind the landing CTA and cannot be captured without a click, so B is the landing's own explainer of the mechanism."
+  },
+
+  "iron-republic": {
+    "url": "gym-landing",
+    "b": {
+      "selector": "#pricing",
+      "label_th": "แพ็กเกจสมาชิกสามระดับ ราคาต่อเดือน และเครื่องหมายบอกทีละบรรทัดว่าอะไรรวมอยู่ อะไรไม่รวม",
+      "label_en": "Three membership tiers — a monthly price and a line-by-line mark for what each does and does not include."
+    },
+    "c": {
+      "scroll": 0,
+      "label_th": "จอ 375px — แถบสถิติเลิกลอยอยู่มุมขวา ย้ายลงมาต่อใต้หัวเรื่อง FORGE YOUR LIMIT.",
+      "label_en": "At 375px the stats band leaves its floating corner and settles under the FORGE YOUR LIMIT. headline."
+    },
+    "note": "Bullet 3's stats band is .hero-stats, which sits inside the hero and is therefore already in view A — so B was taken from bullet 4 (membership signup) instead. The mobile reflow of that same band is what view C shows, which is where bullet 4's mobile-first claim actually lands."
+  },
+
+  "lumi-clinic": {
+    "url": "lumi-clinic",
+    "b": {
+      "selector": "#results",
+      "label_th": "ไทม์ไลน์คอร์สตั้งแต่ Week 0 เป็นต้นไป ใช้แทนการอ้างภาพก่อน-หลังที่หน้านี้ปฏิเสธจะลง",
+      "label_en": "The course timeline from Week 0 onward, standing in for the before/after photos this page refuses to publish."
+    },
+    "c": {
+      "scroll": 0,
+      "label_th": "จอ 375px — พื้นเขียวเข้มเกือบดำ มีแสงโคมสีอำพันเป็นสีเน้นเดียว ใต้หัวเรื่องเซริฟเต็มความกว้าง",
+      "label_en": "At 375px the near-black green surface carries one amber accent under a full-width serif headline."
+    },
+    "note": "STALE COPY — see the report. showcase-lumi-clinic's first bullet still says the palette is porcelain-and-ink editorial; the page has been dark (--surface: #0D1511) since the 2026-08-11 redesign. The C caption describes what is actually there and does not repeat the bullet."
+  },
+
+  "museroom": {
+    "url": "MuseRoom",
+    "b": {
+      "selector": "#exhibitions",
+      "label_th": "การ์ดสามห้องจัดแสดง ชื่องาน ปี และคำอธิบายสั้น ไม่มีราคาและไม่มีปุ่มซื้อ",
+      "label_en": "Three exhibition cards — title, year and a short note — with no price and nothing to buy."
+    },
+    "c": {
+      "scroll": 0,
+      "label_th": "จอ 375px — ห้องมืดกินเต็มจอ หัวเรื่อง Step into a room made of color. แตกเป็นสี่บรรทัดสั้น",
+      "label_en": "At 375px the dark room fills the screen and the headline breaks into four short lines."
+    }
+  },
+
+  "noir-coffee": {
+    "url": "coffee-landing",
+    "b": {
+      "selector": "#menu",
+      "label_th": "เมนูเรียงเลข 01 ขึ้นไป ชื่อ ส่วนผสม และราคาต่อแก้ว จบในบรรทัดเดียวต่อรายการ",
+      "label_en": "The numbered menu — name, ingredients and price per cup, one line to a drink."
+    },
+    "c": {
+      "scroll": 0,
+      "label_th": "จอ 375px — พื้นหลังมืดมีพื้นผิว ตัวอักษร Fresh Coffee, Cozy Space. แตกสามบรรทัดเหนือ CTA เดียว",
+      "label_en": "At 375px the textured dark hero breaks its wordmark to three lines above a single call to action."
+    },
+    "note": "This is the one highlight-list on the site that names no mechanism at all — all four bullets are tonal (dark textured ground, sparing gold, typographic hero, mobile readability). B was taken from bullet 2: the menu is the one section where the gold accent system runs at length, so it is the tonal claim at the scale where it can be judged."
+  },
+
+  "pathapee": {
+    "url": "pathapee-precast",
+    "b": {
+      "selector": "#selector",
+      "label_th": "เลื่อนช่วงพาดและเลือกน้ำหนักบรรทุก แล้วตารางตัดรุ่นที่รับไม่ไหวออกทันที พร้อมประมาณจำนวนแผ่นและเที่ยวรถ",
+      "label_en": "Drag the span, pick a load, and the table drops every plank that cannot carry it — then estimates panels and truckloads."
+    },
+    "c": {
+      "scroll": 0,
+      "label_th": "จอ 375px — หัวเรื่องถูกกันแตกทีละวลี จึงไม่ขาดกลางคำอย่าง ตารางส / แปน",
+      "label_en": "At 375px the headline breaks by phrase, so Thai never splits mid-word the way Chrome would otherwise let it."
+    }
+  },
+
+  "ratri-restaurant": {
+    "url": "sorn-restaurant",
+    "b": {
+      "selector": "#reserve",
+      "label_th": "ฟอร์มจองโต๊ะที่ตรวจทีละช่องในเบราว์เซอร์ และวางข้อความเตือนไว้ใต้ช่องที่ยังไม่ผ่าน",
+      "label_en": "The reservation form checks each field in the browser and puts the message under the field that failed."
+    },
+    "c": {
+      "scroll": 0,
+      "label_th": "จอ 375px — โทนมืดไฟน์ไดนิ่ง หัวเรื่องสองบรรทัดคงเส้นคั่นกลางไว้เหมือนบนจอใหญ่",
+      "label_en": "At 375px the fine-dining dark hero keeps its two-line headline and its centred rule."
+    }
+  },
+
+  "signalform": {
+    "url": "signalform-studio/",
+    "b": {
+      "selector": "#services",
+      "label_th": "การ์ด capability สามใบ ใบที่เลือกอยู่ถูกเน้นขอบและยกขึ้น เป็น state ที่ React ถือไว้",
+      "label_en": "Three capability cards, the selected one lifted and outlined — the React state the page is built around."
+    },
+    "c": {
+      "scroll": 0,
+      "label_th": "จอ 375px — กริดสามคอลัมน์ยุบเหลือหนึ่ง การ์ดยังสูงเต็มและเลข 01–03 ยังนำแต่ละใบ",
+      "label_en": "At 375px the three-column grid collapses to one, the cards keep their full height and their 01–03 numbering."
+    },
+    "note": "React SPA: the served signalform-studio/index.html ships an empty <div id=\"root\">, so #services only exists after mount. The capture must wait for React, not just document.fonts.ready. #services and #services-heading were confirmed present in the built bundle (assets/index-RG70QU0-.js), not only in the source. Bullet 3's SpotlightCard glow follows the pointer and will not appear in a still — the selected-card state from bullet 1 is what a screenshot can actually show."
+  },
+
+  "solarpeak": {
+    "url": "solar-landing",
+    "b": {
+      "selector": "#plans",
+      "label_th": "แพ็กเกจติดตั้งสามระดับ เทียบกำลังผลิต จำนวนแผง และราคาที่รวมค่าขออนุญาตและเชื่อมกริดแล้ว",
+      "label_en": "Three install packages compared line by line — system size, panel count, and a price that already includes permits and grid connection."
+    },
+    "c": {
+      "scroll": 0,
+      "label_th": "จอ 375px — ภาพถ่ายหน้างานเต็มความกว้าง หัวเรื่อง Power Your Future with Solar. และแถบตัวเลขต่อท้าย",
+      "label_en": "At 375px the site photograph runs full width under the Power Your Future with Solar. headline, stats trailing below."
+    },
+    "note": "Bullet 4's blueprint illustration is not in this demo's markup — the blueprint pattern lives in assets/thumbs (the card SVG), and solar-landing.html's hero is .hero-photo, a photograph. The C caption describes the photograph, not the blueprint."
+  },
+
+  "supplymate": {
+    "url": "https://phakinza007.github.io/supplymate-wholesale/#/shop",
+    "b": {
+      "selector": "#product-search",
+      "label_th": "แคตตาล็อกที่ค้นภาษาไทยได้และกรองด้วยปุ่มหมวดหกหมวด การ์ดบอกราคาต่อลังและชิ้นต่อลังตั้งแต่หน้ารวม",
+      "label_en": "The catalogue: Thai search plus six category filters, every card showing price per case and pieces per case."
+    },
+    "c": {
+      "scroll": 0,
+      "label_th": "จอ 375px — ปุ่มหมวดตัดขึ้นบรรทัดใหม่ การ์ดเหลือคอลัมน์เดียว ราคาต่อลังยังอยู่บนการ์ดโดยไม่ต้องกดเข้าไป",
+      "label_en": "At 375px the category buttons wrap to new rows and the cards fall to one column, price per case still on the card."
+    },
+    "note": "url deliberately carries the #/shop hash route: the deployed build is a hash-router SPA and the catalogue does not exist at the root, while view A already shows the home page. Two consequences for capture-shots.py — Page.navigate twice to an identical hash URL may be treated as a same-document navigation and not reload, so force the second load; and #product-search / #shop-title exist only on this route. All of it (7 filter buttons incl. ทั้งหมด, one-column cards at 375px, 'X / 1 ลัง' and 'N ชิ้น / ลัง' on every card) verified in a live browser 2026-08-24."
+  },
+
+  "velve-aesthetics": {
+    "url": "aesthetic-booking",
+    "b": {
+      "selector": "#booking",
+      "label_th": "ตัวช่วยจองสี่ขั้น แถบขั้นตอนอยู่บนสุด ขั้นที่ 1 ให้เลือกบริการก่อนจึงจะกดถัดไปได้",
+      "label_en": "The four-step booking wizard — the step rail on top, step one asking for a treatment before Next unlocks."
+    },
+    "c": {
+      "scroll": 0,
+      "label_th": "จอ 375px — คำสัญญาว่าจองคิวเองได้ไม่ต้องรอแอดมินตอบ วางอยู่เหนือปุ่มเต็มความกว้าง",
+      "label_en": "At 375px the promise of booking without waiting for an admin reply sits above a full-width button."
+    },
+    "note": "No click needed: .wiz-panel[data-panel=\"1\"] ships with .on, so step 1 and the full four-dot step rail are both in the default render."
+  }
+}
