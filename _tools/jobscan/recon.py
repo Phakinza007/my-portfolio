@@ -377,8 +377,13 @@ def main():
     save("jobs-raw.html", r.text)
     analyse(r.text)
 
+    # browser_probe() answered its question on 2026-08-24 -- it found the two
+    # API endpoints below, and re-running it costs a 184 MB Chromium download
+    # for output nobody reads. Kept in the file, off by default: set
+    # JOBSCAN_RECON_BROWSER=1 if the API ever stops being the source.
+    if os.environ.get("JOBSCAN_RECON_BROWSER") == "1":
+        browser_probe()
     api_probe()
-    browser_probe()
 
     rule("done")
     print("Read the two sections above and pick ONE source for fetch.py:")
