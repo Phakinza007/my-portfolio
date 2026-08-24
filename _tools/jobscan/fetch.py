@@ -153,6 +153,10 @@ def fetch_jobs(profile=None, limit=None):
 
 
 def save_fixture(path, jobs):
+    # git does not track empty directories, so fixtures/ does not exist in a
+    # fresh checkout even though it exists here.
+    parent = os.path.dirname(os.path.abspath(path))
+    os.makedirs(parent, exist_ok=True)
     with open(path, "w", encoding="utf-8") as fh:
         json.dump({"jobs": jobs}, fh, ensure_ascii=False, indent=1)
         fh.write("\n")
