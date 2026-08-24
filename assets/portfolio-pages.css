@@ -736,12 +736,6 @@ p {
    for → the ask. Same palette as everything else on this sheet;
    only the layout is new.
 ============================================================ */
-.story-intro {
-  max-width: 68ch;
-  margin: 0 0 22px;
-  color: var(--muted);
-}
-
 .story-stack {
   display: grid;
   gap: 16px;
@@ -1855,4 +1849,93 @@ a[data-copied]::after{
 
 @media (max-width: 640px) {
   .story-card--statement { padding-left: 16px; }
+}
+
+/* ============================================================
+   Work strip — 2026-08-24. Two more views of the demo, sitting in the slot
+   the deleted .story-intro used to occupy on the 34 showcase pages.
+
+   Measured before the change: each showcase page carried four <img> and only
+   one of them was the project the page was about — the other three were
+   #related thumbnails of OTHER projects. This adds view B (the mechanism the
+   page already brags about, 1491×812) and view C (the same demo at phone
+   width, 375×812).
+
+   There is deliberately no heading, eyebrow or kicker above the strip, and
+   nothing here reserves room for one: deleting exactly that class of repeated
+   label is the whole point of the change, so re-introducing one here would
+   rebuild the defect. The two captions are the only new text.
+
+   Nothing in this block animates. The figures carry .reveal and are covered
+   by the existing fade-up above, including its prefers-reduced-motion branch,
+   and they hide with opacity + transform only — never clip-path, which is
+   what once locked the hero image invisible on 28 pages.
+   ============================================================ */
+
+/* These are NOT .browser-frame, and that is a decision rather than an
+   oversight:
+   1 · the hero immediately above already wears the chrome bar, dots and fake
+       URL. Three identical frames per page rebuilds the one-texture problem
+       this redesign exists to remove — and the reference it follows
+       (Pentagram) frames its work in nothing at all.
+   2 · view C is a phone capture. Desktop browser chrome drawn around it would
+       state the wrong device.
+   3 · `.browser-frame > img` is the selector site-ui.js keys the loading
+       skeleton off, and it sets [data-loading] on any image that is not
+       already `complete`. Both of these are loading="lazy" and so are never
+       complete at DOMContentLoaded — they would shimmer from first paint to
+       the 8s backstop over an image the browser has not even requested yet.
+   The 1px --line edge is kept only so a light-background capture has an edge
+   against the dark page; no box-shadow, so the hero stays the loud one. */
+.work-strip {
+  display: grid;
+  gap: 20px;
+  /* First child of .page-shell inside #overview, so the section's own padding
+     supplies the space above; the bottom margin is the one .story-intro used
+     to carry (22px), opened up because a strip of images needs more air off
+     the story stack than a line of muted text did. */
+  margin: 0 0 32px;
+}
+
+.work-shot { margin: 0; }
+
+/* height:auto against the img's width/height attributes is what keeps CLS at
+   0 — same pairing as .browser-frame img. Never a fixed pixel height here. */
+.work-shot > img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface);
+}
+
+.work-shot > figcaption {
+  max-width: 60ch;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+/* The phone capture is 375px wide and must never be upscaled — stacked at a
+   600px viewport the column is 568px, a 1.5× blow-up that is very visible on
+   UI text. 377px is that 375 plus the img's own two 1px borders: box-sizing
+   is border-box sheet-wide, so this is the value that lands the bitmap at
+   exactly 1:1 rather than 0.5% short. */
+.work-shot--tall { max-width: 377px; }
+
+/* 900px is the spec's breakpoint and one the sheet already turns at (.dp-body
+   up, .feature-grid down). Below it the two figures stack, and the tall one
+   stays left-aligned so both figures share a left edge. */
+@media (min-width: 900px) {
+  .work-strip {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 24px;
+  }
+  /* The 1fr column only exceeds 377px once .page-shell hits its 1180px max,
+     leaving up to 12px of slack. justify-self:end spends it on the gutter
+     instead of the right margin, so both outer edges stay flush with the hero
+     frame above. Scoped to this branch on purpose — see the note above. */
+  .work-shot--tall { justify-self: end; }
 }
