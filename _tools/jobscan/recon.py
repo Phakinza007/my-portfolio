@@ -270,6 +270,92 @@ def browser_probe():
         browser.close()
 
 
+API = "https://jobboard-api.fastwork.co/api"
+
+
+def api_probe():
+    """Hit the API the page itself calls, with plain requests and no browser.
+
+    This is the whole question for fetch.py: if these two calls work from a
+    bare HTTP client, the scanner needs no Chromium in CI at all -- 13 seconds
+    and 184 MB of browser download per run go away.
+    """
+    rule("5. jobboard-api.fastwork.co -- does it answer a plain client?")
+
+    for path in ("/robots.txt",):
+        try:
+            r = requests.get("https://jobboard-api.fastwork.co" + path,
+                             headers=HEADERS, timeout=TIMEOUT)
+            print(f"  GET api{path} -> {r.status_code}")
+            if r.status_code == 200:
+                for line in r.text.splitlines()[:12]:
+                    print(f"    | {line}")
+        except Exception as exc:                                # noqa: BLE001
+            print(f"  GET api{path} failed: {exc}")
+
+    # --- tags: the category axis the scan will filter on -------------------
+    try:
+        r = requests.get(f"{API}/tags", headers=HEADERS, timeout=TIMEOUT)
+        print(f"\n  GET /api/tags -> {r.status_code} ({len(r.content):,} bytes)")
+        tags = r.json()
+        save("api-tags.json", json.dumps(tags, ensure_ascii=False, indent=2))
+        rows = tags.get("data", tags) if isinstance(tags, dict) else tags
+        print(f"  {len(rows)} tags, ALL of them:")
+        for t in sorted(rows, key=lambda x: x.get("sort", 999)):
+            print(f"    sort={t.get('sort'):>3}  {t.get('name')}   ({t.get('id')})")
+    except Exception as exc:                                    # noqa: BLE001
+        print(f"  /api/tags failed: {exc}")
+
+    # --- jobs: shape, pagination, and one full record ----------------------
+    variants = {
+        "kind=standard": {
+            "page": 1, "page_size": 5,
+            "order_by[]": "inserted_at", "order_directions[]": "desc",
+            "filters[0][field]": "kind", "filters[0][value]": "standard",
+        },
+        "no kind filter": {
+            "page": 1, "page_size": 5,
+            "order_by[]": "inserted_at", "order_directions[]": "desc",
+        },
+    }
+    for label, params in variants.items():
+        try:
+            r = requests.get(f"{API}/jobs", params=params, headers=HEADERS, timeout=TIMEOUT)
+        except Exception as exc:                                # noqa: BLE001
+            print(f"\n  /api/jobs [{label}] failed: {exc}")
+            continue
+        print(f"\n  GET /api/jobs [{label}] -> {r.status_code} ({len(r.content):,} bytes)")
+        print(f"    url: {r.url}")
+        if r.status_code != 200:
+            print(f"    body: {r.text[:300]}")
+            continue
+        payload = r.json()
+        save(f"api-jobs-{label.replace(' ', '-').replace('=', '-')}.json",
+             json.dumps(payload, ensure_ascii=False, indent=2))
+        print(f"    top-level keys: {list(payload.keys())}")
+        for key, value in payload.items():
+            if key != "data":
+                print(f"    {key}: {json.dumps(value, ensure_ascii=False)[:200]}")
+        rows = payload.get("data") or []
+        print(f"    {len(rows)} records; kinds seen: "
+              f"{sorted({row.get('kind') for row in rows})}; "
+              f"tags seen: {sorted({(row.get('tag') or {}).get('name') for row in rows})}")
+
+    # One complete record, so normalize.py is written against real fields and
+    # not against a truncated preview.
+    try:
+        r = requests.get(f"{API}/jobs", headers=HEADERS, timeout=TIMEOUT, params={
+            "page": 1, "page_size": 1,
+            "order_by[]": "inserted_at", "order_directions[]": "desc",
+        })
+        row = (r.json().get("data") or [{}])[0]
+        print("\n  ---- one complete record ----")
+        print(json.dumps(row, ensure_ascii=False, indent=2)[:4000])
+        print("  -----------------------------")
+    except Exception as exc:                                    # noqa: BLE001
+        print(f"  single-record probe failed: {exc}")
+
+
 def main():
     print(f"User-Agent: {UA}")
 
@@ -291,6 +377,7 @@ def main():
     save("jobs-raw.html", r.text)
     analyse(r.text)
 
+    api_probe()
     browser_probe()
 
     rule("done")
