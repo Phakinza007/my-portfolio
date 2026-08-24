@@ -356,6 +356,90 @@ def api_probe():
         print(f"  single-record probe failed: {exc}")
 
 
+WEB_TAG_ID = "4c7ee9da-5509-4ff1-b7c2-df81fb2ef06c"       # พัฒนาเว็บไซต์
+WEB_TAG_NAME = "พัฒนาเว็บไซต์"
+
+
+def filter_probe():
+    """Can the tag filter be pushed to the server, and what is a job's URL?
+
+    Both answers change how much this thing costs to run. The board holds
+    2,997 open posts across 600 pages; if the API filters by tag, a scan is
+    one request. If it does not, the scan has to page and filter locally, and
+    the only thing keeping that honest is that we sort by inserted_at desc and
+    stop early -- so it needs to know which it is, not assume.
+    """
+    rule("6. Server-side tag filter, and the job URL")
+
+    baseline = None
+    try:
+        r = requests.get(f"{API}/jobs", headers=HEADERS, timeout=TIMEOUT,
+                         params={"page": 1, "page_size": 1})
+        baseline = r.json()["meta"]["total_count"]
+        print(f"  baseline total_count (no filter): {baseline}")
+    except Exception as exc:                                    # noqa: BLE001
+        print(f"  baseline failed: {exc}")
+
+    # The field name is not documented anywhere we can read, so try the
+    # plausible ones and let total_count say which is real. A filter the
+    # server silently ignores returns the baseline -- that is the tell.
+    for field, value in [
+        ("tag_id", WEB_TAG_ID),
+        ("tag", WEB_TAG_ID),
+        ("tag_ids", WEB_TAG_ID),
+        ("tag.id", WEB_TAG_ID),
+        ("tag_name", WEB_TAG_NAME),
+    ]:
+        params = {
+            "page": 1, "page_size": 10,
+            "order_by[]": "inserted_at", "order_directions[]": "desc",
+            "filters[0][field]": field, "filters[0][value]": value,
+        }
+        try:
+            r = requests.get(f"{API}/jobs", params=params, headers=HEADERS, timeout=TIMEOUT)
+        except Exception as exc:                                # noqa: BLE001
+            print(f"  filters[0][field]={field:9} -> request failed: {exc}")
+            continue
+        if r.status_code != 200:
+            print(f"  filters[0][field]={field:9} -> HTTP {r.status_code}: {r.text[:120]}")
+            continue
+        payload = r.json()
+        total = payload.get("meta", {}).get("total_count")
+        names = sorted({(row.get("tag") or {}).get("name") for row in payload.get("data", [])})
+        verdict = (
+            "IGNORED (same as baseline)" if total == baseline
+            else "WORKS" if names == [WEB_TAG_NAME] else "changed count, mixed tags"
+        )
+        print(f"  filters[0][field]={field:9} -> total={total} tags={names} :: {verdict}")
+
+    # --- what does a job link to? brief_url was null on the sample record ---
+    try:
+        r = requests.get(f"{API}/jobs", headers=HEADERS, timeout=TIMEOUT,
+                         params={"page": 1, "page_size": 1,
+                                 "order_by[]": "inserted_at", "order_directions[]": "desc"})
+        job_id = r.json()["data"][0]["id"]
+    except Exception as exc:                                    # noqa: BLE001
+        print(f"\n  could not get a job id: {exc}")
+        return
+
+    print(f"\n  probing URL shapes for job {job_id}")
+    for shape in (
+        f"https://jobboard.fastwork.co/jobs/{job_id}",
+        f"https://jobboard.fastwork.co/job/{job_id}",
+        f"https://jobboard.fastwork.co/jobs?job_id={job_id}",
+        f"{API}/jobs/{job_id}",
+    ):
+        try:
+            r = requests.get(shape, headers=HEADERS, timeout=TIMEOUT, allow_redirects=False)
+            note = ""
+            if r.status_code == 200 and "html" in r.headers.get("content-type", ""):
+                # A Next.js 404 page is also served as 200; look for the id.
+                note = " (id present in body)" if job_id in r.text else " (id NOT in body)"
+            print(f"    {r.status_code} {shape}{note}")
+        except Exception as exc:                                # noqa: BLE001
+            print(f"    ERR {shape}: {exc}")
+
+
 def main():
     print(f"User-Agent: {UA}")
 
@@ -384,6 +468,7 @@ def main():
     if os.environ.get("JOBSCAN_RECON_BROWSER") == "1":
         browser_probe()
     api_probe()
+    filter_probe()
 
     rule("done")
     print("Read the two sections above and pick ONE source for fetch.py:")
