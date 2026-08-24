@@ -21,6 +21,19 @@ on:
         description: 'Print the ranking only -- no state, no notification'
         type: boolean
         default: false
+  # Callable, so this exact file can be exercised before it is on the default
+  # branch. Until a workflow lives on the default branch GitHub will neither
+  # schedule it nor accept a workflow_dispatch for it (the dispatch API answers
+  # 404), which would otherwise mean the scheduled file's first ever execution
+  # is in production. jobscan-recon.yml calls it with seed: true.
+  workflow_call:
+    inputs:
+      seed:
+        type: boolean
+        default: false
+      dry_run:
+        type: boolean
+        default: false
 
 permissions:
   contents: write      # push state to the jobscan-state branch

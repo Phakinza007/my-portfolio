@@ -34,6 +34,10 @@ on:
 
 permissions:
   contents: write
+  # A called workflow cannot be granted more than its caller holds, so the
+  # rehearsal below would lose issues: write without this -- silently, and
+  # only on the run that finally notifies something.
+  issues: write
 
 jobs:
   recon:
@@ -111,3 +115,18 @@ jobs:
             3) echo "::error::could not fetch the page at all" ; exit 1 ;;
             *) echo "::error::unexpected exit $code" ; exit 1 ;;
           esac
+
+  # A rehearsal of the real scheduled workflow, on this branch, before it can
+  # be scheduled. `uses:` runs jobscan.yml itself rather than a copy of its
+  # steps -- a rehearsal of a copy proves nothing about the file that will
+  # actually fire.
+  #
+  # seed: true, always: it writes state and notifies nothing. That doubles as
+  # Phase 3's seeding, so the first scheduled run after merge starts from a
+  # populated seen.json instead of treating the whole board as new.
+  rehearse-scan:
+    needs: recon
+    uses: ./.github/workflows/jobscan.yml
+    with:
+      seed: true
+    secrets: inherit
