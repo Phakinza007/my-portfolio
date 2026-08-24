@@ -14,3 +14,9 @@ node_modules/
 
 .superpowers/
 .impeccable/
+
+# Recon captures from _tools/jobscan/recon.py (uploaded as an artifact, never committed)
+_recon_out/
+
+__pycache__/
+*.pyc

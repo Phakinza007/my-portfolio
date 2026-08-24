@@ -1,0 +1,114 @@
+# Scan the Fastwork job board for web work, rank it, and report what is new.
+#
+# See _tools/jobscan/README.md for what it does and _tools/jobscan/recon.py for
+# how the API it reads was found.
+#
+# Runs 08:00-20:00 Thai time, every two hours -- seven runs a day, two HTTP
+# requests each. The board's own robots.txt is "Allow: /".
+name: jobscan
+
+on:
+  schedule:
+    # UTC. 01:00-13:00 UTC == 08:00-20:00 ICT.
+    - cron: '0 1-13/2 * * *'
+  workflow_dispatch:
+    inputs:
+      seed:
+        description: 'Record what is on the board without notifying (first run)'
+        type: boolean
+        default: false
+      dry_run:
+        description: 'Print the ranking only -- no state, no notification'
+        type: boolean
+        default: false
+  # Kept callable. This is how the file was executed once before it could be
+  # scheduled: until a workflow is on the default branch GitHub will neither
+  # schedule it nor accept a workflow_dispatch for it (the dispatch API answers
+  # a plain 404), so without this its first ever run would have been a
+  # production one. Still the way to rehearse a change to it from a branch.
+  workflow_call:
+    inputs:
+      seed:
+        type: boolean
+        default: false
+      dry_run:
+        type: boolean
+        default: false
+
+permissions:
+  contents: write      # push state to the jobscan-state branch
+  issues: write        # open the digest issue
+
+# Two scans writing the same state branch would race on the push.
+concurrency:
+  group: jobscan
+  cancel-in-progress: false
+
+env:
+  PYTHONUNBUFFERED: '1'
+  STATE_BRANCH: jobscan-state
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - run: pip install --quiet requests
+
+      # State lives on its own orphan branch, not on main. main auto-deploys to
+      # GitHub Pages on every commit, so writing state there would redeploy the
+      # site seven times a day with nothing changed on it.
+      - name: Check out state branch
+        run: |
+          REPO="https://x-access-token:${{ github.token }}@github.com/${GITHUB_REPOSITORY}.git"
+          if git clone --quiet --branch "$STATE_BRANCH" --single-branch --depth 1 "$REPO" _state; then
+            echo "state branch found"
+            [ -f _state/seen.json ] && echo "seen.json: $(wc -c < _state/seen.json) bytes"
+          else
+            echo "no $STATE_BRANCH yet -- starting one"
+            mkdir -p _state
+            git -C _state init -q -b "$STATE_BRANCH"
+            git -C _state remote add origin "$REPO"
+          fi
+
+      - name: Scan
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          # On a scheduled run `inputs` is null, so both tests are false and
+          # both flags are simply omitted. Written as if/then rather than
+          # `[ ... ] && ARGS=...`: bash -e tolerates a failing test on the left
+          # of an AND-list, but the list's own status is still 1, so the same
+          # line as the *last* command in a step would fail it. if/then cannot
+          # acquire that property by being moved.
+          ARGS="--state-dir _state"
+          if [ "${{ inputs.seed }}" = "true" ]; then
+            ARGS="$ARGS --seed"
+          fi
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          echo "scan.py $ARGS"
+          python3 _tools/jobscan/scan.py $ARGS
+
+      - name: Save state
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          cd _state
+          git config user.name  "Phakin"
+          git config user.email "221497160+Phakinza007@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "no state change"
+          else
+            git commit -q -m "jobscan: state $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git push -q origin "HEAD:$STATE_BRANCH"
+            echo "state pushed"
+          fi

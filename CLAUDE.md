@@ -1261,6 +1261,53 @@ Click/scroll heatmaps + session recording via **Microsoft Clarity**, loaded from
 
 ---
 
+## Fastwork job scan (`_tools/jobscan/`)
+
+A scheduled scan of `jobboard.fastwork.co` that ranks web-category posts against what
+this portfolio can actually deliver and opens a GitHub Issue for the new ones. It is
+tooling, not site content — nothing it touches is served at ph-akin.dev.
+`.github/workflows/jobscan.yml` runs it 08:00–20:00 ICT every two hours; full notes in
+`_tools/jobscan/README.md`.
+
+**The listings do not come from the page.** `jobboard.fastwork.co/jobs` is a Next.js
+shell whose `__NEXT_DATA__` carries only i18n. The data is on a second host,
+`jobboard-api.fastwork.co/api/{jobs,tags}`, which answers a plain HTTP client with no
+auth, no cookie and no browser — so the scan needs no Chromium, and the 184 MB browser
+download stays out of CI. `filters[0][field]=tag_id` is the **only** spelling the API
+accepts (`tag`, `tag_ids`, `tag.id`, `tag_name` all answer HTTP 400), and a job's page
+is `/jobs?job_id=<uuid>` — `/jobs/<uuid>` is a 404. All measured 2026-08-24 by
+`_tools/jobscan/recon.py`, which is kept for the day any of it changes.
+
+**It ranks; it does not filter.** Owner's call: every post in the selected categories
+reaches the digest, with a score for reading order and a `reasons` line saying why. A
+filter that drops the wrong job is invisible; a job ranked last with its reasons beside
+it is still there to disagree with. Category selection is a separate thing and is
+*necessary* — the board is general (~3,000 open posts: ไลฟ์สไตล์, ช่าง, งานสอน,
+เพื่อนชวนคุยแก้เหงา) and พัฒนาเว็บไซต์ holds only ~41 of them.
+
+⚠️ **Zero jobs fetched is an error, not "nothing new".** A broken parser and an empty
+board produce identical output. The API has also been seen answering HTTP 500 to
+unfiltered queries minutes after the identical request returned 200, so 5xx is retried
+and 4xx never is.
+
+**Everything tunable is in `_tools/jobscan/profile.json`** — the category names, the
+keyword groups and their weights, the budget floor. Category names are resolved to tag
+ids at runtime rather than hardcoded, because a renamed tag would otherwise filter
+silently to nothing.
+
+**`fixtures/jobs.json` is a real payload captured by the workflow, never hand-written,**
+and `scan.py` re-normalizes it from each record's stored `raw` on load rather than
+trusting the normalized fields. A fixture captured before a `normalize.py` fix would
+otherwise keep testing the old behaviour — which is how the `฿0` bug (68 of 149 posts
+carry budget `"0"`, meaning *ไม่ระบุ*, and every one of them was losing 12 points for a
+budget nobody stated) would have looked fixed while the fixture still said ฿0.
+
+**State lives on the orphan `jobscan-state` branch, never on `main`.** `main`
+auto-deploys to Pages on every commit; state there would redeploy the site seven times
+a day with nothing changed on it.
+
+---
+
 ## Common Tasks for Claude
 
 ### Add a new project card
