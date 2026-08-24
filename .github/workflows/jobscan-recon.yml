@@ -10,34 +10,18 @@
 #
 # Run it from the Actions tab, then read the job log. Nothing is committed.
 #
-# The push trigger is here because `workflow_dispatch` only appears once the
-# workflow exists on the default branch, and this one is still on its feature
-# branch. Drop the push trigger when the branch merges.
+# It carried a push trigger and a job that called jobscan.yml while this lived
+# on a feature branch -- that was how the scheduled workflow got executed once
+# before it could be scheduled. Both came out at merge: the branch they named
+# is gone, and a manual recon must not also run a --seed scan, which would
+# absorb new posts into the state without notifying anyone.
 name: jobscan recon
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - claude/fastwork-job-scan-automation-exk99a
-    paths:
-      - .github/workflows/jobscan-recon.yml
-      # The whole package, not just recon.py: the dry-run step below exercises
-      # fetch/normalize/score too, and a change to those that is never run is
-      # a change that is never checked.
-      - _tools/jobscan/**
-      # No `!` exclusion for the fixture this workflow writes back: adding one
-      # was followed by a push to this very file that triggered no run at all,
-      # and a trigger that silently stops firing is worse than the loop it was
-      # guarding against. The [skip ci] in the fixture commit already stops
-      # that loop, and has been observed doing so.
 
 permissions:
   contents: write
-  # A called workflow cannot be granted more than its caller holds, so the
-  # rehearsal below would lose issues: write without this -- silently, and
-  # only on the run that finally notifies something.
-  issues: write
 
 jobs:
   recon:
@@ -116,17 +100,3 @@ jobs:
             *) echo "::error::unexpected exit $code" ; exit 1 ;;
           esac
 
-  # A rehearsal of the real scheduled workflow, on this branch, before it can
-  # be scheduled. `uses:` runs jobscan.yml itself rather than a copy of its
-  # steps -- a rehearsal of a copy proves nothing about the file that will
-  # actually fire.
-  #
-  # seed: true, always: it writes state and notifies nothing. That doubles as
-  # Phase 3's seeding, so the first scheduled run after merge starts from a
-  # populated seen.json instead of treating the whole board as new.
-  rehearse-scan:
-    needs: recon
-    uses: ./.github/workflows/jobscan.yml
-    with:
-      seed: true
-    secrets: inherit
