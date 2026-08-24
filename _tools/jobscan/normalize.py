@@ -16,6 +16,12 @@ _NUM = re.compile(r"[\d,]+(?:\.\d+)?")
 
 
 def _money(value):
+    """Parse a budget field. Zero means "ไม่ระบุ", not "free".
+
+    Measured on the live fixture: 68 of 149 posts carry budget "0", and the
+    board renders those as "฿ ไม่ระบุ". Returning 0.0 here made them all trip
+    the below-floor flag and lose 12 points for a budget nobody stated.
+    """
     if value is None:
         return None
     if isinstance(value, (int, float)):
@@ -24,15 +30,22 @@ def _money(value):
     if not m:
         return None
     try:
-        return float(m.group(0).replace(",", ""))
+        amount = float(m.group(0).replace(",", ""))
     except ValueError:
         return None
+    return amount or None
 
 
 def _budget_text(lo, hi, raw_lo):
     if lo is None and hi is None:
-        # Keep whatever the post actually said rather than inventing a dash.
-        return str(raw_lo).strip() if raw_lo else "ไม่ระบุ"
+        # "0" is the board's own way of saying no budget was given -- rendering
+        # it as ฿0 reads as "this client wants it free", which is a different
+        # and much worse claim. Any other non-numeric text the post carried is
+        # kept as written.
+        raw = str(raw_lo).strip() if raw_lo is not None else ""
+        if raw in ("", "0", "0.0", "-"):
+            return "ไม่ระบุ"
+        return raw if not raw.replace(".", "").isdigit() else "ไม่ระบุ"
     if lo is not None and hi is not None and lo != hi:
         return f"฿{lo:,.0f}–{hi:,.0f}"
     only = lo if lo is not None else hi
@@ -41,11 +54,16 @@ def _budget_text(lo, hi, raw_lo):
 
 # `type` is how the client wants to engage; worth surfacing because a
 # สัญญาจ้าง / พาร์ทไทม์ post is a job, not a project, whatever its keywords say.
+# The hyphenated spellings are what the API actually sends -- the fixture
+# carries 10 "part-time" and 8 "full-time", which the un-hyphenated guesses
+# passed through untranslated.
 TYPE_TH = {
     "freelance": "ฟรีแลนซ์",
     "contract": "สัญญาจ้าง",
+    "part-time": "พาร์ทไทม์",
+    "full-time": "งานประจำ",
     "parttime": "พาร์ทไทม์",
-    "fulltime": "ประจำ",
+    "fulltime": "งานประจำ",
 }
 
 
@@ -67,6 +85,7 @@ def normalize(row):
         "category": tag.get("name"),
         "category_id": tag.get("id"),
         "engagement": TYPE_TH.get(row.get("type"), row.get("type")),
+        "engagement_key": row.get("type"),
         "kind": row.get("kind"),
         "budget_min": lo,
         "budget_max": hi,

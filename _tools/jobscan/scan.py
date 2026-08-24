@@ -53,7 +53,17 @@ def load_jobs(args, profile):
         with open(args.fixture, encoding="utf-8") as fh:
             data = json.load(fh)
         jobs = data["jobs"] if isinstance(data, dict) and "jobs" in data else data
-        print(f"fixture: {args.fixture} -> {len(jobs)} jobs (no network)")
+        # Re-derive from the stored raw record rather than trusting the
+        # normalized fields in the file. A fixture captured before a
+        # normalize.py fix would otherwise keep testing the old behaviour --
+        # which is how the budget-zero bug would have looked fixed while the
+        # fixture still said ฿0.
+        if jobs and isinstance(jobs[0], dict) and jobs[0].get("raw"):
+            import normalize
+            jobs = [normalize.normalize(j["raw"]) for j in jobs]
+            print(f"fixture: {args.fixture} -> {len(jobs)} jobs, re-normalized (no network)")
+        else:
+            print(f"fixture: {args.fixture} -> {len(jobs)} jobs (no network)")
         return jobs
 
     import fetch                    # imported late: fixtures need no network deps

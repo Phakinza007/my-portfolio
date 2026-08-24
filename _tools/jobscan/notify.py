@@ -16,6 +16,7 @@ actually went out.
 """
 import json
 import os
+from datetime import datetime, timezone
 
 import requests
 
@@ -48,6 +49,29 @@ def _flags(job):
     return " ".join(FLAG_LABELS.get(f, f) for f in job.get("flags", []))
 
 
+def _age(job):
+    """How long the post has been up, in Thai. Freshness is most of the edge."""
+    stamp = job.get("posted_at")
+    if not stamp:
+        return "—"
+    try:
+        posted = datetime.fromisoformat(stamp.replace("Z", "+00:00"))
+    except ValueError:
+        return "—"
+    minutes = (datetime.now(timezone.utc) - posted).total_seconds() / 60
+    if minutes < 60:
+        return f"{minutes:.0f} นาที"
+    if minutes < 60 * 24:
+        return f"{minutes / 60:.0f} ชม."
+    return f"{minutes / 1440:.0f} วัน"
+
+
+def _offers(job):
+    """Applicants already in. 27 offers is a lottery; 0 an hour old is not."""
+    n = job.get("offers")
+    return "—" if n is None else f"{n}"
+
+
 def render_markdown(new_jobs, total_seen):
     """The GitHub Issue body: a table, best fit first, reasons included."""
     lines = [
@@ -56,8 +80,8 @@ def render_markdown(new_jobs, total_seen):
         "เรียงตามความเข้ากับงานที่ส่งมอบได้ — คะแนนไม่ได้กรองงานทิ้ง "
         "ทุกงานในรอบนี้อยู่ในตารางครบ",
         "",
-        "| # | งาน | งบ | ความเข้า | หมายเหตุ |",
-        "|--:|-----|----|----------|----------|",
+        "| # | งาน | หมวด | งบ | ยื่นแล้ว | โพสต์เมื่อ | ความเข้า | หมายเหตุ |",
+        "|--:|-----|------|----|--------:|-----------|----------|----------|",
     ]
     for i, job in enumerate(new_jobs, 1):
         title = (job.get("title") or "(ไม่มีชื่อ)").replace("|", "\\|")
@@ -65,7 +89,8 @@ def render_markdown(new_jobs, total_seen):
         link = f"[{title}]({url})" if url else title
         flags = _flags(job)
         lines.append(
-            f"| {i} | {link} | {_budget(job)} | {job['score']} · {job['fit']} | {flags} |"
+            f"| {i} | {link} | {job.get('category') or '—'} | {_budget(job)} | "
+            f"{_offers(job)} | {_age(job)} | {job['score']} · {job['fit']} | {flags} |"
         )
 
     lines += ["", "<details><summary>เหตุผลที่ให้คะแนนแบบนี้</summary>", ""]
@@ -87,8 +112,8 @@ def render_discord(new_jobs, issue_url=None):
     for job in new_jobs[:DISCORD_TOP_N]:
         title = job.get("title") or "(ไม่มีชื่อ)"
         rows.append(
-            f"• [{title}]({job.get('url')}) — {_budget(job)} · "
-            f"{job['score']} {job['fit']} {_flags(job)}".rstrip()
+            f"• [{title}]({job.get('url')}) — {_budget(job)} · ยื่นแล้ว {_offers(job)} · "
+            f"{_age(job)} · {job['score']} {job['fit']} {_flags(job)}".rstrip()
         )
     tail = ""
     if len(new_jobs) > DISCORD_TOP_N:

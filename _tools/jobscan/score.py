@@ -99,6 +99,14 @@ def score_job(job, profile):
         if group.get("flag"):
             flags.append(group["flag"])
 
+    penalties = profile.get("engagement_penalties") or {}
+    hit = penalties.get(job.get("engagement_key"))
+    if hit:
+        amount, label = hit
+        total += float(amount)
+        flags.append("not_a_project")
+        reasons.append(f"−{abs(float(amount)):.0f} {label}")
+
     budget_max = job.get("budget_max")
     floor = profile.get("budget_floor")
     if floor and isinstance(budget_max, (int, float)) and budget_max > 0:
