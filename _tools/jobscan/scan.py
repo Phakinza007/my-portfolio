@@ -47,7 +47,7 @@ def thai_today():
     return f"{now.day} {THAI_MONTHS[now.month - 1]} {now.strftime('%H:%M')}"
 
 
-def load_jobs(args):
+def load_jobs(args, profile):
     """Either replay a saved fixture or go and fetch the board."""
     if args.fixture:
         with open(args.fixture, encoding="utf-8") as fh:
@@ -57,8 +57,10 @@ def load_jobs(args):
         return jobs
 
     import fetch                    # imported late: fixtures need no network deps
-    jobs = fetch.fetch_jobs(limit=args.limit)
+    jobs = fetch.fetch_jobs(profile=profile, limit=args.limit)
     print(f"fetched {len(jobs)} jobs from the board")
+    if args.dump_fixture:
+        print(f"payload written to {fetch.save_fixture(args.dump_fixture, jobs)}")
     return jobs
 
 
@@ -87,9 +89,11 @@ def main(argv=None):
     ap.add_argument("--seed", action="store_true", help="บันทึก state แต่ไม่แจ้งเตือน (ใช้รอบแรก)")
     ap.add_argument("--no-notify", action="store_true", help="เหมือน --seed")
     ap.add_argument("--allow-empty", action="store_true", help="ยอมให้ดึงได้ 0 รายการโดยไม่ error")
+    ap.add_argument("--dump-fixture", help="บันทึก payload ที่ดึงมาไว้เป็น fixture")
     args = ap.parse_args(argv)
 
-    jobs = load_jobs(args)
+    profile = scoring.load_profile(args.profile)
+    jobs = load_jobs(args, profile)
 
     if not jobs and not args.allow_empty:
         print(
@@ -100,7 +104,6 @@ def main(argv=None):
         )
         return 1
 
-    profile = scoring.load_profile(args.profile)
     ranked = scoring.score_all(jobs, profile)
 
     if args.dry_run:

@@ -1,0 +1,90 @@
+# Scan the Fastwork job board for web work, rank it, and report what is new.
+#
+# See _tools/jobscan/README.md for what it does and _tools/jobscan/recon.py for
+# how the API it reads was found.
+#
+# Runs 08:00-20:00 Thai time, every two hours -- seven runs a day, two HTTP
+# requests each. The board's own robots.txt is "Allow: /".
+name: jobscan
+
+on:
+  schedule:
+    # UTC. 01:00-13:00 UTC == 08:00-20:00 ICT.
+    - cron: '0 1-13/2 * * *'
+  workflow_dispatch:
+    inputs:
+      seed:
+        description: 'Record what is on the board without notifying (first run)'
+        type: boolean
+        default: false
+      dry_run:
+        description: 'Print the ranking only -- no state, no notification'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write      # push state to the jobscan-state branch
+  issues: write        # open the digest issue
+
+# Two scans writing the same state branch would race on the push.
+concurrency:
+  group: jobscan
+  cancel-in-progress: false
+
+env:
+  PYTHONUNBUFFERED: '1'
+  STATE_BRANCH: jobscan-state
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - run: pip install --quiet requests
+
+      # State lives on its own orphan branch, not on main. main auto-deploys to
+      # GitHub Pages on every commit, so writing state there would redeploy the
+      # site seven times a day with nothing changed on it.
+      - name: Check out state branch
+        run: |
+          REPO="https://x-access-token:${{ github.token }}@github.com/${GITHUB_REPOSITORY}.git"
+          if git clone --quiet --branch "$STATE_BRANCH" --single-branch --depth 1 "$REPO" _state; then
+            echo "state branch found"
+            [ -f _state/seen.json ] && echo "seen.json: $(wc -c < _state/seen.json) bytes"
+          else
+            echo "no $STATE_BRANCH yet -- starting one"
+            mkdir -p _state
+            git -C _state init -q -b "$STATE_BRANCH"
+            git -C _state remote add origin "$REPO"
+          fi
+
+      - name: Scan
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          ARGS="--state-dir _state"
+          [ "${{ inputs.seed }}"    = "true" ] && ARGS="$ARGS --seed"
+          [ "${{ inputs.dry_run }}" = "true" ] && ARGS="$ARGS --dry-run"
+          python3 _tools/jobscan/scan.py $ARGS
+
+      - name: Save state
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          cd _state
+          git config user.name  "Phakin"
+          git config user.email "221497160+Phakinza007@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "no state change"
+          else
+            git commit -q -m "jobscan: state $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git push -q origin "HEAD:$STATE_BRANCH"
+            echo "state pushed"
+          fi

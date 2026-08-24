@@ -25,7 +25,7 @@ on:
       - _tools/jobscan/recon.py
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   recon:
@@ -67,6 +67,31 @@ jobs:
           path: _recon_out/
           if-no-files-found: warn
           retention-days: 7
+
+      # A dry run against the live API, with the payload committed back to this
+      # branch. That fixture is what makes the scoring rules tunable offline:
+      # without it the alternative is hand-writing sample records, which tunes
+      # the rules against fiction. Dry run means no state written and nothing
+      # notified.
+      - name: Dry run + capture a real fixture
+        if: steps.recon.outputs.exit_code == '0'
+        run: |
+          set -e
+          python3 _tools/jobscan/scan.py --dry-run \
+            --dump-fixture _tools/jobscan/fixtures/jobs.json
+
+      - name: Commit the fixture
+        if: steps.recon.outputs.exit_code == '0'
+        run: |
+          git config user.name  "Phakin"
+          git config user.email "221497160+Phakinza007@users.noreply.github.com"
+          git add _tools/jobscan/fixtures/jobs.json
+          if git diff --cached --quiet; then
+            echo "fixture unchanged"
+          else
+            git commit -q -m "jobscan: refresh the live fixture [skip ci]"
+            git push origin HEAD:${GITHUB_REF_NAME}
+          fi
 
       - name: Report exit code
         run: |
