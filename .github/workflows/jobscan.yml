@@ -69,9 +69,20 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
+          # On a scheduled run `inputs` is null, so both tests are false and
+          # both flags are simply omitted. Written as if/then rather than
+          # `[ ... ] && ARGS=...`: bash -e tolerates a failing test on the left
+          # of an AND-list, but the list's own status is still 1, so the same
+          # line as the *last* command in a step would fail it. if/then cannot
+          # acquire that property by being moved.
           ARGS="--state-dir _state"
-          [ "${{ inputs.seed }}"    = "true" ] && ARGS="$ARGS --seed"
-          [ "${{ inputs.dry_run }}" = "true" ] && ARGS="$ARGS --dry-run"
+          if [ "${{ inputs.seed }}" = "true" ]; then
+            ARGS="$ARGS --seed"
+          fi
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          echo "scan.py $ARGS"
           python3 _tools/jobscan/scan.py $ARGS
 
       - name: Save state
