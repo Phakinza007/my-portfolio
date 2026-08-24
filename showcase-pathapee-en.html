@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Sends /foo.html to /foo and /index.html to /, in the address bar as well
+       as in the index. GitHub Pages serves both and cannot redirect, so canonical
+       alone leaves the visitor looking at the URL we told Google not to use.
+       Inline and in <head> on purpose: a deferred external script would run after
+       the parse and the page would render, then jump. location.replace keeps it
+       out of history, so Back still leaves the site. -->
+  <script>(function(p){if(location.protocol!=='file:'&&/\.html$/.test(p)&&!/\/404\.html$/.test(p))location.replace((/\/index\.html$/.test(p)?p.slice(0,-10):p.slice(0,-5))+location.search+location.hash)})(location.pathname)</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A B2B precast plant site that opens with span tables, monthly output and the delivery queue, and a tool that picks the slab from span and live load — full project detail." />
+  <meta name="theme-color" content="#5274f8" />
+  <link rel="canonical" href="https://ph-akin.dev/showcase-pathapee-en" />
+  <link rel="alternate" hreflang="th" href="https://ph-akin.dev/showcase-pathapee" />
+  <link rel="alternate" hreflang="en" href="https://ph-akin.dev/showcase-pathapee-en" />
+  <link rel="alternate" hreflang="x-default" href="https://ph-akin.dev/showcase-pathapee" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Pathapee Precast | Phakin Portfolio" />
+  <meta property="og:description" content="A B2B precast plant site that opens with span tables, monthly output and the delivery queue, and a tool that picks the slab from span and live load — full project detail." />
+  <meta property="og:url" content="https://ph-akin.dev/showcase-pathapee-en" />
+  <meta property="og:image" content="https://ph-akin.dev/assets/screenshots/showcase-pathapee.jpg" />
+  <meta property="og:image:alt" content="Pathapee Precast live page screenshot." />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Pathapee Precast | Phakin Portfolio" />
+  <meta name="twitter:description" content="A B2B precast plant site that opens with span tables, monthly output and the delivery queue, and a tool that picks the slab from span and live load — full project detail." />
+  <meta name="twitter:image" content="https://ph-akin.dev/assets/screenshots/showcase-pathapee.jpg" />
+  <title>Pathapee Precast | Phakin Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@600;700&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&display=optional" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="stylesheet" href="assets/portfolio-pages.css?v=thai-leading" />
+  <link rel="stylesheet" href="assets/site-search.css?v=motion-2" />
+  <script src="assets/site-search.js?v=clean-urls" defer></script>
+  <script src="assets/site-ui.js?v=reveal-fix" defer></script>
+  <script src="assets/analytics.js?v=funnel" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="page-shell nav" aria-label="Showcase menu">
+      <a class="brand" href="/" aria-label="Pathapee Precast — back to portfolio">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 34 34" focusable="false">
+            <rect class="mark-back" x="6" y="9" width="22" height="8" rx="2" />
+            <rect class="mark-front" x="6" y="19" width="22" height="8" rx="2" />
+            <path class="mark-line" d="M9 30h16" />
+            <circle class="mark-dot" cx="12" cy="13" r="2" />
+          </svg>
+        </span>
+        <span>Pathapee Precast</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="work-en">All projects</a></li>
+        <li><a href="pathapee-precast">View live site</a></li>
+        <li><a class="nav-primary" href="resume-en">Résumé</a></li>
+        <li><span class="lang-toggle" role="group" aria-label="Language"><span class="lang-on" aria-current="true">EN</span><a href="showcase-pathapee" hreflang="th" lang="th">TH</a></span></li>
+      </ul>
+      <div class="site-search"></div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero case-hero">
+      <div class="page-shell">
+        <span class="eyebrow">project showcase</span>
+        <h1><span class="sheen">Pathapee Precast</span></h1>
+        <p class="hero-copy">A precast plant site that hands procurement the span tables, the monthly output and the delivery queue — and carries no photographs at all</p>
+        <div class="hero-actions">
+          <a class="button primary" href="pathapee-precast">View live site</a>
+        </div>
+      </div>
+
+      <div class="page-shell" style="margin-top:32px;">
+        <figure class="browser-frame reveal">
+          <div class="browser-frame-bar reveal">
+            <span class="browser-dot browser-dot-red" aria-hidden="true"></span>
+            <span class="browser-dot browser-dot-amber" aria-hidden="true"></span>
+            <span class="browser-dot browser-dot-green" aria-hidden="true"></span>
+            <span class="browser-url">ph-akin.dev/pathapee-precast.html</span>
+          </div>
+          <img src="assets/screenshots/showcase-pathapee.jpg" alt="Pathapee Precast live page screenshot." width="1491" height="812" loading="eager" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="overview">
+      <div class="page-shell">
+        <p class="story-intro">Read top to bottom — what this project is, what it does, who it fits, and then picture the same page built around your business.</p>
+
+        <div class="story-stack">
+          <article class="story-card reveal">
+            <div class="story-head">
+              <div>
+                <h2>Project overview</h2>
+                <p class="story-kicker">A couple of minutes for the whole picture</p>
+              </div>
+            </div>
+            <p>Almost every precast plant site opens on a wide shot of the stock yard and a crane. This one does not, because the person signing the purchase order is not deciding from a photograph. They want three things — how far this slab spans at a given live load, whether it can be produced before the pour, and whether it reaches their site. So those three go first, answered with cross-sections drawn as SVG, a span-against-live-load table, monthly output, a delivery-radius diagram, and a queue counted in working days. Every figure is set in mono so the columns line up on their digits, which is a functional decision rather than a stylistic one.</p>
+            <div class="tag-list">
+              <span class="tag tag-gray">Construction</span>
+              <span class="tag tag-gray">UI Design</span>
+              <span class="tag tag-gray">Light UI</span>
+              <span class="tag tag-gray">Thai</span>
+            </div>
+          </article>
+
+          <article class="story-card story-card--flat reveal">
+            <div class="story-head">
+              <div>
+                <h2>The 30-second version</h2>
+                <p class="story-kicker">The parts that stand out at a glance</p>
+              </div>
+            </div>
+            <ul class="highlight-list">
+              <li>A slab selector: drag the span, pick the live load, and the table says immediately which models are left, plus an estimate of piece count, total tonnage and truck trips from the floor area you enter.</li>
+              <li>Cross-sections for all four product families drawn as SVG, with dimension lines and real values on them — not photographs, and not stock icons.</li>
+              <li>A tabbed catalogue that walks with the arrow keys on a roving tabindex, and every table scrolls inside its own box on a phone.</li>
+              <li>Not one photograph anywhere on the page, and the page states that reasoning in running text.</li>
+              <li>The quote form and the document list are both labelled outright as sending nothing anywhere, rather than shipping a button that looks like it succeeded.</li>
+            </ul>
+          </article>
+
+          <article class="story-card story-card--statement reveal">
+            <div class="story-head">
+              <div>
+                <h2>Who this project fits</h2>
+                <p class="story-kicker">One read tells you yes or no</p>
+              </div>
+            </div>
+            <p>It fits manufacturers, plants and distributors who sell to a purchasing department rather than to a homeowner — businesses whose customers compare three suppliers at once on specification, unit price and delivery date, and who gain the moment they are willing to put those figures on the page instead of making people call for them.</p>
+          </article>
+
+          <article class="story-card accent reveal">
+            <div class="story-head">
+              <div>
+                <h2>Want something like this?</h2>
+                <p class="story-kicker">Adapted to your business</p>
+              </div>
+            </div>
+            <p>Tell me what your business does, what you want the site to do for it, and roughly what the budget is — I design and build to fit that.</p>
+            <p class="story-price">Pricing starts at <strong>฿3,900</strong>, depending on scope — <a href="services-en">see all three packages</a></p>
+            <div class="story-actions">
+              <a class="button primary" href="https://fastwork.co/byob/0G16E5GFIO?openExternalBrowser=1&amp;source=byob" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 3L3 10.5l7 2.6 2.6 7z"/><path d="M21 3l-11 11"/></svg>Start on Fastwork
+              </a>
+              <a class="button" href="mailto:a0626568471@gmail.com">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5L12 13l8.5-6.5"/></svg>Email me
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <p class="story-links">
+          <a href="pathapee-precast"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-8.5 8.5"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>View live site</a>
+          <a href="work-en">All projects<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12h15"/><path d="M13.5 6.5L19.5 12l-6 5.5"/></svg></a>
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="related">
+      <div class="page-shell">
+        <div class="section-heading">
+          <div>
+            <h2>Other projects like this one</h2>
+          </div>
+        </div>
+        <div class="project-strip">
+          <a class="project-link reveal" href="showcase-buildnest-en">
+            <img src="assets/thumbs/construction-landing.svg" alt="" loading="lazy" width="351" height="220" />
+            <strong>BuildNest Construction</strong>
+            <span>Thai-first construction landing page with a three-step process.</span>
+          </a>
+          <a class="project-link reveal" href="showcase-solarpeak-en">
+            <img src="assets/thumbs/solarpeak.svg" alt="" loading="lazy" width="351" height="220" />
+            <strong>SolarPeak</strong>
+            <span>Solar landing page styled as an engineering spec sheet.</span>
+          </a>
+          <a class="project-link reveal" href="showcase-bandairaek-en">
+            <img src="assets/thumbs/bandairaek.svg" alt="" loading="lazy" width="351" height="220" />
+            <strong>Bandairaek Foundation</strong>
+            <span>A foundation site built around a public scholarship ledger.</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer-band">
+    <div class="page-shell footer-inner">
+      <span>Pathapee Precast showcase</span>
+      <span>Phakin Chawanpunya</span>
+    </div>
+  </footer>
+</body>
+</html>

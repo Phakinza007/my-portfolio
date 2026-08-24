@@ -35,10 +35,12 @@
     },
     "showcase-bandairaek": {
       "th": {
-        "long": "เว็บมูลนิธิที่เปิดบัญชีทุนรายคน บอกโรงเรียน จำนวนเงิน และวันที่โอนของทุกทุน พร้อมระเบียบ เอกสารดาวน์โหลด และทำเนียบกรรมการ"
+        "long": "เว็บมูลนิธิที่เปิดบัญชีทุนรายคน บอกโรงเรียน จำนวนเงิน และวันที่โอนของทุกทุน พร้อมระเบียบ เอกสารดาวน์โหลด และทำเนียบกรรมการ",
+        "short": "เว็บมูลนิธิที่เปิดบัญชีทุนรายคน บอกโรงเรียนและวันที่โอน"
       },
       "en": {
-        "long": "A foundation site built around a public scholarship ledger — school, amount and transfer date for every grant, plus documents and a board directory."
+        "long": "A foundation site built around a public scholarship ledger — school, amount and transfer date for every grant, plus documents and a board directory.",
+        "short": "A foundation site built around a public scholarship ledger."
       }
     },
     "showcase-bookease": {
@@ -139,6 +141,16 @@
       "en": {
         "long": "Specialty café wanted a premium landing page to attract walk-ins and build brand loyalty.",
         "short": "Premium dark-mode café landing page built to earn walk-ins."
+      }
+    },
+    "showcase-pathapee": {
+      "th": {
+        "long": "เว็บโรงงานพรีคาสท์ B2B ที่เปิดตารางสแปน กำลังผลิต และคิวส่ง พร้อมเครื่องมือเลือกแผ่นจากช่วงพาดและน้ำหนักบรรทุก",
+        "short": "เว็บโรงงานพรีคาสท์ เปิดตารางสแปนและเครื่องมือเลือกแผ่น"
+      },
+      "en": {
+        "long": "A B2B precast plant site that opens with span tables, monthly output and the delivery queue, plus a tool that picks the slab from span and live load.",
+        "short": "B2B precast plant site with span tables and a slab selector."
       }
     },
     "showcase-ratri-restaurant": {

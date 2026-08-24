@@ -54,15 +54,15 @@ my-portfolio/
 │
 ├── case-study-*.html             # 4 case studies — THAI
 ├── case-study-*-en.html          # 4 case studies — English
-├── showcase-*.html               # 16 project showcase pages — THAI
-├── showcase-*-en.html            # 16 project showcase pages — English
+├── showcase-*.html               # 17 project showcase pages — THAI
+├── showcase-*-en.html            # 17 project showcase pages — English
 ├── landing-page.html / landing-page-en.html       # Service category page — Landing Page (฿3,900)
 ├── dashboard-ui.html / dashboard-ui-en.html        # Service category page — Dashboard UI (฿7,900)
 ├── business-website.html / business-website-en.html # Service category page — Business Website (฿9,900)
 ├── web-*.html                    # 8 industry landing pages — THAI ONLY, no -en twin
 │                                 # clinic · booking · restaurant · shop · gym · construction ·
 │                                 # solar · organization
-├── work.html / work-en.html      # Full archive — 16 projects + filter + 4 case studies
+├── work.html / work-en.html      # Full archive — 17 projects + filter + 4 case studies
 ├── services.html / -en           # 3 packages + price comparison + 7 industry entry points
 ├── about.html / -en              # Bio, experience, tools, KMUTT
 ├── faq.html / -en                # 10 pre-hire questions + FAQPage JSON-LD
@@ -80,7 +80,7 @@ my-portfolio/
 | ไทย (default) | `/` · `/{slug}.html` | `th` |
 | English | `/index-en.html` · `/{slug}-en.html` | `en` |
 
-22 pairs (44 files): `index`, `resume`, 4 × `case-study-*`, 16 × `showcase-*`.
+23 pairs (46 files): `index`, `resume`, 4 × `case-study-*`, 17 × `showcase-*`.
 
 **Rules any change must preserve:**
 
@@ -113,7 +113,7 @@ See `docs/superpowers/specs/2026-08-06-th-en-language-toggle-design.md`.
 
 ---
 
-## Current Cards in Selected Work (17 cards — 16 projects + the RAAT case study)
+## Current Cards in Selected Work (18 cards — 17 projects + the RAAT case study)
 
 The card links to its **showcase page**; the showcase page's "ดูเว็บจริง" link goes to the
 **demo file**. The old version of this table conflated the two.
@@ -136,14 +136,15 @@ The card links to its **showcase page**; the showcase page's "ดูเว็บ
 | 14 | VELVÉ Aesthetics | `showcase-velve-aesthetics.html` | `aesthetic-booking.html` | `clinic booking` |
 | 15 | HabitQuest | `showcase-habitquest.html` | external: `https://habitquest-pi.vercel.app/` | `other` |
 | 16 | มูลนิธิบันไดแรก | `showcase-bandairaek.html` | `bandairaek-foundation.html` | `other` |
-| 17 | **RAAT Competition Calendar** | `case-study-raat.html` | external: `https://www.raat.or.th/competition-calendar/1442/` | `other` |
+| 17 | ปฐพีพรีคาสท์ | `showcase-pathapee.html` | `pathapee-precast.html` | `construction` |
+| 18 | **RAAT Competition Calendar** | `case-study-raat.html` | external: `https://www.raat.or.th/competition-calendar/1442/` | `other` |
 
-**Card 17 is the only real client work on the site.** The other sixteen are self-directed
+**Card 18 is the only real client work on the site.** The other seventeen are self-directed
 design pieces. It is the one card that may carry the `ลูกค้าจริง` tag, and that tag must never
-appear on the other sixteen — it was stripped from twelve files on 2026-08-07 for exactly
+appear on the other seventeen — it was stripped from twelve files on 2026-08-07 for exactly
 that reason. RAAT also appears as the fifth `#case-studies` card, deliberately in both places.
 
-**Card 16 is the newest and the only one whose demo carries no images at all** — added
+**Card 16 was the first demo on the site to carry no images at all** — added
 2026-08-16 to fill the thinnest industry page on the site, `web-organization`, whose
 `#related` strip had one entry and that entry was the RAAT case study. The demo's palette,
 its refusal of photography, and the reason both are stated in the page's own copy are
@@ -155,6 +156,22 @@ beneficiaries' faces, so an image would contradict its own copy), and **the dona
 must stay inert and marked** — placeholder account number, labelled QR slot, and a footer
 saying the page takes no real money. A convincing charity page that appears to solicit
 donations is worth marking unambiguously.
+
+**Card 17 is the newest, and the second demo with no photography — for a different reason.**
+Added 2026-08-24 to fill `web-construction`, which had one `#related` entry (BuildNest) while
+being one of the six `#need` tiles. It is a B2B precast plant sold to a purchasing department,
+not a contractor sold to a homeowner, and its refusal of photography is commercial rather than
+ethical: the buyer decides from a span table, so a stock shot of a stock yard answers nothing.
+**Do not merge the two rationales** — bandairaek's is about not publishing beneficiaries'
+faces, and collapsing them loses the reason either page can state its own case in copy.
+Two of its rules are easy to undo by accident: **the document list must stay unlinked**
+(the files do not exist, and dead downloads were the alternative) and **the quote form must
+keep its `action`-less, submit-less, explicitly-labelled inert state**. Written up in
+`docs/superpowers/specs/2026-08-24-pathapee-precast-showcase-design.md`.
+
+It also lifted `business-website` / `-en` from 5 `.project-link`s to 6. **`dashboard-ui` is
+now the thinnest strip on the site at 1**, against `landing-page`'s 9 — the ฿7,900 package has
+the least proof of the three and is the obvious next gap.
 
 **SupplyMate (card 7) is the second project that lives in its own repository**, alongside
 HabitQuest. It is a React + Vite + TypeScript app deployed to GitHub Pages at
@@ -178,7 +195,7 @@ values are only a no-JS fallback.
 ⚠️ **Because they are a fallback, nothing tells you when they go stale.** They sat at
 `all 13 / other 2` from the day the RAAT card was added until 2026-08-08 while the DOM had
 already been at `14 / 3` — `site-ui.js` overwrites them on load, so the wrong numbers were
-invisible in every browser and only showed with JS off. They are now `all 17 / other 5`.
+invisible in every browser and only showed with JS off. They are now `all 18 / other 5`.
 **Adding or removing a card means editing these by hand in all four grid files** (`index`,
 `index-en`, `work`, `work-en`); read the truth off the DOM rather than counting the table
 above. `work.html` / `work-en.html` also state the project count in prose — the
@@ -199,7 +216,7 @@ not style descriptors. `index-en.html` carries English equivalents but the same
 
 ## Card Thumbnail Approach
 
-**15 of the 17 cards are `<img src="assets/thumbs/*.svg">`**, and `assets/thumbs/` holds
+**16 of the 18 cards are `<img src="assets/thumbs/*.svg">`**, and `assets/thumbs/` holds
 exactly those 14 files. The other two carry real photographs and always should: VELVÉ
 (`assets/velve/care-tools.jpg`) and RAAT (`assets/raat/competition-calendar.jpg`). The
 inline-styled `<div>` mini-UIs
@@ -380,6 +397,25 @@ measurably repeat their own heading were deleted: 44 instances across 43 files, 
 hundreds that were restyled and kept. **Reading only the delete count invites the wrong
 generalisation** — the decision was never "fewer kickers," it was "no scaffolding."
 
+🔴 **Chrome has no Thai line-break dictionary here, so an unspaced Thai run breaks at ANY
+character.** Found 2026-08-24 on `pathapee-precast`, whose `h1` shipped as
+`...จากตารางส / แปน` — split mid-word. Proved with a control: `"ตารางสแปน"` in a 90px box
+breaks at character 5, while the Latin control `"concretehollowcore"` in the same box refuses
+to break at all. **`word-break: keep-all` does nothing** — it computes as `keep-all` and
+changes the rendered height by zero pixels; `text-wrap: balance` only rebalances the same bad
+break opportunities. The only reliable lever is `white-space: nowrap` on a span per phrase,
+which leaves the spaces between phrases as the browser's only break points — so heading copy
+then has to carry spaces at real phrase boundaries.
+
+⚠️ **A `nowrap` run that does not fit overflows, and the standard mobile check cannot see it.**
+Two heading spans measured 387px against a 371px viewport; `html, body { overflow-x: hidden }`
+clipped them, so `canScrollX` stayed `false` — the same blind spot that hid
+`construction-landing`'s clipped CTA. Measure span widths at 375px, not just `canScrollX`.
+
+This is how Thai wraps on all 88 files, not a property of that one page. Only
+`pathapee-precast` has been given the `.nb` treatment; **nothing else on the site was
+touched**, so headings elsewhere still break wherever they fit.
+
 **The four `.story-card`s on the showcase / case-study story stack are four shapes now, not
 four copies of one box, and none of the 136 carries a `.story-icon` badge any more** — see
 "Edit a showcase page" for which class does what.
@@ -488,7 +524,7 @@ which is not animatable — so the filter snapped from the day it was written. I
 two attributes: `data-leaving` fades the card, and `data-hidden` removes it from layout
 260ms later. **Do not collapse them back into one.**
 
-**The hero screenshot shows a skeleton while it loads.** The 32 `showcase-*.html`
+**The hero screenshot shows a skeleton while it loads.** The 34 `showcase-*.html`
 pages open on a ~115 KB JPEG inside `.browser-frame`; its box was already reserved by the
 img's `width`/`height` attributes so CLS was 0, but the reserved box sat empty and flat,
 which reads as a stalled page rather than a loading one.
@@ -1042,6 +1078,28 @@ downscale cancels the transform and the result is a true 1491px-viewport render.
 file lands on disk at the device-pixel size (1988 × 1083 at dpr 1.5), so `sips -z 812 1491`
 before committing.
 
+🔴 **Headless Chrome renders `display=optional` webfonts as the fallback, every time.**
+Measured 2026-08-24 while capturing `showcase-pathapee.jpg`: three runs of
+`--headless --screenshot --virtual-time-budget` laid the page out in a system font, so
+`ch`-based `max-width` resolved differently and the `h1` came out two lines instead of three.
+Warming the font cache with a persistent `--user-data-dir` changed nothing — the renders were
+**byte-identical** — because `display=optional` decides at ~100ms of *virtual* time, before
+the font can arrive, on every load. Since 86 of 88 files ask for `display=optional`, this
+applies to any screenshot of this site.
+
+The working path is CDP against a real browser: launch with `--remote-debugging-port`,
+`Page.navigate` **twice** so the second load has the font on disk, `await document.fonts.ready`,
+neutralise `.reveal` / `.rv`, then `Page.captureScreenshot`. Node has a global `WebSocket`, so
+this needs no packages. **Run a positive control before trusting the capture** — measure one
+string in the page font and again in the fallback stack and require them to differ (626px vs
+655px, in that case) — because a capture in the wrong font looks entirely normal and silently
+corrupts every measurement taken from it.
+
+📐 **`resize_window` in this environment now honours the size it is given.** Asked for
+1491 × 812 on 2026-08-24 and `innerWidth` / `innerHeight` reported exactly that at dpr 2. The
+iframe workaround above is still the safe default — verify with `innerWidth` before relying on
+either.
+
 ⚠️ **The automated browser here reports unreliable image intrinsics.** The same
 JPEG returned `naturalWidth` 1470, 1600 and 1959 across three reads, and a file
 that rendered correctly on screen reported `0x0`. Use `sips -g pixelWidth -g
@@ -1361,7 +1419,7 @@ it fits) is one claim set as one — larger type, indented, a 1px `--accent` rul
 container, not a decorative side-stripe. Card 4 (`.story-card.accent`) is unchanged and stays
 the most prominent, because it is the ask.
 
-**`.story-price` is required on all 32 showcase pages and states the *site's* entry price, not the
+**`.story-price` is required on all 34 showcase pages and states the *site's* entry price, not the
 project's.** Added 2026-08-09 off the first full week of Clarity: `showcase_open` fired in
 19 sessions and `cta_fastwork` in 1, and no showcase page named a price anywhere while
 `#related` sent the reader to three more demos. The copy is
@@ -1397,7 +1455,7 @@ clamp, which is far too large inside a stack.
 built to narrate a design exercise.
 
 `case-study-raat.html` uses the **showcase story stack** instead — `.story-intro` +
-four `.story-card`s + `.story-links`, identical to the 32 `showcase-*` pages — because a
+four `.story-card`s + `.story-links`, identical to the 34 `showcase-*` pages — because a
 buyer reading the one piece of real client work wants the same scan as the demos, not an
 essay. It keeps `#stack` (three reasons FullCalendar beat a plugin) between the stack and
 `#related`: that is the substance of the engagement, and cutting it to match the showcase

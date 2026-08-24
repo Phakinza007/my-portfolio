@@ -233,6 +233,12 @@
       "u": "web-organization",
       "g": "บริการตามอุตสาหกรรม",
       "k": "สมาคม มูลนิธิ ชมรม สหกรณ์ องค์กร หน่วยงาน ปฏิทินกิจกรรม ระเบียบ ข้อบังคับ เอกสาร ทำเนียบกรรมการ ราคา 9900"
+    },
+    {
+      "t": "ปฐพีพรีคาสท์",
+      "u": "showcase-pathapee",
+      "g": "ผลงาน",
+      "k": "พรีคาสท์ precast แผ่นพื้นสำเร็จรูป แผ่นพื้นกลวง hollow core เสาสำเร็จรูป คานสำเร็จรูป ผนังสำเร็จรูป โรงงาน ตารางสแปน ช่วงพาด รับเหมา ก่อสร้าง วัสดุก่อสร้าง ขอใบเสนอราคา b2b รับทำเว็บโรงงาน"
     }
   ],
   "en": [
@@ -469,6 +475,12 @@
       "u": "web-organization",
       "g": "By industry",
       "k": "association foundation club organisation event calendar documents bylaws committee members thai"
+    },
+    {
+      "t": "Pathapee Precast",
+      "u": "showcase-pathapee-en",
+      "g": "Work",
+      "k": "precast concrete hollow core slab span table plant manufacturing b2b procurement quote construction supplier"
     }
   ]
 }

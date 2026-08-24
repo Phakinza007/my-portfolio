@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <!-- Sends /foo.html to /foo and /index.html to /, in the address bar as well
+       as in the index. GitHub Pages serves both and cannot redirect, so canonical
+       alone leaves the visitor looking at the URL we told Google not to use.
+       Inline and in <head> on purpose: a deferred external script would run after
+       the parse and the page would render, then jump. location.replace keeps it
+       out of history, so Back still leaves the site. -->
+  <script>(function(p){if(location.protocol!=='file:'&&/\.html$/.test(p)&&!/\/404\.html$/.test(p))location.replace((/\/index\.html$/.test(p)?p.slice(0,-10):p.slice(0,-5))+location.search+location.hash)})(location.pathname)</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ปฐพีพรีคาสท์ — แผ่นพื้นสำเร็จรูป เสา คาน ผนัง พร้อมตารางสแปนและคิวส่ง</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <meta name="description" content="ปฐพีพรีคาสท์ผลิตแผ่นพื้นท้องเรียบ แผ่นพื้นกลวง เสา คาน และผนังสำเร็จรูป หน้าเว็บเปิดตารางสแปนต่อน้ำหนักบรรทุก กำลังการผลิตต่อเดือน รัศมีจัดส่ง และคิวงานปัจจุบัน ให้ฝ่ายจัดซื้อเทียบได้ก่อนโทร">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://ph-akin.dev/pathapee-precast">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="th_TH">
+  <meta property="og:title" content="ปฐพีพรีคาสท์ — แผ่นพื้นสำเร็จรูป เสา คาน ผนัง พร้อมตารางสแปนและคิวส่ง">
+  <meta property="og:description" content="ตารางสแปนต่อน้ำหนักบรรทุก กำลังการผลิตต่อเดือน รัศมีจัดส่ง และคิวงานปัจจุบัน เปิดให้ฝ่ายจัดซื้อเทียบได้ก่อนโทร">
+  <meta property="og:url" content="https://ph-akin.dev/pathapee-precast">
+  <meta property="og:image" content="https://ph-akin.dev/assets/screenshots/showcase-pathapee.jpg">
+  <meta property="og:image:alt" content="ภาพหน้าเว็บปฐพีพรีคาสท์">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- display=optional, not swap. Every reachable page on this site is on
+       optional; swap was measured reflowing headings and CTAs on arrival. -->
+  <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&family=Overpass+Mono:wght@400;500;700&display=optional" rel="stylesheet">
+
+  <style>
+    /* ── Tokens ──────────────────────────────────────────────────── */
+    :root {
+      /* The palette is downstream of a written scene, the method
+         lumi-clinic.html and bandairaek-foundation.html both use:
+
+           A precast yard at six in the morning. The crane has not started.
+           The dust has not risen. Hollow-core slabs are stacked in piles as
+           tall as a man, and every slab has its lot number brushed on the
+           end in burnt orange. The shift foreman is walking the row checking
+           today's delivery list off a single clipboard.
+
+         Three things that scene rules out, each a decision rather than a
+         default:
+
+         1. Safety orange and hi-vis yellow as large fills. That is the
+            template every construction page in this category ships with.
+            In the scene the burnt orange is the colour of a lot number
+            written on a slab, so on the page it appears only as dimension
+            lines, the selected value, the chosen row, and the quote button.
+            It is a data encoding, never a surface.
+         2. A full-page blueprint field. solar-landing.html already owns
+            that on this site.
+         3. Flat industrial grey.
+
+         The first build of this page tried to be "concrete paper" and put
+         every block on a tinted card. Measured, the card sat at 1.13:1
+         against the ground and the alternating band at 1.08:1, so the whole
+         page had exactly two painted surfaces and neither could be seen:
+         every box was carried by one hairline and the page read as an
+         unfinished wireframe.
+
+         So the card metaphor is gone. The ground is near-white, structure is
+         drawn with rules rather than fills, and the density lives in the type
+         and the hairlines. Contrast events are deliberate and few: the drawing
+         sheets, one dark band at #plant, and the burnt orange. This is the
+         lesson from the two spec-led pages that do it well - Teenage
+         Engineering and McMaster-Carr both commit to real black, real white
+         and one loud accent, and neither uses a tinted card anywhere. */
+
+      --paper:    #FBFBF9;
+      --sheet:    #FFFFFF;
+      --ink:      #14171A;
+      --ink-2:    #3E4649;
+      --muted:    #5C6568;
+      /* a greyed-out table row is still information, so it has to clear AA:
+         4.79:1 on --paper, measured, not eyeballed */
+      --off:      #6A7275;
+      --hair:     #D6DAD5;
+      --rule:     #B9BFB9;
+      --dark:     #16191A;
+      --dark-2:   #262B2D;
+      --on-dark:  #EDEFEA;
+      --on-dark-2:#A8B0B2;
+      /* the lot number on the end of the slab */
+      --mark:     #A8431A;
+      --mark-2:   #8F3814;
+      --mark-soft:#F6E9E2;
+
+      --shell: 1120px;
+      --mono: "Overpass Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    /* The demo pages on this site carry no shared reset. A page that skips
+       this ships width:100% on top of horizontal padding and overflows by
+       exactly the padding, which a scrollWidth check never sees because the
+       element is simply clipped. */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body { overflow-x: hidden; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Anuphan", "Noto Sans Thai", system-ui, sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Chrome here has no Thai line-break dictionary: measured, "ตารางสแปน" in a
+       90px box breaks at character 5 as ตารางส|แปน, while the Latin control
+       "concretehollowcore" refuses to break at all. word-break: keep-all was
+       tried and computed correctly with zero effect. So every heading has its
+       phrases wrapped in .nb and the spaces between them are the only break
+       opportunities the browser is given. Heading copy on this page must carry
+       those spaces at real phrase boundaries. */
+    h1, h2, h3 {
+      line-height: 1.22; margin: 0; font-weight: 700; letter-spacing: -0.025em;
+      word-break: keep-all; overflow-wrap: break-word;
+    }
+    p { margin: 0; }
+    a { color: var(--mark); }
+    img, svg { max-width: 100%; }
+    .nb { white-space: nowrap; }
+
+    .shell { width: min(var(--shell), 100% - 40px); margin-inline: auto; }
+
+    .skip {
+      position: absolute; left: -9999px; top: 0;
+      background: var(--ink); color: var(--sheet);
+      padding: 10px 16px; z-index: 60;
+    }
+    .skip:focus { left: 12px; top: 12px; }
+
+    :focus-visible { outline: 2px solid var(--mark); outline-offset: 3px; }
+
+    .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+    }
+
+    /* ── Nav ─────────────────────────────────────────────────────── */
+    /* Scoped to a class, never a bare `nav` selector: a second nav added to
+       the footer later would otherwise inherit the sticky bar's surface.
+       aesthetic-booking.html shipped that bug at 1.11:1 for months. */
+    .site-nav {
+      position: sticky; top: 0; z-index: 40;
+      background: rgba(251, 251, 249, 0.94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--ink);
+    }
+    .nav-inner {
+      display: flex; align-items: center; gap: 24px; min-height: 62px;
+      width: min(var(--shell), 100% - 40px); margin-inline: auto;
+    }
+    .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; color: var(--ink); }
+    .brand-mark {
+      font-family: var(--mono); font-weight: 700; font-size: 0.68rem;
+      letter-spacing: 0.1em; color: var(--paper); background: var(--ink);
+      padding: 6px 8px; line-height: 1;
+    }
+    .brand-name { font-weight: 700; font-size: 1rem; white-space: nowrap; letter-spacing: -0.02em; }
+    .brand-name small {
+      display: block; font-family: var(--mono); font-weight: 400;
+      font-size: 0.58rem; letter-spacing: 0.16em; color: var(--muted); line-height: 1.3;
+    }
+    .nav-links { display: flex; gap: 22px; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-links a {
+      color: var(--ink-2); text-decoration: none; font-size: 0.92rem;
+      white-space: nowrap; padding: 13px 0; border-bottom: 2px solid transparent;
+      display: inline-flex; align-items: center; min-height: 44px;
+    }
+    .nav-links a:hover { color: var(--mark); border-bottom-color: var(--mark); }
+    .nav-links a.is-cta { color: var(--mark); font-weight: 600; }
+
+    /* ── Section frame ───────────────────────────────────────────── */
+    /* Sections are separated by a rule, not by an alternating fill. The
+       alternating fill measured 1.08:1 and did nothing but tint. */
+    .band { padding: clamp(46px, 6.5vw, 74px) 0; border-top: 1px solid var(--hair); }
+    .band-head { max-width: 60ch; margin-bottom: 32px; }
+    .kicker {
+      font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.16em;
+      font-weight: 500; color: var(--mark); margin-bottom: 12px;
+    }
+    .band-head h2 { font-size: clamp(1.78rem, 3.8vw, 2.85rem); }
+    .band-head p { color: var(--ink-2); margin-top: 14px; font-size: 1.02rem; text-wrap: pretty; }
+
+    /* One dark band, at the numbers. The page needs at least one real
+       contrast event between the hero and the footer or ten light sections
+       read as one flat scroll. */
+    .band.dark {
+      background: var(--dark); color: var(--on-dark); border-top: none;
+    }
+    .band.dark .kicker { color: #E2A882; }
+    .band.dark .band-head p { color: var(--on-dark-2); }
+
+    /* ── Hero ────────────────────────────────────────────────────── */
+    .hero { padding: clamp(44px, 6vw, 76px) 0 clamp(34px, 4.5vw, 52px); }
+    .hero-grid {
+      display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+      gap: clamp(28px, 4.5vw, 52px); align-items: center;
+    }
+    .hero h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); max-width: 15ch; letter-spacing: -0.035em; }
+    .hero-lede { text-wrap: pretty; margin-top: 22px; max-width: 52ch; font-size: clamp(1rem, 1.35vw, 1.1rem); color: var(--ink-2); }
+    /* Three hard facts as one line of running text. A three-box stat row is
+       the SaaS metric template this site refuses everywhere else. */
+    .hero-facts {
+      margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--hair);
+      font-size: 0.9rem; color: var(--muted); line-height: 2;
+    }
+    .hero-facts b { color: var(--ink); font-weight: 500; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 22px; border-radius: 0;
+      font-family: inherit; font-size: 0.95rem; font-weight: 600;
+      text-decoration: none; cursor: pointer;
+      border: 1.5px solid var(--ink); background: transparent; color: var(--ink);
+    }
+    .btn:hover { background: var(--ink); color: var(--paper); }
+    .btn.primary { background: var(--mark); border-color: var(--mark); color: #fff; }
+    .btn.primary:hover { background: var(--mark-2); border-color: var(--mark-2); }
+
+    /* ── Drawing sheet ───────────────────────────────────────────── */
+    /* A real drawing sheet: white, a drawn border, and a title block ruled
+       into cells along the bottom. This is the one place the page uses a
+       filled surface, and it is white against near-white, so the border is
+       what does the work. */
+    .sheet { background: var(--sheet); border: 1px solid var(--ink); padding: 0; }
+    .sheet .dwg { display: block; width: 100%; height: auto; padding: 16px 16px 6px; }
+    .sheet-cap {
+      display: grid; grid-template-columns: 1fr auto auto;
+      border-top: 1px solid var(--ink);
+      font-family: var(--mono); font-size: 0.66rem; color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+    .sheet-cap span { padding: 7px 10px; border-left: 1px solid var(--hair); }
+    .sheet-cap span:first-child { border-left: none; }
+    .dwg .fill  { fill: #EDEFEA; }
+    .dwg .void  { fill: var(--sheet); }
+    .dwg .line  { fill: none; stroke: var(--ink); stroke-width: 2; }
+    .dwg .thin  { fill: none; stroke: var(--rule); stroke-width: 1; }
+    .dwg .dim   { fill: none; stroke: var(--mark); stroke-width: 1; }
+    .dwg .strand{ fill: var(--ink); }
+    .dwg text   { font-family: "Overpass Mono", monospace; font-size: 13px; fill: var(--muted); }
+    .dwg text.mk{ fill: var(--mark); }
+    .dwg text.th{ font-family: "Anuphan", "Noto Sans Thai", sans-serif; font-size: 12px; }
+
+    /* ── Catalogue ───────────────────────────────────────────────── */
+    .cat { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 0; align-items: stretch; border-top: 2px solid var(--ink); }
+    .cat-tabs { display: flex; flex-direction: column; padding: 0 24px 0 0; border-right: 1px solid var(--hair); }
+    .cat-tabs button {
+      font-family: inherit; font-size: 0.95rem; font-weight: 600; text-align: left;
+      padding: 14px 0; cursor: pointer; background: transparent; color: var(--muted);
+      border: 0; border-bottom: 1px solid var(--hair);
+      display: flex; flex-direction: column; gap: 2px; line-height: 1.35;
+    }
+    .cat-tabs button span {
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em;
+      font-weight: 400; color: var(--off);
+    }
+    .cat-tabs button:hover { color: var(--ink); }
+    .cat-tabs button[aria-selected="true"] {
+      color: var(--ink); background: var(--mark-soft);
+      padding-left: 12px; margin-left: -12px;
+    }
+    .cat-tabs button[aria-selected="true"] span { color: var(--mark); }
+    .cat-panel { padding: 22px 0 0 28px; }
+    .cat-panel h3 { font-size: 1.3rem; }
+    .cat-panel > p { color: var(--ink-2); margin-top: 10px; max-width: 60ch; text-wrap: pretty; }
+    .cat-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 26px; margin-top: 22px; align-items: start; }
+
+    /* ── Tables ──────────────────────────────────────────────────── */
+    /* Every table on this page scrolls inside its own box. The page body must
+       never scroll horizontally at 375px, and a spec table is the one element
+       guaranteed to be wider than a phone. */
+    .tw { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table { border-collapse: collapse; width: 100%; min-width: 400px; font-size: 0.9rem; }
+    caption {
+      text-align: left; padding: 0 0 10px; font-family: var(--mono);
+      font-size: 0.68rem; letter-spacing: 0.1em; color: var(--muted);
+    }
+    th, td { padding: 11px 14px 11px 0; text-align: left; border-bottom: 1px solid var(--hair); }
+    thead th {
+      background: transparent; color: var(--muted); font-weight: 500;
+      font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.12em;
+      border-bottom: 1px solid var(--ink); white-space: nowrap;
+      padding-bottom: 8px;
+    }
+    td.num, th.num { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    tbody tr.hit td { background: var(--mark-soft); font-weight: 600; }
+    tbody tr.hit td:first-child { color: var(--mark); }
+    /* a row that fails the span is still information, so it is dimmed, not hidden */
+    tbody tr.no td { color: var(--off); }
+
+    /* ── Span selector ───────────────────────────────────────────── */
+    .sel { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 0; align-items: stretch; border-top: 2px solid var(--ink); }
+    .sel-form { padding: 24px 28px 24px 0; border-right: 1px solid var(--hair); }
+    .sel-out { padding: 24px 0 0 30px; display: flex; flex-direction: column; }
+    .field { margin-bottom: 26px; }
+    .field:last-child { margin-bottom: 0; }
+    .field label {
+      display: block; font-family: var(--mono); font-size: 0.66rem;
+      letter-spacing: 0.12em; font-weight: 500; color: var(--muted); margin-bottom: 8px;
+    }
+    .field .hint { display: block; font-family: inherit; font-size: 0.8rem; color: var(--muted); letter-spacing: 0; font-weight: 400; margin-top: 3px; }
+    /* underline fields, not boxes */
+    .field select, .field input[type="number"], .field input[type="text"], .field textarea {
+      width: 100%; font-family: var(--mono); font-size: 1rem; font-weight: 500;
+      padding: 8px 0; border: 0; border-bottom: 1.5px solid var(--ink);
+      background: transparent; color: var(--ink); border-radius: 0;
+    }
+    .field textarea { font-family: inherit; font-weight: 400; line-height: 1.6; resize: vertical; min-height: 84px; border: 1.5px solid var(--ink); padding: 10px 12px; }
+    .field select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%); background-position: right 8px top 55%, right 3px top 55%; background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; padding-right: 22px; }
+
+    input[type="range"] {
+      -webkit-appearance: none; appearance: none;
+      width: 100%; background: transparent; margin: 8px 0 0;
+      height: 34px; cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-runnable-track { height: 2px; background: var(--ink); }
+    input[type="range"]::-moz-range-track { height: 2px; background: var(--ink); }
+    input[type="range"]::-moz-range-thumb { border: 0; }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none;
+      width: 18px; height: 18px; border-radius: 50%; border: 0;
+      background: var(--mark); margin-top: -8px; cursor: pointer;
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 18px; height: 18px; border-radius: 50%; border: 0;
+      background: var(--mark); cursor: pointer;
+    }
+    .range-val {
+      font-family: var(--mono); font-size: 3.4rem; font-weight: 700;
+      color: var(--ink); line-height: 1; letter-spacing: -0.04em;
+    }
+    .range-val small { font-family: inherit; font-size: 0.85rem; color: var(--muted); font-weight: 400; letter-spacing: 0; }
+
+    .verdict {
+      font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.04em;
+      color: var(--ink); padding: 0 0 16px; border-bottom: 1px solid var(--hair);
+      margin-bottom: 18px;
+    }
+    .verdict b { color: var(--mark); font-weight: 700; }
+    .verdict.none { color: var(--mark); border-bottom-color: var(--mark); }
+    #derived {
+      margin-top: auto; padding: 16px 0 0; border-top: 2px solid var(--ink);
+      border-bottom: none; font-family: var(--mono); font-size: 0.95rem; color: var(--ink);
+    }
+    #derived b { font-size: 1.4rem; color: var(--mark); font-weight: 700; }
+    #derived .q { color: var(--muted); font-size: 0.8rem; }
+
+    /* ── Plant figures, on the dark band ─────────────────────────── */
+    .plant { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr); gap: clamp(28px, 5vw, 56px); align-items: start; }
+    .figrow { border-top: 2px solid var(--on-dark); margin: 0; }
+    .figrow div {
+      display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+      padding: 14px 0; border-bottom: 1px solid var(--dark-2);
+    }
+    .figrow dt { color: var(--on-dark-2); font-size: 0.94rem; }
+    .figrow dd {
+      margin: 0; font-family: var(--mono); font-variant-numeric: tabular-nums;
+      font-size: 1.15rem; font-weight: 500; white-space: nowrap; color: var(--on-dark);
+    }
+    .figrow dd small { color: var(--on-dark-2); font-weight: 400; font-size: 0.76rem; }
+
+    /* delivery radius, as a distance ladder. The ring diagram it replaces put
+       seven labels on one circle and three of them overlapped; a ladder cannot
+       collide, sorts, and can carry the over-120km rate as a second encoding. */
+    .lad { border-top: 2px solid var(--on-dark); }
+    .lad div {
+      display: grid; grid-template-columns: 108px minmax(0, 1fr) 46px;
+      align-items: center; gap: 14px;
+      padding: 11px 0; border-bottom: 1px solid var(--dark-2);
+    }
+    .lad .pl { font-size: 0.92rem; color: var(--on-dark); }
+    .lad .bar { height: 9px; background: var(--mark); }
+    .lad .bar.far { background: #7A4B36; }
+    .lad .km { font-family: var(--mono); font-size: 0.86rem; text-align: right; color: var(--on-dark); font-variant-numeric: tabular-nums; }
+    .lad .edge .pl, .lad .edge .km { color: var(--on-dark-2); }
+    .lad .edge .km { color: #E2A882; }
+    .lad-note { margin-top: 14px; font-family: var(--mono); font-size: 0.68rem; line-height: 1.9; letter-spacing: 0.04em; color: var(--on-dark-2); }
+
+    /* ── Schedule ────────────────────────────────────────────────── */
+    .steps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; margin-top: 6px; }
+    .step { padding: 18px 18px 18px 0; border-top: 2px solid var(--hair); }
+    .step:first-child { border-top-color: var(--mark); }
+    .step b { display: block; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--muted); margin-bottom: 8px; }
+    .step h3 { font-size: 1rem; }
+    .step p { font-size: 0.87rem; color: var(--ink-2); margin-top: 6px; }
+    .step .days { font-family: var(--mono); font-size: 0.78rem; color: var(--mark); margin-top: 10px; display: block; font-weight: 500; }
+
+    /* ── Documents ───────────────────────────────────────────────── */
+    .docs { list-style: none; padding: 0; margin: 0; border-top: 2px solid var(--ink); }
+    .docs li {
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+      padding: 14px 0; border-bottom: 1px solid var(--hair);
+    }
+    .docs .dt {
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em;
+      border: 1px solid var(--rule); padding: 3px 6px; color: var(--muted);
+    }
+    .docs .dn { flex: 1 1 220px; font-size: 0.94rem; }
+    .docs .dm { font-family: var(--mono); font-size: 0.76rem; color: var(--muted); white-space: nowrap; }
+
+    /* ── FAQ ─────────────────────────────────────────────────────── */
+    .faq { border-top: 2px solid var(--ink); }
+    .faq details { border-bottom: 1px solid var(--hair); }
+    .faq summary {
+      cursor: pointer; list-style: none; padding: 17px 34px 17px 0;
+      font-weight: 600; font-size: 1.02rem; position: relative;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after {
+      content: "+"; position: absolute; right: 4px; top: 14px;
+      font-family: var(--mono); font-size: 1.25rem; color: var(--mark);
+    }
+    .faq details[open] summary::after { content: "\2212"; }
+    .faq details p { padding: 0 0 20px; color: var(--ink-2); max-width: 72ch; font-size: 0.96rem; text-wrap: pretty; }
+
+    /* ── Quote ───────────────────────────────────────────────────── */
+    .quote-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr); gap: clamp(28px, 5vw, 56px); align-items: start; border-top: 2px solid var(--ink); padding-top: 26px; }
+    .quote-form { display: grid; grid-template-columns: 1fr 1fr; gap: 0 22px; }
+    .quote-form .field.wide { grid-column: 1 / -1; }
+    /* Nothing on this site talks to a backend, and this block says so in
+       words rather than leaving a convincing form that silently does nothing.
+       Same rule the donation block on bandairaek-foundation follows. */
+    /* Full border, not a side stripe: a thick coloured border on one edge is
+       the most recognisable tell of a generated UI. This block has to be
+       unmissable, so it is a stamped panel instead. */
+    .inert {
+      margin-top: 22px; padding: 18px 20px; border: 1.5px solid var(--mark);
+      background: var(--mark-soft); font-size: 0.88rem; color: var(--ink-2);
+      position: relative;
+    }
+    .inert::before {
+      content: "SPECIMEN"; position: absolute; top: -1px; right: -1px;
+      background: var(--mark); color: #fff; font-family: var(--mono);
+      font-size: 0.6rem; letter-spacing: 0.16em; padding: 4px 8px;
+    }
+    .inert b { color: var(--ink); }
+    /* full width under both columns: it was leaving 223px dead under the
+       contact list, and this is not a block that should sit in a column */
+    .inert.wide { grid-column: 1 / -1; margin-top: 30px; }
+    .contact-figrow { border-top: 2px solid var(--ink); margin: 14px 0 0; }
+    .contact-figrow div {
+      display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+      padding: 12px 0; border-bottom: 1px solid var(--hair);
+    }
+    .contact-figrow dt { color: var(--ink-2); font-size: 0.92rem; }
+    .contact-figrow dd { margin: 0; font-family: var(--mono); font-size: 0.9rem; white-space: nowrap; }
+
+    /* ── Footer ──────────────────────────────────────────────────── */
+    .foot { background: var(--dark); color: var(--on-dark-2); padding: 46px 0 36px; }
+    .foot a { color: var(--on-dark); text-decoration: none; display: inline-block; padding: 4px 0; }
+    .foot a:hover { color: #E2A882; }
+    .foot-inner { display: flex; flex-wrap: wrap; gap: 30px; justify-content: space-between; }
+    .foot h3 { color: var(--on-dark); font-size: 0.86rem; margin-bottom: 10px; font-family: var(--mono); letter-spacing: 0.12em; font-weight: 500; }
+    .foot p, .foot li { font-size: 0.88rem; line-height: 1.95; }
+    .foot ul { list-style: none; padding: 0; margin: 0; }
+    .foot-note {
+      margin-top: 32px; padding-top: 18px; border-top: 1px solid var(--dark-2);
+      font-family: var(--mono); font-size: 0.72rem; color: #7E888B; line-height: 1.8;
+    }
+
+    /* ── Reveal ──────────────────────────────────────────────────── */
+    /* The default state is VISIBLE. Only JS marks an element pending, and only
+       when it is below the fold at load, so no-JS, a hidden tab and a headless
+       render all get the finished page. The old rule gated every .rv at
+       opacity 0 and shipped blank sections whenever the observer never fired.
+       Hidden with opacity and transform only, never clip-path: Chrome subtracts
+       a target's own clip-path from its intersection rect, so an element that
+       hides itself that way can never reach the threshold that would reveal it. */
+    /* Transform only, never opacity. A faded element is measured by axe at its
+       COMPOSITED colour, so a page caught mid-transition fails colour-contrast
+       on every text node at once: it reported #a2a7a8 and #7a7c7c where the
+       tokens are #5C6568 and #6A7275, which back-solves to opacity 0.56 and
+       0.81. Text on this page is always at full opacity; the motion is the
+       travel, not the fade. */
+    .rv { transition: transform .6s cubic-bezier(.22, 1, .36, 1); }
+    .rv.pending { transform: translateY(14px); }
+
+    /* Motion that fits what it reveals, rather than one identical fade on every
+       section: the delivery bars are a measurement, so they draw from zero. */
+    .lad .bar { transform-origin: left center; transition: transform .7s cubic-bezier(.22, 1, .36, 1); }
+    .lad.pending .bar, .rv.pending .lad .bar { transform: scaleX(0); }
+
+    /* ── Breakpoints ─────────────────────────────────────────────── */
+    @media (max-width: 1000px) {
+      .hero-grid, .plant, .quote-grid { grid-template-columns: minmax(0, 1fr); }
+      .hero h1 { max-width: none; }
+      .sel { grid-template-columns: minmax(0, 1fr); }
+      .sel-form { border-right: 0; border-bottom: 1px solid var(--hair); padding: 24px 0; }
+      .sel-out { padding: 24px 0 0; }
+      .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .step { padding-right: 16px; }
+    }
+    @media (max-width: 820px) {
+      .cat { grid-template-columns: minmax(0, 1fr); }
+      .cat-tabs {
+        flex-direction: row; overflow-x: auto; scrollbar-width: none;
+        padding: 0 0 2px; border-right: 0; border-bottom: 1px solid var(--hair); gap: 24px;
+      }
+      .cat-tabs::-webkit-scrollbar { display: none; }
+      .cat-tabs button { flex: 0 0 auto; min-width: 130px; border-bottom: 0; }
+      .cat-tabs button[aria-selected="true"] {
+        background: var(--mark-soft); padding: 14px 12px; margin-left: 0;
+      }
+      .cat-panel { padding: 22px 0 0; }
+      .cat-body { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 620px) {
+      body { font-size: 16px; }
+      .steps { grid-template-columns: minmax(0, 1fr); }
+      .quote-form { grid-template-columns: minmax(0, 1fr); }
+      .nav-links { gap: 16px; }
+      .brand-name small { display: none; }
+      .range-val { font-size: 2.8rem; }
+      .lad div { grid-template-columns: 92px minmax(0, 1fr) 40px; gap: 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .rv, .rv.pending { transform: none; transition: none; }
+      .lad .bar, .rv.pending .lad .bar { transform: none; transition: none; }
+      * { scroll-behavior: auto !important; }
+    }
+  </style>
+  <script src="assets/analytics.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">ข้ามไปเนื้อหาหลัก</a>
+
+  <header class="site-nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">PTP</span>
+        <span class="brand-name">ปฐพีพรีคาสท์<small>PATHAPEE PRECAST</small></span>
+      </a>
+      <nav class="nav-links" aria-label="เมนูหลัก">
+        <a href="#catalog">แคตตาล็อก</a>
+        <a href="#selector">เลือกสแปน</a>
+        <a href="#plant">โรงงาน</a>
+        <a href="#schedule">คิวส่ง</a>
+        <a href="#faq">คำถาม</a>
+        <a class="is-cta" href="#quote">ขอใบเสนอราคา</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="shell hero-grid">
+        <div>
+          <h1><span class="nb">เลือกแผ่นพื้น</span> <span class="nb">จากตารางสแปน</span> <span class="nb">ไม่ใช่จากรูปหน้าปก</span></h1>
+          <p class="hero-lede">ปฐพีพรีคาสท์ผลิตแผ่นพื้นท้องเรียบ แผ่นพื้นกลวง เสา คาน และผนังสำเร็จรูป หน้านี้เปิดตารางสแปนต่อน้ำหนักบรรทุก กำลังผลิตต่อเดือน รัศมีจัดส่ง และคิวงานที่ค้างอยู่จริง ให้เทียบจบก่อนหยิบโทรศัพท์</p>
+          <p class="hero-facts">
+            โรงงาน <b>บางปะกง ฉะเชิงเทรา</b><br>
+            กำลังผลิต <b>9,500 ตร.ม./เดือน</b> · ส่งในรัศมี <b>180 กม.</b><br>
+            คิวว่างถัดไป <b>18 พ.ย. 2569</b>
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#selector">หาแผ่นที่พาดได้</a>
+            <a class="btn" href="#catalog">ดูแคตตาล็อกทั้งหมด</a>
+          </div>
+        </div>
+
+        <figure class="sheet" style="margin:0">
+          <svg class="dwg" viewBox="0 34 660 266" role="img" aria-labelledby="dwg-hero-t">
+            <title id="dwg-hero-t">ภาพตัดขวางแผ่นพื้นกลวงหนา 200 มิลลิเมตร กว้าง 1200 มิลลิเมตร มีช่องกลวงกลม 6 ช่อง และลวดอัดแรงเรียงที่ท้องแผ่น</title>
+            <rect x="70" y="100" width="520" height="87" class="fill" />
+            <circle cx="113.3" cy="143.5" r="30" class="void" />
+            <circle cx="200"   cy="143.5" r="30" class="void" />
+            <circle cx="286.7" cy="143.5" r="30" class="void" />
+            <circle cx="373.3" cy="143.5" r="30" class="void" />
+            <circle cx="460"   cy="143.5" r="30" class="void" />
+            <circle cx="546.7" cy="143.5" r="30" class="void" />
+            <circle cx="113.3" cy="143.5" r="30" class="thin" />
+            <circle cx="200"   cy="143.5" r="30" class="thin" />
+            <circle cx="286.7" cy="143.5" r="30" class="thin" />
+            <circle cx="373.3" cy="143.5" r="30" class="thin" />
+            <circle cx="460"   cy="143.5" r="30" class="thin" />
+            <circle cx="546.7" cy="143.5" r="30" class="thin" />
+            <rect x="70" y="100" width="520" height="87" class="line" />
+            <g class="strand">
+              <circle cx="90" cy="175" r="3.6" /><circle cx="130" cy="175" r="3.6" />
+              <circle cx="170" cy="175" r="3.6" /><circle cx="210" cy="175" r="3.6" />
+              <circle cx="250" cy="175" r="3.6" /><circle cx="290" cy="175" r="3.6" />
+              <circle cx="330" cy="175" r="3.6" /><circle cx="370" cy="175" r="3.6" />
+              <circle cx="410" cy="175" r="3.6" /><circle cx="450" cy="175" r="3.6" />
+              <circle cx="490" cy="175" r="3.6" /><circle cx="530" cy="175" r="3.6" />
+              <circle cx="570" cy="175" r="3.6" />
+              <circle cx="200" cy="111" r="3.2" /><circle cx="460" cy="111" r="3.2" />
+            </g>
+            <path class="thin" d="M70 187 L70 232 M590 187 L590 232" />
+            <path class="dim" d="M70 222 L590 222 M70 215 L70 229 M590 215 L590 229" />
+            <path class="dim" d="M70 222 L84 218 L84 226 Z M590 222 L576 218 L576 226 Z" fill="#A8431A" />
+            <rect x="292" y="209" width="76" height="18" fill="#F7F8F6" />
+            <text class="mk" x="330" y="223" text-anchor="middle">1200</text>
+            <path class="thin" d="M590 100 L638 100 M590 187 L638 187" />
+            <path class="dim" d="M628 100 L628 187 M621 100 L635 100 M621 187 L635 187" />
+            <rect x="612" y="134" width="34" height="18" fill="#F7F8F6" />
+            <text class="mk" x="629" y="148" text-anchor="middle">200</text>
+            <path class="dim" d="M546.7 143.5 L546.7 60 M520 60 L575 60" />
+            <text class="mk" x="578" y="56">&#216;160</text>
+            <text class="th" x="70" y="266">หน่วย: มิลลิเมตร</text>
+            <text x="70" y="286">HOLLOW CORE 200 / W1200</text>
+          </svg>
+          <figcaption class="sheet-cap">
+            <span>SECTION A&#8211;A &#183; MAT. CONC. 350 KSC</span>
+            <span>SCALE 1:10</span>
+          <span>PTP</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="band" aria-labelledby="why-h">
+      <div class="shell">
+        <div class="band-head" style="margin-bottom:0">
+          <p class="kicker">ทำไมทั้งเว็บนี้ไม่มีรูปถ่าย</p>
+          <h2 id="why-h"><span class="nb">คนที่เซ็นใบสั่งซื้อ</span> <span class="nb">ไม่ได้ตัดสินจากรูปโรงงาน</span></h2>
+          <p>เว็บโรงงานพรีคาสท์ส่วนใหญ่เปิดด้วยภาพมุมกว้างของลานกองสินค้ากับเครน สวยดี แต่ไม่ได้ตอบอะไรเลย ฝ่ายจัดซื้อและวิศวกรโครงการที่กำลังเทียบซัพพลายเออร์สามเจ้าอยากรู้แค่สามอย่าง — แผ่นนี้พาดได้กี่เมตรที่น้ำหนักบรรทุกเท่าไร ผลิตทันคิวเทพื้นชั้นสองไหม และส่งถึงหน้างานเราหรือเปล่า หน้านี้จึงเอาสามคำถามนั้นขึ้นก่อน แล้วตอบด้วยตาราง แบบตัด และตัวเลขวันที่ ไม่ใช่ด้วยรูป</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="catalog" aria-labelledby="cat-h">
+      <div class="shell">
+        <div class="band-head">
+          <h2 id="cat-h"><span class="nb">รับผลิต</span> <span class="nb">4</span> <span class="nb">กลุ่มสินค้า</span> <span class="nb">ทุกตัวมีแบบตัด</span> <span class="nb">และตารางกำกับ</span></h2>
+          <p>เลือกกลุ่มสินค้าเพื่อดูภาพตัดขวางและตารางสเปกของกลุ่มนั้น ค่าทั้งหมดเป็นค่าที่ใช้ในการประมาณราคาเบื้องต้น หน้างานจริงต้องให้วิศวกรผู้ออกแบบเป็นผู้กำหนด</p>
+        </div>
+
+        <div class="cat rv">
+          <div class="cat-tabs" role="tablist" aria-label="กลุ่มสินค้า">
+            <button role="tab" id="t-plank" aria-controls="p-plank" aria-selected="true" tabindex="0">แผ่นพื้นท้องเรียบ<span>SOLID PLANK</span></button>
+            <button role="tab" id="t-hc" aria-controls="p-hc" aria-selected="false" tabindex="-1">แผ่นพื้นกลวง<span>HOLLOW CORE</span></button>
+            <button role="tab" id="t-beam" aria-controls="p-beam" aria-selected="false" tabindex="-1">เสาและคาน<span>COLUMN / BEAM</span></button>
+            <button role="tab" id="t-wall" aria-controls="p-wall" aria-selected="false" tabindex="-1">ผนังสำเร็จรูป<span>WALL PANEL</span></button>
+          </div>
+
+          <div class="cat-panel">
+            <div role="tabpanel" id="p-plank" aria-labelledby="t-plank">
+              <h3>แผ่นพื้นท้องเรียบอัดแรง</h3>
+              <p>แผ่นหน้ากว้าง 35 เซนติเมตร วางบนคานแล้วเทคอนกรีตทับหน้า เหมาะกับบ้านพักอาศัยและอาคารช่วงพาดสั้น ตัดความยาวตามแบบได้ทีละ 5 เซนติเมตร</p>
+              <div class="cat-body">
+                <figure class="sheet" style="margin:0">
+                  <svg class="dwg" viewBox="0 0 400 210" role="img" aria-labelledby="dwg-plank-t">
+                    <title id="dwg-plank-t">ภาพตัดขวางแผ่นพื้นท้องเรียบ กว้าง 350 มิลลิเมตร หนา 50 มิลลิเมตร มีลวดอัดแรง 5 เส้นที่ท้องแผ่น</title>
+                    <rect x="50" y="70" width="300" height="43" class="fill" />
+                    <rect x="50" y="70" width="300" height="43" class="line" />
+                    <g class="strand">
+                      <circle cx="80" cy="102" r="4" /><circle cx="140" cy="102" r="4" />
+                      <circle cx="200" cy="102" r="4" /><circle cx="260" cy="102" r="4" />
+                      <circle cx="320" cy="102" r="4" />
+                    </g>
+                    <path class="thin" d="M50 113 L50 152 M350 113 L350 152" />
+                    <path class="dim" d="M50 144 L350 144 M50 137 L50 151 M350 137 L350 151" />
+                    <rect x="172" y="131" width="56" height="18" fill="#F7F8F6" />
+                    <text class="mk" x="200" y="145" text-anchor="middle">350</text>
+                    <path class="thin" d="M350 70 L392 70 M350 113 L392 113" />
+                    <path class="dim" d="M382 70 L382 113 M375 70 L389 70 M375 113 L389 113" />
+                    <rect x="366" y="82" width="32" height="18" fill="#F7F8F6" />
+                    <text class="mk" x="382" y="96" text-anchor="middle">50</text>
+                    <text class="th" x="50" y="180">หน่วย: มิลลิเมตร</text>
+                    <text x="50" y="200">PC PLANK 50 / W350</text>
+                  </svg>
+                  <figcaption class="sheet-cap"><span>SECTION &#183; PC WIRE 4MM &#215; 5</span><span>SCALE 1:5</span><span>PTP</span>
+          </figcaption>
+                </figure>
+                <div class="tw">
+                  <table>
+                    <caption>ช่วงพาดสูงสุด (เมตร) ตามน้ำหนักบรรทุกจร หน่วย กก./ตร.ม.</caption>
+                    <thead><tr><th>รุ่น</th><th class="num">200</th><th class="num">300</th><th class="num">400</th><th class="num">500</th></tr></thead>
+                    <tbody>
+                      <tr><td>PLANK&#8209;50</td><td class="num">4.00</td><td class="num">3.60</td><td class="num">3.30</td><td class="num">3.10</td></tr>
+                      <tr><td>PLANK&#8209;60</td><td class="num">4.60</td><td class="num">4.20</td><td class="num">3.85</td><td class="num">3.60</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div role="tabpanel" id="p-hc" aria-labelledby="t-hc" hidden>
+              <h3>แผ่นพื้นกลวงอัดแรง</h3>
+              <p>หน้ากว้าง 1.20 เมตร ช่องกลวงลดน้ำหนักตัวเองลงราวหนึ่งในสาม ทำให้พาดได้ไกลกว่าแผ่นตันที่ความหนาเท่ากัน ใช้กับอาคารสำนักงาน อาคารพาณิชย์ และโกดัง</p>
+              <div class="cat-body">
+                <figure class="sheet" style="margin:0">
+                  <svg class="dwg" viewBox="0 0 400 210" role="img" aria-labelledby="dwg-hc-t">
+                    <title id="dwg-hc-t">ภาพตัดขวางแผ่นพื้นกลวง กว้าง 1200 มิลลิเมตร หนา 150 มิลลิเมตร มีช่องกลวงกลม 6 ช่อง</title>
+                    <rect x="40" y="62" width="320" height="53" class="fill" />
+                    <circle cx="66.7" cy="88.5" r="18" class="void" /><circle cx="66.7" cy="88.5" r="18" class="thin" />
+                    <circle cx="120"  cy="88.5" r="18" class="void" /><circle cx="120"  cy="88.5" r="18" class="thin" />
+                    <circle cx="173.3" cy="88.5" r="18" class="void" /><circle cx="173.3" cy="88.5" r="18" class="thin" />
+                    <circle cx="226.7" cy="88.5" r="18" class="void" /><circle cx="226.7" cy="88.5" r="18" class="thin" />
+                    <circle cx="280"  cy="88.5" r="18" class="void" /><circle cx="280"  cy="88.5" r="18" class="thin" />
+                    <circle cx="333.3" cy="88.5" r="18" class="void" /><circle cx="333.3" cy="88.5" r="18" class="thin" />
+                    <rect x="40" y="62" width="320" height="53" class="line" />
+                    <g class="strand">
+                      <circle cx="55" cy="107" r="3" /><circle cx="93" cy="107" r="3" />
+                      <circle cx="131" cy="107" r="3" /><circle cx="169" cy="107" r="3" />
+                      <circle cx="207" cy="107" r="3" /><circle cx="245" cy="107" r="3" />
+                      <circle cx="283" cy="107" r="3" /><circle cx="321" cy="107" r="3" />
+                      <circle cx="348" cy="107" r="3" />
+                    </g>
+                    <path class="thin" d="M40 115 L40 152 M360 115 L360 152" />
+                    <path class="dim" d="M40 144 L360 144 M40 137 L40 151 M360 137 L360 151" />
+                    <rect x="172" y="131" width="56" height="18" fill="#F7F8F6" />
+                    <text class="mk" x="200" y="145" text-anchor="middle">1200</text>
+                    <path class="thin" d="M360 62 L394 62 M360 115 L394 115" />
+                    <path class="dim" d="M384 62 L384 115 M377 62 L391 62 M377 115 L391 115" />
+                    <rect x="366" y="80" width="36" height="18" fill="#F7F8F6" />
+                    <text class="mk" x="384" y="94" text-anchor="middle">150</text>
+                    <text class="th" x="40" y="180">หน่วย: มิลลิเมตร</text>
+                    <text x="40" y="200">HOLLOW CORE 150 / W1200</text>
+                  </svg>
+                  <figcaption class="sheet-cap"><span>SECTION &#183; 6 VOIDS &#216;110</span><span>SCALE 1:10</span><span>PTP</span>
+          </figcaption>
+                </figure>
+                <div class="tw">
+                  <table>
+                    <caption>ช่วงพาดสูงสุด (เมตร) ตามน้ำหนักบรรทุกจร หน่วย กก./ตร.ม.</caption>
+                    <thead><tr><th>รุ่น</th><th class="num">200</th><th class="num">300</th><th class="num">400</th><th class="num">500</th></tr></thead>
+                    <tbody>
+                      <tr><td>HC&#8209;120</td><td class="num">6.60</td><td class="num">6.10</td><td class="num">5.70</td><td class="num">5.40</td></tr>
+                      <tr><td>HC&#8209;150</td><td class="num">8.20</td><td class="num">7.60</td><td class="num">7.10</td><td class="num">6.70</td></tr>
+                      <tr><td>HC&#8209;200</td><td class="num">10.50</td><td class="num">9.80</td><td class="num">9.20</td><td class="num">8.70</td></tr>
+                      <tr><td>HC&#8209;250</td><td class="num">12.80</td><td class="num">12.00</td><td class="num">11.30</td><td class="num">10.70</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div role="tabpanel" id="p-beam" aria-labelledby="t-beam" hidden>
+              <h3>เสาและคานสำเร็จรูป</h3>
+              <p>คานรูปตัวทีคว่ำสำหรับวางแผ่นพื้นบนบ่าทั้งสองข้าง และเสาหล่อสำเร็จพร้อมเหล็กเดือยต่อชั้น ผลิตตามแบบเฉพาะงาน ความยาวสูงสุดต่อท่อน 12 เมตรตามข้อจำกัดของรถลาก</p>
+              <div class="cat-body">
+                <figure class="sheet" style="margin:0">
+                  <svg class="dwg" viewBox="0 0 400 210" role="img" aria-labelledby="dwg-beam-t">
+                    <title id="dwg-beam-t">ภาพตัดขวางคานรูปตัวทีคว่ำกว้าง 500 มิลลิเมตร สูง 600 มิลลิเมตร วางคู่กับเสาสี่เหลี่ยม 300 คูณ 300 มิลลิเมตร</title>
+                    <path class="fill" d="M60 50 H200 V92 H160 V158 H100 V92 H60 Z" />
+                    <path class="line" d="M60 50 H200 V92 H160 V158 H100 V92 H60 Z" />
+                    <g class="strand">
+                      <circle cx="112" cy="148" r="3.4" /><circle cx="130" cy="148" r="3.4" /><circle cx="148" cy="148" r="3.4" />
+                      <circle cx="112" cy="133" r="3.4" /><circle cx="148" cy="133" r="3.4" />
+                      <circle cx="72" cy="62" r="3.4" /><circle cx="188" cy="62" r="3.4" />
+                    </g>
+                    <path class="thin" d="M60 158 L60 190 M200 158 L200 190" />
+                    <path class="dim" d="M60 182 L200 182 M60 175 L60 189 M200 175 L200 189" />
+                    <rect x="105" y="169" width="50" height="18" fill="#F7F8F6" />
+                    <text class="mk" x="130" y="183" text-anchor="middle">500</text>
+                    <path class="dim" d="M42 50 L42 158 M35 50 L49 50 M35 158 L49 158" />
+                    <rect x="26" y="95" width="32" height="18" fill="#F7F8F6" />
+                    <text class="mk" x="42" y="109" text-anchor="middle">600</text>
+                    <rect x="262" y="50" width="90" height="90" class="fill" />
+                    <rect x="262" y="50" width="90" height="90" class="line" />
+                    <rect x="274" y="62" width="66" height="66" class="thin" />
+                    <g class="strand">
+                      <circle cx="274" cy="62" r="4" /><circle cx="340" cy="62" r="4" />
+                      <circle cx="274" cy="128" r="4" /><circle cx="340" cy="128" r="4" />
+                      <circle cx="307" cy="62" r="4" /><circle cx="307" cy="128" r="4" />
+                    </g>
+                    <path class="thin" d="M262 140 L262 190 M352 140 L352 190" />
+                    <path class="dim" d="M262 182 L352 182 M262 175 L262 189 M352 175 L352 189" />
+                    <rect x="282" y="169" width="50" height="18" fill="#F7F8F6" />
+                    <text class="mk" x="307" y="183" text-anchor="middle">300</text>
+                    <text x="60" y="205">INVERTED&#8209;T BEAM</text>
+                    <text x="262" y="205">COLUMN 300</text>
+                  </svg>
+                  <figcaption class="sheet-cap"><span>SECTION &#183; MAT. CONC. 400 KSC</span><span>SCALE 1:15</span><span>PTP</span>
+          </figcaption>
+                </figure>
+                <div class="tw">
+                  <table>
+                    <caption>ขนาดมาตรฐานที่มีแบบหล่อพร้อมผลิต</caption>
+                    <thead><tr><th>รุ่น</th><th class="num">หน้าตัด (มม.)</th><th class="num">ยาวสูงสุด</th><th class="num">นน./ม.</th></tr></thead>
+                    <tbody>
+                      <tr><td>IT&#8209;500&#215;600</td><td class="num">500 &#215; 600</td><td class="num">10.0 ม.</td><td class="num">470 กก.</td></tr>
+                      <tr><td>IT&#8209;600&#215;700</td><td class="num">600 &#215; 700</td><td class="num">12.0 ม.</td><td class="num">640 กก.</td></tr>
+                      <tr><td>COL&#8209;300</td><td class="num">300 &#215; 300</td><td class="num">9.0 ม.</td><td class="num">216 กก.</td></tr>
+                      <tr><td>COL&#8209;400</td><td class="num">400 &#215; 400</td><td class="num">12.0 ม.</td><td class="num">384 กก.</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div role="tabpanel" id="p-wall" aria-labelledby="t-wall" hidden>
+              <h3>ผนังสำเร็จรูป</h3>
+              <p>ผนังหล่อสำเร็จพร้อมช่องประตูหน้าต่างและท่อร้อยสายไฟฝังในตัว ติดตั้งด้วยเครนแล้วเชื่อมเหล็กเดือยที่หัวเสา ลดงานก่ออิฐฉาบหน้างานลงเกือบทั้งหมด</p>
+              <div class="cat-body">
+                <figure class="sheet" style="margin:0">
+                  <svg class="dwg" viewBox="0 0 400 210" role="img" aria-labelledby="dwg-wall-t">
+                    <title id="dwg-wall-t">แผ่นผนังสำเร็จรูปมองด้านหน้า กว้าง 2400 สูง 2800 มิลลิเมตร มีช่องหน้าต่างและตะแกรงเหล็กเสริมภายใน</title>
+                    <rect x="60" y="30" width="200" height="140" class="fill" />
+                    <rect x="60" y="30" width="200" height="140" class="line" />
+                    <g class="thin">
+                      <path d="M85 30 V170 M110 30 V170 M135 30 V170 M160 30 V170 M185 30 V170 M210 30 V170 M235 30 V170" />
+                      <path d="M60 55 H260 M60 80 H260 M60 105 H260 M60 130 H260 M60 155 H260" />
+                    </g>
+                    <rect x="150" y="55" width="80" height="55" class="void" />
+                    <rect x="150" y="55" width="80" height="55" class="line" />
+                    <path class="thin" d="M60 170 L60 196 M260 170 L260 196" />
+                    <path class="dim" d="M60 190 L260 190 M60 183 L60 197 M260 183 L260 197" />
+                    <rect x="135" y="177" width="50" height="18" fill="#F7F8F6" />
+                    <text class="mk" x="160" y="191" text-anchor="middle">2400</text>
+                    <path class="thin" d="M260 30 L296 30 M260 170 L296 170" />
+                    <path class="dim" d="M286 30 L286 170 M279 30 L293 30 M279 170 L293 170" />
+                    <rect x="266" y="91" width="40" height="18" fill="#F7F8F6" />
+                    <text class="mk" x="286" y="105" text-anchor="middle">2800</text>
+                    <text x="316" y="86">WIRE MESH</text>
+                    <text x="316" y="104">6MM @ 200</text>
+                    <text x="60" y="205">WALL PANEL T100 &#183; ELEVATION</text>
+                  </svg>
+                  <figcaption class="sheet-cap"><span>ELEVATION &#183; OPENING CAST&#8209;IN</span><span>SCALE 1:40</span><span>PTP</span>
+          </figcaption>
+                </figure>
+                <div class="tw">
+                  <table>
+                    <caption>ความหนาและขนาดแผ่นที่ผลิตได้</caption>
+                    <thead><tr><th>รุ่น</th><th class="num">หนา</th><th class="num">กว้างสูงสุด</th><th class="num">สูงสุด</th><th class="num">นน./ตร.ม.</th></tr></thead>
+                    <tbody>
+                      <tr><td>WP&#8209;075</td><td class="num">75 มม.</td><td class="num">2.40 ม.</td><td class="num">3.20 ม.</td><td class="num">180 กก.</td></tr>
+                      <tr><td>WP&#8209;100</td><td class="num">100 มม.</td><td class="num">2.40 ม.</td><td class="num">3.60 ม.</td><td class="num">240 กก.</td></tr>
+                      <tr><td>WP&#8209;120</td><td class="num">120 มม.</td><td class="num">3.00 ม.</td><td class="num">4.00 ม.</td><td class="num">288 กก.</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="selector" aria-labelledby="sel-h">
+      <div class="shell">
+        <div class="band-head">
+          <h2 id="sel-h"><span class="nb">บอกช่วงพาด</span> <span class="nb">กับน้ำหนักบรรทุก</span> <span class="nb">แล้วดูว่า</span> <span class="nb">เหลือรุ่นไหนให้เลือก</span></h2>
+          <p>ค่าที่ได้จากตารางเดียวกับในแคตตาล็อก ใช้ตั้งงบและเช็กความเป็นไปได้ก่อนคุยกับผู้ออกแบบ ไม่ใช้แทนการคำนวณของวิศวกรผู้รับผิดชอบโครงการ</p>
+        </div>
+
+        <div class="sel rv">
+          <div class="sel-form">
+            <div class="field">
+              <label for="f-span">ช่วงพาด <span class="hint">ระยะระหว่างคานสองตัว</span></label>
+              <p class="range-val"><span id="span-out">6.0</span> <small>เมตร</small></p>
+              <input type="range" id="f-span" min="2.5" max="13" step="0.1" value="6"
+                     aria-describedby="span-out" />
+            </div>
+            <div class="field">
+              <label for="f-load">น้ำหนักบรรทุกจร</label>
+              <select id="f-load">
+                <option value="200">200 กก./ตร.ม. · บ้านพักอาศัย</option>
+                <option value="300" selected>300 กก./ตร.ม. · สำนักงาน</option>
+                <option value="400">400 กก./ตร.ม. · ร้านค้า อาคารพาณิชย์</option>
+                <option value="500">500 กก./ตร.ม. · โกดังเก็บของเบา</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-area">พื้นที่ทั้งหมด <span class="hint">ใส่เพื่อประมาณจำนวนแผ่นและเที่ยวรถ</span></label>
+              <input type="number" id="f-area" min="10" max="20000" step="10" value="420" />
+            </div>
+          </div>
+
+          <div class="sel-out">
+            <p class="verdict" id="verdict" role="status">&nbsp;</p>
+            <div class="tw">
+              <table>
+                <caption id="sel-cap">ผลการเทียบที่ค่าปัจจุบัน</caption>
+                <thead>
+                  <tr><th>รุ่น</th><th class="num">พาดได้สูงสุด</th><th>สถานะ</th><th class="num">นน. ตัวเอง</th></tr>
+                </thead>
+                <tbody id="sel-rows"></tbody>
+              </table>
+            </div>
+            <p class="verdict" id="derived">&nbsp;</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band dark" id="plant" aria-labelledby="plant-h">
+      <div class="shell">
+        <div class="band-head">
+          <h2 id="plant-h"><span class="nb">กำลังผลิตและรัศมีส่ง</span> <span class="nb">คือสองตัวเลข</span> <span class="nb">ที่ตัดสินว่าทันคิวเทหรือไม่</span></h2>
+        </div>
+        <div class="plant rv">
+          <dl class="figrow">
+            <div><dt>กำลังการผลิตแผ่นพื้น</dt><dd>9,500 <small>ตร.ม./เดือน</small></dd></div>
+            <div><dt>แท่นหล่ออัดแรง</dt><dd>14 <small>แท่น &#215; ยาว 120 ม.</small></dd></div>
+            <div><dt>ลานสต็อกสินค้า</dt><dd>6,400 <small>ตร.ม.</small></dd></div>
+            <div><dt>กำลังอัดคอนกรีตที่ใช้</dt><dd>350&#8211;400 <small>กก./ตร.ซม.</small></dd></div>
+            <div><dt>รถลากพ่วงประจำโรงงาน</dt><dd>9 <small>คัน &#183; บรรทุก 18 ตัน/เที่ยว</small></dd></div>
+            <div><dt>รัศมีจัดส่งปกติ</dt><dd>180 <small>กิโลเมตร</small></dd></div>
+            <div><dt>คิวผลิตว่างถัดไป</dt><dd>18 พ.ย. <small>2569</small></dd></div>
+          </dl>
+
+          <div>
+            <div class="lad">
+              <div><span class="pl">ฉะเชิงเทรา</span><span class="bar" style="width:8.3%"></span><span class="km">15</span></div>
+              <div><span class="pl">ชลบุรี</span><span class="bar" style="width:19.4%"></span><span class="km">35</span></div>
+              <div><span class="pl">สมุทรปราการ</span><span class="bar" style="width:25%"></span><span class="km">45</span></div>
+              <div><span class="pl">กรุงเทพฯ</span><span class="bar" style="width:38.9%"></span><span class="km">70</span></div>
+              <div><span class="pl">ปราจีนบุรี</span><span class="bar" style="width:50%"></span><span class="km">90</span></div>
+              <div><span class="pl">ระยอง</span><span class="bar far" style="width:61.1%"></span><span class="km">110</span></div>
+              <div><span class="pl">พระนครศรีอยุธยา</span><span class="bar far" style="width:77.8%"></span><span class="km">140</span></div>
+              <div class="edge"><span class="pl">ขอบรัศมีปกติ</span><span class="bar far" style="width:100%;opacity:.5"></span><span class="km">180</span></div>
+            </div>
+            <p class="lad-note">DELIVERY RADIUS &#183; ระยะทางถนนจากโรงงานบางปะกง (กม.)<br>แถบสีจางคือเกิน 100 กม. คิดค่าขนส่งอีกอัตราหนึ่ง</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="schedule" aria-labelledby="sch-h">
+      <div class="shell">
+        <div class="band-head">
+          <h2 id="sch-h"><span class="nb">ตั้งแต่ยืนยันแบบ</span> <span class="nb">ถึงลงหน้างาน</span> <span class="nb">ปกติ</span> <span class="nb">23</span> <span class="nb">วันทำการ</span></h2>
+          <p>ตัวเลขด้านล่างเป็นคิวที่โรงงานใช้จริงในช่วงกำลังผลิตปกติ ถ้าคิวเต็มกว่านี้ ฝ่ายขายจะแจ้งวันที่แน่นอนกลับไปพร้อมใบเสนอราคา ไม่ปัดเป็น &#8220;ประมาณสองสัปดาห์&#8221;</p>
+        </div>
+        <ol class="steps rv" style="list-style:none;padding:0;margin:0">
+          <li class="step"><b>01</b><h3>ยืนยันแบบและปริมาณ</h3><p>รับแบบสถาปัตย์หรือแบบโครงสร้าง ตรวจช่วงพาดกับน้ำหนักบรรทุก แล้วสรุปรุ่นและจำนวนแผ่น</p><span class="days">1&#8211;2 วัน</span></li>
+          <li class="step"><b>02</b><h3>เข้าคิวผลิต</h3><p>ล็อกคิวเมื่อได้รับใบสั่งซื้อและมัดจำ คิวปัจจุบันรออยู่ 12 วันทำการ</p><span class="days">12 วัน</span></li>
+          <li class="step"><b>03</b><h3>หล่อและบ่ม</h3><p>ดึงลวดอัดแรง เทคอนกรีต บ่มด้วยไอน้ำ แล้วตัดตามความยาวในแบบ</p><span class="days">7 วัน</span></li>
+          <li class="step"><b>04</b><h3>ตรวจและจัดกอง</h3><p>ทดสอบกำลังอัดของก้อนตัวอย่างชุดเดียวกัน ตรวจขนาดและรอยร้าว แล้วจัดกองตามลำดับที่จะยกลง</p><span class="days">2 วัน</span></li>
+          <li class="step"><b>05</b><h3>ส่งหน้างาน</h3><p>นัดวันและเวลาลงของกับหน้างาน เที่ยวละ 18 ตัน หน้างานต้องเตรียมเครนและทางเข้ารถพ่วง</p><span class="days">1 วัน/เที่ยว</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="band" id="standards" aria-labelledby="std-h">
+      <div class="shell">
+        <div class="band-head">
+          <h2 id="std-h"><span class="nb">เอกสารที่แนบไป</span> <span class="nb">กับใบเสนอราคาทุกครั้ง</span></h2>
+          <p>ฝ่ายจัดซื้อส่วนใหญ่ต้องแนบเอกสารชุดนี้เข้าแฟ้มอนุมัติอยู่แล้ว หน้านี้จึงบอกไว้ล่วงหน้าว่ามีอะไรบ้าง ชนิดไฟล์อะไร และปรับปรุงล่าสุดเมื่อไร</p>
+        </div>
+        <ul class="docs rv">
+          <li><span class="dt">PDF</span><span class="dn">ใบรับรอง มอก. 828&#8211;2546 แผ่นพื้นคอนกรีตอัดแรง</span><span class="dm">1.2 MB &#183; ปรับปรุง 12 มี.ค. 2569</span></li>
+          <li><span class="dt">PDF</span><span class="dn">รายงานผลทดสอบกำลังอัดคอนกรีต ไตรมาสล่าสุด</span><span class="dm">840 KB &#183; ปรับปรุง 04 ส.ค. 2569</span></li>
+          <li><span class="dt">PDF</span><span class="dn">แคตตาล็อกรวม 4 กลุ่มสินค้า พร้อมตารางสแปนเต็ม</span><span class="dm">6.4 MB &#183; ปรับปรุง 20 ก.ค. 2569</span></li>
+          <li><span class="dt">DWG</span><span class="dn">แบบมาตรฐานรายละเอียดจุดต่อ แผ่นพื้นกับคาน</span><span class="dm">2.1 MB &#183; ปรับปรุง 20 ก.ค. 2569</span></li>
+          <li><span class="dt">XLSX</span><span class="dn">ตารางคำนวณปริมาณและน้ำหนักสำหรับตั้งงบ</span><span class="dm">96 KB &#183; ปรับปรุง 01 ส.ค. 2569</span></li>
+        </ul>
+        <p class="inert" style="max-width:74ch">
+          <b>หน้านี้เป็นงานออกแบบตัวอย่าง</b> รายการเอกสารด้านบนแสดงว่าหน้าจริงจะบอกชนิดไฟล์ ขนาด และวันที่ปรับปรุง ก่อนผู้ใช้กดโหลด แต่ยังไม่มีไฟล์จริงให้ดาวน์โหลด จึงไม่ทำเป็นลิงก์ที่กดแล้วไม่มีอะไรเกิดขึ้น
+        </p>
+      </div>
+    </section>
+
+    <section class="band" id="projects" aria-labelledby="prj-h">
+      <div class="shell">
+        <div class="band-head">
+          <h2 id="prj-h"><span class="nb">อ้างอิงเป็นตาราง</span> <span class="nb">ไม่ใช่แกลเลอรี</span></h2>
+          <p>สิ่งที่ผู้ซื้อรายต่อไปอยากรู้จากงานเก่า คือปริมาณใกล้เคียงกับของเขาไหม และรุ่นที่ใช้ตรงกันหรือเปล่า ไม่ใช่ว่ารูปสวยแค่ไหน</p>
+        </div>
+        <div class="tw rv">
+          <table style="min-width:560px">
+            <thead><tr><th>โครงการ</th><th>รุ่นที่ใช้</th><th class="num">ปริมาณ</th><th class="num">ส่งมอบ</th></tr></thead>
+            <tbody>
+              <tr><td>อาคารสำนักงาน 5 ชั้น บางนา</td><td>HC&#8209;200</td><td class="num">3,850 ตร.ม.</td><td class="num">2568</td></tr>
+              <tr><td>โกดังกระจายสินค้า บางปะกง</td><td>HC&#8209;250 + IT&#8209;600&#215;700</td><td class="num">6,200 ตร.ม.</td><td class="num">2568</td></tr>
+              <tr><td>ทาวน์โฮม 42 ยูนิต ศรีราชา</td><td>PLANK&#8209;50</td><td class="num">4,100 ตร.ม.</td><td class="num">2569</td></tr>
+              <tr><td>อาคารพาณิชย์ 8 คูหา ฉะเชิงเทรา</td><td>HC&#8209;150</td><td class="num">1,240 ตร.ม.</td><td class="num">2569</td></tr>
+              <tr><td>โรงงานผลิตชิ้นส่วน ปลวกแดง</td><td>WP&#8209;100 + COL&#8209;400</td><td class="num">2,700 ตร.ม.</td><td class="num">2569</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="faq" aria-labelledby="faq-h">
+      <div class="shell">
+        <div class="band-head">
+          <h2 id="faq-h"><span class="nb">แปดข้อที่ถูกถามทุกครั้ง</span> <span class="nb">ก่อนออกใบสั่งซื้อ</span></h2>
+        </div>
+        <div class="faq rv">
+          <details><summary>ขอใบเสนอราคาต้องส่งอะไรให้บ้าง</summary><p>อย่างน้อยขอแบบผังพื้นที่มีระยะช่วงพาด และบอกประเภทการใช้งานของอาคาร ถ้ามีแบบโครงสร้างที่วิศวกรกำหนดรุ่นแผ่นมาแล้วจะเร็วที่สุด ถ้ายังไม่มีแบบ ส่งขนาดพื้นที่คร่าว ๆ กับจำนวนชั้นมาก่อนก็ประเมินกรอบราคาให้ได้</p></details>
+          <details><summary>มีเครดิตเทอมไหม</summary><p>ลูกค้าใหม่เริ่มที่มัดจำ 50% ตอนล็อกคิวผลิต และส่วนที่เหลือก่อนออกของ เมื่อสั่งซื้อครบสามครั้งจึงพิจารณาเครดิต 30 วันตามวงเงินที่อนุมัติ เงื่อนไขนี้เขียนไว้บนหน้าเว็บเพื่อให้ฝ่ายจัดซื้อวางแผนกระแสเงินสดได้ตั้งแต่ก่อนโทรมา</p></details>
+          <details><summary>ถ้าแผ่นเสียหายระหว่างขนส่ง ใครรับผิดชอบ</summary><p>ความเสียหายที่เกิดก่อนของถึงหน้างานเป็นของโรงงาน เปลี่ยนให้โดยไม่คิดเงินแต่ต้องเข้าคิวผลิตรอบถัดไป ซึ่งกินเวลาราวหนึ่งสัปดาห์ ส่วนความเสียหายจากการยกลงที่หน้างานเป็นความรับผิดชอบของผู้รับเหมา จึงต้องตกลงเรื่องเครนและจุดกองให้ชัดก่อนนัดวันส่ง</p></details>
+          <details><summary>หน้างานต้องเตรียมอะไรบ้าง</summary><p>ต้องมีเครนที่รับน้ำหนักแผ่นหนักที่สุดในเที่ยวนั้นได้ ทางเข้าที่รถพ่วงยาว 18 เมตรเลี้ยวเข้าได้ และพื้นที่กองชั่วคราวที่รับน้ำหนักกองซ้อนได้ ถ้าหน้างานเข้าได้เฉพาะรถหกล้อ ต้องแจ้งก่อนเพราะจะเปลี่ยนทั้งจำนวนเที่ยวและค่าขนส่ง</p></details>
+          <details><summary>ค่าขนส่งคิดยังไง</summary><p>คิดเป็นรายเที่ยวตามระยะทางจากโรงงานบางปะกง ไม่ได้คิดรวมในราคาต่อตารางเมตร เพราะงานที่อยู่ห่างกัน 30 กิโลเมตรกับ 150 กิโลเมตรมีต้นทุนต่างกันมาก การรวมไว้ในราคาเดียวแปลว่างานใกล้ต้องจ่ายแทนงานไกล</p></details>
+          <details><summary>เปลี่ยนแบบหลังเข้าคิวผลิตแล้วได้ไหม</summary><p>ถ้ายังไม่ได้ดึงลวดอัดแรงของล็อตนั้น เปลี่ยนได้โดยไม่มีค่าใช้จ่ายเพิ่ม แต่ต้องนับคิวใหม่ ถ้าหล่อไปแล้วจะต้องคิดค่าของที่ผลิตไปแล้วตามจริง เพราะแผ่นที่ตัดตามความยาวเฉพาะงานเอาไปขายต่อให้โครงการอื่นไม่ได้</p></details>
+          <details><summary>มีวิศวกรช่วยเลือกรุ่นให้ไหม</summary><p>ฝ่ายเทคนิคช่วยเทียบรุ่นจากตารางสแปนให้ฟรีในขั้นเสนอราคา แต่การรับรองความปลอดภัยของโครงสร้างต้องเป็นวิศวกรผู้ออกแบบของโครงการเซ็นรับรอง โรงงานเป็นผู้ผลิตชิ้นส่วน ไม่ใช่ผู้ออกแบบอาคาร</p></details>
+          <details><summary>รับงานปริมาณน้อยไหม</summary><p>รับตั้งแต่ 150 ตารางเมตรขึ้นไป ต่ำกว่านั้นค่าขนส่งต่อตารางเมตรจะสูงจนไม่คุ้มสำหรับผู้ซื้อเอง กรณีงานเล็กกว่านั้นฝ่ายขายจะแนะนำตัวแทนจำหน่ายในพื้นที่ให้แทน</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="quote" aria-labelledby="q-h">
+      <div class="shell">
+        <div class="band-head">
+          <h2 id="q-h"><span class="nb">กรอกหกช่อง</span> <span class="nb">ฝ่ายขายตอบกลับ</span> <span class="nb">พร้อมวันที่คิวว่างจริง</span></h2>
+        </div>
+        <div class="quote-grid rv">
+          <div>
+            <div class="quote-form">
+              <div class="field wide">
+                <label for="q-project">ชื่อโครงการ</label>
+                <input type="text" id="q-project" placeholder="อาคารสำนักงาน 4 ชั้น" />
+              </div>
+              <div class="field">
+                <label for="q-area">พื้นที่พื้น (ตร.ม.)</label>
+                <input type="number" id="q-area" min="150" step="10" placeholder="420" />
+              </div>
+              <div class="field">
+                <label for="q-span">ช่วงพาดยาวสุด (ม.)</label>
+                <input type="number" id="q-span" min="2" max="14" step="0.1" placeholder="6.0" />
+              </div>
+              <div class="field">
+                <label for="q-date">ต้องการของหน้างานวันที่</label>
+                <input type="text" id="q-date" placeholder="ธ.ค. 2569" />
+              </div>
+              <div class="field">
+                <label for="q-site">อำเภอ / จังหวัดหน้างาน</label>
+                <input type="text" id="q-site" placeholder="ศรีราชา ชลบุรี" />
+              </div>
+              <div class="field wide">
+                <label for="q-note">รายละเอียดเพิ่มเติม <span class="hint">มีแบบแล้วหรือยัง หน้างานเข้าได้รถแบบไหน</span></label>
+                <textarea id="q-note"></textarea>
+              </div>
+            </div>
+            
+          </div>
+          <div>
+            <h3 style="font-size:1.05rem">ติดต่อตรงตามหน้าที่</h3>
+            <dl class="contact-figrow">
+              <div><dt>ฝ่ายขายโครงการ</dt><dd class="mono">038&#8209;xxx&#8209;xxx ต่อ 11</dd></div>
+              <div><dt>ฝ่ายเทคนิค เลือกรุ่นแผ่น</dt><dd class="mono">038&#8209;xxx&#8209;xxx ต่อ 21</dd></div>
+              <div><dt>ฝ่ายจัดส่งและคิวรถ</dt><dd class="mono">038&#8209;xxx&#8209;xxx ต่อ 31</dd></div>
+              <div><dt>เวลาทำการ</dt><dd class="mono">จ.&#8211;ส. 08:00&#8211;17:00</dd></div>
+            </dl>
+            <p style="margin-top:16px;color:var(--ink-2);font-size:0.92rem">แยกเบอร์ตามหน้าที่เพราะคำถามสามแบบนี้ตอบโดยคนละคน การให้เบอร์กลางเบอร์เดียวแล้วโอนสายต่อสองทอด คือจุดที่ผู้ซื้อวางสายไปหาเจ้าอื่น</p>
+          </div>
+          <p class="inert wide">
+              <b>แบบฟอร์มนี้ไม่ส่งข้อมูลไปที่ไหน</b> หน้านี้เป็นงานออกแบบตัวอย่าง ไม่มีระบบหลังบ้านและไม่มีเซิร์ฟเวอร์รับข้อมูล จึงไม่มีปุ่มส่งที่กดแล้วดูเหมือนสำเร็จทั้งที่ไม่มีอะไรเกิดขึ้น เว็บจริงจะต่อเข้าอีเมลฝ่ายขายหรือระบบใบเสนอราคาที่โรงงานใช้อยู่
+            </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="shell foot-inner">
+      <div>
+        <h3>ปฐพีพรีคาสท์</h3>
+        <p>ผู้ผลิตชิ้นส่วนคอนกรีตสำเร็จรูป<br>บางปะกง ฉะเชิงเทรา</p>
+      </div>
+      <div>
+        <h3>สินค้า</h3>
+        <ul>
+          <li><a href="#catalog">แผ่นพื้นท้องเรียบ</a></li>
+          <li><a href="#catalog">แผ่นพื้นกลวง</a></li>
+          <li><a href="#catalog">เสาและคาน</a></li>
+          <li><a href="#catalog">ผนังสำเร็จรูป</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>สำหรับผู้ซื้อ</h3>
+        <ul>
+          <li><a href="#selector">เครื่องมือเลือกแผ่น</a></li>
+          <li><a href="#schedule">คิวและระยะเวลา</a></li>
+          <li><a href="#standards">มาตรฐานและเอกสาร</a></li>
+          <li><a href="#quote">ขอใบเสนอราคา</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="shell foot-note">
+      หน้านี้เป็นงานออกแบบตัวอย่าง ไม่ใช่เว็บของบริษัทที่มีอยู่จริง ชื่อ ตัวเลข และรายการโครงการทั้งหมดถูกสมมติขึ้นเพื่อแสดงโครงสร้างหน้าเว็บ
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ── Catalogue tabs ────────────────────────────────────────── */
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+      if (tabs.length) {
+        var select = function (tab, focus) {
+          tabs.forEach(function (t) {
+            var on = t === tab;
+            t.setAttribute('aria-selected', on ? 'true' : 'false');
+            t.tabIndex = on ? 0 : -1;
+            document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+          });
+          if (focus) tab.focus();
+        };
+        tabs.forEach(function (tab, i) {
+          tab.addEventListener('click', function () { select(tab, false); });
+          tab.addEventListener('keydown', function (e) {
+            var d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1
+                  : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
+            if (d) { e.preventDefault(); select(tabs[(i + d + tabs.length) % tabs.length], true); }
+            else if (e.key === 'Home') { e.preventDefault(); select(tabs[0], true); }
+            else if (e.key === 'End') { e.preventDefault(); select(tabs[tabs.length - 1], true); }
+          });
+        });
+      }
+
+      /* ── Span selector ─────────────────────────────────────────── */
+      /* One table, read by both the catalogue above and this tool. The
+         numbers are the product data; nothing here is fetched. */
+      var PRODUCTS = [
+        { id: 'PLANK-50', w: 0.35, kg: 120, span: { 200: 4.00, 300: 3.60, 400: 3.30, 500: 3.10 } },
+        { id: 'PLANK-60', w: 0.35, kg: 144, span: { 200: 4.60, 300: 4.20, 400: 3.85, 500: 3.60 } },
+        { id: 'HC-120',   w: 1.20, kg: 195, span: { 200: 6.60, 300: 6.10, 400: 5.70, 500: 5.40 } },
+        { id: 'HC-150',   w: 1.20, kg: 240, span: { 200: 8.20, 300: 7.60, 400: 7.10, 500: 6.70 } },
+        { id: 'HC-200',   w: 1.20, kg: 305, span: { 200: 10.50, 300: 9.80, 400: 9.20, 500: 8.70 } },
+        { id: 'HC-250',   w: 1.20, kg: 365, span: { 200: 12.80, 300: 12.00, 400: 11.30, 500: 10.70 } }
+      ];
+      var TRUCK = 18; /* tonnes per trip */
+
+      var elSpan = document.getElementById('f-span');
+      var elLoad = document.getElementById('f-load');
+      var elArea = document.getElementById('f-area');
+      var outSpan = document.getElementById('span-out');
+      var rows = document.getElementById('sel-rows');
+      var verdict = document.getElementById('verdict');
+      var derived = document.getElementById('derived');
+
+      var fmt = function (n, d) {
+        return n.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+      };
+
+      function run() {
+        var span = parseFloat(elSpan.value);
+        var load = parseInt(elLoad.value, 10);
+        var area = parseFloat(elArea.value);
+        if (!(area > 0)) area = 0;
+
+        outSpan.textContent = fmt(span, 1);
+
+        var pass = [];
+        rows.innerHTML = '';
+        PRODUCTS.forEach(function (p) {
+          var max = p.span[load];
+          var ok = max >= span;
+          if (ok) pass.push(p);
+          var tr = document.createElement('tr');
+          tr.className = ok ? (pass.length === 1 ? 'hit' : '') : 'no';
+          tr.innerHTML =
+            '<td>' + p.id + '</td>' +
+            '<td class="num">' + fmt(max, 2) + ' ม.</td>' +
+            '<td>' + (ok ? (pass.length === 1 ? 'เลือกรุ่นนี้' : 'ใช้ได้') : 'พาดไม่ถึง') + '</td>' +
+            '<td class="num">' + p.kg + ' กก./ตร.ม.</td>';
+          rows.appendChild(tr);
+        });
+
+        if (!pass.length) {
+          verdict.className = 'verdict none';
+          verdict.textContent = 'ที่ ' + fmt(span, 1) + ' ม. และ ' + load +
+            ' กก./ตร.ม. ไม่มีรุ่นมาตรฐานที่พาดถึง — ต้องเพิ่มคานกลางช่วง หรือสั่งผลิตหน้าตัดพิเศษ';
+          derived.textContent = ' ';
+          derived.className = 'verdict';
+          return;
+        }
+
+        var best = pass[0];
+        verdict.className = 'verdict';
+        /* the figures carry the accent, which is the whole point of the block */
+        verdict.innerHTML = 'ผ่าน <b>' + pass.length + ' รุ่น</b> · รุ่นบางที่สุดที่ใช้ได้คือ <b>' +
+          best.id + '</b> (พาดได้ ' + fmt(best.span[load], 2) + ' ม.)';
+
+        if (area > 0) {
+          var pieces = Math.ceil(area / (best.w * span));
+          var tonnes = area * best.kg / 1000;
+          var trips = Math.ceil(tonnes / TRUCK);
+          derived.className = 'verdict';
+          derived.innerHTML = fmt(area, 0) + ' ตร.ม. ด้วย ' + best.id + ' &rarr; <b>' +
+            fmt(pieces, 0) + '</b> แผ่น · <b>' + fmt(tonnes, 1) + '</b> ตัน · <b>' + trips +
+            '</b> เที่ยวรถ <span class="q">(18 ตัน/เที่ยว)</span>';
+        } else {
+          derived.className = 'verdict';
+          derived.innerHTML = 'ใส่พื้นที่เพื่อประมาณจำนวนแผ่นและเที่ยวรถ';
+        }
+      }
+
+      if (elSpan) {
+        ['input', 'change'].forEach(function (ev) {
+          elSpan.addEventListener(ev, run);
+          elLoad.addEventListener(ev, run);
+          elArea.addEventListener(ev, run);
+        });
+        run();
+      }
+
+      /* ── Reveal ────────────────────────────────────────────────── */
+      /* The demo pages carry their own small implementation; site-ui.js is
+         portfolio chrome and must not load here. A failsafe shows anything
+         still hidden after 2.5s, because an observer that never fires
+         produces no error and no console warning. */
+      var rv = Array.prototype.slice.call(document.querySelectorAll('.rv'));
+      if (!rv.length || !('IntersectionObserver' in window)) return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      /* Only what is below the fold is ever hidden. Everything already on
+         screen stays painted, so the page is complete without this script. */
+      var pending = rv.filter(function (el) {
+        return el.getBoundingClientRect().top > window.innerHeight;
+      });
+      pending.forEach(function (el) { el.classList.add('pending'); });
+
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.remove('pending'); io.unobserve(en.target); }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px' });
+      pending.forEach(function (el) { io.observe(el); });
+
+      /* A lazy trigger that fails to fire produces no error and no warning. */
+      setTimeout(function () {
+        pending.forEach(function (el) { el.classList.remove('pending'); });
+      }, 2500);
+    })();
+  </script>
+</body>
+</html>
