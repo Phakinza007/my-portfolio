@@ -26,6 +26,10 @@ on:
       # fetch/normalize/score too, and a change to those that is never run is
       # a change that is never checked.
       - _tools/jobscan/**
+      # ...except the fixture this workflow writes back itself. The [skip ci]
+      # in that commit already stops the loop; excluding the path means the
+      # loop cannot come back if that marker is ever dropped.
+      - '!_tools/jobscan/fixtures/**'
 
 permissions:
   contents: write
