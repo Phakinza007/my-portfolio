@@ -169,7 +169,16 @@
   width: 100%;
   max-width: 320px;
 }
-@media (max-width: 900px) {
+/* 860px, NOT 900px, and the number is load-bearing: it has to be the same
+   breakpoint portfolio-pages.css turns `.nav` into a column at (line 875).
+   Dropping the cap 40px early left 861-900px with a ROW nav and no cap, so
+   `width: 100%` above resolved against the whole shell — the field measured
+   868px and the page overflowed by exactly 175px on every portfolio-pages
+   file. It was invisible twice over: `html, body { overflow-x: hidden }`
+   clipped it, so canScrollX stayed false, and the site's own overflow check
+   runs at 375px where this field is display:none anyway. Found 2026-08-24 by
+   sweeping element right-edges inside a sized iframe. */
+@media (max-width: 860px) {
   .page-shell.nav .site-search { max-width: none; }
 }
 
