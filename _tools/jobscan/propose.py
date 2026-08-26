@@ -110,7 +110,7 @@ def _fit_lines(job, template):
     page, หน้าเดียว)" is a scoring trace, not a sentence. The phrasing lives
     in the template so it can be reworded without touching code.
     """
-    phrases = template["fit_phrases"]
+    phrases = template["lead_phrases"]
     labels = {
         "ตรงกับที่ส่งมอบได้": "core",
         "WordPress / Elementor": "wordpress",
@@ -133,31 +133,58 @@ def _fit_lines(job, template):
 
 
 def _portfolio_lines(job, template, copy):
-    """Pick 1-2 real projects, and quote their blurbs verbatim."""
+    """Pick the single closest real project, quote its blurb, say why it fits.
+
+    One, not two: two links with nothing said about either reads as a dump,
+    and the client is on a phone with twenty other offers open. The reason
+    line is free -- the match rule already knows which word matched, which is
+    precisely why this project and not another.
+    """
     haystack = " ".join(str(job.get(f) or "") for f in
                         ("title", "description", "category")).lower()
 
-    keys = []
+    keys, reason = [], template.get("portfolio_default_reason")
     for group in template["portfolio_match"]:
         if any(_match(t, haystack) for t in group["terms"]):
             keys = group["projects"]
+            reason = group.get("reason") or reason
             break
     if not keys:
         keys = template["portfolio_default"]
 
     base = template["project_urls"]["_base"]
-    lines = []
-    for key in keys[:2]:
+    for key in keys:
         entry = copy.get(key)
         if not entry:
             # A renamed project key must not silently drop the reference and
-            # leave a proposal that says "ตัวอย่างงาน" with nothing under it.
+            # leave a proposal that says "งานที่ใกล้กับของคุณ" with nothing
+            # under it.
             continue
         blurb = (entry.get("th") or {}).get("long")
         if not blurb:
             continue
-        lines.append(f"- {blurb}\n  {base}{key}")
-    return lines
+        lines = [blurb, f"{base}{key}"]
+        if reason:
+            lines.append(template["portfolio_relevance"].format(reason=reason))
+        return lines
+    return []
+
+
+def _question(job, template):
+    """Ask about what the post did not say.
+
+    A question makes the proposal a conversation, which is how Fastwork
+    actually hires -- and picking it from the gap in the brief is what stops
+    it reading as a canned sign-off. Budget first: it is the one the client
+    can answer in three words and the one that decides whether the job is
+    worth either side's time.
+    """
+    budget = job.get("budget_max") or job.get("budget_min")
+    if not budget:
+        return template["question_no_budget"]
+    if not job.get("deadline_at"):
+        return template["question_no_deadline"]
+    return template["question_default"]
 
 
 def draft(job, template=None, copy=None):
@@ -191,17 +218,21 @@ def draft(job, template=None, copy=None):
     if not (set(fit_keys) & SUBSTANTIVE_GROUPS):
         return None
 
-    parts = [template["intro"].format(title=job.get("title") or "งานนี้")]
+    parts = [template["greeting"]]
 
-    parts.append(template["fit_lead"])
-    parts.extend(f"- {line}" for line in fit)
+    # The fit lines lead, as prose rather than a bulleted list of the terms
+    # the scorer matched. Showing the client the scorer's output is what made
+    # the old draft read as machine-filled.
+    parts.append(" ".join(fit))
+    parts.append(template["proof_line"])
 
     portfolio = _portfolio_lines(job, template, copy)
     if portfolio:
-        parts.append(template["portfolio_lead"])
-        parts.extend(portfolio)
+        parts.append(template["portfolio_lead"] + "\n" + "\n".join(portfolio))
 
     parts.append(template["closing"])
+    parts.append(_question(job, template))
+    parts.append(template["signoff"])
     return "\n\n".join(parts)
 
 
