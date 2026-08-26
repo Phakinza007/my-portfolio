@@ -31,6 +31,14 @@ mean offering work that cannot honestly be delivered:
   off_lane        mobile apps, video, ads -- a different trade
   not_a_project   a staffing ad, not a piece of work to quote for
 
+A fourth refusal has no flag behind it: a job for which score.py found no
+substantive reason to fit. If nothing can be said about why this portfolio
+suits *this* job, there is nothing to propose, and a template filled in
+anyway reads as spam. The first live digest proved both halves of that --
+"ฉันหา คนที่สามารถยกเลิกการสมัคร U-next ได้ค่ะ" (cancel a streaming
+subscription, ฿500) carried no flags and got a full website pitch, and
+"เช็คว่าคลิปนี้ปั๊มไลค์หรือไม่" qualified on the bare word "เว็บ" alone.
+
 This does NOT remove those jobs from the digest. They stay in the table with
 their score and their reasons, exactly as before -- "rank, do not filter" is
 still the rule. They simply arrive without a draft, which is the honest
@@ -50,6 +58,10 @@ DEFAULT_COPY = os.path.join(HERE, "..", "..", "_content", "project-copy.json")
 # Sending a proposal for any of these would be offering work that cannot be
 # delivered as described. Refusing is the honest output, not a gap.
 BLOCKING_FLAGS = ("needs_backend", "off_lane", "not_a_project")
+
+# One of these must fire for a draft to be worth sending. `web_generic` is
+# deliberately absent: it matches the bare word "เว็บ" anywhere in the post.
+SUBSTANTIVE_GROUPS = {"core", "wordpress", "stretch"}
 
 _ASCII = re.compile(r"^[\x00-\x7f]+$")
 
@@ -97,7 +109,7 @@ def _fit_lines(job, template):
         "งานเว็บทั่วไป": "web_generic",
         "ทำได้ แต่หนักขึ้น": "stretch",
     }
-    lines = []
+    lines, keys = [], []
     for reason in job.get("reasons") or []:
         if reason.startswith("−"):          # penalties never become sales copy
             continue
@@ -107,8 +119,9 @@ def _fit_lines(job, template):
                 line = phrases[key].format(terms=terms)
                 if line not in lines:
                     lines.append(line)
+                    keys.append(key)
                 break
-    return lines
+    return lines, keys
 
 
 def _portfolio_lines(job, template, copy):
@@ -148,12 +161,32 @@ def draft(job, template=None, copy=None):
     template = template or load_template()
     copy = copy if copy is not None else load_copy()
 
+    # No positive reason to fit means nothing to propose. The blocking flags
+    # above only catch jobs that are actively wrong; this catches the ones
+    # that are merely unrelated, and they are the more embarrassing failure.
+    #
+    # Found by reading a real digest rather than by reasoning about the rules:
+    # "ฉันหา คนที่สามารถยกเลิกการสมัคร U-next ได้ค่ะ" -- someone wanting help
+    # cancelling a streaming subscription, ฿500 -- carried none of the three
+    # flags, so it got a full proposal offering website work with a
+    # construction-firm and a clinic in the portfolio list. Sending that is
+    # spam, and it would have gone out under his name.
+    fit, fit_keys = _fit_lines(job, template)
+    if not fit:
+        return None
+
+    # web_generic alone is not a reason to bid. It fires on the bare word
+    # "เว็บ"/"web" appearing anywhere, so on its own it says only "this post
+    # mentions the web" -- which "เช็คว่าคลิปนี้ปั๊มไลค์หรือไม่" does. At least
+    # one substantive group has to agree: the actual services (core), the
+    # actual stack (wordpress), or something adjacent already built (stretch).
+    if not (set(fit_keys) & SUBSTANTIVE_GROUPS):
+        return None
+
     parts = [template["intro"].format(title=job.get("title") or "งานนี้")]
 
-    fit = _fit_lines(job, template)
-    if fit:
-        parts.append(template["fit_lead"])
-        parts.extend(f"- {line}" for line in fit)
+    parts.append(template["fit_lead"])
+    parts.extend(f"- {line}" for line in fit)
 
     portfolio = _portfolio_lines(job, template, copy)
     if portfolio:
