@@ -28,9 +28,13 @@ WHAT IT CHECKS, IN ORDER
 ------------------------
 1. robots.txt again, this time for the login and apply paths specifically.
    The earlier recon only cleared /jobs.
-2. The login page, WITHOUT credentials: which endpoint the form posts to,
-   whether a CSRF token is present, and -- the decisive question -- whether
-   reCAPTCHA/hCaptcha/Turnstile or a 2FA step is in the page at all.
+2. The login page, WITHOUT credentials -- found by following the board's own
+   "เข้าสู่ระบบ" control rather than by guessing paths. (The first version
+   guessed /login, /signin and /auth/login on both hosts; all six answered
+   404, which is what a guess earns and says nothing about the site.) Then:
+   which endpoint the form posts to, whether a CSRF token is present, and --
+   the decisive question -- whether reCAPTCHA/hCaptcha/Turnstile or a 2FA
+   step is in the page at all.
 3. A job page's apply control, WITHOUT credentials and WITHOUT submitting:
    what fields the form has, what its length limits are, and what the page
    fetches when the control is opened.
@@ -48,7 +52,7 @@ EXIT CODES
 ----------
 0  recon completed, read the output
 2  robots.txt disallows the login or apply path -- stop
-3  the login page could not be fetched at all
+3  no login entry point could be found on the site at all
 4  CAPTCHA or mandatory 2FA found -- automated login is off the table
 """
 import json
@@ -139,42 +143,105 @@ def scan_markers(html, label):
 
 
 def probe_login_page():
-    rule("2. The login page, without credentials")
-    found = {}
-    for base in (BOARD, MAIN):
-        for path in ("/login", "/signin", "/auth/login"):
-            url = base + path
-            try:
-                r = requests.get(url, headers=HEADERS, timeout=TIMEOUT,
-                                 allow_redirects=True)
-            except Exception as exc:                            # noqa: BLE001
-                print(f"  {url} -> {exc}")
-                continue
-            print(f"  {url} -> {r.status_code} ({len(r.text):,} chars) "
-                  f"final={r.url}")
-            if r.status_code == 200 and len(r.text) > 500:
-                found[url] = r
-    if not found:
+    """Find the login entry point by following the site's own control.
+
+    The first version of this guessed: /login, /signin, /auth/login on both
+    hosts. All six answered 404, which is the correct outcome for a guess and
+    tells you nothing about the site. The board's own rendered page carries a
+    control reading "เข้าสู่ระบบ" -- the first recon already logged it -- so
+    the honest move is to read where that control points instead of inventing
+    paths and concluding "no login page exists" when they miss.
+    """
+    rule("2. Finding the login entry point (following the site's own control)")
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        print("  playwright not installed; cannot discover the entry point")
         return None, [], []
 
-    url, resp = next(iter(found.items()))
-    save("login-page.html", resp.text)
-    captcha, twofa = scan_markers(resp.text, "login page")
+    login_url = None
+    html = None
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(user_agent=UA, locale="th-TH")
+        page.set_default_timeout(20_000)
+        try:
+            page.goto(f"{BOARD}/jobs", wait_until="domcontentloaded", timeout=45_000)
+        except Exception as exc:                                # noqa: BLE001
+            print(f"  could not open the board: {exc}")
+            browser.close()
+            return None, [], []
+        page.wait_for_timeout(6000)
+
+        # Any anchor whose href or text looks like a way in.
+        print("  anchors on the board that look auth-related:")
+        for a in page.query_selector_all("a"):
+            href = a.get_attribute("href") or ""
+            text = (a.inner_text() or "").strip()[:40]
+            if re.search(r"login|signin|sign-in|auth|register|signup", href, re.I) \
+                    or "เข้าสู่ระบบ" in text or "สมัครสมาชิก" in text:
+                print(f"    href={href!r} text={text!r}")
+                if not login_url and href:
+                    login_url = href if href.startswith("http") else BOARD + href
+
+        # If it is a button rather than a link, click it and see where we land.
+        # Safe here by construction: logged out, and a login control is not a
+        # submit control -- try_login() is the only thing that ever posts
+        # credentials, and it refuses to run without them.
+        if not login_url:
+            ctrl = page.query_selector("text=เข้าสู่ระบบ")
+            if ctrl:
+                print("  'เข้าสู่ระบบ' is a control, not a link -- opening it")
+                before = page.url
+                try:
+                    ctrl.click()
+                    page.wait_for_timeout(5000)
+                    if page.url != before:
+                        login_url = page.url
+                        print(f"    navigated to {login_url}")
+                    else:
+                        print("    stayed put -- likely an in-page modal")
+                        login_url = page.url
+                except Exception as exc:                        # noqa: BLE001
+                    print(f"    click failed: {str(exc)[:120]}")
+            else:
+                print("  no 'เข้าสู่ระบบ' control found on the board at all")
+
+        if login_url:
+            print(f"\n  login entry point: {login_url}")
+            if page.url != login_url:
+                try:
+                    page.goto(login_url, wait_until="domcontentloaded", timeout=45_000)
+                    page.wait_for_timeout(5000)
+                except Exception as exc:                        # noqa: BLE001
+                    print(f"  could not open it: {exc}")
+            html = page.content()
+            save("login-page.html", html)
+        browser.close()
+
+    if not html:
+        return None, [], []
+
+    captcha, twofa = scan_markers(html, "login page")
 
     print("\n  form actions found:")
-    for action in sorted(set(re.findall(r'<form[^>]+action="([^"]+)"', resp.text))):
+    for action in sorted(set(re.findall(r'<form[^>]+action="([^"]+)"', html))):
         print(f"    {action}")
-    print("  input names found:")
-    for name in sorted(set(re.findall(r'<input[^>]+name="([^"]+)"', resp.text))):
-        print(f"    {name}")
-    csrf = re.findall(r'name="(_?csrf[^"]*|authenticity_token)"', resp.text, re.I)
+    print("  input names/types found:")
+    for tag in sorted(set(re.findall(r'<input[^>]*>', html)))[:25]:
+        attrs = dict(re.findall(r'(\w[\w-]*)="([^"]*)"', tag))
+        keep = {k: v for k, v in attrs.items()
+                if k in ("name", "type", "placeholder", "autocomplete", "id")}
+        if keep:
+            print(f"    {keep}")
+    csrf = re.findall(r'name="(_?csrf[^"]*|authenticity_token)"', html, re.I)
     print(f"  csrf-ish inputs: {sorted(set(csrf)) or 'none'}")
     for host in sorted(set(re.findall(
-            r'https?://[a-z0-9.-]*(?:auth|account|identity|login)[a-z0-9.-]*\.[a-z]{2,}',
-            resp.text, re.I))):
+            r'https?://[a-z0-9.-]*(?:auth|account|identity|login|sso)[a-z0-9.-]*\.[a-z]{2,}',
+            html, re.I)))[:10]:
         print(f"  auth-ish host referenced: {host}")
 
-    return resp, captcha, twofa
+    return html, captcha, twofa
 
 
 def probe_apply_form():
