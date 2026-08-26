@@ -31,7 +31,15 @@ mean offering work that cannot honestly be delivered:
   off_lane        mobile apps, video, ads -- a different trade
   not_a_project   a staffing ad, not a piece of work to quote for
 
-A fourth refusal has no flag behind it: a job for which score.py found no
+`other_platform` was added after reading a real digest: the highest-scoring
+job in it, at 99, was "Squarespace 7.1. Experience with HTML, CSS, and
+JavaScript." -- scored on html/css/javascript while the thing actually being
+hired for was Squarespace, which is not a platform worked in. The post also
+asked for a specific Squarespace problem the applicant had diagnosed, which
+no template can answer. A draft there would have implied experience that does
+not exist, which is the failure CLAUDE.md keeps returning to.
+
+A further refusal has no flag behind it: a job for which score.py found no
 substantive reason to fit. If nothing can be said about why this portfolio
 suits *this* job, there is nothing to propose, and a template filled in
 anyway reads as spam. The first live digest proved both halves of that --
@@ -57,7 +65,7 @@ DEFAULT_COPY = os.path.join(HERE, "..", "..", "_content", "project-copy.json")
 
 # Sending a proposal for any of these would be offering work that cannot be
 # delivered as described. Refusing is the honest output, not a gap.
-BLOCKING_FLAGS = ("needs_backend", "off_lane", "not_a_project")
+BLOCKING_FLAGS = ("needs_backend", "off_lane", "not_a_project", "other_platform")
 
 # One of these must fire for a draft to be worth sending. `web_generic` is
 # deliberately absent: it matches the bare word "เว็บ" anywhere in the post.

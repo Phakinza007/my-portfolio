@@ -101,8 +101,7 @@
         "เวิร์ดเพรส",
         "เวิร์ดเพรซ",
         "elementor",
-        "wix",
-        "webflow"
+        "wix"
       ]
     },
     {
@@ -222,6 +221,31 @@
         "เงินเดือน",
         "สวัสดิการ",
         "ประกันสังคม"
+      ]
+    },
+    {
+      "key": "other_platform",
+      "label": "แพลตฟอร์มที่ไม่ได้ทำ",
+      "weight": -18,
+      "cap": -36,
+      "flag": "other_platform",
+      "_why": [
+        "งาน 'Squarespace 7.1. Experience with HTML, CSS, and JavaScript.' ได้ 99 คะแนน",
+        "สูงสุดในรอบ เพราะจับคำว่า html/css/javascript ได้ครบ — แต่ของจริงที่เขาต้องการคือ",
+        "ความชำนาญ Squarespace 7.1 ซึ่งไม่ใช่แพลตฟอร์มที่รับงาน คะแนนจึงวัดผิดตัว",
+        "แพลตฟอร์มที่รับงานจริง (ยืนยันกับเจ้าของ 2026-08-26): WordPress, Elementor, Wix"
+      ],
+      "terms": [
+        "squarespace",
+        "webflow",
+        "shopify",
+        "joomla",
+        "drupal",
+        "magento",
+        "opencart",
+        "wixstudio",
+        "framer",
+        "bubble.io"
       ]
     }
   ],
