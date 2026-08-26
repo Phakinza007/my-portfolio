@@ -103,6 +103,22 @@ def _reason_terms(reason):
     return m.group(1).replace("…", "").strip() if m else ""
 
 
+def _pad_latin(term):
+    """Space a Latin run away from the Thai around it; leave Thai flush.
+
+    Thai does not put spaces between words, so "ส่วนที่เป็นระบบจอง" is right and
+    "ส่วนที่เป็น ระบบจอง" reads loose. Latin is the opposite: the production
+    drafts came out saying "ส่วนที่เป็นdashboard" and "งานหน้า dashboardเหมือนกัน"
+    because the template had no space and the term was English. Which rule
+    applies depends on the term, so it cannot live in the template string.
+    """
+    if not term:
+        return term
+    lead = " " if term[0].isascii() and term[0].isalnum() else ""
+    tail = " " if term[-1].isascii() and term[-1].isalnum() else ""
+    return f"{lead}{term}{tail}"
+
+
 def _fit_lines(job, template):
     """Turn score.py's reason lines into sentences a client would read.
 
@@ -124,7 +140,7 @@ def _fit_lines(job, template):
         for label, key in labels.items():
             if label in reason and key in phrases:
                 terms = _reason_terms(reason)
-                line = phrases[key].format(terms=terms)
+                line = phrases[key].format(terms=_pad_latin(terms))
                 if line not in lines:
                     lines.append(line)
                     keys.append(key)
@@ -165,7 +181,7 @@ def _portfolio_lines(job, template, copy):
             continue
         lines = [blurb, f"{base}{key}"]
         if reason:
-            lines.append(template["portfolio_relevance"].format(reason=reason))
+            lines.append(template["portfolio_relevance"].format(reason=_pad_latin(reason)))
         return lines
     return []
 
