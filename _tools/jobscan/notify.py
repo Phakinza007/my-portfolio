@@ -24,6 +24,15 @@ TIMEOUT = 20
 DISCORD_LIMIT = 2000          # hard limit imposed by Discord
 DISCORD_TOP_N = 5
 
+# GitHub rejects an issue body over 65,536 characters outright, so an
+# oversized digest is not a truncated digest -- it is no notification at all.
+# Measured against the real fixture: ~1,150 chars of draft per job, so 30 new
+# jobs render ~34 KB and about 60 would go over. A seeded catch-up run can
+# reach that. Drafts are trimmed to fit, best-fit first; the table and the
+# reasons are never trimmed, because those are what the digest is for.
+GITHUB_BODY_LIMIT = 65536
+GITHUB_BODY_BUDGET = 60000    # leave room for the trim notice itself
+
 BANGKOK = timezone(timedelta(hours=7))
 THAI_MONTHS = [
     "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.",
@@ -125,8 +134,65 @@ def render_markdown(new_jobs, total_seen):
             lines.append(f"- {reason}")
         lines.append("")
     lines += ["</details>", ""]
+
+    drafted = [j for j in new_jobs if j.get("proposal")]
+    if drafted:
+        lines += [
+            f"## ร่างข้อความเสนอราคา ({len(drafted)} รายการ)",
+            "",
+            "คัดลอกไปวางในหน้างานบน Fastwork แล้วกดส่งเอง — "
+            "เครื่องมือนี้ไม่ส่งอะไรให้แทน และล็อกอินแทนไม่ได้ "
+            "(หน้าเข้าสู่ระบบใช้ Cloudflare Turnstile + OTP ทางเบอร์โทร)",
+            "",
+            "ราคาและระยะเวลาเว้นเป็น `[...]` ไว้ตั้งใจ — สองอย่างนี้ควรตัดสินใจต่องาน",
+            "",
+        ]
+        used = sum(len(x) + 1 for x in lines)
+        included = 0
+        for i, job in enumerate(new_jobs, 1):
+            if not job.get("proposal"):
+                continue
+            title = job.get("title") or "(ไม่มีชื่อ)"
+            block = [
+                f"<details><summary><b>{i}. {title}</b> — เปิดร่าง</summary>",
+                "",
+                f"เปิดหน้างาน: {job.get('url') or '—'}",
+                "",
+                "```",
+                job["proposal"],
+                "```",
+                "",
+                "</details>",
+                "",
+            ]
+            size = sum(len(x) + 1 for x in block)
+            if used + size > GITHUB_BODY_BUDGET:
+                left = len(drafted) - included
+                lines += [
+                    f"_อีก {left} ร่างไม่ได้ใส่ในนี้ — issue body ของ GitHub "
+                    f"จำกัด {GITHUB_BODY_LIMIT:,} ตัวอักษร และถ้าเกิน issue จะ"
+                    "สร้างไม่สำเร็จทั้งอัน ไม่ใช่แค่ตัดท้ายทิ้ง "
+                    "ร่างที่เหลืออยู่ใน `jobs/*.jsonl` บน branch `jobscan-state`_",
+                    "",
+                ]
+                break
+            lines += block
+            used += size
+            included += 1
+
+    skipped = [j for j in new_jobs if not j.get("proposal")]
+    if skipped:
+        lines += [
+            f"_ไม่ได้ร่างให้ {len(skipped)} รายการ — ติดธง "
+            "`needs_backend` / `off_lane` / `not_a_project` "
+            "ซึ่งเป็นงานที่รับแล้วส่งมอบตามที่เขียนไม่ได้ "
+            "(ยังอยู่ในตารางด้านบนครบ ไม่ได้ถูกกรองทิ้ง)_",
+            "",
+        ]
+
     lines.append(
-        "_เกณฑ์อยู่ที่ `_tools/jobscan/profile.json` — แก้ได้โดยไม่ต้องแตะโค้ด_"
+        "_เกณฑ์อยู่ที่ `_tools/jobscan/profile.json` · ข้อความร่างอยู่ที่ "
+        "`_tools/jobscan/proposal_template.json` — แก้ได้โดยไม่ต้องแตะโค้ด_"
     )
     return "\n".join(lines)
 
@@ -138,11 +204,17 @@ def render_discord(new_jobs, issue_url=None):
         title = job.get("title") or "(ไม่มีชื่อ)"
         rows.append(
             f"• [{title}]({job.get('url')}) — {_budget(job)} · ยื่นแล้ว {_offers(job)} · "
-            f"{_age(job)} · {job['score']} {job['fit']} {_flags(job)}".rstrip()
+            f"{_age(job)} · {job['score']} {job['fit']} {_flags(job)}"
+            f"{' 🖊️' if job.get('proposal') else ''}".rstrip()
         )
     tail = ""
     if len(new_jobs) > DISCORD_TOP_N:
         tail = f"\n…อีก {len(new_jobs) - DISCORD_TOP_N} รายการ"
+    if any(j.get("proposal") for j in new_jobs):
+        # The drafts themselves stay out of Discord: they run to ~1,200 chars
+        # each against a 2,000-char message limit, so two would not fit and
+        # truncating a proposal mid-sentence is worse than not sending it.
+        tail += "\n🖊️ = มีร่างข้อความเสนอราคาให้แล้ว (อยู่ใน issue)"
     if issue_url:
         tail += f"\nทั้งหมด: {issue_url}"
 

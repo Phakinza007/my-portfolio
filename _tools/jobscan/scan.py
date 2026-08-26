@@ -32,6 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 
 import notify                       # noqa: E402
+import propose                      # noqa: E402
 import score as scoring             # noqa: E402
 import state as statelib            # noqa: E402
 
@@ -122,6 +123,16 @@ def main(argv=None):
     fresh, updated = statelib.split_new(ranked, seen)
 
     print(f"\nงานทั้งหมดรอบนี้ {len(ranked)} · เคยเห็นแล้ว {len(ranked) - len(fresh)} · ใหม่ {len(fresh)}")
+
+    # Drafted before the state is written, so the archived record carries its
+    # draft too and a digest can be rebuilt from jobs/*.jsonl without re-running
+    # the scoring. Jobs flagged needs_backend / off_lane / not_a_project get
+    # no draft -- see propose.BLOCKING_FLAGS. They stay in the digest either
+    # way; "rank, do not filter" still holds.
+    drafted = propose.draft_all(fresh)
+    if fresh:
+        print(f"ร่าง proposal ให้ {drafted} จาก {len(fresh)} รายการ "
+              f"(ที่เหลือติดธงว่าไม่ควรเสนอ)")
     print_table(fresh, limit=20)
 
     statelib.save_seen(args.state_dir, updated)

@@ -1,0 +1,64 @@
+{
+  "_comment": [
+    "ข้อความสำหรับร่าง proposal — เติมคำล้วน ไม่มีการเรียก LLM ตอนรัน",
+    "",
+    "ทุกประโยคในนี้ต้องเป็นเรื่องที่ตรวจสอบแล้วว่าจริง CLAUDE.md บันทึกไว้ว่าเคยมี",
+    "37 สตริงใน 13 ไฟล์อ้างว่า demo ต่อ Node/Express backend ทั้งที่ไม่มีเลย และ",
+    "resume HTML ยังอ้าง full-stack อยู่จนถึงวันนี้ ส่วน resume PDF คือฉบับที่ตรง",
+    "ความจริง ('Frontend practice, presented as real work') — โทนในไฟล์นี้ยึดตาม PDF",
+    "",
+    "ห้ามเติมประโยคที่อ้าง backend, ฐานข้อมูล, ระบบสมาชิก, หรือจำนวนลูกค้า",
+    "งานลูกค้าจริงบนพอร์ตมีชิ้นเดียวคือ RAAT — อย่าอ้างเกินนั้น",
+    "",
+    "ชื่อสะกดว่า Phakin Chawanpunya เป็นอักษรละตินเสมอ ทั้งไซต์ไม่มีชื่อไทยเลย",
+    "แม้บนหน้าภาษาไทย — ร่างแรกของไฟล์นี้ถอดเสียงเป็น 'ภาคิน ชวัลปุณยะ' เอง",
+    "ซึ่งเป็นการเดาการสะกดชื่อคนจริงในเอกสารที่ส่งให้คนแปลกหน้า อย่าทำซ้ำ"
+  ],
+
+  "intro": "สวัสดีครับ ผม Phakin รับทำเว็บไซต์ฟรีแลนซ์ครับ\nเห็นประกาศ \"{title}\" แล้วสนใจงานนี้ครับ",
+
+  "fit_lead": "ทำไมผมคิดว่าเหมาะกับงานนี้",
+
+  "fit_phrases": {
+    "core": "งานลักษณะนี้ตรงกับที่ผมรับทำเป็นประจำ ({terms})",
+    "wordpress": "ผมทำงาน WordPress + Elementor ได้ ({terms})",
+    "web_generic": "เป็นงานเว็บไซต์ซึ่งเป็นสายงานหลักของผมครับ",
+    "stretch": "ส่วนที่เป็น {terms} ผมเคยทำมาแล้วเช่นกันครับ"
+  },
+
+  "portfolio_lead": "ตัวอย่างงานที่ใกล้เคียง",
+
+  "closing": "ขอบเขตงานที่ผมเสนอ: [ใส่ขอบเขตที่ตกลง]\nราคา: [ใส่ราคาที่เสนอ]\nระยะเวลา: [ใส่ระยะเวลาส่งงาน]\n\nถ้าสนใจ ทักมาคุยรายละเอียดกันก่อนได้เลยครับ ยินดีปรับขอบเขตให้ตรงกับงบที่ตั้งไว้ครับ\n\nPhakin Chawanpunya\nพอร์ตโฟลิโอ: https://ph-akin.dev",
+
+  "_portfolio_comment": [
+    "คำ → โปรเจกต์ที่ตรงสายที่สุด ดึงข้อความจาก _content/project-copy.json แบบ",
+    "verbatim ไม่แต่งใหม่ คำที่เป็น ASCII จับแบบมีขอบเขตคำ คำไทยจับ substring",
+    "เหตุผลเดียวกับ score.py"
+  ],
+  "portfolio_match": [
+    { "terms": ["คลินิก", "ทันตกรรม", "หมอฟัน", "เสริมความงาม", "ความงาม"],
+      "projects": ["showcase-lumi-clinic", "showcase-dental-clinic"] },
+    { "terms": ["ร้านอาหาร", "คาเฟ่", "อาหาร", "กาแฟ", "restaurant"],
+      "projects": ["showcase-ratri-restaurant", "showcase-noir-coffee"] },
+    { "terms": ["ยิม", "ฟิตเนส", "ออกกำลัง", "gym", "fitness"],
+      "projects": ["showcase-iron-republic"] },
+    { "terms": ["ก่อสร้าง", "รับเหมา", "construction"],
+      "projects": ["showcase-buildnest"] },
+    { "terms": ["โซลาร์", "solar", "พลังงาน"],
+      "projects": ["showcase-solarpeak"] },
+    { "terms": ["ขายของ", "ร้านค้า", "อีคอมเมิร์ซ", "ecommerce", "e-commerce", "shop"],
+      "projects": ["showcase-elevate-commerce", "showcase-elasticshop-gaming"] },
+    { "terms": ["จอง", "คิว", "นัดหมาย", "ปฏิทิน", "booking"],
+      "projects": ["showcase-bookease", "showcase-velve-aesthetics"] },
+    { "terms": ["มูลนิธิ", "สมาคม", "องค์กร", "ราชการ", "โครงการ"],
+      "projects": ["showcase-bandairaek", "case-study-raat"] },
+    { "terms": ["dashboard", "แดชบอร์ด", "ระบบหลังบ้าน", "รายงาน"],
+      "projects": ["case-study-launchledger", "case-study-pulseboard"] }
+  ],
+
+  "portfolio_default": ["showcase-buildnest", "showcase-lumi-clinic"],
+
+  "project_urls": {
+    "_base": "https://ph-akin.dev/"
+  }
+}
