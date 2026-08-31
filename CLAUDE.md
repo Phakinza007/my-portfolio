@@ -1178,6 +1178,64 @@ a badge already saying `รับงานใหม่บน Fastwork`, two avai
 the last element on the site still carrying the pre-2026-08-10 kicker treatment (uppercase,
 `0.1em` tracking, weight 700, a 28px `::before` rule). Its meaning moved into the badge.
 
+### The homepage has a scale now — don't flatten it back
+
+Rebuilt 2026-08-31 after the page was measured rather than eyeballed. What it measured:
+`#projects` was **39.6% of a 9,983px page**; 30 of the 32 `<img>` in `main` were the same
+351 × 220 thumbnail, so **nothing on the page was ever large**; all eight sections opened with
+the identical gesture and the heading used **21–38%** of the 1100px container, leaving the
+right column empty every time; and 52 boxed containers shared one recipe on a background
+1.06–1.09 contrast away. That is the axis
+`.impeccable/critique/2026-08-09…` scored 2/4 — *"competing on tidiness"* — and the homepage
+was in scope for none of the three passes that fixed it elsewhere (Bai Jamjuree, the 44
+deleted kickers, the work-first showcase rebuild). Spec:
+`docs/superpowers/specs/2026-08-31-homepage-scale-contrast-design.md`.
+
+Four things are now load-bearing:
+
+- **`.section-head` is on exactly four sections** — `#need`, `#projects`, `#case-studies`,
+  `#services` — and the right cell always holds content that was already on the page (the
+  `.need-sub` line, or a link). **Four, not eight, is the point**: `#testimonials` is de-boxed
+  instead, `#about`'s h2 is a `.card-title` inside its bio card, and `.stack-sec` has its own
+  shape, so the page opens four different ways. Putting it on all eight would rebuild the
+  uniform this replaced. It is `portfolio-pages.css`'s `.section-heading` + `.heading-link`,
+  ported.
+- **`.work-lead` is RAAT, and it is not a `.card`.** 601 × 377 rendered against a 702 × 440
+  file, so it never upscales — **2.94× the area of the median image on the page**, measured.
+  It is the only real client work and the only photograph in the work section, which is why it
+  can carry the weight; a demo here would be padding, and only RAAT may wear `ลูกค้าจริง`.
+  The border/fill/radius are deliberately absent — the photograph is the surface, and boxing
+  it turns "a different kind of thing" back into "a bigger version of the same thing".
+  The RAAT `.work-card` **stays in the grid**: removing it changes the hand-maintained
+  `ทั้งหมด 18` / `other 5` counts in four files and drops it from the `other` filter.
+- **`#services .card-price` is the largest type in its section** (41.6px against the
+  `.section-title`'s 40px), `tabular-nums` so the three figures align down the column. It was
+  1.5rem — smaller than the heading above it — on the one section that exists to state three
+  numbers. The figures are unchanged and still match the category pages.
+- **De-boxing followed the site's own rule**: `border` means "this is a control". Testimonials
+  (not clickable), the three price cards, and `#about`'s `#experience` lost theirs — 52 boxes
+  to 45. `.work-card`, `.case-card`, `.need-tile` and `.filter-btn` keep theirs. **`.card`
+  itself is untouched** — `faq.html` ships ten and they are correct there; both changes are
+  scoped by a section id that exists only on `index` / `index-en`.
+
+⚠️ **Two specificity traps live in this block**, both already paid for:
+
+- The responsive overrides for `#services .card` / `#testimonials .card` are written *after*
+  their base rules, because a media query adds no specificity — the same `#compare` trap, in
+  the direction where source order is the only thing deciding.
+- `.btn-project` carries **no horizontal padding**; in `.work-foot` it is `flex: 1` in a
+  full-width row and the card supplies the width. `.work-lead-actions` is content-sized, so
+  the first version measured a 94px button around 94px of text — **0px slack**, label flush
+  against both edges. It is now `flex:0 0 auto; padding:0 20px`, restated at ≤360px because
+  `.work-lead-actions .btn-project` (0,2,0) out-specifies the bare class that goes full-bleed
+  there.
+
+Verified after: Lighthouse 100 / 100 / 100 and CLS 0 on both files, **LCP unchanged at 3.6s**
+against a stashed baseline (the lead image is `fetchpriority="low"`), `canScrollX: false` at
+375px with a per-element right-edge sweep finding **zero** new overflow — the only elements
+past the viewport are `.stack-track` and the featured carousel, both clipped by design and
+both pre-existing.
+
 ---
 
 ## URLs carry no `.html`
