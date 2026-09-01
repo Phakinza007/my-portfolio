@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="351.3" height="219.6" viewBox="0 0 351.3 219.6" role="img" aria-labelledby="t d"><title id="t">BAAN TALAY resort booking preview</title><desc id="d">A beachfront resort home page: a sea-toned photographic hero carrying a pill badge and a large Thai headline, a white availability card overlapping its lower edge with two date fields, a guest stepper and a terracotta search button, and a row of feature cards beginning below.</desc>
+<defs>
+<linearGradient id="hero" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#3f5c5d"/>
+<stop offset="0.25" stop-color="#4a787f"/>
+<stop offset="0.45" stop-color="#7b9c9f"/>
+<stop offset="0.75" stop-color="#6d6d63"/>
+<stop offset="1" stop-color="#4b4d45"/>
+</linearGradient>
+<clipPath id="frame"><rect width="351.3" height="219.6" rx="0"/></clipPath>
+</defs>
+
+<g clip-path="url(#frame)">
+<rect width="351.3" height="219.6" fill="#FAF7F2"/>
+<rect width="351.3" height="152" fill="url(#hero)"/>
+
+<text x="16" y="13.6" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="7" font-weight="600" letter-spacing="1.3" fill="#FFFFFF">BAAN TALAY</text>
+<g fill="#FFFFFF" fill-opacity="0.55">
+<rect x="212" y="9" width="20" height="2.6" rx="1.3"/>
+<rect x="238" y="9" width="24" height="2.6" rx="1.3"/>
+<rect x="268" y="9" width="32" height="2.6" rx="1.3"/>
+<rect x="306" y="9" width="26" height="2.6" rx="1.3"/>
+</g>
+
+<rect x="16" y="86" width="66" height="12.4" rx="6.2" fill="none" stroke="#F3E7D6" stroke-opacity="0.55" stroke-width="0.8"/>
+<text x="23" y="94.4" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="4.4" font-weight="500" letter-spacing="0.9" fill="#F3E7D6">24 ห้อง · หาดส่วนตัว</text>
+
+<text x="16" y="119" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="16.5" font-weight="600" letter-spacing="-0.35" fill="#FFFFFF">ทะเลที่ยังเงียบอยู่</text>
+<text x="16" y="130.5" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="4.6" fill="#FFFFFF" fill-opacity="0.9">รีสอร์ต 24 ห้องติดหาดส่วนตัว หัวหิน ไม่มีเสียงปาร์ตี้ ไม่มีคิวรอ</text>
+
+<rect x="16" y="140" width="319.3" height="35" rx="5" fill="#FFFFFF" stroke="#C4A582" stroke-opacity="0.42" stroke-width="0.8"/>
+
+<g fill="#C9C1B2">
+<rect x="23" y="147.5" width="15" height="2.4" rx="1.2"/>
+<rect x="117" y="147.5" width="18" height="2.4" rx="1.2"/>
+<rect x="211" y="147.5" width="17" height="2.4" rx="1.2"/>
+</g>
+<g fill="#FAF7F2" stroke="#DDD3C4" stroke-width="0.8">
+<rect x="23" y="154" width="88" height="15" rx="3.6"/>
+<rect x="117" y="154" width="88" height="15" rx="3.6"/>
+</g>
+<g fill="#B9B2A3">
+<rect x="29" y="160.5" width="30" height="2.2" rx="1.1"/>
+<rect x="123" y="160.5" width="30" height="2.2" rx="1.1"/>
+</g>
+
+<g fill="#FFFFFF" stroke="#DDD3C4" stroke-width="0.8">
+<rect x="211" y="154" width="15" height="15" rx="3.6"/>
+<rect x="245" y="154" width="15" height="15" rx="3.6"/>
+</g>
+<path d="M215.4 161.5h6.2" stroke="#2C3327" stroke-width="1.1" stroke-linecap="round"/>
+<path d="M252.5 158.4v6.2M249.4 161.5h6.2" stroke="#2C3327" stroke-width="1.1" stroke-linecap="round"/>
+<text x="235.5" y="163.3" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="5" font-weight="600" fill="#2C3327" text-anchor="middle">2 คน</text>
+
+<rect x="266" y="154" width="62.3" height="15" rx="3.6" fill="#BB5836"/>
+<text x="297.1" y="163.3" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="4.8" font-weight="600" fill="#FFFFFF" text-anchor="middle">ค้นหาห้องว่าง</text>
+
+<g fill="#FFFFFF" stroke="#C4A582" stroke-opacity="0.34" stroke-width="0.8">
+<rect x="16" y="186" width="74.8" height="30" rx="4"/>
+<rect x="97.5" y="186" width="74.8" height="30" rx="4"/>
+<rect x="179" y="186" width="74.8" height="30" rx="4"/>
+<rect x="260.5" y="186" width="74.8" height="30" rx="4"/>
+</g>
+<g fill="none" stroke="#5B7355" stroke-width="5" stroke-linecap="round">
+<g transform="translate(23,192) scale(0.29)"><path d="M2 17c2.2-2.6 4.4-2.6 6.6 0s4.4 2.6 6.6 0 4.4-2.6 6.8 0"/></g>
+<g transform="translate(104.5,192) scale(0.29)"><path d="M4 8h11v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM15 9h2.5a2.5 2.5 0 0 1 0 5H15M4 21h13"/></g>
+<g transform="translate(186,192) scale(0.29)"><path d="M3 18c2-2 4-2 6 0s4 2 6 0 4-2 6 0M8 15V5m8 10V5M8 8h8M8 12h8"/></g>
+<g transform="translate(267.5,192) scale(0.29)"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7v5l3.5 2"/></g>
+</g>
+<g font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="4.5" font-weight="600" fill="#2C3327">
+<text x="23" y="209">หาดส่วนตัว 200 เมตร</text>
+<text x="104.5" y="209">อาหารเช้าทำสดทุกจาน</text>
+<text x="186" y="209">2 สระ แยกสระเด็ก</text>
+<text x="267.5" y="209">ห่างตลาดโต้รุ่ง 8 นาที</text>
+</g>
+</g>
+</svg>

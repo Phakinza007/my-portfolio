@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="351.3" height="219.6" viewBox="0 0 351.3 219.6" role="img" aria-labelledby="t d">
+<title id="t">SALON OS queue calendar preview</title>
+<desc id="d">A salon queue calendar on warm paper: a summary strip reading 14 bookings beside a red "5 to handle" chip, five stylist columns over a half-hour time grid, coloured booking blocks for confirmed, waiting, in progress and finished, a red line at the current time, and a hatched block where one stylist has gone home sick with a red booking still stranded on it.</desc>
+<rect width="351.3" height="219.6" fill="#FAF8F6"/>
+<rect width="351.3" height="34" fill="#FFFFFF"/>
+<path d="M0 34 H351.3" stroke="#E3DDD6" stroke-width="1"/>
+<text x="10" y="24" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="15.5" font-weight="600" fill="#1A1614">14</text>
+<text x="27.5" y="23" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="6.6" font-weight="600" fill="#55504B">คิววันนี้</text>
+<rect x="62" y="10" width="86" height="14.5" rx="3.6" fill="#FBEAE8" stroke="#D98A85"/>
+<text x="67.5" y="19.9" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="6.4" font-weight="600" fill="#A32320">▲ 5 เรื่องต้องจัดการ</text>
+<rect x="152" y="10" width="52" height="14.5" rx="3.6" fill="#FDF3E0" stroke="#E0B978"/>
+<text x="157.5" y="19.9" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="6.4" font-weight="600" fill="#8A5300">? 2 รอยืนยัน</text>
+<text x="341.3" y="21.5" text-anchor="end" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="8.4" font-weight="600" fill="#1A1614">19,300 ฿</text>
+<rect y="34" width="351.3" height="22" fill="#FFFFFF"/>
+<path d="M0 56 H351.3" stroke="#C9C1B8" stroke-width="1"/>
+<path d="M26 34 V56" stroke="#E3DDD6" stroke-width="1"/>
+<text x="30" y="43.5" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="7" font-weight="600" fill="#1A1614">มายด์</text>
+<rect x="30" y="47.4" width="40.34" height="3" rx="1.5" fill="#C9C1B8" opacity=".55"/>
+<path d="M91.06 34 V56" stroke="#E3DDD6" stroke-width="1"/>
+<text x="95.06" y="43.5" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="7" font-weight="600" fill="#1A1614">ก้อย</text>
+<rect x="95.06" y="47.4" width="40.34" height="3" rx="1.5" fill="#C9C1B8" opacity=".55"/>
+<path d="M156.12 34 V56" stroke="#E3DDD6" stroke-width="1"/>
+<text x="160.12" y="43.5" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="7" font-weight="600" fill="#1A1614">แนน</text>
+<rect x="160.12" y="47.4" width="40.34" height="3" rx="1.5" fill="#C9C1B8" opacity=".55"/>
+<path d="M221.18 34 V56" stroke="#E3DDD6" stroke-width="1"/>
+<text x="225.18" y="43.5" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="7" font-weight="600" fill="#1A1614">พี่โอ๋</text>
+<rect x="225.18" y="46" width="30" height="8.6" rx="4.3" fill="#FBEAE8" stroke="#D98A85"/>
+<text x="228.18" y="52.2" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="5.2" font-weight="600" fill="#A32320">✕ ลาบ่าย</text>
+<path d="M286.24 34 V56" stroke="#E3DDD6" stroke-width="1"/>
+<text x="290.24" y="43.5" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="7" font-weight="600" fill="#1A1614">ตูน</text>
+<rect x="290.24" y="47.4" width="40.34" height="3" rx="1.5" fill="#C9C1B8" opacity=".55"/>
+<rect x="0" y="56" width="26" height="163.6" fill="#F5F1EC"/>
+<path d="M26 56 V219.6" stroke="#E3DDD6" stroke-width="1"/>
+<path d="M26 56 H351.3" stroke="#E3DDD6" stroke-width="1"/>
+<path d="M26 74.18 H351.3" stroke="#EDE8E2" stroke-width="1"/>
+<path d="M26 92.36 H351.3" stroke="#E3DDD6" stroke-width="1"/>
+<path d="M26 110.53 H351.3" stroke="#EDE8E2" stroke-width="1"/>
+<path d="M26 128.71 H351.3" stroke="#E3DDD6" stroke-width="1"/>
+<path d="M26 146.89 H351.3" stroke="#EDE8E2" stroke-width="1"/>
+<path d="M26 165.07 H351.3" stroke="#E3DDD6" stroke-width="1"/>
+<path d="M26 183.24 H351.3" stroke="#EDE8E2" stroke-width="1"/>
+<path d="M26 201.42 H351.3" stroke="#E3DDD6" stroke-width="1"/>
+<path d="M26 219.6 H351.3" stroke="#EDE8E2" stroke-width="1"/>
+<text x="22" y="63.2" text-anchor="end" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="5.8" font-weight="600" fill="#55504B">11:00</text>
+<text x="22" y="99.56" text-anchor="end" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="5.8" font-weight="600" fill="#55504B">12:00</text>
+<text x="22" y="135.91" text-anchor="end" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="5.8" font-weight="600" fill="#55504B">13:00</text>
+<text x="22" y="172.27" text-anchor="end" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="5.8" font-weight="600" fill="#55504B">14:00</text>
+<text x="22" y="208.62" text-anchor="end" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="5.8" font-weight="600" fill="#55504B">15:00</text>
+<path d="M91.06 56 V219.6" stroke="#EDE8E2" stroke-width="1"/>
+<path d="M156.12 56 V219.6" stroke="#EDE8E2" stroke-width="1"/>
+<path d="M221.18 56 V219.6" stroke="#EDE8E2" stroke-width="1"/>
+<path d="M286.24 56 V219.6" stroke="#EDE8E2" stroke-width="1"/>
+<defs><pattern id="hatch" width="4" height="4" patternTransform="rotate(45)" patternUnits="userSpaceOnUse"><rect width="4" height="4" fill="#E7E2DC"/><rect width="2" height="4" fill="#D3CBC2"/></pattern></defs>
+<rect x="222.18" y="166.07" width="63.06" height="53.53" fill="url(#hatch)" stroke="#A9A099" stroke-dasharray="2.5 2" stroke-width="1"/>
+<rect x="225.18" y="168.27" width="45" height="9.6" rx="2.4" fill="#FAF8F6" stroke="#C9C1B8" stroke-width="1"/>
+<text x="228.18" y="174.97" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="5.2" font-weight="600" fill="#55504B">✕ ลาป่วย 14:00</text>
+<rect x="27.4" y="56.8" width="62.26" height="34.76" rx="2.6" fill="#FFFFFF" stroke="#C9C1B8" stroke-width="1"/>
+<rect x="27.4" y="56.8" width="2.2" height="34.76" rx="1.1" fill="#1F6B4A"/>
+<text x="32.4" y="63.6" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="5.4" font-weight="600" fill="#1A1614">11:00</text>
+<rect x="32.4" y="67" width="44.83" height="2.6" rx="1.3" fill="#55504B" opacity=".45"/>
+<text x="32.4" y="77.5" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="5" font-weight="600" fill="#1F6B4A">✓</text>
+<rect x="38.4" y="74.6" width="24.9" height="2.2" rx="1.1" fill="#1F6B4A" opacity=".5"/>
+<rect x="27.4" y="129.51" width="62.26" height="34.76" rx="2.6" fill="#FBEAE8" stroke="#D98A85" stroke-width="1"/>
+<rect x="27.4" y="129.51" width="2.2" height="34.76" rx="1.1" fill="#A32320"/>
+<text x="32.4" y="136.31" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="5.4" font-weight="600" fill="#1A1614">13:00</text>
+<rect x="32.4" y="139.71" width="44.83" height="2.6" rx="1.3" fill="#55504B" opacity=".45"/>
+<text x="32.4" y="150.21" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="5" font-weight="600" fill="#A32320">▲</text>
+<rect x="38.4" y="147.31" width="24.9" height="2.2" rx="1.1" fill="#A32320" opacity=".5"/>
+<rect x="92.46" y="56.8" width="62.26" height="71.11" rx="2.6" fill="#EAF1F7" stroke="#8FB4D2" stroke-width="1"/>
+<rect x="92.46" y="56.8" width="2.2" height="71.11" rx="1.1" fill="#1F5C8A"/>
+<rect x="97.46" y="67" width="44.83" height="2.6" rx="1.3" fill="#55504B" opacity=".45"/>
+<text x="97.46" y="77.5" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="5" font-weight="600" fill="#1F5C8A">▶</text>
+<rect x="103.46" y="74.6" width="24.9" height="2.2" rx="1.1" fill="#1F5C8A" opacity=".5"/>
+<rect x="92.46" y="147.69" width="62.26" height="52.93" rx="2.6" fill="#FFFFFF" stroke="#C9C1B8" stroke-width="1"/>
+<rect x="92.46" y="147.69" width="2.2" height="52.93" rx="1.1" fill="#1F6B4A"/>
+<text x="97.46" y="154.49" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="5.4" font-weight="600" fill="#1A1614">13:30</text>
+<rect x="97.46" y="157.89" width="44.83" height="2.6" rx="1.3" fill="#55504B" opacity=".45"/>
+<text x="97.46" y="168.39" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="5" font-weight="600" fill="#1F6B4A">✓</text>
+<rect x="103.46" y="165.49" width="24.9" height="2.2" rx="1.1" fill="#1F6B4A" opacity=".5"/>
+<rect x="157.52" y="56.8" width="62.26" height="16.58" rx="2.6" fill="#F3F0EC" stroke="#DCD5CD" stroke-width="1"/>
+<rect x="157.52" y="56.8" width="2.2" height="16.58" rx="1.1" fill="#6B635C"/>
+<rect x="162.52" y="67" width="44.83" height="2.6" rx="1.3" fill="#55504B" opacity=".45"/>
+<rect x="157.52" y="93.16" width="62.26" height="52.93" rx="2.6" fill="#FDF3E0" stroke="#E0B978" stroke-width="1"/>
+<rect x="157.52" y="93.16" width="2.2" height="52.93" rx="1.1" fill="#8A5300"/>
+<text x="162.52" y="99.96" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="5.4" font-weight="600" fill="#1A1614">12:00</text>
+<rect x="162.52" y="103.36" width="44.83" height="2.6" rx="1.3" fill="#55504B" opacity=".45"/>
+<text x="162.52" y="113.86" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="5" font-weight="600" fill="#8A5300">?</text>
+<rect x="168.52" y="110.96" width="24.9" height="2.2" rx="1.1" fill="#8A5300" opacity=".5"/>
+<rect x="222.58" y="56.8" width="62.26" height="34.76" rx="2.6" fill="#EAF1F7" stroke="#8FB4D2" stroke-width="1"/>
+<rect x="222.58" y="56.8" width="2.2" height="34.76" rx="1.1" fill="#1F5C8A"/>
+<text x="227.58" y="63.6" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="5.4" font-weight="600" fill="#1A1614">11:00</text>
+<rect x="227.58" y="67" width="44.83" height="2.6" rx="1.3" fill="#55504B" opacity=".45"/>
+<text x="227.58" y="77.5" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="5" font-weight="600" fill="#1F5C8A">▶</text>
+<rect x="233.58" y="74.6" width="24.9" height="2.2" rx="1.1" fill="#1F5C8A" opacity=".5"/>
+<rect x="222.58" y="184.04" width="62.26" height="34.76" rx="2.6" fill="#FBEAE8" stroke="#D98A85" stroke-width="1"/>
+<rect x="222.58" y="184.04" width="2.2" height="34.76" rx="1.1" fill="#A32320"/>
+<text x="227.58" y="190.84" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="5.4" font-weight="600" fill="#1A1614">14:30</text>
+<rect x="227.58" y="194.24" width="44.83" height="2.6" rx="1.3" fill="#55504B" opacity=".45"/>
+<text x="227.58" y="204.74" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="5" font-weight="600" fill="#A32320">▲</text>
+<rect x="233.58" y="201.84" width="24.9" height="2.2" rx="1.1" fill="#A32320" opacity=".5"/>
+<rect x="287.64" y="56.8" width="62.26" height="71.11" rx="2.6" fill="#EAF1F7" stroke="#8FB4D2" stroke-width="1"/>
+<rect x="287.64" y="56.8" width="2.2" height="71.11" rx="1.1" fill="#1F5C8A"/>
+<text x="292.64" y="63.6" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="5.4" font-weight="600" fill="#1A1614">11:00</text>
+<rect x="292.64" y="67" width="44.83" height="2.6" rx="1.3" fill="#55504B" opacity=".45"/>
+<text x="292.64" y="77.5" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="5" font-weight="600" fill="#1F5C8A">▶</text>
+<rect x="298.64" y="74.6" width="24.9" height="2.2" rx="1.1" fill="#1F5C8A" opacity=".5"/>
+<rect x="287.64" y="165.87" width="62.26" height="52.93" rx="2.6" fill="#FFFFFF" stroke="#C9C1B8" stroke-width="1"/>
+<rect x="287.64" y="165.87" width="2.2" height="52.93" rx="1.1" fill="#1F6B4A"/>
+<text x="292.64" y="172.67" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="5.4" font-weight="600" fill="#1A1614">14:00</text>
+<rect x="292.64" y="176.07" width="44.83" height="2.6" rx="1.3" fill="#55504B" opacity=".45"/>
+<text x="292.64" y="186.57" font-family="'IBM Plex Sans Thai','Noto Sans Thai',sans-serif" font-size="5" font-weight="600" fill="#1F6B4A">✓</text>
+<rect x="298.64" y="183.67" width="24.9" height="2.2" rx="1.1" fill="#1F6B4A" opacity=".5"/>
+<path d="M0 143.25 H351.3" stroke="#A32320" stroke-width="1.4"/>
+<rect x="2.5" y="139.05" width="22" height="8.4" rx="4.2" fill="#A32320"/>
+<text x="13.5" y="145.15" text-anchor="middle" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="5.2" font-weight="600" fill="#FFFFFF">13:24</text>
+</svg>

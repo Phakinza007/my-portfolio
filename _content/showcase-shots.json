@@ -1,4 +1,21 @@
 {
+  "baan-talay": {
+    "url": "baan-talay",
+    "a": {
+      "scroll": 0
+    },
+    "b": {
+      "url": "baan-talay#/room",
+      "scroll": 0,
+      "label_th": "บนเดสก์ท็อป หน้ารายละเอียดห้องแยกเป็นสองคอลัมน์ ภาพและรายละเอียดอยู่ซ้าย ส่วนราคา วันที่ และปุ่มจองเกาะนิ่งอยู่ขวา",
+      "label_en": "On desktop the room screen splits in two — photograph and detail on the left, a sticky panel holding the rate, the dates and the booking button on the right."
+    },
+    "c": {
+      "scroll": 0,
+      "label_th": "จอ 375px — การ์ดเช็ควันว่างเกยขอบล่างของภาพฮีโร่ และแถบราคากับปุ่มจองยึดอยู่ก้นจอตลอดการเลือก",
+      "label_en": "At 375px the availability card overlaps the lower edge of the hero, and the price and booking button stay pinned to the bottom of the screen throughout."
+    }
+  },
   "bandairaek": {
     "url": "bandairaek-foundation",
     "b": {
@@ -13,7 +30,6 @@
     },
     "note": "The three-month calendar from bullet 2 (#calendar, #cal-grid) is the other candidate for B; the ledger was chosen because it is bullet 1 and because its status chips are visible in a still, while the calendar's month stepper is not."
   },
-
   "bookease": {
     "url": "BookEase",
     "b": {
@@ -28,7 +44,6 @@
     },
     "note": "The New Booking modal the spec names for B is #bookModal, and it cannot be captured without a click: .modal-backdrop is display:none until .show is added by #bookNowBtn / #apptBookBtn. The five non-default views (#view-appointments, #view-clients, #view-services, #view-analytics, #view-settings) are equally click-gated — .view is display:none until .active, switchView() is bound to sidebar buttons, and the page has no location.hash handling (checked). #todayList is the most substantial thing reachable without a click. If capture-shots.py ever learns to click, B should become #bookModal after clicking #bookNowBtn."
   },
-
   "buildnest": {
     "url": "construction-landing",
     "b": {
@@ -42,7 +57,6 @@
       "label_en": "At 375px the Thai headline and the buttons stack over the site photograph."
     }
   },
-
   "dental-clinic": {
     "url": "dental-clinic",
     "b": {
@@ -56,7 +70,6 @@
       "label_en": "At 375px the ink-and-cream hero keeps both the headline and the booking button in the first screen."
     }
   },
-
   "elasticshop-gaming": {
     "url": "elasticshop-gaming",
     "b": {
@@ -71,7 +84,6 @@
     },
     "note": "Bullet 1's four screen flows are #screen-home / #screen-topup / #screen-status / #screen-history. Only #screen-home is capturable: the other three carry `hidden` plus .screen{display:none} and switch on a tab click, and the page does not read location.hash (checked). #deals is inside the default screen. The top-up flow's own step rail is #stepPackage / #stepPayment inside #screen-topup, which needs a click on #tab-topup first."
   },
-
   "elevate-commerce": {
     "url": "ElevateCommerce",
     "b": {
@@ -86,7 +98,6 @@
     },
     "note": "Bullet 2's cart, search and product view are #cart-drawer (transform-gated on .open), #search-panel and #quick-view — all opened by a click, none capturable as-is. #trending is the start of the same path and needs no click. One-column at 375px verified: @media (max-width: 420px) sets .products-grid to a single column."
   },
-
   "habitquest": {
     "url": "https://habitquest-pi.vercel.app/",
     "b": {
@@ -101,7 +112,6 @@
     },
     "note": ".landing-bg measured unique in a live browser on 2026-08-24 (1 match; it wraps the 'Your daily loop' section). It is a Tailwind-era class from a separate repo with no id anywhere in the built bundle, so re-verify it if HabitQuest is redeployed. The quest board and battle screen themselves are React routes behind the landing CTA and cannot be captured without a click, so B is the landing's own explainer of the mechanism."
   },
-
   "iron-republic": {
     "url": "gym-landing",
     "b": {
@@ -116,7 +126,6 @@
     },
     "note": "Bullet 3's stats band is .hero-stats, which sits inside the hero and is therefore already in view A — so B was taken from bullet 4 (membership signup) instead. The mobile reflow of that same band is what view C shows, which is where bullet 4's mobile-first claim actually lands."
   },
-
   "lumi-clinic": {
     "url": "lumi-clinic",
     "b": {
@@ -131,7 +140,6 @@
     },
     "note": "STALE COPY — see the report. showcase-lumi-clinic's first bullet still says the palette is porcelain-and-ink editorial; the page has been dark (--surface: #0D1511) since the 2026-08-11 redesign. The C caption describes what is actually there and does not repeat the bullet."
   },
-
   "museroom": {
     "url": "MuseRoom",
     "b": {
@@ -145,7 +153,6 @@
       "label_en": "At 375px the dark room fills the screen and the headline breaks into four short lines."
     }
   },
-
   "noir-coffee": {
     "url": "coffee-landing",
     "b": {
@@ -160,7 +167,6 @@
     },
     "note": "This is the one highlight-list on the site that names no mechanism at all — all four bullets are tonal (dark textured ground, sparing gold, typographic hero, mobile readability). B was taken from bullet 2: the menu is the one section where the gold accent system runs at length, so it is the tonal claim at the scale where it can be judged."
   },
-
   "pathapee": {
     "url": "pathapee-precast",
     "b": {
@@ -174,7 +180,6 @@
       "label_en": "At 375px the headline breaks by phrase, so Thai never splits mid-word the way Chrome would otherwise let it."
     }
   },
-
   "ratri-restaurant": {
     "url": "sorn-restaurant",
     "b": {
@@ -188,7 +193,20 @@
       "label_en": "At 375px the fine-dining dark hero keeps its two-line headline and its centred rule."
     }
   },
-
+  "salon-os": {
+    "url": "SalonOS",
+    "b": {
+      "url": "SalonOS?state=leave",
+      "scroll": 0,
+      "label_th": "ช่างลาป่วยกลางบ่าย — ระบบหาที่ลงให้ 3 คิวจาก 4 และบอกตรง ๆ ว่าคิวสุดท้ายไม่มีช่างทักษะตรงที่ว่าง ต้องโทรเลื่อนวัน",
+      "label_en": "A stylist goes home sick mid-shift. Three of her four bookings get a slot; the page says plainly that the fourth has nobody and needs a phone call."
+    },
+    "c": {
+      "scroll": 0,
+      "label_th": "จอ 375px — ตารางกลับด้านเป็นคำถามเดียว “บ่ายนี้ว่างไหม” ช่องว่างของช่างทั้ง 5 คนอยู่ในจอเดียว ไม่ต้องเลื่อน",
+      "label_en": "At 375px the grid inverts into a single question — who is free this afternoon — with all five stylists' open windows on one screen."
+    }
+  },
   "signalform": {
     "url": "signalform-studio/",
     "b": {
@@ -203,7 +221,6 @@
     },
     "note": "React SPA: the served signalform-studio/index.html ships an empty <div id=\"root\">, so #services only exists after mount. The capture must wait for React, not just document.fonts.ready. #services and #services-heading were confirmed present in the built bundle (assets/index-RG70QU0-.js), not only in the source. Bullet 3's SpotlightCard glow follows the pointer and will not appear in a still — the selected-card state from bullet 1 is what a screenshot can actually show."
   },
-
   "solarpeak": {
     "url": "solar-landing",
     "b": {
@@ -218,7 +235,6 @@
     },
     "note": "Bullet 4's blueprint illustration is not in this demo's markup — the blueprint pattern lives in assets/thumbs (the card SVG), and solar-landing.html's hero is .hero-photo, a photograph. The C caption describes the photograph, not the blueprint."
   },
-
   "supplymate": {
     "url": "https://phakinza007.github.io/supplymate-wholesale/#/shop",
     "b": {
@@ -233,7 +249,6 @@
     },
     "note": "url deliberately carries the #/shop hash route: the deployed build is a hash-router SPA and the catalogue does not exist at the root, while view A already shows the home page. Two consequences for capture-shots.py — Page.navigate twice to an identical hash URL may be treated as a same-document navigation and not reload, so force the second load; and #product-search / #shop-title exist only on this route. All of it (7 filter buttons incl. ทั้งหมด, one-column cards at 375px, 'X / 1 ลัง' and 'N ชิ้น / ลัง' on every card) verified in a live browser 2026-08-24."
   },
-
   "velve-aesthetics": {
     "url": "aesthetic-booking",
     "b": {

@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <!-- Sends /foo.html to /foo and /index.html to /, in the address bar as well
+       as in the index. GitHub Pages serves both and cannot redirect, so canonical
+       alone leaves the visitor looking at the URL we told Google not to use.
+       Inline and in <head> on purpose: a deferred external script would run after
+       the parse and the page would render, then jump. location.replace keeps it
+       out of history, so Back still leaves the site. -->
+  <script>(function(p){if(location.protocol!=='file:'&&/\.html$/.test(p)&&!/\/404\.html$/.test(p))location.replace((/\/index\.html$/.test(p)?p.slice(0,-10):p.slice(0,-5))+location.search+location.hash)})(location.pathname)</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SALON OS — ปฏิทินคิวร้านทำผม ย้ายคิวได้ทั้งลากและแตะ</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <meta name="description" content="ปฏิทินคิวร้านทำผมที่เปิดวันเสาร์เต็มวันไว้ให้ลองจริง — เดสก์ท็อปเป็นตารางช่าง 5 คอลัมน์ลากย้ายคิวได้ มือถือกลับด้านเป็นหน้า &quot;ใครว่างบ่ายนี้&quot; ย้ายด้วยสองก้าว พร้อมเคสช่างลาป่วยกลางวันและลูกค้ามาสาย">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://ph-akin.dev/SalonOS">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="th_TH">
+  <meta property="og:title" content="SALON OS — ปฏิทินคิวร้านทำผม ย้ายคิวได้ทั้งลากและแตะ">
+  <meta property="og:description" content="ตารางช่าง 5 คอลัมน์บนเดสก์ท็อป ลากย้ายคิวได้ · บนมือถือกลับด้านเป็นหน้าช่องว่าง ย้ายคิวด้วยสองก้าว · เคสช่างลาป่วยกลางวันย้าย 4 คิวรวดเดียว">
+  <meta property="og:url" content="https://ph-akin.dev/SalonOS">
+  <meta property="og:image" content="https://ph-akin.dev/assets/screenshots/showcase-salon-os.jpg">
+  <meta property="og:image:alt" content="ภาพหน้าปฏิทินคิว SALON OS">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- display=optional, not swap. Every reachable page on this site is on
+       optional; swap was measured reflowing headings and CTAs on arrival. -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=optional" rel="stylesheet">
+
+  <style>
+    /* ── Tokens ───────────────────────────────────────────────────────────
+       Lifted verbatim from the design board's own "copy ไปใช้ได้ตรง ๆ" block,
+       which is the one artefact on that board meant to survive into code. The
+       palette is downstream of a written scene, the method lumi-clinic.html and
+       bandairaek-foundation.html both use:
+
+         A Thai salon at 13:24 on the busiest Saturday of the month. The owner
+         is standing at the counter with the phone against her shoulder. A
+         customer is asking whether anyone is free this afternoon, and one
+         stylist has just gone home sick with four bookings still on her column.
+
+       Two things that scene rules out, each a decision rather than a default:
+
+       1. The salon-software lavender-on-white. Every scheduling SaaS in this
+          category ships it, and it reads as software rather than as the shop.
+          The ground here is warm paper (#FAF8F6) and the one saturated colour
+          is a plum (#7A2E52) that only ever means "this is an action".
+       2. Status carried by fill colour alone. Five states have to survive a
+          glance from two metres away and a phone in direct sun, so every one
+          of them is three layers at once — icon, Thai word, and colour — and
+          the page stays readable with all three colours removed.
+
+       Contrast was measured pair by pair on the board, not eyeballed: the
+       lowest text pair on this page is --c-ink-3 on --c-bg at 4.6:1.
+       ------------------------------------------------------------------- */
+    :root{
+      /* สี — semantic เท่านั้น ไม่มีชื่อสีในโทเคน */
+      --c-ink:#1A1614; --c-ink-2:#55504B; --c-ink-3:#7A736C;
+      --c-bg:#FAF8F6; --c-surface:#FFFFFF;
+      --c-line:#E3DDD6; --c-line-strong:#C9C1B8;
+      --c-primary:#7A2E52; --c-primary-ink:#FFFFFF; --c-primary-dark:#5C2240;
+      --c-success:#1F6B4A; --c-warning:#8A5300;
+      --c-danger:#A32320;  --c-info:#1F5C8A;
+      --c-warning-surface:#FDF3E0; --c-danger-surface:#FBEAE8;
+      --c-info-surface:#EAF1F7;    --c-done-surface:#F3F0EC;
+      --c-closed:#E7E2DC;
+
+      /* ตัวอักษร — คำนวณสำหรับไทย: line-height ≥1.6 ทุกระดับ */
+      --f-thai:"IBM Plex Sans Thai","Noto Sans Thai",system-ui,sans-serif;
+      --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+      --t-display:600 34px/1.6 var(--f-thai);
+      --t-h1:600 26px/1.6 var(--f-thai);
+      --t-h2:600 20px/1.6 var(--f-thai);
+      --t-body:400 16px/1.7 var(--f-thai);
+      --t-body-sm:400 14px/1.7 var(--f-thai);
+      --t-label:600 13px/1.6 var(--f-thai);
+      --t-micro:600 12px/1.6 var(--f-thai);
+
+      /* ระยะ — ฐาน 4px */
+      --s-0:2px; --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px;
+      --s-5:20px; --s-6:24px; --s-7:32px; --s-8:40px; --s-9:48px; --s-10:64px;
+
+      /* อื่น ๆ */
+      --r-sm:6px; --r-md:10px; --r-lg:14px; --r-pill:999px;
+      --shadow-1:0 1px 2px rgba(26,22,20,.06);
+      --shadow-2:0 4px 14px rgba(26,22,20,.10);
+      --shadow-modal:0 24px 60px rgba(26,22,20,.24);
+      --tap-min:44px;          /* ปุ่มบนมือถือขั้นต่ำ */
+      --slot-h:46px;           /* ความสูง 1 ช่วง 30 นาที */
+    }
+
+    /* A demo page carries no shared reset. construction-landing.html shipped a
+       hero CTA 18px past the right edge of a 375px screen for exactly this
+       reason: width:100% plus horizontal padding with no box-sizing anywhere. */
+    *,*::before,*::after{box-sizing:border-box}
+
+    html,body{overflow-x:hidden}
+    body{
+      margin:0;background:var(--c-bg);color:var(--c-ink);
+      font:var(--t-body);-webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+    h1,h2,h3{margin:0}
+    /* Class selectors only. aesthetic-booking.html styled a bare `nav` for its
+       header, then grew a second nav in the footer and shipped cream-on-cream
+       links at 1.11:1. Assume every bare tag selector here is a latent collision. */
+    /* Chrome has no Thai line-break dictionary in this environment, so an
+       unspaced Thai run breaks at ANY character — "4 คิวต้องย้าย" came out as
+       "ต้อง / ย้าย" mid-phrase. word-break:keep-all does nothing and
+       text-wrap:balance only rebalances the same bad opportunities; nowrap per
+       phrase, with real spaces between phrases, is the only reliable lever.
+       Every phrase here is short enough to fit 375px on its own — a nowrap run
+       that does not fit overflows, and overflow-x:hidden would clip it
+       invisibly. */
+    .so-nb{white-space:nowrap}
+    .so-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+    .so-btn{font:var(--t-label);font-family:var(--f-thai);cursor:pointer;border-radius:var(--r-md);
+      border:1px solid var(--c-line-strong);background:var(--c-surface);color:var(--c-ink);
+      min-height:var(--tap-min);padding:0 var(--s-4);display:inline-flex;align-items:center;
+      justify-content:center;gap:var(--s-1);transition:background .12s ease,border-color .12s ease}
+    .so-btn:hover{background:var(--c-done-surface);border-color:#8A837C}
+    .so-btn:focus-visible{outline:3px solid var(--c-primary);outline-offset:2px}
+    .so-btn--primary{background:var(--c-primary);border-color:var(--c-primary);color:var(--c-primary-ink)}
+    .so-btn--primary:hover{background:var(--c-primary-dark);border-color:var(--c-primary-dark)}
+    /* The design system marks sm/36px "desktop เท่านั้น". Below the breakpoint
+       every control goes back to the 44px tap floor, including the ones in the
+       top bar — a rule that only applies where it is convenient is not a rule. */
+    .so-btn--sm{min-height:var(--tap-min);padding:0 var(--s-3);font:var(--t-micro);font-family:var(--f-thai);border-radius:var(--r-sm)}
+    .so-btn[disabled]{background:#F7F4F1;border-color:var(--c-line);color:#9A938C;cursor:not-allowed}
+
+    /* ── Chrome ─────────────────────────────────────────────────────────── */
+    .so-top{background:var(--c-surface);border-bottom:1px solid var(--c-line)}
+    .so-top-in{max-width:1560px;margin:0 auto;padding:var(--s-3) var(--s-4);
+      display:flex;align-items:center;gap:var(--s-3);flex-wrap:wrap}
+    .so-brand{display:flex;align-items:center;gap:var(--s-2);font:var(--t-label);min-height:var(--tap-min);
+      font-family:var(--f-mono);letter-spacing:.06em;color:var(--c-ink);text-decoration:none}
+    .so-brand:focus-visible{outline:3px solid var(--c-primary);outline-offset:2px;border-radius:var(--r-sm)}
+    .so-brand-mark{width:26px;height:26px;border-radius:var(--r-sm);background:var(--c-primary);
+      color:#fff;display:flex;align-items:center;justify-content:center;font:600 13px/1 var(--f-mono)}
+    .so-top-sp{margin-left:auto}
+    .so-daynav{display:flex;align-items:center;gap:var(--s-1)}
+    .so-day{font:var(--t-label);color:var(--c-ink-2);padding:0 var(--s-2)}
+
+    .so-wrap{max-width:1560px;margin:0 auto;padding:var(--s-4)}
+    .so-note{font:var(--t-micro);font-weight:400;color:var(--c-ink-2);background:var(--c-surface);
+      border:1px solid var(--c-line);border-left:4px solid var(--c-line-strong);
+      border-radius:var(--r-md);padding:var(--s-2) var(--s-3);margin:0 0 var(--s-3)}
+    .so-note b{color:var(--c-ink)}
+
+    /* ── Summary bar ────────────────────────────────────────────────────── */
+    .so-sum{background:var(--c-surface);border:1px solid var(--c-line);border-radius:var(--r-lg);
+      padding:var(--s-3) var(--s-4);display:flex;align-items:center;gap:var(--s-4);
+      flex-wrap:wrap;margin-bottom:var(--s-4);box-shadow:var(--shadow-1)}
+    .so-sum-date{font:var(--t-micro);color:var(--c-ink-3);letter-spacing:.04em}
+    .so-sum-n{display:flex;align-items:baseline;gap:var(--s-2)}
+    .so-sum-n b{font:var(--t-display);font-family:var(--f-thai)}
+    .so-sum-n span{font:600 16px/1.7 var(--f-thai);color:var(--c-ink-2)}
+    .so-sum-rule{width:1px;align-self:stretch;background:var(--c-line)}
+    .so-chip{display:inline-flex;align-items:center;gap:var(--s-2);min-height:var(--tap-min);
+      padding:var(--s-2) var(--s-3);border-radius:var(--r-md);font:var(--t-label);
+      background:var(--c-done-surface);border:1px solid var(--c-line);color:var(--c-ink-2);
+      font-family:var(--f-thai)}
+    .so-chip--alert{background:var(--c-danger-surface);border-color:#D98A85;color:var(--c-danger);cursor:pointer}
+    .so-chip--alert:hover{background:#F8DEDB}
+    .so-chip--alert:focus-visible{outline:3px solid var(--c-danger);outline-offset:2px}
+    .so-chip--wait{background:var(--c-warning-surface);border-color:#E0B978;color:var(--c-warning)}
+    .so-chip-sub{font-weight:400;color:var(--c-ink-2)}
+    .so-sum-rev{margin-left:auto;text-align:right}
+    .so-sum-rev i{display:block;font:var(--t-micro);font-family:var(--f-thai);font-style:normal;color:var(--c-ink-3)}
+    .so-sum-rev b{font:600 20px/1.6 var(--f-thai);font-variant-numeric:tabular-nums}
+
+    /* ── Section headings ───────────────────────────────────────────────── */
+    .so-h{display:flex;align-items:baseline;gap:var(--s-2);flex-wrap:wrap;margin:0 0 var(--s-2)}
+    .so-h h2{font:var(--t-h2);font-family:var(--f-thai)}
+    .so-h p{margin:0;font:var(--t-body-sm);color:var(--c-ink-2)}
+
+    /* ── Desktop: stylist columns × time rows (direction 1b) ─────────────── */
+    .so-desk{display:none}
+    .so-board{background:var(--c-bg);border:1px solid #D8D1C9;border-radius:var(--r-lg);
+      overflow:hidden;box-shadow:var(--shadow-1)}
+    .so-legend{display:flex;gap:var(--s-4);align-items:center;flex-wrap:wrap;
+      padding:var(--s-2) var(--s-4);background:var(--c-surface);border-bottom:1px solid var(--c-line);
+      font:var(--t-micro);font-family:var(--f-thai);color:var(--c-ink-2)}
+    .so-key{display:inline-flex;align-items:center;gap:var(--s-1)}
+    .so-key i{width:14px;height:14px;border-radius:3px;display:inline-block;font-style:normal}
+    .so-legend-note{margin-left:auto;font-weight:400;color:var(--c-ink-3)}
+
+    .so-head{display:grid;grid-template-columns:70px repeat(5,minmax(0,1fr));
+      background:var(--c-surface);border-bottom:1px solid var(--c-line-strong)}
+    .so-head-w{padding:var(--s-2) var(--s-3);border-left:1px solid var(--c-line);min-width:0}
+    .so-head-w b{display:block;font:600 15px/1.7 var(--f-thai)}
+    .so-head-w span{display:block;font:400 12px/1.6 var(--f-thai);color:var(--c-ink-3)}
+    .so-leave-pill{margin-top:var(--s-1);display:inline-flex;align-items:center;gap:var(--s-1);
+      background:var(--c-danger-surface);border:1px solid #D98A85;border-radius:var(--r-pill);
+      padding:2px 8px;font:600 11px/1.6 var(--f-thai);color:var(--c-danger)}
+
+    .so-body{display:grid;grid-template-columns:70px minmax(0,1fr);max-height:74vh;overflow:auto;overscroll-behavior:contain}
+    .so-times{display:grid;grid-template-rows:repeat(20,var(--slot-h));background:#F5F1EC;
+      border-right:1px solid var(--c-line)}
+    .so-time{padding:2px 8px 0;text-align:right;border-top:1px solid #EDE8E2}
+    .so-time span{font:600 12px/1.6 var(--f-mono);color:var(--c-ink-2)}
+    .so-time--hour span{color:var(--c-ink)}
+    .so-now-pill{display:block;background:var(--c-danger);color:#fff;border-radius:var(--r-pill);
+      padding:0 6px;font:600 10px/1.6 var(--f-thai);white-space:nowrap}
+
+    .so-grid{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+      grid-template-rows:repeat(20,var(--slot-h));background:var(--c-bg)}
+    .so-rule{grid-column:1/-1;border-top:1px solid #EDE8E2;pointer-events:none}
+    .so-rule--hour{border-top-color:var(--c-line)}
+    /* Absolutely placed, not snapped to a row line. On a fixed row grid the
+       nearest boundary to 13:24 is 13:30, so a grid-row placement drew "now"
+       half an hour into the future while the pill beside it said 13:24. */
+    .so-nowline{position:absolute;left:0;right:0;border-top:2px solid var(--c-danger);pointer-events:none;z-index:3}
+    .so-closed{background:repeating-linear-gradient(135deg,#E7E2DC 0 6px,#DCD5CD 6px 12px);
+      border:1px dashed #A9A099;margin:1px;pointer-events:none;display:flex;
+      align-items:flex-start;justify-content:center;padding-top:var(--s-1)}
+    .so-closed span{font:600 11px/1.5 var(--f-thai);color:var(--c-ink-2);background:var(--c-bg);
+      border:1px solid var(--c-line-strong);border-radius:var(--r-sm);padding:3px 7px;text-align:center}
+
+    /* Drop cells sit under the cards and only light up mid-move. */
+    .so-cell{border:0;background:transparent;padding:0;margin:1px;border-radius:9px;cursor:default}
+    .so-cell[data-drop="1"]{border:2px dashed var(--c-primary);background:rgba(122,46,82,.07);cursor:pointer}
+    .so-cell[data-drop="1"]:hover,.so-cell[data-drop="1"].is-over{background:rgba(122,46,82,.16)}
+    .so-cell[data-drop="1"]:focus-visible{outline:3px solid var(--c-primary);outline-offset:1px}
+    .so-cell-tip{font:600 12px/1.6 var(--f-thai);color:var(--c-primary);text-align:center;pointer-events:none}
+
+    .so-apt{position:relative;z-index:2;margin:2px;border-radius:9px;padding:4px 7px;overflow:hidden;
+      display:flex;flex-direction:column;text-align:left;cursor:grab;font-family:var(--f-thai);
+      border:1px solid var(--c-line-strong);border-left:4px solid var(--c-ink-2);background:var(--c-surface)}
+    .so-apt:focus-visible{outline:3px solid var(--c-primary);outline-offset:1px}
+    .so-apt.is-dragging{opacity:.4;cursor:grabbing}
+    .so-apt.is-picked{outline:3px solid var(--c-primary);outline-offset:1px}
+    .so-apt-t{display:flex;align-items:center;gap:var(--s-1);white-space:nowrap}
+    .so-apt-t b{font:600 12px/1.6 var(--f-mono);color:var(--c-ink)}
+    .so-apt-t i{font-style:normal;font:600 11px/1.6 var(--f-thai);color:var(--c-ink-2)}
+    .so-apt-c{font:400 13px/1.7 var(--f-thai);color:var(--c-ink);overflow:hidden;
+      text-overflow:ellipsis;white-space:nowrap}
+    .so-apt-v{font:400 12px/1.6 var(--f-thai);color:var(--c-ink-2);overflow:hidden;
+      text-overflow:ellipsis;white-space:nowrap}
+    .so-apt-s{margin-top:auto;display:flex;align-items:center;gap:var(--s-1);
+      font:600 11px/1.6 var(--f-thai);overflow:hidden;white-space:nowrap}
+    .so-apt--short{flex-direction:row;align-items:center;gap:var(--s-1);padding:0 7px}
+    .so-apt--short .so-apt-c{flex:1;min-width:0;font-size:12px}
+    .so-apt-ic{font:600 12px/1.6 var(--f-thai);flex:none}
+
+    /* ── Mobile: gaps first (direction 1c) ──────────────────────────────── */
+    .so-mob{display:block}
+    .so-ask{padding:0;margin:var(--s-4) 0 var(--s-2)}
+    .so-ask h2{font:var(--t-h1);font-family:var(--f-thai)}
+    .so-ask p{margin:var(--s-0) 0 0;font:var(--t-micro);font-weight:400;color:var(--c-ink-2)}
+    .so-people{display:flex;flex-direction:column;gap:var(--s-2);list-style:none;margin:0;padding:0}
+    /* Name beside the answer, not above it. Stacked, five stylists ran to
+       1,333px on a 812px screen — which loses the only thing this view claims
+       over the grid: that "who is free this afternoon" is one screen and no
+       scrolling. Two columns puts all five inside the fold. */
+    .so-person{background:var(--c-surface);border:1px solid var(--c-line-strong);
+      border-radius:var(--r-lg);padding:var(--s-2) var(--s-3);
+      display:grid;grid-template-columns:104px minmax(0,1fr);gap:var(--s-2);align-items:center}
+    .so-person-h{min-width:0}
+    .so-person-h b{display:block;font:600 16px/1.7 var(--f-thai)}
+    .so-person-h span{display:block;font:400 12px/1.6 var(--f-thai);color:var(--c-ink-3)}
+    .so-gaps{display:flex;gap:var(--s-2);flex-wrap:wrap}
+    .so-gap{min-height:var(--tap-min);display:inline-flex;align-items:center;gap:var(--s-2);
+      padding:0 var(--s-3);border-radius:var(--r-md);background:var(--c-surface);
+      border:1.5px solid var(--c-success)}
+    .so-gap i{font-style:normal;font:600 13px/1.6 var(--f-thai);color:var(--c-success)}
+    .so-gap b{font:600 14px/1.6 var(--f-mono);color:var(--c-ink)}
+    .so-gap span{font:400 12px/1.6 var(--f-thai);color:var(--c-ink-2)}
+    .so-gap--none{min-height:var(--tap-min);display:flex;align-items:center;gap:var(--s-1);flex-wrap:wrap;
+      padding:0 var(--s-3);border-radius:var(--r-md);background:var(--c-done-surface);
+      border:1px solid var(--c-line-strong);font:var(--t-label);color:var(--c-ink-2)}
+    .so-gap--off{background:var(--c-danger-surface);border-color:#D98A85;color:var(--c-danger)}
+
+    .so-queue{display:flex;flex-direction:column;gap:var(--s-2);list-style:none;margin:0;padding:0}
+    .so-row{width:100%;text-align:left;font-family:var(--f-thai);cursor:pointer;
+      border:1px solid var(--c-line-strong);border-left:4px solid var(--c-ink-2);
+      background:var(--c-surface);border-radius:var(--r-md);padding:var(--s-3);
+      display:flex;flex-direction:column;gap:var(--s-0);min-height:var(--tap-min)}
+    .so-row:focus-visible{outline:3px solid var(--c-primary);outline-offset:2px}
+    .so-row-t{display:flex;align-items:center;gap:var(--s-2);flex-wrap:wrap}
+    .so-row-t b{font:600 13px/1.6 var(--f-mono)}
+    .so-row-t i{font-style:normal;font:600 11px/1.6 var(--f-thai);color:var(--c-ink-2);
+      background:rgba(26,22,20,.06);border-radius:var(--r-pill);padding:1px 7px}
+    .so-row-t em{margin-left:auto;font-style:normal;font:600 12px/1.6 var(--f-thai);color:var(--c-primary)}
+    .so-row-c{font:400 15px/1.7 var(--f-thai)}
+    .so-row-v{font:400 13px/1.7 var(--f-thai);color:var(--c-ink-2)}
+    .so-row-s{display:flex;align-items:center;gap:var(--s-1);font:600 12px/1.6 var(--f-thai)}
+    .so-row-go{margin-left:auto;font:600 12px/1.6 var(--f-thai);color:var(--c-primary)}
+
+    /* ── Sheet · modal · toast ──────────────────────────────────────────── */
+    .so-scrim{position:fixed;inset:0;background:rgba(26,22,20,.42);z-index:40;
+      display:flex;align-items:flex-end;justify-content:center;padding:0}
+    .so-scrim[hidden]{display:none}
+    .so-sheet{width:100%;max-width:560px;background:var(--c-bg);border-top:1px solid var(--c-line-strong);
+      border-radius:22px 22px 0 0;padding:var(--s-3) var(--s-4) var(--s-4);
+      box-shadow:0 -12px 30px rgba(26,22,20,.18);max-height:90vh;overflow:auto}
+    .so-grab{width:44px;height:4px;background:var(--c-line-strong);border-radius:var(--r-pill);margin:0 auto var(--s-3)}
+    .so-step{font:var(--t-micro);font-family:var(--f-thai);color:var(--c-ink-3)}
+    .so-sheet h2{font:600 16px/1.7 var(--f-thai);margin:0}
+    .so-sheet-sub{margin:0 0 var(--s-3);font:var(--t-body-sm);color:var(--c-ink-2)}
+    .so-targets{display:flex;flex-direction:column;gap:var(--s-2);max-height:38vh;overflow:auto;
+      list-style:none;margin:0 0 var(--s-3);padding:0}
+    .so-target{width:100%;min-height:56px;display:flex;align-items:center;gap:var(--s-2);
+      padding:var(--s-2) var(--s-3);background:var(--c-surface);border:1px solid var(--c-line-strong);
+      border-radius:var(--r-lg);cursor:pointer;text-align:left;font-family:var(--f-thai)}
+    .so-target:hover{background:var(--c-done-surface)}
+    .so-target:focus-visible{outline:3px solid var(--c-primary);outline-offset:2px}
+    .so-target-dot{width:22px;height:22px;border-radius:var(--r-pill);border:2px solid var(--c-primary);
+      flex:none;display:flex;align-items:center;justify-content:center;font:600 12px/1 var(--f-thai);
+      color:var(--c-primary)}
+    .so-target-txt{flex:1;min-width:0}
+    .so-target-txt b{display:block;font:600 15px/1.7 var(--f-thai)}
+    .so-target-txt span{display:block;font:400 12px/1.6 var(--f-thai);color:var(--c-ink-2)}
+    .so-best{flex:none;font:600 11px/1.6 var(--f-thai);color:var(--c-success);
+      border:1px solid var(--c-success);border-radius:var(--r-pill);padding:2px 8px}
+    .so-empty{font:var(--t-body-sm);color:var(--c-ink-2);background:var(--c-danger-surface);
+      border:1px solid #D98A85;border-radius:var(--r-md);padding:var(--s-3);margin:0 0 var(--s-3)}
+    .so-sheet-foot{display:flex;gap:var(--s-2)}
+    .so-sheet-foot .so-btn{flex:1;min-height:48px;border-radius:var(--r-lg)}
+    .so-sheet-foot .so-btn--primary{flex:2}
+
+    .so-modal-scrim{align-items:center;padding:var(--s-4)}
+    .so-modal{width:100%;max-width:640px;background:var(--c-bg);border-radius:var(--r-lg);
+      box-shadow:var(--shadow-modal);overflow:hidden;max-height:88vh;display:flex;flex-direction:column}
+    .so-modal-h{padding:var(--s-4);border-bottom:1px solid var(--c-line);background:var(--c-surface);
+      display:flex;align-items:flex-start;gap:var(--s-2)}
+    .so-modal-h h2{font:600 20px/1.6 var(--f-thai)}
+    .so-modal-h p{margin:0;font:var(--t-body-sm);color:var(--c-ink-2)}
+    .so-modal-h .so-alert-mark{font:600 16px/1.6 var(--f-thai);color:var(--c-danger)}
+    .so-x{min-width:var(--tap-min);min-height:var(--tap-min);border:0;background:transparent;
+      cursor:pointer;font:600 16px/1 var(--f-thai);color:var(--c-ink-2);border-radius:var(--r-md)}
+    .so-x:hover{background:var(--c-done-surface)}
+    .so-x:focus-visible{outline:3px solid var(--c-primary);outline-offset:2px}
+    .so-modal-b{padding:var(--s-3) var(--s-4);overflow:auto;display:flex;flex-direction:column;gap:var(--s-2)}
+    .so-fix{display:flex;gap:var(--s-3);align-items:center;flex-wrap:wrap;background:var(--c-surface);
+      border:1px solid var(--c-line-strong);border-radius:var(--r-md);padding:var(--s-2) var(--s-3)}
+    .so-fix--blocked{background:var(--c-danger-surface);border-color:#D98A85}
+    .so-fix-txt{flex:1;min-width:180px}
+    .so-fix-txt b{display:block;font:600 12px/1.6 var(--f-mono)}
+    .so-fix-txt span{display:block;font:400 14px/1.7 var(--f-thai)}
+    .so-fix-txt em{display:block;font-style:normal;font:600 12px/1.6 var(--f-thai);color:var(--c-danger)}
+    .so-fix-to{min-height:40px;display:inline-flex;align-items:center;gap:var(--s-1);padding:0 var(--s-3);
+      background:var(--c-surface);border:1.5px solid var(--c-success);border-radius:9px;
+      font:600 13px/1.6 var(--f-thai);color:var(--c-success)}
+    .so-modal-f{padding:var(--s-3) var(--s-4);border-top:1px solid var(--c-line);background:var(--c-surface);
+      display:flex;gap:var(--s-2);justify-content:flex-end;flex-wrap:wrap}
+
+    .so-late{background:var(--c-danger-surface);border:1px solid #D98A85;border-left:4px solid var(--c-danger);
+      border-radius:var(--r-md);padding:var(--s-3)}
+    .so-late b{display:block;font:600 14px/1.6 var(--f-thai);color:var(--c-danger)}
+    .so-late p{margin:var(--s-0) 0 var(--s-2);font:var(--t-body-sm);color:var(--c-ink-2)}
+    .so-late-acts{display:flex;gap:var(--s-2);flex-wrap:wrap}
+
+    .so-toast{position:fixed;left:50%;transform:translateX(-50%);bottom:var(--s-4);z-index:60;
+      background:var(--c-ink);color:#fff;border-radius:var(--r-md);padding:var(--s-3) var(--s-4);
+      display:flex;align-items:center;gap:var(--s-3);box-shadow:var(--shadow-2);
+      width:calc(100% - var(--s-8));max-width:520px;font:var(--t-body-sm)}
+    .so-toast[hidden]{display:none}
+    .so-toast-undo{min-height:36px;padding:0 var(--s-3);background:transparent;color:#fff;
+      border:1px solid rgba(255,255,255,.5);border-radius:var(--r-sm);cursor:pointer;
+      font:var(--t-label);font-family:var(--f-thai)}
+    .so-toast-undo:hover{background:rgba(255,255,255,.12)}
+    .so-toast-undo:focus-visible{outline:3px solid #fff;outline-offset:2px}
+
+    .so-foot{border-top:1px solid var(--c-line);background:var(--c-surface);margin-top:var(--s-6)}
+    .so-foot-in{max-width:1560px;margin:0 auto;padding:var(--s-4);display:flex;gap:var(--s-3);
+      justify-content:space-between;flex-wrap:wrap;font:var(--t-micro);font-family:var(--f-thai);color:var(--c-ink-3)}
+
+    /* The day-stepper, "today" and the free-count chip are frame, not answer,
+       and on a phone they wrapped the top bar onto three rows and the summary
+       onto two — pushing the one question this view exists to answer below the
+       fold. Frame yields to the answer.
+       These two rules live HERE, after every component, on purpose: .so-chip
+       also sets display, at the same specificity, so source order is the only
+       thing deciding. Declared earlier, the chip won and the rule silently did
+       nothing. */
+    .so-wide-only{display:none}
+    .so-long-only{display:none}
+
+    /* ── The one breakpoint that matters ────────────────────────────────────
+       960px, not 768px. Five stylist columns plus a 70px time gutter need
+       ~150px each before Thai names start truncating; below that the grid stops
+       being a grid and the gaps-first list is a better answer, not a fallback. */
+    @media (min-width:960px){
+      .so-desk{display:block}
+      .so-mob{display:none}
+      .so-wide-only{display:inline-flex}
+      .so-long-only{display:inline}
+      .so-note{font:var(--t-body-sm);padding:var(--s-3) var(--s-4)}
+      .so-wrap{padding:var(--s-5) var(--s-6)}
+      .so-scrim{align-items:center;padding:var(--s-4)}
+      .so-sheet{border-radius:var(--r-lg);border:1px solid var(--c-line-strong);max-height:80vh}
+      .so-grab{display:none}
+      .so-btn--sm{min-height:36px}
+    }
+    @media (max-width:959px){
+      .so-sum{padding:var(--s-2) var(--s-3);gap:var(--s-2)}
+      .so-sum-date{display:none}          /* the date is already in the top bar */
+      .so-sum-rule{display:none}
+      .so-sum-n{gap:var(--s-1)}
+      .so-sum-n b{font-size:24px}
+      .so-sum-rev{margin-left:auto;text-align:right}
+      .so-sum-rev i{display:none}
+      .so-sum-rev b{font-size:15px;color:var(--c-ink-2)}
+      .so-chip{flex:1 1 auto;justify-content:center}
+      .so-chip-sub{display:none}          /* the count already says how many */
+      /* An explicit range already states its own length: "15:00–20:00" does not
+         need "5 ชม." beside it. Dropping the duration fits two windows on one
+         row, which is what puts all five stylists above the fold. */
+      .so-gap span{display:none}
+      .so-gap{padding:0 var(--s-2);gap:var(--s-1)}
+      /* Headroom, measured against the FALLBACK face rather than the webfont.
+         display=optional means a cold visitor may never receive IBM Plex, and
+         the five-stylist answer fit at 802px in Plex but 822px in the fallback
+         — so the layout that was verified was the one nobody sees first. */
+      .so-ask{margin:var(--s-3) 0 var(--s-2)}
+      .so-ask h2{font-size:22px}
+      .so-people{gap:var(--s-1)}
+      .so-person{padding:var(--s-1) var(--s-3)}
+    }
+    @media (prefers-reduced-motion:reduce){
+      *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+    }
+  </style>
+  <script src="assets/analytics.js" defer></script>
+</head>
+<body>
+  <header class="so-top">
+    <div class="so-top-in">
+      <a class="so-brand" href="#so-main">
+        <span class="so-brand-mark" aria-hidden="true">S</span>
+        <span>SALON OS</span>
+      </a>
+      <div class="so-daynav">
+        <button type="button" class="so-btn so-btn--sm so-wide-only" disabled>‹ ศุกร์</button>
+        <span class="so-day">เสาร์ 5 ก.ย. 2569</span>
+        <button type="button" class="so-btn so-btn--sm so-wide-only" disabled>อาทิตย์ ›</button>
+      </div>
+      <div class="so-top-sp"></div>
+      <button type="button" class="so-btn so-btn--sm so-wide-only" disabled>วันนี้</button>
+      <button type="button" class="so-btn so-btn--primary so-btn--sm" disabled>+ เพิ่มคิว</button>
+    </div>
+  </header>
+
+  <main id="so-main" class="so-wrap">
+    <h1 class="so-sr">ปฏิทินคิวร้านทำผม SALON OS — เสาร์ 5 กันยายน 2569</h1>
+
+    <p class="so-note">
+      <b>หน้าตัวอย่าง</b> — <span class="so-long-only">เสาร์ที่หนักที่สุดของเดือน ตรึงเวลาไว้ที่ 13:24 · </span>ข้อมูลลูกค้าสมมติทั้งหมด
+      <b>ไม่มีการเชื่อมต่อไปที่ใด</b><span class="so-long-only"> การย้ายคิวและการแจ้ง LINE เป็นการจำลอง รีเฟรชแล้วกลับสู่จุดเริ่มต้น</span>
+    </p>
+
+    <section class="so-sum" aria-labelledby="so-sum-h">
+      <h2 id="so-sum-h" class="so-sr">สรุปวันนี้</h2>
+      <div>
+        <div class="so-sum-date">เสาร์ 5 ก.ย. 2569 · ตอนนี้ 13:24</div>
+        <div class="so-sum-n"><b id="so-total">14</b> <span>คิววันนี้</span></div>
+      </div>
+      <div class="so-sum-rule" aria-hidden="true"></div>
+      <button type="button" class="so-chip so-chip--alert" id="so-alert-chip">
+        <span aria-hidden="true">▲</span>
+        <span id="so-alert-txt">5 เรื่องต้องจัดการ</span>
+        <span class="so-chip-sub" id="so-alert-sub">มาสาย 1 · ต้องย้าย 4</span>
+      </button>
+      <span class="so-chip so-chip--wait"><span aria-hidden="true">?</span> <span id="so-wait-txt">2 รอยืนยัน</span></span>
+      <span class="so-chip so-wide-only"><span aria-hidden="true">◷</span> <span id="so-free-txt">ช่างว่างตอนนี้ 1 คน</span></span>
+      <div class="so-sum-rev">
+        <i>ยอดคาดวันนี้</i>
+        <b id="so-rev">19,300 ฿</b>
+      </div>
+    </section>
+
+    <!-- ── Desktop: direction 1b, stylist columns ────────────────────────── -->
+    <section class="so-desk" aria-labelledby="so-desk-h">
+      <div class="so-h">
+        <h2 id="so-desk-h">ตารางช่าง</h2>
+        <p>ลากคิวไปวางที่ช่องว่างของช่างคนอื่นได้ หรือกดที่คิวแล้วเลือกปลายทางจากรายการ — ใช้คีย์บอร์ดก็ได้ทั้งสองทาง</p>
+      </div>
+      <div class="so-board">
+        <div class="so-legend">
+          <span class="so-key"><i style="background:var(--c-surface);border:1px solid var(--c-line-strong)"></i>✓ ยืนยันแล้ว</span>
+          <span class="so-key"><i style="background:var(--c-warning-surface);border:1px solid #E0B978"></i>? รอยืนยัน</span>
+          <span class="so-key"><i style="background:var(--c-info-surface);border:1px solid #8FB4D2"></i>▶ กำลังทำ</span>
+          <span class="so-key"><i style="background:var(--c-done-surface);border:1px solid #DCD5CD"></i>✓✓ เสร็จแล้ว</span>
+          <span class="so-key"><i style="background:var(--c-danger-surface);border:1px solid #D98A85"></i>▲ ต้องจัดการ</span>
+          <span class="so-key"><i style="background:var(--c-closed);border:1px dashed #A9A099"></i>✕ ปิด/ลา</span>
+          <span class="so-legend-note">แต่ละแถว = 30 นาที · 10:00 → 20:00</span>
+        </div>
+        <div class="so-head" id="so-head" aria-hidden="true"><div></div></div>
+        <div class="so-body">
+          <div class="so-times" id="so-times" aria-hidden="true"></div>
+          <div class="so-grid" id="so-grid" role="group" aria-labelledby="so-desk-h"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Mobile: direction 1c, gaps first ──────────────────────────────── -->
+    <section class="so-mob" aria-labelledby="so-mob-h">
+      <div class="so-ask">
+        <h2 id="so-mob-h">บ่ายนี้ว่างไหม</h2>
+        <p>ช่วงที่รับคิวเพิ่มได้ นับจาก 13:00 ถึงร้านปิด<span class="so-long-only"> — ช่องว่างของทุกคนอยู่ในจอเดียว ไม่ต้องเลื่อน</span></p>
+      </div>
+      <ul class="so-people" id="so-people"></ul>
+
+      <div class="so-h" style="margin-top:var(--s-5)">
+        <h2>คิวที่ต้องจัดการก่อน</h2>
+      </div>
+      <ul class="so-queue" id="so-todo"></ul>
+
+      <div class="so-h" style="margin-top:var(--s-5)">
+        <h2>คิวถัดไป</h2>
+      </div>
+      <ul class="so-queue" id="so-next"></ul>
+    </section>
+  </main>
+
+  <footer class="so-foot">
+    <div class="so-foot-in">
+      <span>SALON OS · หน้าตัวอย่างระบบปฏิทินคิว — วันเสาร์สมมติ ตรึงเวลาไว้ที่ 13:24
+        ข้อมูลลูกค้าทั้งหมดสมมติขึ้นและอยู่ในหน้านี้เท่านั้น ไม่มีการเชื่อมต่อไปที่ใด
+        การย้ายคิว การยืนยัน และการแจ้ง LINE เป็นการจำลอง รีเฟรชแล้วกลับสู่จุดเริ่มต้น</span>
+      <span>ออกแบบและพัฒนาโดย ภาคิน ชวัลปุณย์</span>
+    </div>
+  </footer>
+
+  <!-- Move sheet: step 2 of the two-step move. -->
+  <div class="so-scrim" id="so-sheet-scrim" hidden>
+    <div class="so-sheet" role="dialog" aria-modal="true" aria-labelledby="so-sheet-h" id="so-sheet">
+      <div class="so-grab" aria-hidden="true"></div>
+      <p class="so-step" id="so-sheet-step">ก้าวที่ 2 จาก 2 · เลือกช่องว่างปลายทาง</p>
+      <h2 id="so-sheet-h">ย้ายคิว</h2>
+      <p class="so-sheet-sub" id="so-sheet-sub"></p>
+      <ul class="so-targets" id="so-targets"></ul>
+      <p class="so-empty" id="so-sheet-empty" hidden></p>
+      <div class="so-sheet-foot">
+        <button type="button" class="so-btn" id="so-sheet-cancel">ยกเลิก</button>
+        <button type="button" class="so-btn so-btn--primary" id="so-sheet-ok" disabled>ย้าย + แจ้ง LINE ลูกค้า</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Things to handle: the sick-leave batch and the late customer. -->
+  <div class="so-scrim so-modal-scrim" id="so-modal-scrim" hidden>
+    <div class="so-modal" role="dialog" aria-modal="true" aria-labelledby="so-modal-h" id="so-modal">
+      <div class="so-modal-h">
+        <span class="so-alert-mark" aria-hidden="true">▲</span>
+        <div style="flex:1">
+          <h2 id="so-modal-h">พี่โอ๋ลาป่วย 14:00–20:00</h2>
+          <p id="so-modal-sub"></p>
+        </div>
+        <button type="button" class="so-x" id="so-modal-x"><span aria-hidden="true">✕</span><span class="so-sr">ปิดหน้าต่าง</span></button>
+      </div>
+      <div class="so-modal-b" id="so-modal-b"></div>
+      <div class="so-modal-f">
+        <button type="button" class="so-btn" id="so-modal-manual">จัดการเองทีละคิว</button>
+        <button type="button" class="so-btn so-btn--primary" id="so-modal-ok">ย้ายทั้งหมด + แจ้ง LINE</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="so-toast" id="so-toast" role="status" hidden>
+    <span aria-hidden="true">✓</span>
+    <span style="flex:1" id="so-toast-txt"></span>
+    <button type="button" class="so-toast-undo" id="so-toast-undo">เลิกทำ</button>
+  </div>
+
+  <script>
+  (function () {
+    'use strict';
+
+    /* ────────────────────────────────────────────────────────────────────
+       The day. 10:00–20:00 in 30-minute slots, "now" pinned at 13:24 so
+       every visitor and every screenshot sees the same Saturday.
+
+       Everything the summary bar states is DERIVED from this array — the
+       queue count, the revenue, how many stylists are free right now, how
+       many gaps of 30 minutes or more are left, and which queues are in
+       trouble. The design board hand-wrote several of those figures and two
+       of them disagreed with its own data (it printed "ช่างว่าง 1 คน" where
+       the same numbers give 3, and "3 เรื่องต้องจัดการ" beside a breakdown
+       that adds to 5). Computing them means moving one queue updates every
+       number that depends on it, which a mockup cannot do and a working
+       page must.
+       ──────────────────────────────────────────────────────────────────── */
+    var OPEN = 600, CLOSE = 1200, SLOT = 30, NSLOT = 20, NOW = 804; /* 13:24 */
+
+    var STYLISTS = [
+      { id: 'mind', name: 'มายด์',  skill: 'ตัด / สไตลิ่ง', can: ['cut'],          shiftEnd: 1080 },
+      { id: 'koi',  name: 'ก้อย',   skill: 'ทำสี / ยืดผม',  can: ['color'],        shiftEnd: CLOSE },
+      { id: 'nan',  name: 'แนน',    skill: 'เล็บ / ดัดลอน', can: ['nail'],         shiftEnd: 1080 },
+      { id: 'oh',   name: 'พี่โอ๋', skill: 'ตัด / ทำสี',    can: ['cut','color'],  shiftEnd: CLOSE,
+        leaveFrom: 840, leaveNote: 'ลาป่วยครึ่งวันบ่าย' },
+      { id: 'toon', name: 'ตูน',    skill: 'ทำสี / ยืดผม',  can: ['color'],        shiftEnd: CLOSE }
+    ];
+
+    var SEED = [
+      { id: 1,  s: 600,  e: 660,  w: 'mind', c: 'ปาริชาติ ธนวัฒน์กุล',        v: 'ตัดผม + สระไดร์',        k: 'cut',   p: 750,  st: 'done' },
+      { id: 2,  s: 600,  e: 780,  w: 'koi',  c: 'รัตนาภรณ์ อินทรวิเชียรชัย',  v: 'ยืดผมถาวร',              k: 'color', p: 3200, st: 'active' },
+      { id: 3,  s: 630,  e: 690,  w: 'nan',  c: 'ธนพร แก้วประเสริฐ',          v: 'ทำเล็บเจล',              k: 'nail',  p: 700,  st: 'done' },
+      { id: 4,  s: 660,  e: 780,  w: 'toon', c: 'สุภาพร วงศ์ไพบูลย์ศิริ',      v: 'ทำสีผม + ทรีตเมนต์บำรุง', k: 'color', p: 2400, st: 'active' },
+      { id: 5,  s: 660,  e: 720,  w: 'oh',   c: 'ชนิดาภา เรืองวิทย์',          v: 'ตัดผม',                  k: 'cut',   p: 450,  st: 'active' },
+      { id: 6,  s: 660,  e: 720,  w: 'mind', c: 'มนัสนันท์ โชติวรรณ',          v: 'สระ + ไดร์',             k: 'cut',   p: 300,  st: 'ok' },
+      { id: 7,  s: 720,  e: 810,  w: 'nan',  c: 'พิมพ์ชนก ธนโชติวัฒนา',        v: 'ดัดลอนหน้า',             k: 'nail',  p: 1800, st: 'wait' },
+      { id: 8,  s: 780,  e: 840,  w: 'mind', c: 'นภัสวรรณ อภิรักษ์ธนกิจ',      v: 'ตัดผม + แต่งทรง',        k: 'cut',   p: 650,  st: 'ok', late: 12 },
+      { id: 9,  s: 810,  e: 900,  w: 'koi',  c: 'กมลวรรณ เจริญรัตนพงศ์',       v: 'ทำสีผม + ทรีตเมนต์บำรุง', k: 'color', p: 2400, st: 'ok' },
+      { id: 10, s: 840,  e: 1020, w: 'toon', c: 'ณัฐธิดา ศรีสวัสดิ์วรากุล',    v: 'ยืดผมถาวร',              k: 'color', p: 3200, st: 'ok' },
+      { id: 11, s: 870,  e: 930,  w: 'oh',   c: 'เบญจวรรณ พฤกษ์พิพัฒน์กุล',    v: 'ตัดผม',                  k: 'cut',   p: 450,  st: 'ok' },
+      { id: 12, s: 960,  e: 1020, w: 'oh',   c: 'วีรยา แสงทองสุขสกุล',         v: 'สระ + ไดร์',             k: 'cut',   p: 300,  st: 'ok' },
+      { id: 13, s: 1020, e: 1110, w: 'oh',   c: 'ชญานิษฐ์ วรกิจไพศาล',         v: 'ทำสีผม + ทรีตเมนต์บำรุง', k: 'color', p: 2400, st: 'wait' },
+      { id: 14, s: 1110, e: 1140, w: 'oh',   c: 'อารยา ศุภโชคชัย',             v: 'สระ + ไดร์',             k: 'cut',   p: 300,  st: 'ok' }
+    ];
+
+    /* Five states, each carried by three layers at once — icon, Thai word and
+       colour — so the board survives being read with no colour at all. */
+    var ST = {
+      ok:     { key: 'ok',     label: 'ยืนยันแล้ว', icon: '✓',  fg: '#1F6B4A', bd: '#C9C1B8', bg: '#FFFFFF' },
+      wait:   { key: 'wait',   label: 'รอยืนยัน',   icon: '?',  fg: '#8A5300', bd: '#E0B978', bg: '#FDF3E0' },
+      active: { key: 'active', label: 'กำลังทำ',    icon: '▶',  fg: '#1F5C8A', bd: '#8FB4D2', bg: '#EAF1F7' },
+      done:   { key: 'done',   label: 'เสร็จแล้ว',  icon: '✓✓', fg: '#6B635C', bd: '#DCD5CD', bg: '#F3F0EC' },
+      alert:  { key: 'alert',  label: 'ต้องจัดการ', icon: '▲',  fg: '#A32320', bd: '#D98A85', bg: '#FBEAE8' }
+    };
+
+    var $  = function (s, r) { return (r || document).querySelector(s); };
+    var el = function (t, cls, txt) {
+      var n = document.createElement(t);
+      if (cls) n.className = cls;
+      if (txt != null) n.textContent = txt;
+      return n;
+    };
+    function hhmm(m) { var h = Math.floor(m / 60), n = m % 60; return (h < 10 ? '0' : '') + h + ':' + (n < 10 ? '0' : '') + n; }
+    function dur(m)  { var h = Math.floor(m / 60), n = m % 60; return h ? (h + ' ชม.' + (n ? ' ' + n + ' น.' : '')) : (n + ' นาที'); }
+    function baht(n) { return n.toLocaleString('en-US') + ' ฿'; }
+    function who(id) { for (var i = 0; i < STYLISTS.length; i++) if (STYLISTS[i].id === id) return STYLISTS[i]; return null; }
+
+    var apts = SEED.map(function (a) { var c = {}; for (var k in a) c[k] = a[k]; return c; });
+    var undoStack = null, picked = null, toastTimer = null, lastFocus = null;
+
+    /* ── Derived facts ───────────────────────────────────────────────── */
+
+    /* When a stylist is not taking work, and why. Two different reasons that
+       must not be collapsed: going home sick is an exception the owner has to
+       resolve today, ending a shift is the roster working normally. */
+    function closures(w) {
+      var out = [];
+      if (w.leaveFrom) out.push({ from: w.leaveFrom, to: CLOSE, why: 'ลาป่วย ' + hhmm(w.leaveFrom) + '–' + hhmm(CLOSE), kind: 'leave' });
+      else if (w.shiftEnd < CLOSE) out.push({ from: w.shiftEnd, to: CLOSE, why: 'หมดเวร ' + hhmm(w.shiftEnd), kind: 'shift' });
+      return out;
+    }
+    function offAt(w, t) {
+      var c = closures(w);
+      for (var i = 0; i < c.length; i++) if (t >= c[i].from && t < c[i].to) return c[i];
+      return null;
+    }
+    /* Stranded = still sitting on a stylist during a window she is not there
+       for. Derived, not a flag: move the queue and the alert clears itself. */
+    function stranded(a) {
+      var w = who(a.w);
+      return closures(w).some(function (c) { return a.e > c.from && a.s < c.to; });
+    }
+    function statusOf(a) {
+      if (a.late || stranded(a)) return ST.alert;
+      return ST[a.st];
+    }
+    function badgeOf(a) {
+      var bits = [];
+      if (a.late) bits.push('มาสาย ' + a.late + ' นาที');
+      if (stranded(a)) bits.push('ต้องย้ายคิว');
+      if (a.st === 'wait') bits.push('รอยืนยัน');
+      return bits.length ? bits.join(' + ') : ST[a.st].label;
+    }
+    function busyAt(wid, t, skipId) {
+      return apts.some(function (a) { return a.w === wid && a.id !== skipId && a.s <= t && a.e > t; });
+    }
+    /* A queue fits if every slot it would occupy is inside the shift, outside
+       any closure, and not already taken. */
+    function fits(wid, start, len, skipId) {
+      var w = who(wid);
+      if (start < OPEN || start + len > CLOSE) return false;
+      for (var t = start; t < start + len; t += SLOT) {
+        if (offAt(w, t)) return false;
+        if (busyAt(wid, t, skipId)) return false;
+      }
+      return true;
+    }
+    /* Free windows of at least 30 minutes from 13:00 to close. A stylist who
+       has gone home sick is reported as away, never as having a gap — a
+       13:30 slot that exists only because she leaves at 14:00 is not an
+       answer to "who is free this afternoon". */
+    function gapsOf(w) {
+      if (w.leaveFrom) return [];
+      var out = [], cur = null;
+      for (var t = 780; t < CLOSE; t += SLOT) {
+        if (!busyAt(w.id, t) && !offAt(w, t)) { if (cur) cur.e = t + SLOT; else cur = { s: t, e: t + SLOT }; }
+        else if (cur) { out.push(cur); cur = null; }
+      }
+      if (cur) out.push(cur);
+      return out.filter(function (g) { return g.e - g.s >= 30; });
+    }
+    /* Only somewhere the work can actually be done: skill matches, the slot is
+       free, and the stylist is on shift for the whole of it. Ranked by how
+       close it lands to the time the customer originally agreed to.
+
+       PULL_IN is the rule that makes this a scheduler rather than a solver.
+       Without it the search happily offers to move a 18:30 customer to 14:00
+       because the column is empty there — a slot that is free on the board and
+       impossible in the shop, since the customer has already been told when to
+       arrive. A queue may be pushed later by any amount, or pulled earlier by
+       at most one slot. It is also what lets the last booking of the evening
+       have no answer at all: everyone still on shift that late does colour,
+       and the two who cut have gone home. */
+    var PULL_IN = SLOT;
+    function targetsFor(a) {
+      var out = [], len = a.e - a.s;
+      STYLISTS.forEach(function (w) {
+        if (w.id === a.w) return;
+        if (w.can.indexOf(a.k) === -1) return;
+        var from = Math.max(OPEN, a.s - PULL_IN, NOW - (NOW % SLOT));
+        for (var t = from; t + len <= CLOSE; t += SLOT) {
+          if (fits(w.id, t, len, a.id)) out.push({ w: w, s: t, drift: Math.abs(t - a.s) });
+        }
+      });
+      out.sort(function (x, y) { return x.drift - y.drift; });
+      return out;
+    }
+    function noteFor(t, a) {
+      if (t.drift === 0) return 'ว่าง · ทักษะตรง · เวลาเดิม';
+      return 'ว่าง · ทักษะตรง · ' + (t.s > a.s ? 'ช้ากว่าเดิม ' : 'เร็วกว่าเดิม ') + dur(t.drift);
+    }
+
+    /* ── Rendering ───────────────────────────────────────────────────── */
+
+    function renderSummary() {
+      var late = apts.filter(function (a) { return a.late; }).length;
+      var move = apts.filter(stranded).length;
+      var wait = apts.filter(function (a) { return a.st === 'wait'; }).length;
+      var free = STYLISTS.filter(function (w) { return !offAt(w, NOW) && !busyAt(w.id, NOW); }).length;
+      var rev  = apts.reduce(function (s, a) { return s + a.p; }, 0);
+
+      $('#so-total').textContent = String(apts.length);
+      $('#so-rev').textContent   = baht(rev);
+      $('#so-wait-txt').textContent = wait + ' รอยืนยัน';
+      $('#so-free-txt').textContent = 'ช่างว่างตอนนี้ ' + free + ' คน';
+
+      var chip = $('#so-alert-chip');
+      var n = late + move;
+      $('#so-alert-txt').textContent = n ? n + ' เรื่องต้องจัดการ' : 'จัดการครบแล้ว';
+      var sub = [];
+      if (late) sub.push('มาสาย ' + late);
+      if (move) sub.push('ต้องย้าย ' + move);
+      $('#so-alert-sub').textContent = sub.join(' · ');
+      chip.hidden = false;
+      chip.disabled = !n;
+      if (!n) { chip.classList.remove('so-chip--alert'); $('#so-alert-txt').textContent = 'จัดการครบแล้ว'; }
+      else chip.classList.add('so-chip--alert');
+    }
+
+    function paint(node, s) {
+      node.style.background = s.bg;
+      node.style.borderColor = s.bd;
+      node.style.borderLeftColor = s.fg;
+    }
+
+    function renderDesk() {
+      var head = $('#so-head');
+      head.textContent = '';
+      head.appendChild(el('div'));
+      STYLISTS.forEach(function (w) {
+        var d = el('div', 'so-head-w');
+        d.appendChild(el('b', null, w.name));
+        d.appendChild(el('span', null, w.skill));
+        var c = closures(w)[0];
+        if (c) {
+          var pill = el('span', 'so-leave-pill');
+          pill.appendChild(el('span', null, '✕ ' + c.why));
+          d.appendChild(pill);
+        }
+        head.appendChild(d);
+      });
+
+      var times = $('#so-times');
+      times.textContent = '';
+      for (var i = 0; i < NSLOT; i++) {
+        var t = OPEN + i * SLOT;
+        var row = el('div', 'so-time' + (t % 60 === 0 ? ' so-time--hour' : ''));
+        row.appendChild(el('span', null, hhmm(t)));
+        if (NOW >= t && NOW < t + SLOT) row.appendChild(el('span', 'so-now-pill', '● ' + hhmm(NOW)));
+        times.appendChild(row);
+      }
+
+      var grid = $('#so-grid');
+      grid.textContent = '';
+      var r;
+      for (r = 0; r < NSLOT; r++) {
+        var rule = el('div', 'so-rule' + ((OPEN + r * SLOT) % 60 === 0 ? ' so-rule--hour' : ''));
+        rule.style.gridRow = String(r + 1);
+        grid.appendChild(rule);
+      }
+
+      /* Closed blocks, drawn before the cards so a stranded queue still reads
+         on top of the hatching that explains why it has to move. */
+      STYLISTS.forEach(function (w, ci) {
+        closures(w).forEach(function (c) {
+          var b = el('div', 'so-closed');
+          b.style.gridColumn = String(ci + 1);
+          b.style.gridRow = ((c.from - OPEN) / SLOT + 1) + ' / ' + ((c.to - OPEN) / SLOT + 1);
+          b.appendChild(el('span', null, '✕ ' + c.why));
+          grid.appendChild(b);
+        });
+      });
+
+      /* Drop cells. Inert until a move is in flight, so the grid is not a
+         field of 100 tab stops the rest of the time. */
+      STYLISTS.forEach(function (w, ci) {
+        for (var i = 0; i < NSLOT; i++) {
+          var cell = el('div', 'so-cell');
+          cell.style.gridColumn = String(ci + 1);
+          cell.style.gridRow = String(i + 1);
+          cell.dataset.w = w.id;
+          cell.dataset.t = String(OPEN + i * SLOT);
+          cell.setAttribute('aria-hidden', 'true');
+          grid.appendChild(cell);
+        }
+      });
+
+      var slotH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--slot-h')) || 46;
+      var nl = el('div', 'so-nowline');
+      nl.style.top = ((NOW - OPEN) / SLOT * slotH) + 'px';
+      grid.appendChild(nl);
+
+      apts.forEach(function (a) {
+        var w = who(a.w), s = statusOf(a), span = (a.e - a.s) / SLOT;
+        var b = el('button', 'so-apt' + (span <= 1 ? ' so-apt--short' : ''));
+        b.type = 'button';
+        b.style.gridColumn = String(STYLISTS.indexOf(w) + 1);
+        b.style.gridRow = ((a.s - OPEN) / SLOT + 1) + ' / ' + ((a.e - OPEN) / SLOT + 1);
+        b.draggable = true;
+        b.dataset.id = String(a.id);
+        /* At the 960px floor a 30-character Thai name ellipsises in a 168px
+           column — the known limit of this direction, not a bug. The full name
+           is in the accessible name and in the move sheet; title covers the
+           sighted mouse user in between. */
+        b.title = a.c + ' · ' + a.v + ' · ' + hhmm(a.s) + '–' + hhmm(a.e);
+        paint(b, s);
+
+        var t = el('div', 'so-apt-t');
+        t.appendChild(el('b', null, hhmm(a.s)));
+        if (span > 1) t.appendChild(el('i', null, '· ' + dur(a.e - a.s)));
+        b.appendChild(t);
+
+        if (span <= 1) {
+          var ic = el('span', 'so-apt-ic', s.icon); ic.style.color = s.fg;
+          b.appendChild(ic);
+          b.appendChild(el('span', 'so-apt-c', a.c));
+        } else {
+          b.appendChild(el('div', 'so-apt-c', a.c));
+          b.appendChild(el('div', 'so-apt-v', a.v));
+          var st = el('div', 'so-apt-s');
+          st.style.color = s.fg;
+          st.appendChild(el('span', null, s.icon + ' ' + badgeOf(a)));
+          b.appendChild(st);
+        }
+        /* The visible text is a subset of the accessible name, so voice control
+           still reaches this button by what is printed on it — the trap the
+           VELVÉ card paid for with aria-hidden. */
+        b.appendChild(el('span', 'so-sr',
+          ' ' + hhmm(a.s) + ' ถึง ' + hhmm(a.e) + ' ช่าง' + w.name + ' ' + a.v + ' ' + badgeOf(a) + ' · กดเพื่อย้ายคิว'));
+        grid.appendChild(b);
+      });
+    }
+
+    function statusLine(a) {
+      var s = statusOf(a), n = el('div', 'so-row-s');
+      n.style.color = s.fg;
+      n.appendChild(el('span', null, s.icon + ' ' + badgeOf(a)));
+      return n;
+    }
+
+    function queueRow(a, cta) {
+      var w = who(a.w), s = statusOf(a);
+      var b = el('button', 'so-row');
+      b.type = 'button';
+      b.dataset.id = String(a.id);
+      paint(b, s);
+      var t = el('div', 'so-row-t');
+      t.appendChild(el('b', null, hhmm(a.s) + '–' + hhmm(a.e)));
+      t.appendChild(el('i', null, dur(a.e - a.s)));
+      t.appendChild(el('em', null, w.name));
+      b.appendChild(t);
+      b.appendChild(el('div', 'so-row-c', a.c));
+      b.appendChild(el('div', 'so-row-v', a.v + ' · ' + baht(a.p)));
+      var line = statusLine(a);
+      line.appendChild(el('span', 'so-row-go', cta || 'ย้ายคิว →'));
+      b.appendChild(line);
+      return b;
+    }
+
+    function renderMob() {
+      var people = $('#so-people');
+      people.textContent = '';
+      STYLISTS.forEach(function (w) {
+        var li = el('li', 'so-person'), h = el('div', 'so-person-h');
+        var mine = apts.filter(function (a) { return a.w === w.id; }).length;
+        h.appendChild(el('b', null, w.name));
+        h.appendChild(el('span', null, w.skill + ' · ' + mine + ' คิว'));
+        li.appendChild(h);
+
+        var gaps = gapsOf(w);
+        if (w.leaveFrom) {
+          var strandedN = apts.filter(function (a) { return a.w === w.id && stranded(a); }).length;
+          var off = el('div', 'so-gap--none so-gap--off');
+          off.appendChild(el('span', 'so-nb', '✕ ' + w.leaveNote));
+          off.appendChild(document.createTextNode(' '));
+          off.appendChild(el('span', 'so-nb', strandedN ? '· ' + strandedN + ' คิวต้องย้าย' : '· ย้ายครบแล้ว'));
+          li.appendChild(off);
+        } else if (!gaps.length) {
+          li.appendChild(el('div', 'so-gap--none', '— เต็มทั้งบ่าย'));
+        } else {
+          var box = el('div', 'so-gaps');
+          gaps.forEach(function (g) {
+            var p = el('div', 'so-gap');
+            p.appendChild(el('i', null, '✓'));
+            p.appendChild(el('b', null, hhmm(g.s) + '–' + hhmm(g.e)));
+            p.appendChild(el('span', null, dur(g.e - g.s)));
+            box.appendChild(p);
+          });
+          li.appendChild(box);
+        }
+        people.appendChild(li);
+      });
+
+      var todo = $('#so-todo'); todo.textContent = '';
+      var problems = apts.filter(function (a) { return a.late || stranded(a); })
+                         .sort(function (x, y) { return x.s - y.s; });
+      if (!problems.length) {
+        var okli = el('li');
+        okli.appendChild(el('div', 'so-gap--none', '✓ ไม่มีคิวค้าง — ย้ายครบแล้ว'));
+        todo.appendChild(okli);
+      }
+      problems.forEach(function (a) {
+        var li = el('li');
+        li.appendChild(queueRow(a, a.late ? 'ดูตัวเลือก →' : 'ย้ายคิว →'));
+        todo.appendChild(li);
+      });
+
+      var next = $('#so-next'); next.textContent = '';
+      apts.filter(function (a) { return a.e > NOW && !a.late && !stranded(a); })
+          .sort(function (x, y) { return x.s - y.s; })
+          .slice(0, 4)
+          .forEach(function (a) {
+            var li = el('li');
+            li.appendChild(queueRow(a, 'ย้ายคิว →'));
+            next.appendChild(li);
+          });
+    }
+
+    function renderAll() { renderSummary(); renderDesk(); renderMob(); }
+
+    /* ── Toast with undo ─────────────────────────────────────────────── */
+    function snapshot() { return apts.map(function (a) { var c = {}; for (var k in a) c[k] = a[k]; return c; }); }
+    function toast(msg, prev) {
+      undoStack = prev || null;
+      $('#so-toast-txt').textContent = msg;
+      $('#so-toast-undo').hidden = !prev;
+      $('#so-toast').hidden = false;
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () { $('#so-toast').hidden = true; undoStack = null; }, 9000);
+    }
+    $('#so-toast-undo').addEventListener('click', function () {
+      if (!undoStack) return;
+      apts = undoStack; undoStack = null;
+      $('#so-toast').hidden = true;
+      renderAll();
+      toast('ยกเลิกการย้ายแล้ว — คิวกลับไปที่เดิม', null);
+    });
+
+    /* ── The move itself ─────────────────────────────────────────────── */
+    function applyMove(a, wid, start) {
+      var prev = snapshot(), len = a.e - a.s;
+      a.w = wid; a.s = start; a.e = start + len;
+      renderAll();
+      toast('ย้าย ' + a.c + ' ไป ' + who(wid).name + ' ' + hhmm(start) + ' แล้ว · แจ้ง LINE เรียบร้อย', prev);
+    }
+
+    /* ── Two-step move sheet ─────────────────────────────────────────── */
+    var sheetApt = null, sheetPick = null;
+
+    function openSheet(a) {
+      sheetApt = a; sheetPick = null;
+      lastFocus = document.activeElement;
+      var w = who(a.w);
+      $('#so-sheet-h').textContent = 'ย้าย: ' + a.c;
+      $('#so-sheet-sub').textContent = a.v + ' ' + dur(a.e - a.s) + ' · เดิม ' + hhmm(a.s) + ' ช่าง' + w.name +
+        (stranded(a) ? ' (ไม่อยู่ช่วงนี้)' : '');
+
+      var list = $('#so-targets'); list.textContent = '';
+      var opts = targetsFor(a);
+      var empty = $('#so-sheet-empty');
+      if (!opts.length) {
+        empty.textContent = '▲ ไม่มีช่างที่ทักษะตรงและว่างพอสำหรับ ' + dur(a.e - a.s) + ' ในวันนี้ — ต้องโทรหาลูกค้าเพื่อเลื่อนวัน';
+        empty.hidden = false;
+        $('#so-sheet-ok').disabled = true;
+        $('#so-sheet-ok').textContent = 'ย้าย + แจ้ง LINE ลูกค้า';
+      } else {
+        empty.hidden = true;
+        $('#so-sheet-ok').textContent = 'ย้าย + แจ้ง LINE ลูกค้า';
+        opts.slice(0, 8).forEach(function (t, i) {
+          var li = el('li');
+          var b = el('button', 'so-target');
+          b.type = 'button';
+          b.dataset.w = t.w.id;
+          b.dataset.t = String(t.s);
+          b.setAttribute('aria-pressed', 'false');
+          var dot = el('span', 'so-target-dot'); dot.setAttribute('aria-hidden', 'true'); dot.textContent = '○';
+          b.appendChild(dot);
+          var tx = el('span', 'so-target-txt');
+          tx.appendChild(el('b', null, t.w.name + ' · ' + hhmm(t.s) + '–' + hhmm(t.s + (a.e - a.s))));
+          tx.appendChild(el('span', null, noteFor(t, a)));
+          b.appendChild(tx);
+          if (i === 0) b.appendChild(el('span', 'so-best', 'แนะนำ'));
+          li.appendChild(b);
+          list.appendChild(li);
+        });
+      }
+      $('#so-sheet-ok').disabled = true;
+      $('#so-sheet-scrim').hidden = false;
+      var first = $('.so-target', list);
+      (first || $('#so-sheet-cancel')).focus();
+    }
+    function closeSheet() {
+      $('#so-sheet-scrim').hidden = true;
+      sheetApt = null; sheetPick = null;
+      if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+    }
+    $('#so-targets').addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('.so-target') : null;
+      if (!b) return;
+      Array.prototype.forEach.call(this.querySelectorAll('.so-target'), function (o) {
+        o.setAttribute('aria-pressed', 'false');
+        o.style.borderColor = 'var(--c-line-strong)';
+        $('.so-target-dot', o).textContent = '○';
+      });
+      b.setAttribute('aria-pressed', 'true');
+      b.style.borderColor = 'var(--c-primary)';
+      $('.so-target-dot', b).textContent = '●';
+      sheetPick = { w: b.dataset.w, t: parseInt(b.dataset.t, 10) };
+      $('#so-sheet-ok').disabled = false;
+    });
+    $('#so-sheet-cancel').addEventListener('click', closeSheet);
+    $('#so-sheet-ok').addEventListener('click', function () {
+      if (!sheetApt || !sheetPick) return;
+      var a = sheetApt, p = sheetPick;
+      closeSheet();
+      applyMove(a, p.w, p.t);
+    });
+
+    /* ── Handling modal: the sick-leave batch + the late customer ─────── */
+    function openModal() {
+      lastFocus = document.activeElement;
+      var oh = who('oh');
+      var strandedApts = apts.filter(stranded).sort(function (x, y) { return x.s - y.s; });
+      var lateApts = apts.filter(function (a) { return a.late; });
+      var plan = strandedApts.map(function (a) { return { a: a, t: targetsFor(a)[0] || null }; });
+      var placeable = plan.filter(function (p) { return p.t; }).length;
+
+      $('#so-modal-h').textContent = oh.leaveNote ? 'พี่โอ๋ลาป่วย ' + hhmm(oh.leaveFrom) + '–' + hhmm(CLOSE) : 'เรื่องต้องจัดการ';
+      $('#so-modal-sub').textContent = strandedApts.length
+        ? 'มี ' + strandedApts.length + ' คิวค้างในช่วงลา · ระบบหาที่ลงให้ได้ ' + placeable + ' คิว' +
+          (strandedApts.length - placeable ? ' อีก ' + (strandedApts.length - placeable) + ' คิวต้องเลื่อนวัน' : '')
+        : 'ย้ายคิวในช่วงลาครบแล้ว';
+
+      var body = $('#so-modal-b'); body.textContent = '';
+
+      lateApts.forEach(function (a) {
+        var w = who(a.w);
+        var nextStart = apts.filter(function (o) { return o.w === a.w && o.s >= a.e; })
+                            .sort(function (x, y) { return x.s - y.s; })[0];
+        /* Whether being late is a problem at all depends on what is behind her.
+           The board's caption assumed a queue at 14:00 and printed "เหลือเวลาทำ
+           48 จาก 60 นาที"; in the same board's data มายด์ has nothing after
+           this one, so shortening the cut would buy the shop nothing. What is
+           offered is computed from the column as it actually stands, which
+           also means it changes the moment a queue is moved in behind her. */
+        var full = a.e - a.s;
+        var room = nextStart ? (nextStart.s - (a.s + a.late)) : full;
+        var tight = room < full;
+        var box = el('div', 'so-late');
+        box.appendChild(el('b', null, '▲ ' + a.c.split(' ')[0] + ' สาย ' + a.late + ' นาที'));
+        box.appendChild(el('p', null, tight
+          ? 'คิวถัดไปของ' + w.name + 'เริ่ม ' + hhmm(nextStart.s) + ' — เหลือเวลาทำ ' +
+            room + ' จาก ' + full + ' นาที'
+          : (nextStart ? 'คิวถัดไปของ' + w.name + 'เริ่ม ' + hhmm(nextStart.s) + ' — ยังทำเต็ม ' + full + ' นาทีได้'
+                       : 'ไม่มีคิวต่อจากนี้ของ' + w.name + ' — เริ่มช้าได้โดยไม่กระทบใคร')));
+        var acts = el('div', 'so-late-acts');
+        [[tight ? 'เริ่มเลย (ย่อเป็น ' + room + ' น.)' : 'เริ่มเลย (ทำเต็ม ' + full + ' น.)', tight ? 'short' : 'full'],
+         ['เลื่อนไป ' + hhmm(a.e), 'push'],
+         ['ยกเลิกคิว', 'drop']].forEach(function (pair) {
+          var b = el('button', 'so-btn so-btn--sm' + (pair[1] === 'short' || pair[1] === 'full' ? ' so-btn--primary' : ''), pair[0]);
+          b.type = 'button';
+          b.dataset.late = pair[1];
+          b.dataset.id = String(a.id);
+          acts.appendChild(b);
+        });
+        box.appendChild(acts);
+        body.appendChild(box);
+      });
+
+      plan.forEach(function (p) {
+        var row = el('div', 'so-fix' + (p.t ? '' : ' so-fix--blocked'));
+        var tx = el('div', 'so-fix-txt');
+        tx.appendChild(el('b', null, hhmm(p.a.s) + ' · ' + p.a.v + ' ' + dur(p.a.e - p.a.s)));
+        tx.appendChild(el('span', null, p.a.c));
+        if (!p.t) tx.appendChild(el('em', null, '▲ ไม่มีช่างทักษะตรงที่ว่าง — ต้องโทรเลื่อนวัน'));
+        row.appendChild(tx);
+        if (p.t) {
+          row.appendChild(el('div', 'so-fix-to', '✓ → ' + p.t.w.name + ' ' + hhmm(p.t.s)));
+        } else {
+          var call = el('a', 'so-btn so-btn--sm', '☏ โทรหาลูกค้า');
+          call.href = 'tel:+6620000000';
+          row.appendChild(call);
+        }
+        body.appendChild(row);
+      });
+
+      var ok = $('#so-modal-ok');
+      ok.disabled = !placeable;
+      ok.textContent = placeable ? 'ย้าย ' + placeable + ' คิว + แจ้ง LINE' : 'ไม่มีคิวที่ย้ายอัตโนมัติได้';
+      ok.dataset.plan = JSON.stringify(plan.filter(function (p) { return p.t; })
+        .map(function (p) { return { id: p.a.id, w: p.t.w.id, s: p.t.s }; }));
+
+      $('#so-modal-scrim').hidden = false;
+      $('#so-modal-x').focus();
+    }
+    function closeModal() {
+      $('#so-modal-scrim').hidden = true;
+      if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+    }
+    $('#so-modal-x').addEventListener('click', closeModal);
+    $('#so-modal-manual').addEventListener('click', closeModal);
+    $('#so-modal-ok').addEventListener('click', function () {
+      var plan;
+      try { plan = JSON.parse(this.dataset.plan || '[]'); } catch (err) { plan = []; }
+      if (!plan.length) return;
+      var prev = snapshot(), n = 0;
+      /* Re-check each one as it lands: two queues can be offered the same slot,
+         and the second must not silently overwrite the first. */
+      plan.forEach(function (p) {
+        var a = apts.filter(function (x) { return x.id === p.id; })[0];
+        if (!a) return;
+        if (!fits(p.w, p.s, a.e - a.s, a.id)) {
+          var alt = targetsFor(a)[0];
+          if (!alt) return;
+          p.w = alt.w.id; p.s = alt.s;
+        }
+        var len = a.e - a.s;
+        a.w = p.w; a.s = p.s; a.e = p.s + len;
+        n++;
+      });
+      closeModal();
+      renderAll();
+      toast('ย้าย ' + n + ' คิวออกจากช่วงลาของพี่โอ๋แล้ว · แจ้ง LINE ลูกค้าทุกคน', prev);
+    });
+    $('#so-modal-b').addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('[data-late]') : null;
+      if (!b) return;
+      var a = apts.filter(function (x) { return x.id === parseInt(b.dataset.id, 10); })[0];
+      if (!a) return;
+      var prev = snapshot(), msg;
+      if (b.dataset.late === 'short') { a.s += a.late; a.late = 0; msg = 'เริ่มคิว ' + a.c + ' แล้ว · ย่อเวลาให้พอดีคิวถัดไป'; }
+      else if (b.dataset.late === 'full') { a.s += a.late; a.e += a.late; a.late = 0; msg = 'เริ่มคิว ' + a.c + ' แล้ว · ทำเต็มเวลา ไม่กระทบคิวอื่น'; }
+      else if (b.dataset.late === 'push') { var len = a.e - a.s; a.s = a.e; a.e = a.s + len; a.late = 0; msg = 'เลื่อนคิว ' + a.c + ' ไป ' + hhmm(a.s) + ' แล้ว'; }
+      else { apts = apts.filter(function (x) { return x.id !== a.id; }); msg = 'ยกเลิกคิว ' + a.c + ' แล้ว'; }
+      closeModal();
+      renderAll();
+      toast(msg, prev);
+    });
+    $('#so-alert-chip').addEventListener('click', openModal);
+
+    /* ── Drag on desktop ─────────────────────────────────────────────────
+       Drag is the fast path, not the only path. Every card is also a button
+       that opens the same two-step sheet, so the whole board is reachable
+       from a keyboard and from a phone — where dragging has to fight the
+       scroll gesture and loses. */
+    function armCells(a) {
+      var len = a.e - a.s;
+      Array.prototype.forEach.call(document.querySelectorAll('.so-cell'), function (c) {
+        var okHere = fits(c.dataset.w, parseInt(c.dataset.t, 10), len, a.id);
+        if (okHere) {
+          c.dataset.drop = '1';
+          c.textContent = '';
+          if (parseInt(c.dataset.t, 10) === a.s) {
+            var tip = el('span', 'so-cell-tip', 'วางที่นี่');
+            c.appendChild(tip);
+          }
+        } else { delete c.dataset.drop; c.textContent = ''; }
+      });
+    }
+    function disarmCells() {
+      Array.prototype.forEach.call(document.querySelectorAll('.so-cell'), function (c) {
+        delete c.dataset.drop; c.classList.remove('is-over'); c.textContent = '';
+      });
+    }
+
+    var grid = $('#so-grid');
+    grid.addEventListener('dragstart', function (e) {
+      var card = e.target.closest ? e.target.closest('.so-apt') : null;
+      if (!card) return;
+      picked = apts.filter(function (x) { return x.id === parseInt(card.dataset.id, 10); })[0] || null;
+      if (!picked) return;
+      card.classList.add('is-dragging');
+      if (e.dataTransfer) { e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', card.dataset.id); }
+      armCells(picked);
+    });
+    grid.addEventListener('dragend', function (e) {
+      var card = e.target.closest ? e.target.closest('.so-apt') : null;
+      if (card) card.classList.remove('is-dragging');
+      picked = null; disarmCells();
+    });
+    grid.addEventListener('dragover', function (e) {
+      var cell = e.target.closest ? e.target.closest('.so-cell[data-drop="1"]') : null;
+      if (!cell) return;
+      e.preventDefault();
+      if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
+      cell.classList.add('is-over');
+    });
+    grid.addEventListener('dragleave', function (e) {
+      var cell = e.target.closest ? e.target.closest('.so-cell') : null;
+      if (cell) cell.classList.remove('is-over');
+    });
+    grid.addEventListener('drop', function (e) {
+      var cell = e.target.closest ? e.target.closest('.so-cell[data-drop="1"]') : null;
+      if (!cell || !picked) return;
+      e.preventDefault();
+      var a = picked;
+      picked = null; disarmCells();
+      applyMove(a, cell.dataset.w, parseInt(cell.dataset.t, 10));
+    });
+
+    /* Click / Enter on a card opens the sheet — the same path a phone uses. */
+    grid.addEventListener('click', function (e) {
+      var card = e.target.closest ? e.target.closest('.so-apt') : null;
+      if (!card) return;
+      var a = apts.filter(function (x) { return x.id === parseInt(card.dataset.id, 10); })[0];
+      if (a) openSheet(a);
+    });
+    ['#so-todo', '#so-next'].forEach(function (sel) {
+      $(sel).addEventListener('click', function (e) {
+        var row = e.target.closest ? e.target.closest('.so-row') : null;
+        if (!row) return;
+        var a = apts.filter(function (x) { return x.id === parseInt(row.dataset.id, 10); })[0];
+        if (!a) return;
+        if (a.late) openModal(); else openSheet(a);
+      });
+    });
+
+    /* Esc closes whichever layer is on top, and focus goes back where it was. */
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      if (!$('#so-sheet-scrim').hidden) { closeSheet(); return; }
+      if (!$('#so-modal-scrim').hidden) { closeModal(); return; }
+      if (!$('#so-toast').hidden) $('#so-toast').hidden = true;
+    });
+    /* Clicking the scrim itself (never a child) dismisses, same as Cancel. */
+    $('#so-sheet-scrim').addEventListener('mousedown', function (e) { if (e.target === this) closeSheet(); });
+    $('#so-modal-scrim').addEventListener('mousedown', function (e) { if (e.target === this) closeModal(); });
+
+    /* Keep focus inside an open dialog. */
+    function trap(e) {
+      if (e.key !== 'Tab') return;
+      var box = !$('#so-sheet-scrim').hidden ? $('#so-sheet') : (!$('#so-modal-scrim').hidden ? $('#so-modal') : null);
+      if (!box) return;
+      var f = box.querySelectorAll('button:not([disabled]),a[href],[tabindex]:not([tabindex="-1"])');
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+    document.addEventListener('keydown', trap);
+
+    renderAll();
+
+    /* Deep link to a situation. "Come and look at this" is a real thing an
+       owner does with a colleague, and it is also what lets the screenshot
+       tool capture a live state instead of the top of the page — the captures
+       are then regenerated by the same one command as every other demo's,
+       rather than being staged by hand and going stale silently. */
+    var want = /[?&]state=([a-z]+)/.exec(location.search);
+    if (want) {
+      if (want[1] === 'leave' && apts.some(stranded)) openModal();
+      else if (want[1] === 'move') {
+        var first = apts.filter(stranded).sort(function (x, y) { return x.s - y.s; })[0];
+        if (first) openSheet(first);
+      }
+    }
+  })();
+  </script>
+</body>
+</html>

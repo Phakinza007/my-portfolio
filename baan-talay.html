@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <!-- Sends /foo.html to /foo and /index.html to /, in the address bar as well
+       as in the index. GitHub Pages serves both and cannot redirect, so canonical
+       alone leaves the visitor looking at the URL we told Google not to use.
+       Inline and in <head> on purpose: a deferred external script would run after
+       the parse and the page would render, then jump. location.replace keeps it
+       out of history, so Back still leaves the site. -->
+  <script>(function(p){if(location.protocol!=='file:'&&/\.html$/.test(p)&&!/\/404\.html$/.test(p))location.replace((/\/index\.html$/.test(p)?p.slice(0,-10):p.slice(0,-5))+location.search+location.hash)})(location.pathname)</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BAAN TALAY หัวหิน — รีสอร์ต 24 ห้องติดหาดส่วนตัว เช็คห้องว่างและจองออนไลน์</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <meta name="description" content="รีสอร์ตริมทะเลหัวหิน 24 ห้อง หาดส่วนตัว 200 เมตร ห้องพัก 4 แบบตั้งแต่ ฿2,400 เช็ควันว่าง ดูราคาต่อคืนรวมภาษี และจองออนไลน์ได้ในไม่กี่ขั้นตอน">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://ph-akin.dev/baan-talay">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="th_TH">
+  <meta property="og:title" content="BAAN TALAY หัวหิน — รีสอร์ต 24 ห้องติดหาดส่วนตัว">
+  <meta property="og:description" content="รีสอร์ตริมทะเลหัวหิน 24 ห้อง หาดส่วนตัว 200 เมตร ห้องพัก 4 แบบตั้งแต่ ฿2,400 เช็ควันว่างและจองออนไลน์">
+  <meta property="og:url" content="https://ph-akin.dev/baan-talay">
+  <meta property="og:image" content="https://ph-akin.dev/assets/screenshots/showcase-baan-talay.jpg">
+  <meta property="og:image:alt" content="ภาพหน้าเว็บ BAAN TALAY">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#2C3327">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=optional" rel="stylesheet">
+  <style>
+/* ─────────────────────────────────────────────────────────────
+   BAAN TALAY — resort booking demo.
+
+   Demo page: its own reset, its own tokens, no shared stylesheet and no
+   portfolio chrome. Every selector is namespaced .bt-* on purpose — a bare
+   element selector in a demo page finds a second element eventually (see
+   aesthetic-booking's nav.foot-links, which inherited a cream panel and
+   shipped at 1.11:1).
+
+   Palette is the design's, with three text greys darkened to clear WCAG AA
+   on their own backgrounds — #7A8175 measured 3.77:1 and #8A9083 3.08:1 on
+   the #FAF7F2 paper, so both were replaced by --muted / --muted-2. The
+   terracotta likewise splits in two: #C25E3A gives white text only 4.24:1,
+   so buttons take --terra (#BB5836, 4.60:1) and terracotta-as-text takes
+   --terra-ink (#A84B2B, 5.35:1 on paper).
+   ───────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+:root{
+  --paper:#FAF7F2;
+  --sand-bg:#EDE4D6;
+  --card:#fff;
+  --panel:#F2ECE2;
+  --ink:#2C3327;
+  --ink-2:#43493E;
+  --muted:#5A6154;
+  --muted-2:#6B7266;
+  --green:#5B7355;
+  --green-d:#3F5239;
+  --green-tint:#E4EDDF;
+  --terra:#BB5836;
+  --terra-d:#A04629;
+  --terra-ink:#A84B2B;
+  --sand:#C4A582;
+  --line:rgba(196,165,130,.42);
+  --line-2:rgba(196,165,130,.28);
+  --field:#DDD3C4;
+  --dark:#14180F;
+  --dark-2:#22271B;
+  --r:12px;
+  --r-lg:14px;
+  --wrap:1140px;
+  --pad:18px;
+}
+
+html { -webkit-text-size-adjust:100%; }
+html, body { overflow-x:hidden; }
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'IBM Plex Sans Thai', system-ui, -apple-system, sans-serif;
+  font-size:15px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+/* The sticky mobile bar's height is reserved on the BODY, never on whichever
+   section happens to be last — padding the last section leaves the footer
+   running underneath the bar (lumi-clinic shipped exactly that, 73px). */
+body.bt-has-bar{ padding-bottom:calc(84px + env(safe-area-inset-bottom));
+}
+
+img { max-width:100%; display:block; }
+button { font:inherit; color:inherit; }
+a { color:var(--green); text-decoration:none; }
+a:hover { color:var(--green-d); }
+
+:focus-visible{ outline:2px solid var(--terra-ink); outline-offset:2px; border-radius:6px; }
+
+.bt-sr{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+
+.bt-skip{
+  position:absolute; left:-999px; top:0; z-index:200;
+  background:var(--ink); color:var(--paper);
+  padding:12px 18px; border-radius:0 0 var(--r) 0; font-weight:600;
+}
+.bt-skip:focus{ left:0; color:var(--paper); }
+
+/* Chrome ships no Thai line-break dictionary here, so an unspaced Thai run
+   breaks at ANY character — pathapee-precast shipped an h1 split as
+   "ตารางส / แปน". word-break:keep-all does nothing and text-wrap:balance only
+   rebalances the same bad opportunities; white-space:nowrap per phrase is the
+   only lever. Every .nb run below was measured under 375px - 36px of padding. */
+.nb{ white-space:nowrap; }
+
+.bt-wrap{ width:100%; max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
+
+/* ── buttons ───────────────────────────────────────────────── */
+.bt-btn{
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  min-height:50px; padding:0 20px;
+  border:1px solid transparent; border-radius:var(--r);
+  font-size:15px; font-weight:600; line-height:1.3;
+  cursor:pointer; text-align:center;
+  transition:background .18s ease, border-color .18s ease, color .18s ease;
+}
+.bt-btn--primary{ background:var(--terra); color:#fff; }
+.bt-btn--primary:hover{ background:var(--terra-d); color:#fff; }
+.bt-btn--green{ background:var(--green); color:#fff; }
+.bt-btn--green:hover{ background:var(--green-d); color:#fff; }
+.bt-btn--ghost{ background:transparent; color:var(--ink); border-color:var(--field); }
+.bt-btn--ghost:hover{ background:var(--sand-bg); color:var(--ink); }
+.bt-btn--onDark{ background:transparent; color:#fff; border-color:rgba(255,255,255,.55); }
+.bt-btn--onDark:hover{ background:rgba(255,255,255,.12); color:#fff; }
+
+.bt-icon{
+  width:44px; height:44px; flex:none;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:var(--r); cursor:pointer;
+  background:var(--card); border:1px solid var(--field); color:var(--ink);
+}
+.bt-icon:hover{ background:var(--sand-bg); }
+
+.bt-back{ margin-bottom:18px; }
+
+/* ── header ────────────────────────────────────────────────── */
+.bt-hd{
+  display:none;
+  position:sticky; top:0; z-index:60;
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+  transition:background .25s ease, border-color .25s ease;
+}
+/* Over the hero the bar is transparent; the class is set from scroll position. */
+.bt-hd.is-over{ background:transparent; border-bottom-color:transparent; }
+/* The bar's resting state must not depend on a transition finishing. Chrome
+   freezes transitions in a tab that is not visible, so a header that starts
+   solid and fades to transparent stays SOLID forever there — which is how
+   every hero screenshot came out with an opaque bar over the photograph while
+   the class was correctly applied the whole time. The transition is suppressed
+   until the first paint has been through a frame; if rAF never runs (hidden
+   tab) it simply stays suppressed and the bar snaps, which is correct. */
+html.bt-boot .bt-hd, html.bt-boot .bt-hd *{ transition:none !important; }
+.bt-hd-in{
+  width:100%; max-width:var(--wrap); margin:0 auto; padding:12px var(--pad);
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+}
+.bt-logo{ display:flex; flex-direction:column; line-height:1; color:var(--ink); }
+.bt-logo b{ font-size:15px; font-weight:600; letter-spacing:2.6px; }
+.bt-logo span{ font-size:9.5px; letter-spacing:1.4px; opacity:.72; margin-top:5px; }
+.bt-hd.is-over .bt-logo{ color:#fff; }
+
+.bt-nav{ display:none; }
+.bt-nav a, .bt-nav button{
+  background:none; border:0; padding:8px 2px; cursor:pointer;
+  font-size:14px; font-weight:500; color:var(--ink-2);
+}
+.bt-nav a:hover, .bt-nav button:hover{ color:var(--green-d); }
+.bt-hd.is-over .bt-nav a, .bt-hd.is-over .bt-nav button{ color:rgba(255,255,255,.92); }
+.bt-hd.is-over .bt-nav a:hover, .bt-hd.is-over .bt-nav button:hover{ color:#fff; }
+
+.bt-burger{ background:var(--card); border:1px solid var(--field); }
+.bt-hd.is-over .bt-burger{ background:rgba(255,255,255,.16); border-color:rgba(255,255,255,.4); color:#fff; }
+
+/* display is not animatable, so a rule that swaps it cancels any fade beside
+   it. display:none stays (the closed drawer must leave the tab order) and
+   transition-behavior:allow-discrete + @starting-style is what makes it
+   transitionable. A browser without support gets the previous snap. */
+.bt-drawer{
+  display:none; opacity:0;
+  position:fixed; top:0; left:0; right:0; z-index:80;
+  background:var(--paper); border-bottom:1px solid var(--line);
+  box-shadow:0 18px 40px rgba(44,51,39,.18);
+  transition:opacity .22s ease, display .22s allow-discrete;
+}
+.bt-drawer-head{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:22px var(--pad) 8px; }
+.bt-drawer[data-open]{ display:block; opacity:1; }
+@starting-style{ .bt-drawer[data-open]{ opacity:0; } }
+.bt-drawer ul{ list-style:none; margin:0; padding:8px var(--pad) 16px; }
+.bt-drawer li + li{ border-top:1px solid var(--line-2); }
+.bt-drawer a, .bt-drawer button{
+  display:flex; align-items:center; width:100%;
+  min-height:48px; padding:4px 0;
+  background:none; border:0; cursor:pointer; text-align:left;
+  font-size:15.5px; font-weight:500; color:var(--ink);
+}
+
+/* ── views ─────────────────────────────────────────────────── */
+.bt-view[hidden]{ display:none; }
+.bt-view{ display:block; }
+.bt-sec{ padding:34px 0 0; }
+.bt-sec-head{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; }
+.bt-h2{ margin:0; font-size:21px; font-weight:600; letter-spacing:-.3px; line-height:1.35; }
+.bt-sub{ margin:8px 0 0; font-size:13.5px; line-height:1.6; color:var(--muted); }
+.bt-page-title{ margin:0; font-size:24px; font-weight:600; letter-spacing:-.4px; line-height:1.35; }
+.bt-side-title{ margin:0; font-size:20px; font-weight:600; letter-spacing:-.3px; }
+.bt-gv-title{ margin:0; font-size:13.5px; font-weight:600; color:rgba(250,247,242,.85); }
+.bt-more{ background:none; border:0; padding:8px 0; cursor:pointer; font-size:13.5px; font-weight:600; color:var(--green); white-space:nowrap; }
+.bt-more:hover{ color:var(--green-d); }
+
+/* ── hero ──────────────────────────────────────────────────── */
+.bt-hero{ position:relative; height:clamp(430px,74vh,540px); }
+.bt-hero > img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; background:var(--sand); }
+.bt-hero-ov{ position:absolute; inset:0; background:linear-gradient(180deg,rgba(20,26,18,.5) 0%,rgba(20,26,18,.22) 45%,rgba(20,26,18,.74) 100%); }
+.bt-hero-nav{ position:absolute; top:30px; left:0; right:0; color:#fff; }
+.bt-hero-nav .bt-wrap{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.bt-hero-nav .bt-icon{ background:rgba(255,255,255,.16); border-color:rgba(255,255,255,.4); color:#fff; }
+.bt-hero-nav .bt-icon:hover{ background:rgba(255,255,255,.28); }
+.bt-hero-in{ position:absolute; left:0; right:0; bottom:26px; }
+.bt-badge{
+  display:inline-block; margin-bottom:16px; padding:6px 13px;
+  font-size:10.5px; font-weight:500; letter-spacing:1.8px;
+  color:#F3E7D6; border:1px solid rgba(243,231,214,.5); border-radius:999px;
+}
+.bt-h1{ margin:0; font-size:clamp(30px,8.6vw,36px); font-weight:600; line-height:1.14; letter-spacing:-.8px; color:#fff; }
+.bt-lede{ margin:12px 0 0; font-size:14.5px; line-height:1.65; color:rgba(255,255,255,.92); }
+
+/* ── search widget ─────────────────────────────────────────── */
+.bt-search{ position:relative; margin-top:-22px; padding:0 var(--pad); }
+.bt-view-pad{ padding-top:26px; }
+.bt-search-in{
+  background:var(--card); border:1px solid var(--line);
+  border-radius:var(--r-lg); padding:16px;
+  box-shadow:0 8px 24px rgba(44,51,39,.14);
+}
+.bt-dates{ display:flex; gap:10px; }
+.bt-field{ flex:1; display:flex; flex-direction:column; gap:6px; min-width:0; }
+.bt-field > span{ font-size:11.5px; font-weight:500; color:var(--muted-2); }
+.bt-input{
+  width:100%; height:46px; padding:0 10px;
+  font:inherit; font-size:14px; color:var(--ink);
+  background:var(--paper); border:1px solid var(--field); border-radius:11px;
+}
+.bt-guests{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  margin-top:14px; padding-top:14px; border-top:1px solid var(--line);
+}
+.bt-guests > span{ font-size:13.5px; font-weight:500; color:var(--ink-2); }
+.bt-stepper{ display:flex; align-items:center; gap:12px; }
+.bt-count{ min-width:58px; text-align:center; font-size:15px; font-weight:600; }
+.bt-go{ width:100%; margin-top:14px; }
+.bt-nights{ margin:11px 0 0; font-size:12.5px; font-weight:600; color:var(--terra-ink); }
+/* Before a date is picked this line has no text. Left in flow it held an 18px
+   row on the phone and a whole grid row in the desktop bar, so the card ended
+   in dead space. */
+.bt-nights:empty{ display:none; }
+
+/* ── feature strip ─────────────────────────────────────────── */
+.bt-feats{
+  display:flex; gap:10px; margin-top:20px; padding:0 var(--pad) 4px;
+  overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none;
+}
+.bt-feats::-webkit-scrollbar{ height:0; }
+.bt-feat{
+  flex:none; width:150px; scroll-snap-align:start;
+  background:var(--card); border:1px solid var(--line-2); border-radius:var(--r); padding:15px;
+}
+.bt-feat p{ margin:11px 0 0; font-size:13.5px; font-weight:600; line-height:1.45; }
+
+/* ── rooms ─────────────────────────────────────────────────── */
+.bt-rooms{ display:grid; gap:14px; margin-top:16px; }
+.bt-room{
+  display:block; width:100%; padding:0; text-align:left; cursor:pointer;
+  background:var(--card); color:var(--ink);
+  border:1px solid var(--line-2); border-radius:var(--r-lg); overflow:hidden;
+  transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+.bt-room:hover{ border-color:var(--sand); box-shadow:0 10px 26px rgba(44,51,39,.10); }
+.bt-room-fig{ display:block; position:relative; height:180px; background:var(--sand-bg); }
+.bt-room-fig img{ width:100%; height:100%; object-fit:cover; }
+.bt-pill-bf{
+  position:absolute; top:12px; left:12px;
+  background:var(--sand); color:var(--ink);
+  font-size:11px; font-weight:600; padding:5px 11px; border-radius:999px;
+}
+.bt-room-body{ display:block; padding:16px; }
+.bt-room-top{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; }
+.bt-room-name{ font-size:17px; font-weight:600; }
+.bt-room-price{ font-size:17px; font-weight:600; color:var(--green); white-space:nowrap; }
+.bt-room-blurb{ display:block; margin:7px 0 0; font-size:13px; line-height:1.55; color:var(--muted); }
+.bt-room-meta{ display:flex; flex-wrap:wrap; gap:8px 14px; margin-top:12px; font-size:12.5px; color:var(--muted-2); }
+
+/* ── gallery strip (home) ──────────────────────────────────── */
+.bt-gal{
+  display:flex; gap:10px; margin-top:14px; padding-bottom:4px;
+  overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none;
+}
+.bt-gal::-webkit-scrollbar{ height:0; }
+.bt-shot{
+  flex:none; padding:0; border:0; border-radius:var(--r); overflow:hidden;
+  background:var(--sand-bg); cursor:pointer; scroll-snap-align:start;
+}
+.bt-gal .bt-shot{ width:180px; height:130px; }
+.bt-shot img{ width:100%; height:100%; object-fit:cover; }
+
+/* ── closing CTA + faq link ────────────────────────────────── */
+.bt-cta{ margin-top:34px; background:var(--green); border-radius:var(--r-lg); padding:22px; }
+.bt-cta p{ margin:0; font-size:18px; font-weight:600; line-height:1.45; color:#fff; }
+.bt-cta-actions{ display:grid; gap:10px; margin-top:16px; }
+.bt-faqlink{
+  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  width:100%; margin-top:22px; padding:20px 0;
+  background:none; border:0; border-top:1px solid var(--line);
+  font-size:15px; font-weight:600; color:var(--ink); cursor:pointer;
+}
+
+/* ── footer ────────────────────────────────────────────────── */
+.bt-foot{ margin-top:40px; padding:30px 0 34px; background:var(--sand-bg); border-top:1px solid var(--line); }
+.bt-foot-grid{ display:grid; gap:22px; }
+.bt-foot h2{ margin:0 0 10px; font-size:13px; font-weight:600; letter-spacing:1.4px; color:var(--muted); }
+.bt-foot p, .bt-foot address{ margin:0; font-style:normal; font-size:14px; line-height:1.75; color:var(--ink-2); }
+.bt-foot ul{ list-style:none; margin:0; padding:0; }
+/* The footer band is --sand-bg, darker than the paper the rest of the page
+   uses, and --green measures only 4.13:1 against it. --green-d gives 6.72:1.
+   This is the one surface on the page where the link colour has to change. */
+.bt-foot a{ color:var(--green-d); }
+.bt-foot a:hover{ color:var(--ink); }
+.bt-foot li + li{ margin-top:6px; }
+.bt-foot-note{ margin-top:26px; padding-top:18px; border-top:1px solid var(--line); font-size:12.5px; line-height:1.7; color:var(--muted); }
+
+/* ── room detail ───────────────────────────────────────────── */
+.bt-dt-hero{ position:relative; height:290px; background:var(--sand-bg);
+  margin:0 calc(var(--pad) * -1); }
+.bt-dt-hero img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.bt-dt-ov{ position:absolute; inset:0; background:linear-gradient(180deg,rgba(20,26,18,.45) 0%,rgba(20,26,18,0) 42%); }
+.bt-dt-back{ position:absolute; top:34px; left:var(--pad); background:rgba(255,255,255,.92); border-color:transparent; }
+.bt-dt-title{ margin:0; font-size:25px; font-weight:600; letter-spacing:-.4px; line-height:1.3; }
+.bt-dt-price{ display:flex; align-items:baseline; gap:7px; margin-top:8px; }
+.bt-dt-price b{ font-size:22px; font-weight:600; color:var(--green); }
+.bt-dt-price span{ font-size:13px; color:var(--muted-2); }
+.bt-dt-copy{ margin:14px 0 0; font-size:15px; line-height:1.75; color:var(--ink-2); }
+.bt-facts{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:12px;
+  margin:20px 0 0; padding:16px 0;
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+}
+.bt-facts dt{ font-size:11px; font-weight:500; color:var(--muted-2); }
+.bt-facts dd{ margin:5px 0 0; font-size:14.5px; font-weight:600; }
+.bt-h3{ margin:22px 0 0; font-size:15px; font-weight:600; }
+.bt-amen{ list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:14px 0 0; padding:0; }
+.bt-amen li{ display:flex; align-items:center; gap:9px; font-size:13.5px; color:var(--ink-2); }
+.bt-shots{ display:flex; gap:10px; margin:14px 0 0; padding-bottom:4px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; }
+.bt-shots::-webkit-scrollbar{ height:0; }
+.bt-shots .bt-shot{ width:200px; height:140px; }
+.bt-note{ margin:22px 0 0; font-size:12.5px; line-height:1.7; color:var(--muted); }
+.bt-subhead{ margin:22px 0 0; font-size:15px; font-weight:600; }
+
+/* The sticky side panels are the desktop replacement for the phone's bottom
+   bar. Both are absent below 900px, where the bar carries the same price and
+   the same call to action. */
+.bt-dt-side, .bt-sum-b .bt-side-cta{ display:none; }
+.bt-side-label{ margin:0; font-size:12px; font-weight:500; color:var(--muted-2); }
+.bt-side-price{ margin:6px 0 0; font-size:28px; font-weight:600; color:var(--green); }
+.bt-side-rows{ margin:18px 0 0; padding:16px 0 0; border-top:1px solid var(--line-2); display:grid; gap:10px; }
+.bt-side-rows > div{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
+.bt-side-rows dt{ font-size:13px; color:var(--muted); }
+.bt-side-rows dd{ margin:0; font-size:13.5px; font-weight:600; text-align:right; }
+.bt-side-cta{ width:100%; margin-top:20px; }
+.bt-side-note{ margin-top:14px; }
+
+/* ── summary ───────────────────────────────────────────────── */
+.bt-sum-room{ display:flex; gap:13px; margin-top:20px; padding:14px; background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); }
+.bt-sum-room img{ width:84px; height:84px; flex:none; object-fit:cover; border-radius:10px; background:var(--sand-bg); }
+.bt-sum-room p{ margin:0; }
+.bt-sum-room .n{ font-size:16px; font-weight:600; }
+.bt-sum-room .m{ margin-top:6px; font-size:13px; line-height:1.5; color:var(--muted); }
+.bt-sum-room .p{ margin-top:6px; font-size:13px; font-weight:600; color:var(--green); }
+.bt-rows{ margin:18px 0 0; padding:0; background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden; }
+.bt-rows > div{ display:flex; align-items:center; justify-content:space-between; gap:14px; padding:15px 16px; }
+.bt-rows > div + div{ border-top:1px solid var(--line-2); }
+.bt-rows dt{ font-size:13.5px; color:var(--muted); }
+.bt-rows dd{ margin:0; font-size:14.5px; font-weight:600; text-align:right; }
+.bt-price{ margin:18px 0 0; padding:18px 16px; background:var(--panel); border-radius:var(--r-lg); }
+.bt-price-row{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding:6px 0; }
+.bt-price-row span:first-child{ font-size:13.5px; color:var(--muted); }
+.bt-price-row span:last-child{ font-size:14px; font-weight:500; }
+.bt-price-row.is-off span:last-child{ color:var(--muted); }
+.bt-price-total{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-top:12px; padding-top:13px; border-top:1px solid var(--line); }
+.bt-price-total > span:first-child{ font-size:15px; font-weight:600; }
+.bt-price-total > b{ font-size:20px; font-weight:600; color:var(--terra-ink); white-space:nowrap; }
+.bt-price-foot{ margin:10px 0 0; font-size:12px; line-height:1.6; color:var(--muted); }
+.bt-form{ display:grid; gap:14px; margin-top:20px; }
+.bt-form label{ display:flex; flex-direction:column; gap:7px; }
+.bt-form span{ font-size:12.5px; font-weight:500; color:var(--muted-2); }
+.bt-form .bt-input{ height:50px; padding:0 13px; font-size:15px; background:var(--card); }
+
+/* ── success ───────────────────────────────────────────────── */
+.bt-ok{ max-width:560px; margin:0 auto; text-align:center; }
+.bt-ok-mark{ width:78px; height:78px; margin:0 auto; border-radius:50%; background:var(--green-tint); display:flex; align-items:center; justify-content:center; }
+.bt-ok h1{ margin:24px 0 0; font-size:25px; font-weight:600; letter-spacing:-.4px; }
+.bt-ok-lede{ margin:12px 0 0; font-size:14.5px; line-height:1.7; color:var(--muted); }
+.bt-ok-card{ margin:26px 0 0; padding:22px 18px; background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); }
+.bt-ok-card > span{ font-size:11.5px; font-weight:600; letter-spacing:1.6px; color:var(--muted-2); }
+.bt-ref{ margin:10px 0 0; font-size:27px; font-weight:600; letter-spacing:3px; }
+.bt-ok-rows{ margin:20px 0 0; padding:16px 0 0; border-top:1px solid var(--line-2); display:grid; gap:11px; text-align:left; }
+.bt-ok-rows > div{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
+.bt-ok-rows dt{ font-size:13px; color:var(--muted); }
+.bt-ok-rows dd{ margin:0; font-size:14px; font-weight:600; text-align:right; }
+.bt-ok-actions{ display:grid; gap:10px; margin-top:22px; }
+
+/* ── faq + travel ──────────────────────────────────────────── */
+.bt-faq{ margin-top:18px; border-top:1px solid var(--line); }
+.bt-faq > div{ border-bottom:1px solid var(--line); }
+.bt-q{
+  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  width:100%; padding:18px 2px; background:none; border:0; cursor:pointer;
+  text-align:left; font-size:15px; font-weight:600; line-height:1.5; color:var(--ink);
+}
+.bt-q svg{ flex:none; transition:transform .3s ease; }
+.bt-q[aria-expanded="true"] svg{ transform:rotate(180deg); }
+.bt-a{ display:grid; grid-template-rows:0fr; opacity:0; overflow:hidden; transition:grid-template-rows .34s ease, opacity .26s ease; }
+.bt-a > p{ margin:0; padding:0 2px 18px; font-size:14px; line-height:1.8; color:var(--muted); min-height:0; }
+.bt-q[aria-expanded="true"] + .bt-a{ grid-template-rows:1fr; opacity:1; }
+.bt-dist{ list-style:none; margin:16px 0 0; padding:0; }
+.bt-dist li{ display:flex; align-items:center; justify-content:space-between; gap:14px; padding:13px 0; border-bottom:1px solid var(--line-2); }
+.bt-dist span:first-child{ font-size:14.5px; color:var(--ink-2); }
+.bt-dist span:last-child{ font-size:14px; font-weight:600; color:var(--green); }
+.bt-addr{ display:block; font-style:normal; margin:20px 0 0; font-size:14px; line-height:1.8; color:var(--muted); }
+.bt-contact{ display:grid; gap:10px; margin-top:18px; }
+
+/* ── gallery view ──────────────────────────────────────────── */
+.bt-gv{ background:var(--dark); min-height:100vh; padding-bottom:70px; }
+.bt-gv-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.bt-gv-head .bt-icon{ background:rgba(250,247,242,.14); border-color:rgba(250,247,242,.3); color:var(--paper); }
+.bt-gv-head .bt-icon:hover{ background:rgba(250,247,242,.26); }
+.bt-gv-grid{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:16px; }
+.bt-gv-grid .bt-shot{ width:100%; height:150px; background:var(--dark-2); }
+
+/* ── sticky action bar (mobile) ────────────────────────────── */
+.bt-bar{
+  position:fixed; left:0; right:0; bottom:0; z-index:55;
+  display:flex; align-items:center; gap:12px;
+  padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  background:rgba(250,247,242,.97); border-top:1px solid var(--line);
+  -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+}
+.bt-bar[hidden]{ display:none; }
+.bt-bar-price{ display:flex; flex-direction:column; line-height:1.25; }
+.bt-bar-price span{ font-size:11.5px; color:var(--muted); }
+.bt-bar-price b{ font-size:17px; font-weight:600; }
+.bt-bar .bt-btn{ flex:1; min-height:52px; font-size:16px; }
+
+/* ── lightbox ──────────────────────────────────────────────── */
+.bt-lb{
+  position:fixed; inset:0; z-index:120;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px;
+  padding:70px 14px 40px; background:rgba(12,15,9,.95);
+}
+.bt-lb[hidden]{ display:none; }
+.bt-lb img{ max-width:100%; max-height:62%; object-fit:contain; border-radius:var(--r); }
+.bt-lb p{ margin:0; max-width:44ch; text-align:center; font-size:13px; line-height:1.6; color:rgba(250,247,242,.88); }
+.bt-lb-ctrl{ display:flex; align-items:center; gap:14px; }
+.bt-lb .bt-icon{ width:48px; height:48px; background:rgba(250,247,242,.14); border-color:rgba(250,247,242,.3); color:var(--paper); }
+.bt-lb .bt-icon:hover{ background:rgba(250,247,242,.26); }
+.bt-lb-count{ min-width:56px; text-align:center; font-size:13px; color:rgba(250,247,242,.85); }
+.bt-lb-close{ position:absolute; top:24px; right:16px; }
+
+/* ── reveal (own, small — demo pages never load site-ui.js) ──
+   Hidden with opacity + transform only. Never clip-path / visibility /
+   display / width:0 — Chrome subtracts a target's own clip-path from its
+   intersection rect, so the element reports ratio 0, never crosses the
+   threshold, and locks itself invisible with no console error. */
+.rv{ opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease; }
+.rv.is-in{ opacity:1; transform:none; }
+
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{ animation-duration:.01ms !important; transition-duration:.01ms !important; scroll-behavior:auto !important; }
+  .rv{ opacity:1; transform:none; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ≥600px — two-up rooms, gallery becomes a grid, strips stop
+   scrolling sideways. The phone layout above is the design as
+   drawn; everything from here is the responsive extension.
+   ═══════════════════════════════════════════════════════════ */
+@media (min-width: 600px){
+  :root{ --pad:28px; }
+  body{ font-size:15.5px; }
+
+  .bt-feats{
+    display:grid; grid-template-columns:repeat(4,1fr); overflow:visible;
+    max-width:var(--wrap); margin:20px auto 0;
+  }
+  .bt-feat{ width:auto; }
+
+  .bt-rooms{ grid-template-columns:1fr 1fr; gap:18px; }
+  .bt-room-fig{ height:210px; }
+
+  /* first shot spans 2×2 so the strip reads as a composition, not a row */
+  .bt-gal{ display:grid; grid-template-columns:repeat(3,1fr); grid-auto-rows:150px; gap:10px; overflow:visible; }
+  .bt-gal .bt-shot{ width:100%; height:100%; }
+  .bt-gal .bt-shot:first-child{ grid-column:span 2; grid-row:span 2; }
+
+  .bt-cta{ display:flex; align-items:center; justify-content:space-between; gap:28px; padding:28px 30px; }
+  .bt-cta p{ font-size:20px; max-width:26ch; }
+  .bt-cta-actions{ grid-auto-flow:column; margin-top:0; }
+  .bt-cta-actions .bt-btn{ padding:0 24px; }
+
+  .bt-facts{ gap:20px; }
+  .bt-amen{ grid-template-columns:repeat(4,1fr); }
+  .bt-gv-grid{ grid-template-columns:repeat(3,1fr); }
+  .bt-gv-grid .bt-shot{ height:180px; }
+  .bt-foot-grid{ grid-template-columns:repeat(3,1fr); gap:30px; }
+  .bt-ok-actions{ grid-auto-flow:column; justify-content:center; }
+  .bt-ok-actions .bt-btn{ padding:0 28px; }
+  .bt-contact{ grid-auto-flow:column; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ≥900px — desktop. A real header replaces the in-hero controls,
+   the search widget turns into one horizontal bar, and the two
+   flow screens (room, summary) split into a scrolling column plus
+   a sticky action panel. The mobile sticky bar is retired here —
+   a fixed bottom bar on a 1440px screen is a phone pattern, and
+   the panel it becomes can carry the price and the CTA together.
+   ═══════════════════════════════════════════════════════════ */
+@media (min-width: 900px){
+  :root{ --pad:32px; --hd-h:68px; }
+
+  .bt-hd{ display:block; position:fixed; top:0; left:0; right:0; }
+  .bt-hd-in{ min-height:var(--hd-h); }
+  .bt-hero-nav{ display:none; }
+  .bt-burger{ display:none; }
+  .bt-drawer{ display:none !important; }
+  .bt-nav{ display:flex; align-items:center; gap:26px; }
+
+  .bt-bar{ display:none !important; }
+  body.bt-has-bar{ padding-bottom:0; }
+
+  .bt-view-pad{ padding-top:calc(var(--hd-h) + 34px); }
+  .bt-sec{ padding-top:56px; }
+  .bt-h2{ font-size:27px; }
+  .bt-page-title{ font-size:30px; }
+  .bt-sub{ font-size:15px; }
+
+  /* hero */
+  .bt-hero{ height:min(88vh,720px); }
+  .bt-hero-in{ bottom:112px; }
+  .bt-h1{ font-size:clamp(46px,5vw,64px); max-width:14ch; }
+  .bt-lede{ font-size:17px; max-width:48ch; }
+  .bt-badge{ font-size:11.5px; }
+
+  /* search bar */
+  .bt-search{ margin-top:-52px; }
+  .bt-search-in{
+    display:grid; grid-template-columns:1fr 1fr auto auto;
+    align-items:end; gap:20px; padding:22px 24px;
+    max-width:calc(var(--wrap) - var(--pad) * 2); margin:0 auto;
+  }
+  .bt-dates{ display:contents; }
+  .bt-guests{ margin:0; padding:0; border-top:0; flex-direction:column; align-items:flex-start; gap:6px; }
+  .bt-guests > span{ font-size:11.5px; font-weight:500; color:var(--muted-2); }
+  .bt-go{ width:auto; min-width:190px; margin:0; }
+  .bt-nights{ grid-column:1 / -1; margin:0; }
+
+  .bt-feats{ gap:18px; margin-top:34px; }
+  .bt-rooms{ gap:24px; }
+  .bt-room-fig{ height:250px; }
+  .bt-room-name, .bt-room-price{ font-size:19px; }
+  .bt-room-body{ padding:20px; }
+  .bt-gal{ grid-auto-rows:190px; }
+  .bt-gv-grid{ gap:12px; }
+  .bt-gv-grid .bt-shot{ height:230px; }
+
+  /* room detail — image and copy left, sticky booking panel right */
+  .bt-dt{
+    display:grid; grid-template-columns:minmax(0,1fr) 380px;
+    gap:0 44px; align-items:start;
+  }
+  .bt-dt-hero{
+    grid-column:1; grid-row:1;
+    height:430px; margin:calc(var(--hd-h) + 28px) 0 0;
+    border-radius:var(--r-lg); overflow:hidden;
+  }
+  /* The gradient goes (nothing sits over the image up here on desktop) but the
+     back control stays — it carries its own white ground, and without it the
+     room screen has no in-page way back to the grid. */
+  .bt-dt-ov{ display:none; }
+  .bt-dt-back{ top:20px; left:20px; }
+  .bt-dt-main{ grid-column:1; grid-row:2; }
+  .bt-dt-side, .bt-sum-b .bt-side-cta{ display:block; }
+  .bt-dt-price{ display:none; }
+  .bt-dt-side{
+    grid-column:2; grid-row:1 / span 2;
+    position:sticky; top:calc(var(--hd-h) + 28px);
+    margin-top:calc(var(--hd-h) + 28px);
+    background:var(--card); border:1px solid var(--line);
+    border-radius:var(--r-lg); padding:24px;
+  }
+  .bt-dt-title{ font-size:32px; }
+  .bt-dt-copy{ font-size:16px; }
+  .bt-shots .bt-shot{ width:260px; height:180px; }
+
+  /* summary — details left, sticky price + confirm right */
+  .bt-sum{ display:grid; grid-template-columns:minmax(0,1fr) 400px; gap:0 44px; align-items:start; }
+  .bt-sum-a{ grid-column:1; grid-row:1; }
+  .bt-sum-c{ grid-column:1; grid-row:2; }
+  .bt-sum-b{
+    grid-column:2; grid-row:1 / span 2;
+    position:sticky; top:calc(var(--hd-h) + 28px);
+  }
+  .bt-sum-room img{ width:112px; height:112px; }
+
+  /* faq — accordion left, travel and contact in a sticky card */
+  .bt-faqwrap{ display:grid; grid-template-columns:minmax(0,1fr) 360px; gap:44px; align-items:start; }
+  .bt-faq{ margin-top:22px; }
+  .bt-q{ font-size:16.5px; padding:22px 2px; }
+  .bt-a > p{ font-size:15px; }
+  .bt-faq-side{
+    position:sticky; top:calc(var(--hd-h) + 28px);
+    background:var(--card); border:1px solid var(--line);
+    border-radius:var(--r-lg); padding:24px;
+  }
+  .bt-faq-side .bt-h2{ font-size:20px; }
+  .bt-addr{ font-size:13.5px; }
+
+  .bt-foot{ margin-top:64px; }
+  .bt-faqlink{ display:none; }
+
+  .bt-lb img{ max-height:70%; }
+  .bt-lb-close{ top:32px; right:32px; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ≥1200px — only type and image scale change; no new layout.
+   ═══════════════════════════════════════════════════════════ */
+@media (min-width: 1200px){
+  .bt-hero-in{ bottom:128px; }
+  .bt-room-fig{ height:280px; }
+  .bt-gal{ grid-auto-rows:215px; }
+}
+  </style>
+  <script src="assets/analytics.js" defer></script>
+</head>
+<body>
+<a class="bt-skip" href="#main">ข้ามไปเนื้อหาหลัก</a>
+
+<!-- Desktop-only bar. Below 900px the phone keeps the design's own chrome:
+     logo and menu button drawn over the hero, back buttons on inner screens. -->
+<header class="bt-hd" id="hd">
+  <div class="bt-hd-in">
+    <a class="bt-logo" href="#/" data-nav="home">
+      <b>BAAN TALAY</b><span>หัวหิน · ริมทะเล</span>
+    </a>
+    <nav class="bt-nav" aria-label="เมนูหลัก">
+      <button type="button" data-nav="rooms">ห้องพัก</button>
+      <button type="button" data-nav="gallery">แกลเลอรี</button>
+      <button type="button" data-nav="faq">คำถามที่พบบ่อย</button>
+      <button type="button" data-nav="travel">การเดินทาง</button>
+      <a href="tel:+66320000000">โทร 032 000 000</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Mobile menu. The burger that opens it lives inside the hero, which is the
+     design's own chrome; this panel is the one thing added to it, because a
+     site needs reachable navigation and the design's button jumped straight
+     to the FAQ screen. -->
+<div class="bt-drawer" id="drawer">
+  <div class="bt-drawer-head">
+    <span class="bt-logo"><b>BAAN TALAY</b><span>หัวหิน · ริมทะเล</span></span>
+    <button type="button" class="bt-icon" id="drawer-close" aria-label="ปิดเมนู">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+    </button>
+  </div>
+  <ul>
+    <li><button type="button" data-nav="rooms">ห้องพัก</button></li>
+    <li><button type="button" data-nav="gallery">แกลเลอรี</button></li>
+    <li><button type="button" data-nav="faq">คำถามที่พบบ่อย</button></li>
+    <li><button type="button" data-nav="travel">การเดินทาง</button></li>
+    <li><a href="tel:+66320000000">โทร 032 000 000</a></li>
+  </ul>
+</div>
+
+<main id="main">
+
+<!-- ══ home ══════════════════════════════════════════════════ -->
+<section class="bt-view" id="v-home">
+  <div class="bt-hero">
+    <img src="assets/baan-talay/beach-morning-1800.webp"
+         srcset="assets/baan-talay/beach-morning-900.webp 900w, assets/baan-talay/beach-morning-1800.webp 1800w"
+         sizes="100vw" width="1800" height="1200" fetchpriority="high"
+         alt="ชายหาดส่วนตัวของ BAAN TALAY ตอนแสงเช้า คลื่นเบาและทรายเปียก">
+    <div class="bt-hero-ov"></div>
+
+    <div class="bt-hero-nav">
+      <div class="bt-wrap">
+        <span class="bt-logo"><b>BAAN TALAY</b><span>หัวหิน · ริมทะเล</span></span>
+        <button type="button" class="bt-icon bt-burger" id="burger"
+                aria-expanded="false" aria-controls="drawer" aria-label="เปิดเมนู">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="bt-hero-in">
+      <div class="bt-wrap">
+        <span class="bt-badge">24 ห้อง · หาดส่วนตัว</span>
+        <h1 class="bt-h1"><span class="nb">ทะเลที่ยังเงียบอยู่</span></h1>
+        <p class="bt-lede"><span class="nb">รีสอร์ต 24 ห้องติดหาดส่วนตัว</span> <span class="nb">หัวหิน</span> <span class="nb">ไม่มีเสียงปาร์ตี้</span> <span class="nb">ไม่มีคิวรอ</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inert by construction: no <form>, no action, no fetch anywhere on this
+       page. Nothing here reaches a server — see the footer note. -->
+  <div class="bt-search">
+    <div class="bt-search-in">
+      <div class="bt-dates">
+        <label class="bt-field">
+          <span>เช็คอิน</span>
+          <input class="bt-input" type="date" id="in">
+        </label>
+        <label class="bt-field">
+          <span>เช็คเอาท์</span>
+          <input class="bt-input" type="date" id="out">
+        </label>
+      </div>
+      <div class="bt-guests">
+        <span id="g-label">ผู้เข้าพัก</span>
+        <div class="bt-stepper">
+          <button type="button" class="bt-icon" id="g-dec" aria-label="ลดจำนวนผู้เข้าพัก">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"></path></svg>
+          </button>
+          <span class="bt-count" id="g-count" aria-live="polite" aria-labelledby="g-label">2 คน</span>
+          <button type="button" class="bt-icon" id="g-inc" aria-label="เพิ่มจำนวนผู้เข้าพัก">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+          </button>
+        </div>
+      </div>
+      <button type="button" class="bt-btn bt-btn--primary bt-go" data-nav="rooms">ค้นหาห้องว่าง</button>
+      <p class="bt-nights" id="nights" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="bt-feats">
+    <div class="bt-feat"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5B7355" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M2 17c2.2-2.6 4.4-2.6 6.6 0s4.4 2.6 6.6 0 4.4-2.6 6.8 0"></path></svg><p><span class="nb">หาดส่วนตัว</span> <span class="nb">200 เมตร</span></p></div>
+    <div class="bt-feat"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5B7355" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 8h11v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM15 9h2.5a2.5 2.5 0 0 1 0 5H15M4 21h13"></path></svg><p><span class="nb">อาหารเช้าทำสดทุกจาน</span></p></div>
+    <div class="bt-feat"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5B7355" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M3 18c2-2 4-2 6 0s4 2 6 0 4-2 6 0M8 15V5m8 10V5M8 8h8M8 12h8"></path></svg><p><span class="nb">2 สระ</span> <span class="nb">แยกสระเด็ก</span></p></div>
+    <div class="bt-feat"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5B7355" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7v5l3.5 2"></path></svg><p><span class="nb">ห่างตลาดโต้รุ่ง</span> <span class="nb">8 นาที</span></p></div>
+  </div>
+
+  <div class="bt-wrap">
+    <section class="bt-sec rv" id="rooms" aria-labelledby="rooms-h">
+      <h2 class="bt-h2" id="rooms-h"><span class="nb">ห้องพัก 4 แบบ</span></h2>
+      <p class="bt-sub"><span class="nb">ราคาต่อคืนสำหรับ</span> <span id="sub-guests">2 คน</span> <span class="nb">รวมภาษีแล้ว</span></p>
+      <div class="bt-rooms" id="rooms-grid"></div>
+    </section>
+
+    <section class="bt-sec rv" aria-labelledby="gal-h">
+      <div class="bt-sec-head">
+        <h2 class="bt-h2" id="gal-h">แกลเลอรี</h2>
+        <button type="button" class="bt-more" data-nav="gallery">ดูทั้งหมด</button>
+      </div>
+      <div class="bt-gal" id="gal-strip"></div>
+    </section>
+
+    <section class="bt-cta rv" aria-labelledby="cta-h">
+      <p id="cta-h"><span class="nb">ห้องช่วงวันหยุดยาวเต็มเร็ว</span> <span class="nb">เช็ควันว่างก่อนได้เลย</span></p>
+      <div class="bt-cta-actions">
+        <button type="button" class="bt-btn bt-btn--primary" data-nav="top">เช็คห้องว่าง</button>
+        <a class="bt-btn bt-btn--onDark" href="https://line.me" target="_blank" rel="noopener">ทักไลน์ OA</a>
+      </div>
+    </section>
+
+    <button type="button" class="bt-faqlink" data-nav="faq">
+      <span><span class="nb">คำถามที่พบบ่อย</span> <span class="nb">และการเดินทาง</span></span>
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#5B7355" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
+    </button>
+  </div>
+
+  <footer class="bt-foot">
+    <div class="bt-wrap">
+      <div class="bt-foot-grid">
+        <div>
+          <h2>ที่อยู่</h2>
+          <address>129/4 ซอยหัวหิน 67 ถนนเพชรเกษม<br>ต.หนองแก อ.หัวหิน<br>ประจวบคีรีขันธ์ 77110</address>
+        </div>
+        <div>
+          <h2>ติดต่อ</h2>
+          <ul>
+            <li><a href="tel:+66320000000">032 000 000</a></li>
+            <li><a href="https://line.me" target="_blank" rel="noopener">ไลน์ OA</a></li>
+            <li><a href="https://maps.google.com/?q=12.5684,99.9577" target="_blank" rel="noopener">นำทาง Google Maps</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>เวลา</h2>
+          <p><span class="nb">เช็คอิน 14:00</span> · <span class="nb">เช็คเอาท์ 12:00</span><br><span class="nb">รับสายทุกวัน 08:00–20:00</span></p>
+        </div>
+      </div>
+      <p class="bt-foot-note">หน้านี้เป็นงานออกแบบตัวอย่าง ไม่ใช่เว็บของที่พักจริง · ไม่มีการรับจองจริง ไม่มีการเก็บหรือส่งข้อมูลใดออกจากเบราว์เซอร์ และเลขการจองที่ขึ้นหลังกดยืนยันเป็นเลขสุ่มเพื่อแสดงหน้าจอสำเร็จเท่านั้น</p>
+    </div>
+  </footer>
+</section>
+
+<!-- ══ room detail ═══════════════════════════════════════════ -->
+<section class="bt-view" id="v-room" hidden aria-labelledby="dt-name">
+  <div class="bt-wrap">
+    <div class="bt-dt">
+      <div class="bt-dt-hero">
+        <img id="dt-img" alt="" width="1200" height="800">
+        <div class="bt-dt-ov"></div>
+        <button type="button" class="bt-icon bt-dt-back" data-nav="home" aria-label="ย้อนกลับหน้าแรก">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+        </button>
+      </div>
+
+      <div class="bt-dt-main">
+        <h1 class="bt-dt-title" id="dt-name"></h1>
+        <p class="bt-dt-price"><b id="dt-rate"></b><span>/ คืน รวมภาษี</span></p>
+        <p class="bt-dt-copy" id="dt-copy"></p>
+        <dl class="bt-facts">
+          <div><dt>ขนาด</dt><dd id="dt-size"></dd></div>
+          <div><dt>พักได้</dt><dd id="dt-cap"></dd></div>
+          <div><dt>เตียง</dt><dd id="dt-bed"></dd></div>
+        </dl>
+        <h2 class="bt-subhead"><span class="nb">สิ่งอำนวยความสะดวก</span></h2>
+        <ul class="bt-amen" id="dt-amen"></ul>
+        <h2 class="bt-subhead"><span class="nb">ภาพห้องนี้</span></h2>
+        <div class="bt-shots" id="dt-shots"></div>
+        <p class="bt-note"><span class="nb">ยกเลิกฟรีก่อนเช็คอิน 7 วัน</span> · <span class="nb">เช็คอิน 14:00</span> <span class="nb">เช็คเอาท์ 12:00</span></p>
+      </div>
+
+      <aside class="bt-dt-side" aria-label="สรุปราคาห้องนี้">
+        <p class="bt-side-label">ราคาต่อคืน</p>
+        <p class="bt-side-price" id="dt-rate-2"></p>
+        <dl class="bt-side-rows" id="dt-side-rows"></dl>
+        <button type="button" class="bt-btn bt-btn--primary bt-side-cta" data-nav="summary">จองห้องนี้</button>
+        <p class="bt-note bt-side-note"><span class="nb">ยกเลิกฟรีก่อนเช็คอิน 7 วัน</span> <span class="nb">มัดจำ 50% ตอนจอง</span></p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ══ summary ═══════════════════════════════════════════════ -->
+<section class="bt-view" id="v-summary" hidden aria-labelledby="sum-h">
+  <div class="bt-wrap bt-view-pad">
+    <button type="button" class="bt-icon bt-back" data-nav="room" aria-label="ย้อนกลับหน้ารายละเอียดห้อง">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </button>
+    <h1 class="bt-page-title" id="sum-h"><span class="nb">สรุปก่อนจอง</span></h1>
+
+    <div class="bt-sum">
+      <div class="bt-sum-a">
+        <div class="bt-sum-room">
+          <img id="sum-img" alt="" width="112" height="112">
+          <div>
+            <p class="n" id="sum-name"></p>
+            <p class="m" id="sum-meta"></p>
+            <p class="p" id="sum-rate"></p>
+          </div>
+        </div>
+        <dl class="bt-rows" id="sum-rows"></dl>
+      </div>
+
+      <div class="bt-sum-b">
+        <div class="bt-price">
+          <div id="price-rows"></div>
+          <div class="bt-price-total">
+            <span><span class="nb">ยอดชำระวันนี้</span> <span class="nb">(มัดจำ 50%)</span></span>
+            <b id="deposit"></b>
+          </div>
+          <p class="bt-price-foot">ยอดรวมทั้งหมด <span id="total"></span> ส่วนที่เหลือชำระวันเช็คอิน</p>
+        </div>
+        <button type="button" class="bt-btn bt-btn--primary bt-side-cta" data-nav="confirm">ยืนยันการจอง</button>
+      </div>
+
+      <div class="bt-sum-c">
+        <div class="bt-form">
+          <label>
+            <span>ชื่อผู้จอง</span>
+            <input class="bt-input" type="text" id="f-name" placeholder="ชื่อ–นามสกุล" autocomplete="name">
+          </label>
+          <label>
+            <span>เบอร์โทร</span>
+            <input class="bt-input" type="tel" id="f-phone" placeholder="08X-XXX-XXXX" autocomplete="tel">
+          </label>
+        </div>
+        <p class="bt-note">กดยืนยันแล้วจะได้เลขการจองทันที เจ้าหน้าที่ส่งช่องทางโอนให้ทางไลน์ภายใน 15 นาที</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ success ═══════════════════════════════════════════════ -->
+<section class="bt-view" id="v-success" hidden aria-labelledby="ok-h">
+  <div class="bt-wrap bt-view-pad">
+    <div class="bt-ok">
+      <div class="bt-ok-mark">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#5B7355" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>
+      </div>
+      <h1 id="ok-h"><span class="nb">จองสำเร็จแล้ว</span></h1>
+      <p class="bt-ok-lede">เราส่งรายละเอียดไปที่เบอร์ <span id="ok-phone"></span> เรียบร้อย</p>
+      <div class="bt-ok-card">
+        <span>เลขการจอง</span>
+        <p class="bt-ref" id="ok-ref">BT-0000</p>
+        <dl class="bt-ok-rows" id="ok-rows"></dl>
+      </div>
+      <div class="bt-ok-actions">
+        <a class="bt-btn bt-btn--green" href="https://line.me" target="_blank" rel="noopener">ส่งสลิปทางไลน์ OA</a>
+        <button type="button" class="bt-btn bt-btn--ghost" data-nav="home">กลับหน้าแรก</button>
+      </div>
+      <p class="bt-note"><span class="nb">โอนมัดจำภายใน 24 ชม. เพื่อยืนยันห้อง</span> · <span class="nb">ยกเลิกฟรีก่อนเช็คอิน 7 วัน</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ faq + travel ══════════════════════════════════════════ -->
+<section class="bt-view" id="v-faq" hidden aria-labelledby="faq-h">
+  <div class="bt-wrap bt-view-pad">
+    <button type="button" class="bt-icon bt-back" data-nav="home" aria-label="ย้อนกลับหน้าแรก">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </button>
+    <h1 class="bt-page-title" id="faq-h"><span class="nb">คำถามที่พบบ่อย</span></h1>
+
+    <div class="bt-faqwrap">
+      <div class="bt-faq">
+        <div>
+          <button type="button" class="bt-q" aria-expanded="false"><span><span class="nb">ยกเลิกการจองได้ถึงเมื่อไหร่</span></span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5B7355" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+          <div class="bt-a"><p>ยกเลิกฟรีเต็มจำนวนถ้าแจ้งก่อนเช็คอิน 7 วันขึ้นไป แจ้งภายใน 3–6 วันคืนให้ 50% น้อยกว่า 3 วันไม่คืนเงิน แต่เลื่อนวันได้ 1 ครั้งภายใน 6 เดือน</p></div>
+        </div>
+        <div>
+          <button type="button" class="bt-q" aria-expanded="false"><span><span class="nb">เด็กพักฟรีถึงกี่ขวบ</span></span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5B7355" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+          <div class="bt-a"><p>เด็กไม่เกิน 11 ปี พักฟรี 2 คนต่อห้องโดยใช้เตียงร่วมกับผู้ใหญ่ เตียงเสริมคืนละ 600 บาทรวมอาหารเช้า เตียงเด็กอ่อนยืมฟรี</p></div>
+        </div>
+        <div>
+          <button type="button" class="bt-q" aria-expanded="false"><span><span class="nb">นำสัตว์เลี้ยงเข้าพักได้ไหม</span></span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5B7355" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+          <div class="bt-a"><p>รับสุนัขและแมวไม่เกิน 15 กก. เฉพาะ Garden Room และ Beachfront Villa ค่าทำความสะอาดคืนละ 500 บาท ต้องมีสายจูงในพื้นที่ส่วนกลาง</p></div>
+        </div>
+        <div>
+          <button type="button" class="bt-q" aria-expanded="false"><span><span class="nb">เช็คอินเช็คเอาท์กี่โมง</span></span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5B7355" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+          <div class="bt-a"><p>เช็คอิน 14:00 เช็คเอาท์ 12:00 มาก่อนเวลาฝากกระเป๋าและใช้สระกับหาดได้ ถ้าห้องว่างเราให้เข้าก่อนโดยไม่คิดเพิ่ม เช็คเอาท์สายถึง 15:00 คิด 400 บาท</p></div>
+        </div>
+        <div>
+          <button type="button" class="bt-q" aria-expanded="false"><span><span class="nb">จ่ายเงินได้ช่องทางไหน</span></span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5B7355" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+          <div class="bt-a"><p>โอนพร้อมเพย์หรือบัญชีธนาคาร มัดจำ 50% ตอนจอง ที่เหลือจ่ายวันเช็คอิน รับบัตรเครดิตที่หน้ารีสอร์ต ออกใบกำกับภาษีได้</p></div>
+        </div>
+      </div>
+
+      <aside class="bt-faq-side" id="travel" aria-labelledby="travel-h">
+        <h2 class="bt-side-title" id="travel-h"><span class="nb">การเดินทาง</span></h2>
+        <ul class="bt-dist">
+          <li><span><span class="nb">สนามบินหัวหิน</span></span><span>15 นาที</span></li>
+          <li><span><span class="nb">ตลาดซิเคด้า</span></span><span>8 นาที</span></li>
+          <li><span><span class="nb">สถานีรถไฟหัวหิน</span></span><span>20 นาที</span></li>
+          <li><span><span class="nb">กรุงเทพฯ</span></span><span>2.5 ชม.</span></li>
+        </ul>
+        <address class="bt-addr">129/4 ซอยหัวหิน 67 ถนนเพชรเกษม<br>ต.หนองแก อ.หัวหิน ประจวบคีรีขันธ์ 77110</address>
+        <div class="bt-contact">
+          <a class="bt-btn bt-btn--green" href="tel:+66320000000">โทร 032 000 000</a>
+          <a class="bt-btn bt-btn--ghost" href="https://maps.google.com/?q=12.5684,99.9577" target="_blank" rel="noopener">นำทาง Google Maps</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ══ gallery ═══════════════════════════════════════════════ -->
+<section class="bt-view bt-gv" id="v-gallery" hidden aria-labelledby="gv-h">
+  <div class="bt-wrap bt-view-pad">
+    <div class="bt-gv-head">
+      <button type="button" class="bt-icon" data-nav="home" aria-label="ปิดแกลเลอรี">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+      <h1 class="bt-gv-title" id="gv-h">แกลเลอรี · 6 ภาพ</h1>
+    </div>
+    <div class="bt-gv-grid" id="gv-grid"></div>
+  </div>
+</section>
+
+</main>
+
+<!-- Sticky action bar — phones only; ≥900px the panels beside each screen
+     carry the same price and CTA, so the bar is display:none there. -->
+<div class="bt-bar" id="bar" hidden>
+  <span class="bt-bar-price" id="bar-price" hidden><span id="bar-label"></span><b id="bar-value"></b></span>
+  <button type="button" class="bt-btn bt-btn--primary" id="bar-cta"></button>
+</div>
+
+<div class="bt-lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="ภาพขยาย">
+  <img id="lb-img" alt="">
+  <p id="lb-cap"></p>
+  <div class="bt-lb-ctrl">
+    <button type="button" class="bt-icon" id="lb-prev" aria-label="ภาพก่อนหน้า">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </button>
+    <span class="bt-lb-count" id="lb-count"></span>
+    <button type="button" class="bt-icon" id="lb-next" aria-label="ภาพถัดไป">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
+    </button>
+  </div>
+  <button type="button" class="bt-icon bt-lb-close" id="lb-close" aria-label="ปิดภาพ">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+  </button>
+</div>
+
+<script>
+/* ─────────────────────────────────────────────────────────────
+   BAAN TALAY — booking flow.
+
+   Nothing here talks to a server: no fetch, no XHR, no <form> and no action
+   attribute anywhere on the page. The booking reference is generated in the
+   browser to show the success screen, and the footer says so.
+
+   Screens are driven off location.hash so the browser Back button works —
+   these demos carry no link back to the portfolio, so Back is the only way
+   out, and a flow that swallowed it would trap the visitor.
+   ───────────────────────────────────────────────────────────── */
+(function () {
+  'use strict';
+
+  var IMG = 'assets/baan-talay/';
+  var IC = {
+    ac: 'M4 7h16M4 12h16M8 16l-2 3M16 16l2 3',
+    wifi: 'M5 12.5a10 10 0 0 1 14 0M8 15.5a6 6 0 0 1 8 0M12 18.5h.01',
+    fridge: 'M7 3h10v18H7zM7 10h10M10 6v2M10 13v2',
+    balcony: 'M4 20V9l8-5 8 5v11M9 20v-6h6v6',
+    sea: 'M3 17c2-2 4-2 6 0s4 2 6 0 4-2 6 0M6.5 10.5a3 3 0 1 1 6 0',
+    tub: 'M3 12h18v4a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3zM7 12V6a2 2 0 0 1 4 0',
+    coffee: 'M4 8h11v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM15 9h2.5a2.5 2.5 0 0 1 0 5H15M4 21h13',
+    kitchen: 'M4 4h16v6H4zM7 14v6M12 14v6M17 14v6',
+    wash: 'M4 3h16v18H4zM8 7h.01M11 7h.01M12 16.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z',
+    rooms2: 'M3 18v-5h18v5M6 13V9h5v4M14 13V9h5v4',
+    sofa: 'M4 16v-5a2 2 0 0 1 4 0v3h8v-3a2 2 0 0 1 4 0v5M3 16h18v3H3z',
+    beach: 'M2 17c2.2-2.6 4.4-2.6 6.6 0s4.4 2.6 6.6 0 4.4-2.6 6.8 0'
+  };
+
+  var ROOMS = [
+    { name: 'Garden Room', rate: 2400, size: '28 ตร.ม.', cap: '2 คน', bed: 'ควีน', bf: false,
+      slug: 'room-garden',
+      blurb: 'ชั้นล่างเปิดออกสวน เดินถึงหาด 90 เมตร',
+      detail: 'ห้องชั้นล่างเปิดประตูออกสวนได้เลย เดินถึงหาด 90 เมตร เงียบที่สุดในรีสอร์ตเพราะอยู่ปีกหลัง เหมาะกับคนมาพักคนเดียวหรือสองคนที่ตั้งใจมานอนอ่านหนังสือ',
+      alt: 'Garden Room เตียงควีนกับประตูกระจกเปิดออกสวน',
+      amen: [[IC.ac, 'แอร์'], [IC.wifi, 'Wi-Fi ฟรี'], [IC.fridge, 'ตู้เย็นเล็ก'], [IC.balcony, 'ระเบียงสวน']] },
+    { name: 'Sea Breeze', rate: 3200, size: '34 ตร.ม.', cap: '2 คน', bed: 'คิง', bf: true,
+      slug: 'room-breeze',
+      blurb: 'ชั้นสอง เห็นทะเลผ่านแนวต้นสน',
+      detail: 'อยู่ชั้นสอง มองเห็นทะเลผ่านแนวต้นสน กลางคืนได้ยินเสียงคลื่นเบาๆ พอดี ไม่ดังจนนอนไม่หลับ ห้องน้ำมีอ่างอาบน้ำและหน้าต่างเปิดรับลม',
+      alt: 'Sea Breeze เตียงคิงและหน้าต่างมองเห็นแนวต้นสนกับทะเล',
+      amen: [[IC.sea, 'วิวทะเลบางส่วน'], [IC.tub, 'อ่างอาบน้ำ'], [IC.wifi, 'Wi-Fi ฟรี'], [IC.coffee, 'เครื่องชงกาแฟ']] },
+    { name: 'Beachfront Villa', rate: 5800, size: '52 ตร.ม.', cap: '3 คน', bed: 'คิง + โซฟาเบด', bf: true,
+      slug: 'room-villa',
+      blurb: 'หลังเดี่ยวติดหาด เปิดประตูเจอทราย',
+      detail: 'วิลล่าหลังเดี่ยวติดหาด เปิดประตูเจอทรายเลย มีระเบียงไม้ส่วนตัวหันหน้าออกทะเล เช้าๆ พนักงานยกอาหารเช้ามาเสิร์ฟที่ระเบียงได้ตามนัด',
+      alt: 'Beachfront Villa หลังเดี่ยวพร้อมระเบียงไม้หันหน้าออกทะเล',
+      amen: [[IC.beach, 'ติดหาดโดยตรง'], [IC.balcony, 'ระเบียงส่วนตัว'], [IC.tub, 'อ่างอาบน้ำ'], [IC.sofa, 'โซฟาเบดเสริม']] },
+    { name: 'Family Suite', rate: 6500, size: '65 ตร.ม.', cap: '5 คน', bed: 'คิง + เดี่ยว 2', bf: true,
+      slug: 'room-family',
+      blurb: 'สองห้องนอนแยกประตู ใกล้สระเด็ก',
+      detail: 'สองห้องนอนแยกประตู เดินถึงสระเด็ก 20 ก้าว มีโต๊ะกินข้าวในห้องและครัวเล็กสำหรับอุ่นอาหาร เตียงเด็กอ่อนยืมได้ฟรี',
+      alt: 'Family Suite มีเตียงคิงและเตียงเดี่ยวสองเตียงในห้องนอนแยก',
+      amen: [[IC.rooms2, '2 ห้องนอน'], [IC.kitchen, 'ครัวเล็ก'], [IC.wash, 'เครื่องซักผ้า'], [IC.tub, 'อ่างอาบน้ำเด็ก']] }
+  ];
+
+  var GAL = [
+    { sm: 'beach-morning-900', lg: 'beach-morning-1800', alt: 'หาดส่วนตัวหน้ารีสอร์ตตอนเช้า คลื่นเบาและทรายเปียก' },
+    { sm: 'pool-600', lg: 'pool-1200', alt: 'สระว่ายน้ำหลักล้อมด้วยเก้าอี้ผ้าใบ' },
+    { sm: 'breakfast-600', lg: 'breakfast-1200', alt: 'อาหารเช้าไทยจัดเสิร์ฟบนโต๊ะไม้ริมทะเล' },
+    { sm: 'boardwalk-600', lg: 'boardwalk-1200', alt: 'ทางเดินไม้จากห้องพักลงไปยังชายหาด' },
+    { sm: 'interior-600', lg: 'interior-1200', alt: 'มุมนั่งเล่นในห้องพักกับผ้าม่านลินินสีอ่อน' },
+    { sm: 'sea-600', lg: 'sea-1200', alt: 'ทะเลสีเทอร์ควอยซ์และท้องฟ้าตอนบ่ายที่หัวหิน' }
+  ];
+
+  var TH_MONTH = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+
+  var S = { screen: 'home', sel: 2, checkIn: '', checkOut: '', guests: 2, lb: -1, ref: '' };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var baht = function (n) { return '฿' + n.toLocaleString('en-US'); };
+  var iso = function (d) {
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  };
+  function thaiDate(v) {
+    if (!v) return 'ยังไม่เลือก';
+    var d = new Date(v + 'T00:00');
+    return d.getDate() + ' ' + TH_MONTH[d.getMonth()] + ' ' + String(d.getFullYear() + 543).slice(2);
+  }
+  function nights() {
+    if (!S.checkIn || !S.checkOut) return 0;
+    return Math.max(0, Math.round((new Date(S.checkOut + 'T00:00') - new Date(S.checkIn + 'T00:00')) / 86400000));
+  }
+  function quote() {
+    var r = ROOMS[S.sel];
+    var n = nights(), eff = n > 0 ? n : 2;
+    var room = r.rate * eff;
+    var extra = Math.max(0, S.guests - 2) * 600 * eff;
+    var service = Math.round((room + extra) * 0.1);
+    var total = room + extra + service;
+    return { n: n, eff: eff, room: room, extra: extra, service: service, total: total, deposit: Math.round(total / 2) };
+  }
+  function svg(d, size, stroke) {
+    return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="' + stroke +
+      '" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" style="flex:none"><path d="' + d + '"></path></svg>';
+  }
+  function row(dl, k, v) {
+    var d = document.createElement('div');
+    var dt = document.createElement('dt'); dt.textContent = k;
+    var dd = document.createElement('dd'); dd.textContent = v;
+    d.appendChild(dt); d.appendChild(dd); dl.appendChild(d);
+  }
+
+  /* ── static-ish lists ─────────────────────────────────────── */
+  function buildRooms() {
+    var g = $('rooms-grid');
+    g.innerHTML = ROOMS.map(function (r, i) {
+      return '<button type="button" class="bt-room" data-room="' + i + '">' +
+        '<span class="bt-room-fig">' +
+          '<img src="' + IMG + r.slug + '-640.webp" srcset="' + IMG + r.slug + '-640.webp 640w, ' + IMG + r.slug + '-1200.webp 1200w"' +
+          ' sizes="(min-width:900px) 540px, (min-width:600px) 45vw, 92vw" width="640" height="427" loading="lazy" alt="' + r.alt + '">' +
+          (r.bf ? '<span class="bt-pill-bf">รวมอาหารเช้า</span>' : '') +
+        '</span>' +
+        '<span class="bt-room-body">' +
+          '<span class="bt-room-top"><span class="bt-room-name">' + r.name + '</span>' +
+          '<span class="bt-room-price">' + baht(r.rate) + '</span></span>' +
+          '<span class="bt-room-blurb">' + r.blurb + '</span>' +
+          '<span class="bt-room-meta"><span>' + r.size + '</span><span>' + r.cap + '</span><span>' + r.bed + '</span></span>' +
+        '</span></button>';
+    }).join('');
+  }
+  function shot(i, cls, w, h) {
+    var g = GAL[i];
+    return '<button type="button" class="' + cls + '" data-shot="' + i + '" aria-label="เปิดภาพ: ' + g.alt + '">' +
+      '<img src="' + IMG + g.sm + '.webp" width="' + w + '" height="' + h + '" loading="lazy" alt="' + g.alt + '"></button>';
+  }
+  function buildGalleries() {
+    $('gal-strip').innerHTML = GAL.map(function (g, i) { return shot(i, 'bt-shot', 360, 260); }).join('');
+    $('gv-grid').innerHTML = GAL.map(function (g, i) { return shot(i, 'bt-shot', 600, 400); }).join('');
+  }
+
+  /* ── render ───────────────────────────────────────────────── */
+  function render() {
+    var r = ROOMS[S.sel], q = quote();
+
+    $('g-count').textContent = S.guests + ' คน';
+    $('sub-guests').textContent = S.guests + ' คน';
+    $('nights').textContent = q.n > 0
+      ? 'รวม ' + q.n + ' คืน · ผู้เข้าพัก ' + S.guests + ' คน'
+      : (S.checkIn ? 'เลือกวันเช็คเอาท์ต่อได้เลย' : '');
+
+    /* room detail */
+    var hero = $('dt-img');
+    hero.src = IMG + r.slug + '-1200.webp';
+    hero.alt = r.alt;
+    $('dt-name').textContent = r.name;
+    $('dt-rate').textContent = baht(r.rate);
+    $('dt-rate-2').textContent = baht(r.rate);
+    $('dt-copy').textContent = r.detail;
+    $('dt-size').textContent = r.size;
+    $('dt-cap').textContent = r.cap;
+    $('dt-bed').textContent = r.bed;
+    $('dt-amen').innerHTML = r.amen.map(function (a) {
+      return '<li>' + svg(a[0], 17, '#5B7355') + a[1] + '</li>';
+    }).join('');
+    $('dt-shots').innerHTML = [1, 2, 3].map(function (i) { return shot(i, 'bt-shot', 400, 280); }).join('');
+    var sideRows = $('dt-side-rows'); sideRows.innerHTML = '';
+    row(sideRows, 'เช็คอิน', thaiDate(S.checkIn));
+    row(sideRows, 'เช็คเอาท์', thaiDate(S.checkOut));
+    row(sideRows, 'ผู้เข้าพัก', S.guests + ' คน');
+
+    /* summary */
+    var thumb = $('sum-img');
+    thumb.src = IMG + r.slug + '-640.webp';
+    thumb.alt = r.alt;
+    $('sum-name').textContent = r.name;
+    $('sum-meta').textContent = r.size + ' · ' + r.bed;
+    $('sum-rate').textContent = baht(r.rate) + ' / คืน';
+
+    var rows = $('sum-rows'); rows.innerHTML = '';
+    row(rows, 'เช็คอิน', thaiDate(S.checkIn));
+    row(rows, 'เช็คเอาท์', thaiDate(S.checkOut));
+    row(rows, 'จำนวนคืน', q.eff + ' คืน' + (q.n > 0 ? '' : ' (ยังไม่เลือกวัน)'));
+    row(rows, 'ผู้เข้าพัก', S.guests + ' คน');
+
+    $('price-rows').innerHTML =
+      pr(r.name + ' × ' + q.eff + ' คืน', baht(q.room), false) +
+      pr('ผู้เข้าพักเพิ่ม ' + Math.max(0, S.guests - 2) + ' คน', q.extra ? baht(q.extra) : '—', !q.extra) +
+      pr('ค่าบริการ 10%', baht(q.service), false);
+    $('deposit').textContent = baht(q.deposit);
+    $('total').textContent = baht(q.total);
+
+    /* success */
+    $('ok-phone').textContent = ($('f-phone').value || '').trim() || '08X-XXX-XXXX';
+    $('ok-ref').textContent = S.ref || 'BT-0000';
+    var ok = $('ok-rows'); ok.innerHTML = '';
+    row(ok, 'ห้อง', r.name);
+    row(ok, 'วันที่', thaiDate(S.checkIn) + ' – ' + thaiDate(S.checkOut));
+    row(ok, 'ผู้จอง', ($('f-name').value || '').trim() || 'ยังไม่กรอกชื่อ');
+    row(ok, 'มัดจำที่ต้องโอน', baht(q.deposit));
+
+    renderBar(q, r);
+  }
+  function pr(k, v, off) {
+    var e = document.createElement('div');
+    e.className = 'bt-price-row' + (off ? ' is-off' : '');
+    var a = document.createElement('span'); a.textContent = k;
+    var b = document.createElement('span'); b.textContent = v;
+    e.appendChild(a); e.appendChild(b);
+    return e.outerHTML;
+  }
+
+  function renderBar(q, r) {
+    var bar = $('bar'), show = S.screen === 'home' || S.screen === 'room' || S.screen === 'summary';
+    bar.hidden = !show;
+    document.body.classList.toggle('bt-has-bar', show);
+    if (!show) return;
+    var withPrice = S.screen === 'room' || S.screen === 'summary';
+    $('bar-price').hidden = !withPrice;
+    if (withPrice) {
+      $('bar-label').textContent = S.screen === 'room' ? 'ราคาต่อคืน' : 'ยอดมัดจำวันนี้';
+      $('bar-value').textContent = S.screen === 'room' ? baht(r.rate) : baht(q.deposit);
+    }
+    var cta = $('bar-cta');
+    cta.textContent = S.screen === 'home' ? 'เช็คห้องว่าง' : S.screen === 'room' ? 'จองห้องนี้' : 'ยืนยันการจอง';
+    cta.dataset.nav = S.screen === 'home' ? 'top' : S.screen === 'room' ? 'summary' : 'confirm';
+  }
+
+  /* ── routing ──────────────────────────────────────────────── */
+  var HASH = { home: '#/', room: '#/room', summary: '#/summary', success: '#/success', gallery: '#/gallery', faq: '#/faq' };
+  var VIEW = { home: 'v-home', room: 'v-room', summary: 'v-summary', success: 'v-success', gallery: 'v-gallery', faq: 'v-faq' };
+  var pendingScroll = null;
+
+  function screenFromHash() {
+    var h = location.hash;
+    for (var k in HASH) { if (HASH[k] === h) return k; }
+    return 'home';
+  }
+  function applyHash() {
+    var name = screenFromHash();
+    S.screen = name;
+    closeLb();
+    for (var k in VIEW) { $(VIEW[k]).hidden = (k !== name); }
+    render();
+    syncHeader();
+    if (pendingScroll) {
+      var target = pendingScroll; pendingScroll = null;
+      requestAnimationFrame(function () {
+        if (target === 'top') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+        var el = $(target);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }
+  function go(name, scrollTo) {
+    pendingScroll = scrollTo || null;
+    if (location.hash === HASH[name]) { applyHash(); return; }
+    location.hash = HASH[name];
+  }
+
+  function nav(what) {
+    switch (what) {
+      case 'home': go('home'); break;
+      case 'room': go('room'); break;
+      case 'summary': go('summary'); break;
+      case 'gallery': go('gallery'); break;
+      case 'faq': go('faq'); break;
+      case 'travel': go('faq', 'travel'); break;
+      case 'rooms': go('home', 'rooms'); break;
+      case 'top': go('home', 'top'); break;
+      case 'confirm':
+        S.ref = 'BT-' + String(Math.floor(1000 + Math.random() * 9000));
+        go('success');
+        break;
+    }
+  }
+
+  /* ── header: transparent over the hero, solid once past it ── */
+  function syncHeader() {
+    var hd = $('hd'), heroTall = S.screen === 'home';
+    if (!heroTall) { hd.classList.remove('is-over'); return; }
+    var hero = document.querySelector('.bt-hero');
+    var limit = hero ? hero.offsetHeight - 90 : 320;
+    hd.classList.toggle('is-over', window.scrollY < limit);
+  }
+
+  /* ── lightbox ─────────────────────────────────────────────── */
+  var lastFocus = null;
+  function openLb(i) {
+    S.lb = i;
+    lastFocus = document.activeElement;
+    var g = GAL[i];
+    $('lb-img').src = IMG + g.lg + '.webp';
+    $('lb-img').alt = g.alt;
+    $('lb-cap').textContent = g.alt;
+    $('lb-count').textContent = (i + 1) + ' / ' + GAL.length;
+    $('lb').hidden = false;
+    document.body.style.overflow = 'hidden';
+    $('lb-close').focus();
+  }
+  function closeLb() {
+    if (S.lb < 0) return;
+    S.lb = -1;
+    $('lb').hidden = true;
+    document.body.style.overflow = '';
+    if (lastFocus && lastFocus.isConnected) lastFocus.focus();
+    lastFocus = null;
+  }
+  function stepLb(d) {
+    if (S.lb < 0) return;
+    openLbKeepFocus((S.lb + d + GAL.length) % GAL.length);
+  }
+  function openLbKeepFocus(i) {
+    S.lb = i;
+    var g = GAL[i];
+    $('lb-img').src = IMG + g.lg + '.webp';
+    $('lb-img').alt = g.alt;
+    $('lb-cap').textContent = g.alt;
+    $('lb-count').textContent = (i + 1) + ' / ' + GAL.length;
+  }
+
+  /* ── drawer ───────────────────────────────────────────────── */
+  function setDrawer(open) {
+    var d = $('drawer'), b = $('burger');
+    if (open) { d.setAttribute('data-open', ''); } else { d.removeAttribute('data-open'); }
+    b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) { var f = d.querySelector('button, a'); if (f) f.focus(); }
+  }
+
+  /* ── wiring ───────────────────────────────────────────────── */
+  document.addEventListener('click', function (e) {
+    var navEl = e.target.closest('[data-nav]');
+    if (navEl) {
+      e.preventDefault();
+      setDrawer(false);
+      nav(navEl.dataset.nav);
+      return;
+    }
+    var roomEl = e.target.closest('[data-room]');
+    if (roomEl) { S.sel = +roomEl.dataset.room; go('room'); return; }
+
+    var shotEl = e.target.closest('[data-shot]');
+    if (shotEl) { openLb(+shotEl.dataset.shot); return; }
+
+    var q = e.target.closest('.bt-q');
+    if (q) {
+      var open = q.getAttribute('aria-expanded') === 'true';
+      Array.prototype.forEach.call(document.querySelectorAll('.bt-q'), function (b) {
+        b.setAttribute('aria-expanded', 'false');
+      });
+      q.setAttribute('aria-expanded', open ? 'false' : 'true');
+      return;
+    }
+    if (e.target === $('lb')) closeLb();
+  });
+
+  $('burger').addEventListener('click', function () {
+    setDrawer($('burger').getAttribute('aria-expanded') !== 'true');
+  });
+  $('drawer-close').addEventListener('click', function () { setDrawer(false); });
+  $('lb-close').addEventListener('click', closeLb);
+  $('lb-prev').addEventListener('click', function () { stepLb(-1); });
+  $('lb-next').addEventListener('click', function () { stepLb(1); });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { closeLb(); setDrawer(false); return; }
+    if (S.lb < 0) return;
+    if (e.key === 'ArrowRight') stepLb(1);
+    if (e.key === 'ArrowLeft') stepLb(-1);
+  });
+
+  $('g-inc').addEventListener('click', function () { S.guests = Math.min(6, S.guests + 1); render(); });
+  $('g-dec').addEventListener('click', function () { S.guests = Math.max(1, S.guests - 1); render(); });
+
+  $('in').addEventListener('change', function () {
+    S.checkIn = this.value;
+    var min = this.value;
+    if (min) { var d = new Date(min + 'T00:00'); d.setDate(d.getDate() + 1); min = iso(d); }
+    $('out').min = min || iso(new Date());
+    if (S.checkOut && S.checkOut <= S.checkIn) { S.checkOut = ''; $('out').value = ''; }
+    render();
+  });
+  $('out').addEventListener('change', function () {
+    if (S.checkIn && this.value <= S.checkIn) { this.value = S.checkOut; return; }
+    S.checkOut = this.value;
+    render();
+  });
+  $('f-name').addEventListener('input', render);
+  $('f-phone').addEventListener('input', render);
+
+  window.addEventListener('hashchange', applyHash);
+  window.addEventListener('scroll', syncHeader, { passive: true });
+  /* The header's transparent-over-hero state is derived from scrollY, and the
+     only thing that recomputed it was a scroll event. A load that lands at an
+     already-correct scroll position fires none, so the bar could paint solid
+     over the hero — which is how it reached a showcase screenshot. Recompute
+     on load and once after layout settles, not on scroll alone. */
+  window.addEventListener('load', syncHeader);
+  window.addEventListener('resize', syncHeader, { passive: true });
+  requestAnimationFrame(syncHeader);
+  setTimeout(syncHeader, 300);
+
+  /* ── reveal ───────────────────────────────────────────────── */
+  var rv = document.querySelectorAll('.rv');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
+    Array.prototype.forEach.call(rv, function (el) { io.observe(el); });
+  } else {
+    Array.prototype.forEach.call(rv, function (el) { el.classList.add('is-in'); });
+  }
+  /* A lazy trigger that fails to fire produces no error and no console
+     warning — work.html once shipped 13 cards at opacity 0 this way while
+     Lighthouse still scored 100. The observer is the nice path, not the only
+     one: anything still hidden at 2.5s whose box is in or above the viewport
+     is shown outright. */
+  setTimeout(function () {
+    Array.prototype.forEach.call(rv, function (el) {
+      if (el.classList.contains('is-in')) return;
+      if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('is-in');
+    });
+  }, 2500);
+
+  /* ── init ─────────────────────────────────────────────────── */
+  document.documentElement.classList.add('bt-boot');
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () { document.documentElement.classList.remove('bt-boot'); });
+  });
+  var today = iso(new Date());
+  $('in').min = today;
+  $('out').min = today;
+  buildRooms();
+  buildGalleries();
+  applyHash();
+})();
+</script>
+</body>
+</html>

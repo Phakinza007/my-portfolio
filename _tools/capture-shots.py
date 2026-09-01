@@ -746,6 +746,15 @@ def entry_spec(cfg, key, view, path):
         raise Abort(f"'{key}.{view}.selector' must be a string")
     if spec.get("scroll") is not None and not isinstance(spec["scroll"], (int, float)):
         raise Abort(f"'{key}.{view}.scroll' must be a number")
+    # A view may override the key's url. Some mechanisms are a state, not a
+    # scroll position: a dialog cannot be reached by scrolling to a selector,
+    # so the demo deep-links to it and the view asks for that url. Without this
+    # such a capture has to be staged by hand, which is exactly the kind of
+    # image that goes stale and never gets re-taken.
+    if spec.get("url") is not None:
+        if not isinstance(spec["url"], str) or not spec["url"].strip():
+            raise Abort(f"'{key}.{view}.url' must be a non-empty string")
+        url = spec["url"]
     return url.strip(), spec
 
 

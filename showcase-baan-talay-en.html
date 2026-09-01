@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Sends /foo.html to /foo and /index.html to /, in the address bar as well
+       as in the index. GitHub Pages serves both and cannot redirect, so canonical
+       alone leaves the visitor looking at the URL we told Google not to use.
+       Inline and in <head> on purpose: a deferred external script would run after
+       the parse and the page would render, then jump. location.replace keeps it
+       out of history, so Back still leaves the site. -->
+  <script>(function(p){if(location.protocol!=='file:'&&/\.html$/.test(p)&&!/\/404\.html$/.test(p))location.replace((/\/index\.html$/.test(p)?p.slice(0,-10):p.slice(0,-5))+location.search+location.hash)})(location.pathname)</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BAAN TALAY is a beachfront resort site that carries a guest from picking dates to a confirmation screen, showing the room total, the service charge and the deposit before they commit — see the full project write-up." />
+  <meta name="theme-color" content="#5274f8" />
+  <link rel="canonical" href="https://ph-akin.dev/showcase-baan-talay-en" />
+  <link rel="alternate" hreflang="th" href="https://ph-akin.dev/showcase-baan-talay" />
+  <link rel="alternate" hreflang="en" href="https://ph-akin.dev/showcase-baan-talay-en" />
+  <link rel="alternate" hreflang="x-default" href="https://ph-akin.dev/showcase-baan-talay" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="BAAN TALAY | Phakin Portfolio" />
+  <meta property="og:description" content="BAAN TALAY is a beachfront resort site that carries a guest from picking dates to a confirmation screen, showing the room total, the service charge and the deposit before they commit — see the full project write-up." />
+  <meta property="og:url" content="https://ph-akin.dev/showcase-baan-talay-en" />
+  <meta property="og:image" content="https://ph-akin.dev/assets/screenshots/showcase-baan-talay.jpg" />
+  <meta property="og:image:alt" content="BAAN TALAY live page screenshot." />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="BAAN TALAY | Phakin Portfolio" />
+  <meta name="twitter:description" content="BAAN TALAY is a beachfront resort site that carries a guest from picking dates to a confirmation screen, showing the room total, the service charge and the deposit before they commit — see the full project write-up." />
+  <meta name="twitter:image" content="https://ph-akin.dev/assets/screenshots/showcase-baan-talay.jpg" />
+  <title>BAAN TALAY | Phakin Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@600;700&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&display=optional" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="stylesheet" href="assets/portfolio-pages.css?v=work-strip" />
+  <link rel="stylesheet" href="assets/site-search.css?v=nav-cap-860" />
+  <script src="assets/site-search.js?v=clean-urls" defer></script>
+  <script src="assets/site-ui.js?v=reveal-fix" defer></script>
+  <script src="assets/analytics.js?v=funnel" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="page-shell nav" aria-label="Showcase menu">
+      <a class="brand" href="index-en" aria-label="BAAN TALAY — back to portfolio">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 34 34" focusable="false">
+            <rect class="mark-back" x="6" y="9" width="22" height="8" rx="2" />
+            <rect class="mark-front" x="6" y="19" width="22" height="8" rx="2" />
+            <path class="mark-line" d="M9 30h16" />
+            <circle class="mark-dot" cx="12" cy="13" r="2" />
+          </svg>
+        </span>
+        <span>BAAN TALAY</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="work-en">All work</a></li>
+        <li><a href="baan-talay">Live site</a></li>
+        <li><a class="nav-primary" href="resume-en">Resume</a></li>
+        <li><span class="lang-toggle" role="group" aria-label="Language"><a href="showcase-baan-talay" hreflang="th" lang="th">TH</a><span class="lang-on" aria-current="true">EN</span></span></li>
+      </ul>
+      <div class="site-search"></div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero case-hero">
+      <div class="page-shell">
+        <h1><span class="sheen">BAAN TALAY</span></h1>
+        <p class="hero-copy">A Hua Hin beachfront resort site you can actually book through, from picking dates to a confirmation screen — the same page, laid out differently on a phone and on a desktop.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="baan-talay">View live site</a>
+        </div>
+      </div>
+
+      <div class="page-shell" style="margin-top:32px;">
+        <figure class="browser-frame reveal">
+          <div class="browser-frame-bar reveal">
+            <span class="browser-dot browser-dot-red" aria-hidden="true"></span>
+            <span class="browser-dot browser-dot-amber" aria-hidden="true"></span>
+            <span class="browser-dot browser-dot-green" aria-hidden="true"></span>
+            <span class="browser-url">ph-akin.dev/baan-talay</span>
+          </div>
+          <img src="assets/screenshots/showcase-baan-talay.jpg" alt="BAAN TALAY live page screenshot." width="1491" height="812" loading="eager" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="overview">
+      <div class="page-shell">
+
+        <div class="work-strip">
+          <figure class="work-shot work-shot--wide reveal">
+            <img src="assets/screenshots/showcase-baan-talay-b.jpg" alt="BAAN TALAY room detail screen on desktop"
+                 width="1491" height="812" loading="lazy" fetchpriority="low" />
+            <figcaption>On desktop the room screen splits in two — photograph and detail on the left, a sticky panel holding the rate, the dates and the booking button on the right.</figcaption>
+          </figure>
+          <figure class="work-shot work-shot--tall reveal">
+            <img src="assets/screenshots/showcase-baan-talay-c.jpg" alt="BAAN TALAY on a 375 pixel wide phone screen"
+                 width="375" height="812" loading="lazy" fetchpriority="low" />
+            <figcaption>At 375px the availability card overlaps the lower edge of the hero, and the price and booking button stay pinned to the bottom of the screen throughout.</figcaption>
+          </figure>
+        </div>
+
+        <div class="story-stack">
+          <article class="story-card reveal">
+            <div class="story-head">
+              <div>
+                <h2>Project overview</h2>
+              </div>
+            </div>
+            <p>Most small hotel sites end at a "contact us" button and push the visitor into a chat window, even though a guest about to book has only a few real questions — what is free, what does it cost a night once tax is in, is there a surcharge for four people, and how much has to be transferred today. This page answers all four in one place. The guest picks dates and a party size from a card overlapping the hero image, taps a room to read it in full, then moves to a summary that itemises the nightly rate across the stay, the extra-guest charge, the 10% service charge and the 50% deposit before reaching confirmation. All six screens live in one file and switch on the URL hash, so the browser's own Back button still works.</p>
+            <div class="tag-list">
+              <span class="tag tag-gray">Booking</span>
+              <span class="tag tag-gray">Interactive</span>
+              <span class="tag tag-gray">Gallery</span>
+              <span class="tag tag-gray">Light UI</span>
+              <span class="tag tag-gray">Thai</span>
+            </div>
+          </article>
+
+          <article class="story-card story-card--flat reveal">
+            <div class="story-head">
+              <div>
+                <h2>The 30-second version</h2>
+              </div>
+            </div>
+            <ul class="highlight-list">
+              <li>A complete booking path — dates and guests, room detail, priced summary, confirmation — where every figure is computed live from the dates and party size actually chosen.</li>
+              <li>Phone and desktop are not one layout scaled. Small screens get a price-and-book bar pinned to the bottom; at 900px that bar is retired and replaced by sticky panels beside the content, because a fixed bottom bar on a 1440px screen is a phone idiom.</li>
+              <li>All ten photographs ship as WebP at two widths each, served through srcset with width and height reserved up front, so cumulative layout shift measures 0.</li>
+              <li>Thai headings are broken by phrase, because Chrome here carries no Thai line-break dictionary and will otherwise wrap mid-word; every phrase held together was measured to fit inside a 375px screen.</li>
+              <li>The gallery opens full size, steps with the arrow keys, closes on Escape and returns focus to the thumbnail that opened it.</li>
+              <li>Nothing talks to a server — no fetch, no form action — and the booking reference produced on confirmation is generated in the browser, which the page states plainly in its own footer.</li>
+            </ul>
+          </article>
+
+          <article class="story-card story-card--statement reveal">
+            <div class="story-head">
+              <div>
+                <h2>Who this suits</h2>
+              </div>
+            </div>
+            <p>Small and mid-sized places to stay — homestays, villas, and any business sold by the night or by the slot. The kind whose customers decide on the nightly rate and what is free, and who lose them while someone waits for a reply telling them the price.</p>
+          </article>
+
+          <article class="story-card accent reveal">
+            <div class="story-head">
+              <div>
+                <h2>Want something like this?</h2>
+                <p class="story-kicker">Adapt this piece to your own business</p>
+              </div>
+            </div>
+            <p>Tell me what your business does, what you want the site to do for you, and roughly what the budget is — I design and build to fit that.</p>
+            <p class="story-price">Pricing starts at <strong>฿3,900</strong>, depending on scope — <a href="services-en">see all 3 packages</a></p>
+            <div class="story-actions">
+              <a class="button primary" href="https://fastwork.co/byob/0G16E5GFIO?openExternalBrowser=1&amp;source=byob" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 3L3 10.5l7 2.6 2.6 7z"/><path d="M21 3l-11 11"/></svg>Start on Fastwork
+              </a>
+              <a class="button" href="mailto:a0626568471@gmail.com">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5L12 13l8.5-6.5"/></svg>Email me
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <p class="story-links">
+          <a href="baan-talay"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-8.5 8.5"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>View live site</a>
+          <a href="work-en">All work<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12h15"/><path d="M13.5 6.5L19.5 12l-6 5.5"/></svg></a>
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="related">
+      <div class="page-shell">
+        <div class="section-heading">
+          <div>
+            <h2>Related projects</h2>
+          </div>
+        </div>
+        <div class="project-strip">
+          <a class="project-link reveal" href="showcase-bookease-en">
+            <img src="assets/thumbs/bookease.svg" alt="" loading="lazy" width="351" height="220" />
+            <strong>BookEase Dashboard</strong>
+            <span>Appointment booking dashboard, complete in the browser.</span>
+          </a>
+          <a class="project-link reveal" href="showcase-velve-aesthetics-en">
+            <img src="assets/velve/care-tools.jpg" alt="" loading="lazy" width="351" height="220" />
+            <strong>VELVÉ Aesthetics</strong>
+            <span>Working 4-step booking wizard built in vanilla JavaScript.</span>
+          </a>
+          <a class="project-link reveal" href="showcase-ratri-restaurant-en">
+            <img src="assets/thumbs/ratri-restaurant.svg" alt="" loading="lazy" width="351" height="220" />
+            <strong>RATRI Restaurant</strong>
+            <span>Elegant dark fine-dining landing page with a real reservation flow.</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer-band">
+    <div class="page-shell footer-inner">
+      <span>BAAN TALAY showcase</span>
+      <span>Phakin Chawanpunya</span>
+    </div>
+  </footer>
+</body>
+</html>

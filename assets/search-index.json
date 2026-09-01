@@ -239,6 +239,18 @@
       "u": "showcase-pathapee",
       "g": "ผลงาน",
       "k": "พรีคาสท์ precast แผ่นพื้นสำเร็จรูป แผ่นพื้นกลวง hollow core เสาสำเร็จรูป คานสำเร็จรูป ผนังสำเร็จรูป โรงงาน ตารางสแปน ช่วงพาด รับเหมา ก่อสร้าง วัสดุก่อสร้าง ขอใบเสนอราคา b2b รับทำเว็บโรงงาน"
+    },
+    {
+      "t": "SALON OS — ปฏิทินคิวร้านทำผม",
+      "u": "showcase-salon-os",
+      "g": "ผลงาน",
+      "k": "salon os ร้านทำผม ร้านเสริมสวย ซาลอน ร้านตัดผม ร้านทำเล็บ สปา ปฏิทินคิว ตารางคิว จัดคิว จองคิว นัดหมาย ระบบจองคิว ระบบนัดหมาย ตารางช่าง ตารางงาน ย้ายคิว ช่างลา ลูกค้ามาสาย แดชบอร์ด dashboard booking calendar scheduling รับทำเว็บร้านทำผม รับทำระบบจองคิว"
+    },
+    {
+      "t": "BAAN TALAY — รีสอร์ตริมทะเล",
+      "u": "showcase-baan-talay",
+      "g": "ผลงาน",
+      "k": "baan talay บ้านทะเล รีสอร์ต ที่พัก โรงแรม โฮมสเตย์ วิลล่า รีสอร์ทริมทะเล หัวหิน ทะเล ชายหาด จองห้องพัก จองที่พัก จองออนไลน์ ระบบจอง เช็คห้องว่าง ห้องว่าง ราคาต่อคืน มัดจำ resort hotel booking รับทำเว็บรีสอร์ต รับทำเว็บโรงแรม รับทำเว็บที่พัก"
     }
   ],
   "en": [
@@ -481,6 +493,18 @@
       "u": "showcase-pathapee-en",
       "g": "Work",
       "k": "precast concrete hollow core slab span table plant manufacturing b2b procurement quote construction supplier"
+    },
+    {
+      "t": "SALON OS Queue Calendar",
+      "u": "showcase-salon-os-en",
+      "g": "Work",
+      "k": "salon hair nail spa barber queue calendar scheduling schedule booking appointment stylist roster drag and drop reschedule dashboard shift sick leave availability thai"
+    },
+    {
+      "t": "BAAN TALAY Beachfront Resort",
+      "u": "showcase-baan-talay-en",
+      "g": "Work",
+      "k": "resort hotel homestay villa beachfront hua hin booking reservation availability room rates nightly rate deposit check in check out responsive mobile thai"
     }
   ]
 }

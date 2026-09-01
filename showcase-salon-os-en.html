@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Sends /foo.html to /foo and /index.html to /, in the address bar as well
+       as in the index. GitHub Pages serves both and cannot redirect, so canonical
+       alone leaves the visitor looking at the URL we told Google not to use.
+       Inline and in <head> on purpose: a deferred external script would run after
+       the parse and the page would render, then jump. location.replace keeps it
+       out of history, so Back still leaves the site. -->
+  <script>(function(p){if(location.protocol!=='file:'&&/\.html$/.test(p)&&!/\/404\.html$/.test(p))location.replace((/\/index\.html$/.test(p)?p.slice(0,-10):p.slice(0,-5))+location.search+location.hash)})(location.pathname)</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SALON OS is a salon queue calendar: a five-column stylist grid with drag-to-move on desktop, inverted on a phone into one question — who is free this afternoon — with a two-step move. See the full project write-up." />
+  <meta name="theme-color" content="#5274f8" />
+  <link rel="canonical" href="https://ph-akin.dev/showcase-salon-os-en" />
+  <link rel="alternate" hreflang="th" href="https://ph-akin.dev/showcase-salon-os" />
+  <link rel="alternate" hreflang="en" href="https://ph-akin.dev/showcase-salon-os-en" />
+  <link rel="alternate" hreflang="x-default" href="https://ph-akin.dev/showcase-salon-os" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SALON OS Queue Calendar | Phakin Portfolio" />
+  <meta property="og:description" content="SALON OS is a salon queue calendar: a five-column stylist grid with drag-to-move on desktop, inverted on a phone into one question — who is free this afternoon — with a two-step move." />
+  <meta property="og:url" content="https://ph-akin.dev/showcase-salon-os-en" />
+  <meta property="og:image" content="https://ph-akin.dev/assets/screenshots/showcase-salon-os.jpg" />
+  <meta property="og:image:alt" content="SALON OS live page screenshot." />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SALON OS Queue Calendar | Phakin Portfolio" />
+  <meta name="twitter:description" content="SALON OS is a salon queue calendar: a five-column stylist grid with drag-to-move on desktop, inverted on a phone into one question — who is free this afternoon — with a two-step move." />
+  <meta name="twitter:image" content="https://ph-akin.dev/assets/screenshots/showcase-salon-os.jpg" />
+  <title>SALON OS Queue Calendar | Phakin Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@600;700&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&display=optional" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="stylesheet" href="assets/portfolio-pages.css?v=work-strip" />
+  <link rel="stylesheet" href="assets/site-search.css?v=nav-cap-860" />
+  <script src="assets/site-search.js?v=clean-urls" defer></script>
+  <script src="assets/site-ui.js?v=reveal-fix" defer></script>
+  <script src="assets/analytics.js?v=funnel" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="page-shell nav" aria-label="Showcase menu">
+      <a class="brand" href="index-en" aria-label="SALON OS — back to portfolio">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 34 34" focusable="false">
+            <rect class="mark-back" x="6" y="9" width="22" height="8" rx="2" />
+            <rect class="mark-front" x="6" y="19" width="22" height="8" rx="2" />
+            <path class="mark-line" d="M9 30h16" />
+            <circle class="mark-dot" cx="12" cy="13" r="2" />
+          </svg>
+        </span>
+        <span>SALON OS</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="work-en">All projects</a></li>
+        <li><a href="SalonOS">View live site</a></li>
+        <li><a class="nav-primary" href="resume-en">Résumé</a></li>
+        <li><span class="lang-toggle" role="group" aria-label="Language"><span class="lang-on" aria-current="true">EN</span><a href="showcase-salon-os" hreflang="th" lang="th">TH</a></span></li>
+      </ul>
+      <div class="site-search"></div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero case-hero">
+      <div class="page-shell">
+        <h1><span class="sheen">SALON OS</span></h1>
+        <p class="hero-copy">A salon queue calendar designed twice — a stylist grid you drag bookings across on desktop, inverted on a phone into the one question the counter actually gets asked</p>
+        <div class="hero-actions">
+          <a class="button primary" href="SalonOS">View live site</a>
+        </div>
+      </div>
+
+      <div class="page-shell" style="margin-top:32px;">
+        <figure class="browser-frame reveal">
+          <div class="browser-frame-bar reveal">
+            <span class="browser-dot browser-dot-red" aria-hidden="true"></span>
+            <span class="browser-dot browser-dot-amber" aria-hidden="true"></span>
+            <span class="browser-dot browser-dot-green" aria-hidden="true"></span>
+            <span class="browser-url">ph-akin.dev/SalonOS.html</span>
+          </div>
+          <img src="assets/screenshots/showcase-salon-os.jpg" alt="SALON OS live page screenshot." width="1491" height="812" loading="eager" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="overview">
+      <div class="page-shell">
+
+        <div class="work-strip">
+          <figure class="work-shot work-shot--wide reveal">
+            <img src="assets/screenshots/showcase-salon-os-b.jpg" alt="SALON OS on desktop, showing the dialog that redistributes bookings after a stylist calls in sick"
+                 width="1491" height="812" loading="lazy" fetchpriority="low" />
+            <figcaption>A stylist goes home sick mid-shift. Three of her four bookings get a slot; the page says plainly that the fourth has nobody and needs a phone call.</figcaption>
+          </figure>
+          <figure class="work-shot work-shot--tall reveal">
+            <img src="assets/screenshots/showcase-salon-os-c.jpg" alt="SALON OS at 375 pixels wide on a phone"
+                 width="375" height="812" loading="lazy" fetchpriority="low" />
+            <figcaption>At 375px the grid inverts into a single question — who is free this afternoon — with all five stylists' open windows on one screen.</figcaption>
+          </figure>
+        </div>
+
+        <div class="story-stack">
+          <article class="story-card reveal">
+            <div class="story-head">
+              <div>
+                <h2>Project overview</h2>
+              </div>
+            </div>
+            <p>Almost every salon tool shrinks its desktop grid onto a phone, and what arrives is a grid you have to pinch to read. This page refuses that, because the owner is doing two different jobs on the two devices. In the morning she is at a desk planning the whole day, so she needs everything at once as a two-dimensional grid: five stylists as columns, time running down, a booking's length showing as the height of its block, and drag to move one across. By the afternoon she is at the counter with a phone against her shoulder and a customer asking one question — is anyone free this afternoon. So at 375px the view inverts: <b>gaps</b> become the subject and bookings the background, and all five stylists with the windows they can still take fit on one screen without scrolling.</p>
+            <div class="tag-list">
+              <span class="tag tag-gray">Dashboard</span>
+              <span class="tag tag-gray">Booking</span>
+              <span class="tag tag-gray">Design System</span>
+              <span class="tag tag-gray">Light UI</span>
+              <span class="tag tag-gray">Thai</span>
+            </div>
+          </article>
+
+          <article class="story-card story-card--flat reveal">
+            <div class="story-head">
+              <div>
+                <h2>The 30-second version</h2>
+              </div>
+            </div>
+            <ul class="highlight-list">
+              <li>Five stylist columns across half-hour rows from 10:00 to 20:00. Drag a booking onto another stylist's gap; slots it cannot legally land in never light up in the first place.</li>
+              <li>Drag alone is not enough, so every booking is also a button that opens a two-step move — pick the booking, pick the destination — which is the same path the keyboard and the phone use, because dragging on a small screen has to fight the scroll gesture.</li>
+              <li>Only destinations where the <b>skill matches and nothing collides</b> are offered, and never a slot more than half an hour earlier than the original: a customer booked for six in the evening cannot arrive at two.</li>
+              <li>When a stylist goes home sick mid-shift, four bookings move at once — three find a slot, and the page states plainly that the fourth has nobody free and needs a phone call, rather than pretending to place them all.</li>
+              <li>Every figure on the page is computed from the same data, not typed in. Move one booking and the count of things to handle, each stylist's gaps, and who is free right now all change with it — and an undo button puts it back.</li>
+              <li>Each status is carried by three layers at once — icon, Thai word, and colour — so the board still says which bookings are in trouble with every colour removed.</li>
+            </ul>
+          </article>
+
+          <article class="story-card story-card--statement reveal">
+            <div class="story-head">
+              <div>
+                <h2>Who this is for</h2>
+              </div>
+            </div>
+            <p>For shops that take bookings by phone or chat and write them in a notebook — hair and nail salons, spas, clinics, garages — where the real work is not reading a schedule all day but answering whether there is room, and moving bookings when something breaks.</p>
+          </article>
+
+          <article class="story-card accent reveal">
+            <div class="story-head">
+              <div>
+                <h2>Want something like this?</h2>
+                <p class="story-kicker">Adapted to your own business</p>
+              </div>
+            </div>
+            <p>Tell me what your business does, what you want the site to help with, and roughly what your budget is — I will design and build something that fits it.</p>
+            <p class="story-price">Pricing starts at <strong>฿3,900</strong>, depending on scope — <a href="services-en">see all three packages</a></p>
+            <div class="story-actions">
+              <a class="button primary" href="https://fastwork.co/byob/0G16E5GFIO?openExternalBrowser=1&amp;source=byob" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 3L3 10.5l7 2.6 2.6 7z"/><path d="M21 3l-11 11"/></svg>Start a project on Fastwork
+              </a>
+              <a class="button" href="mailto:a0626568471@gmail.com">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5L12 13l8.5-6.5"/></svg>Email me
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <p class="story-links">
+          <a href="SalonOS"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-8.5 8.5"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>View live site</a>
+          <a href="work-en">All projects<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12h15"/><path d="M13.5 6.5L19.5 12l-6 5.5"/></svg></a>
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="related">
+      <div class="page-shell">
+        <div class="section-heading">
+          <div>
+            <h2>Related projects</h2>
+          </div>
+        </div>
+        <div class="project-strip">
+          <a class="project-link reveal" href="showcase-bookease-en">
+            <img src="assets/thumbs/bookease.svg" alt="" loading="lazy" width="351" height="220" />
+            <strong>BookEase Dashboard</strong>
+            <span>Appointment booking dashboard, complete in the browser.</span>
+          </a>
+          <a class="project-link reveal" href="showcase-velve-aesthetics-en">
+            <img src="assets/velve/care-tools.jpg" alt="" loading="lazy" width="351" height="220" />
+            <strong>VELVÉ Aesthetics</strong>
+            <span>Working 4-step booking wizard built in vanilla JavaScript.</span>
+          </a>
+          <a class="project-link reveal" href="showcase-lumi-clinic-en">
+            <img src="assets/thumbs/lumi-clinic.svg" alt="" loading="lazy" width="351" height="220" />
+            <strong>LUMI Clinic</strong>
+            <span>Editorial beauty clinic page with transparent pricing.</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer-band">
+    <div class="page-shell footer-inner">
+      <span>SALON OS showcase</span>
+      <span>Phakin Chawanpunya</span>
+    </div>
+  </footer>
+</body>
+</html>
