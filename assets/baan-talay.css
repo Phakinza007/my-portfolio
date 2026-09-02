@@ -772,7 +772,11 @@ html.bt-boot .bt-hd, html.bt-boot .bt-hd *{ transition:none !important; }
 .bt-ptable{ width:100%; border-collapse:collapse; font-size:13.5px; }
 .bt-ptable th, .bt-ptable td{ text-align:left; padding:11px 12px; border-bottom:1px solid var(--line-2); }
 .bt-ptable th{ font-size:12px; font-weight:600; color:var(--muted-2); }
-.bt-ptable td:last-child{ text-align:right; font-weight:600; white-space:nowrap; }
+.bt-ptable td:first-child{ font-weight:600; }
+/* the cancellation table is 3 columns now; right-aligning and nowrapping the
+   last one was a 2-column assumption and would force a horizontal scroll */
+.bt-ptable td{ vertical-align:top; }
+.bt-ptable tr:last-child td{ border-bottom:0; }
 .bt-ptable-wrap{ overflow-x:auto; border:1px solid var(--line-2); border-radius:var(--r-lg); background:var(--card); }
 
 /* ── location / map panel ──────────────────────────────────── */
@@ -831,3 +835,25 @@ html.bt-boot .bt-hd, html.bt-boot .bt-hd *{ transition:none !important; }
   .bt-map{ height:340px; }
   .bt-teaser, .bt-teaser-in{ min-height:260px; }
 }
+
+/* ── room: who it suits, and who it does not ───────────────── */
+.bt-fit{ display:grid; gap:14px; margin-top:20px; }
+.bt-fit > div{ padding-left:14px; border-left:2px solid var(--green); }
+.bt-fit-no{ border-left-color:var(--sand); }
+.bt-fit b{ display:block; font-size:12.5px; font-weight:600; letter-spacing:.4px; color:var(--green-d); margin-bottom:5px; }
+.bt-fit-no b{ color:var(--muted); }
+.bt-fit p{ margin:0; font-size:14px; line-height:1.7; color:var(--ink-2); }
+
+/* ── room: the complete inventory, grouped like real room pages ── */
+.bt-inv{ display:grid; gap:20px; margin-top:16px; }
+.bt-inv-group h3{ margin:0 0 9px; font-size:12.5px; font-weight:600; letter-spacing:.6px; color:var(--muted-2); }
+.bt-inv-group ul{ list-style:none; margin:0; padding:0; display:grid; gap:6px; }
+.bt-inv-group li{ position:relative; padding-left:16px; font-size:13.5px; line-height:1.6; color:var(--ink-2); }
+.bt-inv-group li::before{ content:""; position:absolute; left:0; top:.62em; width:5px; height:5px; border-radius:50%; background:var(--sand); }
+@media (min-width:600px){
+  .bt-fit{ grid-template-columns:1fr 1fr; gap:22px; }
+  .bt-inv{ grid-template-columns:1fr 1fr; gap:22px 28px; }
+}
+@media (min-width:900px){ .bt-inv{ grid-template-columns:1fr 1fr; } }
+.bt-ptable td.price{ text-align:right; font-weight:600; color:var(--green); white-space:nowrap; }
+.bt-ptable th:last-child{ text-align:right; }

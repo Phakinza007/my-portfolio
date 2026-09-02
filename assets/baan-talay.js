@@ -43,15 +43,19 @@
      figure the hero copy states. If one changes the other must. */
   var ROOMS = [
     { slug: 'room-garden', base: 2400, total: 8, size: 28, cap: 2, bf: false,
+      floor: 1, bedCm: 160, extraBed: false,
       shots: ['room-garden', 'room-window', 'suite-living'],
       amen: ['ac', 'wifi', 'fridge', 'balcony'] },
     { slug: 'room-breeze', base: 3200, total: 6, size: 34, cap: 2, bf: true,
+      floor: 2, bedCm: 180, extraBed: true,
       shots: ['room-breeze', 'room-bed', 'sea'],
       amen: ['sea', 'tub', 'wifi', 'coffee'] },
     { slug: 'room-villa', base: 5800, total: 4, size: 52, cap: 3, bf: true,
+      floor: 1, bedCm: 180, extraBed: true,
       shots: ['room-villa', 'boardwalk', 'beach-morning'],
       amen: ['beach', 'balcony', 'tub', 'sofa'] },
     { slug: 'room-family', base: 6500, total: 6, size: 65, cap: 5, bf: true,
+      floor: 1, bedCm: 180, extraBed: true,
       shots: ['room-family', 'suite-bed', 'pool'],
       amen: ['rooms2', 'kitchen', 'wash', 'tub'] }
   ];
@@ -165,7 +169,7 @@
   L.th = {
     code: 'th', other: 'EN',
     nav: { rooms: 'ห้องพัก', dining: 'ห้องอาหาร', facilities: 'สิ่งอำนวยความสะดวก', offers: 'แพ็กเกจ',
-      reviews: 'รีวิว', about: 'เกี่ยวกับเรา', gallery: 'แกลเลอรี', faq: 'คำถามที่พบบ่อย',
+      reviews: 'รีวิว', spa: 'สปา', about: 'เกี่ยวกับเรา', gallery: 'แกลเลอรี', faq: 'คำถามที่พบบ่อย',
       contact: 'ติดต่อและการเดินทาง', book: 'เช็คห้องว่าง', menu: 'เมนู', close: 'ปิด', home: 'หน้าแรก', skip: 'ข้ามไปเนื้อหาหลัก' },
     c: { from: 'เริ่มต้น', perNight: '/ คืน', night: 'คืน', guest: 'คน', baht: '฿',
       inclTax: 'รวมภาษีและค่าบริการแล้ว', back: 'ย้อนกลับ', viewAll: 'ดูทั้งหมด', more: 'ดูรายละเอียด',
@@ -194,22 +198,59 @@
     rooms: [
       { name: 'Garden Room', bed: 'ควีน',
         blurb: 'ชั้นล่างเปิดออกสวน เดินถึงหาด 90 เมตร',
-        detail: 'ห้องชั้นล่างเปิดประตูออกสวนได้เลย เดินถึงหาด 90 เมตร เงียบที่สุดในรีสอร์ตเพราะอยู่ปีกหลัง เหมาะกับคนมาพักคนเดียวหรือสองคนที่ตั้งใจมานอนอ่านหนังสือ ห้องน้ำแยกส่วนเปียกแห้ง มีระเบียงนั่งได้สองคน',
-        amen: ['แอร์', 'Wi-Fi ฟรี', 'ตู้เย็นเล็ก', 'ระเบียงสวน'] },
+        detail: 'ห้องชั้นล่างในปีกหลังของรีสอร์ต เปิดประตูกระจกออกไปเจอสวนได้เลย และเดินถึงหาด 90 เมตรตามทางเดินไม้ เป็นห้องที่เงียบที่สุดที่เรามี เพราะอยู่ไกลจากสระและห้องอาหารที่สุด คนที่จองห้องนี้ซ้ำส่วนใหญ่มาคนเดียวหรือมาสองคนแบบตั้งใจไม่ทำอะไรเลย',
+        detail2: 'ห้องน้ำแยกส่วนเปียกแห้ง มีฝักบัวแรงดันดีแต่ไม่มีอ่างอาบน้ำ ระเบียงกว้างพอวางเก้าอี้สองตัวกับโต๊ะเล็ก หันไปทางสวนไม่เห็นทะเล ถ้าอยากได้วิวทะเลต้องขยับไปห้อง Sea Breeze',
+        suits: 'มาคนเดียวหรือสองคน อยากได้ความเงียบมากกว่าวิว และไม่เกี่ยงว่าต้องเดินไปหาดสักหน่อย',
+        notFor: 'ครอบครัวที่มีเด็กเล็ก เพราะเสริมเตียงไม่ได้ และไกลจากสระเด็กที่สุดในรีสอร์ต',
+        amen: ['แอร์', 'Wi-Fi ฟรี', 'ตู้เย็นเล็ก', 'ระเบียงสวน'],
+        full: [
+          ['ในห้อง', ['เตียงควีน 160 ซม.', 'แอร์ปรับอุณหภูมิได้', 'ตู้เย็นเล็ก', 'กาต้มน้ำ ชาและกาแฟซอง', 'ตู้เสื้อผ้าและที่แขวน', 'โต๊ะทำงานเล็ก', 'ปลั๊กหัวกลมและ USB ข้างเตียง']],
+          ['ห้องน้ำ', ['แยกส่วนเปียกแห้ง', 'ฝักบัวเรนชาวเวอร์', 'เครื่องอาบน้ำและสบู่แบบเติม', 'ผ้าเช็ดตัว 2 ผืนต่อคน', 'ไดร์เป่าผม']],
+          ['พื้นที่และวิว', ['ชั้น 1 ปีกหลัง', 'ระเบียงหันเข้าสวน', 'เก้าอี้ 2 ตัวและโต๊ะเล็ก', 'เดินถึงหาด 90 เมตร']],
+          ['บริการ', ['ทำความสะอาดทุกวัน', 'Wi-Fi ทั้งห้อง', 'ซักรีดคิดตามชิ้น', 'ไม่มีบริการเสริมเตียง']]
+        ] },
       { name: 'Sea Breeze', bed: 'คิง',
         blurb: 'ชั้นสอง เห็นทะเลผ่านแนวต้นสน',
-        detail: 'อยู่ชั้นสอง มองเห็นทะเลผ่านแนวต้นสน กลางคืนได้ยินเสียงคลื่นเบา ๆ พอดี ไม่ดังจนนอนไม่หลับ ห้องน้ำมีอ่างอาบน้ำและหน้าต่างเปิดรับลม เตียงคิงขนาด 180 ซม. พร้อมเครื่องชงกาแฟและใบชาจากไร่ในจังหวัด',
-        amen: ['วิวทะเลบางส่วน', 'อ่างอาบน้ำ', 'Wi-Fi ฟรี', 'เครื่องชงกาแฟ'] },
+        detail: 'อยู่ชั้นสองของอาคารกลาง มองออกไปเห็นทะเลผ่านแนวต้นสนที่ปลูกกันลมไว้ตั้งแต่รุ่นคุณตา ไม่ใช่วิวทะเลเต็มตาและเราไม่เรียกมันแบบนั้น แต่กลางคืนได้ยินเสียงคลื่นพอดี ไม่ดังจนนอนไม่หลับ',
+        detail2: 'ห้องน้ำมีอ่างอาบน้ำและหน้าต่างบานเล็กที่เปิดได้จริง ทำให้ไม่อับ มีเครื่องชงกาแฟแบบแคปซูลและใบชาจากไร่ในจังหวัด เสริมเตียงได้ 1 เตียง แต่จะทำให้ทางเดินข้างเตียงแคบลงพอสมควร',
+        suits: 'คู่ที่อยากเห็นทะเลจากห้องและชอบแช่น้ำ หรือคนที่นอนหลับง่ายขึ้นเมื่อมีเสียงคลื่น',
+        notFor: 'คนที่เดินขึ้นบันไดไม่สะดวก อาคารกลางไม่มีลิฟต์',
+        amen: ['วิวทะเลบางส่วน', 'อ่างอาบน้ำ', 'Wi-Fi ฟรี', 'เครื่องชงกาแฟ'],
+        full: [
+          ['ในห้อง', ['เตียงคิง 180 ซม.', 'แอร์ปรับอุณหภูมิได้', 'ตู้เย็นเล็ก', 'เครื่องชงกาแฟแคปซูล', 'ใบชาจากไร่ในจังหวัด', 'ตู้เซฟขนาดวางโน้ตบุ๊กได้', 'โซฟาตัวเดียวริมหน้าต่าง']],
+          ['ห้องน้ำ', ['อ่างอาบน้ำพร้อมฝักบัวแยก', 'หน้าต่างเปิดได้', 'เครื่องอาบน้ำแบบเติม', 'เสื้อคลุมอาบน้ำ 2 ตัว', 'ไดร์เป่าผม']],
+          ['พื้นที่และวิว', ['ชั้น 2 อาคารกลาง ไม่มีลิฟต์', 'เห็นทะเลผ่านแนวต้นสน', 'ระเบียงยาว 3 เมตร', 'เดินถึงหาด 50 เมตร']],
+          ['บริการ', ['อาหารเช้ารวมในราคา', 'ทำความสะอาดทุกวัน', 'เสริมเตียงได้ 1 เตียง', 'ซักรีดคิดตามชิ้น']]
+        ] },
       { name: 'Beachfront Villa', bed: 'คิง + โซฟาเบด',
         blurb: 'หลังเดี่ยวติดหาด เปิดประตูเจอทราย',
-        detail: 'วิลล่าหลังเดี่ยวติดหาด เปิดประตูเจอทรายเลย มีระเบียงไม้ส่วนตัวหันหน้าออกทะเล เช้า ๆ พนักงานยกอาหารเช้ามาเสิร์ฟที่ระเบียงได้ตามนัด มีเพียงสี่หลังในรีสอร์ต จึงเต็มเร็วที่สุดในช่วงวันหยุดยาว',
-        amen: ['ติดหาดโดยตรง', 'ระเบียงส่วนตัว', 'อ่างอาบน้ำ', 'โซฟาเบดเสริม'] },
+        detail: 'วิลล่าหลังเดี่ยวสี่หลังที่อยู่แถวหน้าสุดติดหาด เปิดประตูออกไปเหยียบทรายได้เลยโดยไม่ต้องผ่านทางเดินกลาง มีระเบียงไม้ส่วนตัวขนาดประมาณ 12 ตารางเมตรหันหน้าออกทะเลตรง ๆ',
+        detail2: 'นัดล่วงหน้าได้ให้พนักงานยกอาหารเช้ามาเสิร์ฟที่ระเบียง ไม่มีค่าใช้จ่ายเพิ่ม เพราะมีแค่สี่หลัง ช่วงวันหยุดยาวจึงเต็มก่อนห้องแบบอื่นเสมอ และเป็นห้องเดียวที่เรารับสัตว์เลี้ยงร่วมกับ Garden Room',
+        suits: 'คู่ที่อยากได้ความเป็นส่วนตัวสูงสุด หรือครอบครัวเล็กสามคนที่ไม่ต้องการห้องนอนแยก',
+        notFor: 'คนที่ต้องการห้องนอนแยกประตู หรือกลุ่มที่มากันเกินสามคน',
+        amen: ['ติดหาดโดยตรง', 'ระเบียงส่วนตัว', 'อ่างอาบน้ำ', 'โซฟาเบดเสริม'],
+        full: [
+          ['ในห้อง', ['เตียงคิง 180 ซม.', 'โซฟาเบดสำหรับ 1 คน', 'แอร์ปรับอุณหภูมิได้', 'ตู้เย็นพร้อมมินิบาร์', 'เครื่องชงกาแฟแคปซูล', 'ตู้เซฟ', 'พัดลมเพดานเสริม']],
+          ['ห้องน้ำ', ['อ่างอาบน้ำมองเห็นสวนส่วนตัว', 'ฝักบัวกลางแจ้งมีผนังกั้น', 'เครื่องอาบน้ำแบบเติม', 'เสื้อคลุมและรองเท้าในห้อง', 'ไดร์เป่าผม']],
+          ['พื้นที่และวิว', ['หลังเดี่ยว ชั้นเดียว', 'ระเบียงไม้ส่วนตัวประมาณ 12 ตร.ม.', 'หันหน้าออกทะเลตรง', 'เปิดประตูถึงทรายทันที']],
+          ['บริการ', ['อาหารเช้ารวมในราคา', 'เสิร์ฟอาหารเช้าที่ระเบียงได้ตามนัด', 'รับสัตว์เลี้ยงไม่เกิน 15 กก.', 'เสริมเตียงได้ 1 เตียง']]
+        ] },
       { name: 'Family Suite', bed: 'คิง + เดี่ยว 2',
         blurb: 'สองห้องนอนแยกประตู ใกล้สระเด็ก',
-        detail: 'สองห้องนอนแยกประตู เดินถึงสระเด็ก 20 ก้าว มีโต๊ะกินข้าวในห้องและครัวเล็กสำหรับอุ่นอาหาร เตียงเด็กอ่อนยืมได้ฟรี และมีประตูกั้นบันไดให้ยืมสำหรับบ้านที่มีเด็กเล็ก',
-        amen: ['2 ห้องนอน', 'ครัวเล็ก', 'เครื่องซักผ้า', 'อ่างอาบน้ำเด็ก'] }
+        detail: 'สวีทสองห้องนอนที่แยกประตูจริง ไม่ใช่ห้องเดียวกั้นม่าน ห้องนอนใหญ่มีเตียงคิง ห้องเล็กมีเตียงเดี่ยวสองเตียง เดินจากประตูห้องถึงสระเด็กประมาณยี่สิบก้าว ซึ่งเป็นเหตุผลหลักที่ครอบครัวเลือกห้องนี้',
+        detail2: 'มีโต๊ะกินข้าวสี่ที่นั่งในห้องและครัวเล็กสำหรับอุ่นอาหาร มีไมโครเวฟกับกาต้มน้ำแต่ไม่มีเตาไฟ เตียงเด็กอ่อนและประตูกั้นบันไดยืมได้ฟรีแต่มีจำนวนจำกัด แจ้งตอนจองจะแน่นอนกว่า',
+        suits: 'ครอบครัวที่มีเด็ก หรือสองคู่ที่เดินทางด้วยกันและอยากได้ห้องนอนแยก',
+        notFor: 'คนที่ต้องการครัวเต็มรูปแบบ ในห้องอุ่นอาหารได้อย่างเดียว ไม่มีเตาไฟ',
+        amen: ['2 ห้องนอน', 'ครัวเล็ก', 'เครื่องซักผ้า', 'อ่างอาบน้ำ'],
+        full: [
+          ['ในห้อง', ['ห้องนอนใหญ่ เตียงคิง 180 ซม.', 'ห้องนอนเล็ก เตียงเดี่ยว 2 เตียง', 'โต๊ะกินข้าว 4 ที่นั่ง', 'แอร์แยกสองห้อง', 'ตู้เย็นขนาดใหญ่', 'ทีวีในห้องนั่งเล่น']],
+          ['ครัวเล็ก', ['ไมโครเวฟ', 'กาต้มน้ำ', 'อ่างล้างจาน', 'จานชามและช้อนส้อม', 'ไม่มีเตาไฟ']],
+          ['ห้องน้ำ', ['อ่างอาบน้ำ ใช้กับเด็กได้', 'ฝักบัวแยก', 'ห้องน้ำที่สอง มีเฉพาะฝักบัว', 'ไดร์เป่าผม']],
+          ['ครอบครัว', ['เดินถึงสระเด็ก 20 ก้าว', 'เตียงเด็กอ่อนยืมฟรี จำนวนจำกัด', 'ประตูกั้นบันไดยืมฟรี', 'เครื่องซักผ้าในห้อง', 'เสริมเตียงได้ 1 เตียง']]
+        ] }
     ],
     roomUI: { size: 'ขนาด', cap: 'พักได้', bed: 'เตียง', sqm: 'ตร.ม.', amen: 'สิ่งอำนวยความสะดวก',
+      inRoom: 'รายการในห้องทั้งหมด', suits: 'เหมาะกับ', notFor: 'อาจไม่เหมาะกับ',
       shots: 'ภาพห้องนี้', bookThis: 'จองห้องนี้', rate: 'ราคาต่อคืน',
       note: 'ยกเลิกฟรีก่อนเช็คอิน 7 วัน · เช็คอิน 14:00 เช็คเอาท์ 12:00',
       sideNote: 'ยกเลิกฟรีก่อนเช็คอิน 7 วัน มัดจำ 50% ตอนจอง', bfIncl: 'รวมอาหารเช้า' },
@@ -221,10 +262,25 @@
         body: 'บาร์เล็กข้างสระหลัก เสิร์ฟค็อกเทลและอาหารว่างจนถึงห้าทุ่ม ช่วงพระอาทิตย์ตกมีที่นั่งริมทรายให้จองล่วงหน้าได้ที่แผนกต้อนรับ ไม่มีค่าจองและไม่มีขั้นต่ำ',
         menu: [['มะพร้าวปั่นรัม', '฿220'], ['มะม่วงน้ำปลาหวานโซดา', '฿180'], ['เฟรนช์ฟรายส์สาหร่าย', '฿150'], ['ยำมะม่วงกุ้งแห้ง', '฿190']] }
     ],
+    spa: { name: 'ร่มสน สปา', hours: 'เปิด 10:00–20:00 น. ทุกวัน · ห้องทรีตเมนต์ 2 ห้อง',
+      lede: 'สปาเล็กใต้แนวต้นสนหลังรีสอร์ต ตั้งชื่อตามต้นสนที่ปลูกกันลมไว้ตั้งแต่รุ่นคุณตา มีห้องทรีตเมนต์สองห้อง จองที่แผนกต้อนรับล่วงหน้าอย่างน้อยสองชั่วโมง',
+      body: 'นักบำบัดสี่คนของเราเป็นคนในพื้นที่ทั้งหมด และผ่านหลักสูตรนวดไทยของวัดโพธิ์ น้ำมันและสมุนไพรที่ใช้ผสมเองที่หน้างาน ไม่ใช้กลิ่นสังเคราะห์ ถ้าแพ้อะไรหรือกำลังตั้งครรภ์ บอกก่อนได้ เรามีสูตรและท่านวดที่ปรับให้',
+      menuHead: ['ทรีตเมนต์', 'เวลา', 'ราคา'],
+      menu: [
+        ['นวดไทยโบราณ', '60 นาที', '฿700'],
+        ['นวดไทยโบราณ', '90 นาที', '฿950'],
+        ['นวดน้ำมันอโรมา', '60 นาที', '฿900'],
+        ['นวดน้ำมันอโรมา', '90 นาที', '฿1,200'],
+        ['นวดเท้าและน่อง', '45 นาที', '฿550'],
+        ['ขัดผิวเกลือทะเลหัวหิน', '45 นาที', '฿850'],
+        ['ทรีตเมนต์ผิวหลังตากแดด', '30 นาที', '฿600'],
+        ['แพ็กเกจคู่ ห้องเดียวกัน', '90 นาที', '฿2,200']
+      ],
+      note: 'ราคารวมภาษีแล้ว ยกเลิกฟรีถ้าแจ้งก่อนเวลานัด 2 ชั่วโมง แจ้งช้ากว่านั้นคิดครึ่งราคา งดให้บริการผู้ที่ดื่มแอลกอฮอล์มาก่อนเข้ารับบริการ' },
     facs: [
       { name: 'สระว่ายน้ำหลัก', body: 'สระยาว 20 เมตร ลึก 1.2–1.5 เมตร มีเก้าอี้ผ้าใบและร่มให้ใช้ฟรี', hours: '07:00–20:00 น.' },
       { name: 'หาดส่วนตัว', body: 'หาดหน้ารีสอร์ตยาว 200 เมตร มีเตียงผ้าใบ ผ้าเช็ดตัว และเรือคายัคให้ยืม', hours: 'ตลอดวัน' },
-      { name: 'สปา', body: 'ห้องทรีตเมนต์สองห้อง นวดไทยและนวดน้ำมัน จองที่แผนกต้อนรับล่วงหน้าสองชั่วโมง', hours: '10:00–20:00 น.' },
+      { name: 'ร่มสน สปา', body: 'ห้องทรีตเมนต์สองห้องใต้แนวต้นสน นวดไทย นวดน้ำมัน และขัดผิว ดูเมนูและราคาทั้งหมดได้ในหน้าสปา', hours: '10:00–20:00 น.' },
       { name: 'ฟิตเนส', body: 'ห้องออกกำลังกายเล็ก ลู่วิ่งสองเครื่อง จักรยาน และดัมบ์เบล ใช้คีย์การ์ดห้องเข้าได้', hours: '06:00–22:00 น.' },
       { name: 'สระเด็กและมุมเด็กเล่น', body: 'สระลึก 40 ซม. แยกจากสระหลัก มีของเล่นและหนังสือภาพให้ยืม', hours: '08:00–18:00 น.' },
       { name: 'ที่จอดรถและรับส่ง', body: 'ที่จอดรถในรีสอร์ต 20 คัน ฟรี รับส่งสถานีรถไฟหัวหินแจ้งล่วงหน้าหนึ่งวัน', hours: 'ตลอดวัน' }
@@ -263,8 +319,8 @@
         'อาหารทะเลทั้งหมดรับจากแพปลาหัวหินทุกเช้า ผักส่วนหนึ่งปลูกเองหลังครัว เราแยกขยะและงดขวดพลาสติกในห้องพักตั้งแต่ปี 2565 โดยเปลี่ยนเป็นขวดแก้วที่เติมน้ำได้ที่จุดเติมทุกชั้น'],
       stat: [['ปีที่เปิด', '2560'], ['จำนวนห้อง', '24'], ['พนักงาน', '20 คน'], ['ความยาวหาด', '200 ม.']] },
     faq: [
-      { q: 'ยกเลิกการจองได้ถึงเมื่อไหร่', a: 'ยกเลิกฟรีเต็มจำนวนถ้าแจ้งก่อนเช็คอิน 7 วันขึ้นไป แจ้งภายใน 3–6 วันคืนให้ 50% น้อยกว่า 3 วันไม่คืนเงิน แต่เลื่อนวันได้ 1 ครั้งภายใน 6 เดือน' },
-      { q: 'เด็กพักฟรีถึงกี่ขวบ', a: 'เด็กไม่เกิน 11 ปี พักฟรี 2 คนต่อห้องโดยใช้เตียงร่วมกับผู้ใหญ่ เตียงเสริมคืนละ 600 บาทรวมอาหารเช้า เตียงเด็กอ่อนยืมฟรี' },
+      { q: 'ยกเลิกการจองได้ถึงเมื่อไหร่', a: 'ขึ้นอยู่กับช่วงที่เข้าพัก กรีนซีซัน (มิ.ย.–ก.ย.) ยกเลิกฟรีถึงก่อนเช็คอิน 7 วัน ช่วงปกติ 14 วัน ไฮซีซัน (พ.ย.–ก.พ.) 21 วัน และช่วงปีใหม่กับสงกรานต์ 30 วัน แจ้งช้ากว่ากำหนดคืนให้ 50% ยกเว้นช่วงเทศกาลที่ไม่คืนเงินแต่เลื่อนวันได้ 1 ครั้ง ตารางเต็มอยู่ในหน้านโยบายด้านล่าง' },
+      { q: 'เด็กพักฟรีถึงกี่ขวบ', a: 'เด็ก 0–3 ปี พักฟรี นอนร่วมเตียงกับผู้ใหญ่ เด็ก 4–11 ปี พักฟรี 2 คนต่อห้อง ถ้าต้องเสริมเตียงคืนละ 700 บาทรวมอาหารเช้า ตั้งแต่ 12 ปีขึ้นไปคิดเป็นผู้ใหญ่คืนละ 900 บาท ช่องผู้เข้าพักในหน้าจองคิดเป็นผู้ใหญ่ทั้งหมด ถ้ามีเด็กมาด้วยแจ้งตอนยืนยัน เราปรับยอดให้ก่อนเก็บมัดจำ' },
       { q: 'นำสัตว์เลี้ยงเข้าพักได้ไหม', a: 'รับสุนัขและแมวไม่เกิน 15 กก. เฉพาะ Garden Room และ Beachfront Villa ค่าทำความสะอาดคืนละ 500 บาท ต้องมีสายจูงในพื้นที่ส่วนกลาง' },
       { q: 'เช็คอินเช็คเอาท์กี่โมง', a: 'เช็คอิน 14:00 เช็คเอาท์ 12:00 มาก่อนเวลาฝากกระเป๋าและใช้สระกับหาดได้ ถ้าห้องว่างเราให้เข้าก่อนโดยไม่คิดเพิ่ม เช็คเอาท์สายถึง 15:00 คิด 400 บาท' },
       { q: 'จ่ายเงินได้ช่องทางไหน', a: 'โอนพร้อมเพย์หรือบัญชีธนาคาร มัดจำ 50% ตอนจอง ที่เหลือจ่ายวันเช็คอิน รับบัตรเครดิตที่หน้ารีสอร์ต ออกใบกำกับภาษีได้' },
@@ -273,12 +329,26 @@
       { q: 'ห้องเต็มช่วงที่อยากไป ทำยังไงได้บ้าง', a: 'ทักไลน์มาแจ้งช่วงวันที่ต้องการ เราจะบันทึกไว้และแจ้งกลับทันทีถ้ามีคนยกเลิก ช่วงวันหยุดยาวมักมีที่ว่างคืนก่อนเข้าพักประมาณหนึ่งสัปดาห์' }
     ],
     policy: { title: 'นโยบายที่พัก',
-      cancelHead: ['แจ้งล่วงหน้า', 'คืนเงิน'],
-      cancel: [['7 วันขึ้นไป', '100%'], ['3–6 วัน', '50%'], ['น้อยกว่า 3 วัน', 'ไม่คืนเงิน (เลื่อนได้ 1 ครั้ง)']],
+      seasonNote: 'เงื่อนไขการยกเลิกต่างกันตามฤดูกาล เพราะห้องช่วงไฮซีซันและเทศกาลเต็มล่วงหน้านานกว่ามาก ระบบจะแสดงเงื่อนไขของวันที่คุณเลือกอีกครั้งก่อนยืนยัน',
+      cancelHead: ['ช่วงเวลาเข้าพัก', 'ยกเลิกฟรีเต็มจำนวน', 'แจ้งช้ากว่านั้น'],
+      cancel: [
+        ['เทศกาล — ปีใหม่ (29 ธ.ค.–2 ม.ค.) และสงกรานต์ (12–15 เม.ย.)', 'ก่อนเช็คอิน 30 วัน', 'ไม่คืนเงิน เลื่อนวันได้ 1 ครั้งภายใน 6 เดือน'],
+        ['ไฮซีซัน — พฤศจิกายนถึงกุมภาพันธ์', 'ก่อนเช็คอิน 21 วัน', 'คืน 50% ถ้าแจ้งก่อน 7 วัน'],
+        ['ช่วงปกติ — มีนาคม พฤษภาคม ตุลาคม', 'ก่อนเช็คอิน 14 วัน', 'คืน 50% ถ้าแจ้งก่อน 5 วัน'],
+        ['กรีนซีซัน — มิถุนายนถึงกันยายน', 'ก่อนเช็คอิน 7 วัน', 'คืน 50% ถ้าแจ้งก่อน 3 วัน']
+      ],
+      childTitle: 'เด็กและเตียงเสริม',
+      childHead: ['อายุ', 'ค่าใช้จ่ายต่อคืน', 'เงื่อนไข'],
+      child: [
+        ['0–3 ปี', 'ฟรี', 'นอนร่วมเตียงกับผู้ใหญ่ เตียงเด็กอ่อนยืมฟรี มีจำนวนจำกัด'],
+        ['4–11 ปี', 'ฟรี 2 คนต่อห้อง', 'ถ้าต้องเสริมเตียง คืนละ ฿700 รวมอาหารเช้า'],
+        ['12 ปีขึ้นไป', '฿900', 'คิดเป็นผู้เข้าพักผู้ใหญ่ รวมอาหารเช้า']
+      ],
+      childNote: 'ช่องผู้เข้าพักในหน้าจองคิดเป็นผู้ใหญ่ทั้งหมดคืนละ ฿900 ถ้ามีเด็กมาด้วย แจ้งตอนยืนยันการจอง เราปรับยอดให้ตามตารางนี้ก่อนเก็บมัดจำ',
       blocks: [
-        { h: 'เด็กและเตียงเสริม', p: 'เด็กไม่เกิน 11 ปี พักฟรี 2 คนต่อห้องเมื่อใช้เตียงร่วมกับผู้ใหญ่ เตียงเสริมคืนละ 600 บาทรวมอาหารเช้า เตียงเด็กอ่อนยืมฟรีแต่มีจำนวนจำกัด' },
-        { h: 'สัตว์เลี้ยง', p: 'รับสุนัขและแมวไม่เกิน 15 กิโลกรัม เฉพาะ Garden Room และ Beachfront Villa ค่าทำความสะอาดคืนละ 500 บาท ต้องใส่สายจูงในพื้นที่ส่วนกลางตลอดเวลา' },
-        { h: 'การชำระเงิน', p: 'มัดจำ 50% ภายใน 24 ชั่วโมงหลังจอง ส่วนที่เหลือชำระวันเช็คอิน รับโอนพร้อมเพย์ โอนธนาคาร และบัตรเครดิตที่หน้ารีสอร์ต ออกใบกำกับภาษีเต็มรูปแบบได้' },
+        { h: 'สัตว์เลี้ยง', p: 'รับสุนัขและแมวไม่เกิน 15 กิโลกรัม เฉพาะ Garden Room และ Beachfront Villa ค่าทำความสะอาดคืนละ 500 บาท ต้องใส่สายจูงในพื้นที่ส่วนกลางตลอดเวลา และงดนำขึ้นบริเวณสระว่ายน้ำ' },
+        { h: 'การชำระเงิน', p: 'มัดจำ 50% ภายใน 24 ชั่วโมงหลังจอง ส่วนที่เหลือชำระวันเช็คอิน รับโอนพร้อมเพย์ โอนธนาคาร และบัตรเครดิตที่หน้ารีสอร์ต ออกใบกำกับภาษีเต็มรูปแบบได้ แจ้งชื่อและเลขผู้เสียภาษีตอนเช็คอิน' },
+        { h: 'ขั้นต่ำการเข้าพัก', p: 'วันธรรมดาพักคืนเดียวได้ คืนวันศุกร์และเสาร์ขั้นต่ำ 2 คืน ช่วงปีใหม่และสงกรานต์ขั้นต่ำ 3 คืน ระบบจะแจ้งให้ทราบตอนเลือกวันก่อนที่จะให้กดต่อ' },
         { h: 'การสูบบุหรี่', p: 'ทุกห้องเป็นห้องปลอดบุหรี่ มีจุดสูบบุหรี่ที่ลานหลังห้องอาหาร ฝ่าฝืนมีค่าทำความสะอาด 2,000 บาท' }
       ] },
     contact: { addr: '129/4 ซอยหัวหิน 67 ถนนเพชรเกษม ต.หนองแก อ.หัวหิน ประจวบคีรีขันธ์ 77110',
@@ -311,7 +381,7 @@
   L.en = {
     code: 'en', other: 'TH',
     nav: { rooms: 'Rooms', dining: 'Dining', facilities: 'Facilities', offers: 'Offers',
-      reviews: 'Reviews', about: 'About', gallery: 'Gallery', faq: 'FAQ',
+      reviews: 'Reviews', spa: 'Spa', about: 'About', gallery: 'Gallery', faq: 'FAQ',
       contact: 'Contact & getting here', book: 'Check availability', menu: 'Menu', close: 'Close', home: 'Home', skip: 'Skip to content' },
     c: { from: 'from', perNight: '/ night', night: 'nights', guest: 'guests', baht: '฿',
       inclTax: 'tax and service included', back: 'Back', viewAll: 'View all', more: 'Details',
@@ -340,22 +410,59 @@
     rooms: [
       { name: 'Garden Room', bed: 'Queen',
         blurb: 'Ground floor, opens onto the garden, 90m from the sand',
-        detail: 'A ground-floor room that opens straight onto the garden, ninety metres from the sand. It sits in the back wing, which makes it the quietest room we have — the right choice for one or two people who came to read. Separate wet and dry bathroom, and a balcony that seats two.',
-        amen: ['Air conditioning', 'Free Wi-Fi', 'Mini fridge', 'Garden balcony'] },
+        detail: 'A ground-floor room in the back wing. The glass door opens straight onto the garden, and a timber walkway takes you the ninety metres to the beach. It is the quietest room we have, because it sits furthest from both the pool and the restaurant. The people who book it again are mostly travelling alone, or as two people who intend to do nothing at all.',
+        detail2: 'The bathroom is separated wet and dry, with a good-pressure shower but no tub. The balcony holds two chairs and a small table and faces the garden, not the water — if you want to see the sea from your room, Sea Breeze is the one.',
+        suits: 'One or two people who would rather have quiet than a view, and do not mind a short walk to the sand.',
+        notFor: 'Families with small children: no extra bed is possible here, and it is the furthest room from the children\u2019s pool.',
+        amen: ['Air conditioning', 'Free Wi-Fi', 'Mini fridge', 'Garden balcony'],
+        full: [
+          ['In the room', ['Queen bed, 160cm', 'Adjustable air conditioning', 'Mini fridge', 'Kettle, tea and coffee sachets', 'Wardrobe and hanging space', 'Small desk', 'Round-pin and USB sockets by the bed']],
+          ['Bathroom', ['Separated wet and dry', 'Rain shower', 'Refillable soap and shampoo', 'Two towels per guest', 'Hairdryer']],
+          ['Space and view', ['First floor, back wing', 'Balcony facing the garden', 'Two chairs and a small table', '90m walk to the beach']],
+          ['Service', ['Daily housekeeping', 'Wi-Fi throughout', 'Laundry charged per item', 'No extra bed available']]
+        ] },
       { name: 'Sea Breeze', bed: 'King',
         blurb: 'Second floor, sea view through the pines',
-        detail: 'On the second floor, with the sea visible through a line of pines. At night you hear the surf just enough, never enough to keep you awake. The bathroom has a tub and a window that actually opens. A 180cm king bed, a coffee maker, and tea from a plantation in the province.',
-        amen: ['Partial sea view', 'Bathtub', 'Free Wi-Fi', 'Coffee maker'] },
+        detail: 'On the second floor of the central building, looking out at the water through the line of pines my grandfather planted as a windbreak. It is not a full sea view and we do not call it one. But at night you hear the surf at about the right volume — enough to notice, not enough to keep you awake.',
+        detail2: 'The bathroom has a tub and a small window that genuinely opens, so it never gets stuffy. There is a capsule coffee machine and tea from a plantation in the province. One extra bed fits, though it does narrow the walkway beside the bed noticeably.',
+        suits: 'Couples who want the sea from the room and like a long bath, or anyone who sleeps better with the sound of surf.',
+        notFor: 'Anyone who finds stairs difficult — the central building has no lift.',
+        amen: ['Partial sea view', 'Bathtub', 'Free Wi-Fi', 'Coffee maker'],
+        full: [
+          ['In the room', ['King bed, 180cm', 'Adjustable air conditioning', 'Mini fridge', 'Capsule coffee machine', 'Tea from a plantation in the province', 'Safe, fits a laptop', 'A single armchair by the window']],
+          ['Bathroom', ['Bathtub with separate shower', 'Window that opens', 'Refillable toiletries', 'Two bathrobes', 'Hairdryer']],
+          ['Space and view', ['Second floor, central building, no lift', 'Sea visible through the pines', '3m balcony', '50m walk to the beach']],
+          ['Service', ['Breakfast included', 'Daily housekeeping', 'One extra bed possible', 'Laundry charged per item']]
+        ] },
       { name: 'Beachfront Villa', bed: 'King + sofa bed',
         blurb: 'A detached villa on the sand — open the door and you are on the beach',
-        detail: 'A detached villa right on the beach: open the door and you are on the sand. It has a private timber deck facing the water, and breakfast can be served out there by arrangement. There are only four of them, which is why they are the first thing to go over a long weekend.',
-        amen: ['Directly on the beach', 'Private deck', 'Bathtub', 'Extra sofa bed'] },
+        detail: 'Four detached villas in the front row, right on the sand. You open the door and step onto the beach without crossing a shared path. Each has a private timber deck of roughly twelve square metres facing the water head-on.',
+        detail2: 'Breakfast can be served out on that deck by arrangement, at no extra charge. Because there are only four of them, they fill before every other room type over a long weekend — and along with Garden Room, this is the only room where we take pets.',
+        suits: 'Couples who want as much privacy as we can give, or a small family of three who do not need a separate bedroom.',
+        notFor: 'Anyone who needs a bedroom behind its own door, or a group of more than three.',
+        amen: ['Directly on the beach', 'Private deck', 'Bathtub', 'Extra sofa bed'],
+        full: [
+          ['In the room', ['King bed, 180cm', 'Sofa bed for one', 'Adjustable air conditioning', 'Fridge with minibar', 'Capsule coffee machine', 'Safe', 'Additional ceiling fan']],
+          ['Bathroom', ['Bathtub looking onto a private garden', 'Walled outdoor shower', 'Refillable toiletries', 'Robes and slippers', 'Hairdryer']],
+          ['Space and view', ['Detached, single storey', 'Private timber deck, about 12 sqm', 'Facing the water head-on', 'Door opens onto the sand']],
+          ['Service', ['Breakfast included', 'Breakfast on the deck by arrangement', 'Pets up to 15kg accepted', 'One extra bed possible']]
+        ] },
       { name: 'Family Suite', bed: 'King + 2 singles',
-        blurb: 'Two bedrooms behind their own doors, steps from the children’s pool',
-        detail: 'Two bedrooms behind their own doors, twenty paces from the children’s pool. There is a dining table in the room and a small kitchen for reheating. Cots are free to borrow, and we keep stair gates for families with small children.',
-        amen: ['2 bedrooms', 'Small kitchen', 'Washing machine', 'Child bath'] }
+        blurb: 'Two bedrooms behind their own doors, steps from the children\u2019s pool',
+        detail: 'A two-bedroom suite where the bedrooms genuinely have their own doors, rather than one room divided by a curtain. The larger has a king bed, the smaller has two singles. It is about twenty paces from your door to the children\u2019s pool, which is the main reason families choose it.',
+        detail2: 'There is a four-seat dining table in the room and a small kitchen for reheating — microwave and kettle, but no hob. Cots and stair gates are free to borrow but limited in number, so it is safer to ask when you book than on arrival.',
+        suits: 'Families with children, or two couples travelling together who want separate bedrooms.',
+        notFor: 'Anyone expecting a full kitchen. You can reheat here, but there is no hob.',
+        amen: ['2 bedrooms', 'Small kitchen', 'Washing machine', 'Bathtub'],
+        full: [
+          ['In the room', ['Main bedroom, king 180cm', 'Second bedroom, two singles', 'Dining table for four', 'Separate air conditioning in both bedrooms', 'Large fridge', 'TV in the living area']],
+          ['Small kitchen', ['Microwave', 'Kettle', 'Sink', 'Plates and cutlery', 'No hob']],
+          ['Bathroom', ['Bathtub, suitable for children', 'Separate shower', 'Second bathroom, shower only', 'Hairdryer']],
+          ['For families', ['20 paces to the children\u2019s pool', 'Cots free to borrow, limited number', 'Stair gates free to borrow', 'Washing machine in the room', 'One extra bed possible']]
+        ] }
     ],
     roomUI: { size: 'Size', cap: 'Sleeps', bed: 'Bed', sqm: 'sqm', amen: 'In the room',
+      inRoom: 'Everything in this room', suits: 'Suits', notFor: 'May not suit',
       shots: 'This room', bookThis: 'Book this room', rate: 'Per night',
       note: 'Free cancellation up to 7 days before arrival · Check in 14:00, check out 12:00',
       sideNote: 'Free cancellation up to 7 days before arrival. 50% deposit on booking.', bfIncl: 'Breakfast included' },
@@ -367,10 +474,25 @@
         body: 'A small bar beside the main pool serving cocktails and something to pick at until eleven. At sunset you can reserve a table on the sand at reception — no fee, no minimum spend.',
         menu: [['Coconut rum blend', '฿220'], ['Mango and soda', '฿180'], ['Seaweed fries', '฿150'], ['Mango salad with dried shrimp', '฿190']] }
     ],
+    spa: { name: 'Rom Son Spa', hours: 'Open 10:00–20:00 daily · Two treatment rooms',
+      lede: 'A small spa under the pines behind the resort, named after the windbreak my grandfather planted. Two treatment rooms; book at reception at least two hours ahead.',
+      body: 'All four of our therapists are from the area and trained in the Wat Pho Thai massage curriculum. Oils and herbal compresses are mixed on site — no synthetic fragrance. If you have an allergy or you are pregnant, say so beforehand; we have formulations and positions that work.',
+      menuHead: ['Treatment', 'Duration', 'Price'],
+      menu: [
+        ['Traditional Thai massage', '60 min', '฿700'],
+        ['Traditional Thai massage', '90 min', '฿950'],
+        ['Aromatic oil massage', '60 min', '฿900'],
+        ['Aromatic oil massage', '90 min', '฿1,200'],
+        ['Foot and calf massage', '45 min', '฿550'],
+        ['Hua Hin sea-salt body scrub', '45 min', '฿850'],
+        ['After-sun skin treatment', '30 min', '฿600'],
+        ['Couples package, one room', '90 min', '฿2,200']
+      ],
+      note: 'Prices include tax. Free cancellation up to 2 hours before your appointment; later than that is charged at half. We do not treat guests who have been drinking.' },
     facs: [
       { name: 'Main pool', body: '20m long, 1.2–1.5m deep, with loungers and umbrellas free to use', hours: '07:00–20:00' },
       { name: 'Private beach', body: '200m of beach in front of the resort, with loungers, towels and kayaks to borrow', hours: 'All day' },
-      { name: 'Spa', body: 'Two treatment rooms for Thai and oil massage. Book at reception two hours ahead.', hours: '10:00–20:00' },
+      { name: 'Rom Son Spa', body: 'Two treatment rooms under the pines — Thai massage, oil massage and scrubs. The full menu and prices are on the spa page.', hours: '10:00–20:00' },
       { name: 'Gym', body: 'A small gym with two treadmills, a bike and dumbbells. Your room key opens it.', hours: '06:00–22:00' },
       { name: 'Children’s pool and play corner', body: '40cm deep and separate from the main pool, with toys and picture books to borrow', hours: '08:00–18:00' },
       { name: 'Parking and transfers', body: 'Free parking on site for 20 cars. Station transfers with a day’s notice.', hours: 'All day' }
@@ -409,8 +531,8 @@
         'All the seafood comes off the Hua Hin pier each morning, and some of the vegetables are grown behind the kitchen. We have separated waste and kept plastic bottles out of the rooms since 2022, replacing them with glass you refill at stations on every floor.'],
       stat: [['Opened', '2017'], ['Rooms', '24'], ['Staff', '20'], ['Beach', '200m']] },
     faq: [
-      { q: 'How late can I cancel?', a: 'Free cancellation with a full refund if you tell us 7 or more days before arrival. Within 3–6 days we refund 50%. Under 3 days is non-refundable, but you may move the dates once within 6 months.' },
-      { q: 'Up to what age do children stay free?', a: 'Two children up to 11 stay free per room when sharing an adult bed. An extra bed is 600 baht a night including breakfast, and cots are free to borrow.' },
+      { q: 'How late can I cancel?', a: 'It depends on when you stay. Green season (Jun–Sep) is free until 7 days before arrival, shoulder 14 days, high season (Nov–Feb) 21 days, and New Year and Songkran 30 days. Later than that we refund 50%, except over the holidays which are non-refundable but allow one date change. The full table is on the policies section below.' },
+      { q: 'Up to what age do children stay free?', a: 'Children 0–3 stay free sharing an adult bed. Two children aged 4–11 stay free per room; if an extra bed is needed it is 700 baht a night including breakfast. From 12 they count as an adult at 900 baht. The guest field on the booking form counts everyone as an adult — tell us at confirmation if children are coming and we adjust before taking the deposit.' },
       { q: 'Can I bring a pet?', a: 'Dogs and cats up to 15kg, in Garden Room and Beachfront Villa only. Cleaning is 500 baht a night and pets must be leashed in the public areas.' },
       { q: 'What are the check-in and check-out times?', a: 'Check in 14:00, check out 12:00. Arrive early and you can leave bags and use the pool and the beach. If the room is ready we let you in early at no charge. Late check-out to 15:00 is 400 baht.' },
       { q: 'How can I pay?', a: 'PromptPay or bank transfer, 50% deposit on booking and the balance on arrival. We take credit cards at the resort and can issue a full tax invoice.' },
@@ -419,12 +541,26 @@
       { q: 'You are full on the dates I want — what now?', a: 'Message us on LINE with the dates and we will note them and come back to you the moment someone cancels. Over long weekends something usually frees up about a week out.' }
     ],
     policy: { title: 'House policies',
-      cancelHead: ['Notice given', 'Refund'],
-      cancel: [['7 days or more', '100%'], ['3–6 days', '50%'], ['Under 3 days', 'None (one free date change)']],
+      seasonNote: 'Cancellation terms differ by season, because high-season and holiday rooms are committed much further ahead. The terms for your chosen dates are shown again before you confirm.',
+      cancelHead: ['When you stay', 'Free cancellation until', 'Later than that'],
+      cancel: [
+        ['Holidays — New Year (29 Dec–2 Jan) and Songkran (12–15 Apr)', '30 days before arrival', 'Non-refundable; one date change within 6 months'],
+        ['High season — November to February', '21 days before arrival', '50% refunded if you tell us 7+ days ahead'],
+        ['Shoulder — March, May, October', '14 days before arrival', '50% refunded if you tell us 5+ days ahead'],
+        ['Green season — June to September', '7 days before arrival', '50% refunded if you tell us 3+ days ahead']
+      ],
+      childTitle: 'Children and extra beds',
+      childHead: ['Age', 'Per night', 'Conditions'],
+      child: [
+        ['0–3', 'Free', 'Sharing an adult bed. Cots free to borrow, limited in number.'],
+        ['4–11', 'Two free per room', 'If an extra bed is needed, ฿700 a night including breakfast.'],
+        ['12 and over', '฿900', 'Counted as an adult guest, including breakfast.']
+      ],
+      childNote: 'The guest field on the booking form counts everyone as an adult at ฿900 a night. If children are coming, tell us when you confirm and we adjust the total against this table before taking the deposit.',
       blocks: [
-        { h: 'Children and extra beds', p: 'Two children up to 11 stay free per room when sharing an adult bed. An extra bed is 600 baht a night including breakfast. Cots are free to borrow but limited in number.' },
-        { h: 'Pets', p: 'Dogs and cats up to 15kg, in Garden Room and Beachfront Villa only. Cleaning is 500 baht a night, and pets must be on a lead in the public areas at all times.' },
-        { h: 'Payment', p: '50% deposit within 24 hours of booking, the balance on arrival. We accept PromptPay, bank transfer, and credit cards at the resort, and can issue a full tax invoice.' },
+        { h: 'Pets', p: 'Dogs and cats up to 15kg, in Garden Room and Beachfront Villa only. Cleaning is 500 baht a night, pets must be on a lead in the public areas at all times, and are not allowed at the pool.' },
+        { h: 'Payment', p: '50% deposit within 24 hours of booking, the balance on arrival. We accept PromptPay, bank transfer, and credit cards at the resort, and can issue a full tax invoice — give us the name and tax ID at check-in.' },
+        { h: 'Minimum stay', p: 'One night is fine midweek. Friday and Saturday nights carry a two-night minimum, and New Year and Songkran three nights. The booking form tells you before it lets you continue.' },
         { h: 'Smoking', p: 'Every room is non-smoking. There is a smoking area on the terrace behind the restaurant. Smoking in a room carries a 2,000 baht cleaning charge.' }
       ] },
     contact: { addr: '129/4 Soi Hua Hin 67, Phetkasem Road, Nong Kae, Hua Hin, Prachuap Khiri Khan 77110',
@@ -508,7 +644,7 @@
     var info = hasDates ? stay(i, S.ci, S.co) : null;
     var nights = info ? info.nights : 2;
     var roomSum = info ? info.sum : rateFor(i, iso(new Date())) * 2;
-    var extra = Math.max(0, S.guests - 2) * 600 * nights;
+    var extra = Math.max(0, S.guests - 2) * 900 * nights;   /* = the adult rate in the policy table */
     var off = 0, code = '';
     if (S.promo === 'EARLYBIRD' && hasDates && daysUntil(S.ci) >= 30) { off = Math.round((roomSum + extra) * 0.15); code = 'EARLYBIRD'; }
     var service = Math.round((roomSum + extra - off) * 0.10);
@@ -707,6 +843,11 @@
         '<h1 class="bt-dt-title">' + esc(c.name) + '</h1>' +
         '<p class="bt-dt-price"><b>' + money(rate) + '</b><span>' + esc(T.c.perNight) + ' · ' + esc(T.c.inclTax) + '</span></p>' +
         '<p class="bt-dt-copy">' + esc(c.detail) + '</p>' +
+        (c.detail2 ? '<p class="bt-dt-copy">' + esc(c.detail2) + '</p>' : '') +
+        (c.suits ? '<div class="bt-fit">' +
+          '<div class="bt-fit-yes"><b>' + esc(T.roomUI.suits) + '</b><p>' + esc(c.suits) + '</p></div>' +
+          '<div class="bt-fit-no"><b>' + esc(T.roomUI.notFor) + '</b><p>' + esc(c.notFor) + '</p></div>' +
+        '</div>' : '') +
         '<dl class="bt-facts"><div><dt>' + esc(T.roomUI.size) + '</dt><dd>' + r.size + ' ' + esc(T.roomUI.sqm) + '</dd></div>' +
         '<div><dt>' + esc(T.roomUI.cap) + '</dt><dd>' + r.cap + ' ' + esc(T.c.guest) + '</dd></div>' +
         '<div><dt>' + esc(T.roomUI.bed) + '</dt><dd>' + esc(c.bed) + '</dd></div></dl>' +
@@ -714,6 +855,11 @@
         '<ul class="bt-amen">' + r.amen.map(function (k, n) {
           return '<li>' + svgIcon(IC[k], 17, '#5B7355') + esc(c.amen[n]) + '</li>';
         }).join('') + '</ul>' +
+        (c.full ? '<h2 class="bt-subhead">' + esc(T.roomUI.inRoom) + '</h2>' +
+          '<div class="bt-inv">' + c.full.map(function (g) {
+            return '<div class="bt-inv-group"><h3>' + esc(g[0]) + '</h3><ul>' +
+              g[1].map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>';
+          }).join('') + '</div>' : '') +
         '<h2 class="bt-subhead">' + esc(T.roomUI.shots) + '</h2>' +
         '<div class="bt-shots">' + r.shots.map(function (sh) {
           var gi = GAL.map(function (g) { return g.img; }).indexOf(sh);
@@ -749,6 +895,23 @@
       }).join('') + '</div>' +
       '<div class="bt-split" style="margin-top:28px">' + pic('thai-food', T.dining[0].name, '', '(min-width:600px) 50vw, 100vw') +
       '<div class="bt-split-body"><h3>' + esc(T.dining[0].name) + '</h3><p>' + esc(T.dining[0].body) + '</p></div></div>');
+  };
+
+  V.spa = function () {
+    var sp = T.spa;
+    return simplePage(sp.name, sp.lede, T.nav.spa,
+      '<div class="bt-split" style="margin-top:22px">' + pic('spa-treatment', sp.name, '', '(min-width:600px) 50vw, 100vw') +
+      '<div class="bt-split-body"><p class="hours" style="margin:0 0 10px;font-size:12.5px;color:var(--muted-2)">' + esc(sp.hours) + '</p>' +
+      '<p>' + esc(sp.body) + '</p></div></div>' +
+      '<div class="bt-ptable-wrap" style="margin-top:26px"><table class="bt-ptable">' +
+      '<thead><tr>' + sp.menuHead.map(function (h) { return '<th>' + esc(h) + '</th>'; }).join('') + '</tr></thead><tbody>' +
+      sp.menu.map(function (r) {
+        return '<tr><td>' + esc(r[0]) + '</td><td>' + esc(r[1]) + '</td><td class="price">' + esc(r[2]) + '</td></tr>';
+      }).join('') + '</tbody></table></div>' +
+      '<p class="bt-note">' + esc(sp.note) + '</p>' +
+      '<div class="bt-split" style="margin-top:28px">' + pic('spa-detail', sp.name, '', '(min-width:600px) 50vw, 100vw') +
+      '<div class="bt-split-body"><h3>' + esc(T.sec.facs) + '</h3><p>' + esc(T.sec.facsLede) + '</p>' +
+      '<button type="button" class="bt-btn bt-btn--ghost" style="margin-top:14px;display:inline-flex" data-go="facilities">' + esc(T.c.more) + '</button></div></div>');
   };
 
   V.facilities = function () {
@@ -808,10 +971,21 @@
           '<div class="bt-a"><p>' + esc(f.a) + '</p></div></div>';
       }).join('') + '</div>' +
       '<h2 class="bt-h2" style="margin-top:38px">' + esc(T.policy.title) + '</h2>' +
+      '<p class="bt-lede-2">' + esc(T.policy.seasonNote) + '</p>' +
       '<div class="bt-ptable-wrap" style="margin-top:16px"><table class="bt-ptable">' +
-      '<thead><tr><th>' + esc(T.policy.cancelHead[0]) + '</th><th style="text-align:right">' + esc(T.policy.cancelHead[1]) + '</th></tr></thead><tbody>' +
-      T.policy.cancel.map(function (r) { return '<tr><td>' + esc(r[0]) + '</td><td>' + esc(r[1]) + '</td></tr>'; }).join('') +
-      '</tbody></table></div>' +
+      '<thead><tr>' + T.policy.cancelHead.map(function (h, i) {
+        return '<th' + (i ? '' : '') + '>' + esc(h) + '</th>';
+      }).join('') + '</tr></thead><tbody>' +
+      T.policy.cancel.map(function (r) {
+        return '<tr>' + r.map(function (c) { return '<td>' + esc(c) + '</td>'; }).join('') + '</tr>';
+      }).join('') + '</tbody></table></div>' +
+      '<h3 class="bt-subhead">' + esc(T.policy.childTitle) + '</h3>' +
+      '<div class="bt-ptable-wrap" style="margin-top:12px"><table class="bt-ptable">' +
+      '<thead><tr>' + T.policy.childHead.map(function (h) { return '<th>' + esc(h) + '</th>'; }).join('') + '</tr></thead><tbody>' +
+      T.policy.child.map(function (r) {
+        return '<tr>' + r.map(function (c) { return '<td>' + esc(c) + '</td>'; }).join('') + '</tr>';
+      }).join('') + '</tbody></table></div>' +
+      '<p class="bt-note">' + esc(T.policy.childNote) + '</p>' +
       '<div class="bt-facs" style="margin-top:20px">' + T.policy.blocks.map(function (b) {
         return '<article class="bt-fac">' + svgIcon(IC.shield, 22, '#5B7355', 1.5) + '<h3>' + esc(b.h) + '</h3><p>' + esc(b.p) + '</p></article>';
       }).join('') + '</div>');
@@ -895,7 +1069,7 @@
   };
 
   /* ── persistent chrome ───────────────────────────────────── */
-  var NAVS = ['rooms', 'dining', 'facilities', 'offers', 'reviews', 'gallery', 'about', 'faq', 'contact'];
+  var NAVS = ['rooms', 'dining', 'spa', 'offers', 'reviews', 'facilities', 'gallery', 'about', 'faq', 'contact'];
 
   function renderChrome() {
     /* the skip link lives in the shell, so it has to be translated here or it
@@ -956,7 +1130,7 @@
 
   /* ── router ──────────────────────────────────────────────── */
   var ROUTE = { home: '#/', rooms: '#/rooms', room: '#/room', dining: '#/dining',
-    facilities: '#/facilities', offers: '#/offers', reviews: '#/reviews', about: '#/about',
+    facilities: '#/facilities', spa: '#/spa', offers: '#/offers', reviews: '#/reviews', about: '#/about',
     gallery: '#/gallery', faq: '#/faq', contact: '#/contact', summary: '#/summary', success: '#/success' };
 
   function viewFromHash() {
