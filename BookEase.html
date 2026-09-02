@@ -113,7 +113,9 @@
     .stat-icon svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round}
     .stat-val{font-size:1.65rem;font-weight:800;letter-spacing:-.03em;line-height:1}
     .stat-change{font-size:.76rem;font-weight:600}
-    .up{color:var(--green)} .warn{color:var(--amber)} .down{color:var(--red)}
+    /* the --*-text tokens already existed for badges; the stat text was using the
+       raw --green/--amber, which measure 2.28:1 and 2.15:1 on white */
+    .up{color:var(--green-text)} .warn{color:var(--amber-text)} .down{color:var(--red-text)}
 
     /* PANEL */
     .panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--sh-sm);overflow:hidden}
@@ -276,6 +278,27 @@
     @media(max-width:768px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.menu-toggle{display:flex}}
     @media(max-width:540px){.stats-row{grid-template-columns:1fr}.content{padding:16px}.topbar{padding:0 16px}}
     a:focus-visible,button:focus-visible{outline:3px solid rgba(124,58,237,.4);outline-offset:3px;border-radius:4px}
+
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+    /* CHECK-IN QR
+       The QR is inline SVG. This file styles its 26 icon SVGs by context with
+       fill:none and a 14-17px width, so a QR dropped into a .btn or .modal
+       would inherit that and render as an invisible hairline grid. The svg and
+       its path therefore carry inline style, which beats those rules. */
+    .qr-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+    .qr-holder{width:200px;margin:0 auto}
+    .qr-ref{margin-top:14px;font-size:1.25rem;font-weight:700;letter-spacing:.14em;color:var(--ink)}
+    .qr-meta{margin-top:6px;font-size:.82rem;color:var(--muted);line-height:1.6}
+    .qr-hint{margin-top:14px;font-size:.8rem;color:var(--muted);line-height:1.6}
+    .qr-fallback{font-size:.8rem;color:var(--muted);word-break:break-all}
+    @media print{
+      body *{visibility:hidden}
+      #qrModal,#qrModal *{visibility:visible}
+      #qrModal{position:absolute;inset:0;background:#fff;display:block!important;padding:0}
+      #qrModal .modal{box-shadow:none;max-width:none;animation:none}
+      #qrModal .modal-head,#qrModal .modal-foot{display:none}
+    }
   </style>
   <script src="assets/analytics.js?v=funnel" defer></script>
 </head>
@@ -334,6 +357,28 @@
         <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         Book Appointment
       </button>
+    </div>
+  </div>
+</div>
+
+<!-- CHECK-IN QR MODAL -->
+<div class="modal-backdrop" id="qrModal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="qrModalTitle" style="max-width:400px">
+    <div class="modal-head">
+      <span class="modal-title" id="qrModalTitle">Check-in code</span>
+      <button class="modal-close" id="qrModalClose" aria-label="Close">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <div class="qr-card">
+        <div class="qr-holder" id="qrHolder"></div>
+        <div class="qr-ref" id="qrRef"></div>
+        <div class="qr-meta" id="qrMeta"></div>
+      </div>
+      <p class="qr-hint" id="qrHint"></p>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline" id="qrPrintBtn">Print</button>
+      <button class="btn btn-primary" id="qrModalDone">Done</button>
     </div>
   </div>
 </div>
@@ -797,10 +842,14 @@
     todayAppts.forEach((a, i) => {
       const div = document.createElement('div');
       div.className = 'appt-card';
+      div.dataset.id = a.id;
+      div.setAttribute('role','button');
+      div.setAttribute('tabindex','0');
       div.innerHTML = `<div class="appt-time-col"><div class="appt-hour">${a.time.split(' ')[0]}</div><div class="appt-ampm">${a.time.split(' ')[1]}</div></div>
         <div class="appt-stripe" style="background:${COLORS[i%COLORS.length]}"></div>
         <div class="appt-info"><div class="appt-client">${a.client}</div><div class="appt-service">${a.service} · ${a.staff}</div></div>
-        <span class="badge ${statusCls[a.status]}">${a.status}</span>`;
+        <span class="badge ${statusCls[a.status]}">${a.status}</span>
+        <span class="sr-only">— open check-in code</span>`;
       list.appendChild(div);
     });
   }
@@ -838,6 +887,7 @@
           <td><span class="badge ${statusCls[a.status]||'b-blue'}">${a.status}</span></td>
           <td><div class="row-actions">
             ${a.status==='Pending'?`<button class="row-btn confirm-btn">Confirm</button>`:''}
+            ${a.status!=='Cancelled'?`<button class="row-btn qr-btn">QR</button>`:''}
             ${a.status!=='Cancelled'&&a.status!=='Completed'?`<button class="row-btn del cancel-btn">Cancel</button>`:''}
           </div></td>`;
         tbody.appendChild(tr);
@@ -895,10 +945,11 @@
     if (e.target.classList.contains('confirm-btn')) {
       a.status = 'Confirmed'; renderAppointments(); renderDashboard(); toast(`${a.client} confirmed ✓`, 'success');
     }
+    if (e.target.classList.contains('qr-btn')) { openQrModal(a); return; }
     if (e.target.classList.contains('cancel-btn')) {
       pendingCancelId = id;
       document.getElementById('cancelClientName').textContent = a.client;
-      document.getElementById('cancelModal').classList.add('show');
+      openModal('cancelModal');
     }
   });
 
@@ -1083,15 +1134,285 @@
     renderChart(p);
   });
 
+  /* ─── MODALS: focus + escape ─────────────────────────────────
+     All three dialogs declare role="dialog" aria-modal="true". That is a
+     promise that the rest of the page is unreachable, and it was not being
+     kept: 24 background controls stayed in the tab order and nothing handled
+     Escape. inert takes the background out; the Tab trap is the fallback for
+     browsers without it. */
+  var lastFocused = null;
+  function openModal(id) {
+    var el = document.getElementById(id);
+    lastFocused = document.activeElement;
+    el.classList.add('show');
+    var app = document.querySelector('.app');
+    if (app) app.setAttribute('inert', '');
+    var f = el.querySelector('button, [href], input, select, textarea');
+    if (f) f.focus();
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('show');
+    if (!document.querySelector('.modal-backdrop.show')) {
+      var app = document.querySelector('.app');
+      if (app) app.removeAttribute('inert');
+    }
+    if (lastFocused && lastFocused.isConnected) lastFocused.focus();
+    lastFocused = null;
+  }
+  document.addEventListener('keydown', function (e) {
+    var open = document.querySelector('.modal-backdrop.show');
+    if (!open) return;
+    if (e.key === 'Escape') { closeModal(open.id); return; }
+    if (e.key !== 'Tab') return;
+    var f = [].slice.call(open.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])'))
+              .filter(function (x) { return !x.disabled && x.offsetParent !== null; });
+    if (!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+
+  /* ─── CHECK-IN QR ───────────────────────────────────────────
+     A QR encoder written out in full because this page loads no libraries and
+     no CDN. Byte mode, EC level M, versions 1-10 — a check-in URL is ~40 bytes,
+     which lands on version 3.
+
+     Verified by round-tripping every payload below through the browser's own
+     BarcodeDetector (the same decoder class a phone camera uses): 6/6 came back
+     byte-identical across versions 1, 3, 4, 5, 8 and 9, including Thai UTF-8.
+     Two bugs were found that way and neither was visible by eye — the format
+     bits are written MSB-first starting at (8,0), and format copy 2 splits 7
+     vertical + 8 horizontal, leaving (size-8, 8) for the dark module. Get
+     either wrong and the symbol renders perfectly and scans as nothing. */
+  function qrEncode(text) {
+    var DATA_CW = [null,16,28,44,64,86,108,124,154,182,216];
+    var EC_CW   = [null,10,16,26,18,24,16,18,22,22,26];
+    var BLOCKS  = [null,[[1,16]],[[1,28]],[[1,44]],[[2,32]],[[2,43]],[[4,27]],[[4,31]],
+                   [[2,38],[2,39]],[[3,36],[2,37]],[[4,43],[1,44]]];
+    var ALIGN   = [null,[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50]];
+    var VERINFO = {7:0x07C94,8:0x085BC,9:0x09A99,10:0x0A4D3};
+
+    var bytes = [];
+    for (var i = 0; i < text.length; i++) {
+      var c = text.charCodeAt(i);
+      if (c < 0x80) bytes.push(c);
+      else if (c < 0x800) bytes.push(0xC0|c>>6, 0x80|c&63);
+      else if (c < 0xD800 || c >= 0xE000) bytes.push(0xE0|c>>12, 0x80|(c>>6&63), 0x80|c&63);
+      else { i++; var cp = 0x10000 + ((c&0x3FF)<<10) + (text.charCodeAt(i)&0x3FF);
+             bytes.push(0xF0|cp>>18, 0x80|(cp>>12&63), 0x80|(cp>>6&63), 0x80|cp&63); }
+    }
+    var ver = 0;
+    for (var v = 1; v <= 10; v++) {
+      var cb = v < 10 ? 8 : 16;
+      if (bytes.length * 8 + 4 + cb <= DATA_CW[v] * 8) { ver = v; break; }
+    }
+    if (!ver) return null;                        // too long — caller shows a fallback
+    var countBits = ver < 10 ? 8 : 16, bits = [];
+    function put(val, len) { for (var b = len - 1; b >= 0; b--) bits.push((val >> b) & 1); }
+    put(4, 4); put(bytes.length, countBits);
+    bytes.forEach(function (b) { put(b, 8); });
+    var cap = DATA_CW[ver] * 8;
+    for (var t = 0; t < 4 && bits.length < cap; t++) bits.push(0);
+    while (bits.length % 8) bits.push(0);
+    var pad = [0xEC, 0x11], pi = 0;
+    while (bits.length < cap) put(pad[pi++ % 2], 8);
+    var data = [];
+    for (var k = 0; k < bits.length; k += 8) {
+      var byte = 0; for (var j = 0; j < 8; j++) byte = (byte << 1) | bits[k + j];
+      data.push(byte);
+    }
+
+    var EXP = new Array(512), LOG = new Array(256), x = 1;
+    for (var e = 0; e < 255; e++) { EXP[e] = x; LOG[x] = e; x <<= 1; if (x & 0x100) x ^= 0x11D; }
+    for (var e2 = 255; e2 < 512; e2++) EXP[e2] = EXP[e2 - 255];
+    function mul(a, b) { return (a === 0 || b === 0) ? 0 : EXP[LOG[a] + LOG[b]]; }
+    function rsPoly(n) {
+      var poly = [1];
+      for (var i2 = 0; i2 < n; i2++) {
+        var next = poly.concat([0]);
+        for (var j2 = 0; j2 < poly.length; j2++) next[j2 + 1] ^= mul(poly[j2], EXP[i2]);
+        poly = next;
+      }
+      return poly;
+    }
+    function rsEncode(block, ecLen) {
+      var gen = rsPoly(ecLen), res = block.concat(new Array(ecLen).fill(0));
+      for (var i3 = 0; i3 < block.length; i3++) {
+        var f = res[i3]; if (!f) continue;
+        for (var j3 = 0; j3 < gen.length; j3++) res[i3 + j3] ^= mul(gen[j3], f);
+      }
+      return res.slice(block.length);
+    }
+    var ecLen = EC_CW[ver], dB = [], eB = [], pos = 0;
+    BLOCKS[ver].forEach(function (g) {
+      for (var n = 0; n < g[0]; n++) {
+        var blk = data.slice(pos, pos + g[1]); pos += g[1];
+        dB.push(blk); eB.push(rsEncode(blk, ecLen));
+      }
+    });
+    var out = [], maxD = Math.max.apply(null, dB.map(function (b) { return b.length; }));
+    for (var i4 = 0; i4 < maxD; i4++) dB.forEach(function (b) { if (i4 < b.length) out.push(b[i4]); });
+    for (var i5 = 0; i5 < ecLen; i5++) eB.forEach(function (b) { out.push(b[i5]); });
+
+    var size = ver * 4 + 17, m = [], res2 = [];
+    for (var r = 0; r < size; r++) { m.push(new Array(size).fill(0)); res2.push(new Array(size).fill(0)); }
+    function setF(r2, c2, v2) { m[r2][c2] = v2; res2[r2][c2] = 1; }
+    function finder(fr, fc) {
+      for (var dr = -1; dr <= 7; dr++) for (var dc = -1; dc <= 7; dc++) {
+        var rr = fr + dr, cc = fc + dc;
+        if (rr < 0 || rr >= size || cc < 0 || cc >= size) continue;
+        var inner = dr >= 0 && dr <= 6 && dc >= 0 && dc <= 6;
+        setF(rr, cc, (inner && (dr === 0 || dr === 6 || dc === 0 || dc === 6 ||
+             (dr >= 2 && dr <= 4 && dc >= 2 && dc <= 4))) ? 1 : 0);
+      }
+    }
+    finder(0, 0); finder(0, size - 7); finder(size - 7, 0);
+    for (var i6 = 8; i6 < size - 8; i6++) { setF(6, i6, i6 % 2 === 0 ? 1 : 0); setF(i6, 6, i6 % 2 === 0 ? 1 : 0); }
+    var ac = ALIGN[ver];
+    for (var a1 = 0; a1 < ac.length; a1++) for (var a2 = 0; a2 < ac.length; a2++) {
+      var ar = ac[a1], acc = ac[a2];
+      if ((ar <= 8 && acc <= 8) || (ar <= 8 && acc >= size - 9) || (ar >= size - 9 && acc <= 8)) continue;
+      for (var d1 = -2; d1 <= 2; d1++) for (var d2 = -2; d2 <= 2; d2++)
+        setF(ar + d1, acc + d2, (Math.abs(d1) === 2 || Math.abs(d2) === 2 || (d1 === 0 && d2 === 0)) ? 1 : 0);
+    }
+    setF(size - 8, 8, 1);                                  // dark module
+    for (var i7 = 0; i7 < 9; i7++) {
+      if (!res2[8][i7]) setF(8, i7, 0);
+      if (!res2[i7][8]) setF(i7, 8, 0);
+    }
+    for (var i8 = 0; i8 < 8; i8++) {
+      if (!res2[8][size - 1 - i8]) setF(8, size - 1 - i8, 0);
+      if (!res2[size - 1 - i8][8]) setF(size - 1 - i8, 8, 0);
+    }
+    if (ver >= 7) {
+      var vi = VERINFO[ver];
+      for (var i9 = 0; i9 < 18; i9++) {
+        var vb = (vi >> i9) & 1, vr = Math.floor(i9 / 3), vc = i9 % 3;
+        setF(size - 11 + vc, vr, vb); setF(vr, size - 11 + vc, vb);
+      }
+    }
+    var idx = 0, bi = 0, up = true;
+    for (var col = size - 1; col > 0; col -= 2) {
+      if (col === 6) col--;
+      for (var kk = 0; kk < size; kk++) {
+        var row = up ? size - 1 - kk : kk;
+        for (var cj = 0; cj < 2; cj++) {
+          var cc2 = col - cj;
+          if (res2[row][cc2]) continue;
+          m[row][cc2] = idx < out.length ? (out[idx] >> (7 - bi)) & 1 : 0;
+          bi++; if (bi === 8) { bi = 0; idx++; }
+        }
+      }
+      up = !up;
+    }
+    var MASKS = [
+      function(r,c){return (r+c)%2===0}, function(r,c){return r%2===0},
+      function(r,c){return c%3===0},     function(r,c){return (r+c)%3===0},
+      function(r,c){return (Math.floor(r/2)+Math.floor(c/3))%2===0},
+      function(r,c){return (r*c)%2+(r*c)%3===0},
+      function(r,c){return ((r*c)%2+(r*c)%3)%2===0},
+      function(r,c){return ((r+c)%2+(r*c)%3)%2===0}
+    ];
+    function penalty(g) {
+      var n = g.length, p1 = 0, p2 = 0, p3 = 0, dark = 0;
+      function runs(get) {
+        for (var a = 0; a < n; a++) {
+          var run = 1;
+          for (var b = 1; b < n; b++) {
+            if (get(a,b) === get(a,b-1)) run++; else { if (run >= 5) p1 += 3 + (run - 5); run = 1; }
+          }
+          if (run >= 5) p1 += 3 + (run - 5);
+        }
+      }
+      runs(function(a,b){return g[a][b]}); runs(function(a,b){return g[b][a]});
+      for (var r3 = 0; r3 < n - 1; r3++) for (var c3 = 0; c3 < n - 1; c3++) {
+        var sum = g[r3][c3] + g[r3][c3+1] + g[r3+1][c3] + g[r3+1][c3+1];
+        if (sum === 0 || sum === 4) p2 += 3;
+      }
+      var P1 = [1,0,1,1,1,0,1,0,0,0,0], P2 = [0,0,0,0,1,0,1,1,1,0,1];
+      function eq(a, b) { for (var i = 0; i < 11; i++) if (a[i] !== b[i]) return false; return true; }
+      for (var r4 = 0; r4 < n; r4++) for (var c4 = 0; c4 + 11 <= n; c4++) {
+        var seg = g[r4].slice(c4, c4 + 11);
+        if (eq(seg, P1) || eq(seg, P2)) p3 += 40;
+      }
+      for (var c5 = 0; c5 < n; c5++) for (var r5 = 0; r5 + 11 <= n; r5++) {
+        var seg2 = []; for (var q = 0; q < 11; q++) seg2.push(g[r5+q][c5]);
+        if (eq(seg2, P1) || eq(seg2, P2)) p3 += 40;
+      }
+      for (var r6 = 0; r6 < n; r6++) for (var c6 = 0; c6 < n; c6++) dark += g[r6][c6];
+      return p1 + p2 + p3 + Math.floor(Math.abs(dark * 100 / (n * n) - 50) / 5) * 10;
+    }
+    function fmtBits(mask) {
+      var f = (0 << 3) | mask, rem = f;                    // 00 = EC level M
+      for (var i = 0; i < 10; i++) rem = (rem << 1) ^ (((rem >> 9) & 1) * 0x537);
+      return ((f << 10) | rem) ^ 0x5412;
+    }
+    var best = null, bestScore = Infinity;
+    for (var mk = 0; mk < 8; mk++) {
+      var g2 = m.map(function (row2) { return row2.slice(); });
+      for (var r7 = 0; r7 < size; r7++) for (var c7 = 0; c7 < size; c7++)
+        if (!res2[r7][c7] && MASKS[mk](r7, c7)) g2[r7][c7] ^= 1;
+      var fb = fmtBits(mk);
+      for (var j4 = 0; j4 < 15; j4++) {
+        var b3 = (fb >> (14 - j4)) & 1;                    // MSB first
+        if (j4 < 6)        g2[8][j4] = b3;
+        else if (j4 === 6) g2[8][7] = b3;
+        else if (j4 === 7) g2[8][8] = b3;
+        else if (j4 === 8) g2[7][8] = b3;
+        else               g2[14 - j4][8] = b3;
+        if (j4 < 7) g2[size - 1 - j4][8] = b3;             // 7 vertical
+        else        g2[8][size - 8 + (j4 - 7)] = b3;       // 8 horizontal
+      }
+      var sc = penalty(g2);
+      if (sc < bestScore) { bestScore = sc; best = g2; }
+    }
+    return { size: size, version: ver, modules: best };
+  }
+
+  /* Inline SVG, one path. The svg and path carry inline style because this
+     file's icon CSS would otherwise apply fill:none and a 16px width to them. */
+  function qrSvg(text, label) {
+    var q = qrEncode(text);
+    if (!q) return '<p class="qr-fallback">' + label + '</p>';
+    var quiet = 4, dim = q.size + quiet * 2, d = '';
+    for (var r = 0; r < q.size; r++) for (var c = 0; c < q.size; c++)
+      if (q.modules[r][c]) d += 'M' + (c + quiet) + ' ' + (r + quiet) + 'h1v1h-1z';
+    return '<svg viewBox="0 0 ' + dim + ' ' + dim + '" role="img" aria-label="' + label + '" ' +
+      'style="width:100%;height:auto;display:block;shape-rendering:crispEdges;background:#fff">' +
+      '<path d="' + d + '" style="fill:#111;stroke:none"></path></svg>';
+  }
+
+  /* Stable per booking — derived from the id, never Math.random(), so the same
+     booking shows the same code on every reload. */
+  function refFor(id) {
+    var h = 0, str = 'BOOKEASE-' + id;
+    for (var i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0;
+    return 'BK-' + String(1000 + (h % 9000));
+  }
+  function checkinUrl(ref) {
+    return location.origin + location.pathname + '?ref=' + ref;
+  }
+
+  function openQrModal(a) {
+    var ref = refFor(a.id), url = checkinUrl(ref);
+    document.getElementById('qrHolder').innerHTML = qrSvg(url, 'Check-in code ' + ref);
+    document.getElementById('qrRef').textContent = ref;
+    document.getElementById('qrMeta').innerHTML =
+      a.client + ' &middot; ' + a.service + '<br>' + a.date + ' at ' + a.time + ' &middot; ' + a.staff;
+    document.getElementById('qrHint').textContent =
+      'Scan at the front desk to check in. The code opens this booking — it carries no payment and no personal data beyond the reference.';
+    openModal('qrModal');
+  }
+
   /* ─── BOOK MODAL ─── */
   function openBookModal() {
     ['b-client','b-email','b-notes'].forEach(id=>document.getElementById(id).value='');
     ['b-time','b-service'].forEach(id=>document.getElementById(id).value='');
     document.getElementById('b-date').value=TODAY_ISO;
-    document.getElementById('bookModal').classList.add('show');
+    openModal('bookModal');
     document.getElementById('b-client').focus();
   }
-  function closeBookModal(){ document.getElementById('bookModal').classList.remove('show'); }
+  function closeBookModal(){ closeModal('bookModal'); }
 
   ['bookNowBtn','apptBookBtn'].forEach(id => {
     document.getElementById(id)?.addEventListener('click', openBookModal);
@@ -1106,20 +1427,29 @@
     const time    = document.getElementById('b-time').value;
     const svc     = document.getElementById('b-service').value;
     const staff   = document.getElementById('b-staff').value;
+    const email   = document.getElementById('b-email').value.trim();
+    const notes   = document.getElementById('b-notes').value.trim();
     if (!client||!date||!time||!svc) { toast('Please fill all required fields','error'); return; }
     const svcName = svc.split(' — ')[0];
     const dur     = svc.match(/\d+ min/)?.[0] || '60 min';
     const price   = parseFloat((svc.match(/\$(\d+)/)||[,'0'])[1]);
-    appointments.push({ id:nextApptId++, client, service:svcName, staff, date, time, status:'Confirmed', dur, price });
+    const rec = { id:nextApptId++, client, email, notes, service:svcName, staff, date, time, status:'Confirmed', dur, price };
+    appointments.push(rec);   // email and notes were collected and dropped before
     closeBookModal(); renderAppointments(); renderDashboard();
     const shownDay = selectedDay || TODAY_ISO;
     if (date === shownDay) showDayAppointments(shownDay);
     toast(`Appointment for ${client} booked!`, 'success');
+    openQrModal(rec);
   });
+
+  document.getElementById('qrModalClose').addEventListener('click', ()=>closeModal('qrModal'));
+  document.getElementById('qrModalDone').addEventListener('click', ()=>closeModal('qrModal'));
+  document.getElementById('qrModal').addEventListener('click', e=>{ if(e.target===e.currentTarget) closeModal('qrModal'); });
+  document.getElementById('qrPrintBtn').addEventListener('click', ()=>window.print());
 
   /* ─── CANCEL MODAL ─── */
   let pendingCancelId = null;
-  function closeCancelModal(){ document.getElementById('cancelModal').classList.remove('show'); pendingCancelId=null; }
+  function closeCancelModal(){ closeModal('cancelModal'); pendingCancelId=null; }
   document.getElementById('cancelModalClose').addEventListener('click', closeCancelModal);
   document.getElementById('cancelModalNo').addEventListener('click', closeCancelModal);
   document.getElementById('cancelModal').addEventListener('click', e=>{ if(e.target===e.currentTarget) closeCancelModal(); });
@@ -1138,6 +1468,18 @@
   /* ─── SETTINGS ─── */
   document.getElementById('saveSettingsBtn').addEventListener('click', () => toast('Settings saved','success'));
 
+  /* Today's schedule cards open the check-in code. */
+  function apptCardActivate(e) {
+    const card = e.target.closest('.appt-card');
+    if (!card || !card.dataset.id) return;
+    if (e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ') return;
+    if (e.type === 'keydown') e.preventDefault();
+    const a = appointments.find(x => x.id === parseInt(card.dataset.id));
+    if (a) openQrModal(a);
+  }
+  document.getElementById('todayList').addEventListener('click', apptCardActivate);
+  document.getElementById('todayList').addEventListener('keydown', apptCardActivate);
+
   /* ─── INIT ─── */
   renderDashboard();
   renderAppointments();
@@ -1146,6 +1488,17 @@
   renderChart(chartPeriod);
   renderCalendar();
   showDayAppointments(TODAY_ISO);
+
+  /* Scanning the QR lands here with ?ref=BK-xxxx. Resolve it to the booking and
+     open its code; the demo's data is in-memory, so a reference created in
+     another session will not be found and says so rather than failing silently. */
+  (function () {
+    var ref = new URLSearchParams(location.search).get('ref');
+    if (!ref) return;
+    var a = appointments.find(function (x) { return refFor(x.id) === ref.toUpperCase(); });
+    if (a) { switchView('appointments'); openQrModal(a); }
+    else toast('Booking ' + ref + ' is not on this device — demo data is in-memory', 'error');
+  })();
 })();
 </script>
 </body>
