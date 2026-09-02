@@ -10,7 +10,7 @@
        out of history, so Back still leaves the site. -->
   <script>(function(p){if(location.protocol!=='file:'&&/\.html$/.test(p)&&!/\/404\.html$/.test(p))location.replace((/\/index\.html$/.test(p)?p.slice(0,-10):p.slice(0,-5))+location.search+location.hash)})(location.pathname)</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="BAAN TALAY is a beachfront resort site that carries a guest from picking dates to a confirmation screen, showing the room total, the service charge and the deposit before they commit — see the full project write-up." />
+  <meta name="description" content="BAAN TALAY is a 13-screen beachfront resort site where the rate changes with the season and the day of the week, sold-out dates are really sold out, with reviews, dining, offers and a full Thai/English toggle — see the project write-up." />
   <meta name="theme-color" content="#5274f8" />
   <link rel="canonical" href="https://ph-akin.dev/showcase-baan-talay-en" />
   <link rel="alternate" hreflang="th" href="https://ph-akin.dev/showcase-baan-talay" />
@@ -18,14 +18,14 @@
   <link rel="alternate" hreflang="x-default" href="https://ph-akin.dev/showcase-baan-talay" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="BAAN TALAY | Phakin Portfolio" />
-  <meta property="og:description" content="BAAN TALAY is a beachfront resort site that carries a guest from picking dates to a confirmation screen, showing the room total, the service charge and the deposit before they commit — see the full project write-up." />
+  <meta property="og:description" content="BAAN TALAY is a 13-screen beachfront resort site where the rate changes with the season and the day of the week, sold-out dates are really sold out, with reviews, dining, offers and a full Thai/English toggle — see the project write-up." />
   <meta property="og:url" content="https://ph-akin.dev/showcase-baan-talay-en" />
   <meta property="og:image" content="https://ph-akin.dev/assets/screenshots/showcase-baan-talay.jpg" />
   <meta property="og:image:alt" content="BAAN TALAY live page screenshot." />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="BAAN TALAY | Phakin Portfolio" />
-  <meta name="twitter:description" content="BAAN TALAY is a beachfront resort site that carries a guest from picking dates to a confirmation screen, showing the room total, the service charge and the deposit before they commit — see the full project write-up." />
+  <meta name="twitter:description" content="BAAN TALAY is a 13-screen beachfront resort site where the rate changes with the season and the day of the week, sold-out dates are really sold out, with reviews, dining, offers and a full Thai/English toggle — see the project write-up." />
   <meta name="twitter:image" content="https://ph-akin.dev/assets/screenshots/showcase-baan-talay.jpg" />
   <title>BAAN TALAY | Phakin Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,7 +67,7 @@
     <section class="hero case-hero">
       <div class="page-shell">
         <h1><span class="sheen">BAAN TALAY</span></h1>
-        <p class="hero-copy">A Hua Hin beachfront resort site you can actually book through, from picking dates to a confirmation screen — the same page, laid out differently on a phone and on a desktop.</p>
+        <p class="hero-copy">A 13-screen Hua Hin resort site where the rate genuinely changes with the season and the day of the week, sold-out dates are actually sold out, and the whole site switches between Thai and English.</p>
         <div class="hero-actions">
           <a class="button primary" href="baan-talay">View live site</a>
         </div>
@@ -91,9 +91,9 @@
 
         <div class="work-strip">
           <figure class="work-shot work-shot--wide reveal">
-            <img src="assets/screenshots/showcase-baan-talay-b.jpg" alt="BAAN TALAY room detail screen on desktop"
+            <img src="assets/screenshots/showcase-baan-talay-b.jpg" alt="BAAN TALAY 14-day rate strip on desktop"
                  width="1491" height="812" loading="lazy" fetchpriority="low" />
-            <figcaption>On desktop the room screen splits in two — photograph and detail on the left, a sticky panel holding the rate, the dates and the booking button on the right.</figcaption>
+            <figcaption>The 14-day rate strip on the rooms screen — nightly prices differ from day to day because they follow the season and the day of the week, and dates with nothing left read as sold out.</figcaption>
           </figure>
           <figure class="work-shot work-shot--tall reveal">
             <img src="assets/screenshots/showcase-baan-talay-c.jpg" alt="BAAN TALAY on a 375 pixel wide phone screen"
@@ -109,7 +109,7 @@
                 <h2>Project overview</h2>
               </div>
             </div>
-            <p>Most small hotel sites end at a "contact us" button and push the visitor into a chat window, even though a guest about to book has only a few real questions — what is free, what does it cost a night once tax is in, is there a surcharge for four people, and how much has to be transferred today. This page answers all four in one place. The guest picks dates and a party size from a card overlapping the hero image, taps a room to read it in full, then moves to a summary that itemises the nightly rate across the stay, the extra-guest charge, the 10% service charge and the 50% deposit before reaching confirmation. All six screens live in one file and switch on the URL hash, so the browser's own Back button still works.</p>
+            <p>Most small hotel sites end at a “contact us” button and push the visitor into a chat window, even though a guest about to book has only a few real questions: what is free on my dates, what does it cost a night once tax is in, is there a surcharge for four people, and how much has to be transferred today. This page answers all four without anyone having to reply. What makes it read as a site in use is not the visual design but the rate engine: nightly rates are computed from the season, the day of the week and the holiday calendar, while availability comes from a seeded hash of (room, date) rather than a random number — so the same dates give the same answer on every reload, which is how a real booking engine behaves and how a demo that reshuffles on refresh gives itself away. Around the booking flow sit dining, facilities, offers, reviews, the property's own story, policies and contact — the things a working resort site actually carries.</p>
             <div class="tag-list">
               <span class="tag tag-gray">Booking</span>
               <span class="tag tag-gray">Interactive</span>
@@ -126,12 +126,13 @@
               </div>
             </div>
             <ul class="highlight-list">
-              <li>A complete booking path — dates and guests, room detail, priced summary, confirmation — where every figure is computed live from the dates and party size actually chosen.</li>
-              <li>Phone and desktop are not one layout scaled. Small screens get a price-and-book bar pinned to the bottom; at 900px that bar is retired and replaced by sticky panels beside the content, because a fixed bottom bar on a 1440px screen is a phone idiom.</li>
-              <li>All ten photographs ship as WebP at two widths each, served through srcset with width and height reserved up front, so cumulative layout shift measures 0.</li>
-              <li>Thai headings are broken by phrase, because Chrome here carries no Thai line-break dictionary and will otherwise wrap mid-word; every phrase held together was measured to fit inside a 375px screen.</li>
-              <li>The gallery opens full size, steps with the arrow keys, closes on Escape and returns focus to the thumbnail that opened it.</li>
-              <li>Nothing talks to a server — no fetch, no form action — and the booking reference produced on confirmation is generated in the browser, which the page states plainly in its own footer.</li>
+              <li>Nightly rates genuinely differ — high season (Nov–Feb) +35%, green season (Jun–Sep) −15%, Friday and Saturday +20%, with a further premium over New Year and Songkran, plus a two-night weekend minimum and three nights at peak.</li>
+              <li>Availability comes from a seeded hash of (room, date), never Math.random(). The same dates give the same answer on every reload, sold-out rooms are disabled and say so, and “only 2 left” appears only when two actually are.</li>
+              <li>13 screens routed on the URL hash, so the browser's Back button still works — rooms, dining, facilities, offers, reviews, about, gallery, FAQ and policies, contact, and three booking steps.</li>
+              <li>The summary itemises every night separately, because no two nights cost the same, and the EARLYBIRD code really applies when you book 30 or more days out — and explains itself when it does not.</li>
+              <li>Ten reviews with category scores, including two 3–4 star reviews with specific complaints and owner replies — but no schema.org Review markup, because invented reviews should not become structured data on a real domain.</li>
+              <li>The whole site switches between Thai and English from a single string table, so no page can end up half-translated, and the choice is remembered.</li>
+              <li>Nothing talks to a server — no fetch, no form action — and the footer states plainly that the company name, tax ID, licence number, reviews and ratings are all invented.</li>
             </ul>
           </article>
 

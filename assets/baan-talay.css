@@ -1,0 +1,833 @@
+/* ─────────────────────────────────────────────────────────────
+   BAAN TALAY — resort booking demo.
+
+   Demo page: its own reset, its own tokens, no shared stylesheet and no
+   portfolio chrome. Every selector is namespaced .bt-* on purpose — a bare
+   element selector in a demo page finds a second element eventually (see
+   aesthetic-booking's nav.foot-links, which inherited a cream panel and
+   shipped at 1.11:1).
+
+   Palette is the design's, with three text greys darkened to clear WCAG AA
+   on their own backgrounds — #7A8175 measured 3.77:1 and #8A9083 3.08:1 on
+   the #FAF7F2 paper, so both were replaced by --muted / --muted-2. The
+   terracotta likewise splits in two: #C25E3A gives white text only 4.24:1,
+   so buttons take --terra (#BB5836, 4.60:1) and terracotta-as-text takes
+   --terra-ink (#A84B2B, 5.35:1 on paper).
+   ───────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+:root{
+  --paper:#FAF7F2;
+  --sand-bg:#EDE4D6;
+  --card:#fff;
+  --panel:#F2ECE2;
+  --ink:#2C3327;
+  --ink-2:#43493E;
+  --muted:#5A6154;
+  --muted-2:#6B7266;
+  --green:#5B7355;
+  --green-d:#3F5239;
+  --green-tint:#E4EDDF;
+  --terra:#BB5836;
+  --terra-d:#A04629;
+  --terra-ink:#A84B2B;
+  --sand:#C4A582;
+  --line:rgba(196,165,130,.42);
+  --line-2:rgba(196,165,130,.28);
+  --field:#DDD3C4;
+  --dark:#14180F;
+  --dark-2:#22271B;
+  --r:12px;
+  --r-lg:14px;
+  --wrap:1140px;
+  --pad:18px;
+}
+
+html { -webkit-text-size-adjust:100%; }
+html, body { overflow-x:hidden; }
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'IBM Plex Sans Thai', system-ui, -apple-system, sans-serif;
+  font-size:15px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+/* The sticky mobile bar's height is reserved on the BODY, never on whichever
+   section happens to be last — padding the last section leaves the footer
+   running underneath the bar (lumi-clinic shipped exactly that, 73px). */
+body.bt-has-bar{ padding-bottom:calc(84px + env(safe-area-inset-bottom));
+}
+
+img { max-width:100%; display:block; }
+button { font:inherit; color:inherit; }
+a { color:var(--green); text-decoration:none; }
+a:hover { color:var(--green-d); }
+
+:focus-visible{ outline:2px solid var(--terra-ink); outline-offset:2px; border-radius:6px; }
+
+.bt-sr{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+
+.bt-skip{
+  position:absolute; left:-999px; top:0; z-index:200;
+  background:var(--ink); color:var(--paper);
+  padding:12px 18px; border-radius:0 0 var(--r) 0; font-weight:600;
+}
+.bt-skip:focus{ left:0; color:var(--paper); }
+
+/* Chrome ships no Thai line-break dictionary here, so an unspaced Thai run
+   breaks at ANY character — pathapee-precast shipped an h1 split as
+   "ตารางส / แปน". word-break:keep-all does nothing and text-wrap:balance only
+   rebalances the same bad opportunities; white-space:nowrap per phrase is the
+   only lever. Every .nb run below was measured under 375px - 36px of padding. */
+.nb{ white-space:nowrap; }
+
+.bt-wrap{ width:100%; max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
+
+/* ── buttons ───────────────────────────────────────────────── */
+.bt-btn{
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  min-height:50px; padding:0 20px;
+  border:1px solid transparent; border-radius:var(--r);
+  font-size:15px; font-weight:600; line-height:1.3;
+  cursor:pointer; text-align:center;
+  transition:background .18s ease, border-color .18s ease, color .18s ease;
+}
+.bt-btn--primary{ background:var(--terra); color:#fff; }
+.bt-btn--primary:hover{ background:var(--terra-d); color:#fff; }
+.bt-btn--green{ background:var(--green); color:#fff; }
+.bt-btn--green:hover{ background:var(--green-d); color:#fff; }
+.bt-btn--ghost{ background:transparent; color:var(--ink); border-color:var(--field); }
+.bt-btn--ghost:hover{ background:var(--sand-bg); color:var(--ink); }
+.bt-btn--onDark{ background:transparent; color:#fff; border-color:rgba(255,255,255,.55); }
+.bt-btn--onDark:hover{ background:rgba(255,255,255,.12); color:#fff; }
+
+.bt-icon{
+  width:44px; height:44px; flex:none;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:var(--r); cursor:pointer;
+  background:var(--card); border:1px solid var(--field); color:var(--ink);
+}
+.bt-icon:hover{ background:var(--sand-bg); }
+
+.bt-back{ margin-bottom:18px; }
+
+/* ── header ────────────────────────────────────────────────── */
+.bt-hd{
+  display:none;
+  position:sticky; top:0; z-index:60;
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+  transition:background .25s ease, border-color .25s ease;
+}
+/* Over the hero the bar is transparent; the class is set from scroll position. */
+.bt-hd.is-over{ background:transparent; border-bottom-color:transparent; }
+/* The bar's resting state must not depend on a transition finishing. Chrome
+   freezes transitions in a tab that is not visible, so a header that starts
+   solid and fades to transparent stays SOLID forever there — which is how
+   every hero screenshot came out with an opaque bar over the photograph while
+   the class was correctly applied the whole time. The transition is suppressed
+   until the first paint has been through a frame; if rAF never runs (hidden
+   tab) it simply stays suppressed and the bar snaps, which is correct. */
+html.bt-boot .bt-hd, html.bt-boot .bt-hd *{ transition:none !important; }
+.bt-hd-in{
+  width:100%; max-width:var(--wrap); margin:0 auto; padding:12px var(--pad);
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+}
+.bt-logo{ display:flex; flex-direction:column; line-height:1; color:var(--ink); }
+.bt-logo b{ font-size:15px; font-weight:600; letter-spacing:2.6px; }
+.bt-logo span{ font-size:9.5px; letter-spacing:1.4px; opacity:.72; margin-top:5px; }
+.bt-hd.is-over .bt-logo{ color:#fff; }
+
+.bt-nav{ display:none; }
+.bt-nav a, .bt-nav button{
+  background:none; border:0; padding:8px 2px; cursor:pointer;
+  font-size:14px; font-weight:500; color:var(--ink-2);
+}
+.bt-nav a:hover, .bt-nav button:hover{ color:var(--green-d); }
+.bt-hd.is-over .bt-nav a, .bt-hd.is-over .bt-nav button{ color:rgba(255,255,255,.92); }
+.bt-hd.is-over .bt-nav a:hover, .bt-hd.is-over .bt-nav button:hover{ color:#fff; }
+
+.bt-burger{ background:var(--card); border:1px solid var(--field); }
+.bt-hd.is-over .bt-burger{ background:rgba(255,255,255,.16); border-color:rgba(255,255,255,.4); color:#fff; }
+
+/* display is not animatable, so a rule that swaps it cancels any fade beside
+   it. display:none stays (the closed drawer must leave the tab order) and
+   transition-behavior:allow-discrete + @starting-style is what makes it
+   transitionable. A browser without support gets the previous snap. */
+.bt-drawer{
+  display:none; opacity:0;
+  position:fixed; top:0; left:0; right:0; z-index:80;
+  background:var(--paper); border-bottom:1px solid var(--line);
+  box-shadow:0 18px 40px rgba(44,51,39,.18);
+  transition:opacity .22s ease, display .22s allow-discrete;
+}
+.bt-drawer-head{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:22px var(--pad) 8px; }
+.bt-drawer[data-open]{ display:block; opacity:1; }
+@starting-style{ .bt-drawer[data-open]{ opacity:0; } }
+.bt-drawer ul{ list-style:none; margin:0; padding:8px var(--pad) 16px; }
+.bt-drawer li + li{ border-top:1px solid var(--line-2); }
+.bt-drawer a, .bt-drawer button{
+  display:flex; align-items:center; width:100%;
+  min-height:48px; padding:4px 0;
+  background:none; border:0; cursor:pointer; text-align:left;
+  font-size:15.5px; font-weight:500; color:var(--ink);
+}
+
+/* #app is filled by JS. Under throttling the first paint can happen before
+   that, so reserve a viewport: otherwise the footer paints in view and is then
+   shoved down when the content arrives, which is exactly what CLS measures. */
+#app{ display:block; min-height:100vh; }
+
+/* ── views ─────────────────────────────────────────────────── */
+.bt-view[hidden]{ display:none; }
+.bt-view{ display:block; }
+.bt-sec{ padding:34px 0 0; }
+.bt-sec-head{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; }
+.bt-h2{ margin:0; font-size:21px; font-weight:600; letter-spacing:-.3px; line-height:1.35; }
+.bt-sub{ margin:8px 0 0; font-size:13.5px; line-height:1.6; color:var(--muted); }
+.bt-page-title{ margin:0; font-size:24px; font-weight:600; letter-spacing:-.4px; line-height:1.35; }
+.bt-side-title{ margin:0; font-size:20px; font-weight:600; letter-spacing:-.3px; }
+.bt-gv-title{ margin:0; font-size:13.5px; font-weight:600; color:rgba(250,247,242,.85); }
+.bt-more{ background:none; border:0; padding:8px 0; cursor:pointer; font-size:13.5px; font-weight:600; color:var(--green); white-space:nowrap; }
+.bt-more:hover{ color:var(--green-d); }
+
+/* ── hero ──────────────────────────────────────────────────── */
+.bt-hero{ position:relative; height:clamp(430px,74vh,540px); }
+.bt-hero > img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; background:var(--sand); }
+.bt-hero-ov{ position:absolute; inset:0; background:linear-gradient(180deg,rgba(20,26,18,.5) 0%,rgba(20,26,18,.22) 45%,rgba(20,26,18,.74) 100%); }
+.bt-hero-nav{ position:absolute; top:30px; left:0; right:0; color:#fff; }
+.bt-hero-nav .bt-wrap{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.bt-hero-nav .bt-icon{ background:rgba(255,255,255,.16); border-color:rgba(255,255,255,.4); color:#fff; }
+.bt-hero-nav .bt-icon:hover{ background:rgba(255,255,255,.28); }
+.bt-hero-in{ position:absolute; left:0; right:0; bottom:26px; }
+.bt-badge{
+  display:inline-block; margin-bottom:16px; padding:6px 13px;
+  font-size:10.5px; font-weight:500; letter-spacing:1.8px;
+  color:#F3E7D6; border:1px solid rgba(243,231,214,.5); border-radius:999px;
+}
+.bt-h1{ margin:0; font-size:clamp(30px,8.6vw,36px); font-weight:600; line-height:1.14; letter-spacing:-.8px; color:#fff; }
+.bt-lede{ margin:12px 0 0; font-size:14.5px; line-height:1.65; color:rgba(255,255,255,.92); }
+
+/* ── search widget ─────────────────────────────────────────── */
+.bt-search{ position:relative; margin-top:-22px; padding:0 var(--pad); }
+.bt-view-pad{ padding-top:26px; }
+.bt-search-in{
+  background:var(--card); border:1px solid var(--line);
+  border-radius:var(--r-lg); padding:16px;
+  box-shadow:0 8px 24px rgba(44,51,39,.14);
+}
+.bt-dates{ display:flex; gap:10px; }
+.bt-field{ flex:1; display:flex; flex-direction:column; gap:6px; min-width:0; }
+.bt-field > span{ font-size:11.5px; font-weight:500; color:var(--muted-2); }
+.bt-input{
+  width:100%; height:46px; padding:0 10px;
+  font:inherit; font-size:14px; color:var(--ink);
+  background:var(--paper); border:1px solid var(--field); border-radius:11px;
+}
+.bt-guests{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  margin-top:14px; padding-top:14px; border-top:1px solid var(--line);
+}
+.bt-guests > span{ font-size:13.5px; font-weight:500; color:var(--ink-2); }
+.bt-stepper{ display:flex; align-items:center; gap:12px; }
+.bt-count{ min-width:58px; text-align:center; font-size:15px; font-weight:600; }
+.bt-go{ width:100%; margin-top:14px; }
+.bt-nights{ margin:11px 0 0; font-size:12.5px; font-weight:600; color:var(--terra-ink); }
+/* Before a date is picked this line has no text. Left in flow it held an 18px
+   row on the phone and a whole grid row in the desktop bar, so the card ended
+   in dead space. */
+.bt-nights:empty{ display:none; }
+
+/* ── feature strip ─────────────────────────────────────────── */
+.bt-feats{
+  display:flex; gap:10px; margin-top:20px; padding:0 var(--pad) 4px;
+  overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none;
+}
+.bt-feats::-webkit-scrollbar{ height:0; }
+.bt-feat{
+  flex:none; width:150px; scroll-snap-align:start;
+  background:var(--card); border:1px solid var(--line-2); border-radius:var(--r); padding:15px;
+}
+.bt-feat p{ margin:11px 0 0; font-size:13.5px; font-weight:600; line-height:1.45; }
+
+/* ── rooms ─────────────────────────────────────────────────── */
+.bt-rooms{ display:grid; gap:14px; margin-top:16px; }
+.bt-room{
+  display:block; width:100%; padding:0; text-align:left; cursor:pointer;
+  background:var(--card); color:var(--ink);
+  border:1px solid var(--line-2); border-radius:var(--r-lg); overflow:hidden;
+  transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+.bt-room:hover{ border-color:var(--sand); box-shadow:0 10px 26px rgba(44,51,39,.10); }
+.bt-room-fig{ display:block; position:relative; height:180px; background:var(--sand-bg); }
+.bt-room-fig img{ width:100%; height:100%; object-fit:cover; }
+.bt-pill-bf{
+  position:absolute; top:12px; left:12px;
+  background:var(--sand); color:var(--ink);
+  font-size:11px; font-weight:600; padding:5px 11px; border-radius:999px;
+}
+.bt-room-body{ display:block; padding:16px; }
+.bt-room-top{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; }
+.bt-room-name{ font-size:17px; font-weight:600; }
+.bt-room-price{ font-size:17px; font-weight:600; color:var(--green); white-space:nowrap; }
+.bt-room-blurb{ display:block; margin:7px 0 0; font-size:13px; line-height:1.55; color:var(--muted); }
+.bt-room-meta{ display:flex; flex-wrap:wrap; gap:8px 14px; margin-top:12px; font-size:12.5px; color:var(--muted-2); }
+
+/* ── gallery strip (home) ──────────────────────────────────── */
+.bt-gal{
+  display:flex; gap:10px; margin-top:14px; padding-bottom:4px;
+  overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none;
+}
+.bt-gal::-webkit-scrollbar{ height:0; }
+.bt-shot{
+  flex:none; padding:0; border:0; border-radius:var(--r); overflow:hidden;
+  background:var(--sand-bg); cursor:pointer; scroll-snap-align:start;
+}
+.bt-gal .bt-shot{ width:180px; height:130px; }
+.bt-shot img{ width:100%; height:100%; object-fit:cover; }
+
+/* ── closing CTA + faq link ────────────────────────────────── */
+.bt-cta{ margin-top:34px; background:var(--green); border-radius:var(--r-lg); padding:22px; }
+.bt-cta p{ margin:0; font-size:18px; font-weight:600; line-height:1.45; color:#fff; }
+.bt-cta-actions{ display:grid; gap:10px; margin-top:16px; }
+.bt-faqlink{
+  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  width:100%; margin-top:22px; padding:20px 0;
+  background:none; border:0; border-top:1px solid var(--line);
+  font-size:15px; font-weight:600; color:var(--ink); cursor:pointer;
+}
+
+/* ── footer ────────────────────────────────────────────────── */
+.bt-foot{ margin-top:40px; padding:30px 0 34px; background:var(--sand-bg); border-top:1px solid var(--line); }
+.bt-foot-grid{ display:grid; gap:22px; }
+.bt-foot h2{ margin:0 0 10px; font-size:13px; font-weight:600; letter-spacing:1.4px; color:var(--muted); }
+.bt-foot p, .bt-foot address{ margin:0; font-style:normal; font-size:14px; line-height:1.75; color:var(--ink-2); }
+.bt-foot ul{ list-style:none; margin:0; padding:0; }
+/* The footer band is --sand-bg, darker than the paper the rest of the page
+   uses, and --green measures only 4.13:1 against it. --green-d gives 6.72:1.
+   This is the one surface on the page where the link colour has to change. */
+.bt-foot a{ color:var(--green-d); }
+.bt-foot a:hover{ color:var(--ink); }
+.bt-foot li + li{ margin-top:6px; }
+.bt-foot-note{ margin-top:26px; padding-top:18px; border-top:1px solid var(--line); font-size:12.5px; line-height:1.7; color:var(--muted); }
+
+/* ── room detail ───────────────────────────────────────────── */
+.bt-dt-hero{ position:relative; height:290px; background:var(--sand-bg);
+  margin:0 calc(var(--pad) * -1); }
+.bt-dt-hero img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.bt-dt-ov{ position:absolute; inset:0; background:linear-gradient(180deg,rgba(20,26,18,.45) 0%,rgba(20,26,18,0) 42%); }
+.bt-dt-back{ position:absolute; top:34px; left:var(--pad); background:rgba(255,255,255,.92); border-color:transparent; }
+.bt-dt-title{ margin:0; font-size:25px; font-weight:600; letter-spacing:-.4px; line-height:1.3; }
+.bt-dt-price{ display:flex; align-items:baseline; gap:7px; margin-top:8px; }
+.bt-dt-price b{ font-size:22px; font-weight:600; color:var(--green); }
+.bt-dt-price span{ font-size:13px; color:var(--muted-2); }
+.bt-dt-copy{ margin:14px 0 0; font-size:15px; line-height:1.75; color:var(--ink-2); }
+.bt-facts{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:12px;
+  margin:20px 0 0; padding:16px 0;
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+}
+.bt-facts dt{ font-size:11px; font-weight:500; color:var(--muted-2); }
+.bt-facts dd{ margin:5px 0 0; font-size:14.5px; font-weight:600; }
+.bt-h3{ margin:22px 0 0; font-size:15px; font-weight:600; }
+.bt-amen{ list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:14px 0 0; padding:0; }
+.bt-amen li{ display:flex; align-items:center; gap:9px; font-size:13.5px; color:var(--ink-2); }
+.bt-shots{ display:flex; gap:10px; margin:14px 0 0; padding-bottom:4px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; }
+.bt-shots::-webkit-scrollbar{ height:0; }
+.bt-shots .bt-shot{ width:200px; height:140px; }
+.bt-note{ margin:22px 0 0; font-size:12.5px; line-height:1.7; color:var(--muted); }
+.bt-subhead{ margin:22px 0 0; font-size:15px; font-weight:600; }
+
+/* The sticky side panels are the desktop replacement for the phone's bottom
+   bar. Both are absent below 900px, where the bar carries the same price and
+   the same call to action. */
+.bt-dt-side, .bt-sum-b .bt-side-cta{ display:none; }
+.bt-side-label{ margin:0; font-size:12px; font-weight:500; color:var(--muted-2); }
+.bt-side-price{ margin:6px 0 0; font-size:28px; font-weight:600; color:var(--green); }
+.bt-side-rows{ margin:18px 0 0; padding:16px 0 0; border-top:1px solid var(--line-2); display:grid; gap:10px; }
+.bt-side-rows > div{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
+.bt-side-rows dt{ font-size:13px; color:var(--muted); }
+.bt-side-rows dd{ margin:0; font-size:13.5px; font-weight:600; text-align:right; }
+.bt-side-cta{ width:100%; margin-top:20px; }
+.bt-side-note{ margin-top:14px; }
+
+/* ── summary ───────────────────────────────────────────────── */
+.bt-sum-room{ display:flex; gap:13px; margin-top:20px; padding:14px; background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); }
+.bt-sum-room img{ width:84px; height:84px; flex:none; object-fit:cover; border-radius:10px; background:var(--sand-bg); }
+.bt-sum-room p{ margin:0; }
+.bt-sum-room .n{ font-size:16px; font-weight:600; }
+.bt-sum-room .m{ margin-top:6px; font-size:13px; line-height:1.5; color:var(--muted); }
+.bt-sum-room .p{ margin-top:6px; font-size:13px; font-weight:600; color:var(--green); }
+.bt-rows{ margin:18px 0 0; padding:0; background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden; }
+.bt-rows > div{ display:flex; align-items:center; justify-content:space-between; gap:14px; padding:15px 16px; }
+.bt-rows > div + div{ border-top:1px solid var(--line-2); }
+.bt-rows dt{ font-size:13.5px; color:var(--muted); }
+.bt-rows dd{ margin:0; font-size:14.5px; font-weight:600; text-align:right; }
+.bt-price{ margin:18px 0 0; padding:18px 16px; background:var(--panel); border-radius:var(--r-lg); }
+.bt-price-row{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding:6px 0; }
+.bt-price-row span:first-child{ font-size:13.5px; color:var(--muted); }
+.bt-price-row span:last-child{ font-size:14px; font-weight:500; }
+.bt-price-row.is-off span:last-child{ color:var(--muted); }
+.bt-price-total{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-top:12px; padding-top:13px; border-top:1px solid var(--line); }
+.bt-price-total > span:first-child{ font-size:15px; font-weight:600; }
+.bt-price-total > b{ font-size:20px; font-weight:600; color:var(--terra-ink); white-space:nowrap; }
+.bt-price-foot{ margin:10px 0 0; font-size:12px; line-height:1.6; color:var(--muted); }
+.bt-form{ display:grid; gap:14px; margin-top:20px; }
+.bt-form label{ display:flex; flex-direction:column; gap:7px; }
+.bt-form span{ font-size:12.5px; font-weight:500; color:var(--muted-2); }
+.bt-form .bt-input{ height:50px; padding:0 13px; font-size:15px; background:var(--card); }
+
+/* ── success ───────────────────────────────────────────────── */
+.bt-ok{ max-width:560px; margin:0 auto; text-align:center; }
+.bt-ok-mark{ width:78px; height:78px; margin:0 auto; border-radius:50%; background:var(--green-tint); display:flex; align-items:center; justify-content:center; }
+.bt-ok h1{ margin:24px 0 0; font-size:25px; font-weight:600; letter-spacing:-.4px; }
+.bt-ok-lede{ margin:12px 0 0; font-size:14.5px; line-height:1.7; color:var(--muted); }
+.bt-ok-card{ margin:26px 0 0; padding:22px 18px; background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); }
+.bt-ok-card > span{ font-size:11.5px; font-weight:600; letter-spacing:1.6px; color:var(--muted-2); }
+.bt-ref{ margin:10px 0 0; font-size:27px; font-weight:600; letter-spacing:3px; }
+.bt-ok-rows{ margin:20px 0 0; padding:16px 0 0; border-top:1px solid var(--line-2); display:grid; gap:11px; text-align:left; }
+.bt-ok-rows > div{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
+.bt-ok-rows dt{ font-size:13px; color:var(--muted); }
+.bt-ok-rows dd{ margin:0; font-size:14px; font-weight:600; text-align:right; }
+.bt-ok-actions{ display:grid; gap:10px; margin-top:22px; }
+
+/* ── faq + travel ──────────────────────────────────────────── */
+.bt-faq{ margin-top:18px; border-top:1px solid var(--line); }
+.bt-faq > div{ border-bottom:1px solid var(--line); }
+.bt-q{
+  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  width:100%; padding:18px 2px; background:none; border:0; cursor:pointer;
+  text-align:left; font-size:15px; font-weight:600; line-height:1.5; color:var(--ink);
+}
+.bt-q svg{ flex:none; transition:transform .3s ease; }
+.bt-q[aria-expanded="true"] svg{ transform:rotate(180deg); }
+.bt-a{ display:grid; grid-template-rows:0fr; opacity:0; overflow:hidden; transition:grid-template-rows .34s ease, opacity .26s ease; }
+.bt-a > p{ margin:0; padding:0 2px 18px; font-size:14px; line-height:1.8; color:var(--muted); min-height:0; }
+.bt-q[aria-expanded="true"] + .bt-a{ grid-template-rows:1fr; opacity:1; }
+.bt-dist{ list-style:none; margin:16px 0 0; padding:0; }
+.bt-dist li{ display:flex; align-items:center; justify-content:space-between; gap:14px; padding:13px 0; border-bottom:1px solid var(--line-2); }
+.bt-dist span:first-child{ font-size:14.5px; color:var(--ink-2); }
+.bt-dist span:last-child{ font-size:14px; font-weight:600; color:var(--green); }
+.bt-addr{ display:block; font-style:normal; margin:20px 0 0; font-size:14px; line-height:1.8; color:var(--muted); }
+.bt-contact{ display:grid; gap:10px; margin-top:18px; }
+
+/* ── gallery view ──────────────────────────────────────────── */
+.bt-gv{ background:var(--dark); min-height:100vh; padding-bottom:70px; }
+.bt-gv-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.bt-gv-head .bt-icon{ background:rgba(250,247,242,.14); border-color:rgba(250,247,242,.3); color:var(--paper); }
+.bt-gv-head .bt-icon:hover{ background:rgba(250,247,242,.26); }
+.bt-gv-grid{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:16px; }
+.bt-gv-grid .bt-shot{ width:100%; height:150px; background:var(--dark-2); }
+
+/* ── sticky action bar (mobile) ────────────────────────────── */
+.bt-bar{
+  position:fixed; left:0; right:0; bottom:0; z-index:55;
+  display:flex; align-items:center; gap:12px;
+  padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  background:rgba(250,247,242,.97); border-top:1px solid var(--line);
+  -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+}
+.bt-bar[hidden]{ display:none; }
+.bt-bar-price{ display:flex; flex-direction:column; line-height:1.25; }
+.bt-bar-price span{ font-size:11.5px; color:var(--muted); }
+.bt-bar-price b{ font-size:17px; font-weight:600; }
+.bt-bar .bt-btn{ flex:1; min-height:52px; font-size:16px; }
+
+/* ── lightbox ──────────────────────────────────────────────── */
+.bt-lb{
+  position:fixed; inset:0; z-index:120;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px;
+  padding:70px 14px 40px; background:rgba(12,15,9,.95);
+}
+.bt-lb[hidden]{ display:none; }
+.bt-lb img{ max-width:100%; max-height:62%; object-fit:contain; border-radius:var(--r); }
+.bt-lb p{ margin:0; max-width:44ch; text-align:center; font-size:13px; line-height:1.6; color:rgba(250,247,242,.88); }
+.bt-lb-ctrl{ display:flex; align-items:center; gap:14px; }
+.bt-lb .bt-icon{ width:48px; height:48px; background:rgba(250,247,242,.14); border-color:rgba(250,247,242,.3); color:var(--paper); }
+.bt-lb .bt-icon:hover{ background:rgba(250,247,242,.26); }
+.bt-lb-count{ min-width:56px; text-align:center; font-size:13px; color:rgba(250,247,242,.85); }
+.bt-lb-close{ position:absolute; top:24px; right:16px; }
+
+/* ── reveal (own, small — demo pages never load site-ui.js) ──
+   Hidden with opacity + transform only. Never clip-path / visibility /
+   display / width:0 — Chrome subtracts a target's own clip-path from its
+   intersection rect, so the element reports ratio 0, never crosses the
+   threshold, and locks itself invisible with no console error. */
+.rv{ transform:translateY(14px); transition:transform .5s ease; }
+.rv.is-in{ transform:none; }
+
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{ animation-duration:.01ms !important; transition-duration:.01ms !important; scroll-behavior:auto !important; }
+  .rv{ transform:none; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ≥600px — two-up rooms, gallery becomes a grid, strips stop
+   scrolling sideways. The phone layout above is the design as
+   drawn; everything from here is the responsive extension.
+   ═══════════════════════════════════════════════════════════ */
+@media (min-width: 600px){
+  :root{ --pad:28px; }
+  body{ font-size:15.5px; }
+
+  .bt-feats{
+    display:grid; grid-template-columns:repeat(4,1fr); overflow:visible;
+    max-width:var(--wrap); margin:20px auto 0;
+  }
+  .bt-feat{ width:auto; }
+
+  .bt-rooms{ grid-template-columns:1fr 1fr; gap:18px; }
+  .bt-room-fig{ height:210px; }
+
+  /* first shot spans 2×2 so the strip reads as a composition, not a row */
+  .bt-gal{ display:grid; grid-template-columns:repeat(3,1fr); grid-auto-rows:150px; gap:10px; overflow:visible; }
+  .bt-gal .bt-shot{ width:100%; height:100%; }
+  .bt-gal .bt-shot:first-child{ grid-column:span 2; grid-row:span 2; }
+
+  .bt-cta{ display:flex; align-items:center; justify-content:space-between; gap:28px; padding:28px 30px; }
+  .bt-cta p{ font-size:20px; max-width:26ch; }
+  .bt-cta-actions{ grid-auto-flow:column; margin-top:0; }
+  .bt-cta-actions .bt-btn{ padding:0 24px; }
+
+  .bt-facts{ gap:20px; }
+  .bt-amen{ grid-template-columns:repeat(4,1fr); }
+  .bt-gv-grid{ grid-template-columns:repeat(3,1fr); }
+  .bt-gv-grid .bt-shot{ height:180px; }
+  .bt-foot-grid{ grid-template-columns:repeat(3,1fr); gap:30px; }
+  .bt-ok-actions{ grid-auto-flow:column; justify-content:center; }
+  .bt-ok-actions .bt-btn{ padding:0 28px; }
+  .bt-contact{ grid-auto-flow:column; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ≥900px — desktop. A real header replaces the in-hero controls,
+   the search widget turns into one horizontal bar, and the two
+   flow screens (room, summary) split into a scrolling column plus
+   a sticky action panel. The mobile sticky bar is retired here —
+   a fixed bottom bar on a 1440px screen is a phone pattern, and
+   the panel it becomes can carry the price and the CTA together.
+   ═══════════════════════════════════════════════════════════ */
+@media (min-width: 900px){
+  :root{ --pad:32px; --hd-h:68px; }
+
+  .bt-hd{ display:block; position:fixed; top:0; left:0; right:0; }
+  .bt-hd-in{ min-height:var(--hd-h); }
+  .bt-hero-nav{ display:none; }
+  .bt-burger{ display:none; }
+  .bt-drawer{ display:none !important; }
+  .bt-nav{ display:flex; align-items:center; gap:26px; }
+
+  .bt-bar{ display:none !important; }
+  body.bt-has-bar{ padding-bottom:0; }
+
+  .bt-view-pad{ padding-top:calc(var(--hd-h) + 34px); }
+  .bt-sec{ padding-top:56px; }
+  .bt-h2{ font-size:27px; }
+  .bt-page-title{ font-size:30px; }
+  .bt-sub{ font-size:15px; }
+
+  /* hero */
+  .bt-hero{ height:min(88vh,720px); }
+  .bt-hero-in{ bottom:112px; }
+  .bt-h1{ font-size:clamp(46px,5vw,64px); max-width:14ch; }
+  .bt-lede{ font-size:17px; max-width:48ch; }
+  .bt-badge{ font-size:11.5px; }
+
+  /* search bar */
+  .bt-search{ margin-top:-52px; }
+  .bt-search-in{
+    display:grid; grid-template-columns:1fr 1fr auto auto;
+    align-items:end; gap:20px; padding:22px 24px;
+    max-width:calc(var(--wrap) - var(--pad) * 2); margin:0 auto;
+  }
+  .bt-dates{ display:contents; }
+  .bt-guests{ margin:0; padding:0; border-top:0; flex-direction:column; align-items:flex-start; gap:6px; }
+  .bt-guests > span{ font-size:11.5px; font-weight:500; color:var(--muted-2); }
+  .bt-go{ width:auto; min-width:190px; margin:0; }
+  .bt-nights{ grid-column:1 / -1; margin:0; }
+
+  .bt-feats{ gap:18px; margin-top:34px; }
+  .bt-rooms{ gap:24px; }
+  .bt-room-fig{ height:250px; }
+  .bt-room-name, .bt-room-price{ font-size:19px; }
+  .bt-room-body{ padding:20px; }
+  .bt-gal{ grid-auto-rows:190px; }
+  .bt-gv-grid{ gap:12px; }
+  .bt-gv-grid .bt-shot{ height:230px; }
+
+  /* room detail — image and copy left, sticky booking panel right */
+  .bt-dt{
+    display:grid; grid-template-columns:minmax(0,1fr) 380px;
+    gap:0 44px; align-items:start;
+  }
+  .bt-dt-hero{
+    grid-column:1; grid-row:1;
+    height:430px; margin:calc(var(--hd-h) + 28px) 0 0;
+    border-radius:var(--r-lg); overflow:hidden;
+  }
+  /* The gradient goes (nothing sits over the image up here on desktop) but the
+     back control stays — it carries its own white ground, and without it the
+     room screen has no in-page way back to the grid. */
+  .bt-dt-ov{ display:none; }
+  .bt-dt-back{ top:20px; left:20px; }
+  .bt-dt-main{ grid-column:1; grid-row:2; }
+  .bt-dt-side, .bt-sum-b .bt-side-cta{ display:block; }
+  .bt-dt-price{ display:none; }
+  .bt-dt-side{
+    grid-column:2; grid-row:1 / span 2;
+    position:sticky; top:calc(var(--hd-h) + 28px);
+    margin-top:calc(var(--hd-h) + 28px);
+    background:var(--card); border:1px solid var(--line);
+    border-radius:var(--r-lg); padding:24px;
+  }
+  .bt-dt-title{ font-size:32px; }
+  .bt-dt-copy{ font-size:16px; }
+  .bt-shots .bt-shot{ width:260px; height:180px; }
+
+  /* summary — details left, sticky price + confirm right */
+  .bt-sum{ display:grid; grid-template-columns:minmax(0,1fr) 400px; gap:0 44px; align-items:start; }
+  .bt-sum-a{ grid-column:1; grid-row:1; }
+  .bt-sum-c{ grid-column:1; grid-row:2; }
+  .bt-sum-b{
+    grid-column:2; grid-row:1 / span 2;
+    position:sticky; top:calc(var(--hd-h) + 28px);
+  }
+  .bt-sum-room img{ width:112px; height:112px; }
+
+  /* faq — accordion left, travel and contact in a sticky card */
+  .bt-faqwrap{ display:grid; grid-template-columns:minmax(0,1fr) 360px; gap:44px; align-items:start; }
+  .bt-faq{ margin-top:22px; }
+  .bt-q{ font-size:16.5px; padding:22px 2px; }
+  .bt-a > p{ font-size:15px; }
+  .bt-faq-side{
+    position:sticky; top:calc(var(--hd-h) + 28px);
+    background:var(--card); border:1px solid var(--line);
+    border-radius:var(--r-lg); padding:24px;
+  }
+  .bt-faq-side .bt-h2{ font-size:20px; }
+  .bt-addr{ font-size:13.5px; }
+
+  .bt-foot{ margin-top:64px; }
+  .bt-faqlink{ display:none; }
+
+  .bt-lb img{ max-height:70%; }
+  .bt-lb-close{ top:32px; right:32px; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ≥1200px — only type and image scale change; no new layout.
+   ═══════════════════════════════════════════════════════════ */
+@media (min-width: 1200px){
+  .bt-hero-in{ bottom:128px; }
+  .bt-room-fig{ height:280px; }
+  .bt-gal{ grid-auto-rows:215px; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Everything below serves the sections that turn a booking
+   flow into a resort's website: dining, facilities, offers,
+   reviews, story, policies, and a rate engine whose prices
+   actually differ by date.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── language toggle ───────────────────────────────────────── */
+.bt-lang{ display:flex; align-items:center; gap:2px; border:1px solid var(--field); border-radius:999px; padding:2px; }
+.bt-hd.is-over .bt-lang{ border-color:rgba(255,255,255,.45); }
+.bt-lang button{
+  min-width:36px; padding:5px 9px; border:0; border-radius:999px; cursor:pointer;
+  background:transparent; color:inherit; font-size:12px; font-weight:600; letter-spacing:.4px;
+}
+.bt-lang button[aria-pressed="true"]{ background:var(--ink); color:var(--paper); }
+.bt-hd.is-over .bt-lang button[aria-pressed="true"]{ background:#fff; color:var(--ink); }
+
+/* ── breadcrumb ────────────────────────────────────────────── */
+.bt-crumb{ display:flex; flex-wrap:wrap; align-items:center; gap:7px; margin:0 0 14px; font-size:12.5px; color:var(--muted); }
+.bt-crumb a{ color:var(--muted); }
+.bt-crumb a:hover{ color:var(--green-d); }
+.bt-crumb svg{ flex:none; opacity:.55; }
+
+/* ── section intro ─────────────────────────────────────────── */
+.bt-lede-2{ margin:10px 0 0; max-width:62ch; font-size:15px; line-height:1.75; color:var(--muted); }
+.bt-eyebrow{ display:block; margin:0 0 8px; font-size:12px; font-weight:600; letter-spacing:1.6px; color:var(--green); }
+
+/* ── 14-day rate strip ─────────────────────────────────────── */
+.bt-strip-wrap{ margin-top:16px; }
+.bt-strip{ display:flex; gap:8px; overflow-x:auto; padding-bottom:6px; scrollbar-width:none; }
+.bt-strip::-webkit-scrollbar{ height:0; }
+.bt-day{
+  flex:none; width:74px; padding:9px 6px; text-align:center;
+  background:var(--card); border:1px solid var(--line-2); border-radius:10px;
+}
+.bt-day.is-sel{ border-color:var(--green); box-shadow:0 0 0 1px var(--green); }
+.bt-day .d{ font-size:11px; color:var(--muted-2); }
+.bt-day .n{ font-size:15px; font-weight:600; margin-top:2px; }
+.bt-day .p{ font-size:11.5px; font-weight:600; color:var(--green); margin-top:5px; }
+.bt-day.is-out{ background:var(--sand-bg); border-style:dashed; }
+.bt-day.is-out .p{ color:var(--muted); font-weight:500; }   /* --muted-2 is only 3.94:1 on --sand-bg */
+.bt-day.is-peak .p{ color:var(--terra-ink); }
+
+/* ── availability + scarcity on room cards ─────────────────── */
+.bt-room.is-out{ opacity:.62; cursor:not-allowed; }
+.bt-room.is-out:hover{ border-color:var(--line-2); box-shadow:none; }
+.bt-pill-out{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  background:rgba(20,26,18,.5); color:#fff; font-size:14px; font-weight:600; letter-spacing:.5px;
+}
+.bt-left{ display:block; margin-top:9px; font-size:12.5px; font-weight:600; color:var(--terra-ink); }
+.bt-from{ font-size:11.5px; font-weight:500; color:var(--muted-2); }
+
+/* ── promo code ────────────────────────────────────────────── */
+.bt-promo{ display:flex; gap:8px; margin-top:14px; }
+.bt-promo .bt-input{ flex:1; height:46px; text-transform:uppercase; }
+.bt-promo button{ flex:none; padding:0 18px; min-height:46px; }
+.bt-promo-msg{ margin:8px 0 0; font-size:12.5px; font-weight:600; min-height:16px; }
+.bt-promo-msg.ok{ color:var(--green-d); }
+.bt-promo-msg.no{ color:var(--terra-ink); }
+
+/* ── per-night breakdown ─────────────────────────────────────
+   NOT .bt-nights — that class already styles the one-line nights note in
+   the search card, and two rules under one name is how a collision ships. */
+.bt-nightlist{ margin:14px 0 0; border-top:1px solid var(--line-2); }
+.bt-night{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding:8px 0; border-bottom:1px solid var(--line-2); font-size:13px; }
+.bt-night .lbl{ color:var(--muted); }
+.bt-night .tag{ font-size:11px; font-weight:600; color:var(--terra-ink); margin-left:6px; }
+.bt-night .val{ font-weight:600; white-space:nowrap; }
+
+/* ── rating + reviews ──────────────────────────────────────── */
+.bt-score{ display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+.bt-score-big{ display:flex; align-items:baseline; gap:6px; }
+.bt-score-big b{ font-size:44px; font-weight:600; line-height:1; letter-spacing:-1px; }
+.bt-score-big span{ font-size:15px; color:var(--muted-2); }
+.bt-stars{ display:inline-flex; gap:2px; }
+.bt-stars svg{ width:15px; height:15px; }
+.bt-bars{ display:grid; gap:9px; margin-top:18px; max-width:420px; }
+.bt-bar{ display:grid; grid-template-columns:8.5rem 1fr auto; align-items:center; gap:12px; font-size:13px; }
+.bt-bar .track{ height:6px; border-radius:99px; background:var(--sand-bg); overflow:hidden; }
+.bt-bar .fill{ height:100%; border-radius:99px; background:var(--green); }
+.bt-bar .num{ font-weight:600; font-variant-numeric:tabular-nums; color:var(--muted); }
+
+.bt-reviews{ display:grid; gap:16px; margin-top:22px; }
+.bt-review{ background:var(--card); border:1px solid var(--line-2); border-radius:var(--r-lg); padding:18px; }
+.bt-review-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:14px; }
+.bt-avatar{
+  width:40px; height:40px; flex:none; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--sand-bg); color:var(--ink); font-weight:600; font-size:15px;
+}
+.bt-review-who{ display:flex; gap:12px; min-width:0; }
+.bt-review-name{ font-size:15px; font-weight:600; }
+.bt-review-meta{ margin-top:3px; font-size:12px; color:var(--muted-2); }
+.bt-verified{ display:inline-flex; align-items:center; gap:4px; margin-left:8px; color:var(--green-d); font-weight:600; }
+.bt-review-body{ margin:12px 0 0; font-size:14px; line-height:1.75; color:var(--ink-2); }
+.bt-reply{ margin:14px 0 0; padding:13px 14px; background:var(--sand-bg); border-radius:10px; }
+.bt-reply b{ display:block; font-size:12.5px; color:var(--green-d); margin-bottom:5px; }
+.bt-reply p{ margin:0; font-size:13px; line-height:1.7; color:var(--ink-2); }
+
+/* ── generic image + text split ────────────────────────────── */
+.bt-split{ display:grid; gap:20px; margin-top:20px; }
+.bt-split img{ width:100%; height:240px; object-fit:cover; border-radius:var(--r-lg); }
+.bt-split-body h3{ margin:0; font-size:19px; font-weight:600; }
+.bt-split-body p{ margin:10px 0 0; font-size:14.5px; line-height:1.75; color:var(--muted); }
+
+/* ── dining outlets ────────────────────────────────────────── */
+.bt-outlets{ display:grid; gap:20px; margin-top:20px; }
+.bt-outlet{ background:var(--card); border:1px solid var(--line-2); border-radius:var(--r-lg); overflow:hidden; }
+.bt-outlet img{ width:100%; height:210px; object-fit:cover; }
+.bt-outlet-body{ padding:18px; }
+.bt-outlet h3{ margin:0; font-size:19px; font-weight:600; }
+.bt-outlet .hours{ margin:7px 0 0; font-size:12.5px; color:var(--muted-2); }
+.bt-outlet p{ margin:11px 0 0; font-size:14px; line-height:1.7; color:var(--muted); }
+.bt-menu{ list-style:none; margin:14px 0 0; padding:13px 0 0; border-top:1px solid var(--line-2); }
+.bt-menu li{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding:5px 0; font-size:13.5px; }
+.bt-menu .price{ font-weight:600; color:var(--green); white-space:nowrap; }
+
+/* ── facilities ────────────────────────────────────────────── */
+.bt-facs{ display:grid; gap:16px; margin-top:20px; }
+.bt-fac{ background:var(--card); border:1px solid var(--line-2); border-radius:var(--r-lg); padding:18px; }
+.bt-fac h3{ margin:11px 0 0; font-size:16px; font-weight:600; }
+.bt-fac p{ margin:7px 0 0; font-size:13.5px; line-height:1.65; color:var(--muted); }
+.bt-fac .hours{ margin:9px 0 0; font-size:12px; color:var(--muted-2); }
+
+/* ── offers ────────────────────────────────────────────────── */
+.bt-offers{ display:grid; gap:18px; margin-top:20px; }
+.bt-offer{ position:relative; background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); padding:22px; }
+.bt-offer.is-lead{ border-color:var(--green); }
+.bt-offer-tag{
+  position:absolute; top:-11px; left:20px; padding:4px 11px; border-radius:999px;
+  background:var(--green); color:#fff; font-size:11.5px; font-weight:600;
+}
+.bt-offer h3{ margin:0; font-size:19px; font-weight:600; }
+.bt-offer .save{ margin:8px 0 0; font-size:22px; font-weight:600; color:var(--terra-ink); }
+.bt-offer p{ margin:11px 0 0; font-size:14px; line-height:1.7; color:var(--muted); }
+.bt-terms{ list-style:none; margin:14px 0 0; padding:0; }
+.bt-terms li{ position:relative; padding-left:18px; font-size:12.5px; line-height:1.7; color:var(--muted-2); }
+.bt-terms li::before{ content:"·"; position:absolute; left:6px; color:var(--sand); font-weight:700; }
+.bt-code{ display:inline-block; margin-top:13px; padding:5px 11px; border:1px dashed var(--sand); border-radius:8px; font-size:13px; font-weight:600; letter-spacing:1px; }
+
+/* ── policies ──────────────────────────────────────────────── */
+.bt-policy{ margin-top:20px; }
+.bt-ptable{ width:100%; border-collapse:collapse; font-size:13.5px; }
+.bt-ptable th, .bt-ptable td{ text-align:left; padding:11px 12px; border-bottom:1px solid var(--line-2); }
+.bt-ptable th{ font-size:12px; font-weight:600; color:var(--muted-2); }
+.bt-ptable td:last-child{ text-align:right; font-weight:600; white-space:nowrap; }
+.bt-ptable-wrap{ overflow-x:auto; border:1px solid var(--line-2); border-radius:var(--r-lg); background:var(--card); }
+
+/* ── location / map panel ──────────────────────────────────── */
+.bt-map{
+  position:relative; height:260px; border-radius:var(--r-lg); overflow:hidden;
+  background:
+    repeating-linear-gradient(0deg, rgba(196,165,130,.16) 0 1px, transparent 1px 26px),
+    repeating-linear-gradient(90deg, rgba(196,165,130,.16) 0 1px, transparent 1px 26px),
+    linear-gradient(160deg, #E7EFE6 0%, #DDE9E4 55%, #CFE0DE 100%);
+  border:1px solid var(--line-2);
+}
+.bt-map-sea{ position:absolute; inset:auto 0 0 0; height:38%; background:linear-gradient(180deg, rgba(120,170,175,.35), rgba(90,145,155,.55)); }
+.bt-map-pin{
+  position:absolute; top:44%; left:50%; transform:translate(-50%,-100%);
+  display:flex; flex-direction:column; align-items:center; gap:5px;
+}
+.bt-map-pin span{ background:var(--ink); color:var(--paper); font-size:12px; font-weight:600; padding:5px 11px; border-radius:999px; white-space:nowrap; }
+.bt-map-note{ position:absolute; left:12px; bottom:10px; font-size:11px; color:var(--muted); background:rgba(250,247,242,.85); padding:4px 9px; border-radius:7px; }
+.bt-routes{ list-style:none; margin:18px 0 0; padding:0; }
+.bt-routes li{ display:flex; align-items:baseline; justify-content:space-between; gap:14px; padding:12px 0; border-bottom:1px solid var(--line-2); }
+.bt-routes .how{ font-size:14px; color:var(--ink-2); }
+.bt-routes .t{ font-size:13.5px; font-weight:600; color:var(--green); white-space:nowrap; }
+
+/* ── home teasers ──────────────────────────────────────────── */
+.bt-teasers{ display:grid; gap:16px; margin-top:18px; }
+.bt-teaser{
+  position:relative; display:block; border-radius:var(--r-lg); overflow:hidden;
+  min-height:200px; color:#fff; text-align:left; padding:0; border:0; cursor:pointer;
+}
+.bt-teaser img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.bt-teaser-ov{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,26,18,.15) 30%, rgba(20,26,18,.72) 100%); }
+.bt-teaser-in{ position:relative; padding:18px; display:flex; flex-direction:column; justify-content:flex-end; min-height:200px; }
+.bt-teaser-in strong{ font-size:19px; font-weight:600; }
+.bt-teaser-in span{ margin-top:5px; font-size:13.5px; color:rgba(255,255,255,.9); }
+
+/* ── expanded footer ───────────────────────────────────────── */
+.bt-foot-legal{ margin-top:20px; font-size:11.5px; line-height:1.75; color:var(--muted-2); }
+.bt-foot-links{ display:flex; flex-wrap:wrap; gap:6px 18px; margin-top:12px; }
+.bt-foot-links button{ background:none; border:0; padding:0; cursor:pointer; font-size:13.5px; color:var(--green-d); }
+.bt-foot-links button:hover{ color:var(--ink); }
+
+/* ── responsive for the new blocks ─────────────────────────── */
+@media (min-width: 600px){
+  .bt-outlets{ grid-template-columns:1fr 1fr; }
+  .bt-facs{ grid-template-columns:1fr 1fr; }
+  .bt-offers{ grid-template-columns:repeat(3,1fr); }
+  .bt-teasers{ grid-template-columns:repeat(3,1fr); }
+  .bt-reviews{ grid-template-columns:1fr 1fr; }
+  .bt-split{ grid-template-columns:1fr 1fr; align-items:center; gap:28px; }
+  .bt-split img{ height:300px; }
+}
+@media (min-width: 900px){
+  .bt-facs{ grid-template-columns:repeat(3,1fr); }
+  .bt-split img{ height:360px; }
+  .bt-score-big b{ font-size:54px; }
+  .bt-map{ height:340px; }
+  .bt-teaser, .bt-teaser-in{ min-height:260px; }
+}

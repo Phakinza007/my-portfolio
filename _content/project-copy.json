@@ -35,12 +35,12 @@
     },
     "showcase-baan-talay": {
       "en": {
-        "long": "A beachfront resort site that carries a guest from picking dates to a confirmation screen, showing the room total, the service charge and the deposit before they commit.",
-        "short": "Beachfront resort site, dates through to a confirmation screen."
+        "long": "A beachfront resort site whose rates change with the season and the day of the week, where sold-out dates really are sold out, with reviews, dining, offers and a full Thai/English toggle.",
+        "short": "Beachfront resort site with a real rate engine and a Thai/English toggle."
       },
       "th": {
-        "long": "เว็บรีสอร์ตริมทะเลที่พาผู้เข้าพักจากเลือกวันไปจนถึงหน้ายืนยัน คิดค่าห้อง ค่าบริการ และยอดมัดจำให้เห็นครบก่อนกดจอง",
-        "short": "เว็บรีสอร์ตริมทะเล จากเลือกวันถึงหน้ายืนยันพร้อมยอดมัดจำ"
+        "long": "เว็บรีสอร์ตริมทะเลที่ราคาห้องเปลี่ยนตามฤดูกาลและวันในสัปดาห์จริง วันที่เต็มก็เต็มจริง พร้อมรีวิว ห้องอาหาร แพ็กเกจ และสลับไทย–อังกฤษได้ทั้งเว็บ",
+        "short": "เว็บรีสอร์ตริมทะเล ราคาเปลี่ยนตามวันจริง สลับสองภาษาได้"
       }
     },
     "showcase-bandairaek": {

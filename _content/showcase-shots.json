@@ -5,10 +5,11 @@
       "scroll": 0
     },
     "b": {
-      "url": "baan-talay#/room",
-      "scroll": 0,
-      "label_th": "บนเดสก์ท็อป หน้ารายละเอียดห้องแยกเป็นสองคอลัมน์ ภาพและรายละเอียดอยู่ซ้าย ส่วนราคา วันที่ และปุ่มจองเกาะนิ่งอยู่ขวา",
-      "label_en": "On desktop the room screen splits in two — photograph and detail on the left, a sticky panel holding the rate, the dates and the booking button on the right."
+      "url": "baan-talay#/rooms",
+      "selector": ".bt-strip-wrap",
+      "offset": -320,
+      "label_th": "แถบราคา 14 วันข้างหน้าบนหน้าห้องพัก — ราคาต่อคืนไม่เท่ากันในแต่ละวันเพราะคิดจากฤดูกาลและวันในสัปดาห์ และวันที่เต็มขึ้นว่าเต็มแล้ว",
+      "label_en": "The 14-day rate strip on the rooms screen — nightly prices differ from day to day because they follow the season and the day of the week, and dates with nothing left read as sold out."
     },
     "c": {
       "scroll": 0,
