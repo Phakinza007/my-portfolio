@@ -49,9 +49,9 @@
     .sb-logo{height:var(--tb-h);display:flex;align-items:center;gap:10px;padding:0 18px;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0}
     .logo-mark{width:32px;height:32px;border-radius:10px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;color:#fff;flex-shrink:0}
     .logo-text{font-size:.87rem;font-weight:700;color:#fff;letter-spacing:-.01em}
-    .logo-sub{font-size:.68rem;color:rgba(255,255,255,.35)}
+    .logo-sub{font-size:.68rem;color:rgba(255,255,255,.52)}
     .sb-nav{padding:10px;flex:1}
-    .nav-group{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.28);padding:16px 10px 6px}
+    .nav-group{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.50);padding:16px 10px 6px}
     .nav-item{display:flex;align-items:center;gap:9px;height:38px;padding:0 10px;border-radius:7px;font-size:.84rem;font-weight:500;color:rgba(255,255,255,.55);margin-bottom:2px;cursor:pointer;transition:background 140ms,color 140ms}
     .nav-item:hover{background:rgba(255,255,255,.07);color:#fff}
     .nav-item.active{background:var(--accent);color:#fff}
@@ -63,7 +63,7 @@
     .avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#a78bfa,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:#fff;flex-shrink:0}
     .avatar-lg{width:44px;height:44px;font-size:.9rem}
     .user-name{font-size:.8rem;font-weight:600;color:#fff}
-    .user-role{font-size:.68rem;color:rgba(255,255,255,.38)}
+    .user-role{font-size:.68rem;color:rgba(255,255,255,.52)}
 
     /* MAIN */
     .main{margin-left:var(--sb-w);flex:1;display:flex;flex-direction:column;min-width:0}
@@ -279,6 +279,14 @@
     @media(max-width:540px){.stats-row{grid-template-columns:1fr}.content{padding:16px}.topbar{padding:0 16px}}
     a:focus-visible,button:focus-visible{outline:3px solid rgba(124,58,237,.4);outline-offset:3px;border-radius:4px}
 
+    .sidebar.light-sb{background:var(--surface);border-right:1px solid var(--border)}
+    .sidebar.light-sb .logo-text,.sidebar.light-sb .nav-item{color:var(--ink)}
+    .sidebar.light-sb .logo-sub,.sidebar.light-sb .nav-group,
+    .sidebar.light-sb .user-role{color:var(--muted)}
+    .sidebar.light-sb .user-name{color:var(--ink)}
+    .sidebar.light-sb .nav-item:hover{background:var(--bg)}
+    .sidebar.light-sb .nav-item.active{background:var(--accent-bg);color:var(--accent)}
+    .sidebar.light-sb .sb-user,.sidebar.light-sb .sb-foot{border-color:var(--border)}
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
     /* CHECK-IN QR
@@ -361,6 +369,66 @@
   </div>
 </div>
 
+<!-- ADD CLIENT MODAL -->
+<div class="modal-backdrop" id="clientModal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="clientModalTitle" style="max-width:420px">
+    <div class="modal-head">
+      <span class="modal-title" id="clientModalTitle">Add client</span>
+      <button class="modal-close" id="clientModalClose" aria-label="Close">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label" for="c-name">Name *</label><input class="form-control" id="c-name" placeholder="e.g. Dara S." /></div>
+      <div class="form-group"><label class="form-label" for="c-email">Email</label><input class="form-control" id="c-email" type="email" placeholder="dara@example.com" /></div>
+      <div class="form-group"><label class="form-label" for="c-phone">Phone</label><input class="form-control" id="c-phone" type="tel" placeholder="08X-XXX-XXXX" /></div>
+      <div class="form-group"><label class="form-label" for="c-tier">Tier</label>
+        <select class="form-control" id="c-tier"><option>New</option><option>Regular</option><option>VIP</option></select>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline" id="clientModalCancel">Cancel</button>
+      <button class="btn btn-primary" id="clientModalSave">Add client</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD SERVICE MODAL -->
+<div class="modal-backdrop" id="serviceModal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="serviceModalTitle" style="max-width:420px">
+    <div class="modal-head">
+      <span class="modal-title" id="serviceModalTitle">Add service</span>
+      <button class="modal-close" id="serviceModalClose" aria-label="Close">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label" for="s-name">Service name *</label><input class="form-control" id="s-name" placeholder="e.g. Scalp Treatment" /></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="form-group"><label class="form-label" for="s-dur">Duration (min) *</label><input class="form-control" id="s-dur" type="number" min="15" step="15" value="60" /></div>
+        <div class="form-group"><label class="form-label" for="s-price">Price ($) *</label><input class="form-control" id="s-price" type="number" min="0" step="5" value="60" /></div>
+      </div>
+      <div class="form-group"><label class="form-label" for="s-emoji">Icon</label><input class="form-control" id="s-emoji" maxlength="2" value="&#128142;" /></div>
+      <div class="form-group"><label class="form-label" for="s-desc">Description</label><input class="form-control" id="s-desc" placeholder="One line shown on the card" /></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline" id="serviceModalCancel">Cancel</button>
+      <button class="btn btn-primary" id="serviceModalSave">Add service</button>
+    </div>
+  </div>
+</div>
+
+<!-- CLIENT PROFILE MODAL -->
+<div class="modal-backdrop" id="profileModal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle" style="max-width:460px">
+    <div class="modal-head">
+      <span class="modal-title" id="profileModalTitle">Client</span>
+      <button class="modal-close" id="profileModalClose" aria-label="Close">&#10005;</button>
+    </div>
+    <div class="modal-body" id="profileBody"></div>
+    <div class="modal-foot">
+      <button class="btn btn-outline" id="profileModalDone">Close</button>
+      <button class="btn btn-primary" id="profileBookBtn">Book appointment</button>
+    </div>
+  </div>
+</div>
+
 <!-- CHECK-IN QR MODAL -->
 <div class="modal-backdrop" id="qrModal">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="qrModalTitle" style="max-width:400px">
@@ -387,7 +455,8 @@
 <div class="modal-backdrop" id="cancelModal">
   <div class="modal" style="max-width:360px" role="dialog" aria-modal="true">
     <div class="modal-head"><span class="modal-title">Cancel Appointment</span><button class="modal-close" id="cancelModalClose">✕</button></div>
-    <div class="modal-body"><p style="font-size:.875rem;color:var(--ink-2)">Cancel appointment for <strong id="cancelClientName"></strong>? This cannot be undone.</p></div>
+    <div class="modal-body"><p style="font-size:.875rem;color:var(--ink-2)">Cancel appointment for <strong id="cancelClientName"></strong>? This cannot be undone.</p>
+      <p id="cancelPolicyNote" style="margin-top:10px;font-size:.8rem;color:var(--muted)"></p></div>
     <div class="modal-foot"><button class="btn btn-outline" id="cancelModalNo">Keep It</button><button class="btn btn-danger" id="cancelModalYes">Cancel Appointment</button></div>
   </div>
 </div>
@@ -468,7 +537,7 @@
       <div class="view active" id="view-dashboard">
         <div class="page-header">
           <div><h1 class="page-title">Dashboard</h1><div class="page-sub" id="dashDate">Today's overview</div></div>
-          <button class="btn btn-outline" onclick="toast('Report exported','success')">
+          <button class="btn btn-outline" id="exportBtn">
             <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Export
           </button>
@@ -574,7 +643,7 @@
       <div class="view" id="view-clients">
         <div class="page-header">
           <div><h2 class="page-title">Clients</h2><div class="page-sub" id="clientSub">All registered clients</div></div>
-          <button class="btn btn-primary" onclick="toast('Add client form coming soon','')">
+          <button class="btn btn-primary" id="addClientBtn">
             <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             Add Client
           </button>
@@ -606,7 +675,7 @@
       <div class="view" id="view-services">
         <div class="page-header">
           <div><h2 class="page-title">Services</h2><div class="page-sub">Manage your service menu</div></div>
-          <button class="btn btn-primary" onclick="toast('Add service form coming soon','')">
+          <button class="btn btn-primary" id="addServiceBtn">
             <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             Add Service
           </button>
@@ -654,34 +723,34 @@
         <div class="settings-grid">
           <div class="settings-section">
             <div class="settings-title">Business Info</div>
-            <div class="form-group"><label class="form-label">Business Name</label><input class="form-control" value="BookEase Studio" /></div>
-            <div class="form-group"><label class="form-label">Contact Email</label><input class="form-control" value="a0626568471@gmail.com" /></div>
-            <div class="form-group"><label class="form-label">Phone</label><input class="form-control" value="+66 (0) 62 656 8471" /></div>
-            <div class="form-group"><label class="form-label">Address</label><textarea class="form-control">123 Studio Lane, Bangkok, Thailand</textarea></div>
+            <div class="form-group"><label class="form-label">Business Name</label><input class="form-control" id="set-name" value="BookEase Studio" /></div>
+            <div class="form-group"><label class="form-label">Contact Email</label><input class="form-control" id="set-email" value="a0626568471@gmail.com" /></div>
+            <div class="form-group"><label class="form-label">Phone</label><input class="form-control" id="set-phone" value="+66 (0) 62 656 8471" /></div>
+            <div class="form-group"><label class="form-label">Address</label><textarea class="form-control" id="set-addr">123 Studio Lane, Bangkok, Thailand</textarea></div>
           </div>
           <div class="settings-section">
             <div class="settings-title">Booking Rules</div>
-            <div class="form-group"><label class="form-label">Booking Window (days ahead)</label><input class="form-control" type="number" value="30" /></div>
-            <div class="form-group"><label class="form-label">Min Notice (hours)</label><input class="form-control" type="number" value="2" /></div>
-            <div class="form-group"><label class="form-label">Buffer Between Appointments (min)</label><input class="form-control" type="number" value="15" /></div>
-            <div class="form-group"><label class="form-label">Cancellation Policy (hours)</label><input class="form-control" type="number" value="24" /></div>
+            <div class="form-group"><label class="form-label">Booking Window (days ahead)</label><input class="form-control" id="set-window" type="number" min="1" max="365" value="30" /></div>
+            <div class="form-group"><label class="form-label">Min Notice (hours)</label><input class="form-control" id="set-notice" type="number" min="0" max="72" value="2" /></div>
+            <div class="form-group"><label class="form-label">Buffer Between Appointments (min)</label><input class="form-control" id="set-buffer" type="number" min="0" max="120" value="15" /></div>
+            <div class="form-group"><label class="form-label">Cancellation Policy (hours)</label><input class="form-control" id="set-cancel" type="number" min="0" max="168" value="24" /></div>
           </div>
           <div class="settings-section">
             <div class="settings-title">Notifications</div>
-            <div class="toggle-row"><div><div class="toggle-label">Email confirmation on booking</div><div class="toggle-sub">Send to client automatically</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-            <div class="toggle-row"><div><div class="toggle-label">SMS reminder (24h before)</div><div class="toggle-sub">Reduce no-shows</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-            <div class="toggle-row"><div><div class="toggle-label">Staff notification on new booking</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-            <div class="toggle-row"><div><div class="toggle-label">Weekly revenue digest</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+            <div class="toggle-row"><div><div class="toggle-label">Email confirmation on booking</div><div class="toggle-sub">Send to client automatically</div></div><button type="button" class="toggle on" id="set-notify-email" role="switch" aria-checked="true" aria-label="Email confirmation on booking"></button></div>
+            <div class="toggle-row"><div><div class="toggle-label">SMS reminder (24h before)</div><div class="toggle-sub">Reduce no-shows</div></div><button type="button" class="toggle on" id="set-notify-sms" role="switch" aria-checked="true" aria-label="SMS reminder (24h before)"></button></div>
+            <div class="toggle-row"><div><div class="toggle-label">Staff notification on new booking</div></div><button type="button" class="toggle on" id="set-notify-staff" role="switch" aria-checked="true" aria-label="Staff notification on new booking"></button></div>
+            <div class="toggle-row"><div><div class="toggle-label">Weekly revenue digest</div></div><button type="button" class="toggle" id="set-digest" role="switch" aria-checked="false" aria-label="Weekly revenue digest"></button></div>
           </div>
           <div class="settings-section">
             <div class="settings-title">Calendar & Display</div>
             <div class="form-group"><label class="form-label">Start of Week</label>
-              <select class="form-control"><option>Monday</option><option>Sunday</option></select>
+              <select class="form-control" id="set-weekstart"><option>Monday</option><option>Sunday</option></select>
             </div>
-            <div class="form-group"><label class="form-label">Business Hours From</label><input class="form-control" type="time" value="09:00" /></div>
-            <div class="form-group"><label class="form-label">Business Hours To</label><input class="form-control" type="time" value="18:00" /></div>
-            <div class="toggle-row"><div><div class="toggle-label">Show cancelled appointments</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
-            <div class="toggle-row"><div><div class="toggle-label">Dark sidebar</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+            <div class="form-group"><label class="form-label">Business Hours From</label><input class="form-control" id="set-from" type="time" value="09:00" /></div>
+            <div class="form-group"><label class="form-label">Business Hours To</label><input class="form-control" id="set-to" type="time" value="18:00" /></div>
+            <div class="toggle-row"><div><div class="toggle-label">Show cancelled appointments</div></div><button type="button" class="toggle" id="set-showcancelled" role="switch" aria-checked="false" aria-label="Show cancelled appointments"></button></div>
+            <div class="toggle-row"><div><div class="toggle-label">Dark sidebar</div></div><button type="button" class="toggle on" id="set-darksidebar" role="switch" aria-checked="true" aria-label="Dark sidebar"></button></div>
           </div>
         </div>
       </div>
@@ -859,6 +928,7 @@
 
   function renderAppointments() {
     const filtered = appointments.filter(a => {
+      if (a.status === 'Cancelled' && !settings.showCancelled && apptFilter !== 'Cancelled') return false;
       const matchF = apptFilter === 'all' || a.status === apptFilter;
       const matchS = !searchQ || a.client.toLowerCase().includes(searchQ) || a.service.toLowerCase().includes(searchQ);
       return matchF && matchS;
@@ -949,6 +1019,8 @@
     if (e.target.classList.contains('cancel-btn')) {
       pendingCancelId = id;
       document.getElementById('cancelClientName').textContent = a.client;
+      document.getElementById('cancelPolicyNote').textContent =
+        'Policy: free cancellation up to ' + settings.cancelHours + ' hours before the appointment.';
       openModal('cancelModal');
     }
   });
@@ -961,11 +1033,13 @@
     document.getElementById('calMonth').textContent = `${MONTHS[calMonth]} ${calYear}`;
     const grid = document.getElementById('calGrid');
     grid.innerHTML = '';
-    ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].forEach(d => {
+    const DOW = settings.weekStart === 'Sunday'
+      ? ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'] : ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    DOW.forEach(d => {
       const el = document.createElement('div'); el.className = 'cal-dow'; el.textContent = d; grid.appendChild(el);
     });
     const firstDay = new Date(calYear, calMonth, 1).getDay();
-    const offset   = (firstDay === 0 ? 6 : firstDay - 1);
+    const offset   = settings.weekStart === 'Sunday' ? firstDay : (firstDay === 0 ? 6 : firstDay - 1);
     const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
     const isCurrentMonth = TODAY.getMonth()===calMonth && TODAY.getFullYear()===calYear;
 
@@ -1035,6 +1109,7 @@
     tbody.innerHTML = '';
     slice.forEach(c => {
       const tr = document.createElement('tr');
+      tr.dataset.cid = c.id;
       tr.innerHTML = `<td><div class="client-cell">
           <div class="client-avatar" style="background:${c.avatar}">${c.name.split(' ').map(w=>w[0]).join('')}</div>
           <div><div class="client-name">${c.name}</div><div class="client-email">${c.email}</div></div>
@@ -1045,8 +1120,8 @@
         <td><span class="badge ${tierCls[c.tier]||'b-blue'}">${c.tier}</span></td>
         <td><strong>${c.spent}</strong></td>
         <td><div class="row-actions">
-          <button class="row-btn" onclick="toast('Booking for ${c.name}','')">Book</button>
-          <button class="row-btn" onclick="toast('Viewing ${c.name} profile','')">View</button>
+          <button class="row-btn book-client-btn">Book</button>
+          <button class="row-btn view-client-btn">View</button>
         </div></td>`;
       tbody.appendChild(tr);
     });
@@ -1134,8 +1209,79 @@
     renderChart(p);
   });
 
+  /* ─── SETTINGS ───────────────────────────────────────────────
+     These controls used to change nothing: the toggles flipped a class and
+     Save produced a toast. Every setting below now drives real behaviour.
+     The four notification switches are the exception and are labelled as such
+     when saved — this page has no backend and will not pretend to send mail. */
+  var settings = {
+    name:'BookEase Studio', windowDays:30, minNotice:2, buffer:15, cancelHours:24,
+    weekStart:'Monday', from:'09:00', to:'18:00',
+    showCancelled:false, darkSidebar:true,
+    notifyEmail:true, notifySms:true, notifyStaff:true, digest:false
+  };
+  var TOGGLES = { 'set-notify-email':'notifyEmail', 'set-notify-sms':'notifySms',
+    'set-notify-staff':'notifyStaff', 'set-digest':'digest',
+    'set-showcancelled':'showCancelled', 'set-darksidebar':'darkSidebar' };
+  Object.keys(TOGGLES).forEach(function (id) {
+    var el = document.getElementById(id);
+    el.addEventListener('click', function () {
+      var on = !el.classList.contains('on');
+      el.classList.toggle('on', on);
+      el.setAttribute('aria-checked', on ? 'true' : 'false');
+    });
+  });
+
+  function readSettings() {
+    var v = function (id) { return document.getElementById(id).value; };
+    var n = function (id, d) { var x = parseInt(v(id), 10); return isNaN(x) ? d : x; };
+    settings.name = v('set-name').trim() || 'BookEase Studio';
+    settings.windowDays = n('set-window', 30);
+    settings.minNotice  = n('set-notice', 2);
+    settings.buffer     = n('set-buffer', 15);
+    settings.cancelHours= n('set-cancel', 24);
+    settings.weekStart  = v('set-weekstart');
+    settings.from = v('set-from') || '09:00';
+    settings.to   = v('set-to')   || '18:00';
+    Object.keys(TOGGLES).forEach(function (id) {
+      settings[TOGGLES[id]] = document.getElementById(id).classList.contains('on');
+    });
+  }
+  function timeOptions() {
+    function mins(t) { var p = t.split(':'); return (+p[0]) * 60 + (+p[1]); }
+    var out = [], start = mins(settings.from), end = mins(settings.to);
+    for (var m = start; m <= end; m += 30) {
+      var h = Math.floor(m / 60), mm = m % 60, ap = h < 12 ? 'AM' : 'PM';
+      var h12 = h % 12 === 0 ? 12 : h % 12;
+      out.push(h12 + ':' + (mm === 0 ? '00' : mm) + ' ' + ap);
+    }
+    return out;
+  }
+  function applySettings() {
+    document.querySelector('.logo-text').textContent = settings.name;
+    document.getElementById('sidebar').classList.toggle('light-sb', !settings.darkSidebar);
+    // business hours drive the booking form's time list
+    var sel = document.getElementById('b-time'), keep = sel.value;
+    sel.innerHTML = '<option value="">Select time</option>' +
+      timeOptions().map(function (t) { return '<option>' + t + '</option>'; }).join('');
+    if (timeOptions().indexOf(keep) >= 0) sel.value = keep;
+    // booking window caps the date picker
+    var max = new Date(TODAY); max.setDate(max.getDate() + settings.windowDays);
+    document.getElementById('b-date').max = toISODate(max);
+    document.getElementById('b-date').min = TODAY_ISO;
+    renderAppointments(); renderCalendar(); renderDashboard();
+  }
+  document.getElementById('saveSettingsBtn').addEventListener('click', function () {
+    readSettings(); applySettings();
+    var pending = ['notifyEmail','notifySms','notifyStaff','digest']
+      .filter(function (k) { return settings[k]; }).length;
+    toast(pending
+      ? 'Settings applied. ' + pending + ' notification setting' + (pending>1?'s':'') + ' need an email/SMS integration to actually send.'
+      : 'Settings applied', 'success');
+  });
+
   /* ─── MODALS: focus + escape ─────────────────────────────────
-     All three dialogs declare role="dialog" aria-modal="true". That is a
+     All six dialogs declare role="dialog" aria-modal="true". That is a
      promise that the rest of the page is unreachable, and it was not being
      kept: 24 background controls stayed in the tab order and nothing handled
      Escape. inert takes the background out; the Tab trap is the fallback for
@@ -1433,6 +1579,23 @@
     const svcName = svc.split(' — ')[0];
     const dur     = svc.match(/\d+ min/)?.[0] || '60 min';
     const price   = parseFloat((svc.match(/\$(\d+)/)||[,'0'])[1]);
+
+    /* The two settings that are actually booking rules get enforced here, so
+       changing them on Settings changes what the form will accept. */
+    const mins = t => { const m = /^(\d+):(\d+)\s*(AM|PM)$/i.exec(t); if (!m) return null;
+      let h = (+m[1]) % 12; if (/pm/i.test(m[3])) h += 12; return h * 60 + (+m[2]); };
+    const start = mins(time), len = parseInt(dur, 10) || 60;
+    const when = new Date(date + 'T00:00:00'); when.setMinutes(start);
+    const noticeMs = settings.minNotice * 3600000;
+    if (when.getTime() - Date.now() < noticeMs) {
+      toast(settings.minNotice + 'h minimum notice — pick a later slot', 'error'); return;
+    }
+    const clash = appointments.find(a => a.staff === staff && a.date === date && a.status !== 'Cancelled' &&
+      Math.abs(mins(a.time) - start) < Math.max(parseInt(a.dur,10) || 60, len) + settings.buffer);
+    if (clash) {
+      toast(staff.split(' ')[0] + ' is booked at ' + clash.time + ' — needs a ' + settings.buffer + ' min gap', 'error');
+      return;
+    }
     const rec = { id:nextApptId++, client, email, notes, service:svcName, staff, date, time, status:'Confirmed', dur, price };
     appointments.push(rec);   // email and notes were collected and dropped before
     closeBookModal(); renderAppointments(); renderDashboard();
@@ -1479,6 +1642,140 @@
   }
   document.getElementById('todayList').addEventListener('click', apptCardActivate);
   document.getElementById('todayList').addEventListener('keydown', apptCardActivate);
+
+  /* ─── ACTIONS THAT USED TO BE TOASTS ─────────────────────────
+     Export, Add client, Add service and the two client-row buttons all fired a
+     toast and did nothing else. They do the real thing now — all client-side,
+     because this page has no backend. */
+
+  /* Export: a real CSV of what the table is currently showing, built in the
+     browser and handed over as a download. No server round-trip. */
+  document.getElementById('exportBtn').addEventListener('click', () => {
+    const rows = appointments.filter(a => {
+      if (a.status === 'Cancelled' && !settings.showCancelled && apptFilter !== 'Cancelled') return false;
+      const mf = apptFilter === 'all' || a.status === apptFilter;
+      const ms = !searchQ || a.client.toLowerCase().includes(searchQ) || a.service.toLowerCase().includes(searchQ);
+      return mf && ms;
+    });
+    if (!rows.length) { toast('Nothing to export with the current filter','error'); return; }
+    const esc = v => '"' + String(v == null ? '' : v).replace(/"/g,'""') + '"';
+    const head = ['Reference','Client','Email','Service','Staff','Date','Time','Duration','Status','Price (USD)','Notes'];
+    const csv = [head.map(esc).join(',')].concat(rows.map(a => [
+      refFor(a.id), a.client, a.email || '', a.service, a.staff, a.date, a.time, a.dur, a.status, a.price, a.notes || ''
+    ].map(esc).join(','))).join('\r\n');
+    const blob = new Blob(['\ufeff' + csv], {type:'text/csv;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url; link.download = 'bookease-appointments-' + TODAY_ISO + '.csv';
+    document.body.appendChild(link); link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    toast(rows.length + ' appointment' + (rows.length!==1?'s':'') + ' exported as CSV', 'success');
+  });
+
+  /* Add client */
+  document.getElementById('addClientBtn').addEventListener('click', () => {
+    ['c-name','c-email','c-phone'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('c-tier').value = 'New';
+    openModal('clientModal');
+  });
+  document.getElementById('clientModalClose').addEventListener('click', ()=>closeModal('clientModal'));
+  document.getElementById('clientModalCancel').addEventListener('click', ()=>closeModal('clientModal'));
+  document.getElementById('clientModal').addEventListener('click', e=>{ if(e.target===e.currentTarget) closeModal('clientModal'); });
+  document.getElementById('clientModalSave').addEventListener('click', () => {
+    const name = document.getElementById('c-name').value.trim();
+    if (!name) { toast('Client name is required','error'); return; }
+    if (clients.some(c => c.name.toLowerCase() === name.toLowerCase())) { toast(name + ' is already a client','error'); return; }
+    const palette = ['#7c3aed','#3b82f6','#22c55e','#f59e0b','#ef4444','#14b8a6','#ec4899'];
+    clients.push({ id: Math.max.apply(null, clients.map(c=>c.id)) + 1, name: name,
+      email: document.getElementById('c-email').value.trim(),
+      phone: document.getElementById('c-phone').value.trim(),
+      visits: 0, last: '—', tier: document.getElementById('c-tier').value, spent: '$0',
+      avatar: palette[clients.length % palette.length] });
+    closeModal('clientModal');
+    /* Land on the page the new row is actually on. The table shows 8 at a time,
+       so a client who lands on page 2 looks exactly like nothing happening. If the
+       active filter excludes them, say so rather than leaving an empty-looking table. */
+    const visible = clients.filter(c => clientFilter === 'all' || c.tier === clientFilter);
+    const idx = visible.findIndex(c => c.name === name);
+    clientPage = idx < 0 ? clientPage : Math.floor(idx / clientRowsPerPage) + 1;
+    renderClients();
+    toast(idx < 0 ? name + ' added — clear the ' + clientFilter + ' filter to see them'
+                  : name + ' added', 'success');
+  });
+
+  /* Add service — also feeds the booking form's service list */
+  function syncServiceOptions() {
+    const sel = document.getElementById('b-service'), keep = sel.value;
+    sel.innerHTML = '<option value="">Select service</option>' + services.map(sv =>
+      '<option>' + sv.name + ' — ' + sv.dur + ' — ' + sv.price + '</option>').join('');
+    sel.value = keep;
+  }
+  document.getElementById('addServiceBtn').addEventListener('click', () => {
+    document.getElementById('s-name').value = '';
+    document.getElementById('s-desc').value = '';
+    document.getElementById('s-dur').value = 60;
+    document.getElementById('s-price').value = 60;
+    openModal('serviceModal');
+  });
+  document.getElementById('serviceModalClose').addEventListener('click', ()=>closeModal('serviceModal'));
+  document.getElementById('serviceModalCancel').addEventListener('click', ()=>closeModal('serviceModal'));
+  document.getElementById('serviceModal').addEventListener('click', e=>{ if(e.target===e.currentTarget) closeModal('serviceModal'); });
+  document.getElementById('serviceModalSave').addEventListener('click', () => {
+    const name = document.getElementById('s-name').value.trim();
+    const dur = parseInt(document.getElementById('s-dur').value, 10);
+    const price = parseInt(document.getElementById('s-price').value, 10);
+    if (!name || !dur || isNaN(price)) { toast('Name, duration and price are required','error'); return; }
+    if (services.some(sv => sv.name.toLowerCase() === name.toLowerCase())) { toast(name + ' already exists','error'); return; }
+    services.push({ emoji: document.getElementById('s-emoji').value || '\u2728', name: name,
+      dur: dur + ' min', price: '$' + price,
+      desc: document.getElementById('s-desc').value.trim() || 'No description yet', bookings: 0 });
+    closeModal('serviceModal'); renderServices(); syncServiceOptions();
+    toast(name + ' added to services', 'success');
+  });
+
+  /* Client row: Book prefills the booking form; View opens a real profile
+     assembled from that client's actual appointments. */
+  let profileClient = null;
+  document.getElementById('clientsTbody').addEventListener('click', e => {
+    const tr = e.target.closest('tr'); if (!tr || !tr.dataset.cid) return;
+    const c = clients.find(x => x.id === parseInt(tr.dataset.cid)); if (!c) return;
+    if (e.target.classList.contains('book-client-btn')) { openBookModal(); document.getElementById('b-client').value = c.name; }
+    if (e.target.classList.contains('view-client-btn')) openProfile(c);
+  });
+  function openProfile(c) {
+    profileClient = c;
+    const mine = appointments.filter(a => a.client === c.name);
+    const spent = mine.filter(a => a.status === 'Completed' || a.status === 'Confirmed')
+                      .reduce((t, a) => t + a.price, 0);
+    document.getElementById('profileModalTitle').textContent = c.name;
+    document.getElementById('profileBody').innerHTML =
+      '<div style="display:flex;gap:14px;align-items:center;margin-bottom:16px">' +
+        '<div style="width:46px;height:46px;border-radius:50%;background:' + c.avatar + ';color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">' +
+          c.name.charAt(0) + '</div>' +
+        '<div><div style="font-weight:700;color:var(--ink)">' + c.name + '</div>' +
+        '<div style="font-size:.8rem;color:var(--muted)">' + (c.email || 'no email') + ' &middot; ' + (c.phone || 'no phone') + '</div></div>' +
+        '<span class="badge b-purple" style="margin-left:auto">' + c.tier + '</span></div>' +
+      '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px">' +
+        '<div><div style="font-size:.7rem;color:var(--muted)">Bookings here</div><div style="font-weight:700">' + mine.length + '</div></div>' +
+        '<div><div style="font-size:.7rem;color:var(--muted)">Value</div><div style="font-weight:700">$' + spent + '</div></div>' +
+        '<div><div style="font-size:.7rem;color:var(--muted)">Last visit</div><div style="font-weight:700">' + c.last + '</div></div>' +
+      '</div>' +
+      (mine.length
+        ? '<div style="font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px">Appointments</div>' +
+          mine.map(a => '<div style="display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:.82rem">' +
+            '<span>' + a.date + ' &middot; ' + a.time + '</span>' +
+            '<span style="color:var(--muted)">' + a.service + '</span>' +
+            '<span class="badge ' + (statusCls[a.status]||'b-blue') + '">' + a.status + '</span></div>').join('')
+        : '<p style="font-size:.82rem;color:var(--muted)">No appointments on record yet.</p>');
+    openModal('profileModal');
+  }
+  document.getElementById('profileModalClose').addEventListener('click', ()=>closeModal('profileModal'));
+  document.getElementById('profileModalDone').addEventListener('click', ()=>closeModal('profileModal'));
+  document.getElementById('profileModal').addEventListener('click', e=>{ if(e.target===e.currentTarget) closeModal('profileModal'); });
+  document.getElementById('profileBookBtn').addEventListener('click', () => {
+    const c = profileClient; closeModal('profileModal');
+    openBookModal(); if (c) document.getElementById('b-client').value = c.name;
+  });
 
   /* ─── INIT ─── */
   renderDashboard();

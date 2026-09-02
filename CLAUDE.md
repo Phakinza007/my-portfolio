@@ -873,6 +873,85 @@ exactly like "no exposure" and is not. Patch each element's computed `font-famil
 only the webfont and keeping the rest of that element's own stack, and confirm the count is
 non-zero before believing a zero anywhere else.
 
+
+---
+
+## Every BookEase control does something
+
+Two passes, 2026-09-01 and 2026-09-02. `BookEase.html` is the ฿7,900 dashboard package's
+only proof, and it was the page a buyer was most likely to click through — so a control that
+fired a toast and changed nothing was the worst possible thing for it to be doing.
+
+**The audit's first answer was wrong, and the way it was wrong is the lesson.** A script that
+sliced the JS region starting from a comment block inserted near the *end* of the file missed
+24 KB and reported `calPrev`, `calNext`, `menuToggle` and `searchInput` as dead. They were
+never dead. **Before reporting an absence here, check the region you sliced actually covers
+the file** — this is the same class as the `e.onclick`/`addEventListener` miss recorded above.
+
+What was genuinely inert: **five toast-only stubs** (export report, add client, add service,
+and the two client-row buttons) and **six Settings toggles that only flipped a CSS class**.
+All eleven do the real thing now, client-side:
+
+- **Export** builds a CSV in the browser from the *currently filtered* appointments and hands
+  it over via `Blob` + `<a download>`. Eleven columns, BOM-prefixed for Excel. No server.
+- **Add client / Add service** open real modals, reject a blank name and a duplicate, push to
+  the in-memory array and re-render. Add-service also feeds the booking form's `<select>`,
+  so a service you invent is immediately bookable.
+- **Add client jumps to the page the new row is on.** The table shows 8 at a time; landing on
+  page 2 looks exactly like nothing happening. If the active tier filter excludes the new
+  client, the toast says so instead of leaving an empty-looking table.
+- **Client row → Book** prefills the booking form; **→ View** opens a profile assembled from
+  that client's actual appointments — count, value and history are computed, not stored.
+
+🔴 **Three Settings values are now real booking rules, and that is the part to not break.**
+`minNotice` rejects a slot closer than N hours; `buffer` rejects a same-staff appointment
+within `max(durations) + buffer` minutes; `weekStart` reorders **both** the calendar header
+labels and the grid offset. `showCancelled` genuinely filters the table, and business hours
+rebuild the time `select` — which is why the slot list is 9:00 AM–5:00 PM and not a constant.
+Verified by changing each setting and re-running the booking that the old value rejected.
+
+⚠️ **The notification switches are the honest exception.** Email, SMS, staff alerts and the
+daily digest cannot work — this page has no backend and must never claim one. `saveSettingsBtn`
+applies everything that *is* real and then names the ones that would need an integration.
+**Do not "finish" them by making them toast success.**
+
+The page now carries **six `.modal-backdrop` dialogs**, all driven by the same generic
+`openModal`/`closeModal` plus one global `keydown` handler (Escape, Tab trap, `inert` on
+`.app`). A seventh needs no new code — only `role="dialog"`, `aria-modal` and an
+`aria-labelledby`.
+
+⚠️ **The clients and appointments tables overflow 375px by 62px, and that is correct.** They
+sit inside `.tbl-wrap { overflow-x: auto }`, which genuinely scrolls; `canScrollX` is `false`
+and the wrapper's right edge is 358.7px. A per-element sweep flags it as overflow unless the
+scroller list is collected **after** switching to the view that renders the table — collecting
+it first is an instrument bug, and it reports 338–412px of overflow that does not exist.
+Confirmed against the committed baseline: byte-identical numbers.
+
+⚠️ **The sidebar had failed `color-contrast` on desktop since before this work, and mobile
+could not see it.** `.logo-sub`, `.nav-group` and `.user-role` sat at 2.5–3.55:1 against
+`#0f172a`; below 768px the sidebar is a translated-off drawer, so axe skipped it and the
+mobile run reported 100 while desktop sat at **96**. Confirmed pre-existing by running the
+committed baseline — same four nodes, same score. The three are `rgba(255,255,255,α)`, and
+**α 0.50–0.52 is what clears 4.5:1**; the smallest is bold 9.9px, which is still under 14pt
+and so gets no large-text exemption. **Run Lighthouse desktop as well as mobile on this page**
+— a sidebar-only failure is invisible to the mobile pass.
+
+The same edit fixed a real bug in the new light sidebar: its rules named `.nav-section`, a
+class that **appears nowhere else in the file**. The real ones are `.nav-group` and
+`.user-role`, and without them both stayed near-white on a white panel.
+
+🔴 **The light sidebar cannot be verified in the automated browser here.** Every read of
+`.nav-item`'s colour came back `rgba(255,255,255,.55)` — the dark value — even after setting
+`element.style.color` inline, which nothing in the page could out-specify. The tell was
+`d.styleSheets[0]` throwing `SecurityError` on `cssRules`: that tab carries an injected
+cross-origin stylesheet this page does not own. Ground truth came from writing a temp copy
+with `light-sb` hard-coded onto the `<aside>` and running headless Lighthouse against it —
+**100, `color-contrast` PASS**. When an inline style fails to win, suspect the instrument.
+
+Verified after: Lighthouse **desktop 100 / 100 / 100 / 100** and **mobile 97 / 100 / 100 / 100**,
+**CLS 0** on both, no duplicate ids, no button without an accessible name, and the guards still
+at zero (`fetch`, `XMLHttpRequest`, `<form`, `action=`, `localStorage`, CDN).
+
 ---
 
 ## Lessons from the 2026-08-07 site-wide audit
@@ -919,9 +998,10 @@ reviews, JWT auth", "full-stack". Measured, with `fetch(` in `assets/design-prev
 | `ElevateCommerce.html` | 0 | 0 | 0 | 0 |
 
 **Separate the feature claim from the backend claim — the features were all true.** BookEase
-really has 87 controls across 12 views and six back-office sections, and its "New Booking"
+really has 87 controls across 6 views and six back-office sections, and its "New Booking"
 modal really has client / email / date / time / service / staff / notes with required markers,
-a confirm step, and a time `select` of 9:00 AM–4:00 PM slots, all from a 27 KB inline script.
+a confirm step, and a time `select` of 9:00 AM–5:00 PM slots, all from one inline script
+(55.6 KB as of 2026-09-02 — see "Every BookEase control does something" below).
 Only the sentence about *where the data comes from* was false, so only that was replaced. Do
 not delete a working feature from the copy because a neighbouring sentence was wrong.
 
@@ -1053,7 +1133,7 @@ list the distinct values you actually found:
 
 **A zero is a claim about your instrument until you prove otherwise.**
 `BookEase.html` was reported as having a dead sidebar and a dead "New Booking"
-button. It has **86 controls, 12 switchable views and a 27 KB script**, and all of
+button. It has **87 controls, 6 switchable views and a 55.6 KB script**, and all of
 it works. The probe checked `e.onclick`, which is always `null` on this page
 because it binds with `addEventListener`; and the selector `^Appointments$` never
 matched that nav button, because it contains a `<span class="nav-badge">2</span>`,
