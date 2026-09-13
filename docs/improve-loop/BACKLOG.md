@@ -14,6 +14,13 @@ An item here is a candidate, not a commitment. One per iteration.
       Work table, the `other 5` / `ทั้งหมด` counts prose and the thumbnail tally
       all need re-reading against the DOM. Read the numbers off the files, never
       off the table.
+- [ ] **`showcase-supplymate` has no `short` copy in
+      `_content/project-copy.json`**, while `showcase-signalform` ± `-en` link to
+      it from their `#related` strips. Two locations of copy with no canonical;
+      `check-copy.py` reports clean because it only checks keys that exist. Add
+      both `th.short` and `en.short` from the text those strips already carry —
+      and read the strips before picking, the majority variant has been wrong
+      before.
 - [ ] **4 meta descriptions over 190 chars** — `SalonOS` (206),
       `showcase-baan-talay` (195), `showcase-baan-talay-en` (236),
       `showcase-salon-os-en` (214). Trim, don't rewrite: this is the owner's copy.
@@ -33,6 +40,18 @@ An item here is a candidate, not a commitment. One per iteration.
       `React Bits` (all Signalform's), so they are filterable by nobody. The
       harmless direction; the dangerous direction (a button with no card) is
       clean and the scan asserts it every run.
+
+## Open — new proof pieces (use the **portfolio-new-proof** skill)
+
+Justified by the `GAP` block above, in value order. One demo can fill two strips
+at once, which is what makes the first of these the best-value work on the site.
+
+- [ ] **A second dashboard demo** → fills `dashboard-ui` (1 project, the ฿7,900
+      package's only proof) *and* an industry `#related` if it is built for a
+      specific sector. Named in `CLAUDE.md` as the obvious next gap.
+- [ ] **A second gym demo** → `web-gym` (Iron Republic alone).
+- [ ] **A second solar demo** → `web-solar` (SolarPeak alone). Note `web-solar`
+      has no `#need` tile either; it is reached from `services` only.
 
 ## Open — needs a browser, so the scan will never raise it
 

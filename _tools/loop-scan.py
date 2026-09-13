@@ -161,6 +161,91 @@ def scan_proof():
     return rows
 
 
+# ------------------------------------------------------- proof-piece wiring
+def scan_wiring():
+    """A new project lands in ~14 places and only some of them fail loudly.
+
+    Measured against all 19 showcase pairs, which are 19/19 consistent today —
+    so anything this reports on a new one is a missed step, not a new pattern.
+    """
+    try:
+        shots = json.loads(read("_content/showcase-shots.json"))
+        copy = json.loads(read("_content/project-copy.json"))["projects"]
+    except Exception as exc:                                   # noqa: BLE001
+        add("BROKEN", "wiring", f"_content/ canonical files unreadable: {exc}")
+        return
+
+    grids = {g: read(g) for g in GRID_FILES}
+
+    # `short` is only used by #related strips on showcase / case-study pages, so
+    # it is required only for a project some strip actually links to. Match the
+    # .project-link anchor, not the bare slug: every -en page links its own Thai
+    # slug from the language toggle, and counting that reported two projects as
+    # missing copy they have no use for.
+    strip_refs = set()
+    anchor = re.compile(
+        r'<a[^>]*class="[^"]*\bproject-link\b[^"]*"[^>]*href="([^"]+)"'
+        r'|<a[^>]*href="([^"]+)"[^>]*class="[^"]*\bproject-link\b[^"]*"')
+    for page in html_files():
+        if not (page.startswith(("showcase-", "case-study-"))):
+            continue
+        for m in anchor.finditer(read(page)):
+            href = (m.group(1) or m.group(2)).rstrip("/")
+            strip_refs.add(href[:-3] if href.endswith("-en") else href)
+
+    pairs = 0
+    for f in sorted(html_files()):
+        if not f.startswith("showcase-") or f.endswith("-en.html"):
+            continue
+        slug, key = f[:-5], f[len("showcase-"):-5]
+        if slug + "-en.html" not in set(html_files()):
+            continue                                    # the bilingual check owns this
+        pairs += 1
+
+        for g, want in (("index.html", slug), ("work.html", slug),
+                        ("index-en.html", slug + "-en"), ("work-en.html", slug + "-en")):
+            if f'href="{want}"' not in grids[g]:
+                add("BROKEN", "wiring",
+                    f"{slug}: no card linking to {want} in {g} — the project exists "
+                    "but nothing in the grid reaches it")
+
+        entry = copy.get(slug)
+        if not entry:
+            add("DRIFT", "wiring",
+                f"{slug}: no entry in _content/project-copy.json — its blurb is "
+                "repeated across the grids and #related strips with no canonical")
+        else:
+            roles = ["long"] + (["short"] if slug in strip_refs else [])
+            for lang in ("th", "en"):
+                for role in roles:
+                    if not entry.get(lang, {}).get(role):
+                        where = ("its #related strips on other showcase pages carry "
+                                 "copy with no canonical, so check-copy.py cannot see "
+                                 "it drift" if role == "short" else
+                                 "its .work-problem blurb repeats across the grids "
+                                 "with no canonical")
+                        add("DRIFT", "wiring",
+                            f"{slug}: project-copy.json missing {lang}.{role} — {where}")
+
+        if key not in shots:
+            add("DRIFT", "wiring",
+                f"{slug}: key '{key}' missing from _content/showcase-shots.json — "
+                "its screenshots cannot be re-captured when the demo changes")
+        for suffix, view in (("", "A landing"), ("-b", "B mechanism"), ("-c", "C 375px")):
+            shot = f"assets/screenshots/{slug}{suffix}.jpg"
+            if not os.path.exists(os.path.join(ROOT, shot)):
+                add("DRIFT", "wiring", f"{slug}: missing view {view} ({shot})")
+
+        for side in (f, slug + "-en.html"):
+            if "story-price" not in read(side):
+                add("DRIFT", "wiring",
+                    f"{side}: no .story-price — required on every showcase page "
+                    "(19 sessions opened one and 1 reached Fastwork before it existed)")
+    info.append(f"proof-piece wiring checked on {pairs} showcase pairs "
+                f"(shots {len(shots)} keys · project-copy {len(copy)} keys · "
+                f"{len(strip_refs)} linked from a #related strip)")
+
+
 # ------------------------------------------------------------ page plumbing
 def scan_plumbing(fam):
     files = html_files()
@@ -330,6 +415,7 @@ def main():
     per_file = scan_cards()
     scan_tag_buttons(per_file)
     scan_proof()
+    scan_wiring()
     scan_plumbing(fam)
     scan_bilingual(fam)
     scan_links()

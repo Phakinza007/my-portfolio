@@ -12,6 +12,15 @@
   search-index coverage, thinnest `#related` strips) and its memory is
   `docs/improve-loop/LOG.md` + `BACKLOG.md` — **read the backlog's Rejected list before
   proposing site work**, it is where the owner's already-taken decisions live.
+- **portfolio-new-proof** (`.claude/skills/portfolio-new-proof/SKILL.md`) — add a whole
+  proof piece: a demo page + its TH/EN showcase pages + the ~14 wiring points a project
+  has to appear in. Trigger: "เพิ่มผลงานใหม่", "ทำ demo ใหม่", "add a new demo/showcase",
+  or when the improve loop decides the thinnest `#related` strip needs a second demo. The
+  checklist is derived from `80cf976` (the last one, 48 files) and is **asserted** by
+  `scan_wiring()` in `_tools/loop-scan.py`, which checks all 19 existing pairs — cards in
+  four grid files, a `project-copy.json` entry, a `showcase-shots.json` key, three
+  screenshots, `.story-price`. For a card pointing at a page that already exists, use
+  **portfolio-add-card** instead.
 - **portfolio-ship-change** (`.claude/skills/portfolio-ship-change/SKILL.md`) — pre-deploy
   checks. Trigger: "deploy", "ship it", "push", or any change touching both an `assets/`
   stylesheet/script and a `.html` file. Run `python3 _tools/check-deploy.py` before pushing;
@@ -672,7 +681,18 @@ plus the site search.
 - The CTA button is `#contact` on the homepages and `/#contact` everywhere else.
 - `process.html` is deliberately **not** a nav item — six links plus a search field plus two
   controls overflow at 1180px.
-- The 42 showcase / case-study / resume files keep their **contextual** nav on purpose: its
+- **Each showcase page carries three captured views of its demo, not one** — A landing,
+B the mechanism it brags about (1491 × 812), C the same demo at 375px — named
+`assets/screenshots/showcase-<key>{,-b,-c}.jpg`. The capture is declarative:
+`_content/showcase-shots.json` holds each key's url, view B's `selector`/`offset` (or its
+own `url`, for a mechanism that is a *state* rather than a scroll position) and both
+`label_th` / `label_en` captions, and `python3 _tools/capture-shots.py --key <key>`
+re-takes the set. **That it is one command is the point** — an image is a claim about the
+demo and goes stale as silently as a sentence, and a hand-staged capture is the one that
+never gets retaken. `--dry-run` lists what it would write; view A is excluded from `--all`
+and must be asked for by name.
+
+The 42 showcase / case-study / resume files keep their **contextual** nav on purpose: its
   links differ per page (`ดูเว็บจริง` points somewhere different on each), which a generic bar
   would destroy.
 

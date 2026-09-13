@@ -41,3 +41,37 @@ from re-proposing what iteration 2 rejected.
 - **Spawned** — the 5 `DRIFT` lines and the 3 one-link strips → `BACKLOG.md`.
   Deliberately not fixed in this iteration: the point of iteration 0 is the
   instrument, and mixing a site change into it would leave both unverified.
+
+## 2026-09-13 · iteration 0b — the wiring is asserted, not checklisted
+
+- **Finding** — the owner asked whether this loop is for adding showcase pages.
+  It is not, but that *is* its most common `GAP` outcome, and it is the largest
+  unit of work on the site: `80cf976` (BAAN TALAY + SALON OS) touched **48
+  files**, and most of those wiring points fail silently when missed.
+- **Change** — `scan_wiring()` in `_tools/loop-scan.py`, plus the
+  **portfolio-new-proof** skill whose checklist is derived from that commit
+  rather than from memory. Registered both in `CLAUDE.md`.
+- **Measured** — the wiring check runs on all **19** showcase pairs and asserts
+  five things each: a card in all four grid files (Thai slug in `index`/`work`,
+  `-en` slug in the `-en` pair), a `_content/project-copy.json` entry, a
+  `_content/showcase-shots.json` key, all three screenshots
+  (`{,-b,-c}.jpg`) on disk, and `.story-price` on both sides. **19/19 pass**,
+  which is what makes the check usable as a checklist: anything it says about a
+  new pair is a missed step, not a new pattern.
+- **Found while writing it** — `showcase-supplymate` has no `short` copy in
+  `project-copy.json`, while two `#related` strips on `showcase-signalform` ±
+  `-en` link to it. Those two locations carry copy with **no canonical**, so
+  `check-copy.py` cannot see them drift — it reports "all repeated copy agrees"
+  because it only checks keys that exist. Left for the next iteration.
+- **Verified** — `check-copy.py` clean (248 occurrences, 23 projects),
+  `check-deploy.py` clean (no versioned asset touched). No page changed.
+- **Learned** — two things:
+  1. **The first version of the `short` check was wrong**, and wrong in the way
+     CLAUDE.md warns about: it counted `href="showcase-signalform"` and reported
+     missing copy, but the only reference was that page's own **language
+     toggle**. Match the `.project-link` anchor, not the bare slug. Required
+     copy is conditional on a real reference.
+  2. **`CLAUDE.md` did not describe the screenshot pipeline at all** — it still
+     read as one hero image per showcase, where the repo has three declared
+     views and a command to re-take them. Now documented.
+- **Spawned** — supplymate's missing `short` → `BACKLOG.md`.
