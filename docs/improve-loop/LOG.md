@@ -212,3 +212,45 @@ from re-proposing what iteration 2 rejected.
      `showcase-salon-os` carries `data-tags="Dashboard|…"` yet `dashboard-ui.html`'s
      `#related` still lists only BookEase — so the thinnest strip on the site is a **wiring
      miss from the SALON OS addition, not a missing demo.** Two files, not a new build.
+
+## 2026-09-13 · iteration 4 — the thinnest strip on the site was a wiring miss
+
+- **Finding** — `dashboard-ui` ± `-en` showed **1** `.project-link`, the thinnest strip on the
+  site, against `landing-page`'s 9. The backlog (and `CLAUDE.md`) called this "the obvious next
+  gap" needing **a second dashboard demo**. Measuring first said otherwise:
+  `showcase-salon-os` already carries `data-tags="Dashboard|Booking|Design System|Light UI|
+  Thai|Interactive"` and was reachable by `.project-link` from **only two pages** (VELVÉ's
+  strips). SALON OS went into the grid and was never wired into the package page it belongs to.
+- **Change** — added SALON OS as the second `.project-link` in `#related` on `dashboard-ui`
+  and `dashboard-ui-en`, using `_content/project-copy.json`'s `long` verbatim per the
+  category-page recipe. **Two files. Nothing built.**
+- **Measured** — `dashboard-ui` **1 → 2**; `check-copy.py` occurrences 254 → **256**, still
+  agreeing, which is the machine confirming the new blurbs match the canonical byte for byte
+  rather than me eyeballing them.
+- **Verified in a browser, since a page changed:**
+  - Lighthouse mobile on `dashboard-ui`: **A11y 100 · SEO 100 · CLS 0 · LCP 1.7s**, and
+    identical to the **committed baseline** (`git stash`, re-run, pop) on every category —
+    including the one failing audit, `errors-in-console`, which is a single
+    `ERR_CONNECTION_RESET` from this sandbox blocking an outbound font/analytics request.
+    Pre-existing, not mine. Best Practices reads 96 rather than the documented 77 because
+    **Clarity does not load on localhost**, so its third-party-cookie deduction cannot appear
+    in a local run — worth knowing before reading 96 as an improvement.
+  - 375 × 812 on both pages: `canScrollX: false`, `bodyScrollWidth` exactly 375, and a
+    per-element right-edge sweep finding **zero** unclipped overflow, with 2 `.project-link`s
+    rendered.
+- **Also added** — `_tools/overflow-check.js`, the sweep above as one command. The review step
+  asks for it every iteration, and a check that has to be rebuilt each time is a check that
+  gets skipped. It drives a real Chromium over CDP, awaits `document.fonts.ready`, forces
+  `scroll-behavior: auto` and neutralises `.reveal` — the three things a naive headless run
+  gets wrong here — and ignores anything inside an `overflow-x` scroller, so BookEase's tables
+  stay correctly unflagged.
+- **Instrument fix** — `PACKAGE_PAGES` measured only the three Thai category pages, so an
+  `-en` strip could have been thin on its own with nothing reporting it. Now both languages
+  are measured: `landing-page-en` 9 = `landing-page` 9 and `dashboard-ui-en` 2 =
+  `dashboard-ui` 2, so there was no hidden asymmetry — a verified negative, not an assumption.
+- **Learned** — **re-measure before believing a GAP needs new work.** Two documents, written
+  at different times, both said this needed a new demo; the repo said it needed a link. The
+  cheapest fix on the site was sitting behind a sentence nobody re-checked.
+- **Spawned** — `showcase-salon-os` is still absent from `web-booking`'s `#related` (which has
+  3, so not a gap) — a judgment call about whether a salon queue calendar belongs on the
+  booking-industry page, left for the owner rather than taken here.

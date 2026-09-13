@@ -132,7 +132,10 @@ def scan_tag_buttons(per_file):
 
 
 # ------------------------------------------------------------- proof strips
-PACKAGE_PAGES = ["landing-page.html", "dashboard-ui.html", "business-website.html"]
+# Both languages: an -en category page has its own strip and can be thin on its own.
+PACKAGE_PAGES = [f"{slug}{suffix}.html"
+                 for slug in ("landing-page", "dashboard-ui", "business-website")
+                 for suffix in ("", "-en")]
 
 
 def scan_proof():

@@ -151,9 +151,17 @@ Then, in a browser:
   contrast failure is invisible to the mobile pass. Read the per-audit
   failures, never the category score alone: `label-content-name-mismatch` has
   weight 0 and fails silently at 100.
-- **375 × 812 overflow.** `canScrollX: false` is necessary and **not
-  sufficient** — `html, body { overflow-x: hidden }` hides real overflow, so
-  sweep element right edges too. Two documented bugs hid exactly there.
+- **375 × 812 overflow**, one command:
+  `node _tools/overflow-check.js http://localhost:8123/<page>`. `canScrollX: false`
+  is necessary and **not sufficient** — `html, body { overflow-x: hidden }` hides
+  real overflow, so the tool sweeps element right edges too and skips anything
+  inside an `overflow-x` scroller. Two documented bugs hid exactly there.
+- **Lighthouse needs `CHROME_PATH`** in this environment:
+  `export CHROME_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome`. And a
+  local run reports Best Practices ~96, not the documented 77, because **Clarity
+  does not load on localhost** — do not read that as an improvement. Compare
+  against the committed baseline (`git stash`, re-run, pop) before calling any
+  score a regression.
 - **Read the rendered page**, especially any copy you touched. Then re-grep the
   bare distinguishing token across all 96 files: repeated copy has variants,
   and one grep has twice reported "done" with the last variant still live.

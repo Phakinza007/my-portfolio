@@ -35,13 +35,10 @@ An item here is a candidate, not a commitment. One per iteration.
 
 ## Open — GAP, ranked by what a buyer hits
 
-- [ ] **`dashboard-ui.html` / `-en` shows 1 project — and the fix is two files, not a new
-      demo.** `showcase-salon-os` already carries `data-tags="Dashboard|Booking|Design
-      System|Light UI|Thai|Interactive"`, but `dashboard-ui`'s `#related` still lists only
-      BookEase: SALON OS was added to the grid and never wired into the package page it
-      belongs to. Add it with the canonical `long` copy from `project-copy.json` (verbatim,
-      per the category-page recipe) and the thinnest strip on the site goes 1 → 2 without
-      building anything. **Re-measure before assuming a GAP needs a new page.**
+- [x] ~~`dashboard-ui` shows 1 project~~ — done in iteration 4 by wiring in SALON OS, which
+      was already tagged `Dashboard`. Two files, nothing built. Now at 2.
+- [ ] **`showcase-salon-os` is absent from `web-booking`'s `#related`** (3 links, so not a
+      gap). Owner's call: does a salon queue calendar belong on the booking-industry page?
 - [ ] **`web-gym.html` shows 1** (Iron Republic alone).
 - [ ] **`web-solar.html` shows 1** (SolarPeak alone). `web-solar` also has no
       `#need` tile — it reaches visitors through `services.html` only.
