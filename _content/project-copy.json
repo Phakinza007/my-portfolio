@@ -203,10 +203,12 @@
     },
     "showcase-supplymate": {
       "th": {
-        "long": "ร้านค้าส่งบรรจุภัณฑ์สำหรับคาเฟ่และร้านอาหาร — ขายเป็นลัง บอกชิ้นต่อลังและขั้นต่ำก่อนกดสั่ง"
+        "long": "ร้านค้าส่งบรรจุภัณฑ์สำหรับคาเฟ่และร้านอาหาร — ขายเป็นลัง บอกชิ้นต่อลังและขั้นต่ำก่อนกดสั่ง",
+        "short": "ร้านค้าส่งบรรจุภัณฑ์คาเฟ่ ขายเป็นลัง บอกขั้นต่ำก่อนกดสั่ง"
       },
       "en": {
-        "long": "A wholesale packaging store for cafés and restaurants — sold by the carton, with pieces per carton and minimum order stated up front."
+        "long": "A wholesale packaging store for cafés and restaurants — sold by the carton, with pieces per carton and minimum order stated up front.",
+        "short": "Wholesale packaging store sold by the carton, with minimums up front."
       }
     },
     "showcase-velve-aesthetics": {

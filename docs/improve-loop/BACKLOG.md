@@ -14,13 +14,17 @@ An item here is a candidate, not a commitment. One per iteration.
       Work table, the `other 5` / `ทั้งหมด` counts prose and the thumbnail tally
       all need re-reading against the DOM. Read the numbers off the files, never
       off the table.
-- [ ] **`showcase-supplymate` has no `short` copy in
-      `_content/project-copy.json`**, while `showcase-signalform` ± `-en` link to
-      it from their `#related` strips. Two locations of copy with no canonical;
-      `check-copy.py` reports clean because it only checks keys that exist. Add
-      both `th.short` and `en.short` from the text those strips already carry —
-      and read the strips before picking, the majority variant has been wrong
-      before.
+- [x] ~~`showcase-supplymate` has no `short` copy~~ — done in iteration 1,
+      together with the `check-copy.py` parser bug that hid it.
+- [ ] **`resume.html` / `resume-en.html` link five GitHub repos with their own
+      blurbs**, three for projects culled from the site on 2026-07-22
+      (`phakin-task-manager`, `phakin-knowledge-ai`, `phakin-invenflow`). Read
+      them against CLAUDE.md → "resume.html / resume-en.html still state the
+      opposite": those two pages still carry Node/Express/JWT/REST claims and a
+      `full-stack` bio line that the rest of the site retired on 2026-08-12, and
+      the PDF at `assets/resume-phakin-chawanpunya.pdf` is the honest document to
+      correct them against. This is the largest remaining true/false gap on the
+      site and it is copy, not code.
 - [ ] **4 meta descriptions over 190 chars** — `SalonOS` (206),
       `showcase-baan-talay` (195), `showcase-baan-talay-en` (236),
       `showcase-salon-os-en` (214). Trim, don't rewrite: this is the owner's copy.

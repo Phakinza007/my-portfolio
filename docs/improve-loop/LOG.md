@@ -75,3 +75,48 @@ from re-proposing what iteration 2 rejected.
      read as one hero image per showcase, where the repo has three declared
      views and a command to re-take them. Now documented.
 - **Spawned** — supplymate's missing `short` → `BACKLOG.md`.
+
+## 2026-09-13 · iteration 1 — check-copy.py could not see a minified page
+
+- **Finding** — `loop-scan.py` reported `showcase-supplymate` missing its `short`
+  copy while two `#related` strips link to it. Reading those strips turned up the
+  bigger fact: **`check-copy.py` was blind to both of them.** Its parser matched
+  `^\s*<span>…</span>\s*$` — the blurb alone on its own line, true of every other
+  page and false of `showcase-signalform` ± `-en`, which are emitted minified onto
+  one line. Six blurbs there were unguarded and the script printed
+  *"all repeated copy agrees"*.
+- **Change** — the parser now reads markup in document order instead of line by
+  line (`_tools/check-copy.py`), and the copy it exposed was canonicalized:
+  `showcase-supplymate` gained `th.short` / `en.short`, and the three blurbs in
+  each signalform strip now match the canonical text verbatim.
+- **Measured** — occurrences **248 → 254** (+6, exactly the two minified pages'
+  blurbs). Of those six, **four already disagreed with the canonical that
+  existed**: signalform's strip called HabitQuest *"Habit tracker
+  ที่สร้างแรงจูงใจผ่านเกม"* where the canonical says *"แอปสร้างนิสัย full-stack
+  เปลี่ยนนิสัยให้เป็นการผจญภัยแบบ RPG"*, and MuseRoom likewise. `loop-scan.py`
+  wiring findings **2 → 0**; DRIFT overall 7 → 5.
+- **Verified** — a **planted drift** on the minified page turns the script red
+  (exit 1, the file named). A green run on a parser change proves nothing without
+  that. Plus: `loop-scan.py --defects` (wiring clean), `check-deploy.py` (no
+  versioned asset), `<span>` balance 18/18 on both edited files, and the new
+  blurb lengths (57–69 chars) are inside the range the same component already
+  renders elsewhere.
+- **Learned** — three, one of them a mistake made and caught in this iteration:
+  1. **Widening a regex adds false positives in the other direction.** Reading
+     markup instead of lines immediately matched `resume.html`'s five external
+     GitHub anchors and reported ten unguarded blurbs that are not project copy
+     at all. The parser now skips `http(s)://` and `mailto:` hrefs.
+  2. **`json.dumps(…, indent=1)` reformatted all 442 lines** of
+     `project-copy.json` for a two-line addition. Reverted and done as a
+     surgical text insert. A generated rewrite of a hand-maintained file is not
+     a diff anyone can review.
+  3. Choosing the canonical for supplymate had **no majority to defer to** — one
+     location per language. The strip described the *stack* (`React และ Vite`);
+     the canonical `long` describes the *product* (sold by the carton, minimums
+     up front), which is the role `short` plays on every other project, so the
+     new text is tightened from `long`. Nothing new was claimed.
+- **Spawned** — `resume.html` / `resume-en.html` link five GitHub repos with
+  their own descriptions, three of them (`phakin-task-manager`,
+  `phakin-knowledge-ai`, `phakin-invenflow`) for projects **culled from the site
+  on 2026-07-22**. Worth reading against CLAUDE.md's note that the resume pages
+  still make backend claims the rest of the site retired. → `BACKLOG.md`
