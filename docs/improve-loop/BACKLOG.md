@@ -11,11 +11,8 @@ An item here is a candidate, not a commitment. One per iteration.
 
 - [x] ~~`CLAUDE.md` says 18 cards; `index.html` has 20~~ — done in iteration 2, along with
       sixteen other stale present-tense counts.
-- [ ] **Extend `scan_docs()` in `_tools/loop-scan.py` to assert the rest of CLAUDE.md's
-      counts** — showcase files, `assets/thumbs/`, TH/EN pairs, `search-index.json` entries,
-      `.story-card`s, `web-*` pages, contextual-nav files. Iteration 2 corrected seventeen
-      figures that only one of them was being checked; the other sixteen were found by a
-      human following that one line. Cheap to assert, and it stops the section rotting again.
+- [x] ~~Extend `scan_docs()` to assert the rest of CLAUDE.md's counts~~ — done in iteration
+      9: 14 counts asserted, all passing, with a planted-value control for three of them.
 - [x] ~~`showcase-supplymate` has no `short` copy~~ — done in iteration 1,
       together with the `check-copy.py` parser bug that hid it.
 - [ ] **`resume.html` / `resume-en.html` link five GitHub repos with their own
@@ -29,9 +26,8 @@ An item here is a candidate, not a commitment. One per iteration.
       site and it is copy, not code.
 - [x] ~~4 meta descriptions over 190 chars~~ — done in iteration 3, after fixing the scan
       to count decoded length (`&quot;` is 6 characters in the file and 1 on screen).
-- [ ] **`scan_plumbing()` measures `name="description"` only.** `showcase-salon-os-en` was
-      shipping a different string in `name=` than in `og:`/`twitter:`, and nothing could see
-      it. Compare the three per page.
+- [x] ~~Compare the three description tags per page~~ — done in iteration 9 as
+      `scan_description_trio()`, family-relative after two absolute rules proved too noisy.
 
 ## Open — GAP, ranked by what a buyer hits
 

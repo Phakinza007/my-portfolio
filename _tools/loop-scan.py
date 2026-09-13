@@ -457,14 +457,146 @@ def scan_coverage():
                 + " · ".join(f"{k} {len(v)}" for k, v in sorted(indexed.items())))
 
 
+# ------------------------------------------- description trio, per page family
+def _desc_trio(src):
+    got = {}
+    for m in re.finditer(r"<meta[^>]*>", src):
+        tag = m.group(0)
+        if "description" not in tag:
+            continue
+        k = re.search(r'(?:name|property)="([^"]*description)"', tag)
+        c = re.search(r'content="([^"]*)"', tag)
+        if k and c:
+            got[k.group(1)] = html.unescape(c.group(1)).strip()
+    return got
+
+
+def _family(f):
+    for pre in ("showcase-", "case-study-", "web-"):
+        if f.startswith(pre):
+            return pre.rstrip("-")
+    if f[:-5].rstrip("-en") in ("landing-page", "dashboard-ui", "business-website"):
+        return "category"
+    return "other"
+
+
+def scan_description_trio():
+    """Flag a page whose description/og/twitter relationship breaks its family's.
+
+    Absolute rules do not work here and both were tried: 34 of 96 pages carry
+    deliberately shorter social text, and six `web-*` siblings all drop the same
+    trailing CTA for Twitter — a convention, not a slip. The real bug found on
+    2026-09-13 was `showcase-salon-os-en` shipping a trailing sentence in
+    `name="description"` that `og:` and `twitter:` never had, while its 37 siblings
+    had identical trios. So the signal is deviation from the family, not any fixed
+    shape.
+    """
+    sig = defaultdict(dict)
+    for f in html_files():
+        got = _desc_trio(read(f))
+        if len(got) < 2:
+            continue
+        vals = set(got.values())
+        if len(vals) == 1:
+            shape = "all-equal"
+        elif any(a != b and (a.startswith(b) or b.startswith(a))
+                 for a in vals for b in vals):
+            shape = "one-is-another-plus-a-tail"
+        else:
+            shape = "independent-text"
+        sig[_family(f)][f] = shape
+
+    for fam, pages in sorted(sig.items()):
+        if len(pages) < 5:
+            continue
+        counts = defaultdict(int)
+        for shape in pages.values():
+            counts[shape] += 1
+        majority, n = max(counts.items(), key=lambda kv: kv[1])
+        if n / len(pages) < 0.8:
+            continue                      # no house style to deviate from
+        for f, shape in sorted(pages.items()):
+            if shape == majority:
+                continue
+            # Only the tail shape is evidence of a slip: a sentence appended to one
+            # copy and not the others. `independent-text` against an `all-equal`
+            # family is a deliberately tighter social line — showcase-signalform
+            # writes one, and it is arguably better than the family's pattern — so
+            # it is reported, not failed.
+            if shape == "one-is-another-plus-a-tail":
+                add("DRIFT", "meta trio",
+                    f"{f}: one description tag is another plus a tail, where {n} of "
+                    f"{len(pages)} '{fam}' pages keep all three identical — a copy was "
+                    "edited and its siblings left behind")
+            else:
+                add("INFO", "meta trio",
+                    f"{f}: '{shape}' where {n} of {len(pages)} '{fam}' pages are "
+                    f"'{majority}' — deliberate if the social line was written tighter")
+        info.append(f"meta trio: '{fam}' family {n}/{len(pages)} {majority}")
+
+
 # --------------------------------------------------------------- doc drift
 def scan_docs(per_file):
+    """Assert every count in CLAUDE.md that the repo can measure.
+
+    Iteration 2 corrected seventeen stale figures after ONE of them was checked;
+    the other sixteen were found by a human following that single line. Each of
+    these is the sort of number that is individually plausible for months.
+    """
     src = read("CLAUDE.md")
-    m = re.search(r"Current Cards in Selected Work \((\d+) cards", src)
-    real = per_file["index.html"]["cards"]
-    if m and int(m.group(1)) != real:
-        add("DRIFT", "docs", f"CLAUDE.md says {m.group(1)} cards in Selected Work; "
-                             f"index.html has {real}. The map is behind the territory")
+    files = html_files()
+    showcase = [f for f in files if f.startswith("showcase-")]
+    pairs = [f for f in files
+             if not f.endswith("-en.html") and f[:-5] + "-en.html" in set(files)]
+    thumbs = os.listdir(os.path.join(ROOT, "assets", "thumbs"))
+    try:
+        idx = json.loads(read("assets/search-index.json"))
+    except Exception:                                            # noqa: BLE001
+        idx = {}
+
+    checks = [
+        (r"Current Cards in Selected Work \((\d+) cards", per_file["index.html"]["cards"],
+         "cards in Selected Work"),
+        (r"All (\d+) showcase files", len(showcase), "showcase files"),
+        (r"All \d+ showcase files \((\d+) TH/EN pairs\)",
+         len([f for f in showcase if not f.endswith("-en.html")]), "showcase pairs"),
+        (r"`assets/thumbs/` holds\n(\d+) files", len(thumbs), "files in assets/thumbs"),
+        (r"\*\*(\d+) of the \d+ cards are `<img", sum(
+            1 for _ in re.finditer(r'class="[^"]*\bwork-thumb\b[^"]*"[^>]*>\s*<img[^>]*assets/thumbs/',
+                                   read("index.html"))) or None, "cards using an SVG thumb"),
+        (r"\n(\d+) pairs \(\d+ files\):", len(pairs), "TH/EN pairs"),
+        (r"\n\d+ pairs \((\d+) files\):", len(pairs) * 2, "files in TH/EN pairs"),
+        (r"hand-maintained, (\d+) entries per language",
+         len(idx.get("th", [])) or None, "search-index entries"),
+        (r"live on \*\*(\d+) pages\*\*",
+         sum(1 for f in files if "site-search.js" in read(f)), "site-search pages"),
+        (r"none of the (\d+) carries a `\.story-icon`",
+         sum(read(f).count('class="story-card') for f in files), ".story-card elements"),
+        (r"\nThe (\d+) showcase / case-study / resume files",
+         len(showcase) + len([f for f in files if f.startswith("case-study-")])
+         + len([f for f in files if f.startswith("resume")]), "contextual-nav files"),
+        (r"\*\*(\d+) labels, \d+ buttons",
+         len({t for d in per_file.values() for t in d["tags"]}), "distinct tag labels"),
+        (r"\*\*\d+ labels, (\d+) buttons",
+         len(set(re.findall(r'data-tag="([^"]+)"', read("work.html")))), "tag buttons"),
+        (r"The \*\*(\d+) project demo pages\*\*",
+         sum(1 for f in files if f != "404.html" and "home-shell.css" not in read(f)
+             and "portfolio-pages.css" not in read(f)), "demo pages"),
+    ]
+    checked = 0
+    for pat, real, label in checks:
+        if real is None:
+            continue
+        m = re.search(pat, src)
+        if not m:
+            add("INFO", "docs", f"CLAUDE.md: the sentence stating {label} was not found — "
+                                "reworded? this check is now blind to it")
+            continue
+        checked += 1
+        if int(m.group(1)) != real:
+            add("DRIFT", "docs", f"CLAUDE.md says {m.group(1)} {label}; measured {real}. "
+                                 "The map is behind the territory")
+    info.append(f"docs: {checked} of {len(checks)} CLAUDE.md counts asserted against the repo")
 
 
 def main():
@@ -479,6 +611,7 @@ def main():
     scan_bilingual(fam)
     scan_links()
     scan_coverage()
+    scan_description_trio()
     scan_docs(per_file)
 
     if "--json" in sys.argv:

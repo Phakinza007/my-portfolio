@@ -446,3 +446,41 @@ from re-proposing what iteration 2 rejected.
 - **Learned** — **when the loop runs out of things it can verify, the honest next step is a
   question, not a change.** Iterations 6–8 checked every claim this repo can settle; what is
   left needs the person who made the work.
+
+## 2026-09-13 · iteration 9 — turn iterations 2 and 3 into assertions
+
+- **Finding** — two items this loop spawned itself: `scan_docs()` asserted **one** of
+  CLAUDE.md's counts (iteration 2 corrected seventeen), and nothing compared a page's
+  `description` / `og:description` / `twitter:description`, which is how iteration 3's
+  mismatch stayed invisible to every check in the repo.
+- **Change 1 — all 14 measurable CLAUDE.md counts are now asserted**: cards, showcase files
+  and pairs, `assets/thumbs/` contents, cards using an SVG thumb, TH/EN pairs and their file
+  count, search-index entries, site-search pages, `.story-card`s, contextual-nav files, tag
+  labels, tag buttons, demo pages. All 14 pass, which independently re-confirms iteration 2.
+  If a sentence is reworded so a check cannot find it, that is reported as INFO rather than
+  passing silently — a check that stops matching is a check that stops checking.
+- **Change 2 — the description trio, and the rule took three attempts.** Each rejected
+  attempt is why the final one is worth having:
+  1. *"flag any page where the three differ"* → **34 of 96** pages carry deliberately shorter
+     social text. Pure noise.
+  2. *"flag when one is a strict prefix of another"* → **15**, and six of them are the
+     `web-*` family all dropping the same trailing CTA for Twitter. A pattern repeated across
+     six siblings is a convention, not a slip.
+  3. **Deviation from the page's own family.** The real bug was `showcase-salon-os-en`
+     carrying a tail in `name="description"` that `og:`/`twitter:` never had, while its 37
+     siblings had identical trios. So: group by family, find the majority shape, flag the
+     minority — and only fail on the *tail* shape, because that is the signature of one copy
+     being edited and its siblings left behind.
+- **It found a real deviation and I chose not to fail it.** `showcase-signalform` ± `-en`
+  write independent, tighter social lines where 36 of 38 showcase pages repeat one string.
+  That is not a stale copy — it is arguably better than the family's pattern — so it reports
+  as INFO. **A check that detects a difference cannot infer intent**; the honest version says
+  what it saw and names the benign explanation.
+- **Verified** — three wrong counts planted into `CLAUDE.md` (36 showcase files, 39
+  search-index entries, 136 `.story-card`s) were each caught with the measured value named;
+  and **iteration 3's exact bug, re-planted verbatim**, turns the trio check red. Both
+  restored. `loop-scan.py` BROKEN 0, DRIFT 0; `check-copy.py` and `check-deploy.py` clean.
+- **Learned** — **calibrate a new check against the bug it was built for and against the
+  site's normal variation, before believing either its passes or its failures.** The first two
+  rules here would each have shipped a permanently noisy check, and noise is how a gate stops
+  being read.
