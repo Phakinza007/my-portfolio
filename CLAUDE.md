@@ -3,6 +3,15 @@
 ## Skills
 
 - **portfolio-add-card** (`.claude/skills/portfolio-add-card/SKILL.md`) — full workflow for adding a new project card. Trigger: any request to "add [page] to the portfolio", "link this page", "create a card for X", or "new project card".
+- **portfolio-improve-loop** (`.claude/skills/portfolio-improve-loop/SKILL.md`) — one
+  research → do → review iteration on the site, driven by measured evidence rather than
+  by re-reading this file. Trigger: "ทำให้เว็บดีขึ้น", "รอบปรับปรุง", "หาอะไรทำต่อ",
+  "what should I work on next", or `/loop /portfolio-improve-loop`. Its research step is
+  `python3 _tools/loop-scan.py` (all 96 pages: dead links and anchors, `.filter-count`
+  drift, tag buttons with no card, hreflang/canonical/`og:locale`, sitemap and
+  search-index coverage, thinnest `#related` strips) and its memory is
+  `docs/improve-loop/LOG.md` + `BACKLOG.md` — **read the backlog's Rejected list before
+  proposing site work**, it is where the owner's already-taken decisions live.
 - **portfolio-ship-change** (`.claude/skills/portfolio-ship-change/SKILL.md`) — pre-deploy
   checks. Trigger: "deploy", "ship it", "push", or any change touching both an `assets/`
   stylesheet/script and a `.html` file. Run `python3 _tools/check-deploy.py` before pushing;
