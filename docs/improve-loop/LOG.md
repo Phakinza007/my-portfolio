@@ -120,3 +120,52 @@ from re-proposing what iteration 2 rejected.
   `phakin-knowledge-ai`, `phakin-invenflow`) for projects **culled from the site
   on 2026-07-22**. Worth reading against CLAUDE.md's note that the resume pages
   still make backend claims the rest of the site retired. → `BACKLOG.md`
+
+## 2026-09-13 · iteration 2 — CLAUDE.md's present tense was two demos behind
+
+- **Finding** — `scan_docs()`: *"CLAUDE.md says 18 cards; index.html has 20."* Reading around
+  that one line found the same staleness in sixteen other places, because every count in the
+  doc was written by hand at a different time.
+- **Change** — 25 edits to `CLAUDE.md`, under one rule: **a number describing the present
+  must be true now; a number describing the past stays exactly as written.** So
+  *"stripped from twelve files on 2026-08-07"*, *"115 projects"* on bigzweb, *"128 cards and
+  128 badges"* and *"161.5 KB of HTML removed"* are all untouched, while every count of what
+  the repo contains today was re-derived from the files.
+- **Measured** — each new figure verified against the repo, not against another doc:
+
+  | claim | was | measured |
+  |---|---|---|
+  | Selected Work cards | 18 (17 + RAAT) | **20** (19 + RAAT) |
+  | `.filter-count` fallback line | all 18 / other 5 | all 20 / other 5 |
+  | cards using an SVG thumb | 16 of 18 | **18 of 20** |
+  | `assets/thumbs/` | "exactly those 14 files" | **30** (18 SVG + 12 unused JPG) |
+  | showcase files | 32 / 34 (both in use) | **38** (19 TH/EN pairs) |
+  | case studies | 4 | **5** |
+  | TH/EN pairs | 23 pairs (46 files) | **34 pairs (68 files)** |
+  | demo pages with no `-en` twin | 16 | **19** |
+  | site-search pages | 70 (87 − 16 − 1) | **76** (96 − 19 − 1) |
+  | `search-index.json` entries | 39 per language | **42** |
+  | `.story-card`s sitewide | 136 | **160** |
+  | contextual-nav files | 42 | **50** (38 + 10 + 2) |
+  | industry pages | "Seven exist" / "The 7 industry pages" | **8** (`web-organization` was missing from both lists) |
+  | `#projects` row | 13 project cards | **20** |
+  | work archive vs bigzweb | "this one 16" | **20** |
+
+  Two rows were **internally** contradictory before this, which is the tell that these are
+  hand-written: the thumbnail section said *16 of the 18 cards* are SVGs and that the folder
+  holds *exactly those 14 files*, and the showcase layout was *32 files* in one section and
+  *34 pages* in two others.
+- **Verified** — every figure re-derived by script after the edit (`cards 20`, `showcase 38`,
+  `thumbs 30/18`, `search-index 42`, `site-search 76`, `story-price 38/38`, `web-* 8`,
+  `50 contextual`, `9 filter buttons`); the full diff read line by line to confirm no
+  historical figure moved; four lines rewrapped to the file's ~90-char convention.
+  `loop-scan.py` DRIFT **5 → 4**, the `docs` finding gone. No browser check: `CLAUDE.md` is
+  excluded in `_config.yml` and is not served.
+- **Learned** — **the doc drifts one number at a time, and each one is individually plausible.**
+  Nothing here was a mistake at the time of writing; the file simply has no mechanism that
+  re-reads it. `scan_docs()` currently asserts only the card count, and that one line was
+  enough to surface sixteen others — but only because a human followed it. Asserting the rest
+  is cheap and is the obvious next move.
+- **Spawned** — extend `scan_docs()` to assert the other measurable counts (showcase files,
+  thumbs, pairs, search-index, story-cards, `web-*`), so this section cannot go stale again
+  without the scan saying so. → `BACKLOG.md`

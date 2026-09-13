@@ -9,11 +9,13 @@ An item here is a candidate, not a commitment. One per iteration.
 
 ## Open — DRIFT (fix before adding anything new)
 
-- [ ] **`CLAUDE.md` says 18 cards; `index.html` has 20.** Two demos landed after
-      it was last updated (`SalonOS.html`, `baan-talay.html`) and the Selected
-      Work table, the `other 5` / `ทั้งหมด` counts prose and the thumbnail tally
-      all need re-reading against the DOM. Read the numbers off the files, never
-      off the table.
+- [x] ~~`CLAUDE.md` says 18 cards; `index.html` has 20~~ — done in iteration 2, along with
+      sixteen other stale present-tense counts.
+- [ ] **Extend `scan_docs()` in `_tools/loop-scan.py` to assert the rest of CLAUDE.md's
+      counts** — showcase files, `assets/thumbs/`, TH/EN pairs, `search-index.json` entries,
+      `.story-card`s, `web-*` pages, contextual-nav files. Iteration 2 corrected seventeen
+      figures that only one of them was being checked; the other sixteen were found by a
+      human following that one line. Cheap to assert, and it stops the section rotting again.
 - [x] ~~`showcase-supplymate` has no `short` copy~~ — done in iteration 1,
       together with the `check-copy.py` parser bug that hid it.
 - [ ] **`resume.html` / `resume-en.html` link five GitHub repos with their own
