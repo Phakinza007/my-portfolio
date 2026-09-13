@@ -169,3 +169,46 @@ from re-proposing what iteration 2 rejected.
 - **Spawned** — extend `scan_docs()` to assert the other measurable counts (showcase files,
   thumbs, pairs, search-index, story-cards, `web-*`), so this section cannot go stale again
   without the scan saying so. → `BACKLOG.md`
+
+## 2026-09-13 · iteration 3 — four meta descriptions, and the ruler was wrong
+
+- **Finding** — the last four `DRIFT` lines: meta descriptions at 236 / 214 / 206 / 195
+  characters against the site's 190 ceiling. CLAUDE.md's own precedent is *"only those over
+  190 were trimmed, because shortening the rest means rewriting his copy"* — so this is
+  sanctioned trimming, not a rewrite.
+- **Change before the change** — `loop-scan.py` was counting the **source** string.
+  `SalonOS.html` uses `&quot;` twice, six characters each in the file and one on screen, so
+  it measured **206 against a real 196** — the instrument put it 16 over the line where the
+  copy is 6 over. The scan now counts `html.unescape()`d length, which is what a crawler
+  counts. **Fix the ruler before cutting to it.**
+- **Change** — trimmed all four, tails first:
+  - `showcase-baan-talay` ± `-en`: dropped *"— ดูรายละเอียดโปรเจกต์เต็มรูปแบบ"* / *"— see the
+    project write-up."*, boilerplate pointing at the page the reader is already on. 195 → 162
+    and, with two tightenings, 236 → 186.
+  - `showcase-salon-os-en`: dropped *"See the full project write-up."* 214 → 183.
+  - `SalonOS.html` had no boilerplate tail, so two tightenings instead:
+    `ย้ายด้วยสองก้าว → ย้ายสองก้าว` and `ช่างลาป่วยกลางวัน → ช่างลาป่วย`. 196 → 185. Both
+    cases are still named; only "กลางวัน" is gone. No claim was cut from any of the four.
+- **Measured** — `loop-scan.py`: **BROKEN 0, DRIFT 0.** The ladder is clear for the first
+  time; only `GAP` remains.
+- **Verified** — decoded length asserted ≤ 190 before writing each string; the old tails
+  re-grepped and gone (0 and 0); and the `description` / `og:description` /
+  `twitter:description` trio checked per page, since the baan-talay pages carry the same
+  string in all three — the replace hit **3 occurrences** each, so they stay in sync. No
+  browser run: nothing rendered changed, and Lighthouse's `meta-description` audit checks
+  presence, not length.
+- **Found while verifying** — `showcase-salon-os-en` was carrying **two different
+  descriptions**: `name="description"` had the trailing sentence, `og:` and `twitter:` never
+  did. The trim brought all three to one byte-identical string. That mismatch was invisible
+  to every check in the repo, including this one — the scan reads `name="description"` alone.
+- **Learned** — **a measurement that is 10 too high is worse than no measurement**, because
+  it gets acted on. Had the scan not been fixed first, `SalonOS.html` would have been cut 16
+  characters instead of 6, and the extra 10 would have come out of the owner's copy for no
+  reason.
+- **Spawned** — two:
+  1. `scan_plumbing()` should compare `description` / `og:description` /
+     `twitter:description` per page, not just measure the first.
+  2. **The next iteration's work, and it is not what the backlog said.**
+     `showcase-salon-os` carries `data-tags="Dashboard|…"` yet `dashboard-ui.html`'s
+     `#related` still lists only BookEase — so the thinnest strip on the site is a **wiring
+     miss from the SALON OS addition, not a missing demo.** Two files, not a new build.

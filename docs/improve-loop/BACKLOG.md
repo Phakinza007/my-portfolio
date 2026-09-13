@@ -27,16 +27,21 @@ An item here is a candidate, not a commitment. One per iteration.
       the PDF at `assets/resume-phakin-chawanpunya.pdf` is the honest document to
       correct them against. This is the largest remaining true/false gap on the
       site and it is copy, not code.
-- [ ] **4 meta descriptions over 190 chars** — `SalonOS` (206),
-      `showcase-baan-talay` (195), `showcase-baan-talay-en` (236),
-      `showcase-salon-os-en` (214). Trim, don't rewrite: this is the owner's copy.
+- [x] ~~4 meta descriptions over 190 chars~~ — done in iteration 3, after fixing the scan
+      to count decoded length (`&quot;` is 6 characters in the file and 1 on screen).
+- [ ] **`scan_plumbing()` measures `name="description"` only.** `showcase-salon-os-en` was
+      shipping a different string in `name=` than in `og:`/`twitter:`, and nothing could see
+      it. Compare the three per page.
 
 ## Open — GAP, ranked by what a buyer hits
 
-- [ ] **`dashboard-ui.html` / `-en` shows 1 project.** The ฿7,900 package has
-      the least proof of the three, against `landing-page`'s 9. Named in
-      `CLAUDE.md` as the obvious next gap, and still open. A second dashboard
-      demo fixes the package page *and* an industry page at once.
+- [ ] **`dashboard-ui.html` / `-en` shows 1 project — and the fix is two files, not a new
+      demo.** `showcase-salon-os` already carries `data-tags="Dashboard|Booking|Design
+      System|Light UI|Thai|Interactive"`, but `dashboard-ui`'s `#related` still lists only
+      BookEase: SALON OS was added to the grid and never wired into the package page it
+      belongs to. Add it with the canonical `long` copy from `project-copy.json` (verbatim,
+      per the category-page recipe) and the thinnest strip on the site goes 1 → 2 without
+      building anything. **Re-measure before assuming a GAP needs a new page.**
 - [ ] **`web-gym.html` shows 1** (Iron Republic alone).
 - [ ] **`web-solar.html` shows 1** (SolarPeak alone). `web-solar` also has no
       `#need` tile — it reaches visitors through `services.html` only.

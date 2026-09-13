@@ -17,6 +17,7 @@ Levels:
   GAP     nothing is broken; this is the thinnest part of the site
   INFO    instrument counts and inventory
 """
+import html
 import json
 import os
 import re
@@ -266,8 +267,14 @@ def scan_plumbing(fam):
         m = re.search(r'<meta\s+name="description"\s+content="([^"]*)"', src)
         if not m:
             add("BROKEN", "seo", f"{f}: no meta description")
-        elif len(m.group(1)) > 190:
-            add("DRIFT", "seo", f"{f}: meta description {len(m.group(1))} chars (>190 is trimmed)")
+        else:
+            # Count what a crawler counts. `&quot;` is six characters in the source
+            # and one on screen, so SalonOS.html measured 206 against a real 196 —
+            # the instrument, not the copy, put it 16 over instead of 6.
+            shown = html.unescape(m.group(1))
+            if len(shown) > 190:
+                add("DRIFT", "seo",
+                    f"{f}: meta description {len(shown)} chars (>190 is trimmed)")
         can = re.search(r'rel="canonical"\s+href="([^"]+)"', src)
         if not can:
             add("BROKEN", "seo", f"{f}: no canonical")
