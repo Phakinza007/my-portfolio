@@ -67,11 +67,13 @@ at once, which is what makes the first of these the best-value work on the site.
 
 ## Open — needs a browser, so the scan will never raise it
 
-- [ ] **Re-read each showcase page against the demo it describes.** A showcase
-      describes a demo and nothing re-reads it when the demo is redesigned; the
-      BuildNest "SVG instead of stock photography" copy stayed true-when-written
-      and false-after for six days across 13 files. `baan-talay` and `SalonOS`
-      are the newest and so the most likely to have drifted from their pages.
+- [x] ~~Re-read the two newest showcase pages against their demos~~ — done in iteration 6.
+      19 claims checked on `showcase-salon-os` and `showcase-baan-talay`; **both clean**.
+- [ ] **Re-read the other 17 showcase pages against their demos.** Same class, unchecked. Two
+      notes from iteration 6 that make it cheaper: `baan-talay` keeps its code in
+      `assets/baan-talay.js` (the `.html` is a 4.6 KB shell), so check what a page *loads*
+      before concluding a feature is missing; and a grep for a forbidden call matches the
+      comment forbidding it.
 - [ ] **Lighthouse the two newest pages**, mobile *and* desktop.
 - [ ] **Clarity**: which showcase pages get `showcase_open` and never
       `cta_fastwork`. That ratio is what put `.story-price` on all 38 showcases.

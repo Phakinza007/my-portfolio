@@ -57,15 +57,35 @@ during design.
 **This never reproduces locally.** Your checkout is warm, so you see the new
 asset every time. Nothing errors, nothing logs, and Lighthouse scores 100.
 
-## The seven versioned assets
+## The versioned assets — 10 of them, measured 2026-09-13
 
 | asset | referenced by |
 |---|---|
-| `analytics.js` | 84 files |
-| `site-search.js` · `site-search.css` | 64 files each |
-| `portfolio-pages.css` | 52 files |
-| `home-shell.css` · `site-ui.js` | 12 files each |
+| `analytics.js` | 96 files |
+| `site-search.css` | 76 files |
+| `site-search.js` | 76 files |
+| `site-ui.js` | 76 files |
+| `portfolio-pages.css` | 64 files |
+| `home-shell.css` | 12 files |
 | `design-preview.js` | 8 files |
+| `baan-talay.css` | 1 file |
+| `baan-talay.js` | 1 file |
+| `construction-redesign.css` | 1 file |
+
+**Do not maintain this table by hand** — `python3 _tools/check-deploy.py` derives it
+from `git ls-files` and a `src=`/`href=` sweep, so a new asset is covered the moment
+a page loads it. This list said *seven* while nine assets already carried tokens — ten
+now — because two demo assets (`baan-talay.css` / `.js`, 172 KB together) landed without
+it being reread.
+
+🔴 **A reference with NO `?v=` at all is the one that cannot be fixed later.** It is
+cached by URL forever: editing the asset changes nothing for anyone who has already
+visited. Four were found on 2026-09-13 — `analytics.js` bare on the three newest demo
+pages while 93 others carried `?v=funnel`, and `construction-redesign.css` bare on its
+only consumer, an 18 KB sheet that had already been edited once. `check-deploy.py` had
+a one-line exemption for exactly that case (`if not before and not now: continue`) and
+its bare/split sweep sat *after* the "nothing changed" exit, so neither ran on a
+normal run. Both are fixed; the sweep now runs first, on every asset, every time.
 
 **Every reference moves together or not at all.** A half-bumped token splits
 visitors across two versions of the same sheet — half get one build, half get

@@ -55,9 +55,23 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
         }
       }
       return JSON.stringify({ vw, canScrollX, bodyScrollWidth: document.body.scrollWidth,
+                              // A dead server renders a Chrome error page, which reports
+                              // canScrollX false and zero overflow — a clean pass on nothing.
+                              // Loaded is the guard: stylesheets attached and real content.
+                              loaded: document.styleSheets.length > 0 &&
+                                      document.body.innerText.trim().length > 200,
+                              title: document.title.slice(0, 60),
+                              elements: document.querySelectorAll('body *').length,
                               projectLinks: document.querySelectorAll('.project-link').length,
                               unclippedOverflow: over.slice(0, 8) });
     })()` });
-  console.log(r.result?.result?.value ?? JSON.stringify(r));
-  chrome.kill(); process.exit(0);
+  const out = r.result?.result?.value ?? JSON.stringify(r);
+  console.log(out);
+  chrome.kill();
+  // Exit non-zero when the page did not actually load, so a dead server or a 404
+  // cannot pass as "no overflow".
+  let ok = false;
+  try { ok = JSON.parse(out).loaded === true; } catch {}
+  if (!ok) console.error('FAIL: page did not load (styles or content missing) — not a pass');
+  process.exit(ok ? 0 : 2);
 })();

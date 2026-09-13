@@ -297,3 +297,62 @@ from re-proposing what iteration 2 rejected.
   existing demo that fits. That is a real build (the **portfolio-new-proof** skill, ~14
   wiring points) and it needs the owner's call on which sector and what the demo should be,
   so the loop stops here rather than inventing a brand.
+
+## 2026-09-13 · iteration 6 — the truth-check found nothing, and the ship gate found four
+
+- **Finding (planned)** — read the two newest showcase pages against the demos they
+  describe. That is the site's most expensive documented failure class: 23 strings across 13
+  files described BuildNest as hand-drawn SVG for six days after it was rebuilt around
+  photography. No script can check it.
+- **Result: both pages are clean.** Nineteen specific claims verified against source —
+  SALON OS's 5-stylist × 30-minute grid (`SLOT = 30`, `OPEN = 600`, `CLOSE = 1200`, minutes
+  from midnight), its drag *and* two-step move, skill matching, the no-more-than-30-minutes-
+  earlier rule, the sick-stylist case that moves 3 of 4 and says so, undo, computed counters;
+  BAAN TALAY's 14 hash routes, +35% / −15% / +20% seasonal rates, Songkran and New Year
+  surcharges, 2- and 3-night minimums, seeded availability, EARLYBIRD's 30-day rule, 10
+  reviews with two owner replies and deliberately no `schema.org/Review`, the single string
+  table, and zero backend calls. **A verified negative is a real outcome**; the point of the
+  check is that nobody could have known without running it.
+- **Five instrument errors in one iteration, every one of which would have been a false
+  report to the owner:**
+  1. Scanned `baan-talay.html` — **4.6 KB**, a shell. The demo is 126 KB of
+     `assets/baan-talay.js`. Nineteen claims read as unsupported.
+  2. `10:00`/`20:00` not found, because the code stores minutes (`OPEN = 600`).
+  3. `10:64` looked like an invalid rendered time; it is `--s-10:64px`, a CSS spacing token
+     caught by a `[012][0-9]:[0-9][0-9]` pattern.
+  4. `Math.random` showed **1 hit** against a page claiming never to use it — the hit is the
+     comment *"never Math.random()"*. A forbidden-call grep matches the line forbidding it.
+  5. Guessed state names (`selectedApptId`, `pendingMove`, `moveMode`) all absent; the real
+     ones are `picked` / `sheetPick`. Absence of my vocabulary, not of the feature.
+- **Change shipped instead** — the detour through `baan-talay.js` exposed something real:
+  **four asset references carried no `?v=` token at all**, and the ship gate could not see
+  them.
+  - `analytics.js` bare on `SalonOS`, `baan-talay`, `pathapee-precast` while **93** other
+    pages carry `?v=funnel`. Next time that token moves, those three keep serving whatever
+    the browser cached — silently, on the click tracking and the `?cl_off` opt-out.
+  - `assets/construction-redesign.css` (18 KB) bare on its only consumer, and that sheet has
+    been edited before (the clipped-CTA fix, 2026-08-10).
+  - `check-deploy.py` carried `if not before and not now: continue  # asset carries no ?v=
+    token at all` — a one-line exemption for the one case that **cannot be fixed after the
+    fact**, since a bare URL is cached forever.
+  - Worse: its bare/split sweep sat **after** the `if not assets: return 0` exit, so the
+    sweep whose own comment promises it runs "for every versioned asset, not just the changed
+    ones" did not run at all on a normal HTML-only change. Both sweeps now run first.
+  - Scoped to served pages: `assets/_archive/index-improved.html` is underscore-prefixed, so
+    Jekyll 404s it and it can strand nobody.
+  - The ship skill's hand-written **"seven versioned assets"** table said seven while nine
+    already carried tokens (ten now) — `baan-talay.css` / `.js`, 172 KB, landed without it
+    being reread. Rebuilt from the repo, with a note not to maintain it by hand.
+- **Verified** — the gate reproduced red on all four before the fix and green after;
+  `?v=`-suffixed URLs return **200** for both assets; all four pages measured at 375 px with
+  real content (291–747 elements, styles attached, titles read).
+- 🔴 **And one more instrument error, caught only because the numbers were too tidy.** The
+  first 375 px run on two of those pages reported `canScrollX: false`, zero overflow — while
+  **the local server was dead**. A Chrome error page passes every overflow assertion.
+  `_tools/overflow-check.js` now returns a `loaded` flag (stylesheets attached *and* >200
+  characters of body text) and **exits 2** when it is false, so a dead server or a 404 can
+  never read as a clean page again.
+- **Learned** — **every check needs a way to fail for the right reason.** Three of the four
+  things fixed this iteration were checks that passed while measuring nothing: the ship gate
+  skipping bare tokens, its sweep skipped by an early return, and the overflow tool grading
+  an error page.
