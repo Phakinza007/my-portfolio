@@ -484,3 +484,48 @@ from re-proposing what iteration 2 rejected.
   site's normal variation, before believing either its passes or its failures.** The first two
   rules here would each have shipped a permanently noisy check, and noise is how a gate stops
   being read.
+
+## 2026-09-13 · iteration 10 — Lighthouse on the newest pages, and two defects it found
+
+- **Finding** — the last unblocked backlog item: Lighthouse on the newest pages, **mobile and
+  desktop**, reading per-audit failures rather than category scores.
+
+  | page | a11y | BP | SEO | CLS | failing audits |
+  |---|---|---|---|---|---|
+  | SalonOS mobile | 100 | 96 | 100 | 0 | `errors-in-console` (sandbox) |
+  | **SalonOS desktop** | **95** | 96 | 100 | 0 | **`color-contrast` (weight 7)** |
+  | baan-talay mobile | 100 | 96 | 100 | 0 | `errors-in-console` |
+  | baan-talay desktop | 100 | 96 | 100 | 0 | `errors-in-console` |
+
+  Best Practices 96 rather than the documented 77 because Clarity does not load on localhost;
+  `errors-in-console` is this sandbox blocking one outbound request, confirmed pre-existing in
+  iteration 4 against a committed baseline.
+- **Defect 1, shipped: `label-content-name-mismatch` on 7 pages.** Weight **0**, so it fails
+  while Accessibility reads 100 — exactly what CLAUDE.md's 2026-08-07 audit记 records, and the
+  fix from that audit was applied to `.work-thumb` and never to `.brand`. The nav logo's
+  `aria-label` did not contain its own visible text:
+
+  | page | visible | old label |
+  |---|---|---|
+  | `InternTrack` + 3 siblings | `IT InternTrack` | `InternTrack home` — monogram missing |
+  | `construction-landing` | `BuildNest Construction Solutions` | `BuildNest home` |
+  | `web-construction` | `รับทำเว็บก่อสร้าง` | `รับทำเว็บบริษัทก่อสร้าง — …` — an extra word inserted |
+  | `web-shop` | `ร้านค้าออนไลน์` | `รับทำเว็บขายของออนไลน์ — …` — a different phrase |
+
+  A voice-control user saying the visible words could not reach the link. Each new label is
+  that page's own visible text plus the destination phrase it already used. **Verified with
+  Lighthouse itself**: `web-shop`, `web-construction` and `InternTrack` now score 1 on the
+  audit that previously failed.
+- 🔴 **And I nearly shipped an eighth edit that was not a defect.** My normaliser also flagged
+  `showcase-signalform` ± `-en`, whose brand reads `✦ Signalform Studio` against a label
+  without the `✦`. Lighthouse **passes** it — axe does not treat a decorative glyph as visible
+  label text. **When a home-made check disagrees with the audit it is imitating, the audit
+  wins.** Left untouched.
+- **Defect 2, recorded not fixed: SalonOS desktop `color-contrast`.** Four nodes,
+  `.so-leave-pill > span` at **4.01:1** (`#7a736c`) and `.so-now-pill` at **2.41:1**
+  (`#1a1614`). Both live in the desktop grid header, which is why the mobile pass reports 100 —
+  the same blind spot CLAUDE.md records for BookEase's sidebar. Left for the next iteration so
+  a colour change and a label change are not reviewed as one diff.
+- **Learned** — **run desktop as well as mobile, and read the weight-0 audits.** This run found
+  one failure worth 7 points that mobile could not see, and one worth 0 that no score would
+  ever have shown.

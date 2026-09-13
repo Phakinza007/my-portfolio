@@ -74,7 +74,15 @@ at once, which is what makes the first of these the best-value work on the site.
       `assets/baan-talay.js` (the `.html` is a 4.6 KB shell), so check what a page *loads*
       before concluding a feature is missing; and a grep for a forbidden call matches the
       comment forbidding it.
-- [ ] **Lighthouse the two newest pages**, mobile *and* desktop.
+- [x] ~~Lighthouse the two newest pages, mobile and desktop~~ — done in iteration 10; found
+      two defects, one shipped.
+- [ ] **`SalonOS` desktop fails `color-contrast` (Accessibility 95; mobile reads 100).** Four
+      nodes: `.so-leave-pill > span` at **4.01:1** (`#7a736c`) and `.so-now-pill` at **2.41:1**
+      (`#1a1614`), both in the desktop grid header — the BookEase sidebar blind spot. Needs
+      re-derived values (CLAUDE.md: for BookEase, α 0.50–0.52 cleared 4.5:1) and a desktop
+      Lighthouse run to confirm. **No owner decision needed.**
+- [ ] **Lighthouse the rest of the site desktop-side.** Iteration 10 checked two pages and one
+      of them had a desktop-only failure; nothing says the other 94 were ever run at desktop.
 - [ ] **Clarity**: which showcase pages get `showcase_open` and never
       `cta_fastwork`. That ratio is what put `.story-price` on all 38 showcases.
 
