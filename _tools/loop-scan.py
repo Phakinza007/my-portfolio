@@ -165,6 +165,54 @@ def scan_proof():
     return rows
 
 
+# ------------------------------------------------- thin strip vs unlinked demo
+INDUSTRY_KEY = {"web-clinic": "clinic", "web-booking": "booking",
+                "web-restaurant": "restaurant", "web-shop": "shop", "web-gym": "gym",
+                "web-construction": "construction", "web-solar": "solar"}
+CARD_OPEN = re.compile(r'<[a-z]+[^>]*class="[^"]*\bwork-card\b[^"]*"[^>]*>')
+STRIP_ANCHOR = re.compile(r'<a[^>]*class="[^"]*\bproject-link\b[^"]*"[^>]*>')
+
+
+def scan_strip_coverage():
+    """Separate "this page needs a link" from "this page needs a demo".
+
+    A thin #related strip reads as a missing project, and twice it was not: SALON OS
+    carried data-industry="booking" and tag Dashboard while absent from both the
+    booking page and the dashboard package page, and SupplyMate carried
+    data-industry="shop" while absent from the shop page. Both were wired into the
+    card grid and never into the pages whose key their own card claims. A doc said
+    "build a second demo"; the repo said "add a link". This asserts the difference.
+    """
+    src = read("index.html")
+    cards = []
+    for m in CARD_OPEN.finditer(src):
+        ind = re.search(r'data-industry="([^"]*)"', m.group(0))
+        href = re.search(r'href="((?:showcase|case-study)-[^"]+)"', src[m.end():m.end() + 2000])
+        if href:
+            cards.append((href.group(1).rstrip("/"),
+                          set(ind.group(1).split()) if ind else set()))
+    if not cards:
+        add("BROKEN", "strip coverage",
+            "no .work-card found in index.html — this check measured nothing")
+        return
+
+    for page, key in sorted(INDUSTRY_KEY.items()):
+        f = page + ".html"
+        if not os.path.exists(os.path.join(ROOT, f)):
+            continue
+        linked = set()
+        for m in STRIP_ANCHOR.finditer(read(f)):
+            h = re.search(r'href="([^"]+)"', m.group(0))
+            if h:
+                linked.add(re.sub(r"-en$", "", h.group(1).rstrip("/")))
+        tagged = {slug for slug, inds in cards if key in inds}
+        for slug in sorted(tagged - linked):
+            add("DRIFT", "strip coverage",
+                f"{f}: {slug} carries data-industry='{key}' but the page does not link "
+                "it — the strip is thin because of a missing link, not a missing demo")
+    info.append(f"strip coverage: {len(cards)} cards vs {len(INDUSTRY_KEY)} industry pages")
+
+
 # ------------------------------------------------------- proof-piece wiring
 def scan_wiring():
     """A new project lands in ~14 places and only some of them fail loudly.
@@ -426,6 +474,7 @@ def main():
     scan_tag_buttons(per_file)
     scan_proof()
     scan_wiring()
+    scan_strip_coverage()
     scan_plumbing(fam)
     scan_bilingual(fam)
     scan_links()

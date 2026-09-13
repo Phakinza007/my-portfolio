@@ -254,3 +254,46 @@ from re-proposing what iteration 2 rejected.
 - **Spawned** — `showcase-salon-os` is still absent from `web-booking`'s `#related` (which has
   3, so not a gap) — a judgment call about whether a salon queue calendar belongs on the
   booking-industry page, left for the owner rather than taken here.
+
+## 2026-09-13 · iteration 5 — the same miss, twice more, and now asserted
+
+- **Finding** — iteration 4 found SALON OS wired into the card grid but not into the package
+  page its own tags claim. That was found by hand, so the first thing this iteration did was
+  **generalise the question**: for every industry page, which cards carry that page's
+  `data-industry` key and are *not* linked from its `#related`?
+
+  | page | links | cards tagged for it | unlinked |
+  |---|---|---|---|
+  | `web-booking` | 3 | 4 | **`showcase-salon-os`** |
+  | `web-shop` | 2 | 3 | **`showcase-supplymate`** |
+  | `web-clinic` · `web-restaurant` · `web-construction` | 3 · 2 · 2 | same | — |
+  | `web-gym` · `web-solar` | 1 · 1 | 1 · 1 | — |
+
+  So `web-shop` was flagged thin while the demo that belongs there already existed, and
+  **`web-gym` and `web-solar` genuinely have no candidate** — measured, not assumed. Those
+  two are the only real "needs a demo" gaps left on the site.
+- **Change** — wired `showcase-supplymate` into `web-shop` and `showcase-salon-os` into
+  `web-booking`, canonical `long` verbatim. `web-shop` **2 → 3**, `web-booking` **3 → 4**.
+  Neither is padding: each card's own `data-industry` names that page's key, which is the
+  test the recipe's "do not pad it" rule needs.
+- **Made permanent** — `scan_strip_coverage()` in `_tools/loop-scan.py` now asserts it, and
+  reports it in the words that matter: *"the strip is thin because of a missing link, not a
+  missing demo."* Proved by **removing the link again** and confirming the scan goes red
+  (exit 1, the page and slug named). It also fails loudly if it finds no `.work-card` at all,
+  so a broken selector cannot read as "nothing to report".
+- **Measured** — `check-copy.py` 256 → **258**, still agreeing. `loop-scan.py` BROKEN 0,
+  DRIFT 0.
+- **Verified in a browser** — 375 × 812 on both pages: `canScrollX: false`,
+  `bodyScrollWidth` exactly 375, zero unclipped overflow, 3 and 4 `.project-link`s rendered.
+  Lighthouse mobile on `web-shop` vs the committed baseline: **A11y 100 → 100, SEO 100 → 100,
+  CLS 0 → 0**. Performance read 86 → 88 and LCP 2.3s → 2.1s, which is **run-to-run variance,
+  not a win** — the added image is `loading="lazy"` and below the fold, so there is no
+  mechanism by which it could make the page faster.
+- **Learned** — **a hand-found bug is a reason to write a check, not just a fix.** One manual
+  discovery in iteration 4 turned out to be three instances of the same thing; two of them
+  would have gone on reading as "needs a new demo" indefinitely, and one was on a page the
+  scan was already flagging.
+- **Remaining GAPs are now honest ones** — `web-gym` and `web-solar` at 1 link each, with no
+  existing demo that fits. That is a real build (the **portfolio-new-proof** skill, ~14
+  wiring points) and it needs the owner's call on which sector and what the demo should be,
+  so the loop stops here rather than inventing a brand.

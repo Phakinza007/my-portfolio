@@ -37,13 +37,17 @@ An item here is a candidate, not a commitment. One per iteration.
 
 - [x] ~~`dashboard-ui` shows 1 project~~ — done in iteration 4 by wiring in SALON OS, which
       was already tagged `Dashboard`. Two files, nothing built. Now at 2.
-- [ ] **`showcase-salon-os` is absent from `web-booking`'s `#related`** (3 links, so not a
-      gap). Owner's call: does a salon queue calendar belong on the booking-industry page?
-- [ ] **`web-gym.html` shows 1** (Iron Republic alone).
-- [ ] **`web-solar.html` shows 1** (SolarPeak alone). `web-solar` also has no
-      `#need` tile — it reaches visitors through `services.html` only.
-- [ ] **`web-construction` / `web-organization` / `web-restaurant` /
-      `web-shop` show 2 each.** Thin, not broken.
+- [x] ~~`showcase-salon-os` absent from `web-booking`~~ and ~~`showcase-supplymate` absent
+      from `web-shop`~~ — both wired in iteration 5. Each card's own `data-industry` already
+      named that page's key, so it was a link, not a judgment call. `scan_strip_coverage()`
+      now asserts this for all seven industry pages.
+- [ ] **`web-gym` shows 1** (Iron Republic) and **`web-solar` shows 1** (SolarPeak).
+      Measured in iteration 5: **no existing demo carries either key**, so unlike every other
+      thin strip these two are real builds, not missing links. Use **portfolio-new-proof**,
+      and ask the owner first — which sector, and what the demo should prove. `web-solar` also
+      has no `#need` tile; it is reached from `services` only.
+- [ ] **`web-construction` / `web-organization` / `web-restaurant` show 2 each.** Thin, not
+      broken, and `scan_strip_coverage()` says no unlinked demo exists for any of them.
 - [ ] **3 card tags have no sidebar button** — `Creative Studio`, `React`,
       `React Bits` (all Signalform's), so they are filterable by nobody. The
       harmless direction; the dangerous direction (a button with no card) is
