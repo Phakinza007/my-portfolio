@@ -746,8 +746,8 @@ Four predicates, ANDed in one `applyFilter()`:
 | tag | `.tag-btn[data-tag]` against the card's `data-tags` | archive only |
 | featured | `#featured-toggle`, reads `data-featured` | archive only |
 
-**`data-tags` is pipe-separated**, not space-separated — eight of the 31 labels contain a
-space (`Fine Dining`, `Full Stack`, `Light UI`, `UI Design`, `Design System`, `Habit Tracker`,
+**`data-tags` is pipe-separated**, not space-separated — seven of the 30 labels contain a
+space (`Fine Dining`, `Light UI`, `UI Design`, `Design System`, `Habit Tracker`,
 `Gaming UI`, `Landing Page`). All four card files carry it so the cards stay in sync, though
 only the archive renders the buttons.
 
@@ -757,8 +757,8 @@ can be clicked into an empty grid — assert that when adding a project or a tag
 exception needed patching: Iron Republic's page says `Fitness brand` where the list says
 `Fitness`.
 
-⚠️ **31 labels, 28 buttons — the two counts are not the same and never were.** Measured
-2026-08-16: `Creative Studio`, `React` and `React Bits` (all Signalform's) appear in
+⚠️ **30 labels, 27 buttons — the two counts are not the same and never were.** Measured
+2026-08-16 as 31 and 28; `Full Stack` was removed from both on 2026-09-13 (see below). `Creative Studio`, `React` and `React Bits` (all Signalform's) appear in
 `data-tags` on the cards but have no pill in the sidebar, so they are filterable by nobody.
 That is the harmless direction. **The dangerous direction is a button with no card**, which
 filters to an empty grid — assert *that* one, in both `work.html` and `work-en.html`, whenever
@@ -1029,6 +1029,17 @@ reviews, JWT auth", "full-stack". Measured, with `fetch(` in `assets/design-prev
 |---|---|---|---|---|
 | `BookEase.html` | 0 | 0 | 0 | 0 |
 | `ElevateCommerce.html` | 0 | 0 | 0 | 0 |
+
+🔴 **The 2026-08-12 backend purge fixed sentences and missed the tags.** Found 2026-09-13:
+`showcase-bookease` said `ไม่ได้ต่อระบบหลังบ้าน` in its own prose **and wore a `Full Stack`
+pill in the same page**, as did `showcase-elevate-commerce`; the label also sat in
+`data-tags` on five cards, in the visible card tags on both homepages, and as a sidebar
+filter button. `showcase-elasticshop-gaming` additionally claimed in prose that it was
+`พัฒนาแบบ full-stack` / "implemented full-stack" on a demo with zero backend calls. All of it
+is gone — **a claim has more than one representation, and a sweep for sentences finds only
+sentences.** What deliberately remains is the `full-stack` positioning line on `index` /
+`about` / `resume` (± `-en`), which is the owner's own pending pass, and HabitQuest's blurb,
+whose app is external and cannot be verified from this repo.
 
 **Separate the feature claim from the backend claim — the features were all true.** BookEase
 really has 87 controls across 6 views and six back-office sections, and its "New Booking"

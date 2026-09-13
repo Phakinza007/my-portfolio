@@ -356,3 +356,53 @@ from re-proposing what iteration 2 rejected.
   things fixed this iteration were checks that passed while measuring nothing: the ship gate
   skipping bare tokens, its sweep skipped by an early return, and the overflow tool grading
   an error page.
+
+## 2026-09-13 · iteration 7 — a claim has more than one representation
+
+- **Finding** — continuing iteration 6's truth-check across the remaining 17 pairs, but
+  **generalised into a sweep** rather than read one by one: for every showcase page, does it
+  claim hand-drawn-not-photography, or name a backend, and does its demo agree? 12 pages
+  flagged. Ten were my instrument:
+  - the "photo" on `bandairaek` and `pathapee`, the two demos that must never carry one, is
+    each page's **own OG image** in `<head>` — site chrome, not page imagery;
+  - "mentions a backend term" fired on pages whose prose *denies* one
+    (`ไม่ได้ต่อระบบหลังบ้าน`) — the same polarity trap as iteration 6's `Math.random`.
+- **The two that survived were real, and the same bug in both.** `showcase-bookease` says
+  `ไม่ได้ต่อระบบหลังบ้าน` **and wears a `Full Stack` pill in the same page**; so does
+  `showcase-elevate-commerce`. The 2026-08-12 purge removed 37 backend *sentences* across 13
+  files and left the label. Measured extent:
+
+  | representation | where |
+  |---|---|
+  | `.tag-list` pill | 5 showcase pairs — bookease, elevate-commerce, elasticshop-gaming, ratri-restaurant, supplymate |
+  | visible card tag | `index` ± `-en` |
+  | `data-tags` | 5 cards × 4 grid files |
+  | sidebar filter button | `work` ± `-en` |
+  | prose | `showcase-elasticshop-gaming` ± `-en`: *"แล้วพัฒนาแบบ full-stack"* / *"implemented full-stack"*, on a demo with **0** backend calls |
+
+- **Change** — all of it removed, 17 files. The button had to go with the label or the filter
+  would have had a control that empties the grid — the failure `scan_strip_coverage`'s sibling
+  check asserts against. `CLAUDE.md`'s tag arithmetic updated (31 labels / 28 buttons → **30 /
+  27**, and `Full Stack` off the spaced-label list).
+- **Deliberately left**: the `full-stack` positioning line on `index` / `about` / `resume`
+  (± `-en`) — CLAUDE.md records those as the owner's own pending pass, and they are
+  positioning, not a per-project claim — and HabitQuest's blurb, whose app is external and
+  cannot be verified from this repo. Both stated in `CLAUDE.md` so the next pass sees them.
+- **Verified behaviourally, because the filter is live JS**: clicked **all 27** buttons on
+  `work` and `work-en`. Every one returns 1–6 cards, **none empties the grid**, releasing them
+  all returns to 20, and `ลูกค้าจริง` returns exactly 1 — RAAT alone, as the rule requires.
+  Plus `check-copy.py` clean and `loop-scan.py` BROKEN 0 / DRIFT 0.
+- 🔴 **The verification lied twice before it worked, and the way it lied is the lesson.**
+  First pass: 14 of 27 buttons reported the *full set*, which reads as "this tag matches
+  everything". It was a **deferred script**: `site-ui.js` had not attached when the clicks
+  started, so they silently no-opped, and a no-op is indistinguishable from a filter that
+  matched all 20. A single-button probe proved it — `aria-pressed` stayed `"false"` and
+  `#filter-status` was empty. **Navigating is not readiness.** The tool now polls until the
+  filter writes its own status line (its only observable proof of life) and refuses to report
+  at all if that never happens.
+- **Also added** — `_tools/tag-filter-check.js`, that sweep as one command. `loop-scan.py`
+  asserts the same invariant statically; this is the version that can see a broken handler.
+- **Learned** — **a claim lives in more than one kind of markup.** Prose, a pill, a
+  `data-*` attribute, a filter button and a card label are five representations of one
+  sentence, and a sweep for sentences finds one of them. When retiring a claim, ask what
+  *else* renders it.

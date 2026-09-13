@@ -69,7 +69,11 @@ at once, which is what makes the first of these the best-value work on the site.
 
 - [x] ~~Re-read the two newest showcase pages against their demos~~ — done in iteration 6.
       19 claims checked on `showcase-salon-os` and `showcase-baan-talay`; **both clean**.
-- [ ] **Re-read the other 17 showcase pages against their demos.** Same class, unchecked. Two
+- [x] ~~Sweep the other 17 showcase pages for photography and backend claims~~ — done in
+      iteration 7; found and removed the `Full Stack` label in all five of its
+      representations.
+- [ ] **Read the remaining claim types on the other 17 pairs** — numeric claims (N screens,
+      N steps, N reviews) and "no X" claims, which iteration 7's sweep did not cover. Same class, unchecked. Two
       notes from iteration 6 that make it cheaper: `baan-talay` keeps its code in
       `assets/baan-talay.js` (the `.html` is a 4.6 KB shell), so check what a page *loads*
       before concluding a feature is missing; and a grep for a forbidden call matches the
@@ -79,6 +83,15 @@ at once, which is what makes the first of these the best-value work on the site.
       `cta_fastwork`. That ratio is what put `.story-price` on all 38 showcases.
 
 ---
+
+## Open — the owner's pending pass, do not start unasked
+
+- [ ] **The `full-stack` positioning line on `index` / `about` / `resume` (± `-en`)**, plus the
+      resume pages' Node/Express/JWT/REST JSON-LD and the "9 Node.js + Express REST APIs"
+      figure. CLAUDE.md records this as the owner's own pending pass and the PDF at
+      `assets/resume-phakin-chawanpunya.pdf` as the honest document to correct against. It is
+      positioning about him, not a claim about one project, so iteration 7 left it alone even
+      while removing the per-project `Full Stack` label. Ask before touching.
 
 ## Rejected — do not re-propose without asking the owner
 
