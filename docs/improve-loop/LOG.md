@@ -406,3 +406,43 @@ from re-proposing what iteration 2 rejected.
   `data-*` attribute, a filter button and a card label are five representations of one
   sentence, and a sweep for sentences finds one of them. When retiring a claim, ask what
   *else* renders it.
+
+## 2026-09-13 · iteration 8 — every checkable claim is true; two are not checkable here
+
+- **Finding** — the claim types iteration 7's sweep did not cover: numeric ("N screens",
+  "N steps") and negative ("no X").
+- **Numeric: 4 pages make one about themselves, and all four are true.**
+  `baan-talay` 14 screens / 10 reviews / "2 rooms left" and `salon-os` 5 columns were
+  verified in iteration 6; `elasticshop-gaming`'s "ครบ 4 flow หน้าจอ" matches exactly four
+  views (`home`, `topup`, `status`, `history` — as ids, `data-view` and `<section>`s);
+  VELVÉ's "ระบบจองคิว 4 ขั้นตอน" matches **4 `.wiz-dot`s** and four panel headings
+  (เลือกบริการ / แพทย์ / วันและเวลา / ยืนยัน).
+- **Negative: mostly rhetoric, and every falsifiable one that can be checked here holds.**
+  MuseRoom's *"ไม่มีราคาและไม่มีปุ่มซื้อ"* — **0** price mentions, **0** cart controls.
+  Signalform's *"ไม่มี horizontal overflow"* — measured in a real browser at 375 px:
+  `canScrollX false`, `bodyScrollWidth` 375, zero unclipped overflow. bandairaek's and
+  pathapee's *"ไม่มีรูปถ่ายแม้แต่รูปเดียว"* — confirmed in iteration 7.
+- **Two more instrument errors, both scoping:**
+  1. The first numeric pass reported **"4 ขั้นตอน" on every single page**, because it read
+     each file whole and so read the `#related` strip — three *other* projects' blurbs — as
+     the page's own claims. A page's claims are in `<section id="overview">`.
+  2. VELVÉ's wizard "had 5 steps": the fifth is `<!-- Step 5: success -->`, an **HTML
+     comment** labelling the success panel. Four `.wiz-dot`s, four headings. Count elements,
+     not the labels around them.
+- **Shipped** — no site change; nothing was wrong. Instead the recipe those nine wrong
+  readings bought is now written into the **portfolio-improve-loop** skill as six rules, so
+  the next claim check starts where this one ended rather than repeating it.
+- **Two claims cannot be settled from this repo, and both are the owner's to confirm:**
+  1. `showcase-solarpeak` says *"ภาพถ่ายหน้างานจริง ไม่ใช่ภาพสต็อก"* — real on-site
+     photographs, not stock. Six photos do exist in `assets/solar/`, so the *existence* is
+     true; **provenance is not knowable here**, the commit that added them says nothing about
+     it, and this site has shipped Unsplash photos before (`dental-clinic`'s old card,
+     lumi-clinic's four hotlinked faces). If they are stock, the sentence is false on a page
+     that makes a point of the distinction.
+  2. `showcase-habitquest` says the app has *"บัญชีผู้ใช้จริงและเก็บข้อมูลถาวร"* and is
+     *"ไม่ใช่ demo แบบ static"*. HabitQuest is hosted on Vercel from another repo, so nothing
+     here can confirm or deny it — and it is the one project on the site whose copy asserts a
+     real backend.
+- **Learned** — **when the loop runs out of things it can verify, the honest next step is a
+  question, not a change.** Iterations 6–8 checked every claim this repo can settle; what is
+  left needs the person who made the work.

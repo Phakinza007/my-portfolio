@@ -67,6 +67,29 @@ exactly this reason. If a section reports nothing and its count looks wrong
 "How to measure this repo without fooling yourself" is the long version, and
 every trap in it was paid for once already.
 
+### Checking whether a page's claims are true
+
+The recipe, after iterations 6–8 spent nine wrong readings learning it:
+
+1. **Read the page's OWN section.** Claims live in `<section id="overview">`. Scanning the
+   whole file reads its `#related` strip — three *other* projects' blurbs — as this page's
+   claims. That is how every showcase appeared to promise "4 ขั้นตอน", and how a
+   photography claim landed on a page that makes none.
+2. **Check what the demo LOADS, not the file you opened.** `baan-talay.html` is a 4.6 KB
+   shell; the demo is 126 KB of `assets/baan-talay.js`. Resolve `src=`/`href=` first, and
+   remember a demo target can be a directory (`signalform-studio/index.html`).
+3. **A forbidden-term grep matches the text forbidding it.** `Math.random` showed one hit on
+   a page claiming never to use it — the hit was the comment saying so. `backend` fired on
+   pages whose prose denies one. **Read the polarity of every hit.**
+4. **HTML comments are not content.** `<!-- Step 5: success -->` made a 4-step wizard read
+   as five. Count the elements (`.wiz-dot`), not the labels around them.
+5. **An `<img>` in `<head>` is not page imagery.** The one "photo" on the two demos that must
+   never carry one is each page's own OG image.
+6. **Some claims cannot be settled from the repo — stop and ask.** Provenance ("real on-site
+   photos, not stock") and anything about an externally hosted app (HabitQuest, SupplyMate)
+   are the owner's to confirm. CLAUDE.md's rule about client work generalises: facts about
+   the work come from the person who did it.
+
 ### What the scan cannot tell you
 
 It reads files. It can prove `#related` has one link; it cannot tell you the

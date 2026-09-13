@@ -72,8 +72,8 @@ at once, which is what makes the first of these the best-value work on the site.
 - [x] ~~Sweep the other 17 showcase pages for photography and backend claims~~ — done in
       iteration 7; found and removed the `Full Stack` label in all five of its
       representations.
-- [ ] **Read the remaining claim types on the other 17 pairs** — numeric claims (N screens,
-      N steps, N reviews) and "no X" claims, which iteration 7's sweep did not cover. Same class, unchecked. Two
+- [x] ~~Read the remaining claim types on the other 17 pairs~~ — done in iteration 8. Every
+      numeric and negative claim this repo can check is true. Same class, unchecked. Two
       notes from iteration 6 that make it cheaper: `baan-talay` keeps its code in
       `assets/baan-talay.js` (the `.html` is a 4.6 KB shell), so check what a page *loads*
       before concluding a feature is missing; and a grep for a forbidden call matches the
@@ -83,6 +83,20 @@ at once, which is what makes the first of these the best-value work on the site.
       `cta_fastwork`. That ratio is what put `.story-price` on all 38 showcases.
 
 ---
+
+## Open — questions only the owner can answer
+
+- [ ] **`showcase-solarpeak`: are `assets/solar/*.jpg` your own on-site photographs?** The
+      page says *"ภาพถ่ายหน้างานจริง ไม่ใช่ภาพสต็อก"*. The photos exist; their provenance is
+      not knowable from the repo, and this site has shipped stock/Unsplash images before. If
+      they are stock, that sentence needs to go — it is the page's own point of distinction.
+- [ ] **`showcase-habitquest`: does the deployed app really have user accounts and persistent
+      storage?** The page says so and calls itself *"ไม่ใช่ demo แบบ static"*. It is hosted
+      from another repo, so nothing here can confirm it — and it is the only project on the
+      site whose copy asserts a real backend, against the site-wide rule that none do.
+- [ ] **A second demo for `web-gym` or `web-solar`** — the last two real GAPs (1 link each, no
+      existing demo carries either key). Needs a sector choice and what the demo should prove
+      before **portfolio-new-proof** can start.
 
 ## Open — the owner's pending pass, do not start unasked
 
