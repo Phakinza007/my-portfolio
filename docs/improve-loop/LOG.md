@@ -501,7 +501,7 @@ from re-proposing what iteration 2 rejected.
   `errors-in-console` is this sandbox blocking one outbound request, confirmed pre-existing in
   iteration 4 against a committed baseline.
 - **Defect 1, shipped: `label-content-name-mismatch` on 7 pages.** Weight **0**, so it fails
-  while Accessibility reads 100 — exactly what CLAUDE.md's 2026-08-07 audit记 records, and the
+  while Accessibility reads 100 — exactly what CLAUDE.md's 2026-08-07 audit records, and the
   fix from that audit was applied to `.work-thumb` and never to `.brand`. The nav logo's
   `aria-label` did not contain its own visible text:
 
@@ -529,3 +529,25 @@ from re-proposing what iteration 2 rejected.
 - **Learned** — **run desktop as well as mobile, and read the weight-0 audits.** This run found
   one failure worth 7 points that mobile could not see, and one worth 0 that no score would
   ever have shown.
+
+## 2026-09-13 · loop stopped by the owner after 10 iterations
+
+Stopped on request, not because it ran out of work. State at the stop:
+
+- `loop-scan.py`: **BROKEN 0 · DRIFT 0**, 8 `GAP`s remaining, all of them thin `#related`
+  strips. Two of those (`web-gym`, `web-solar`) are the only ones measured to need a **new
+  demo** rather than a link.
+- `check-copy.py`, `check-deploy.py`, `sitemap-lastmod.py`: clean.
+- **Not done, and the reason:** `SalonOS` fails `color-contrast` on **desktop** (Accessibility
+  95; mobile reads 100) — four nodes, `.so-leave-pill > span` at 4.01:1 and `.so-now-pill` at
+  2.41:1. Found in iteration 10, deliberately left for iteration 11 so a colour change and a
+  label change would not be reviewed together. It is the first thing to pick up, and it needs
+  no decision from the owner.
+- **Three questions do need him**, all recorded in `BACKLOG.md`: the provenance of
+  `assets/solar/*.jpg`, whether HabitQuest's deployed app really has accounts and persistence,
+  and which sector (`web-gym` or `web-solar`) the next demo should serve.
+
+The instrument this loop leaves behind: `loop-scan.py` (BROKEN/DRIFT/GAP/INFO over 96 files,
+including the ~14 wiring points, CLAUDE.md's own 14 counts, and strip coverage),
+`overflow-check.js`, `tag-filter-check.js`, a hardened `check-deploy.py` and `check-copy.py`,
+and this log.
