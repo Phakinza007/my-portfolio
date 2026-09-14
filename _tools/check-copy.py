@@ -44,9 +44,17 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
 
-LINK = re.compile(r'<a class="project-link[^"]*" href="([^"]+)">')
-THUMB = re.compile(r'<a class="work-thumb" href="([^"]+)"')
-SPAN = re.compile(r'^\s*<span>([^<]{25,})</span>\s*$')
+# Parsed over the whole file, never line by line. The first version matched
+# `^\s*<span>...</span>\s*$`, which requires the blurb to sit alone on its own
+# line -- true of most pages and false of a minified one. showcase-signalform and
+# its -en twin are emitted on single lines, so six blurbs there were invisible and
+# the script still printed "all repeated copy agrees". A checker that cannot see a
+# page is indistinguishable from a page with nothing wrong: CLAUDE.md, "A zero is
+# a claim about your instrument until you prove otherwise."
+ANCHOR = re.compile(r'<a\s[^>]*class="(?:project-link|work-thumb)[^"]*"[^>]*>'
+                    r'|<a\s[^>]*class="[^"]*\b(?:project-link|work-thumb)\b[^"]*"[^>]*>')
+HREF = re.compile(r'href="([^"]+)"')
+SPAN = re.compile(r'<span>([^<]{25,})</span>')
 PROB = re.compile(r'<p class="work-problem">([^<]+)</p>')
 
 
@@ -54,17 +62,44 @@ def occurrences():
     """Yield (slug, lang, role, file, line, text) for every repeated blurb."""
     for f in sorted(glob.glob('*.html')):
         lang = 'en' if f.endswith('-en.html') else 'th'
+        src = io.open(f, encoding='utf-8').read()
+        starts = [0] + [m.end() for m in re.finditer(r'\n', src)]
+
+        def line_of(pos):
+            lo, hi = 0, len(starts) - 1
+            while lo < hi:
+                mid = (lo + hi + 1) // 2
+                if starts[mid] <= pos:
+                    lo = mid
+                else:
+                    hi = mid - 1
+            return lo + 1
+
+        # One pass over the anchors and .work-problem blurbs in document order.
+        # A blurb belongs to the nearest preceding anchor, which is what the
+        # line-based version approximated with its `slug = None` reset.
+        events = []
+        for m in ANCHOR.finditer(src):
+            href = HREF.search(m.group(0))
+            if not href or re.match(r'(?:https?:)?//|mailto:', href.group(1)):
+                continue                       # external repo/profile link, not a project card
+            events.append((m.start(), 'anchor', re.sub(r'-en$', '', href.group(1))))
+        for m in SPAN.finditer(src):
+            events.append((m.start(), 'short', m.group(1)))
+        for m in PROB.finditer(src):
+            events.append((m.start(), 'long', m.group(1)))
+        events.sort()
+
         slug = None
-        for i, line in enumerate(io.open(f, encoding='utf-8').read().split('\n'), 1):
-            anchor = LINK.search(line) or THUMB.search(line)
-            if anchor:
-                slug = re.sub(r'-en$', '', anchor.group(1))
+        for pos, kind, value in events:
+            if kind == 'anchor':
+                slug = value
                 continue
-            text = SPAN.match(line) or PROB.search(line)
-            if text and slug:
-                role = 'short' if (SPAN.match(line) and f.startswith('showcase-')) else 'long'
-                yield slug, lang, role, f, i, ' '.join(text.group(1).split())
-                slug = None
+            if not slug:
+                continue
+            role = 'short' if (kind == 'short' and f.startswith('showcase-')) else 'long'
+            yield slug, lang, role, f, line_of(pos), ' '.join(value.split())
+            slug = None
 
 
 canon = json.load(io.open('_content/project-copy.json', encoding='utf-8'))['projects']

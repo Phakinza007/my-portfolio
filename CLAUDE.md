@@ -3,6 +3,24 @@
 ## Skills
 
 - **portfolio-add-card** (`.claude/skills/portfolio-add-card/SKILL.md`) — full workflow for adding a new project card. Trigger: any request to "add [page] to the portfolio", "link this page", "create a card for X", or "new project card".
+- **portfolio-improve-loop** (`.claude/skills/portfolio-improve-loop/SKILL.md`) — one
+  research → do → review iteration on the site, driven by measured evidence rather than
+  by re-reading this file. Trigger: "ทำให้เว็บดีขึ้น", "รอบปรับปรุง", "หาอะไรทำต่อ",
+  "what should I work on next", or `/loop /portfolio-improve-loop`. Its research step is
+  `python3 _tools/loop-scan.py` (all 96 pages: dead links and anchors, `.filter-count`
+  drift, tag buttons with no card, hreflang/canonical/`og:locale`, sitemap and
+  search-index coverage, thinnest `#related` strips) and its memory is
+  `docs/improve-loop/LOG.md` + `BACKLOG.md` — **read the backlog's Rejected list before
+  proposing site work**, it is where the owner's already-taken decisions live.
+- **portfolio-new-proof** (`.claude/skills/portfolio-new-proof/SKILL.md`) — add a whole
+  proof piece: a demo page + its TH/EN showcase pages + the ~14 wiring points a project
+  has to appear in. Trigger: "เพิ่มผลงานใหม่", "ทำ demo ใหม่", "add a new demo/showcase",
+  or when the improve loop decides the thinnest `#related` strip needs a second demo. The
+  checklist is derived from `80cf976` (the last one, 48 files) and is **asserted** by
+  `scan_wiring()` in `_tools/loop-scan.py`, which checks all 19 existing pairs — cards in
+  four grid files, a `project-copy.json` entry, a `showcase-shots.json` key, three
+  screenshots, `.story-price`. For a card pointing at a page that already exists, use
+  **portfolio-add-card** instead.
 - **portfolio-ship-change** (`.claude/skills/portfolio-ship-change/SKILL.md`) — pre-deploy
   checks. Trigger: "deploy", "ship it", "push", or any change touching both an `assets/`
   stylesheet/script and a `.html` file. Run `python3 _tools/check-deploy.py` before pushing;
@@ -39,7 +57,7 @@ my-portfolio/
 ├── CNAME                         # ph-akin.dev custom domain
 │
 ├── assets/
-│   ├── thumbs/                   # 27 files: 15 card SVGs in use + 12 unused JPGs from
+│   ├── thumbs/                   # 30 files: 18 card SVGs in use + 12 unused JPGs from
 │                                 # culled projects (see Card Thumbnail Approach)
 │   ├── screenshots/              # showcase-*.jpg hero screenshots
 │   ├── social-preview.png        # OG image (1200×630)
@@ -47,22 +65,22 @@ my-portfolio/
 │   ├── analytics.js              # Microsoft Clarity loader + click tracking (shared)
 │   ├── site-ui.js                # reveal + mobile drawer + work filter — 12 portfolio pages
 │   ├── site-search.js            # search widget; builds its own markup into an empty div
-│   ├── search-index.json         # hand-maintained, 39 entries per language
+│   ├── search-index.json         # hand-maintained, 42 entries per language
 │   ├── resume-phakin-chawanpunya.pdf
 │   ├── home-shell.css            # index / work / services / about / faq / process (+ -en)
 │   └── portfolio-pages.css       # resume / case study / showcase / category / web-* pages
 │
-├── case-study-*.html             # 4 case studies — THAI
-├── case-study-*-en.html          # 4 case studies — English
-├── showcase-*.html               # 17 project showcase pages — THAI
-├── showcase-*-en.html            # 17 project showcase pages — English
+├── case-study-*.html             # 5 case studies — THAI
+├── case-study-*-en.html          # 5 case studies — English
+├── showcase-*.html               # 19 project showcase pages — THAI
+├── showcase-*-en.html            # 19 project showcase pages — English
 ├── landing-page.html / landing-page-en.html       # Service category page — Landing Page (฿3,900)
 ├── dashboard-ui.html / dashboard-ui-en.html        # Service category page — Dashboard UI (฿7,900)
 ├── business-website.html / business-website-en.html # Service category page — Business Website (฿9,900)
 ├── web-*.html                    # 8 industry landing pages — THAI ONLY, no -en twin
 │                                 # clinic · booking · restaurant · shop · gym · construction ·
 │                                 # solar · organization
-├── work.html / work-en.html      # Full archive — 17 projects + filter + 4 case studies
+├── work.html / work-en.html      # Full archive — 19 projects + filter + 5 case studies
 ├── services.html / -en           # 3 packages + price comparison + 7 industry entry points
 ├── about.html / -en              # Bio, experience, tools, KMUTT
 ├── faq.html / -en                # 10 pre-hire questions + FAQPage JSON-LD
@@ -80,7 +98,8 @@ my-portfolio/
 | ไทย (default) | `/` · `/{slug}.html` | `th` |
 | English | `/index-en.html` · `/{slug}-en.html` | `en` |
 
-23 pairs (46 files): `index`, `resume`, 4 × `case-study-*`, 17 × `showcase-*`.
+34 pairs (68 files): `index`, `resume`, 3 category pages, 5 × `case-study-*`,
+19 × `showcase-*`, and the 5 shell pages `work` / `services` / `about` / `faq` / `process`.
 
 **Rules any change must preserve:**
 
@@ -95,9 +114,9 @@ my-portfolio/
 **Two page classes deliberately have no `-en` twin. Neither is unfinished work — do not
 "fix" them by generating `-en` siblings:**
 
-1. The **16 project demo pages** (`construction-landing.html`, `gym-landing.html`, …,
+1. The **19 project demo pages** (`construction-landing.html`, `gym-landing.html`, …,
    plus `PulseBoard.html`, `InternTrack.html` and `LaunchLedger.html`, the three case-study
-   demos, which are the same kind of page and are counted here — measured 2026-08-12)
+   demos, which are the same kind of page and are counted here — measured 2026-09-13)
    are simulated client work. Both languages link to the same demo file. Same for
    GitHub / Fastwork / Vercel links.
 2. The **8 industry landing pages** (`web-clinic`, `web-booking`, `web-restaurant`,
@@ -113,7 +132,7 @@ See `docs/superpowers/specs/2026-08-06-th-en-language-toggle-design.md`.
 
 ---
 
-## Current Cards in Selected Work (18 cards — 17 projects + the RAAT case study)
+## Current Cards in Selected Work (20 cards — 19 projects + the RAAT case study)
 
 The card links to its **showcase page**; the showcase page's "ดูเว็บจริง" link goes to the
 **demo file**. The old version of this table conflated the two.
@@ -137,11 +156,13 @@ The card links to its **showcase page**; the showcase page's "ดูเว็บ
 | 15 | HabitQuest | `showcase-habitquest.html` | external: `https://habitquest-pi.vercel.app/` | `other` |
 | 16 | มูลนิธิบันไดแรก | `showcase-bandairaek.html` | `bandairaek-foundation.html` | `other` |
 | 17 | ปฐพีพรีคาสท์ | `showcase-pathapee.html` | `pathapee-precast.html` | `construction` |
-| 18 | **RAAT Competition Calendar** | `case-study-raat.html` | external: `https://www.raat.or.th/competition-calendar/1442/` | `other` |
+| 18 | BAAN TALAY | `showcase-baan-talay.html` | `baan-talay.html` | `booking` |
+| 19 | SALON OS | `showcase-salon-os.html` | `SalonOS.html` | `booking` |
+| 20 | **RAAT Competition Calendar** | `case-study-raat.html` | external: `https://www.raat.or.th/competition-calendar/1442/` | `other` |
 
-**Card 18 is the only real client work on the site.** The other seventeen are self-directed
+**Card 20 is the only real client work on the site.** The other nineteen are self-directed
 design pieces. It is the one card that may carry the `ลูกค้าจริง` tag, and that tag must never
-appear on the other seventeen — it was stripped from twelve files on 2026-08-07 for exactly
+appear on the other nineteen — it was stripped from twelve files on 2026-08-07 for exactly
 that reason. RAAT also appears as the fifth `#case-studies` card, deliberately in both places.
 
 **Card 16 was the first demo on the site to carry no images at all** — added
@@ -157,7 +178,7 @@ must stay inert and marked** — placeholder account number, labelled QR slot, a
 saying the page takes no real money. A convincing charity page that appears to solicit
 donations is worth marking unambiguously.
 
-**Card 17 is the newest, and the second demo with no photography — for a different reason.**
+**Card 17 is the second demo with no photography — for a different reason.**
 Added 2026-08-24 to fill `web-construction`, which had one `#related` entry (BuildNest) while
 being one of the six `#need` tiles. It is a B2B precast plant sold to a purchasing department,
 not a contractor sold to a homeowner, and its refusal of photography is commercial rather than
@@ -195,7 +216,7 @@ values are only a no-JS fallback.
 ⚠️ **Because they are a fallback, nothing tells you when they go stale.** They sat at
 `all 13 / other 2` from the day the RAAT card was added until 2026-08-08 while the DOM had
 already been at `14 / 3` — `site-ui.js` overwrites them on load, so the wrong numbers were
-invisible in every browser and only showed with JS off. They are now `all 18 / other 5`.
+invisible in every browser and only showed with JS off. They are now `all 20 / other 5`.
 **Adding or removing a card means editing these by hand in all four grid files** (`index`,
 `index-en`, `work`, `work-en`); read the truth off the DOM rather than counting the table
 above. `work.html` / `work-en.html` also state the project count in prose — the
@@ -216,8 +237,9 @@ not style descriptors. `index-en.html` carries English equivalents but the same
 
 ## Card Thumbnail Approach
 
-**16 of the 18 cards are `<img src="assets/thumbs/*.svg">`**, and `assets/thumbs/` holds
-exactly those 14 files. The other two carry real photographs and always should: VELVÉ
+**18 of the 20 cards are `<img src="assets/thumbs/*.svg">`**, and `assets/thumbs/` holds
+30 files — those 18 plus 12 unused JPGs from culled projects. The other two carry real
+photographs and always should: VELVÉ
 (`assets/velve/care-tools.jpg`) and RAAT (`assets/raat/competition-calendar.jpg`). The
 inline-styled `<div>` mini-UIs
 they used to be were transcribed to SVG on 2026-08-07 — 161.5 KB of HTML removed from the
@@ -417,7 +439,7 @@ This is how Thai wraps on all 88 files, not a property of that one page. Only
 touched**, so headings elsewhere still break wherever they fit.
 
 **The four `.story-card`s on the showcase / case-study story stack are four shapes now, not
-four copies of one box, and none of the 136 carries a `.story-icon` badge any more** — see
+four copies of one box, and none of the 160 carries a `.story-icon` badge any more** — see
 "Edit a showcase page" for which class does what.
 
 ---
@@ -619,7 +641,7 @@ their own, smaller reveal implementations and must not be given `site-ui.js`.**
 plus the site search.
 
 - The 12 home-shell pages carry the full `.navbar` with hamburger and mobile panel.
-- The 7 industry pages and the 3 category pages (6 files) keep `portfolio-pages.css`'s
+- The 8 industry pages and the 3 category pages (6 files) keep `portfolio-pages.css`'s
   `.page-shell nav` and get the same links and search — 25 selling pages in total. Two navs, one set of destinations — unifying the CSS was tried and reverted
   because of the `.nav-links` collision above.
 - `aria-current="page"` marks the active entry.
@@ -663,7 +685,18 @@ plus the site search.
 - The CTA button is `#contact` on the homepages and `/#contact` everywhere else.
 - `process.html` is deliberately **not** a nav item — six links plus a search field plus two
   controls overflow at 1180px.
-- The 42 showcase / case-study / resume files keep their **contextual** nav on purpose: its
+- **Each showcase page carries three captured views of its demo, not one** — A landing,
+B the mechanism it brags about (1491 × 812), C the same demo at 375px — named
+`assets/screenshots/showcase-<key>{,-b,-c}.jpg`. The capture is declarative:
+`_content/showcase-shots.json` holds each key's url, view B's `selector`/`offset` (or its
+own `url`, for a mechanism that is a *state* rather than a scroll position) and both
+`label_th` / `label_en` captions, and `python3 _tools/capture-shots.py --key <key>`
+re-takes the set. **That it is one command is the point** — an image is a claim about the
+demo and goes stale as silently as a sentence, and a hand-staged capture is the one that
+never gets retaken. `--dry-run` lists what it would write; view A is excluded from `--all`
+and must be asked for by name.
+
+The 50 showcase / case-study / resume files keep their **contextual** nav on purpose: its
   links differ per page (`ดูเว็บจริง` points somewhere different on each), which a generic bar
   would destroy.
 
@@ -672,7 +705,7 @@ plus the site search.
 ## The work archive (`work.html` / `work-en.html`)
 
 Rebuilt 2026-08-07 after `bigzweb.com/projects`, scoped down: that page carries 115 projects,
-this one 16, and most of its machinery exists to make 115 navigable.
+this one 20, and most of its machinery exists to make 115 navigable.
 
 Layout: **one opening band — breadcrumb + `h1` + one-line blurb + the six `#need` tiles** →
 `#projects`, which now opens with a *visible* `h2` + blurb above `.work-layout` (a `240px`
@@ -713,8 +746,8 @@ Four predicates, ANDed in one `applyFilter()`:
 | tag | `.tag-btn[data-tag]` against the card's `data-tags` | archive only |
 | featured | `#featured-toggle`, reads `data-featured` | archive only |
 
-**`data-tags` is pipe-separated**, not space-separated — eight of the 31 labels contain a
-space (`Fine Dining`, `Full Stack`, `Light UI`, `UI Design`, `Design System`, `Habit Tracker`,
+**`data-tags` is pipe-separated**, not space-separated — seven of the 30 labels contain a
+space (`Fine Dining`, `Light UI`, `UI Design`, `Design System`, `Habit Tracker`,
 `Gaming UI`, `Landing Page`). All four card files carry it so the cards stay in sync, though
 only the archive renders the buttons.
 
@@ -724,8 +757,8 @@ can be clicked into an empty grid — assert that when adding a project or a tag
 exception needed patching: Iron Republic's page says `Fitness brand` where the list says
 `Fitness`.
 
-⚠️ **31 labels, 28 buttons — the two counts are not the same and never were.** Measured
-2026-08-16: `Creative Studio`, `React` and `React Bits` (all Signalform's) appear in
+⚠️ **30 labels, 27 buttons — the two counts are not the same and never were.** Measured
+2026-08-16 as 31 and 28; `Full Stack` was removed from both on 2026-09-13 (see below). `Creative Studio`, `React` and `React Bits` (all Signalform's) appear in
 `data-tags` on the cards but have no pill in the sidebar, so they are filterable by nobody.
 That is the harmless direction. **The dangerous direction is a button with no card**, which
 filters to an empty grid — assert *that* one, in both `work.html` and `work-en.html`, whenever
@@ -797,8 +830,8 @@ for this sector, not any spare card.
 
 ## Site search
 
-`assets/site-search.js` + `site-search.css` + `search-index.json`, live on **70 pages** —
-measured 2026-08-16: 87 files minus the 16 demo pages minus `404.html`. Everything except
+`assets/site-search.js` + `site-search.css` + `search-index.json`, live on **76 pages** —
+measured 2026-09-13: 96 files minus the 19 demo pages minus `404.html`. Everything except
 those (they are simulated client sites and must not carry
 portfolio chrome) and `404.html`.
 
@@ -996,6 +1029,17 @@ reviews, JWT auth", "full-stack". Measured, with `fetch(` in `assets/design-prev
 |---|---|---|---|---|
 | `BookEase.html` | 0 | 0 | 0 | 0 |
 | `ElevateCommerce.html` | 0 | 0 | 0 | 0 |
+
+🔴 **The 2026-08-12 backend purge fixed sentences and missed the tags.** Found 2026-09-13:
+`showcase-bookease` said `ไม่ได้ต่อระบบหลังบ้าน` in its own prose **and wore a `Full Stack`
+pill in the same page**, as did `showcase-elevate-commerce`; the label also sat in
+`data-tags` on five cards, in the visible card tags on both homepages, and as a sidebar
+filter button. `showcase-elasticshop-gaming` additionally claimed in prose that it was
+`พัฒนาแบบ full-stack` / "implemented full-stack" on a demo with zero backend calls. All of it
+is gone — **a claim has more than one representation, and a sweep for sentences finds only
+sentences.** What deliberately remains is the `full-stack` positioning line on `index` /
+`about` / `resume` (± `-en`), which is the owner's own pending pass, and HabitQuest's blurb,
+whose app is external and cannot be verified from this repo.
 
 **Separate the feature claim from the backend claim — the features were all true.** BookEase
 really has 87 controls across 6 views and six back-office sections, and its "New Booking"
@@ -1221,7 +1265,7 @@ second, and was once reported as the first.
 | Services | `#services` | 3 priced packages (Landing Page ฿3,900 / Dashboard UI ฿7,900 / Business Website ฿9,900), Thai copy, each links to Fastwork + `#contact` |
 | Pricing | `#pricing` | 3-column comparison of the same packages, prices verbatim from the category pages. On `index-en.html` the copy stays Thai, with `lang="th"` on the `.price-meta` and feature lists **only** — not the section, whose heading is English |
 | Testimonials | `#testimonials` | 3 real 5-star Fastwork buyer reviews, Thai, links back to the Fastwork profile — no schema.org Review markup (see `docs/superpowers/specs/2026-08-05-service-pivot-design.md`) |
-| Selected Work | `#projects` | 13 project cards, industry filter bar (9 buttons), active-filter chip, featured carousel |
+| Selected Work | `#projects` | 20 project cards, industry filter bar (9 buttons), active-filter chip, featured carousel |
 | About | `#about` | Bio + photo |
 | Experience | `#experience` | Skills, timeline, tools, KMUTT education |
 | Case Studies | `#case-studies` | PulseBoard, LaunchLedger, InternTrack, HabitQuest |
@@ -1534,7 +1578,8 @@ iframe's viewport, giving the same real breakpoint behavior — then run the sam
 snippet against `iframe.contentDocument`/`contentWindow`.
 
 ### Edit a showcase page
-All 32 showcase files share one body layout, added 2026-08-07: a single-column **story
+All 38 showcase files (19 TH/EN pairs) share one body layout, added 2026-08-07: a
+single-column **story
 stack** read top to bottom, replacing the old two-column `.study-grid` + separate `#fit`
 section + `.result-band`. One `<section class="section" id="overview">` holds:
 
@@ -1557,7 +1602,7 @@ it fits) is one claim set as one — larger type, indented, a 1px `--accent` rul
 container, not a decorative side-stripe. Card 4 (`.story-card.accent`) is unchanged and stays
 the most prominent, because it is the ask.
 
-**`.story-price` is required on all 34 showcase pages and states the *site's* entry price, not the
+**`.story-price` is required on all 38 showcase pages and states the *site's* entry price, not the
 project's.** Added 2026-08-09 off the first full week of Clarity: `showcase_open` fired in
 19 sessions and `cta_fastwork` in 1, and no showcase page named a price anywhere while
 `#related` sent the reader to three more demos. The copy is
@@ -1593,7 +1638,7 @@ clamp, which is far too large inside a stack.
 built to narrate a design exercise.
 
 `case-study-raat.html` uses the **showcase story stack** instead — `.story-intro` +
-four `.story-card`s + `.story-links`, identical to the 34 `showcase-*` pages — because a
+four `.story-card`s + `.story-links`, identical to the 38 `showcase-*` pages — because a
 buyer reading the one piece of real client work wants the same scan as the demos, not an
 essay. It keeps `#stack` (three reasons FullCalendar beat a plugin) between the stack and
 `#related`: that is the substance of the engagement, and cutting it to match the showcase
@@ -1647,8 +1692,9 @@ in Thai (never translated) — so the `.highlight-list` on the `-en` category pa
 stays in Thai; only the surrounding hero/chrome copy is in English.
 
 ### Add an industry landing page
-Seven exist: `web-clinic`, `web-booking`, `web-restaurant`, `web-shop`, `web-gym`,
-`web-construction`, `web-solar`. They target Thai buyer search intent (`รับทำเว็บคลินิก`) and
+Eight exist: `web-clinic`, `web-booking`, `web-restaurant`, `web-shop`, `web-gym`,
+`web-construction`, `web-solar`, `web-organization`. They target Thai buyer search intent
+(`รับทำเว็บคลินิก`) and
 are **Thai-only** — see "Bilingual structure" for why. Built entirely from
 `assets/portfolio-pages.css`, **no new CSS**:
 
@@ -1753,7 +1799,8 @@ must carry the class or it will look like nothing else in the family.
 Two containers survive on purpose: `#related`'s `.project-link` carries a thumbnail and is a
 real card, and `#cta`'s `.result-band` has to read as a separate surface to close the page.
 
-**These pages must not claim clients.** All thirteen projects are self-directed design work.
+**These pages must not claim clients.** All nineteen demo projects are self-directed
+design work.
 The eyebrow above `#related` is `ตัวอย่างงานออกแบบ`, never `ผลงานจริง`, and no page carries a
 client count, a client name, or a testimonial beyond the three real Fastwork reviews.
 

@@ -76,6 +76,36 @@ def token_for(asset, ref=None):
     return tokens
 
 
+
+def refs_for(asset):
+    """(with-token, without-token) counts of real src=/href= references.
+
+    `token_for` only sees `name?v=...`, so a reference with no token at all is
+    invisible to it — and that is the one reference that can never be fixed after
+    the fact. An asset loaded bare is cached by URL forever: editing it changes
+    nothing for anyone who has already been to the site.
+    """
+    name = asset.split("/")[-1]
+    pat = re.compile(r'(?:src|href)="(?:\./)?(?:assets/)?'
+                     + re.escape(name) + r'(\?v=[A-Za-z0-9._-]+)?"')
+    with_tok, without = 0, []
+    for f in sh("git", "ls-files", "*.html").splitlines():
+        # Jekyll skips underscore-prefixed paths, so assets/_archive/*.html and
+        # friends are 404 and cannot strand anyone on a cached asset.
+        if any(seg.startswith("_") for seg in f.split("/")):
+            continue
+        try:
+            body = open(f, encoding="utf-8").read()
+        except OSError:
+            continue
+        for m in pat.finditer(body):
+            if m.group(1):
+                with_tok += 1
+            else:
+                without.append(f)
+    return with_tok, without
+
+
 def main():
     if not sh("git", "rev-parse", "--verify", BASE).strip():
         print(f"! cannot resolve {BASE} — run `git fetch origin` first")
@@ -89,31 +119,54 @@ def main():
     assets = sorted(f for f in files if ASSET.match(f))
     html = sorted(f for f in files if f.endswith(".html"))
 
-    if not assets:
-        print(f"no versioned asset changed ({len(html)} HTML file(s) only) — nothing to bump")
-        return 0
-
     # A split token is worse than a stale one: half the visitors get one build
     # of the asset and half get the other, and neither half is wrong enough to
-    # notice. Checked for every versioned asset, not just the changed ones,
-    # because a split is usually introduced by a page being added rather than
-    # by the asset being edited.
-    split = []
+    # notice. Same for a bare reference, which can never be fixed after the fact.
+    # Both are checked for every versioned asset, not just the changed ones,
+    # because both are introduced by a page being added rather than by the asset
+    # being edited — which is why this sweep runs BEFORE the "nothing changed"
+    # exit. It used to sit after it, so the sweep its own comment promised was
+    # skipped on every run where no asset happened to change.
+    split, bare = [], []
     for a in sorted(set(ASSET.match(f).string for f in sh("git", "ls-files").splitlines()
                         if ASSET.match(f))):
         toks = token_for(a)
         if len(toks) > 1:
             split.append((a, sorted(toks)))
+        with_tok, without = refs_for(a)
+        if without:
+            bare.append((a, with_tok, without))
+
+    if not assets and not split and not bare:
+        print(f"no versioned asset changed ({len(html)} HTML file(s) only) — nothing to bump")
+        return 0
 
     problems = []
     for a in assets:
         now, before = token_for(a), token_for(a, BASE)
         if not before and not now:
-            continue  # asset carries no ?v= token at all
+            continue  # no token anywhere — reported by the `bare` check below
         if now == before:
             refs = len([f for f in sh("bash", "-c",
                         f"grep -l '{a.split('/')[-1]}?v=' *.html").splitlines()])
             problems.append((a, sorted(now) or ["(none)"], refs))
+
+    if bare:
+        print("STOP — referenced with no ?v= token at all:\n")
+        for a, with_tok, without in bare:
+            shown = ", ".join(sorted(set(without))[:4])
+            more = f" (+{len(set(without)) - 4} more)" if len(set(without)) > 4 else ""
+            print(f"  {a}")
+            print(f"    {len(without)} bare reference(s) in {shown}{more}"
+                  + (f"  ·  {with_tok} other reference(s) DO carry one" if with_tok else ""))
+        print("\nA bare reference is cached by URL forever: editing the asset changes")
+        print("nothing for anyone who has already visited. Give every reference a token")
+        print("now, while it still costs one edit:\n")
+        for a, with_tok, _ in bare:
+            name = a.split("/")[-1]
+            tok = (sorted(token_for(a)) or ["1"])[0]
+            print(f"  sed -i 's|{name}\"|{name}?v={tok}\"|g' *.html   # then verify")
+        return 1
 
     if split:
         print("STOP — one asset, more than one ?v= token:\n")
