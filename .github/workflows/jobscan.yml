@@ -3,14 +3,21 @@
 # See _tools/jobscan/README.md for what it does and _tools/jobscan/recon.py for
 # how the API it reads was found.
 #
-# Runs 08:00-20:00 Thai time, every two hours -- seven runs a day, two HTTP
-# requests each. The board's own robots.txt is "Allow: /".
+# THE SCHEDULE IS OFF. Owner's call, 2026-09-16 -- it ran 08:00-20:00 ICT every
+# two hours from 2026-08-24. Nothing about the scanner is broken and nothing
+# here is deleted; it simply no longer fires on its own, so no Discord message
+# and no GitHub issue will appear unless someone asks for a run.
+#
+# To run it once:  Actions -> jobscan -> Run workflow  (workflow_dispatch below)
+# To turn it back on: restore the two commented lines under `on:`. The state on
+# the jobscan-state branch is still there, so the first run back will report
+# only what has been posted since it stopped -- not the whole board.
 name: jobscan
 
 on:
-  schedule:
-    # UTC. 01:00-13:00 UTC == 08:00-20:00 ICT.
-    - cron: '0 1-13/2 * * *'
+  # schedule:
+  #   # UTC. 01:00-13:00 UTC == 08:00-20:00 ICT.
+  #   - cron: '0 1-13/2 * * *'
   workflow_dispatch:
     inputs:
       seed:
