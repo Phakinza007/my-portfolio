@@ -1459,11 +1459,17 @@ Click/scroll heatmaps + session recording via **Microsoft Clarity**, loaded from
 
 ## Fastwork job scan (`_tools/jobscan/`)
 
-A scheduled scan of `jobboard.fastwork.co` that ranks web-category posts against what
-this portfolio can actually deliver and opens a GitHub Issue for the new ones. It is
-tooling, not site content — nothing it touches is served at ph-akin.dev.
-`.github/workflows/jobscan.yml` runs it 08:00–20:00 ICT every two hours; full notes in
+A scan of `jobboard.fastwork.co` that ranks web-category posts against what this
+portfolio can actually deliver and opens a GitHub Issue for the new ones. It is
+tooling, not site content — nothing it touches is served at ph-akin.dev. Full notes in
 `_tools/jobscan/README.md`.
+
+⏸️ **The schedule is off — owner's call, 2026-09-16.** It ran 08:00–20:00 ICT every two
+hours from 2026-08-24; `.github/workflows/jobscan.yml` now carries that `cron` commented
+out, so the workflow only runs when someone dispatches it. Nothing is broken and nothing
+was deleted. The state on the `jobscan-state` branch is intact, so a run after any gap
+reports only what has been posted since it stopped, not the whole board. Everything below
+still describes how it works when it does run.
 
 **The listings do not come from the page.** `jobboard.fastwork.co/jobs` is a Next.js
 shell whose `__NEXT_DATA__` carries only i18n. The data is on a second host,
